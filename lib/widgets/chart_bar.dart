@@ -1,0 +1,107 @@
+import 'package:flutter/material.dart';
+
+class ChartBar extends StatelessWidget {
+  final String title;
+  final double value;
+  final double target;
+  final Color? color;
+  final String unit;
+  final int? decimalPlaces;
+
+  ChartBar(
+      {required this.title,
+      required this.value,
+      required this.target,
+      this.color,
+      required this.unit,
+      this.decimalPlaces});
+
+  double get _percentage {
+    if (target > 0)
+      return value / target * 100;
+    else
+      return 100;
+  }
+
+  double get _percentageBar {
+    double scaleFactor = _percentage / 100;
+
+    if (scaleFactor > 1) {
+      return 1;
+    } else {
+      return scaleFactor;
+    }
+  }
+
+  Color get _barColor {
+    if (color != null) return color!;
+    var percentage = _percentage.toInt();
+
+    if (percentage < 0) percentage = 0;
+    if (percentage > 100) percentage = 100;
+
+    if (percentage <= 50) {
+      return Color.fromRGBO(255, (percentage * 5.1).toInt(), 0, 1);
+    } else {
+      return Color.fromRGBO(((100 - percentage) * 5.1).toInt(), 255, 0, 1);
+    }
+  }
+
+  int get _valueDecimalPlaces {
+    if (decimalPlaces == null) return 1;
+    return decimalPlaces!;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: <Widget>[
+        Row(
+          children: <Widget>[
+            Expanded(child: Text(title)),
+            Expanded(
+              child: Center(
+                child: Text('${_percentage.toStringAsFixed(0)}%'),
+              ),
+            ),
+            Expanded(
+              child: Container(
+                alignment: Alignment.centerRight,
+                child: Text(
+                    '${value.toStringAsFixed(_valueDecimalPlaces)} / ${target.toStringAsFixed(_valueDecimalPlaces)} $unit'),
+              ),
+            ),
+          ],
+        ),
+        SizedBox(
+          height: 2,
+        ),
+        Container(
+          height: 10,
+          margin: EdgeInsets.only(bottom: 6),
+          child: Stack(
+            children: <Widget>[
+              Container(
+                decoration: BoxDecoration(
+                  border: Border.all(color: Colors.grey, width: 1.0),
+                  color: Color.fromRGBO(220, 220, 220, 1),
+                  borderRadius: BorderRadius.circular(20),
+                ),
+              ),
+              FractionallySizedBox(
+                widthFactor: _percentageBar,
+                child: Container(
+                  margin: EdgeInsets.all(1),
+                  decoration: BoxDecoration(
+                    color: _barColor,
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                ),
+              )
+            ],
+          ),
+        )
+      ],
+    );
+  }
+}
