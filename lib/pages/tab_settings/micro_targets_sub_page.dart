@@ -633,25 +633,6 @@ class _MicroTargetsSubPageState extends State<MicroTargetsSubPage> {
                       ),
                     ),
                     ListTile(
-                      title: Text('Monounsaturated fat'),
-                      trailing: Container(
-                        width: _formFieldWidth,
-                        height: _formFieldHeight,
-                        child: TextFormField(
-                          initialValue:
-                              appSettings.monounsaturatedFatTarget.toString(),
-                          onChanged: (val) =>
-                              appSettings.monounsaturatedFatTarget =
-                                  val == '' ? 0 : double.parse(val),
-                          keyboardType: TextInputType.number,
-                          textAlign: TextAlign.center,
-                          decoration: new InputDecoration(
-                            suffixText: 'g',
-                          ),
-                        ),
-                      ),
-                    ),
-                    ListTile(
                       title: Text('Omega 3'),
                       trailing: Container(
                         width: _formFieldWidth,
