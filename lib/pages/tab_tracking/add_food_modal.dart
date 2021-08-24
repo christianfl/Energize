@@ -300,7 +300,7 @@ class _AddFoodState extends State<AddFood> {
                   child: Row(
                     children: [
                       Container(
-                        width: 150,
+                        width: 140,
                         child: TextField(
                           textAlignVertical: TextAlignVertical.center,
                           onEditingComplete: () =>
