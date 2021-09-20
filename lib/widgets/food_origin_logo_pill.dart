@@ -48,7 +48,7 @@ class FoodOriginLogoPill extends StatelessWidget {
             height: height,
             decoration: BoxDecoration(
               border: Border.all(
-                color: Theme.of(context).accentColor,
+                color: Theme.of(context).colorScheme.secondary,
                 width: 2,
               ),
               borderRadius: BorderRadius.circular(6),
@@ -57,7 +57,7 @@ class FoodOriginLogoPill extends StatelessWidget {
             child: Text(
               foodOrigin,
               style: TextStyle(
-                color: Theme.of(context).accentColor,
+                color: Theme.of(context).colorScheme.secondary,
               ),
             ),
           );

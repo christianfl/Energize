@@ -101,7 +101,7 @@ class _TrackingPageState extends State<TrackingPage> {
 
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          backgroundColor: Theme.of(context).accentColor,
+          backgroundColor: Theme.of(context).colorScheme.secondary,
           content: Text('Day marked as completed!'),
         ),
       );

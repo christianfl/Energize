@@ -349,7 +349,7 @@ class _AddFoodState extends State<AddFood> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        backgroundColor: Theme.of(context).accentColor.withAlpha(220),
+        backgroundColor: Theme.of(context).colorScheme.secondary.withAlpha(220),
         child: Icon(Icons.save),
         onPressed: () => _addOrEditFood(args, trackedFood),
       ),

@@ -184,7 +184,7 @@ class _FoodPageState extends State<FoodPage> {
         curve: Curves.linear,
         icon: Icons.add,
         activeIcon: Icons.close,
-        backgroundColor: Theme.of(context).accentColor,
+        backgroundColor: Theme.of(context).colorScheme.secondary,
         foregroundColor: Theme.of(context).colorScheme.onSecondary,
         overlayOpacity: 0,
         animationSpeed: 0,

@@ -33,9 +33,7 @@ class MyApp extends StatelessWidget {
           errorColor: Colors.red,
         ),
         darkTheme: ThemeData(
-          // primarySwatch does not work in dark mode: https://github.com/flutter/flutter/issues/26323
           brightness: Brightness.dark,
-          accentColor: Colors.amber,
           highlightColor: Colors.pink,
           errorColor: Colors.red,
         ),

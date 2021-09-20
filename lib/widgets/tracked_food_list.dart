@@ -64,7 +64,7 @@ class TrackedFoodList extends StatelessWidget {
                         content: Text('${food.title} deleted!'),
                         action: SnackBarAction(
                           label: "Undo",
-                          textColor: Theme.of(context).accentColor,
+                          textColor: Theme.of(context).colorScheme.secondary,
                           onPressed: () {
                             trackedFood.addEatenFood(swipedFood);
                           },

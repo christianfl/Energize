@@ -520,7 +520,7 @@ class _PersonalizationSubPageState extends State<PersonalizationSubPage> {
         },
         curve: Curves.linear,
         icon: Icons.settings_suggest,
-        backgroundColor: Theme.of(context).accentColor,
+        backgroundColor: Theme.of(context).colorScheme.secondary,
         foregroundColor: Theme.of(context).colorScheme.onSecondary,
       ),
     );
