@@ -28,41 +28,38 @@ class FoodListItem extends StatelessWidget {
     final trackedFoodProvider = Provider.of<TrackedFoodProvider>(context);
 
     return Card(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(26),
+      ),
       child: InkWell(
         onTap: () => onTapCallback(context, food),
         customBorder: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(5),
+          borderRadius: BorderRadius.circular(26),
         ),
         child: Container(
           height: height,
           child: Row(
             children: <Widget>[
-              if (food.imageThumbnailUrl != null)
-                ClipRRect(
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(5),
-                  ),
-                  child: Image.network(
-                    food.imageThumbnailUrl!,
-                    width: height,
-                    height: height,
-                    fit: BoxFit.cover,
-                  ),
-                )
-              else
-                Container(
-                  width: height,
-                  height: height,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(5),
-                    color: Colors.grey.shade200,
-                  ),
-                  child: Icon(
-                    Icons.image_not_supported_outlined,
-                    size: height,
-                    color: Colors.black,
-                  ),
-                ),
+              Padding(
+                padding:
+                    const EdgeInsets.only(left: 0.5, top: 3.0, bottom: 3.0),
+                child: (food.imageThumbnailUrl != null)
+                    ? CircleAvatar(
+                        radius: height / 2,
+                        foregroundImage: NetworkImage(
+                          food.imageThumbnailUrl!,
+                        ),
+                      )
+                    : CircleAvatar(
+                        backgroundColor: Colors.black,
+                        radius: height / 2,
+                        child: Icon(
+                          Icons.image_not_supported_outlined,
+                          size: height * 0.8,
+                          color: Colors.white,
+                        ),
+                      ),
+              ),
               SizedBox(
                 width: 10,
               ),
