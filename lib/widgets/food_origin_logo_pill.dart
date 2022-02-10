@@ -32,13 +32,13 @@ class FoodOriginLogoPill extends StatelessWidget {
             width: width,
             height: height,
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(8),
+              borderRadius: BorderRadius.circular(0),
               color: Colors.white,
             ),
             child: Padding(
                 padding: const EdgeInsets.all(2.0),
                 child: ClipRRect(
-                  borderRadius: BorderRadius.circular(8),
+                  borderRadius: BorderRadius.circular(0),
                   child: Image.asset(
                     _url!,
                   ),
@@ -51,7 +51,7 @@ class FoodOriginLogoPill extends StatelessWidget {
                 color: Theme.of(context).colorScheme.secondary,
                 width: 2,
               ),
-              borderRadius: BorderRadius.circular(6),
+              borderRadius: BorderRadius.circular(20),
             ),
             padding: EdgeInsets.all(6),
             child: Text(

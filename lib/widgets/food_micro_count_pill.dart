@@ -24,7 +24,7 @@ class FoodMicroCountPill extends StatelessWidget {
           color: Theme.of(context).highlightColor,
           width: 2,
         ),
-        borderRadius: BorderRadius.circular(6),
+        borderRadius: BorderRadius.circular(20),
       ),
       padding: EdgeInsets.all(4),
       child: Row(
