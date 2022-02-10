@@ -31,18 +31,11 @@ class FoodOriginLogoPill extends StatelessWidget {
         ? Container(
             width: width,
             height: height,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(0),
-              color: Colors.white,
-            ),
+            color: Colors.white,
             child: Padding(
-                padding: const EdgeInsets.all(2.0),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(0),
-                  child: Image.asset(
-                    _url!,
-                  ),
-                )),
+              padding: const EdgeInsets.all(2.0),
+              child: Image.asset(_url!),
+            ),
           )
         : Container(
             height: height,
