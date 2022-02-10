@@ -6,6 +6,8 @@
     "@_TRACKING": {
     },
     "tracking": "Tracking",
+    "detailedSummary": "Detailed summary",
+    "markDayAsCompleted": "Mark day as completed",
     "@_CUSTOM_FOOD": {
     },
     "customFood": "Custom Food",

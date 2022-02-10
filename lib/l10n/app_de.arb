@@ -6,6 +6,8 @@
     "@_TRACKING": {
     },
     "tracking": "Tracking",
+    "detailedSummary": "Ausführliche Zusammenfassung",
+    "markDayAsCompleted": "Tag als vollständig markieren",
     "@_CUSTOM_FOOD": {
     },
     "customFood": "Eigene Nahrung",

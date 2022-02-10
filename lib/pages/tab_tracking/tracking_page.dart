@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
-import '../../services/complete_days_database_service.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 import './detailed_summary_sub_page.dart';
 import '../../providers/tracked_food_provider.dart';
+import '../../services/complete_days_database_service.dart';
 import '../../widgets/food_input.dart';
 import '../../widgets/macro_chart.dart';
 import '../../widgets/tracked_food_list.dart';
@@ -123,7 +124,7 @@ class _TrackingPageState extends State<TrackingPage> {
         children: <Widget>[
           Icon(Icons.done),
           SizedBox(width: 10),
-          Text('Mark day as completed'),
+          Text(AppLocalizations.of(context)!.markDayAsCompleted),
         ],
       );
     }
@@ -158,7 +159,7 @@ class _TrackingPageState extends State<TrackingPage> {
             },
             itemBuilder: (context) => [
               PopupMenuItem(
-                child: Text("Detailed summary"),
+                child: Text(AppLocalizations.of(context)!.detailedSummary),
                 value: 0,
               ),
               PopupMenuItem(

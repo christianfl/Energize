@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../models/food_tracked.dart';
 import '../../widgets/micro_chart.dart';
@@ -13,7 +14,7 @@ class DetailedSummarySubPage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Detailed summary'),
+        title: Text(AppLocalizations.of(context)!.detailedSummary),
       ),
       body: SingleChildScrollView(
         child: Padding(
