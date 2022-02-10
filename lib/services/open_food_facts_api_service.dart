@@ -1,7 +1,9 @@
 import 'dart:io';
 
+import 'package:openfoodfacts/model/UserAgent.dart';
 import 'package:openfoodfacts/model/parameter/SearchTerms.dart';
 import 'package:openfoodfacts/openfoodfacts.dart';
+import 'package:openfoodfacts/utils/OpenFoodAPIConfiguration.dart';
 
 import '../models/food.dart';
 
@@ -15,10 +17,14 @@ class ProductNotFoundException implements Exception {
   }
 }
 
-// TODO: Issue #7: Add user agent
-
 class OpenFoodFactsApiService {
-  OpenFoodFactsApiService._privateConstructor();
+  OpenFoodFactsApiService._privateConstructor() {
+    OpenFoodAPIConfiguration.userAgent = UserAgent(
+      name: 'Energize',
+      version: '0.0.4',
+      url: 'https://codeberg.org/epinez/Energize',
+    );
+  }
   static final OpenFoodFactsApiService instance =
       OpenFoodFactsApiService._privateConstructor();
 
