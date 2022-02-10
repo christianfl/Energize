@@ -1,0 +1,15 @@
+{
+    "@_GENERAL": {
+    },
+    "appName": "Energize",
+    "appDescription": "Track your food and nutrition easily and fast.",
+    "@_TRACKING": {
+    },
+    "tracking": "Tracking",
+    "@_CUSTOM_FOOD": {
+    },
+    "customFood": "Custom Food",
+    "@_SETTINGS": {
+    },
+    "settings": "Settings"
+}

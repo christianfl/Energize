@@ -22,14 +22,14 @@ class _TabsPageState extends State<TabsPage> {
       body: IndexedStack(
         index: _currentIndex,
         children: [
-          for (final tabItem in TabNavItem.items) tabItem.page,
+          for (final tabItem in TabNavItem.getItems(context)) tabItem.page,
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,
         onTap: (int index) => _setIndex(index),
         items: [
-          for (final tabItem in TabNavItem.items)
+          for (final tabItem in TabNavItem.getItems(context))
             BottomNavigationBarItem(
               icon: tabItem.icon,
               label: tabItem.label,

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:provider/provider.dart';
 
@@ -89,7 +90,9 @@ class _FoodPageState extends State<FoodPage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Custom Food'),
+        title: Text(
+          AppLocalizations.of(context)!.customFood,
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
