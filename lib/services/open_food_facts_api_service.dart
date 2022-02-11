@@ -21,7 +21,7 @@ class OpenFoodFactsApiService {
   OpenFoodFactsApiService._privateConstructor() {
     OpenFoodAPIConfiguration.userAgent = UserAgent(
       name: 'Energize',
-      version: '0.0.4',
+      version: '0.1.0',
       url: 'https://codeberg.org/epinez/Energize',
     );
   }
