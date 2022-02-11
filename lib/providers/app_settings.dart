@@ -28,6 +28,12 @@ class AppSettings with ChangeNotifier {
   /// in %
   double _fatRatio = 30;
 
+  // ########################## Backup & Restore ##########################
+
+  String _backupServerUrl = '';
+  String _backupUsername = '';
+  String _backupPathAndFilename = '/Energize/backup.json.aes';
+
   // ########################## DB management ##########################
 
   bool _isProviderOpenFoodFactsActivated = true;
@@ -91,6 +97,10 @@ class AppSettings with ChangeNotifier {
   double get proteinRatio => _proteinRatio;
   double get carbsRatio => _carbsRatio;
   double get fatRatio => _fatRatio;
+
+  String get backupServerUrl => _backupServerUrl;
+  String get backupUsername => _backupUsername;
+  String get backupPathAndFilename => _backupPathAndFilename;
 
   bool get isProviderOpenFoodFactsActivated =>
       _isProviderOpenFoodFactsActivated;
@@ -165,6 +175,14 @@ class AppSettings with ChangeNotifier {
     _proteinRatio = _preferences!.getDouble('proteinRatio') ?? _proteinRatio;
     _carbsRatio = _preferences!.getDouble('carbsRatio') ?? _carbsRatio;
     _fatRatio = _preferences!.getDouble('fatRatio') ?? _fatRatio;
+
+    _backupServerUrl =
+        _preferences!.getString('backupServerUrl') ?? _backupServerUrl;
+    _backupUsername =
+        _preferences!.getString('backupUsername') ?? _backupUsername;
+    _backupPathAndFilename =
+        _preferences!.getString('backupPathAndFilenamec') ??
+            _backupPathAndFilename;
 
     _isProviderOpenFoodFactsActivated =
         _preferences!.getBool('isProviderOpenFoodFactsActivated') ?? true;
@@ -651,5 +669,44 @@ class AppSettings with ChangeNotifier {
     _fatRatio = value;
     notifyListeners();
     _saveToPreferences('fatRatio', value);
+  }
+
+  set backupServerUrl(String value) {
+    _backupServerUrl = value;
+    notifyListeners();
+    _saveToPreferences('backupServerUrl', value);
+  }
+
+  set backupUsername(String value) {
+    _backupUsername = value;
+    notifyListeners();
+    _saveToPreferences('backupUsername', value);
+  }
+
+  set backupPathAndFilename(String value) {
+    _backupPathAndFilename = value;
+    notifyListeners();
+    _saveToPreferences('backupPathAndFilename', value);
+  }
+
+  void clearBackupServerUrl() async {
+    await _initPreferences();
+    _preferences!.remove('backupServerUrl');
+
+    _backupServerUrl = '';
+  }
+
+  void clearBackupUsername() async {
+    await _initPreferences();
+    _preferences!.remove('backupUsername');
+
+    _backupUsername = '';
+  }
+
+  void clearBackupPathAndFilename() async {
+    await _initPreferences();
+    _preferences!.remove('backupPathAndFilename');
+
+    _backupPathAndFilename = '/Energize/backup.json.aes';
   }
 }

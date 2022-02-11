@@ -28,7 +28,8 @@ This app is built with Flutter.
 1. Download and setup flutter: https://flutter.dev/docs/get-started/install
 2. Clone repository: `git clone https://codeberg.org/epinez/Energize.git && cd Energize`
 3. Install dependencies: `flutter pub get`
-3. Build and install: `flutter run --release`
+4. Run build runner to generate types: `flutter pub run build_runner build`
+5. Build and install: `flutter run`
 
 ## Contribute
 

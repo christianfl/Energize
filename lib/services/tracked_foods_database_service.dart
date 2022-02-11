@@ -1,3 +1,5 @@
+import 'package:sqflite/sqlite_api.dart';
+
 import '../../models/food_tracked.dart';
 import 'database_service.dart';
 
@@ -40,6 +42,7 @@ class TrackedFoodDatabaseService with DatabaseService {
     await db.insert(
       DatabaseService.trackedFoodsTable,
       food.toMap(),
+      conflictAlgorithm: ConflictAlgorithm.ignore,
     );
   }
 

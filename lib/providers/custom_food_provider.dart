@@ -17,8 +17,10 @@ class CustomFoodProvider with ChangeNotifier {
   }
 
   void addFood(Food food) {
-    _foods.add(food);
-    notifyListeners();
+    if (!_foods.any((f) => f.id == food.id)) {
+      _foods.add(food);
+      notifyListeners();
+    }
 
     CustomFoodDatabaseService.insert(food);
   }

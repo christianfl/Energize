@@ -13,6 +13,16 @@ class TrackedFoodProvider with ChangeNotifier {
     _getFromDatabase();
   }
 
+  bool _isSameDay(DateTime day1, DateTime day2) {
+    if (day1.year == day2.year &&
+        day1.month == day2.month &&
+        day1.day == day2.day) {
+      return true;
+    }
+
+    return false;
+  }
+
   void selectDate(DateTime date) {
     selectedDate = date;
     _getFromDatabase();
@@ -25,8 +35,11 @@ class TrackedFoodProvider with ChangeNotifier {
   }
 
   void addEatenFood(FoodTracked foodTracked) {
-    _foods.add(foodTracked);
-    notifyListeners();
+    if (!_foods.any((f) => f.id == foodTracked.id) &&
+        _isSameDay(foodTracked.dateEaten, selectedDate)) {
+      _foods.add(foodTracked);
+      notifyListeners();
+    }
 
     TrackedFoodDatabaseService.insert(foodTracked);
   }

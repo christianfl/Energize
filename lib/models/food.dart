@@ -1,10 +1,14 @@
 import 'dart:ui';
 
+import 'package:json_annotation/json_annotation.dart';
 import 'package:openfoodfacts/model/Product.dart';
 import 'package:uuid/uuid.dart';
 
 import 'SNDB.dart';
 
+part 'food.g.dart';
+
+@JsonSerializable()
 class Food {
   // Gets generated during runtime out of SNDB.dart (CSV)
   static List<Food> _sndb = [];
@@ -27,7 +31,7 @@ class Food {
   String? imageUrl;
   String? imageThumbnailUrl;
 
-  /// String: servingName, double: Amount in g per serving
+  /// String: servingName, double: Amount in g per servingName
   Map<String, double>? servingSizes;
 
   // #################### Calories ####################
@@ -270,9 +274,22 @@ class Food {
     food.fat = product.nutriments?.fat ?? null;
 
     // Fill serving size with serving and package size
-    if (product.servingQuantity != null) {
-      food.servingSizes = {'serving': product.servingQuantity!};
+    if (product.servingQuantity != null || product.quantity != null) {
+      food.servingSizes = {};
     }
+
+    if (product.servingQuantity != null) {
+      // MapEntry<String, double> test =
+      //     MapEntry<String, double>('serving', product.servingQuantity!);
+      // TODO: Fix!
+      // food.servingSizes!.putIfAbsent(key, () => null)(test);
+    }
+    if (product.quantity != null) {
+      //food.servingSizes = {'serving': product.servingQuantity!};
+    }
+
+    // print(product.servingQuantity);
+    // print(product.quantity);
     // Package size / quantity is not supported by OFF server yet
 
     // Micronutrients and other
@@ -558,12 +575,6 @@ class Food {
     return _sndb;
   }
 
-  // So far only for debugging purposes
-  @override
-  String toString() {
-    return 'Food {title: $title, origin: $origin, calories: $calories}';
-  }
-
   static String get generatedId {
     return Uuid().v4();
   }
@@ -627,4 +638,10 @@ class Food {
 
     return hashList(attributes);
   }
+
+  /// Connect the generated fromJson function to the `fromJson` factory.
+  factory Food.fromJson(Map<String, dynamic> json) => _$FoodFromJson(json);
+
+  /// Connect the generated toJson function to the `toJson` method.
+  Map<String, dynamic> toJson() => _$FoodToJson(this);
 }

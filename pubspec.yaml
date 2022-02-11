@@ -38,6 +38,9 @@ dependencies:
   dio: ^4.0.4
   encrypt: ^5.0.1
   crypto: ^3.0.1
+  json_serializable: ^6.1.4
+  build_runner: ^2.1.7
+  json_annotation: ^4.4.0
 
 dev_dependencies:
   flutter_test:

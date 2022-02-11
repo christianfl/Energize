@@ -1,3 +1,5 @@
+import 'package:sqflite/sqlite_api.dart';
+
 import '../../models/food.dart';
 import 'database_service.dart';
 
@@ -21,6 +23,7 @@ class CustomFoodDatabaseService with DatabaseService {
     await db.insert(
       DatabaseService.customFoodstable,
       food.toMap(),
+      conflictAlgorithm: ConflictAlgorithm.ignore,
     );
   }
 

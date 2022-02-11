@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import 'backup_and_restore_sub_page.dart';
 import 'database_management_sub_page.dart';
 import 'macro_targets_sub_page.dart';
 import 'micro_targets_sub_page.dart';
@@ -112,6 +113,20 @@ class SettingsPage extends StatelessWidget {
               subtitle: Text('Select which food databases to query'),
             ),
           ),
+          InkWell(
+            onTap: () {
+              Navigator.of(context).pushNamed(
+                BackupAndRestoreSubPage.routeName,
+              );
+            },
+            child: ListTile(
+              isThreeLine: true,
+              leading: Icon(Icons.cloud),
+              title: Text('Backup & Restore'),
+              subtitle: Text(
+                  'Store your data on a WebDAV compatible cloud storage like Nextcloud'),
+            ),
+          ),
           Divider(),
           InkWell(
             onTap: () => _showAbout(context),
@@ -120,7 +135,6 @@ class SettingsPage extends StatelessWidget {
               title: Text('About'),
             ),
           ),
-          // TODO: Issue #4: Backup and restore via cloud provider (Nextcloud if possible)
         ],
       ),
     );

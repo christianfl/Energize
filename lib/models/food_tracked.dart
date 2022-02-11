@@ -1,7 +1,11 @@
+import 'package:json_annotation/json_annotation.dart';
 import 'package:uuid/uuid.dart';
 
 import 'food.dart';
 
+part 'food_tracked.g.dart';
+
+@JsonSerializable()
 class FoodTracked extends Food {
   final String id;
 
@@ -262,4 +266,11 @@ class FoodTracked extends Food {
       return servingSizes!.values.elementAt(selectedServingSizeIndex!) * amount;
     }
   }
+
+  /// Connect the generated fromJson function to the `fromJson` factory.
+  factory FoodTracked.fromJson(Map<String, dynamic> json) =>
+      _$FoodTrackedFromJson(json);
+
+  /// Connect the generated toJson function to the `toJson` method.
+  Map<String, dynamic> toJson() => _$FoodTrackedToJson(this);
 }
