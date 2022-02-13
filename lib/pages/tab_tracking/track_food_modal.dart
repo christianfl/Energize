@@ -39,11 +39,11 @@ class _TrackFoodState extends State<TrackFood>
   late TabController _tabController;
   final List<Tab> _tabBarContent = [
     const Tab(
-      icon: Icon(Icons.question_answer),
+      icon: Icon(Icons.info),
       text: 'General',
     ),
     const Tab(
-      icon: Icon(Icons.people),
+      icon: Icon(Icons.biotech),
       text: 'Micronutrients',
     ),
   ];
