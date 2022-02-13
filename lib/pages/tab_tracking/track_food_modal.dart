@@ -196,6 +196,63 @@ class _TrackFoodState extends State<TrackFood>
       return '';
   }
 
+  Widget _getAmountInput(
+    ModalArguments args,
+    TrackedFoodProvider trackedFood,
+    Food food,
+  ) {
+    return Container(
+      height: 56,
+      decoration: new BoxDecoration(
+        color: Theme.of(context).highlightColor.withAlpha(220),
+        borderRadius: new BorderRadius.all(Radius.circular(28)),
+      ),
+      child: Row(
+        children: [
+          Container(
+            width: 140,
+            child: TextField(
+              textAlignVertical: TextAlignVertical.center,
+              onEditingComplete: () => _addOrEditFood(args, trackedFood),
+              onChanged: (value) {
+                // Set state to immediately show chart changes
+                setState(() {});
+              },
+              controller: amountCtrl,
+              keyboardType: TextInputType.number,
+              decoration: InputDecoration(
+                prefixIcon: Icon(Icons.edit),
+                hintText: _getAmount(food).toString(),
+                border: InputBorder.none,
+              ),
+            ),
+          ),
+          Container(
+            width: 150,
+            height: 50,
+            child: DropdownButtonHideUnderline(
+              child: DropdownButton<String>(
+                value: dropdownValue,
+                onChanged: (String? newValue) {
+                  setState(() {
+                    dropdownValue = newValue!;
+                  });
+                },
+                items: <String>['g', 'serving (60 g)']
+                    .map<DropdownMenuItem<String>>((String value) {
+                  return DropdownMenuItem<String>(
+                    value: value,
+                    child: Text(value),
+                  );
+                }).toList(),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final trackedFood = Provider.of<TrackedFoodProvider>(context);
@@ -250,57 +307,75 @@ class _TrackFoodState extends State<TrackFood>
             Navigator.pop(context, false);
             return true;
           },
-          child: Column(
+          child: Stack(
             children: [
-              TabBar(controller: _tabController, tabs: _tabBarContent),
-              Expanded(
-                child: TabBarView(
-                  controller: _tabController,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            food.title,
-                            maxLines: 3,
-                            overflow: TextOverflow.ellipsis,
-                            style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
+              Column(
+                children: [
+                  TabBar(controller: _tabController, tabs: _tabBarContent),
+                  Expanded(
+                    child: TabBarView(
+                      controller: _tabController,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(16.0),
+                          child: SingleChildScrollView(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  food.title,
+                                  maxLines: 3,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                const SizedBox(height: 10),
+                                Row(
+                                  children: [
+                                    FoodMicroCountPill(
+                                      food.nutrientCount,
+                                      height: _pillHeight,
+                                      showText: true,
+                                    ),
+                                    SizedBox(width: 10),
+                                    FoodOriginLogoPill(
+                                      food.origin,
+                                      width: 100,
+                                      height: _pillHeight,
+                                    ),
+                                  ],
+                                ),
+                                const SizedBox(height: 10),
+                                MacroChart([_getConvertedFoodForChart(food)]),
+                              ],
                             ),
                           ),
-                          const SizedBox(height: 10),
-                          Row(
-                            children: [
-                              FoodMicroCountPill(
-                                food.nutrientCount,
-                                height: _pillHeight,
-                                showText: true,
-                              ),
-                              SizedBox(width: 10),
-                              FoodOriginLogoPill(
-                                food.origin,
-                                width: 100,
-                                height: _pillHeight,
-                              ),
-                            ],
+                        ),
+                        SingleChildScrollView(
+                          padding: const EdgeInsets.all(16.0),
+                          child: MicroChart(
+                            [_getConvertedFoodForChart(food)],
+                            showZero: false,
+                            scrollable: false,
                           ),
-                          const SizedBox(height: 10),
-                          MacroChart([_getConvertedFoodForChart(food)]),
-                        ],
-                      ),
+                        ),
+                      ].map((tab) => tab).toList(),
                     ),
-                    SingleChildScrollView(
-                      padding: const EdgeInsets.all(16.0),
-                      child: MicroChart(
-                        [_getConvertedFoodForChart(food)],
-                        showZero: false,
-                        scrollable: false,
-                      ),
-                    ),
-                  ].map((tab) => tab).toList(),
+                  ),
+                ],
+              ),
+              Container(
+                alignment: Alignment.bottomLeft,
+                child: Padding(
+                  padding:
+                      const EdgeInsets.only(left: 14, bottom: 14, right: 85),
+                  child: _getAmountInput(
+                    args,
+                    trackedFood,
+                    food,
+                  ),
                 ),
               ),
             ],
