@@ -9,7 +9,7 @@ import 'pages/tab_settings/database_management_sub_page.dart';
 import 'pages/tab_settings/macro_targets_sub_page.dart';
 import 'pages/tab_settings/micro_targets_sub_page.dart';
 import 'pages/tab_settings/personalization_sub_page.dart';
-import 'pages/tab_tracking/add_food_modal.dart';
+import 'pages/tab_tracking/track_food_modal.dart';
 import 'pages/tab_tracking/detailed_summary_sub_page.dart';
 import 'pages/tabs_page.dart';
 import 'providers/app_settings.dart';
@@ -52,7 +52,7 @@ class MyApp extends StatelessWidget {
         ),
         home: TabsPage(),
         routes: {
-          AddFood.routeName: (ctx) => AddFood(),
+          TrackFood.routeName: (ctx) => TrackFood(),
           DetailedSummarySubPage.routeName: (ctx) => DetailedSummarySubPage(),
           AddEditCustomFoodModal.routeName: (ctx) => AddEditCustomFoodModal(),
           PersonalizationSubPage.routeName: (ctx) => PersonalizationSubPage(),

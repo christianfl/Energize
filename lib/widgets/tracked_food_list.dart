@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../pages/tab_tracking/add_food_modal.dart';
+import '../pages/tab_tracking/track_food_modal.dart';
 import '../../providers/tracked_food_provider.dart';
 import '../models/food_tracked.dart';
 
@@ -21,7 +21,7 @@ class TrackedFoodList extends StatelessWidget {
 
   void _navigateToEditFood(BuildContext context, FoodTracked foodToBeAdded) {
     Navigator.of(context).pushNamed(
-      AddFood.routeName,
+      TrackFood.routeName,
       arguments: ModalArguments(foodToBeAdded, ModalMode.edit),
     );
   }

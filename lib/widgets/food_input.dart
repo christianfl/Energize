@@ -13,7 +13,7 @@ import '../../services/tracked_foods_database_service.dart';
 import '../../widgets/food_list_item.dart';
 import '../models/food.dart';
 import '../models/food_tracked.dart';
-import '../pages/tab_tracking/add_food_modal.dart';
+import '../pages/tab_tracking/track_food_modal.dart';
 import '../services/open_food_facts_api_service.dart';
 
 enum SheetModalMode { search, ean }
@@ -55,7 +55,7 @@ class _FoodInputState extends State<FoodInput>
   void _navigateToAddFood(BuildContext context, Food foodToBeAdded) {
     Navigator.of(context)
         .pushNamed(
-          AddFood.routeName,
+          TrackFood.routeName,
           arguments: ModalArguments(
               foodToBeAdded, ModalMode.add, widget._foodAddingDate),
         )

@@ -8,6 +8,9 @@
     "tracking": "Tracking",
     "detailedSummary": "Detailed summary",
     "markDayAsCompleted": "Mark day as completed",
+    "trackFood": "Track food",
+    "useAsTemplateForCustomFood": "Use as template for custom food",
+    "editTrackedFood": "Edit tracked food",
     "@_CUSTOM_FOOD": {
     },
     "customFood": "Custom Food",

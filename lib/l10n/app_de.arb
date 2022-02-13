@@ -8,6 +8,9 @@
     "tracking": "Tracking",
     "detailedSummary": "Ausführliche Zusammenfassung",
     "markDayAsCompleted": "Tag als vollständig markieren",
+    "trackFood": "Nahrung tracken",
+    "useAsTemplateForCustomFood": "Als Vorlage für eigene Nahrung benutzen",
+    "editTrackedFood": "Getrackte Nahrung bearbeiten",
     "@_CUSTOM_FOOD": {
     },
     "customFood": "Eigene Nahrung",
