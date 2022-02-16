@@ -58,6 +58,7 @@ class _BackupAndRestoreSubPageState extends State<BackupAndRestoreSubPage> {
 
     Dio dio = Dio();
     dio.options.headers['authorization'] = basicAuth;
+    dio.options.responseType = ResponseType.plain;
 
     return dio;
   }
