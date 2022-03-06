@@ -107,7 +107,9 @@ class _FoodInputState extends State<FoodInput>
       if (_scannedCode?.code == scanData.code) return;
       setState(() {
         _scannedCode = scanData;
-        OpenFoodFactsApiService.getFoodByEan(_scannedCode!.code).then((food) {
+      });
+      if (_scannedCode?.code != null) {
+        OpenFoodFactsApiService.getFoodByEan(_scannedCode!.code!).then((food) {
           flashStatus.then((isFlashOn) =>
               {if (isFlashOn != null && isFlashOn == true) _toggleFlash()});
 
@@ -117,7 +119,7 @@ class _FoodInputState extends State<FoodInput>
             _productNotFoundExceptionEan = error.toString();
           });
         });
-      });
+      }
     });
   }
 
