@@ -15,7 +15,7 @@ class SettingsPage extends StatelessWidget {
   void _showAbout(BuildContext context) {
     showAboutDialog(
       context: context,
-      applicationVersion: '0.1.1',
+      applicationVersion: '0.1.2',
       applicationLegalese: '© 2022 Christian Flaßkamp\nGPLv3 license',
       applicationIcon: Image.asset('assets/about_logo.png', width: 75),
       children: [
