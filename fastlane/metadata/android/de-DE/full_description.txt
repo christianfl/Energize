@@ -1,0 +1,10 @@
+Track your food and nutrition easily and fast.
+
+<ul>
+<li>Track your meals including macro- and micronutrients</li>
+<li>Use several databases (currently Open Food Facts and Swiss Nutrition Database) or create custom meals/li>
+<li>Search meals by product name or just scan the EAN code/li>
+<li>Get meal suggestions based on your last tracked meals/li>
+<li>Set targets for macro- and micronutrients including calculating them based on your personal details/li>
+<li>See your daily nutrition details/li>
+</ul>
