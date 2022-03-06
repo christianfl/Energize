@@ -107,7 +107,7 @@ class _FoodPageState extends State<FoodPage> {
                       searchString, customFoodProvider),
                   decoration: InputDecoration(
                     border: InputBorder.none,
-                    hintText: 'Search for product name',
+                    hintText: AppLocalizations.of(context)!.searchCustomFood,
                     prefixIcon: Icon(Icons.search),
                     suffixIcon: IconButton(
                       onPressed: () => {

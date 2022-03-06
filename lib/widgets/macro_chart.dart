@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 
 import './chart_bar.dart';
@@ -46,28 +47,28 @@ class MacroChart extends StatelessWidget {
           margin: EdgeInsets.all(10),
           child: Column(children: <Widget>[
             ChartBar(
-              title: 'Energy',
+              title: AppLocalizations.of(context)!.energy,
               value: _totalCalories,
               target: appSettings.caloriesTarget,
               unit: 'kcal',
               decimalPlaces: 0,
             ),
             ChartBar(
-              title: 'Protein',
+              title: AppLocalizations.of(context)!.protein,
               value: _totalProtein,
               target: appSettings.proteinTarget,
               unit: 'g',
               decimalPlaces: 0,
             ),
             ChartBar(
-              title: 'Carbs',
+              title: AppLocalizations.of(context)!.carbs,
               value: _totalCarbs,
               target: appSettings.carbsTarget,
               unit: 'g',
               decimalPlaces: 0,
             ),
             ChartBar(
-              title: 'Fat',
+              title: AppLocalizations.of(context)!.fat,
               value: _totalFat,
               target: appSettings.fatTarget,
               unit: 'g',

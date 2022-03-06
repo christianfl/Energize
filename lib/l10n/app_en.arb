@@ -6,6 +6,10 @@
     "@_TRACKING": {
     },
     "tracking": "Tracking",
+    "energy": "Energy",
+    "protein": "Protein",
+    "carbs": "Carbs",
+    "fat": "Fat",
     "detailedSummary": "Detailed summary",
     "markDayAsCompleted": "Mark day as completed",
     "trackFood": "Track food",
@@ -14,7 +18,19 @@
     "@_CUSTOM_FOOD": {
     },
     "customFood": "Custom Food",
+    "searchCustomFood": "Search custom food",
     "@_SETTINGS": {
     },
-    "settings": "Settings"
+    "settings": "Settings",
+    "personalization": "Personalization",
+    "personalizationHint": "Calculate your personal nutrition needs",
+    "energyAndMacronutrientsTargets": "Energy- and macronutrients targets",
+    "energyAndMacronutrientsTargetsHint": "Calories, protein, carbs, fat",
+    "micronutrientsTargets": "Micronutrients targets",
+    "micronutrientsTargetsHint": "Vitamins, minerals and other targets",
+    "databaseManagement": "Database management",
+    "databaseManagementHint": "Select which food databases to query",
+    "backupAndRestore": "Backup & Restore",
+    "backupAndRestoreHint": "Store your data on a WebDAV compatible cloud storage like Nextcloud",
+    "aboutEnergize": "About Energize"
 }

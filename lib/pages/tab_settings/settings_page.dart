@@ -72,8 +72,8 @@ class SettingsPage extends StatelessWidget {
             },
             child: ListTile(
               leading: Icon(Icons.person),
-              title: Text('Personalization'),
-              subtitle: Text('Enter personal details to calculate nutrients'),
+              title: Text(AppLocalizations.of(context)!.personalization),
+              subtitle: Text(AppLocalizations.of(context)!.personalizationHint),
             ),
           ),
           InkWell(
@@ -84,8 +84,10 @@ class SettingsPage extends StatelessWidget {
             },
             child: ListTile(
               leading: Icon(Icons.bolt),
-              title: Text('Energy- and macronutrients targets'),
-              subtitle: Text('Adjust daily targets according to your diet'),
+              title: Text(
+                  AppLocalizations.of(context)!.energyAndMacronutrientsTargets),
+              subtitle: Text(AppLocalizations.of(context)!
+                  .energyAndMacronutrientsTargetsHint),
             ),
           ),
           InkWell(
@@ -96,8 +98,9 @@ class SettingsPage extends StatelessWidget {
             },
             child: ListTile(
               leading: Icon(Icons.emoji_flags),
-              title: Text('Micronutrients targets'),
-              subtitle: Text('Adjust vitamin-, mineral- and other targets'),
+              title: Text(AppLocalizations.of(context)!.micronutrientsTargets),
+              subtitle:
+                  Text(AppLocalizations.of(context)!.micronutrientsTargetsHint),
             ),
           ),
           Divider(),
@@ -109,8 +112,9 @@ class SettingsPage extends StatelessWidget {
             },
             child: ListTile(
               leading: Icon(Icons.perm_data_setting),
-              title: Text('Database management'),
-              subtitle: Text('Select which food databases to query'),
+              title: Text(AppLocalizations.of(context)!.databaseManagement),
+              subtitle:
+                  Text(AppLocalizations.of(context)!.databaseManagementHint),
             ),
           ),
           InkWell(
@@ -122,9 +126,9 @@ class SettingsPage extends StatelessWidget {
             child: ListTile(
               isThreeLine: true,
               leading: Icon(Icons.cloud),
-              title: Text('Backup & Restore'),
-              subtitle: Text(
-                  'Store your data on a WebDAV compatible cloud storage like Nextcloud'),
+              title: Text(AppLocalizations.of(context)!.backupAndRestore),
+              subtitle:
+                  Text(AppLocalizations.of(context)!.backupAndRestoreHint),
             ),
           ),
           Divider(),
@@ -132,7 +136,7 @@ class SettingsPage extends StatelessWidget {
             onTap: () => _showAbout(context),
             child: ListTile(
               leading: Icon(Icons.info),
-              title: Text('About'),
+              title: Text(AppLocalizations.of(context)!.aboutEnergize),
             ),
           ),
         ],
