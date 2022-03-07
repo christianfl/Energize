@@ -1,10 +1,10 @@
-Track your food and nutrition easily and fast.
+Tracke deine Nahrung einfach und schnell.
 
 <ul>
-<li>Track your meals including macro- and micronutrients</li>
-<li>Use several databases (currently Open Food Facts and Swiss Nutrition Database) or create custom meals/li>
-<li>Search meals by product name or just scan the EAN code/li>
-<li>Get meal suggestions based on your last tracked meals/li>
-<li>Set targets for macro- and micronutrients including calculating them based on your personal details/li>
-<li>See your daily nutrition details/li>
+<li>Tracke deine Nahrung inkl. Makro- und Mikronährstoffe</li>
+<li>Benutze mehrere Datenbanken (Bisher Schweizer Nährwertdatenbank und Open Food Facts) oder erstelle benutzerdefinierte Nahrung</li>
+<li>Suche über den Produktnamen oder scanne den EAN code</li>
+<li>Erhalte Vorschläge für das Tracking basierend auf deinen letzten Eingaben</li>
+<li>Setzte Vorgaben für deine Makro- und Mikronährstoffe oder lass sie anhand deiner persönlichen Daten berechnen</li>
+<li>Schaue dir deine täglichen Nährwert-Details an</li>
 </ul>
