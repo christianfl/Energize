@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 
@@ -258,7 +259,8 @@ class _FoodInputState extends State<FoodInput>
               onSubmitted: (value) => populateSearchedFoodList(value, false),
               decoration: InputDecoration(
                 border: InputBorder.none,
-                hintText: 'Search for product name or brand',
+                hintText:
+                    AppLocalizations.of(context)!.searchForProductNameOrBrand,
                 prefixIcon: _awaitingApiResponse
                     ? Transform.scale(
                         scale: 0.5,
@@ -368,7 +370,7 @@ class _FoodInputState extends State<FoodInput>
             OutlinedButton.icon(
               onPressed: _toggleFlash,
               icon: Icon(Icons.bolt),
-              label: Text('Toogle flash'),
+              label: Text(AppLocalizations.of(context)!.toggleFlash),
             ),
           ],
         ),

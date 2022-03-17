@@ -2,7 +2,8 @@
     "@_GENERAL": {
     },
     "appName": "Energize",
-    "appDescription": "Tracke deine Nahrung einfach und schnell.",
+    "appDescriptionShort": "Tracke deine Nahrung einfach und schnell.",
+    "appDescription": "Tracke deine Nahrung einfach und schnell. Scanne deine Nahrung oder suche manuell in verschiedenen Datenbanken.",
     "@_TRACKING": {
     },
     "tracking": "Tracking",
@@ -11,14 +12,23 @@
     "carbs": "Kohlenhydrate",
     "fat": "Fett",
     "detailedSummary": "Ausführliche Zusammenfassung",
-    "markDayAsCompleted": "Tag als vollständig markieren",
+    "dayComplete": "Tag vollständig",
+    "markedDayAsComplete": "Tag als vollständig markiert",
+    "dayIncomplete": "Tag unvollständig",
+    "unmarkedDayAsComplete": "Markierung der Vollständigkeit entfernt",
     "trackFood": "Nahrung tracken",
     "useAsTemplateForCustomFood": "Als Vorlage für eigene Nahrung benutzen",
     "editTrackedFood": "Getrackte Nahrung bearbeiten",
+    "scanEANCode": "EAN code scannen",
+    "toggleFlash": "Blitz ein-/ausschalten",
+    "searchFood": "Nahrung suchen",
+    "searchForProductNameOrBrand": "Suche nach Produktnamen oder Marke",
     "@_CUSTOM_FOOD": {
     },
     "customFood": "Eigene Nahrung",
     "searchCustomFood": "Nahrung suchen",
+    "addCustomFood": "Eigene Nahrung hinzufügen",
+    "editCustomFood": "Eigene Nahrung bearbeiten",
     "@_SETTINGS": {
     },
     "settings": "Einstellungen",
@@ -32,5 +42,7 @@
     "databaseManagementHint": "Entscheide, welche Nahrungsmitteldatenbanken verwendet werden sollen",
     "backupAndRestore": "Sichern & Wiederherstellen",
     "backupAndRestoreHint": "Sichere deine Daten auf einem WebDAV-kompatiblen Server, wie z.B. Nextcloud",
-    "aboutEnergize": "Über Energize"
+    "aboutEnergize": "Über Energize",
+    "reportIssue": "Fehler melden",
+    "sourceCode": "Quellcode"
 }

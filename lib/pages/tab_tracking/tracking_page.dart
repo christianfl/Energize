@@ -94,7 +94,7 @@ class _TrackingPageState extends State<TrackingPage> {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           backgroundColor: Theme.of(context).errorColor,
-          content: Text('Unmarked completion!'),
+          content: Text(AppLocalizations.of(context)!.unmarkedDayAsComplete),
         ),
       );
     } else {
@@ -103,7 +103,7 @@ class _TrackingPageState extends State<TrackingPage> {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           backgroundColor: Theme.of(context).colorScheme.secondary,
-          content: Text('Day marked as completed!'),
+          content: Text(AppLocalizations.of(context)!.markedDayAsComplete),
         ),
       );
     }
@@ -116,7 +116,7 @@ class _TrackingPageState extends State<TrackingPage> {
         children: <Widget>[
           Icon(Icons.clear),
           SizedBox(width: 10),
-          Text('Unmark completion'),
+          Text(AppLocalizations.of(context)!.dayIncomplete),
         ],
       );
     } else {
@@ -124,7 +124,7 @@ class _TrackingPageState extends State<TrackingPage> {
         children: <Widget>[
           Icon(Icons.done),
           SizedBox(width: 10),
-          Text(AppLocalizations.of(context)!.markDayAsCompleted),
+          Text(AppLocalizations.of(context)!.dayComplete),
         ],
       );
     }
@@ -227,14 +227,14 @@ class _TrackingPageState extends State<TrackingPage> {
           SpeedDialChild(
             child: Icon(Icons.search),
             backgroundColor: Colors.red,
-            label: 'Search product name',
+            label: AppLocalizations.of(context)!.searchFood,
             labelBackgroundColor: Colors.red,
             onTap: () => _startAddEatenFood(context, SheetModalMode.search),
           ),
           SpeedDialChild(
             child: Icon(Icons.qr_code),
             backgroundColor: Colors.blue,
-            label: 'Scan product EAN',
+            label: AppLocalizations.of(context)!.scanEANCode,
             labelBackgroundColor: Colors.blue,
             onTap: () => _startAddEatenFood(context, SheetModalMode.ean),
           ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 
 import '../../models/food.dart';
@@ -353,8 +354,8 @@ class _AddEditCustomFoodModalState extends State<AddEditCustomFoodModal> {
     return Scaffold(
       appBar: AppBar(
         title: modalMode == AddEditCustomFoodModalMode.edit
-            ? Text('Edit custom food')
-            : Text('Add custom food'),
+            ? Text(AppLocalizations.of(context)!.editCustomFood)
+            : Text(AppLocalizations.of(context)!.addCustomFood),
       ),
       body: WillPopScope(
         onWillPop: () async {
@@ -427,7 +428,7 @@ class _AddEditCustomFoodModalState extends State<AddEditCustomFoodModal> {
                             ),
                           ),
                           ListTile(
-                            title: Text('Protein'),
+                            title: Text(AppLocalizations.of(context)!.protein),
                             trailing: Container(
                               width: _formFieldWidth,
                               height: _formFieldHeight,
@@ -447,7 +448,7 @@ class _AddEditCustomFoodModalState extends State<AddEditCustomFoodModal> {
                             ),
                           ),
                           ListTile(
-                            title: Text('Carbs'),
+                            title: Text(AppLocalizations.of(context)!.carbs),
                             trailing: Container(
                               width: _formFieldWidth,
                               height: _formFieldHeight,
@@ -467,7 +468,7 @@ class _AddEditCustomFoodModalState extends State<AddEditCustomFoodModal> {
                             ),
                           ),
                           ListTile(
-                            title: Text('Fat'),
+                            title: Text(AppLocalizations.of(context)!.fat),
                             trailing: Container(
                               width: _formFieldWidth,
                               height: _formFieldHeight,

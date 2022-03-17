@@ -22,8 +22,7 @@ class SettingsPage extends StatelessWidget {
         SizedBox(
           height: 20,
         ),
-        Text(
-            'Track your food and nutrition easily and fast. Scan your products or search in different databases.'),
+        Text(AppLocalizations.of(context)!.appDescription),
         InkWell(
           onTap: () async {
             if (await canLaunch(_issueUrl)) {
@@ -34,7 +33,7 @@ class SettingsPage extends StatelessWidget {
           },
           child: ListTile(
             contentPadding: EdgeInsets.all(8.0),
-            title: Text('Report issue'),
+            title: Text(AppLocalizations.of(context)!.reportIssue),
             trailing: Icon(Icons.link),
           ),
         ),
@@ -48,7 +47,7 @@ class SettingsPage extends StatelessWidget {
           },
           child: ListTile(
             contentPadding: EdgeInsets.all(8.0),
-            title: Text('Source code'),
+            title: Text(AppLocalizations.of(context)!.sourceCode),
             trailing: Icon(Icons.link),
           ),
         ),

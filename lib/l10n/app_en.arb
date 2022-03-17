@@ -2,7 +2,8 @@
     "@_GENERAL": {
     },
     "appName": "Energize",
-    "appDescription": "Track your food and nutrition easily and fast.",
+    "appDescriptionShort": "Track your food and nutrition easily and fast.",
+    "appDescription": "Track your food and nutrition easily and fast. Scan your products or search manually in different databases.",
     "@_TRACKING": {
     },
     "tracking": "Tracking",
@@ -11,14 +12,23 @@
     "carbs": "Carbs",
     "fat": "Fat",
     "detailedSummary": "Detailed summary",
-    "markDayAsCompleted": "Mark day as completed",
+    "dayComplete": "Day complete",
+    "markedDayAsComplete": "Marked day as complete",
+    "dayIncomplete": "Day incomplete",
+    "unmarkedDayAsComplete": "Unmarked day as complete",
     "trackFood": "Track food",
     "useAsTemplateForCustomFood": "Use as template for custom food",
     "editTrackedFood": "Edit tracked food",
+    "scanEANCode": "Scan EAN code",
+    "toggleFlash": "Toggle Flash",
+    "searchFood": "Search food",
+    "searchForProductNameOrBrand": "Search for product name or brand",
     "@_CUSTOM_FOOD": {
     },
     "customFood": "Custom Food",
     "searchCustomFood": "Search custom food",
+    "addCustomFood": "Add custom food",
+    "editCustomFood": "Edit custom food",
     "@_SETTINGS": {
     },
     "settings": "Settings",
@@ -32,5 +42,7 @@
     "databaseManagementHint": "Select which food databases to query",
     "backupAndRestore": "Backup & Restore",
     "backupAndRestoreHint": "Store your data on a WebDAV compatible cloud storage like Nextcloud",
-    "aboutEnergize": "About Energize"
+    "aboutEnergize": "About Energize",
+    "reportIssue": "Report issue",
+    "sourceCode": "Source code"
 }

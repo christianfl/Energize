@@ -5,6 +5,7 @@ import 'package:crypto/crypto.dart';
 import 'package:dio/dio.dart';
 import 'package:encrypt/encrypt.dart' as enc;
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:path/path.dart' as path;
 import 'package:provider/provider.dart';
 
@@ -465,7 +466,7 @@ class _BackupAndRestoreSubPageState extends State<BackupAndRestoreSubPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Backup & Restore'),
+        title: Text(AppLocalizations.of(context)!.backupAndRestore),
         actions: [
           IconButton(
             onPressed: () => _showSettingsDialog(),
