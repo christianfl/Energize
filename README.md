@@ -2,6 +2,10 @@
 
 Track your food and nutrition easily and fast. Still in early development.
 
+<a href="https://hosted.weblate.org/engage/energize/">
+  <img src="https://hosted.weblate.org/widgets/energize/-/energize/svg-badge.svg" alt="Übersetzungsstatus" />
+</a>
+
 <p align="center">
   <a href="https://play.google.com/store/apps/details?id=com.flasskamp.energize"><img src="./docs/google-play-badge.png" alt="Get it on Google Play" height="75"></a>
   <a href="https://f-droid.org/packages/com.flasskamp.energize"><img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png" alt="Get it on F-Droid" height="75"></a>
