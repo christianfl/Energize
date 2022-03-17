@@ -13,10 +13,13 @@ Google Play is still in testing phase at the moment. Drop me a message and inclu
 
 <br>
 
+## Screenshots
+
 <p align="center">
-  <img src="./fastlane/metadata/android/en-US/images/phoneScreenshots/1.png" width="32%"/>
-  <img src="./fastlane/metadata/android/en-US/images/phoneScreenshots/2.png" width="32%"/>
-  <img src="./fastlane/metadata/android/en-US/images/phoneScreenshots/3.png" width="32%"/>
+  <img src="./fastlane/metadata/android/en-US/images/phoneScreenshots/1.png" width="24%"/>
+  <img src="./fastlane/metadata/android/en-US/images/phoneScreenshots/2.png" width="24%"/>
+  <img src="./fastlane/metadata/android/en-US/images/phoneScreenshots/3.png" width="24%"/>
+  <img src="./fastlane/metadata/android/en-US/images/phoneScreenshots/4.png" width="24%"/>
 </p>
 
 ## Features
