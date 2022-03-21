@@ -253,6 +253,9 @@ class Food {
       food.title += ' ';
     if (product.productName != null) food.title += product.productName!;
 
+    // Make sure there are no leading or trailing whitespaces
+    food.title = food.title.trim();
+
     // Calories
     if (product.nutriments?.energyKcal100g != null) {
       food.calories = product.nutriments!.energyKcal100g!;
