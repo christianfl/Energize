@@ -64,6 +64,14 @@ If you want to support the development by a donation, you are very welcome to do
   <img alt="Donate using Liberapay" src="https://liberapay.com/assets/widgets/donate.svg">
 </a>
 
+## Release preparations
+
+Make sure to match the version number in:
+
+- `pubspec.yaml`
+- `lib/pages/tab_settings/settings_page.dart`
+- `lib/services/open_food_facts_api_service.dart`
+
 ---
 
 © 2022 Christian Flaßkamp – energize@flasskamp.com
