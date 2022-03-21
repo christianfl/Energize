@@ -7,4 +7,5 @@ Track your food and nutrition easily and fast.
 <li>Get meal suggestions based on your last tracked meals</li>
 <li>Set targets for macro- and micronutrients including calculating them based on your personal details</li>
 <li>See your daily nutrition details</li>
+<li>Create an encrypted backup with WebDAV and restore it</li>
 </ul>

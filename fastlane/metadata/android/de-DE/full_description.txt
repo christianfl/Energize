@@ -7,4 +7,5 @@ Tracke deine Nahrung einfach und schnell.
 <li>Erhalte Vorschläge für das Tracking basierend auf deinen letzten Eingaben</li>
 <li>Setzte Vorgaben für deine Makro- und Mikronährstoffe oder lass sie anhand deiner persönlichen Daten berechnen</li>
 <li>Schaue dir deine täglichen Nährwert-Details an</li>
+<li>Erstelle ein verschlüsseltes WebDAV Backup und stelle es wieder her</li>
 </ul>
