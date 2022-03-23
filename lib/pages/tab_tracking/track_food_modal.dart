@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../models/food.dart';
 import '../../models/food_tracked.dart';
@@ -37,20 +37,10 @@ class _TrackFoodState extends State<TrackFood>
   final _scrollController = ScrollController();
   final _expandedHeight = 240.0;
   late TabController _tabController;
-  final List<Tab> _tabBarContent = [
-    const Tab(
-      icon: Icon(Icons.info),
-      text: 'General',
-    ),
-    const Tab(
-      icon: Icon(Icons.biotech),
-      text: 'Micronutrients',
-    ),
-  ];
 
   @override
   void initState() {
-    _tabController = TabController(vsync: this, length: _tabBarContent.length);
+    _tabController = TabController(vsync: this, length: 2);
     super.initState();
   }
 
@@ -165,12 +155,6 @@ class _TrackFoodState extends State<TrackFood>
               createCustomFoodFromThis(food);
             }
             break;
-
-          case 1:
-            {
-              _launchOpenFoodFactsUrl(food.ean!);
-            }
-            break;
         }
       },
       itemBuilder: (context) => [
@@ -178,11 +162,6 @@ class _TrackFoodState extends State<TrackFood>
           child: Text(AppLocalizations.of(context)!.useAsTemplateForCustomFood),
           value: 0,
         ),
-        if (food.origin == 'OFF')
-          PopupMenuItem(
-            child: Text('Open or edit on Open Food Facts'),
-            value: 1,
-          ),
       ],
     );
   }
@@ -311,7 +290,16 @@ class _TrackFoodState extends State<TrackFood>
             children: [
               Column(
                 children: [
-                  TabBar(controller: _tabController, tabs: _tabBarContent),
+                  TabBar(controller: _tabController, tabs: [
+                    Tab(
+                      icon: const Icon(Icons.info),
+                      text: AppLocalizations.of(context)!.general,
+                    ),
+                    Tab(
+                      icon: const Icon(Icons.biotech),
+                      text: AppLocalizations.of(context)!.micronutrients,
+                    ),
+                  ]),
                   Expanded(
                     child: TabBarView(
                       controller: _tabController,
@@ -340,10 +328,16 @@ class _TrackFoodState extends State<TrackFood>
                                       showText: true,
                                     ),
                                     SizedBox(width: 10),
-                                    FoodOriginLogoPill(
-                                      food.origin,
-                                      width: 100,
-                                      height: _pillHeight,
+                                    InkWell(
+                                      onTap: food.origin == 'OFF'
+                                          ? () =>
+                                              _launchOpenFoodFactsUrl(food.ean!)
+                                          : null,
+                                      child: FoodOriginLogoPill(
+                                        food.origin,
+                                        width: 100,
+                                        height: _pillHeight,
+                                      ),
                                     ),
                                   ],
                                 ),

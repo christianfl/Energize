@@ -18,6 +18,8 @@
     "unmarkedDayAsComplete": "Unmarked day as complete",
     "trackFood": "Track food",
     "useAsTemplateForCustomFood": "Use as template for custom food",
+    "general": "General",
+    "micronutrients": "Micronutrients",
     "editTrackedFood": "Edit tracked food",
     "scanEANCode": "Scan EAN code",
     "toggleFlash": "Toggle Flash",
