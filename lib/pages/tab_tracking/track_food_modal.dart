@@ -104,7 +104,7 @@ class _TrackFoodState extends State<TrackFood>
         .pushNamed(
           AddEditCustomFoodModal.routeName,
           arguments: AddEditCustomFoodModalArguments(
-              AddEditCustomFoodModalMode.addFrom, food),
+              AddEditCustomFoodModalMode.addFrom, Food.fromJson(food.toJson())),
         )
         .then(
           (value) => {
@@ -112,8 +112,6 @@ class _TrackFoodState extends State<TrackFood>
               final args =
                   ModalRoute.of(context)!.settings.arguments as ModalArguments;
               args.food = value as Food;
-
-              // TODO: Issue #8: Bug, when adding a custom food out of some existing and then going back to the food input, the value/names of the existing one are changing
             }),
           },
         );
