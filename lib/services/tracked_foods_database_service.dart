@@ -39,9 +39,11 @@ class TrackedFoodDatabaseService with DatabaseService {
   static Future<void> insert(FoodTracked food) async {
     final db = await instance.database;
 
+    print(food.toJson());
+
     await db.insert(
       DatabaseService.trackedFoodsTable,
-      food.toMap(),
+      food.toJson(),
       conflictAlgorithm: ConflictAlgorithm.ignore,
     );
   }
@@ -49,9 +51,11 @@ class TrackedFoodDatabaseService with DatabaseService {
   static Future<void> update(FoodTracked food) async {
     final db = await instance.database;
 
+    print(food.toJson());
+
     await db.update(
       DatabaseService.trackedFoodsTable,
-      food.toMap(),
+      food.toJson(),
       where: 'id = ?',
       whereArgs: [food.id],
     );
@@ -69,63 +73,7 @@ class TrackedFoodDatabaseService with DatabaseService {
 
   static List<FoodTracked> _generateFoodList(List<Map<String, dynamic>> maps) {
     return List.generate(maps.length, (i) {
-      return FoodTracked(
-        id: maps[i]['id'],
-        amount: maps[i]['amount'],
-        dateEaten: DateTime.fromMillisecondsSinceEpoch(maps[i]['dateEaten']),
-        dateAdded: DateTime.fromMillisecondsSinceEpoch(maps[i]['dateAdded']),
-        title: maps[i]['title'],
-        origin: maps[i]['origin'],
-        ean: maps[i]['ean'],
-        imageUrl: maps[i]['imageUrl'],
-        imageThumbnailUrl: maps[i]['imageThumbnailUrl'],
-        calories: maps[i]['calories'],
-        protein: maps[i]['protein'],
-        carbs: maps[i]['carbs'],
-        fat: maps[i]['fat'],
-        vitaminA: maps[i]['vitaminA'],
-        vitaminB1: maps[i]['vitaminB1'],
-        vitaminB2: maps[i]['vitaminB2'],
-        vitaminB3: maps[i]['vitaminB3'],
-        vitaminB5: maps[i]['vitaminB5'],
-        vitaminB6: maps[i]['vitaminB6'],
-        vitaminB7: maps[i]['vitaminB7'],
-        vitaminB9: maps[i]['vitaminB9'],
-        vitaminB12: maps[i]['vitaminB12'],
-        vitaminC: maps[i]['vitaminC'],
-        vitaminD: maps[i]['vitaminD'],
-        vitaminE: maps[i]['vitaminE'],
-        vitaminK: maps[i]['vitaminK'],
-        calcium: maps[i]['calcium'],
-        chloride: maps[i]['chloride'],
-        magnesium: maps[i]['magnesium'],
-        phosphorus: maps[i]['phosphorus'],
-        potassium: maps[i]['potassium'],
-        sodium: maps[i]['sodium'],
-        chromium: maps[i]['chromium'],
-        iron: maps[i]['iron'],
-        fluorine: maps[i]['fluorine'],
-        iodine: maps[i]['iodine'],
-        copper: maps[i]['copper'],
-        manganese: maps[i]['manganese'],
-        molybdenum: maps[i]['molybdenum'],
-        selenium: maps[i]['selenium'],
-        zinc: maps[i]['zinc'],
-        monounsaturatedFat: maps[i]['monounsaturatedFat'],
-        polyunsaturatedFat: maps[i]['polyunsaturatedFat'],
-        omega3: maps[i]['omega3'],
-        omega6: maps[i]['omega6'],
-        saturatedFat: maps[i]['saturatedFat'],
-        transFat: maps[i]['transFat'],
-        cholesterol: maps[i]['cholesterol'],
-        fiber: maps[i]['fiber'],
-        sugar: maps[i]['sugar'],
-        sugarAlcohol: maps[i]['sugarAlcohol'],
-        starch: maps[i]['starch'],
-        water: maps[i]['water'],
-        caffeine: maps[i]['caffeine'],
-        alcohol: maps[i]['alcohol'],
-      );
+      return FoodTracked.fromJson(maps[i]);
     });
   }
 }

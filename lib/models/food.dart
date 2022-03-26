@@ -32,6 +32,7 @@ class Food {
   String? imageThumbnailUrl;
 
   /// String: servingName, double: Amount in g per servingName
+  @JsonKey(ignore: true)
   Map<String, double>? servingSizes;
 
   // #################### Calories ####################
@@ -464,64 +465,6 @@ class Food {
     count += alcohol != null ? 1 : 0;
 
     return count;
-  }
-
-  Map<String, dynamic> toMap() {
-    return {
-      'id': id,
-      'title': title,
-      'origin': origin,
-      'ean': ean,
-      'imageUrl': imageUrl,
-      'imageThumbnailUrl': imageThumbnailUrl,
-      // TODO: Issue #1: servingSizes
-      'calories': calories,
-      'protein': protein,
-      'carbs': carbs,
-      'fat': fat,
-      'vitaminA': vitaminA,
-      'vitaminB1': vitaminB1,
-      'vitaminB2': vitaminB2,
-      'vitaminB3': vitaminB3,
-      'vitaminB5': vitaminB5,
-      'vitaminB6': vitaminB6,
-      'vitaminB7': vitaminB7,
-      'vitaminB9': vitaminB9,
-      'vitaminB12': vitaminB12,
-      'vitaminC': vitaminC,
-      'vitaminD': vitaminD,
-      'vitaminE': vitaminE,
-      'vitaminK': vitaminK,
-      'calcium': calcium,
-      'chloride': chloride,
-      'magnesium': magnesium,
-      'phosphorus': phosphorus,
-      'potassium': potassium,
-      'sodium': sodium,
-      'chromium': chromium,
-      'iron': iron,
-      'fluorine': fluorine,
-      'iodine': iodine,
-      'copper': copper,
-      'manganese': manganese,
-      'molybdenum': molybdenum,
-      'selenium': selenium,
-      'zinc': zinc,
-      'monounsaturatedFat': monounsaturatedFat,
-      'polyunsaturatedFat': polyunsaturatedFat,
-      'omega3': omega3,
-      'omega6': omega6,
-      'saturatedFat': saturatedFat,
-      'transFat': transFat,
-      'cholesterol': cholesterol,
-      'fiber': fiber,
-      'sugar': sugar,
-      'sugarAlcohol': sugarAlcohol,
-      'starch': starch,
-      'water': water,
-      'caffeine': caffeine,
-      'alcohol': alcohol,
-    };
   }
 
   static List<Food> get foodFromSndb {

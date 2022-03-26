@@ -13,9 +13,6 @@ Food _$FoodFromJson(Map<String, dynamic> json) => Food(
       ean: json['ean'] as String?,
       imageUrl: json['imageUrl'] as String?,
       imageThumbnailUrl: json['imageThumbnailUrl'] as String?,
-      servingSizes: (json['servingSizes'] as Map<String, dynamic>?)?.map(
-        (k, e) => MapEntry(k, (e as num).toDouble()),
-      ),
       calories: (json['calories'] as num?)?.toDouble(),
       protein: (json['protein'] as num?)?.toDouble(),
       carbs: (json['carbs'] as num?)?.toDouble(),
@@ -71,7 +68,6 @@ Map<String, dynamic> _$FoodToJson(Food instance) => <String, dynamic>{
       'ean': instance.ean,
       'imageUrl': instance.imageUrl,
       'imageThumbnailUrl': instance.imageThumbnailUrl,
-      'servingSizes': instance.servingSizes,
       'calories': instance.calories,
       'protein': instance.protein,
       'carbs': instance.carbs,

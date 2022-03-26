@@ -11,10 +11,19 @@ class FoodTracked extends Food {
 
   /// In g ()
   double amount;
+  @JsonKey(
+    fromJson: _millisecondsSinceEpochToDate,
+    toJson: _dateToMillisecondsSinceEpoch,
+  )
   DateTime dateAdded;
+  @JsonKey(
+    fromJson: _millisecondsSinceEpochToDate,
+    toJson: _dateToMillisecondsSinceEpoch,
+  )
   final DateTime dateEaten;
 
   /// Refers to index of servingSizes Map, if serving size was selected
+  @JsonKey(ignore: true)
   int? selectedServingSizeIndex;
 
   FoodTracked({
@@ -188,67 +197,6 @@ class FoodTracked extends Food {
           alcohol: food.alcohol,
         );
 
-  Map<String, dynamic> toMap() {
-    return {
-      'id': id,
-      'amount': amount,
-      'dateEaten': dateEaten.millisecondsSinceEpoch,
-      'dateAdded': dateAdded.millisecondsSinceEpoch,
-      'title': title,
-      'origin': origin,
-      'ean': ean,
-      'imageUrl': imageUrl,
-      'imageThumbnailUrl': imageThumbnailUrl,
-      // TODO: Issue #1: servingSizes
-      'calories': calories,
-      'protein': protein,
-      'carbs': carbs,
-      'fat': fat,
-      'vitaminA': vitaminA,
-      'vitaminB1': vitaminB1,
-      'vitaminB2': vitaminB2,
-      'vitaminB3': vitaminB3,
-      'vitaminB5': vitaminB5,
-      'vitaminB6': vitaminB6,
-      'vitaminB7': vitaminB7,
-      'vitaminB9': vitaminB9,
-      'vitaminB12': vitaminB12,
-      'vitaminC': vitaminC,
-      'vitaminD': vitaminD,
-      'vitaminE': vitaminE,
-      'vitaminK': vitaminK,
-      'calcium': calcium,
-      'chloride': chloride,
-      'magnesium': magnesium,
-      'phosphorus': phosphorus,
-      'potassium': potassium,
-      'sodium': sodium,
-      'chromium': chromium,
-      'iron': iron,
-      'fluorine': fluorine,
-      'iodine': iodine,
-      'copper': copper,
-      'manganese': manganese,
-      'molybdenum': molybdenum,
-      'selenium': selenium,
-      'zinc': zinc,
-      'monounsaturatedFat': monounsaturatedFat,
-      'polyunsaturatedFat': polyunsaturatedFat,
-      'omega3': omega3,
-      'omega6': omega6,
-      'saturatedFat': saturatedFat,
-      'transFat': transFat,
-      'cholesterol': cholesterol,
-      'fiber': fiber,
-      'sugar': sugar,
-      'sugarAlcohol': sugarAlcohol,
-      'starch': starch,
-      'water': water,
-      'caffeine': caffeine,
-      'alcohol': alcohol,
-    };
-  }
-
   // UUID creation as a static method so that sqflite db can create
   // foodTracked items from parsed Maps and set UUIDs, could also be
   // implemented with a factory
@@ -273,4 +221,10 @@ class FoodTracked extends Food {
 
   /// Connect the generated toJson function to the `toJson` method.
   Map<String, dynamic> toJson() => _$FoodTrackedToJson(this);
+
+  static _dateToMillisecondsSinceEpoch(DateTime dateTime) =>
+      dateTime.millisecondsSinceEpoch;
+
+  static _millisecondsSinceEpochToDate(int millisecondsSinceEpoch) =>
+      DateTime.fromMillisecondsSinceEpoch(millisecondsSinceEpoch);
 }

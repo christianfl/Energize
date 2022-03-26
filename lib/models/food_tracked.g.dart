@@ -9,16 +9,15 @@ part of 'food_tracked.dart';
 FoodTracked _$FoodTrackedFromJson(Map<String, dynamic> json) => FoodTracked(
       id: json['id'] as String,
       amount: (json['amount'] as num).toDouble(),
-      dateAdded: DateTime.parse(json['dateAdded'] as String),
-      dateEaten: DateTime.parse(json['dateEaten'] as String),
+      dateAdded:
+          FoodTracked._millisecondsSinceEpochToDate(json['dateAdded'] as int),
+      dateEaten:
+          FoodTracked._millisecondsSinceEpochToDate(json['dateEaten'] as int),
       title: json['title'] as String,
       origin: json['origin'] as String,
       ean: json['ean'] as String?,
       imageUrl: json['imageUrl'] as String?,
       imageThumbnailUrl: json['imageThumbnailUrl'] as String?,
-      servingSizes: (json['servingSizes'] as Map<String, dynamic>?)?.map(
-        (k, e) => MapEntry(k, (e as num).toDouble()),
-      ),
       calories: (json['calories'] as num?)?.toDouble(),
       protein: (json['protein'] as num?)?.toDouble(),
       carbs: (json['carbs'] as num?)?.toDouble(),
@@ -65,7 +64,7 @@ FoodTracked _$FoodTrackedFromJson(Map<String, dynamic> json) => FoodTracked(
       water: (json['water'] as num?)?.toDouble(),
       caffeine: (json['caffeine'] as num?)?.toDouble(),
       alcohol: (json['alcohol'] as num?)?.toDouble(),
-    )..selectedServingSizeIndex = json['selectedServingSizeIndex'] as int?;
+    );
 
 Map<String, dynamic> _$FoodTrackedToJson(FoodTracked instance) =>
     <String, dynamic>{
@@ -74,7 +73,6 @@ Map<String, dynamic> _$FoodTrackedToJson(FoodTracked instance) =>
       'ean': instance.ean,
       'imageUrl': instance.imageUrl,
       'imageThumbnailUrl': instance.imageThumbnailUrl,
-      'servingSizes': instance.servingSizes,
       'calories': instance.calories,
       'protein': instance.protein,
       'carbs': instance.carbs,
@@ -123,7 +121,8 @@ Map<String, dynamic> _$FoodTrackedToJson(FoodTracked instance) =>
       'alcohol': instance.alcohol,
       'id': instance.id,
       'amount': instance.amount,
-      'dateAdded': instance.dateAdded.toIso8601String(),
-      'dateEaten': instance.dateEaten.toIso8601String(),
-      'selectedServingSizeIndex': instance.selectedServingSizeIndex,
+      'dateAdded':
+          FoodTracked._dateToMillisecondsSinceEpoch(instance.dateAdded),
+      'dateEaten':
+          FoodTracked._dateToMillisecondsSinceEpoch(instance.dateEaten),
     };
