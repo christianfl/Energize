@@ -1,0 +1,5 @@
+* Beim Tracken von Produkten aus Open Food Facts werden führende und abschließende Leerzeichen gelöscht
+* Neue Übersetzung: Norwegian Bokmål (Danke!)
+* Mehr übersetzbare Strings hinzugefügt
+* Kleinere bugfixes und Code refactoring
+* Fastlane fixes

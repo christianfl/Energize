@@ -1,0 +1,5 @@
+* Make sure there are no leading or trailing whitespaces in title of Open Food Facts products
+* New translation: Norwegian Bokmål (thanks!)
+* Added more translatable strings
+* Minor bugfixes and refactoring
+* Fastlane fixes
