@@ -5,7 +5,7 @@ import 'package:openfoodfacts/model/parameter/SearchTerms.dart';
 import 'package:openfoodfacts/openfoodfacts.dart';
 import 'package:openfoodfacts/utils/OpenFoodAPIConfiguration.dart';
 
-import '../models/food.dart';
+import '../../models/food.dart';
 
 class ProductNotFoundException implements Exception {
   String ean;
@@ -17,16 +17,16 @@ class ProductNotFoundException implements Exception {
   }
 }
 
-class OpenFoodFactsApiService {
-  OpenFoodFactsApiService._privateConstructor() {
+class OpenFoodFactsBinding {
+  OpenFoodFactsBinding._privateConstructor() {
     OpenFoodAPIConfiguration.userAgent = UserAgent(
       name: 'Energize',
       version: '0.1.4',
       url: 'https://codeberg.org/epinez/Energize',
     );
   }
-  static final OpenFoodFactsApiService instance =
-      OpenFoodFactsApiService._privateConstructor();
+  static final OpenFoodFactsBinding instance =
+      OpenFoodFactsBinding._privateConstructor();
 
   static Future<Food> getFoodByEan(String barcode) async {
     ProductQueryConfiguration configuration = ProductQueryConfiguration(

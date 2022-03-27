@@ -15,7 +15,7 @@ import '../../widgets/food_list_item.dart';
 import '../models/food.dart';
 import '../models/food_tracked.dart';
 import '../pages/tab_tracking/track_food_modal.dart';
-import '../services/open_food_facts_api_service.dart';
+import '../services/food_database_bindings/open_food_facts_binding.dart';
 
 enum SheetModalMode { search, ean }
 
@@ -110,7 +110,7 @@ class _FoodInputState extends State<FoodInput>
         _scannedCode = scanData;
       });
       if (_scannedCode?.code != null) {
-        OpenFoodFactsApiService.getFoodByEan(_scannedCode!.code!).then((food) {
+        OpenFoodFactsBinding.getFoodByEan(_scannedCode!.code!).then((food) {
           flashStatus.then((isFlashOn) =>
               {if (isFlashOn != null && isFlashOn == true) _toggleFlash()});
 
@@ -219,7 +219,7 @@ class _FoodInputState extends State<FoodInput>
           _awaitingApiResponse = true;
         });
 
-        OpenFoodFactsApiService.searchFood(searchText).then((products) => {
+        OpenFoodFactsBinding.searchFood(searchText).then((products) => {
               setState(() {
                 if (products != null) searchResultFood += products;
                 _awaitingApiResponse = false;
