@@ -1,5 +1,3 @@
-Track your food and nutrition easily and fast.
-
 <ul>
 <li>Track your meals including macro- and micronutrients</li>
 <li>Use several databases (currently Open Food Facts and Swiss Nutrition Database) or create custom meals</li>

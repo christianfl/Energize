@@ -1,5 +1,3 @@
-Tracke deine Nahrung einfach und schnell.
-
 <ul>
 <li>Tracke deine Nahrung inkl. Makro- und Mikronährstoffe</li>
 <li>Benutze mehrere Datenbanken (Bisher Schweizer Nährwertdatenbank und Open Food Facts) oder erstelle benutzerdefinierte Nahrung</li>
