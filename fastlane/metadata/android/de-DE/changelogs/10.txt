@@ -1,0 +1,3 @@
+* "Zurück" in allen Tabs außer dem Tracking-Tab navigiert zu ebendiesem statt die App zu schließen
+* Neue Übersetzung: Türkisch (Danke!)
+* Null-Werte werden beim Backup ignoriert, sodass viel Speicherplatz gespart wird

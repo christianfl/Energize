@@ -1,0 +1,3 @@
+* Pressing back on all tabs but the tracking tab navigates to main tab instead of closing app
+* New translation: Turkish (thanks!)
+* Do not export null values into backup, saving a lot of file space
