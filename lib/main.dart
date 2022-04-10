@@ -39,6 +39,7 @@ class MyApp extends StatelessWidget {
           Locale('en'), // English, no country code
           Locale('de'), // German, no country code
           Locale('nb', 'NO'), // Norwegian Bokmål
+          Locale('tr'), // Turkish, no country code
         ],
         theme: ThemeData(
           brightness: Brightness.light,
