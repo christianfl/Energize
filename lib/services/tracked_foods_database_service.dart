@@ -39,8 +39,6 @@ class TrackedFoodDatabaseService with DatabaseService {
   static Future<void> insert(FoodTracked food) async {
     final db = await instance.database;
 
-    print(food.toJson());
-
     await db.insert(
       DatabaseService.trackedFoodsTable,
       food.toJson(),
@@ -50,8 +48,6 @@ class TrackedFoodDatabaseService with DatabaseService {
 
   static Future<void> update(FoodTracked food) async {
     final db = await instance.database;
-
-    print(food.toJson());
 
     await db.update(
       DatabaseService.trackedFoodsTable,

@@ -5,7 +5,9 @@ import 'food.dart';
 
 part 'food_tracked.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(
+  includeIfNull: false,
+)
 class FoodTracked extends Food {
   final String id;
 

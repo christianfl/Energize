@@ -10,7 +10,6 @@ part 'backup_data.g.dart';
 )
 class BackupData {
   final List<Food>? customFood;
-
   final List<FoodTracked>? trackedFood;
 
   BackupData({

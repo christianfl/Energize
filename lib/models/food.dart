@@ -8,7 +8,9 @@ import 'SNDB.dart';
 
 part 'food.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(
+  includeIfNull: false,
+)
 class Food {
   // Gets generated during runtime out of SNDB.dart (CSV)
   static List<Food> _sndb = [];
