@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import 'about_sub_page.dart';
 import 'backup_and_restore_sub_page.dart';
@@ -9,6 +10,8 @@ import 'micro_targets_sub_page.dart';
 import 'personalization_sub_page.dart';
 
 class SettingsPage extends StatelessWidget {
+  static const _donationUrl = 'https://liberapay.com/epinez';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -94,6 +97,35 @@ class SettingsPage extends StatelessWidget {
             child: ListTile(
               leading: Icon(Icons.info),
               title: Text(AppLocalizations.of(context)!.aboutEnergize),
+            ),
+          ),
+          InkWell(
+            onTap: () async {
+              if (await canLaunch(_donationUrl)) {
+                await launch(_donationUrl);
+              } else {
+                throw 'Could not launch url';
+              }
+            },
+            child: ListTile(
+              tileColor: Color(0xFFF6C915),
+              textColor: Colors.black,
+              leading: Image.asset(
+                'assets/liberapay_logo_black.png',
+                width: 28,
+              ),
+              title: Text(
+                AppLocalizations.of(context)!.supportMeByDonating,
+                style: Theme.of(context).textTheme.subtitle1?.copyWith(
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
+                    ),
+              ),
+              subtitle: Text('liberapay.com'),
+              trailing: Icon(
+                Icons.link,
+                color: Colors.black,
+              ),
             ),
           ),
         ],
