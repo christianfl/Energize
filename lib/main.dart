@@ -4,6 +4,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
 
 import 'pages/tab_food/add_edit_custom_food_modal.dart';
+import 'pages/tab_settings/about_sub_page.dart';
 import 'pages/tab_settings/backup_and_restore_sub_page.dart';
 import 'pages/tab_settings/database_management_sub_page.dart';
 import 'pages/tab_settings/macro_targets_sub_page.dart';
@@ -63,6 +64,7 @@ class MyApp extends StatelessWidget {
           DatabaseManagementSubPage.routeName: (ctx) =>
               DatabaseManagementSubPage(),
           BackupAndRestoreSubPage.routeName: (ctx) => BackupAndRestoreSubPage(),
+          AboutSubPage.routeName: (ctx) => AboutSubPage(),
         },
       ),
     );

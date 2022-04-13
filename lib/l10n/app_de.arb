@@ -46,5 +46,8 @@
     "backupAndRestoreHint": "Sichere deine Daten auf einem WebDAV-kompatiblen Server, wie z.B. Nextcloud",
     "aboutEnergize": "Über Energize",
     "reportIssue": "Fehler melden",
-    "sourceCode": "Quellcode"
+    "sourceCode": "Quellcode",
+    "translation": "Übersetzung",
+    "contact": "Kontakt",
+    "email": "E-Mail"
 }

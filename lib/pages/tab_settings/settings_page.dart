@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:url_launcher/url_launcher.dart';
 
+import 'about_sub_page.dart';
 import 'backup_and_restore_sub_page.dart';
 import 'database_management_sub_page.dart';
 import 'macro_targets_sub_page.dart';
@@ -9,52 +9,6 @@ import 'micro_targets_sub_page.dart';
 import 'personalization_sub_page.dart';
 
 class SettingsPage extends StatelessWidget {
-  static const _repoUrl = 'https://codeberg.org/epinez/Energize';
-  static const _issueUrl = 'https://codeberg.org/epinez/Energize/issues';
-
-  void _showAbout(BuildContext context) {
-    showAboutDialog(
-      context: context,
-      applicationVersion: '0.1.5',
-      applicationLegalese: '© 2022 Christian Flaßkamp\nGPLv3 license',
-      applicationIcon: Image.asset('assets/about_logo.png', width: 75),
-      children: [
-        SizedBox(
-          height: 20,
-        ),
-        Text(AppLocalizations.of(context)!.appDescription),
-        InkWell(
-          onTap: () async {
-            if (await canLaunch(_issueUrl)) {
-              await launch(_issueUrl);
-            } else {
-              throw 'Could not launch url';
-            }
-          },
-          child: ListTile(
-            contentPadding: EdgeInsets.all(8.0),
-            title: Text(AppLocalizations.of(context)!.reportIssue),
-            trailing: Icon(Icons.link),
-          ),
-        ),
-        InkWell(
-          onTap: () async {
-            if (await canLaunch(_repoUrl)) {
-              await launch(_repoUrl);
-            } else {
-              throw 'Could not launch url';
-            }
-          },
-          child: ListTile(
-            contentPadding: EdgeInsets.all(8.0),
-            title: Text(AppLocalizations.of(context)!.sourceCode),
-            trailing: Icon(Icons.link),
-          ),
-        ),
-      ],
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -132,7 +86,11 @@ class SettingsPage extends StatelessWidget {
           ),
           Divider(),
           InkWell(
-            onTap: () => _showAbout(context),
+            onTap: () {
+              Navigator.of(context).pushNamed(
+                AboutSubPage.routeName,
+              );
+            },
             child: ListTile(
               leading: Icon(Icons.info),
               title: Text(AppLocalizations.of(context)!.aboutEnergize),
