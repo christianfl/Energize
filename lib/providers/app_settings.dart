@@ -172,10 +172,12 @@ class AppSettings with ChangeNotifier {
     _weight = _preferences!.getInt('weight') ?? _weight;
     _height = _preferences!.getInt('height') ?? _height;
     _activityLevel = _preferences!.getDouble('activityLevel') ?? _activityLevel;
-    _weightTarget = _preferences!.getString('weightTarget') != null
-        ? WeightTarget.values.firstWhere((target) =>
-            target.toString() == _preferences!.getString('weightTarget'))
-        : _weightTarget;
+    _weightTarget = WeightTarget.values.firstWhere(
+      (target) {
+        return target.toString() == _preferences!.getString('weightTarget');
+      },
+      orElse: () => _weightTarget,
+    );
     _proteinRatio = _preferences!.getDouble('proteinRatio') ?? _proteinRatio;
     _carbsRatio = _preferences!.getDouble('carbsRatio') ?? _carbsRatio;
     _fatRatio = _preferences!.getDouble('fatRatio') ?? _fatRatio;
