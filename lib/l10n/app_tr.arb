@@ -76,5 +76,13 @@
   "micronutrientsTargets": "Mikro besin hedefleri",
   "@micronutrientsTargets": {},
   "databaseManagement": "Veri tabanı yönetimi",
-  "@databaseManagement": {}
+  "@databaseManagement": {},
+  "translation": "Çeviri",
+  "@translation": {},
+  "contact": "İletişim",
+  "@contact": {},
+  "email": "E-Posta",
+  "@email": {},
+  "supportMeByDonating": "Bağış yaparak beni destekleyin",
+  "@supportMeByDonating": {}
 }
