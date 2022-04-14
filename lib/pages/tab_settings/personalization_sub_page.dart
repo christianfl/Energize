@@ -1,4 +1,6 @@
+import 'package:energize/models/person/enums/weight_target.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:provider/provider.dart';
 
@@ -260,21 +262,10 @@ class _PersonalizationSubPageState extends State<PersonalizationSubPage> {
         (5 * appSettings.age) +
         sexFactor);
 
+    // Power conversion
     final pc = bmr * appSettings.activityLevel;
 
-    var weightTargetFactor = 1.0;
-
-    switch (appSettings.weightTarget) {
-      case 'Slight loss':
-        weightTargetFactor = 0.9;
-        break;
-      case 'Maintaining':
-        break;
-      case 'Slight gain':
-        weightTargetFactor = 1.1;
-        break;
-    }
-
+    final weightTargetFactor = appSettings.weightTarget.toValue();
     final targetCalories = pc * weightTargetFactor;
 
     return double.parse((targetCalories).toStringAsFixed(1));
@@ -375,13 +366,32 @@ class _PersonalizationSubPageState extends State<PersonalizationSubPage> {
     return Text(description);
   }
 
+  String _getWeightTargetRelativePercent(WeightTarget weightTarget) {
+    if (weightTarget == WeightTarget.maintaining) {
+      return '';
+    }
+
+    String absolutePercent = (weightTarget.toValue() * 100).toStringAsFixed(0);
+    int absolutePercentInt = int.parse(absolutePercent);
+    int relativePercentInt = absolutePercentInt - 100;
+
+    String relativePercent = '$relativePercentInt %';
+
+    // If value is positive
+    if (relativePercentInt.sign == 1) {
+      relativePercent = '+$relativePercent';
+    }
+
+    return '($relativePercent)';
+  }
+
   @override
   Widget build(BuildContext context) {
     final appSettings = Provider.of<AppSettings>(context);
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Personalization'),
+        title: Text(AppLocalizations.of(context)!.personalization),
         actions: [
           IconButton(
               icon: Icon(Icons.info),
@@ -492,23 +502,25 @@ class _PersonalizationSubPageState extends State<PersonalizationSubPage> {
           ),
           ListTile(
             leading: const Icon(Icons.adjust),
-            title: DropdownButtonFormField<String>(
+            title: DropdownButtonFormField<WeightTarget>(
               value: appSettings.weightTarget,
               isExpanded: true,
-              onChanged: (String? newValue) {
+              onChanged: (WeightTarget? newValue) {
                 appSettings.weightTarget = newValue!;
               },
               decoration: InputDecoration(
                 labelText: 'Weight target',
               ),
-              items: <String>[
-                'Slight loss',
-                'Maintaining',
-                'Slight gain',
-              ].map<DropdownMenuItem<String>>((String value) {
-                return DropdownMenuItem<String>(
-                  value: value,
-                  child: Text(value),
+              items: WeightTarget.values.map((WeightTarget weightTarget) {
+                return DropdownMenuItem<WeightTarget>(
+                  value: weightTarget,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(weightTarget.toLocalizedString(context)),
+                      Text('${_getWeightTargetRelativePercent(weightTarget)}'),
+                    ],
+                  ),
                 );
               }).toList(),
             ),

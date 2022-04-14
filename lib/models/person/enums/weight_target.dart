@@ -1,3 +1,5 @@
+import 'package:flutter/cupertino.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 @JsonEnum(fieldRename: FieldRename.snake)
@@ -12,22 +14,43 @@ enum WeightTarget {
 }
 
 extension ParseToString on WeightTarget {
-  String toLocalizedString() {
+  String toLocalizedString(BuildContext context) {
     switch (this) {
       case WeightTarget.strongLoss:
-        return 'Strong loss';
+        return AppLocalizations.of(context)!.weightTargetStrongLoss;
       case WeightTarget.moderateLoss:
-        return 'Moderate loss';
+        return AppLocalizations.of(context)!.weightTargetModerateLoss;
       case WeightTarget.slightLoss:
-        return 'Slight loss';
+        return AppLocalizations.of(context)!.weightTargetSlightLoss;
       case WeightTarget.maintaining:
-        return 'Maintaining';
+        return AppLocalizations.of(context)!.weightTargetMaintaining;
       case WeightTarget.slightGain:
-        return 'Slight gain';
+        return AppLocalizations.of(context)!.weightTargetSlightGain;
       case WeightTarget.moderateGain:
-        return 'Moderate gain';
+        return AppLocalizations.of(context)!.weightTargetModerateGain;
       case WeightTarget.strongGain:
-        return 'Strong gain';
+        return AppLocalizations.of(context)!.weightTargetStrongGain;
+    }
+  }
+}
+
+extension mapDoubleValues on WeightTarget {
+  double toValue() {
+    switch (this) {
+      case WeightTarget.strongLoss:
+        return 0.8;
+      case WeightTarget.moderateLoss:
+        return 0.85;
+      case WeightTarget.slightLoss:
+        return 0.9;
+      case WeightTarget.maintaining:
+        return 1;
+      case WeightTarget.slightGain:
+        return 1.1;
+      case WeightTarget.moderateGain:
+        return 1.15;
+      case WeightTarget.strongGain:
+        return 1.2;
     }
   }
 }

@@ -1,3 +1,4 @@
+import 'package:energize/models/person/enums/weight_target.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -17,7 +18,7 @@ class AppSettings with ChangeNotifier {
   /// Could be anything but about between 1 and 2
   double _activityLevel = 1.4;
 
-  String _weightTarget = 'Maintaining';
+  WeightTarget _weightTarget = WeightTarget.maintaining;
 
   /// in %
   double _proteinRatio = 20;
@@ -93,7 +94,7 @@ class AppSettings with ChangeNotifier {
   int get weight => _weight;
   int get height => _height;
   double get activityLevel => _activityLevel;
-  String get weightTarget => _weightTarget;
+  WeightTarget get weightTarget => _weightTarget;
   double get proteinRatio => _proteinRatio;
   double get carbsRatio => _carbsRatio;
   double get fatRatio => _fatRatio;
@@ -171,7 +172,10 @@ class AppSettings with ChangeNotifier {
     _weight = _preferences!.getInt('weight') ?? _weight;
     _height = _preferences!.getInt('height') ?? _height;
     _activityLevel = _preferences!.getDouble('activityLevel') ?? _activityLevel;
-    _weightTarget = _preferences!.getString('weightTarget') ?? _weightTarget;
+    _weightTarget = _preferences!.getString('weightTarget') != null
+        ? WeightTarget.values.firstWhere((target) =>
+            target.toString() == _preferences!.getString('weightTarget'))
+        : _weightTarget;
     _proteinRatio = _preferences!.getDouble('proteinRatio') ?? _proteinRatio;
     _carbsRatio = _preferences!.getDouble('carbsRatio') ?? _carbsRatio;
     _fatRatio = _preferences!.getDouble('fatRatio') ?? _fatRatio;
@@ -647,10 +651,10 @@ class AppSettings with ChangeNotifier {
     _saveToPreferences('activityLevel', value);
   }
 
-  set weightTarget(String value) {
+  set weightTarget(WeightTarget value) {
     _weightTarget = value;
     notifyListeners();
-    _saveToPreferences('weightTarget', value);
+    _saveToPreferences('weightTarget', value.toString());
   }
 
   set proteinRatio(double value) {
