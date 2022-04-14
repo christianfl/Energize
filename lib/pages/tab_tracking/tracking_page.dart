@@ -5,6 +5,8 @@ import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
+import 'package:table_calendar/table_calendar.dart';
+
 import './detailed_summary_sub_page.dart';
 import '../../providers/tracked_food_provider.dart';
 import '../../services/complete_days_database_service.dart';
@@ -24,6 +26,7 @@ class _TrackingPageState extends State<TrackingPage> {
   final _scrollController = ScrollController();
   ScrollDirection? _lastScrollDirection;
   bool _isFabExplicitelyVisible = false;
+  double _datePickerHighlightRadius = 16;
 
   void initState() {
     _scrollController.addListener(() {
@@ -62,23 +65,122 @@ class _TrackingPageState extends State<TrackingPage> {
     );
   }
 
-  void _pickDateDialog(BuildContext ctx) {
-    showDatePicker(
-      context: context,
-      initialDate: _selectedDate,
-      firstDate: DateTime(2000),
-      lastDate: DateTime.now().add(Duration(days: 365)),
-    ).then((pickedDate) {
-      if (pickedDate == null) {
-        return;
-      }
+  Future<void> _pickDateDialog(BuildContext ctx) async {
+    final List<DateTime> completedDays =
+        await CompleteDaysDatabaseService.getCompletedDays();
 
-      _selectDate(pickedDate);
-    });
+    return showDialog<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(
+            MaterialLocalizations.of(context).datePickerHelpText.toUpperCase(),
+            style: Theme.of(context).textTheme.overline,
+          ),
+          content: SingleChildScrollView(
+            child: SizedBox(
+              width: MediaQuery.of(context).size.width,
+              child: TableCalendar(
+                locale: Localizations.localeOf(context).toString(),
+                availableCalendarFormats: {CalendarFormat.month: ''},
+                weekendDays: [],
+                headerStyle: HeaderStyle(
+                  titleCentered: true,
+                ),
+                daysOfWeekStyle: DaysOfWeekStyle(
+                  weekdayStyle: const TextStyle(color: Colors.blueGrey),
+                ),
+                daysOfWeekHeight: 32.0,
+                startingDayOfWeek: StartingDayOfWeek.monday,
+                firstDay: DateTime(2000),
+                lastDay: DateTime.now().add(Duration(days: 365)),
+                focusedDay: _selectedDate,
+                onDaySelected: (selectedDay, focusedDay) {
+                  _selectDate(selectedDay);
+                  Navigator.of(context).pop();
+                },
+                // Mark current selected date
+                selectedDayPredicate: (day) => isSameDay(_selectedDate, day),
+                // Holidays == Days which are marked as done
+                holidayPredicate: (day) {
+                  return completedDays
+                      .any((completedDay) => isSameDay(completedDay, day));
+                },
+                calendarBuilders: CalendarBuilders(
+                  todayBuilder: (context, day, focusedDay) {
+                    return Center(
+                      child: CircleAvatar(
+                        radius: _datePickerHighlightRadius,
+                        backgroundColor: Colors.blue,
+                        child: CircleAvatar(
+                          radius: _datePickerHighlightRadius - 1,
+                          backgroundColor:
+                              Theme.of(context).dialogBackgroundColor,
+                          child: Text(
+                            '${day.day}',
+                            style: TextStyle(color: Colors.white),
+                          ),
+                        ),
+                      ),
+                    );
+                  },
+                  selectedBuilder: (context, day, focusedDay) {
+                    return Center(
+                      child: CircleAvatar(
+                        radius: _datePickerHighlightRadius,
+                        backgroundColor: Colors.blue,
+                        child: Text(
+                          '${day.day}',
+                          style: TextStyle(color: Colors.white),
+                        ),
+                      ),
+                    );
+                  },
+                  holidayBuilder: (context, day, focusedDay) {
+                    return Center(
+                      child: Stack(
+                        alignment: Alignment.bottomRight,
+                        children: [
+                          CircleAvatar(
+                            radius: _datePickerHighlightRadius,
+                            backgroundColor: Colors.green,
+                            child: Text(
+                              '${day.day}',
+                              style: TextStyle(color: Colors.white),
+                            ),
+                          ),
+                          Icon(
+                            Icons.check,
+                            size: 16,
+                          ),
+                        ],
+                      ),
+                    );
+                  },
+                ),
+              ),
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: Text(
+                MaterialLocalizations.of(context)
+                    .cancelButtonLabel
+                    .toUpperCase(),
+              ),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 
   void _selectDate(DateTime date) {
     final provider = Provider.of<TrackedFoodProvider>(context, listen: false);
+
     setState(() {
       _selectedDate = date;
       provider.selectDate(_selectedDate);

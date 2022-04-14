@@ -48,4 +48,29 @@ class CompleteDaysDatabaseService with DatabaseService {
       whereArgs: [day],
     );
   }
+
+  static Future<List<DateTime>> getCompletedDays() async {
+    final db = await instance.database;
+
+    final List<Map<String, dynamic>> completeDays = await db.query(
+      DatabaseService.completeDaysTable,
+    );
+
+    final List<DateTime> allCompletedDays = [];
+
+    completeDays.forEach((dateEntry) {
+      final String date = dateEntry['date'];
+      final splittedDate = date.split('-');
+
+      try {
+        final int year = int.parse(splittedDate[0]);
+        final int month = int.parse(splittedDate[1]);
+        final int day = int.parse(splittedDate[2]);
+
+        allCompletedDays.add(DateTime(year, month, day));
+      } catch (e) {}
+    });
+
+    return allCompletedDays;
+  }
 }
