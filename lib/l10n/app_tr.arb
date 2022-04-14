@@ -84,5 +84,19 @@
   "email": "E-Posta",
   "@email": {},
   "supportMeByDonating": "Bağış yaparak beni destekleyin",
-  "@supportMeByDonating": {}
+  "@supportMeByDonating": {},
+  "weightTargetMaintaining": "Koru",
+  "@weightTargetMaintaining": {},
+  "weightTargetSlightLoss": "Az ver",
+  "@weightTargetSlightLoss": {},
+  "weightTargetSlightGain": "Az al",
+  "@weightTargetSlightGain": {},
+  "weightTargetStrongGain": "Çok al",
+  "@weightTargetStrongGain": {},
+  "weightTargetStrongLoss": "Çok ver",
+  "@weightTargetStrongLoss": {},
+  "weightTargetModerateLoss": "Normal ver",
+  "@weightTargetModerateLoss": {},
+  "weightTargetModerateGain": "Normal al",
+  "@weightTargetModerateGain": {}
 }
