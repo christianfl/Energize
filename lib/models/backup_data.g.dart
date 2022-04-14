@@ -13,10 +13,15 @@ BackupData _$BackupDataFromJson(Map<String, dynamic> json) => BackupData(
       trackedFood: (json['trackedFood'] as List<dynamic>?)
           ?.map((e) => FoodTracked.fromJson(e as Map<String, dynamic>))
           .toList(),
+      completedDays: (json['completedDays'] as List<dynamic>?)
+          ?.map((e) => DateTime.parse(e as String))
+          .toList(),
     );
 
 Map<String, dynamic> _$BackupDataToJson(BackupData instance) =>
     <String, dynamic>{
       'customFood': instance.customFood?.map((e) => e.toJson()).toList(),
       'trackedFood': instance.trackedFood?.map((e) => e.toJson()).toList(),
+      'completedDays':
+          instance.completedDays?.map((e) => e.toIso8601String()).toList(),
     };

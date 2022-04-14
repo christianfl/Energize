@@ -4,7 +4,6 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
-
 import 'package:table_calendar/table_calendar.dart';
 
 import './detailed_summary_sub_page.dart';
@@ -67,7 +66,7 @@ class _TrackingPageState extends State<TrackingPage> {
 
   Future<void> _pickDateDialog(BuildContext ctx) async {
     final List<DateTime> completedDays =
-        await CompleteDaysDatabaseService.getCompletedDays();
+        await CompleteDaysDatabaseService.completedDays;
 
     return showDialog<void>(
       context: context,

@@ -49,7 +49,7 @@ class CompleteDaysDatabaseService with DatabaseService {
     );
   }
 
-  static Future<List<DateTime>> getCompletedDays() async {
+  static Future<List<DateTime>> get completedDays async {
     final db = await instance.database;
 
     final List<Map<String, dynamic>> completeDays = await db.query(

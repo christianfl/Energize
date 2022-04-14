@@ -11,10 +11,12 @@ part 'backup_data.g.dart';
 class BackupData {
   final List<Food>? customFood;
   final List<FoodTracked>? trackedFood;
+  final List<DateTime>? completedDays;
 
   BackupData({
     this.customFood,
     this.trackedFood,
+    this.completedDays,
   });
 
   /// Connect the generated fromJson function to the `fromJson` factory.

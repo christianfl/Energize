@@ -13,6 +13,7 @@ import '../../models/backup_data.dart';
 import '../../providers/app_settings.dart';
 import '../../providers/custom_food_provider.dart';
 import '../../providers/tracked_food_provider.dart';
+import '../../services/complete_days_database_service.dart';
 import '../../services/custom_foods_database_service.dart';
 import '../../services/tracked_foods_database_service.dart';
 import '../../widgets/info_card.dart';
@@ -122,6 +123,7 @@ class _BackupAndRestoreSubPageState extends State<BackupAndRestoreSubPage> {
       final backupData = BackupData(
         customFood: await CustomFoodDatabaseService.customFoods,
         trackedFood: await TrackedFoodDatabaseService.trackedFoods,
+        completedDays: await CompleteDaysDatabaseService.completedDays,
       );
 
       final encodedBackupData = json.encode(backupData.toJson());
@@ -193,6 +195,13 @@ class _BackupAndRestoreSubPageState extends State<BackupAndRestoreSubPage> {
                   for (var trackedFood in backupData.trackedFood!)
                     {
                       trackedFoodProvider.addEatenFood(trackedFood),
+                    },
+                },
+              if (backupData.completedDays != null)
+                {
+                  for (var completedDay in backupData.completedDays!)
+                    {
+                      CompleteDaysDatabaseService.insert(completedDay),
                     },
                 },
               ScaffoldMessenger.of(context).showSnackBar(
@@ -481,7 +490,7 @@ class _BackupAndRestoreSubPageState extends State<BackupAndRestoreSubPage> {
             children: [
               InfoCard(
                 message:
-                    'Warning: Currently in alpha. You can only backup and restore tracked and custom food at the moment.',
+                    'Warning: Currently in alpha. You can backup and restore tracked and custom food and completed days at the moment. Settings, personalizations, targets, etc. are still missing.',
                 icon: const Icon(Icons.warning),
                 color: Colors.red,
               ),
