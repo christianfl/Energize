@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../models/food.dart';
 import '../../services/custom_foods_database_service.dart';
+import '../models/food/food.dart';
 
 class CustomFoodProvider with ChangeNotifier {
   List<Food> _foods = [];

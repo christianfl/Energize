@@ -5,7 +5,7 @@ import 'package:openfoodfacts/model/parameter/SearchTerms.dart';
 import 'package:openfoodfacts/openfoodfacts.dart';
 import 'package:openfoodfacts/utils/OpenFoodAPIConfiguration.dart';
 
-import '../../models/food.dart';
+import '../../models/food/food.dart';
 
 class ProductNotFoundException implements Exception {
   String ean;

@@ -254,6 +254,7 @@ class _PersonalizationSubPageState extends State<PersonalizationSubPage> {
     var sexFactor = -161;
     if (appSettings.sex == 'Male') sexFactor = 5;
 
+    // Basal metabolic rate
     final bmr = ((10 * appSettings.weight) +
         (6.25 * appSettings.height) -
         (5 * appSettings.age) +
@@ -421,7 +422,7 @@ class _PersonalizationSubPageState extends State<PersonalizationSubPage> {
               decoration: InputDecoration(
                 labelText: 'Sex',
               ),
-              items: <String>['Male', 'Female']
+              items: <String>['Female', 'Male']
                   .map<DropdownMenuItem<String>>((String value) {
                 return DropdownMenuItem<String>(
                   value: value,
@@ -456,7 +457,7 @@ class _PersonalizationSubPageState extends State<PersonalizationSubPage> {
               ),
             ),
           ),
-          Divider(),
+          const SizedBox(height: 24),
           Padding(
             padding: const EdgeInsets.only(bottom: 12.0),
             child: Text(

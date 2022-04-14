@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../pages/tab_tracking/track_food_modal.dart';
 import '../../providers/tracked_food_provider.dart';
-import '../models/food_tracked.dart';
+import '../models/food/food_tracked.dart';
+import '../pages/tab_tracking/track_food_modal.dart';
 
 class TrackedFoodList extends StatelessWidget {
   final ScrollController _scrollController;

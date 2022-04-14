@@ -1,7 +1,7 @@
 import 'package:json_annotation/json_annotation.dart';
 
-import 'food.dart';
-import 'food_tracked.dart';
+import 'food/food.dart';
+import 'food/food_tracked.dart';
 
 part 'backup_data.g.dart';
 

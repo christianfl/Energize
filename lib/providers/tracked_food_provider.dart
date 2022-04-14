@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../models/food_tracked.dart';
+import '../models/food/food_tracked.dart';
 import '../../services/tracked_foods_database_service.dart';
 
 /// Gets food only from the selected date

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import './chart_bar.dart';
-import '../models/food_tracked.dart';
+import '../models/food/food_tracked.dart';
 import '../providers/app_settings.dart';
 
 class MicroChart extends StatelessWidget {

@@ -12,8 +12,8 @@ import '../../providers/custom_food_provider.dart';
 import '../../providers/tracked_food_provider.dart';
 import '../../services/tracked_foods_database_service.dart';
 import '../../widgets/food_list_item.dart';
-import '../models/food.dart';
-import '../models/food_tracked.dart';
+import '../models/food/food.dart';
+import '../models/food/food_tracked.dart';
 import '../pages/tab_tracking/track_food_modal.dart';
 import '../services/food_database_bindings/open_food_facts_binding.dart';
 

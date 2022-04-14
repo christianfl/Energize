@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../models/food.dart';
+import '../models/food/food.dart';
 
 class FoodOriginLogoPill extends StatelessWidget {
   final String foodOrigin;

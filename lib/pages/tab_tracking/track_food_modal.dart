@@ -3,8 +3,8 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../../models/food.dart';
-import '../../models/food_tracked.dart';
+import '../../models/food/food.dart';
+import '../../models/food/food_tracked.dart';
 import '../../pages/tab_food/add_edit_custom_food_modal.dart';
 import '../../providers/tracked_food_provider.dart';
 import '../../widgets/food_micro_count_pill.dart';
