@@ -94,11 +94,11 @@ class _FoodPageState extends State<FoodPage> {
           AppLocalizations.of(context)!.customFood,
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-          children: [
-            Card(
+      body: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.fromLTRB(8.0, 8.0, 8.0, 0.0),
+            child: Card(
               child: Padding(
                 padding: const EdgeInsets.all(5.0),
                 child: TextField(
@@ -120,60 +120,61 @@ class _FoodPageState extends State<FoodPage> {
                 ),
               ),
             ),
-            Expanded(
-              child: (_searchResultFoods.length != 0)
-                  ? ListView.builder(
-                      controller: _scrollController,
-                      itemBuilder: (ctx, index) {
-                        final food = _searchResultFoods[index];
-                        return Dismissible(
-                          key: Key(food.id),
-                          background: Container(
-                            color: Colors.red,
-                            child: Icon(
-                              Icons.delete,
-                            ),
+          ),
+          Expanded(
+            child: (_searchResultFoods.length != 0)
+                ? ListView.builder(
+                    controller: _scrollController,
+                    padding: const EdgeInsets.all(8.0),
+                    itemBuilder: (ctx, index) {
+                      final food = _searchResultFoods[index];
+                      return Dismissible(
+                        key: Key(food.id),
+                        background: Container(
+                          color: Colors.red,
+                          child: Icon(
+                            Icons.delete,
                           ),
-                          onDismissed: (direction) {
-                            final swipedFood = food;
-                            customFoodProvider.removeFood(food.id);
-                            _setIsFabExplicitelyVisible(true);
+                        ),
+                        onDismissed: (direction) {
+                          final swipedFood = food;
+                          customFoodProvider.removeFood(food.id);
+                          _setIsFabExplicitelyVisible(true);
 
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(
-                                content: Text('${food.title} deleted!'),
-                                action: SnackBarAction(
-                                  label: "Undo",
-                                  textColor: Colors.yellow,
-                                  onPressed: () {
-                                    customFoodProvider.addFood(swipedFood);
-                                  },
-                                ),
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text('${food.title} deleted!'),
+                              action: SnackBarAction(
+                                label: "Undo",
+                                textColor: Colors.yellow,
+                                onPressed: () {
+                                  customFoodProvider.addFood(swipedFood);
+                                },
                               ),
-                            );
-                          },
-                          child: FoodListItem(
-                            food,
-                            onTapCallback: _navigateToEditCustomFood,
-                            height: widget._entryHeight,
-                            pillHeight: widget._entryPillHeight,
-                            hideOrigin: true,
-                          ),
-                        );
-                      },
-                      itemCount: _searchResultFoods.length,
-                    )
-                  : Center(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Icon(Icons.no_food, size: 100),
-                        ],
-                      ),
+                            ),
+                          );
+                        },
+                        child: FoodListItem(
+                          food,
+                          onTapCallback: _navigateToEditCustomFood,
+                          height: widget._entryHeight,
+                          pillHeight: widget._entryPillHeight,
+                          hideOrigin: true,
+                        ),
+                      );
+                    },
+                    itemCount: _searchResultFoods.length,
+                  )
+                : Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Icon(Icons.no_food, size: 100),
+                      ],
                     ),
-            ),
-          ],
-        ),
+                  ),
+          ),
+        ],
       ),
       floatingActionButton: SpeedDial(
         // _isFabExplicitelyVisible is there because otherwise the fab could

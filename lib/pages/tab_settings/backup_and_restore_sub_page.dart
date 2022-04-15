@@ -483,39 +483,41 @@ class _BackupAndRestoreSubPageState extends State<BackupAndRestoreSubPage> {
           ),
         ],
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(12.0),
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              InfoCard(
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.fromLTRB(12.0, 12.0, 12.0, 0.0),
+              child: InfoCard(
                 message:
                     'Warning: Currently in alpha. You can backup and restore tracked and custom food and completed days at the moment. Settings, personalizations, targets, etc. are still missing.',
                 icon: const Icon(Icons.warning),
                 color: Colors.red,
               ),
-              GridView.count(
-                shrinkWrap: true,
-                crossAxisCount: 2,
-                children: [
-                  SelectActionCard(
-                    icon: Icons.cloud_upload,
-                    title: 'Create encrypted backup',
-                    onTap: () {
-                      _backup();
-                    },
-                  ),
-                  SelectActionCard(
-                    icon: Icons.cloud_download,
-                    title: 'Restore encrypted backup',
-                    onTap: () {
-                      _restore();
-                    },
-                  ),
-                ],
-              ),
-            ],
-          ),
+            ),
+            GridView.count(
+              padding: const EdgeInsets.all(12.0),
+              shrinkWrap: true,
+              crossAxisCount: 2,
+              crossAxisSpacing: 4.0,
+              children: [
+                SelectActionCard(
+                  icon: Icons.cloud_upload,
+                  title: 'Create encrypted backup',
+                  onTap: () {
+                    _backup();
+                  },
+                ),
+                SelectActionCard(
+                  icon: Icons.cloud_download,
+                  title: 'Restore encrypted backup',
+                  onTap: () {
+                    _restore();
+                  },
+                ),
+              ],
+            ),
+          ],
         ),
       ),
     );
