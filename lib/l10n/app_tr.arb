@@ -98,5 +98,9 @@
   "weightTargetModerateLoss": "Normal ver",
   "@weightTargetModerateLoss": {},
   "weightTargetModerateGain": "Normal al",
-  "@weightTargetModerateGain": {}
+  "@weightTargetModerateGain": {},
+  "license": "lisans",
+  "@license": {},
+  "allLicenses": "Tüm lisanslar",
+  "@allLicenses": {}
 }
