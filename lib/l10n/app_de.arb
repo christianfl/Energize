@@ -52,6 +52,8 @@
     "backupAndRestore": "Sichern & Wiederherstellen",
     "backupAndRestoreHint": "Sichere deine Daten auf einem WebDAV-kompatiblen Server, wie z.B. Nextcloud",
     "aboutEnergize": "Über Energize",
+    "license": "Lizenz",
+    "allLicenses": "Alle Lizenzen",
     "reportIssue": "Fehler melden",
     "sourceCode": "Quellcode",
     "translation": "Übersetzung",

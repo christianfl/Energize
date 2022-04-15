@@ -402,7 +402,8 @@ class _AddEditCustomFoodModalState extends State<AddEditCustomFoodModal> {
                       headerBuilder: (context, isExpanded) {
                         return ListTile(
                           title: Text('Energy and macronutrients'),
-                          subtitle: Text('Calories, Protein, Carbs, Fat'),
+                          subtitle: Text(
+                              'Calories, ${AppLocalizations.of(context)!.protein}, ${AppLocalizations.of(context)!.carbs}, ${AppLocalizations.of(context)!.fat}'),
                         );
                       },
                       body: Column(

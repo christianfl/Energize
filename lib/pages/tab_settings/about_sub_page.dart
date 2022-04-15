@@ -12,7 +12,7 @@ class AboutSubPage extends StatelessWidget {
   static const _email = 'energize@flasskamp.com';
   static const _appVersion = '0.1.5';
   static const _copyrightNotice = '© 2022 Christian Flaßkamp';
-  static const _license = 'GPLv3 license';
+  static const _license = 'GPLv3';
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +43,11 @@ class AboutSubPage extends StatelessWidget {
                       Text('v$_appVersion'),
                       const SizedBox(height: 8),
                       Text(
-                        '$_copyrightNotice\n$_license',
+                        '$_copyrightNotice',
+                        style: Theme.of(context).textTheme.caption,
+                      ),
+                      Text(
+                        '$_license ${AppLocalizations.of(context)!.license}',
                         style: Theme.of(context).textTheme.caption,
                       ),
                       OutlinedButton(
@@ -61,7 +65,7 @@ class AboutSubPage extends StatelessWidget {
                           ),
                         ),
                         child: Text(
-                          'All licenses',
+                          AppLocalizations.of(context)!.allLicenses,
                           style: Theme.of(context).textTheme.caption,
                         ),
                       ),

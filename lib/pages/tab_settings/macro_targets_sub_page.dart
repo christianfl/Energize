@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 
 import '../../providers/app_settings.dart';
@@ -12,7 +13,8 @@ class MacroTargetsSubPage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Energy and macronutrients targets'),
+        title:
+            Text(AppLocalizations.of(context)!.energyAndMacronutrientsTargets),
       ),
       body: ListView(
         padding: const EdgeInsets.all(12.0),
@@ -24,9 +26,9 @@ class MacroTargetsSubPage extends StatelessWidget {
               onChanged: (val) => appSettings.caloriesTarget =
                   val == '' ? 0 : double.parse(val),
               keyboardType: TextInputType.number,
-              decoration: const InputDecoration(
+              decoration: InputDecoration(
                 suffixText: 'kcal',
-                labelText: 'Energy',
+                labelText: AppLocalizations.of(context)!.energy,
               ),
             ),
           ),
@@ -39,7 +41,7 @@ class MacroTargetsSubPage extends StatelessWidget {
               keyboardType: TextInputType.number,
               decoration: new InputDecoration(
                 suffixText: 'g',
-                labelText: 'Protein',
+                labelText: AppLocalizations.of(context)!.protein,
               ),
             ),
           ),
@@ -52,7 +54,7 @@ class MacroTargetsSubPage extends StatelessWidget {
               keyboardType: TextInputType.number,
               decoration: new InputDecoration(
                 suffixText: 'g',
-                labelText: 'Carbs',
+                labelText: AppLocalizations.of(context)!.carbs,
               ),
             ),
           ),
@@ -65,7 +67,7 @@ class MacroTargetsSubPage extends StatelessWidget {
               keyboardType: TextInputType.number,
               decoration: new InputDecoration(
                 suffixText: 'g',
-                labelText: 'Fat',
+                labelText: AppLocalizations.of(context)!.fat,
               ),
             ),
           ),

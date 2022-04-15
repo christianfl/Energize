@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 
 import '../../providers/app_settings.dart';
@@ -21,7 +22,7 @@ class _MicroTargetsSubPageState extends State<MicroTargetsSubPage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Micronutrient targets'),
+        title: Text(AppLocalizations.of(context)!.micronutrientsTargets),
         actions: [
           PopupMenuButton(
             icon: Icon(Icons.more_vert),

@@ -52,6 +52,8 @@
     "backupAndRestore": "Backup & Restore",
     "backupAndRestoreHint": "Store your data on a WebDAV compatible cloud storage like Nextcloud",
     "aboutEnergize": "About Energize",
+    "license": "license",
+    "allLicenses": "All licenses",
     "reportIssue": "Report issue",
     "sourceCode": "Source code",
     "translation": "Translation",
