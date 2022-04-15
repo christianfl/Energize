@@ -37,7 +37,7 @@ class _TabsPageState extends State<TabsPage> {
           ],
         ),
         bottomNavigationBar: BottomNavigationBar(
-          backgroundColor: Colors.black26,
+          backgroundColor: Color(0xFF0F1518),
           currentIndex: _currentIndex,
           onTap: (int index) => _setIndex(index),
           items: [

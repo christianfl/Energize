@@ -45,7 +45,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData.dark().copyWith(
           highlightColor: Colors.amber,
           scaffoldBackgroundColor: Color(0xFF1B262C),
-          cardColor: Colors.black26,
+          cardColor: Color(0xFF0F1518),
           colorScheme: ColorScheme.dark().copyWith(
             primary: Colors.blue,
             onPrimary: Colors.white,
