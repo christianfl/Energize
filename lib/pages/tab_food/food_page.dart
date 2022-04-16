@@ -143,10 +143,12 @@ class _FoodPageState extends State<FoodPage> {
 
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(
+                              backgroundColor: Theme.of(context).errorColor,
                               content: Text('${food.title} deleted!'),
                               action: SnackBarAction(
                                 label: "Undo",
-                                textColor: Colors.yellow,
+                                textColor:
+                                    Theme.of(context).colorScheme.onSecondary,
                                 onPressed: () {
                                   customFoodProvider.addFood(swipedFood);
                                 },
