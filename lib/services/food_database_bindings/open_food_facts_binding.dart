@@ -46,7 +46,7 @@ class OpenFoodFactsBinding {
   static Future<List<Food>?> searchFood(String searchText) async {
     if (searchText.isEmpty) return null;
     var parameters = <Parameter>[
-      const Page(page: 1),
+      const PageNumber(page: 1),
       const PageSize(size: 10),
       const SortBy(option: SortOption.POPULARITY),
       SearchTerms(terms: [searchText]),
