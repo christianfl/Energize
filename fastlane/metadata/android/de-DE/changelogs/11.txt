@@ -1,0 +1,9 @@
+* Neues Theme, das zum Gesamtdesign passt
+* Neuer Datumspicker: Als vollständig markierte Tage werden hervorgehoben
+* Als vollständig markierte Tage sind jetzt im Backup enthalten
+* Über Energize Seite neu gestaltet
+* Spenden-Kachel auf der Einstellungsseite hinzugefügt
+* Neue übersetzbare Zeichenketten
+* Türkische Sprache aktualisiert (danke!)
+* Berechnung der Nährwertsanzahl gefixed
+* Mehrere kleine Fixes

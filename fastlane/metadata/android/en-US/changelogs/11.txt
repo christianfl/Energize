@@ -1,0 +1,9 @@
+* New theme which now matches the overall concept look
+* New date picker: Days marked as complete are now highlighted
+* Completed days are now included in backup / restore
+* Redesigned about page
+* Added donation tile in settings page
+* New translatable strings
+* Updated turkish translation (thanks!)
+* Fixed calculation of nutrient count
+* Several minor fixes

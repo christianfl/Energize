@@ -10,7 +10,7 @@ class AboutSubPage extends StatelessWidget {
   static const _translationUrl =
       'https://hosted.weblate.org/projects/energize/energize';
   static const _email = 'energize@flasskamp.com';
-  static const _appVersion = '0.1.5';
+  static const _appVersion = '0.2.0';
   static const _copyrightNotice = '© 2022 Christian Flaßkamp';
   static const _license = 'GPLv3';
 
