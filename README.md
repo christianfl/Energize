@@ -74,7 +74,7 @@ If you want to support the development by a donation, you are very welcome to do
 Make sure to match the version number in:
 
 - `pubspec.yaml`
-- `lib/pages/tab_settings/settings_page.dart`
+- `lib/pages/tab_settings/about_sub_page.dart`
 - `lib/services/open_food_facts_api_service.dart`
 
 ---
