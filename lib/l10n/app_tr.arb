@@ -202,5 +202,11 @@
   "copper": "Bakır",
   "@copper": {},
   "manganese": "Manganez",
-  "@manganese": {}
+  "@manganese": {},
+  "caffeine": "Kafein",
+  "@caffeine": {},
+  "barcode": "Barkod",
+  "@barcode": {},
+  "alcohol": "Alkol",
+  "@alcohol": {}
 }
