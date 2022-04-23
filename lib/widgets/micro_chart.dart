@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 
 import './chart_bar.dart';
@@ -206,18 +207,17 @@ class MicroChart extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        // TODO: Issue #10: For adding a new food there should be a difference for null values (because the count of micros differs from the shown micro charts)
         if (showZero)
           Padding(
             padding: const EdgeInsets.only(bottom: 12.0),
             child: Text(
-              'Vitamins',
-              style: Theme.of(context).textTheme.headline6,
+              AppLocalizations.of(context)!.vitamins,
+              style: Theme.of(context).textTheme.headline4,
             ),
           ),
         if (showZero || (!showZero && _totalVitaminA(foods) != 0))
           ChartBar(
-            title: 'Vitamin A',
+            title: AppLocalizations.of(context)!.vitaminA,
             value: _totalVitaminA(foods),
             target: appSettings.vitaminATarget,
             color: Colors.blue,
@@ -225,7 +225,7 @@ class MicroChart extends StatelessWidget {
           ),
         if (showZero || (!showZero && _totalVitaminB1(foods) != 0))
           ChartBar(
-            title: 'Vitamin B1',
+            title: AppLocalizations.of(context)!.vitaminB1,
             value: _totalVitaminB1(foods),
             target: appSettings.vitaminB1Target,
             color: Colors.blue,
@@ -233,7 +233,7 @@ class MicroChart extends StatelessWidget {
           ),
         if (showZero || (!showZero && _totalVitaminB2(foods) != 0))
           ChartBar(
-            title: 'Vitamin B2',
+            title: AppLocalizations.of(context)!.vitaminB2,
             value: _totalVitaminB2(foods),
             target: appSettings.vitaminB2Target,
             color: Colors.blue,
@@ -241,7 +241,7 @@ class MicroChart extends StatelessWidget {
           ),
         if (showZero || (!showZero && _totalVitaminB3(foods) != 0))
           ChartBar(
-            title: 'Vitamin B3',
+            title: AppLocalizations.of(context)!.vitaminB3,
             value: _totalVitaminB3(foods),
             target: appSettings.vitaminB3Target,
             color: Colors.blue,
@@ -249,7 +249,7 @@ class MicroChart extends StatelessWidget {
           ),
         if (showZero || (!showZero && _totalVitaminB5(foods) != 0))
           ChartBar(
-            title: 'Vitamin B5',
+            title: AppLocalizations.of(context)!.vitaminB5,
             value: _totalVitaminB5(foods),
             target: appSettings.vitaminB5Target,
             color: Colors.blue,
@@ -257,7 +257,7 @@ class MicroChart extends StatelessWidget {
           ),
         if (showZero || (!showZero && _totalVitaminB6(foods) != 0))
           ChartBar(
-            title: 'Vitamin B6',
+            title: AppLocalizations.of(context)!.vitaminB6,
             value: _totalVitaminB6(foods),
             target: appSettings.vitaminB6Target,
             color: Colors.blue,
@@ -265,7 +265,7 @@ class MicroChart extends StatelessWidget {
           ),
         if (showZero || (!showZero && _totalVitaminB7(foods) != 0))
           ChartBar(
-            title: 'Vitamin B7',
+            title: AppLocalizations.of(context)!.vitaminB7,
             value: _totalVitaminB7(foods),
             target: appSettings.vitaminB7Target,
             color: Colors.blue,
@@ -273,7 +273,7 @@ class MicroChart extends StatelessWidget {
           ),
         if (showZero || (!showZero && _totalVitaminB9(foods) != 0))
           ChartBar(
-            title: 'Vitamin B9',
+            title: AppLocalizations.of(context)!.vitaminB9,
             value: _totalVitaminB9(foods),
             target: appSettings.vitaminB9Target,
             color: Colors.blue,
@@ -281,7 +281,7 @@ class MicroChart extends StatelessWidget {
           ),
         if (showZero || (!showZero && _totalVitaminB12(foods) != 0))
           ChartBar(
-            title: 'Vitamin B12',
+            title: AppLocalizations.of(context)!.vitaminB12,
             value: _totalVitaminB12(foods),
             target: appSettings.vitaminB12Target,
             color: Colors.blue,
@@ -289,7 +289,7 @@ class MicroChart extends StatelessWidget {
           ),
         if (showZero || (!showZero && _totalVitaminC(foods) != 0))
           ChartBar(
-            title: 'Vitamin C',
+            title: AppLocalizations.of(context)!.vitaminC,
             value: _totalVitaminC(foods),
             target: appSettings.vitaminCTarget,
             color: Colors.blue,
@@ -297,7 +297,7 @@ class MicroChart extends StatelessWidget {
           ),
         if (showZero || (!showZero && _totalVitaminD(foods) != 0))
           ChartBar(
-            title: 'Vitamin D',
+            title: AppLocalizations.of(context)!.vitaminD,
             value: _totalVitaminD(foods),
             target: appSettings.vitaminDTarget,
             color: Colors.blue,
@@ -305,7 +305,7 @@ class MicroChart extends StatelessWidget {
           ),
         if (showZero || (!showZero && _totalVitaminE(foods) != 0))
           ChartBar(
-            title: 'Vitamin E',
+            title: AppLocalizations.of(context)!.vitaminE,
             value: _totalVitaminE(foods),
             target: appSettings.vitaminETarget,
             color: Colors.blue,
@@ -313,7 +313,7 @@ class MicroChart extends StatelessWidget {
           ),
         if (showZero || (!showZero && _totalVitaminK(foods) != 0))
           ChartBar(
-            title: 'Vitamin K',
+            title: AppLocalizations.of(context)!.vitaminK,
             value: _totalVitaminK(foods),
             target: appSettings.vitaminKTarget,
             color: Colors.blue,
@@ -321,15 +321,23 @@ class MicroChart extends StatelessWidget {
           ),
         if (showZero)
           Padding(
+            padding: const EdgeInsets.only(top: 12.0),
+            child: Text(
+              AppLocalizations.of(context)!.minerals,
+              style: Theme.of(context).textTheme.headline4,
+            ),
+          ),
+        if (showZero)
+          Padding(
             padding: const EdgeInsets.only(top: 12.0, bottom: 12.0),
             child: Text(
-              'Minerals',
-              style: Theme.of(context).textTheme.headline6,
+              AppLocalizations.of(context)!.majorMinerals,
+              style: Theme.of(context).textTheme.headline5,
             ),
           ),
         if (showZero || (!showZero && _totalCalcium(foods) != 0))
           ChartBar(
-            title: 'Calcium',
+            title: AppLocalizations.of(context)!.calcium,
             value: _totalCalcium(foods),
             target: appSettings.calciumTarget,
             color: Colors.blue,
@@ -337,7 +345,7 @@ class MicroChart extends StatelessWidget {
           ),
         if (showZero || (!showZero && _totalChloride(foods) != 0))
           ChartBar(
-            title: 'Chloride',
+            title: AppLocalizations.of(context)!.chloride,
             value: _totalChloride(foods),
             target: appSettings.chlorideTarget,
             color: Colors.blue,
@@ -345,7 +353,7 @@ class MicroChart extends StatelessWidget {
           ),
         if (showZero || (!showZero && _totalMagnesium(foods) != 0))
           ChartBar(
-            title: 'Magnesium',
+            title: AppLocalizations.of(context)!.magnesium,
             value: _totalMagnesium(foods),
             target: appSettings.magnesiumTarget,
             color: Colors.blue,
@@ -353,7 +361,7 @@ class MicroChart extends StatelessWidget {
           ),
         if (showZero || (!showZero && _totalPhosphorus(foods) != 0))
           ChartBar(
-            title: 'Phosphorous',
+            title: AppLocalizations.of(context)!.phosphorous,
             value: _totalPhosphorus(foods),
             target: appSettings.phosphorusTarget,
             color: Colors.blue,
@@ -361,7 +369,7 @@ class MicroChart extends StatelessWidget {
           ),
         if (showZero || (!showZero && _totalPotassium(foods) != 0))
           ChartBar(
-            title: 'Potassium',
+            title: AppLocalizations.of(context)!.potassium,
             value: _totalPotassium(foods),
             target: appSettings.potassiumTarget,
             color: Colors.blue,
@@ -369,15 +377,23 @@ class MicroChart extends StatelessWidget {
           ),
         if (showZero || (!showZero && _totalSodium(foods) != 0))
           ChartBar(
-            title: 'Sodium',
+            title: AppLocalizations.of(context)!.sodium,
             value: _totalSodium(foods),
             target: appSettings.sodiumTarget,
             color: Colors.blue,
             unit: 'g',
           ),
+        if (showZero)
+          Padding(
+            padding: const EdgeInsets.only(top: 12.0, bottom: 12.0),
+            child: Text(
+              AppLocalizations.of(context)!.traceElements,
+              style: Theme.of(context).textTheme.headline5,
+            ),
+          ),
         if (showZero || (!showZero && _totalChromium(foods) != 0))
           ChartBar(
-            title: 'Chromium',
+            title: AppLocalizations.of(context)!.chromium,
             value: _totalChromium(foods),
             target: appSettings.chromiumTarget,
             color: Colors.blue,
@@ -385,7 +401,7 @@ class MicroChart extends StatelessWidget {
           ),
         if (showZero || (!showZero && _totalIron(foods) != 0))
           ChartBar(
-            title: 'Iron',
+            title: AppLocalizations.of(context)!.iron,
             value: _totalIron(foods),
             target: appSettings.ironTarget,
             color: Colors.blue,
@@ -393,7 +409,7 @@ class MicroChart extends StatelessWidget {
           ),
         if (showZero || (!showZero && _totalFluorine(foods) != 0))
           ChartBar(
-            title: 'Fluorine',
+            title: AppLocalizations.of(context)!.fluorine,
             value: _totalFluorine(foods),
             target: appSettings.fluorineTarget,
             color: Colors.blue,
@@ -401,7 +417,7 @@ class MicroChart extends StatelessWidget {
           ),
         if (showZero || (!showZero && _totalIodine(foods) != 0))
           ChartBar(
-            title: 'Iodine',
+            title: AppLocalizations.of(context)!.iodine,
             value: _totalIodine(foods),
             target: appSettings.iodineTarget,
             color: Colors.blue,
@@ -409,7 +425,7 @@ class MicroChart extends StatelessWidget {
           ),
         if (showZero || (!showZero && _totalCopper(foods) != 0))
           ChartBar(
-            title: 'Copper',
+            title: AppLocalizations.of(context)!.copper,
             value: _totalCopper(foods),
             target: appSettings.copperTarget,
             color: Colors.blue,
@@ -417,7 +433,7 @@ class MicroChart extends StatelessWidget {
           ),
         if (showZero || (!showZero && _totalManganese(foods) != 0))
           ChartBar(
-            title: 'Manganese',
+            title: AppLocalizations.of(context)!.manganese,
             value: _totalManganese(foods),
             target: appSettings.manganeseTarget,
             color: Colors.blue,
@@ -425,7 +441,7 @@ class MicroChart extends StatelessWidget {
           ),
         if (showZero || (!showZero && _totalMolybdenum(foods) != 0))
           ChartBar(
-            title: 'Molybdenum',
+            title: AppLocalizations.of(context)!.molybdenum,
             value: _totalMolybdenum(foods),
             target: appSettings.molybdenumTarget,
             color: Colors.blue,
@@ -433,7 +449,7 @@ class MicroChart extends StatelessWidget {
           ),
         if (showZero || (!showZero && _totalSelenium(foods) != 0))
           ChartBar(
-            title: 'Selenium',
+            title: AppLocalizations.of(context)!.selenium,
             value: _totalSelenium(foods),
             target: appSettings.seleniumTarget,
             color: Colors.blue,
@@ -441,7 +457,7 @@ class MicroChart extends StatelessWidget {
           ),
         if (showZero || (!showZero && _totalZinc(foods) != 0))
           ChartBar(
-            title: 'Zinc',
+            title: AppLocalizations.of(context)!.zinc,
             value: _totalZinc(foods),
             target: appSettings.zincTarget,
             color: Colors.blue,
@@ -451,13 +467,13 @@ class MicroChart extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(top: 12.0, bottom: 12.0),
             child: Text(
-              'Fats',
-              style: Theme.of(context).textTheme.headline6,
+              AppLocalizations.of(context)!.fats,
+              style: Theme.of(context).textTheme.headline4,
             ),
           ),
         if (showZero || (!showZero && _totalMonounsaturatedFat(foods) != 0))
           ChartBar(
-            title: 'Monounsaturated Fat',
+            title: AppLocalizations.of(context)!.monounsaturatedFat,
             value: _totalMonounsaturatedFat(foods),
             target: appSettings.monounsaturatedFatTarget,
             color: Colors.blue,
@@ -465,7 +481,7 @@ class MicroChart extends StatelessWidget {
           ),
         if (showZero || (!showZero && _totalPolyunsaturatedFat(foods) != 0))
           ChartBar(
-            title: 'Polyunsaturated Fat',
+            title: AppLocalizations.of(context)!.polyunsaturatedFat,
             value: _totalPolyunsaturatedFat(foods),
             target: appSettings.polyunsaturatedFatTarget,
             color: Colors.blue,
@@ -475,7 +491,7 @@ class MicroChart extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(left: 20.0),
             child: ChartBar(
-              title: 'Omega 3',
+              title: AppLocalizations.of(context)!.omega3,
               value: _totalOmega3(foods),
               target: appSettings.omega3Target,
               color: Colors.blue,
@@ -486,7 +502,7 @@ class MicroChart extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(left: 20.0),
             child: ChartBar(
-              title: 'Omega 6',
+              title: AppLocalizations.of(context)!.omega6,
               value: _totalOmega6(foods),
               target: appSettings.omega6Target,
               color: Colors.blue,
@@ -495,7 +511,7 @@ class MicroChart extends StatelessWidget {
           ),
         if (showZero || (!showZero && _totalSaturatedFat(foods) != 0))
           ChartBar(
-            title: 'Saturated Fat',
+            title: AppLocalizations.of(context)!.saturatedFat,
             value: _totalSaturatedFat(foods),
             target: appSettings.saturatedFatTarget,
             color: Colors.blue,
@@ -503,7 +519,7 @@ class MicroChart extends StatelessWidget {
           ),
         if (showZero || (!showZero && _totalTransFat(foods) != 0))
           ChartBar(
-            title: 'Transfat',
+            title: AppLocalizations.of(context)!.transfat,
             value: _totalTransFat(foods),
             target: appSettings.transFatTarget,
             color: Colors.blue,
@@ -511,7 +527,7 @@ class MicroChart extends StatelessWidget {
           ),
         if (showZero || (!showZero && _totalCholesterol(foods) != 0))
           ChartBar(
-            title: 'Cholesterol',
+            title: AppLocalizations.of(context)!.cholesterol,
             value: _totalCholesterol(foods),
             target: appSettings.cholesterolTarget,
             color: Colors.blue,
@@ -521,13 +537,13 @@ class MicroChart extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(top: 12.0, bottom: 12.0),
             child: Text(
-              'Carbs',
-              style: Theme.of(context).textTheme.headline6,
+              AppLocalizations.of(context)!.carbs,
+              style: Theme.of(context).textTheme.headline4,
             ),
           ),
         if (showZero || (!showZero && _totalFiber(foods) != 0))
           ChartBar(
-            title: 'Fiber',
+            title: AppLocalizations.of(context)!.fiber,
             value: _totalFiber(foods),
             target: appSettings.fiberTarget,
             color: Colors.blue,
@@ -535,7 +551,7 @@ class MicroChart extends StatelessWidget {
           ),
         if (showZero || (!showZero && _totalSugar(foods) != 0))
           ChartBar(
-            title: 'Sugar',
+            title: AppLocalizations.of(context)!.sugar,
             value: _totalSugar(foods),
             target: appSettings.sugarTarget,
             color: Colors.blue,
@@ -543,7 +559,7 @@ class MicroChart extends StatelessWidget {
           ),
         if (showZero || (!showZero && _totalSugarAlcohol(foods) != 0))
           ChartBar(
-            title: 'Sugar Alcohol',
+            title: AppLocalizations.of(context)!.sugarAlcohol,
             value: _totalSugarAlcohol(foods),
             target: appSettings.sugarAlcoholTarget,
             color: Colors.blue,
@@ -551,7 +567,7 @@ class MicroChart extends StatelessWidget {
           ),
         if (showZero || (!showZero && _totalStarch(foods) != 0))
           ChartBar(
-            title: 'Starch',
+            title: AppLocalizations.of(context)!.starch,
             value: _totalStarch(foods),
             target: appSettings.starchTarget,
             color: Colors.blue,
@@ -561,13 +577,13 @@ class MicroChart extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(top: 12.0, bottom: 12.0),
             child: Text(
-              'Other',
-              style: Theme.of(context).textTheme.headline6,
+              AppLocalizations.of(context)!.other,
+              style: Theme.of(context).textTheme.headline4,
             ),
           ),
         if (showZero || (!showZero && _totalWater(foods) != 0))
           ChartBar(
-            title: 'Water',
+            title: AppLocalizations.of(context)!.water,
             value: _totalWater(foods),
             target: appSettings.waterTarget,
             color: Colors.blue,
@@ -575,7 +591,7 @@ class MicroChart extends StatelessWidget {
           ),
         if (showZero || (!showZero && _totalCaffeine(foods) != 0))
           ChartBar(
-            title: 'Caffeine',
+            title: AppLocalizations.of(context)!.caffeine,
             value: _totalCaffeine(foods),
             target: appSettings.caffeineTarget,
             color: Colors.blue,
@@ -583,7 +599,7 @@ class MicroChart extends StatelessWidget {
           ),
         if (showZero || (!showZero && _totalAlcohol(foods) != 0))
           ChartBar(
-            title: 'Alcohol',
+            title: AppLocalizations.of(context)!.alcohol,
             value: _totalAlcohol(foods),
             target: appSettings.alcoholTarget,
             color: Colors.blue,

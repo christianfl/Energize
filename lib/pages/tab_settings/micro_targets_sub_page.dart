@@ -3,6 +3,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 
 import '../../providers/app_settings.dart';
+import '../../widgets/category_list_tile_header.dart';
 
 class MicroTargetsSubPage extends StatefulWidget {
   static const routeName = '/settings/micro-targets';
@@ -13,8 +14,30 @@ class MicroTargetsSubPage extends StatefulWidget {
 
 class _MicroTargetsSubPageState extends State<MicroTargetsSubPage> {
   var activePanelIndex = -1;
-  static const double _formFieldWidth = 90;
-  static const double _formFieldHeight = 45;
+
+  Widget _getCustomListTile({
+    required String title,
+    required String initialValue,
+    required Function(String) setValueFunction,
+    required String unit,
+  }) {
+    return ListTile(
+      title: Text(title),
+      trailing: Container(
+        width: 90,
+        height: 45,
+        child: TextFormField(
+          initialValue: initialValue,
+          onChanged: setValueFunction,
+          keyboardType: TextInputType.number,
+          textAlign: TextAlign.center,
+          decoration: new InputDecoration(
+            suffixText: unit,
+          ),
+        ),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +59,7 @@ class _MicroTargetsSubPageState extends State<MicroTargetsSubPage> {
                       SnackBar(
                         backgroundColor: Theme.of(context).errorColor,
                         content: Text(
-                            'Restart the app in order to let the changes take effekt!'),
+                            'Restart the app in order to let the changes take effect!'),
                       ),
                     );
                   }
@@ -70,233 +93,104 @@ class _MicroTargetsSubPageState extends State<MicroTargetsSubPage> {
                 isExpanded: activePanelIndex == 0,
                 canTapOnHeader: true,
                 headerBuilder: (context, isExpanded) {
-                  return ListTile(
-                    title: Text('Vitamins'),
-                    subtitle: Text('Vitamin A – K'),
+                  return CategoryListTileHeader(
+                    title: AppLocalizations.of(context)!.vitamins,
+                    subtitle:
+                        '${AppLocalizations.of(context)!.vitaminA} – ${AppLocalizations.of(context)!.vitaminK}',
                   );
                 },
                 body: Column(
                   children: [
-                    ListTile(
-                      title: Text('Vitamin A'),
-                      trailing: Container(
-                        width: _formFieldWidth,
-                        height: _formFieldHeight,
-                        child: TextFormField(
-                          initialValue: appSettings.vitaminATarget.toString(),
-                          onChanged: (val) => appSettings.vitaminATarget =
-                              val == '' ? 0 : double.parse(val),
-                          keyboardType: TextInputType.number,
-                          textAlign: TextAlign.center,
-                          decoration: new InputDecoration(
-                            suffixText: 'mg',
-                          ),
-                        ),
-                      ),
+                    _getCustomListTile(
+                      title: AppLocalizations.of(context)!.vitaminA,
+                      initialValue: appSettings.vitaminATarget.toString(),
+                      setValueFunction: (val) => appSettings.vitaminATarget =
+                          val == '' ? 0 : double.parse(val),
+                      unit: 'mg',
                     ),
-                    ListTile(
-                      title: Text('Vitamin B1'),
-                      trailing: Container(
-                        width: _formFieldWidth,
-                        height: _formFieldHeight,
-                        child: TextFormField(
-                          initialValue: appSettings.vitaminB1Target.toString(),
-                          onChanged: (val) => appSettings.vitaminB1Target =
-                              val == '' ? 0 : double.parse(val),
-                          keyboardType: TextInputType.number,
-                          textAlign: TextAlign.center,
-                          decoration: new InputDecoration(
-                            suffixText: 'mg',
-                          ),
-                        ),
-                      ),
+                    _getCustomListTile(
+                      title: AppLocalizations.of(context)!.vitaminB1,
+                      initialValue: appSettings.vitaminB1Target.toString(),
+                      setValueFunction: (val) => appSettings.vitaminB1Target =
+                          val == '' ? 0 : double.parse(val),
+                      unit: 'mg',
                     ),
-                    ListTile(
-                      title: Text('Vitamin B2'),
-                      trailing: Container(
-                        width: _formFieldWidth,
-                        height: _formFieldHeight,
-                        child: TextFormField(
-                          initialValue: appSettings.vitaminB2Target.toString(),
-                          onChanged: (val) => appSettings.vitaminB2Target =
-                              val == '' ? 0 : double.parse(val),
-                          keyboardType: TextInputType.number,
-                          textAlign: TextAlign.center,
-                          decoration: new InputDecoration(
-                            suffixText: 'mg',
-                          ),
-                        ),
-                      ),
+                    _getCustomListTile(
+                      title: AppLocalizations.of(context)!.vitaminB2,
+                      initialValue: appSettings.vitaminB2Target.toString(),
+                      setValueFunction: (val) => appSettings.vitaminB2Target =
+                          val == '' ? 0 : double.parse(val),
+                      unit: 'mg',
                     ),
-                    ListTile(
-                      title: Text('Vitamin B3'),
-                      trailing: Container(
-                        width: _formFieldWidth,
-                        height: _formFieldHeight,
-                        child: TextFormField(
-                          initialValue: appSettings.vitaminB3Target.toString(),
-                          onChanged: (val) => appSettings.vitaminB3Target =
-                              val == '' ? 0 : double.parse(val),
-                          keyboardType: TextInputType.number,
-                          textAlign: TextAlign.center,
-                          decoration: new InputDecoration(
-                            suffixText: 'mg',
-                          ),
-                        ),
-                      ),
+                    _getCustomListTile(
+                      title: AppLocalizations.of(context)!.vitaminB3,
+                      initialValue: appSettings.vitaminB3Target.toString(),
+                      setValueFunction: (val) => appSettings.vitaminB3Target =
+                          val == '' ? 0 : double.parse(val),
+                      unit: 'mg',
                     ),
-                    ListTile(
-                      title: Text('Vitamin B5'),
-                      trailing: Container(
-                        width: _formFieldWidth,
-                        height: _formFieldHeight,
-                        child: TextFormField(
-                          initialValue: appSettings.vitaminB5Target.toString(),
-                          onChanged: (val) => appSettings.vitaminB5Target =
-                              val == '' ? 0 : double.parse(val),
-                          keyboardType: TextInputType.number,
-                          textAlign: TextAlign.center,
-                          decoration: new InputDecoration(
-                            suffixText: 'mg',
-                          ),
-                        ),
-                      ),
+                    _getCustomListTile(
+                      title: AppLocalizations.of(context)!.vitaminB5,
+                      initialValue: appSettings.vitaminB5Target.toString(),
+                      setValueFunction: (val) => appSettings.vitaminB5Target =
+                          val == '' ? 0 : double.parse(val),
+                      unit: 'mg',
                     ),
-                    ListTile(
-                      title: Text('Vitamin B6'),
-                      trailing: Container(
-                        width: _formFieldWidth,
-                        height: _formFieldHeight,
-                        child: TextFormField(
-                          initialValue: appSettings.vitaminB6Target.toString(),
-                          onChanged: (val) => appSettings.vitaminB6Target =
-                              val == '' ? 0 : double.parse(val),
-                          keyboardType: TextInputType.number,
-                          textAlign: TextAlign.center,
-                          decoration: new InputDecoration(
-                            suffixText: 'mg',
-                          ),
-                        ),
-                      ),
+                    _getCustomListTile(
+                      title: AppLocalizations.of(context)!.vitaminB6,
+                      initialValue: appSettings.vitaminB6Target.toString(),
+                      setValueFunction: (val) => appSettings.vitaminB6Target =
+                          val == '' ? 0 : double.parse(val),
+                      unit: 'mg',
                     ),
-                    ListTile(
-                      title: Text('Vitamin B7'),
-                      trailing: Container(
-                        width: _formFieldWidth,
-                        height: _formFieldHeight,
-                        child: TextFormField(
-                          initialValue: appSettings.vitaminB7Target.toString(),
-                          onChanged: (val) => appSettings.vitaminB7Target =
-                              val == '' ? 0 : double.parse(val),
-                          keyboardType: TextInputType.number,
-                          textAlign: TextAlign.center,
-                          decoration: new InputDecoration(
-                            suffixText: 'μg',
-                          ),
-                        ),
-                      ),
+                    _getCustomListTile(
+                      title: AppLocalizations.of(context)!.vitaminB7,
+                      initialValue: appSettings.vitaminB7Target.toString(),
+                      setValueFunction: (val) => appSettings.vitaminB7Target =
+                          val == '' ? 0 : double.parse(val),
+                      unit: 'μg',
                     ),
-                    ListTile(
-                      title: Text('Vitamin B9'),
-                      trailing: Container(
-                        width: _formFieldWidth,
-                        height: _formFieldHeight,
-                        child: TextFormField(
-                          initialValue: appSettings.vitaminB9Target.toString(),
-                          onChanged: (val) => appSettings.vitaminB9Target =
-                              val == '' ? 0 : double.parse(val),
-                          keyboardType: TextInputType.number,
-                          textAlign: TextAlign.center,
-                          decoration: new InputDecoration(
-                            suffixText: 'μg',
-                          ),
-                        ),
-                      ),
+                    _getCustomListTile(
+                      title: AppLocalizations.of(context)!.vitaminB9,
+                      initialValue: appSettings.vitaminB9Target.toString(),
+                      setValueFunction: (val) => appSettings.vitaminB9Target =
+                          val == '' ? 0 : double.parse(val),
+                      unit: 'μg',
                     ),
-                    ListTile(
-                      title: Text('Vitamin B12'),
-                      trailing: Container(
-                        width: _formFieldWidth,
-                        height: _formFieldHeight,
-                        child: TextFormField(
-                          initialValue: appSettings.vitaminB12Target.toString(),
-                          onChanged: (val) => appSettings.vitaminB2Target =
-                              val == '' ? 0 : double.parse(val),
-                          keyboardType: TextInputType.number,
-                          textAlign: TextAlign.center,
-                          decoration: new InputDecoration(
-                            suffixText: 'μg',
-                          ),
-                        ),
-                      ),
+                    _getCustomListTile(
+                      title: AppLocalizations.of(context)!.vitaminB12,
+                      initialValue: appSettings.vitaminB12Target.toString(),
+                      setValueFunction: (val) => appSettings.vitaminB12Target =
+                          val == '' ? 0 : double.parse(val),
+                      unit: 'μg',
                     ),
-                    ListTile(
-                      title: Text('Vitamin C'),
-                      trailing: Container(
-                        width: _formFieldWidth,
-                        height: _formFieldHeight,
-                        child: TextFormField(
-                          initialValue: appSettings.vitaminCTarget.toString(),
-                          onChanged: (val) => appSettings.vitaminCTarget =
-                              val == '' ? 0 : double.parse(val),
-                          keyboardType: TextInputType.number,
-                          textAlign: TextAlign.center,
-                          decoration: new InputDecoration(
-                            suffixText: 'mg',
-                          ),
-                        ),
-                      ),
+                    _getCustomListTile(
+                      title: AppLocalizations.of(context)!.vitaminC,
+                      initialValue: appSettings.vitaminCTarget.toString(),
+                      setValueFunction: (val) => appSettings.vitaminCTarget =
+                          val == '' ? 0 : double.parse(val),
+                      unit: 'mg',
                     ),
-                    ListTile(
-                      title: Text('Vitamin D'),
-                      trailing: Container(
-                        width: _formFieldWidth,
-                        height: _formFieldHeight,
-                        child: TextFormField(
-                          initialValue: appSettings.vitaminDTarget.toString(),
-                          onChanged: (val) => appSettings.vitaminDTarget =
-                              val == '' ? 0 : double.parse(val),
-                          keyboardType: TextInputType.number,
-                          textAlign: TextAlign.center,
-                          decoration: new InputDecoration(
-                            suffixText: 'μg',
-                          ),
-                        ),
-                      ),
+                    _getCustomListTile(
+                      title: AppLocalizations.of(context)!.vitaminD,
+                      initialValue: appSettings.vitaminDTarget.toString(),
+                      setValueFunction: (val) => appSettings.vitaminDTarget =
+                          val == '' ? 0 : double.parse(val),
+                      unit: 'μg',
                     ),
-                    ListTile(
-                      title: Text('Vitamin E'),
-                      trailing: Container(
-                        width: _formFieldWidth,
-                        height: _formFieldHeight,
-                        child: TextFormField(
-                          initialValue: appSettings.vitaminETarget.toString(),
-                          onChanged: (val) => appSettings.vitaminETarget =
-                              val == '' ? 0 : double.parse(val),
-                          keyboardType: TextInputType.number,
-                          textAlign: TextAlign.center,
-                          decoration: new InputDecoration(
-                            suffixText: 'mg',
-                          ),
-                        ),
-                      ),
+                    _getCustomListTile(
+                      title: AppLocalizations.of(context)!.vitaminE,
+                      initialValue: appSettings.vitaminETarget.toString(),
+                      setValueFunction: (val) => appSettings.vitaminETarget =
+                          val == '' ? 0 : double.parse(val),
+                      unit: 'mg',
                     ),
-                    ListTile(
-                      title: Text('Vitamin K'),
-                      trailing: Container(
-                        width: _formFieldWidth,
-                        height: _formFieldHeight,
-                        child: TextFormField(
-                          initialValue: appSettings.vitaminKTarget.toString(),
-                          onChanged: (val) => appSettings.vitaminKTarget =
-                              val == '' ? 0 : double.parse(val),
-                          keyboardType: TextInputType.number,
-                          textAlign: TextAlign.center,
-                          decoration: new InputDecoration(
-                            suffixText: 'μg',
-                          ),
-                        ),
-                      ),
+                    _getCustomListTile(
+                      title: AppLocalizations.of(context)!.vitaminK,
+                      initialValue: appSettings.vitaminKTarget.toString(),
+                      setValueFunction: (val) => appSettings.vitaminKTarget =
+                          val == '' ? 0 : double.parse(val),
+                      unit: 'μg',
                     ),
                   ],
                 ),
@@ -305,114 +199,55 @@ class _MicroTargetsSubPageState extends State<MicroTargetsSubPage> {
                 isExpanded: activePanelIndex == 1,
                 canTapOnHeader: true,
                 headerBuilder: (context, isExpanded) {
-                  return ListTile(
-                    title: Text('Major minerals'),
-                    subtitle: Text('Calcium – Sodium'),
+                  return CategoryListTileHeader(
+                    title: AppLocalizations.of(context)!.majorMinerals,
+                    subtitle:
+                        '${AppLocalizations.of(context)!.calcium}, ${AppLocalizations.of(context)!.chloride}, ${AppLocalizations.of(context)!.magnesium}, ...',
                   );
                 },
                 body: Column(
                   children: [
-                    ListTile(
-                      title: Text('Calcium'),
-                      trailing: Container(
-                        width: _formFieldWidth,
-                        height: _formFieldHeight,
-                        child: TextFormField(
-                          initialValue: appSettings.calciumTarget.toString(),
-                          onChanged: (val) => appSettings.calciumTarget =
-                              val == '' ? 0 : double.parse(val),
-                          keyboardType: TextInputType.number,
-                          textAlign: TextAlign.center,
-                          decoration: new InputDecoration(
-                            suffixText: 'mg',
-                          ),
-                        ),
-                      ),
+                    _getCustomListTile(
+                      title: AppLocalizations.of(context)!.calcium,
+                      initialValue: appSettings.calciumTarget.toString(),
+                      setValueFunction: (val) => appSettings.calciumTarget =
+                          val == '' ? 0 : double.parse(val),
+                      unit: 'mg',
                     ),
-                    ListTile(
-                      title: Text('Chloride'),
-                      trailing: Container(
-                        width: _formFieldWidth,
-                        height: _formFieldHeight,
-                        child: TextFormField(
-                          initialValue: appSettings.chlorideTarget.toString(),
-                          onChanged: (val) => appSettings.chlorideTarget =
-                              val == '' ? 0 : double.parse(val),
-                          keyboardType: TextInputType.number,
-                          textAlign: TextAlign.center,
-                          decoration: new InputDecoration(
-                            suffixText: 'mg',
-                          ),
-                        ),
-                      ),
+                    _getCustomListTile(
+                      title: AppLocalizations.of(context)!.chloride,
+                      initialValue: appSettings.chlorideTarget.toString(),
+                      setValueFunction: (val) => appSettings.chlorideTarget =
+                          val == '' ? 0 : double.parse(val),
+                      unit: 'mg',
                     ),
-                    ListTile(
-                      title: Text('Magnesium'),
-                      trailing: Container(
-                        width: _formFieldWidth,
-                        height: _formFieldHeight,
-                        child: TextFormField(
-                          initialValue: appSettings.magnesiumTarget.toString(),
-                          onChanged: (val) => appSettings.magnesiumTarget =
-                              val == '' ? 0 : double.parse(val),
-                          keyboardType: TextInputType.number,
-                          textAlign: TextAlign.center,
-                          decoration: new InputDecoration(
-                            suffixText: 'mg',
-                          ),
-                        ),
-                      ),
+                    _getCustomListTile(
+                      title: AppLocalizations.of(context)!.magnesium,
+                      initialValue: appSettings.magnesiumTarget.toString(),
+                      setValueFunction: (val) => appSettings.magnesiumTarget =
+                          val == '' ? 0 : double.parse(val),
+                      unit: 'mg',
                     ),
-                    ListTile(
-                      title: Text('Phosphorus'),
-                      trailing: Container(
-                        width: _formFieldWidth,
-                        height: _formFieldHeight,
-                        child: TextFormField(
-                          initialValue: appSettings.phosphorusTarget.toString(),
-                          onChanged: (val) => appSettings.phosphorusTarget =
-                              val == '' ? 0 : double.parse(val),
-                          keyboardType: TextInputType.number,
-                          textAlign: TextAlign.center,
-                          decoration: new InputDecoration(
-                            suffixText: 'mg',
-                          ),
-                        ),
-                      ),
+                    _getCustomListTile(
+                      title: AppLocalizations.of(context)!.phosphorous,
+                      initialValue: appSettings.phosphorusTarget.toString(),
+                      setValueFunction: (val) => appSettings.phosphorusTarget =
+                          val == '' ? 0 : double.parse(val),
+                      unit: 'mg',
                     ),
-                    ListTile(
-                      title: Text('Potassium'),
-                      trailing: Container(
-                        width: _formFieldWidth,
-                        height: _formFieldHeight,
-                        child: TextFormField(
-                          initialValue: appSettings.potassiumTarget.toString(),
-                          onChanged: (val) => appSettings.potassiumTarget =
-                              val == '' ? 0 : double.parse(val),
-                          keyboardType: TextInputType.number,
-                          textAlign: TextAlign.center,
-                          decoration: new InputDecoration(
-                            suffixText: 'mg',
-                          ),
-                        ),
-                      ),
+                    _getCustomListTile(
+                      title: AppLocalizations.of(context)!.potassium,
+                      initialValue: appSettings.potassiumTarget.toString(),
+                      setValueFunction: (val) => appSettings.potassiumTarget =
+                          val == '' ? 0 : double.parse(val),
+                      unit: 'mg',
                     ),
-                    ListTile(
-                      title: Text('Sodium'),
-                      trailing: Container(
-                        width: _formFieldWidth,
-                        height: _formFieldHeight,
-                        child: TextFormField(
-                          initialValue: appSettings.sodiumTarget.toString(),
-                          onChanged: (val) => appSettings.sodiumTarget =
-                              val == '' ? 0 : double.parse(val),
-                          keyboardType: TextInputType.number,
-                          textAlign: TextAlign.center,
-                          decoration: new InputDecoration(
-                            suffixText: 'mg',
-                          ),
-                        ),
-                      ),
+                    _getCustomListTile(
+                      title: AppLocalizations.of(context)!.sodium,
+                      initialValue: appSettings.sodiumTarget.toString(),
+                      setValueFunction: (val) => appSettings.sodiumTarget =
+                          val == '' ? 0 : double.parse(val),
+                      unit: 'mg',
                     ),
                   ],
                 ),
@@ -421,165 +256,76 @@ class _MicroTargetsSubPageState extends State<MicroTargetsSubPage> {
                 isExpanded: activePanelIndex == 2,
                 canTapOnHeader: true,
                 headerBuilder: (context, isExpanded) {
-                  return ListTile(
-                    title: Text('Trace elements'),
-                    subtitle: Text('Chromium – Zinc'),
+                  return CategoryListTileHeader(
+                    title: AppLocalizations.of(context)!.traceElements,
+                    subtitle:
+                        '${AppLocalizations.of(context)!.chromium}, ${AppLocalizations.of(context)!.iron}, ${AppLocalizations.of(context)!.fluorine}, ${AppLocalizations.of(context)!.iodine}, ${AppLocalizations.of(context)!.copper}, ...',
                   );
                 },
                 body: Column(
                   children: [
-                    ListTile(
-                      title: Text('Chromium'),
-                      trailing: Container(
-                        width: _formFieldWidth,
-                        height: _formFieldHeight,
-                        child: TextFormField(
-                          initialValue: appSettings.chromiumTarget.toString(),
-                          onChanged: (val) => appSettings.chromiumTarget =
-                              val == '' ? 0 : double.parse(val),
-                          keyboardType: TextInputType.number,
-                          textAlign: TextAlign.center,
-                          decoration: new InputDecoration(
-                            suffixText: 'μg',
-                          ),
-                        ),
-                      ),
+                    _getCustomListTile(
+                      title: AppLocalizations.of(context)!.chromium,
+                      initialValue: appSettings.chromiumTarget.toString(),
+                      setValueFunction: (val) => appSettings.chromiumTarget =
+                          val == '' ? 0 : double.parse(val),
+                      unit: 'μg',
                     ),
-                    ListTile(
-                      title: Text('Iron'),
-                      trailing: Container(
-                        width: _formFieldWidth,
-                        height: _formFieldHeight,
-                        child: TextFormField(
-                          initialValue: appSettings.ironTarget.toString(),
-                          onChanged: (val) => appSettings.ironTarget =
-                              val == '' ? 0 : double.parse(val),
-                          keyboardType: TextInputType.number,
-                          textAlign: TextAlign.center,
-                          decoration: new InputDecoration(
-                            suffixText: 'mg',
-                          ),
-                        ),
-                      ),
+                    _getCustomListTile(
+                      title: AppLocalizations.of(context)!.iron,
+                      initialValue: appSettings.ironTarget.toString(),
+                      setValueFunction: (val) => appSettings.ironTarget =
+                          val == '' ? 0 : double.parse(val),
+                      unit: 'mg',
                     ),
-                    ListTile(
-                      title: Text('Fluorine'),
-                      trailing: Container(
-                        width: _formFieldWidth,
-                        height: _formFieldHeight,
-                        child: TextFormField(
-                          initialValue: appSettings.fluorineTarget.toString(),
-                          onChanged: (val) => appSettings.fluorineTarget =
-                              val == '' ? 0 : double.parse(val),
-                          keyboardType: TextInputType.number,
-                          textAlign: TextAlign.center,
-                          decoration: new InputDecoration(
-                            suffixText: 'mg',
-                          ),
-                        ),
-                      ),
+                    _getCustomListTile(
+                      title: AppLocalizations.of(context)!.fluorine,
+                      initialValue: appSettings.fluorineTarget.toString(),
+                      setValueFunction: (val) => appSettings.fluorineTarget =
+                          val == '' ? 0 : double.parse(val),
+                      unit: 'mg',
                     ),
-                    ListTile(
-                      title: Text('Iodine'),
-                      trailing: Container(
-                        width: _formFieldWidth,
-                        height: _formFieldHeight,
-                        child: TextFormField(
-                          initialValue: appSettings.iodineTarget.toString(),
-                          onChanged: (val) => appSettings.iodineTarget =
-                              val == '' ? 0 : double.parse(val),
-                          keyboardType: TextInputType.number,
-                          textAlign: TextAlign.center,
-                          decoration: new InputDecoration(
-                            suffixText: 'μg',
-                          ),
-                        ),
-                      ),
+                    _getCustomListTile(
+                      title: AppLocalizations.of(context)!.iodine,
+                      initialValue: appSettings.iodineTarget.toString(),
+                      setValueFunction: (val) => appSettings.iodineTarget =
+                          val == '' ? 0 : double.parse(val),
+                      unit: 'μg',
                     ),
-                    ListTile(
-                      title: Text('Copper'),
-                      trailing: Container(
-                        width: _formFieldWidth,
-                        height: _formFieldHeight,
-                        child: TextFormField(
-                          initialValue: appSettings.copperTarget.toString(),
-                          onChanged: (val) => appSettings.copperTarget =
-                              val == '' ? 0 : double.parse(val),
-                          keyboardType: TextInputType.number,
-                          textAlign: TextAlign.center,
-                          decoration: new InputDecoration(
-                            suffixText: 'mg',
-                          ),
-                        ),
-                      ),
+                    _getCustomListTile(
+                      title: AppLocalizations.of(context)!.copper,
+                      initialValue: appSettings.copperTarget.toString(),
+                      setValueFunction: (val) => appSettings.copperTarget =
+                          val == '' ? 0 : double.parse(val),
+                      unit: 'mg',
                     ),
-                    ListTile(
-                      title: Text('Manganese'),
-                      trailing: Container(
-                        width: _formFieldWidth,
-                        height: _formFieldHeight,
-                        child: TextFormField(
-                          initialValue: appSettings.manganeseTarget.toString(),
-                          onChanged: (val) => appSettings.manganeseTarget =
-                              val == '' ? 0 : double.parse(val),
-                          keyboardType: TextInputType.number,
-                          textAlign: TextAlign.center,
-                          decoration: new InputDecoration(
-                            suffixText: 'mg',
-                          ),
-                        ),
-                      ),
+                    _getCustomListTile(
+                      title: AppLocalizations.of(context)!.manganese,
+                      initialValue: appSettings.manganeseTarget.toString(),
+                      setValueFunction: (val) => appSettings.manganeseTarget =
+                          val == '' ? 0 : double.parse(val),
+                      unit: 'mg',
                     ),
-                    ListTile(
-                      title: Text('Molybdenum'),
-                      trailing: Container(
-                        width: _formFieldWidth,
-                        height: _formFieldHeight,
-                        child: TextFormField(
-                          initialValue: appSettings.molybdenumTarget.toString(),
-                          onChanged: (val) => appSettings.molybdenumTarget =
-                              val == '' ? 0 : double.parse(val),
-                          keyboardType: TextInputType.number,
-                          textAlign: TextAlign.center,
-                          decoration: new InputDecoration(
-                            suffixText: 'μg',
-                          ),
-                        ),
-                      ),
+                    _getCustomListTile(
+                      title: AppLocalizations.of(context)!.molybdenum,
+                      initialValue: appSettings.molybdenumTarget.toString(),
+                      setValueFunction: (val) => appSettings.molybdenumTarget =
+                          val == '' ? 0 : double.parse(val),
+                      unit: 'μg',
                     ),
-                    ListTile(
-                      title: Text('Selenium'),
-                      trailing: Container(
-                        width: _formFieldWidth,
-                        height: _formFieldHeight,
-                        child: TextFormField(
-                          initialValue: appSettings.seleniumTarget.toString(),
-                          onChanged: (val) => appSettings.seleniumTarget =
-                              val == '' ? 0 : double.parse(val),
-                          keyboardType: TextInputType.number,
-                          textAlign: TextAlign.center,
-                          decoration: new InputDecoration(
-                            suffixText: 'μg',
-                          ),
-                        ),
-                      ),
+                    _getCustomListTile(
+                      title: AppLocalizations.of(context)!.selenium,
+                      initialValue: appSettings.seleniumTarget.toString(),
+                      setValueFunction: (val) => appSettings.seleniumTarget =
+                          val == '' ? 0 : double.parse(val),
+                      unit: 'μg',
                     ),
-                    ListTile(
-                      title: Text('Zinc'),
-                      trailing: Container(
-                        width: _formFieldWidth,
-                        height: _formFieldHeight,
-                        child: TextFormField(
-                          initialValue: appSettings.zincTarget.toString(),
-                          onChanged: (val) => appSettings.zincTarget =
-                              val == '' ? 0 : double.parse(val),
-                          keyboardType: TextInputType.number,
-                          textAlign: TextAlign.center,
-                          decoration: new InputDecoration(
-                            suffixText: 'mg',
-                          ),
-                        ),
-                      ),
+                    _getCustomListTile(
+                      title: AppLocalizations.of(context)!.zinc,
+                      initialValue: appSettings.zincTarget.toString(),
+                      setValueFunction: (val) => appSettings.zincTarget =
+                          val == '' ? 0 : double.parse(val),
+                      unit: 'mg',
                     ),
                   ],
                 ),
@@ -588,137 +334,67 @@ class _MicroTargetsSubPageState extends State<MicroTargetsSubPage> {
                 isExpanded: activePanelIndex == 3,
                 canTapOnHeader: true,
                 headerBuilder: (context, isExpanded) {
-                  return ListTile(
-                    title: Text('Fats'),
-                    subtitle: Text('Different kind of fats'),
+                  return CategoryListTileHeader(
+                    title: AppLocalizations.of(context)!.fats,
+                    subtitle:
+                        '${AppLocalizations.of(context)!.omega3}, ${AppLocalizations.of(context)!.omega6}, ${AppLocalizations.of(context)!.cholesterol}, ...',
                   );
                 },
                 body: Column(
                   children: [
-                    ListTile(
-                      title: Text('Monounsaturated fat'),
-                      trailing: Container(
-                        width: _formFieldWidth,
-                        height: _formFieldHeight,
-                        child: TextFormField(
-                          initialValue:
-                              appSettings.monounsaturatedFatTarget.toString(),
-                          onChanged: (val) =>
-                              appSettings.monounsaturatedFatTarget =
-                                  val == '' ? 0 : double.parse(val),
-                          keyboardType: TextInputType.number,
-                          textAlign: TextAlign.center,
-                          decoration: new InputDecoration(
-                            suffixText: 'g',
-                          ),
-                        ),
-                      ),
-                    ),
-                    ListTile(
-                      title: Text('Polyunsaturated fat'),
-                      trailing: Container(
-                        width: _formFieldWidth,
-                        height: _formFieldHeight,
-                        child: TextFormField(
-                          initialValue:
-                              appSettings.polyunsaturatedFatTarget.toString(),
-                          onChanged: (val) =>
-                              appSettings.polyunsaturatedFatTarget =
-                                  val == '' ? 0 : double.parse(val),
-                          keyboardType: TextInputType.number,
-                          textAlign: TextAlign.center,
-                          decoration: new InputDecoration(
-                            suffixText: 'g',
-                          ),
-                        ),
-                      ),
-                    ),
-                    ListTile(
-                      title: Text('Omega 3'),
-                      trailing: Container(
-                        width: _formFieldWidth,
-                        height: _formFieldHeight,
-                        child: TextFormField(
-                          initialValue: appSettings.omega3Target.toString(),
-                          onChanged: (val) => appSettings.omega3Target =
+                    _getCustomListTile(
+                      title: AppLocalizations.of(context)!.monounsaturatedFat,
+                      initialValue:
+                          appSettings.monounsaturatedFatTarget.toString(),
+                      setValueFunction: (val) =>
+                          appSettings.monounsaturatedFatTarget =
                               val == '' ? 0 : double.parse(val),
-                          keyboardType: TextInputType.number,
-                          textAlign: TextAlign.center,
-                          decoration: new InputDecoration(
-                            suffixText: 'g',
-                          ),
-                        ),
-                      ),
+                      unit: 'g',
                     ),
-                    ListTile(
-                      title: Text('Omega 6'),
-                      trailing: Container(
-                        width: _formFieldWidth,
-                        height: _formFieldHeight,
-                        child: TextFormField(
-                          initialValue: appSettings.omega6Target.toString(),
-                          onChanged: (val) => appSettings.omega6Target =
+                    _getCustomListTile(
+                      title: AppLocalizations.of(context)!.polyunsaturatedFat,
+                      initialValue:
+                          appSettings.polyunsaturatedFatTarget.toString(),
+                      setValueFunction: (val) =>
+                          appSettings.polyunsaturatedFatTarget =
                               val == '' ? 0 : double.parse(val),
-                          keyboardType: TextInputType.number,
-                          textAlign: TextAlign.center,
-                          decoration: new InputDecoration(
-                            suffixText: 'g',
-                          ),
-                        ),
-                      ),
+                      unit: 'g',
                     ),
-                    ListTile(
-                      title: Text('Saturated fat'),
-                      trailing: Container(
-                        width: _formFieldWidth,
-                        height: _formFieldHeight,
-                        child: TextFormField(
-                          initialValue:
-                              appSettings.saturatedFatTarget.toString(),
-                          onChanged: (val) => appSettings.saturatedFatTarget =
-                              val == '' ? 0 : double.parse(val),
-                          keyboardType: TextInputType.number,
-                          textAlign: TextAlign.center,
-                          decoration: new InputDecoration(
-                            suffixText: 'g',
-                          ),
-                        ),
-                      ),
+                    _getCustomListTile(
+                      title: AppLocalizations.of(context)!.omega3,
+                      initialValue: appSettings.omega3Target.toString(),
+                      setValueFunction: (val) => appSettings.omega3Target =
+                          val == '' ? 0 : double.parse(val),
+                      unit: 'g',
                     ),
-                    ListTile(
-                      title: Text('Transfat'),
-                      trailing: Container(
-                        width: _formFieldWidth,
-                        height: _formFieldHeight,
-                        child: TextFormField(
-                          initialValue: appSettings.transFatTarget.toString(),
-                          onChanged: (val) => appSettings.transFatTarget =
-                              val == '' ? 0 : double.parse(val),
-                          keyboardType: TextInputType.number,
-                          textAlign: TextAlign.center,
-                          decoration: new InputDecoration(
-                            suffixText: 'g',
-                          ),
-                        ),
-                      ),
+                    _getCustomListTile(
+                      title: AppLocalizations.of(context)!.omega6,
+                      initialValue: appSettings.omega6Target.toString(),
+                      setValueFunction: (val) => appSettings.omega6Target =
+                          val == '' ? 0 : double.parse(val),
+                      unit: 'g',
                     ),
-                    ListTile(
-                      title: Text('Cholesterol'),
-                      trailing: Container(
-                        width: _formFieldWidth,
-                        height: _formFieldHeight,
-                        child: TextFormField(
-                          initialValue:
-                              appSettings.cholesterolTarget.toString(),
-                          onChanged: (val) => appSettings.cholesterolTarget =
+                    _getCustomListTile(
+                      title: AppLocalizations.of(context)!.saturatedFat,
+                      initialValue: appSettings.saturatedFatTarget.toString(),
+                      setValueFunction: (val) =>
+                          appSettings.saturatedFatTarget =
                               val == '' ? 0 : double.parse(val),
-                          keyboardType: TextInputType.number,
-                          textAlign: TextAlign.center,
-                          decoration: new InputDecoration(
-                            suffixText: 'mg',
-                          ),
-                        ),
-                      ),
+                      unit: 'g',
+                    ),
+                    _getCustomListTile(
+                      title: AppLocalizations.of(context)!.transfat,
+                      initialValue: appSettings.transFatTarget.toString(),
+                      setValueFunction: (val) => appSettings.transFatTarget =
+                          val == '' ? 0 : double.parse(val),
+                      unit: 'g',
+                    ),
+                    _getCustomListTile(
+                      title: AppLocalizations.of(context)!.cholesterol,
+                      initialValue: appSettings.cholesterolTarget.toString(),
+                      setValueFunction: (val) => appSettings.cholesterolTarget =
+                          val == '' ? 0 : double.parse(val),
+                      unit: 'mg',
                     ),
                   ],
                 ),
@@ -727,81 +403,42 @@ class _MicroTargetsSubPageState extends State<MicroTargetsSubPage> {
                 isExpanded: activePanelIndex == 4,
                 canTapOnHeader: true,
                 headerBuilder: (context, isExpanded) {
-                  return ListTile(
-                    title: Text('Carbs'),
-                    subtitle: Text('Fiber, sugar, starch, etc.'),
+                  return CategoryListTileHeader(
+                    title: AppLocalizations.of(context)!.carbs,
+                    subtitle:
+                        '${AppLocalizations.of(context)!.fiber}, ${AppLocalizations.of(context)!.sugar}, ${AppLocalizations.of(context)!.starch}, ...',
                   );
                 },
                 body: Column(
                   children: [
-                    ListTile(
-                      title: Text('Fiber'),
-                      trailing: Container(
-                        width: _formFieldWidth,
-                        height: _formFieldHeight,
-                        child: TextFormField(
-                          initialValue: appSettings.fiberTarget.toString(),
-                          onChanged: (val) => appSettings.fiberTarget =
-                              val == '' ? 0 : double.parse(val),
-                          keyboardType: TextInputType.number,
-                          textAlign: TextAlign.center,
-                          decoration: new InputDecoration(
-                            suffixText: 'g',
-                          ),
-                        ),
-                      ),
+                    _getCustomListTile(
+                      title: AppLocalizations.of(context)!.fiber,
+                      initialValue: appSettings.fiberTarget.toString(),
+                      setValueFunction: (val) => appSettings.fiberTarget =
+                          val == '' ? 0 : double.parse(val),
+                      unit: 'g',
                     ),
-                    ListTile(
-                      title: Text('Sugar'),
-                      trailing: Container(
-                        width: _formFieldWidth,
-                        height: _formFieldHeight,
-                        child: TextFormField(
-                          initialValue: appSettings.sugarTarget.toString(),
-                          onChanged: (val) => appSettings.sugarTarget =
-                              val == '' ? 0 : double.parse(val),
-                          keyboardType: TextInputType.number,
-                          textAlign: TextAlign.center,
-                          decoration: new InputDecoration(
-                            suffixText: 'g',
-                          ),
-                        ),
-                      ),
+                    _getCustomListTile(
+                      title: AppLocalizations.of(context)!.sugar,
+                      initialValue: appSettings.sugarTarget.toString(),
+                      setValueFunction: (val) => appSettings.sugarTarget =
+                          val == '' ? 0 : double.parse(val),
+                      unit: 'g',
                     ),
-                    ListTile(
-                      title: Text('Sugar alcohol'),
-                      trailing: Container(
-                        width: _formFieldWidth,
-                        height: _formFieldHeight,
-                        child: TextFormField(
-                          initialValue:
-                              appSettings.sugarAlcoholTarget.toString(),
-                          onChanged: (val) => appSettings.sugarAlcoholTarget =
+                    _getCustomListTile(
+                      title: AppLocalizations.of(context)!.sugarAlcohol,
+                      initialValue: appSettings.sugarAlcoholTarget.toString(),
+                      setValueFunction: (val) =>
+                          appSettings.sugarAlcoholTarget =
                               val == '' ? 0 : double.parse(val),
-                          keyboardType: TextInputType.number,
-                          textAlign: TextAlign.center,
-                          decoration: new InputDecoration(
-                            suffixText: 'g',
-                          ),
-                        ),
-                      ),
+                      unit: 'g',
                     ),
-                    ListTile(
-                      title: Text('Starch'),
-                      trailing: Container(
-                        width: _formFieldWidth,
-                        height: _formFieldHeight,
-                        child: TextFormField(
-                          initialValue: appSettings.starchTarget.toString(),
-                          onChanged: (val) => appSettings.starchTarget =
-                              val == '' ? 0 : double.parse(val),
-                          keyboardType: TextInputType.number,
-                          textAlign: TextAlign.center,
-                          decoration: new InputDecoration(
-                            suffixText: 'g',
-                          ),
-                        ),
-                      ),
+                    _getCustomListTile(
+                      title: AppLocalizations.of(context)!.starch,
+                      initialValue: appSettings.starchTarget.toString(),
+                      setValueFunction: (val) => appSettings.starchTarget =
+                          val == '' ? 0 : double.parse(val),
+                      unit: 'g',
                     ),
                   ],
                 ),
@@ -810,63 +447,34 @@ class _MicroTargetsSubPageState extends State<MicroTargetsSubPage> {
                 isExpanded: activePanelIndex == 5,
                 canTapOnHeader: true,
                 headerBuilder: (context, isExpanded) {
-                  return ListTile(
-                    title: Text('Other'),
-                    subtitle: Text('Water, caffeine, alcohol'),
+                  return CategoryListTileHeader(
+                    title: AppLocalizations.of(context)!.other,
+                    subtitle:
+                        '${AppLocalizations.of(context)!.water}, ${AppLocalizations.of(context)!.caffeine}, ${AppLocalizations.of(context)!.alcohol}',
                   );
                 },
                 body: Column(
                   children: [
-                    ListTile(
-                      title: Text('Water'),
-                      trailing: Container(
-                        width: _formFieldWidth,
-                        height: _formFieldHeight,
-                        child: TextFormField(
-                          initialValue: appSettings.waterTarget.toString(),
-                          onChanged: (val) => appSettings.waterTarget =
-                              val == '' ? 0 : double.parse(val),
-                          keyboardType: TextInputType.number,
-                          textAlign: TextAlign.center,
-                          decoration: new InputDecoration(
-                            suffixText: 'ml',
-                          ),
-                        ),
-                      ),
+                    _getCustomListTile(
+                      title: AppLocalizations.of(context)!.water,
+                      initialValue: appSettings.waterTarget.toString(),
+                      setValueFunction: (val) => appSettings.waterTarget =
+                          val == '' ? 0 : double.parse(val),
+                      unit: 'ml',
                     ),
-                    ListTile(
-                      title: Text('Caffeine'),
-                      trailing: Container(
-                        width: _formFieldWidth,
-                        height: _formFieldHeight,
-                        child: TextFormField(
-                          initialValue: appSettings.caffeineTarget.toString(),
-                          onChanged: (val) => appSettings.caffeineTarget =
-                              val == '' ? 0 : double.parse(val),
-                          keyboardType: TextInputType.number,
-                          textAlign: TextAlign.center,
-                          decoration: new InputDecoration(
-                            suffixText: 'mg',
-                          ),
-                        ),
-                      ),
+                    _getCustomListTile(
+                      title: AppLocalizations.of(context)!.caffeine,
+                      initialValue: appSettings.caffeineTarget.toString(),
+                      setValueFunction: (val) => appSettings.caffeineTarget =
+                          val == '' ? 0 : double.parse(val),
+                      unit: 'mg',
                     ),
-                    ListTile(
-                      title: Text('Alcohol'),
-                      trailing: Container(
-                        width: _formFieldWidth,
-                        height: _formFieldHeight,
-                        child: TextFormField(
-                          initialValue: appSettings.alcoholTarget.toString(),
-                          onChanged: (val) => appSettings.alcoholTarget =
-                              val == '' ? 0 : double.parse(val),
-                          keyboardType: TextInputType.number,
-                          textAlign: TextAlign.center,
-                          decoration: new InputDecoration(
-                            suffixText: 'g',
-                          ),
-                        ),
-                      ),
+                    _getCustomListTile(
+                      title: AppLocalizations.of(context)!.alcohol,
+                      initialValue: appSettings.alcoholTarget.toString(),
+                      setValueFunction: (val) => appSettings.alcoholTarget =
+                          val == '' ? 0 : double.parse(val),
+                      unit: 'g',
                     ),
                   ],
                 ),

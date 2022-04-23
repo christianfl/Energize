@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 
 import '../../models/food/food.dart';
 import '../../providers/custom_food_provider.dart';
+import '../../widgets/category_list_tile_header.dart';
 
 enum AddEditCustomFoodModalMode { addNew, addFrom, edit }
 
@@ -23,9 +24,6 @@ class AddEditCustomFoodModal extends StatefulWidget {
 
 class _AddEditCustomFoodModalState extends State<AddEditCustomFoodModal> {
   var activePanelIndex = 0;
-  static const double _formFieldWidth = 160;
-  static const double _formFieldHeight = 45;
-  static const String _numberValidatorText = 'Only numbers are allowed';
   Food foodToEditOrCreate = Food(id: 'temp', origin: 'CUSTOM', title: '');
   final _formKey = GlobalKey<FormState>();
   var _foodTitleController = TextEditingController();
@@ -344,6 +342,33 @@ class _AddEditCustomFoodModalState extends State<AddEditCustomFoodModal> {
     return double.tryParse(s) != null;
   }
 
+  Widget _customListTile({
+    required String title,
+    required TextEditingController controller,
+    required String unit,
+  }) {
+    return ListTile(
+      title: Text(title),
+      trailing: Container(
+        width: 160,
+        height: 45,
+        child: TextFormField(
+          controller: controller,
+          keyboardType: TextInputType.number,
+          decoration: InputDecoration(
+            suffixText: unit,
+          ),
+          validator: (value) {
+            if (!isNumeric(value!)) {
+              return AppLocalizations.of(context)!.onlyNumbersAllowed;
+            }
+            return null;
+          },
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final args = ModalRoute.of(context)!.settings.arguments
@@ -372,11 +397,11 @@ class _AddEditCustomFoodModalState extends State<AddEditCustomFoodModal> {
                   controller: _foodTitleController,
                   keyboardType: TextInputType.text,
                   decoration: InputDecoration(
-                    labelText: 'Title',
+                    labelText: AppLocalizations.of(context)!.title,
                   ),
                   validator: (value) {
                     if (value!.isEmpty) {
-                      return 'Please enter a title';
+                      return AppLocalizations.of(context)!.fieldMandatory;
                     }
                     return null;
                   },
@@ -400,93 +425,34 @@ class _AddEditCustomFoodModalState extends State<AddEditCustomFoodModal> {
                       isExpanded: activePanelIndex == 0,
                       canTapOnHeader: true,
                       headerBuilder: (context, isExpanded) {
-                        return ListTile(
-                          title: Text('Energy and macronutrients'),
-                          subtitle: Text(
-                              'Calories, ${AppLocalizations.of(context)!.protein}, ${AppLocalizations.of(context)!.carbs}, ${AppLocalizations.of(context)!.fat}'),
+                        return CategoryListTileHeader(
+                          title: AppLocalizations.of(context)!
+                              .energyAndMacronutrients,
+                          subtitle: AppLocalizations.of(context)!
+                              .energyAndMacronutrientsTargetsHint,
                         );
                       },
                       body: Column(
                         children: [
-                          ListTile(
-                            title: Text('Calories'),
-                            trailing: Container(
-                              width: _formFieldWidth,
-                              height: _formFieldHeight,
-                              child: TextFormField(
-                                controller: _foodCaloriesController,
-                                keyboardType: TextInputType.number,
-                                decoration: InputDecoration(
-                                  suffixText: 'kcal / 100 g',
-                                ),
-                                validator: (value) {
-                                  if (!isNumeric(value!)) {
-                                    return _numberValidatorText;
-                                  }
-                                  return null;
-                                },
-                              ),
-                            ),
+                          _customListTile(
+                            title: AppLocalizations.of(context)!.energy,
+                            controller: _foodCaloriesController,
+                            unit: 'kcal / 100 g',
                           ),
-                          ListTile(
-                            title: Text(AppLocalizations.of(context)!.protein),
-                            trailing: Container(
-                              width: _formFieldWidth,
-                              height: _formFieldHeight,
-                              child: TextFormField(
-                                controller: _foodProteinController,
-                                keyboardType: TextInputType.number,
-                                decoration: InputDecoration(
-                                  suffixText: 'g / 100 g',
-                                ),
-                                validator: (value) {
-                                  if (!isNumeric(value!)) {
-                                    return _numberValidatorText;
-                                  }
-                                  return null;
-                                },
-                              ),
-                            ),
+                          _customListTile(
+                            title: AppLocalizations.of(context)!.protein,
+                            controller: _foodProteinController,
+                            unit: 'g / 100 g',
                           ),
-                          ListTile(
-                            title: Text(AppLocalizations.of(context)!.carbs),
-                            trailing: Container(
-                              width: _formFieldWidth,
-                              height: _formFieldHeight,
-                              child: TextFormField(
-                                controller: _foodCarbsController,
-                                keyboardType: TextInputType.number,
-                                decoration: InputDecoration(
-                                  suffixText: 'g / 100 g',
-                                ),
-                                validator: (value) {
-                                  if (!isNumeric(value!)) {
-                                    return _numberValidatorText;
-                                  }
-                                  return null;
-                                },
-                              ),
-                            ),
+                          _customListTile(
+                            title: AppLocalizations.of(context)!.carbs,
+                            controller: _foodCarbsController,
+                            unit: 'g / 100 g',
                           ),
-                          ListTile(
-                            title: Text(AppLocalizations.of(context)!.fat),
-                            trailing: Container(
-                              width: _formFieldWidth,
-                              height: _formFieldHeight,
-                              child: TextFormField(
-                                controller: _foodFatController,
-                                keyboardType: TextInputType.number,
-                                decoration: InputDecoration(
-                                  suffixText: 'g / 100 g',
-                                ),
-                                validator: (value) {
-                                  if (!isNumeric(value!)) {
-                                    return _numberValidatorText;
-                                  }
-                                  return null;
-                                },
-                              ),
-                            ),
+                          _customListTile(
+                            title: AppLocalizations.of(context)!.fat,
+                            controller: _foodFatController,
+                            unit: 'g / 100 g',
                           ),
                         ],
                       ),
@@ -495,272 +461,78 @@ class _AddEditCustomFoodModalState extends State<AddEditCustomFoodModal> {
                       isExpanded: activePanelIndex == 1,
                       canTapOnHeader: true,
                       headerBuilder: (context, isExpanded) {
-                        return ListTile(
-                          title: Text('Vitamins'),
-                          subtitle: Text('Vitamin A – K'),
+                        return CategoryListTileHeader(
+                          title: AppLocalizations.of(context)!.vitamins,
+                          subtitle:
+                              '${AppLocalizations.of(context)!.vitaminA} – ${AppLocalizations.of(context)!.vitaminK}',
                         );
                       },
                       body: Column(
                         children: [
-                          ListTile(
-                            title: Text('Vitamin A'),
-                            trailing: Container(
-                              width: _formFieldWidth,
-                              height: _formFieldHeight,
-                              child: TextFormField(
-                                controller: _foodVitaminAController,
-                                keyboardType: TextInputType.number,
-                                decoration: InputDecoration(
-                                  suffixText: 'mg / 100 g',
-                                ),
-                                validator: (value) {
-                                  if (!isNumeric(value!)) {
-                                    return _numberValidatorText;
-                                  }
-                                  return null;
-                                },
-                              ),
-                            ),
+                          _customListTile(
+                            title: AppLocalizations.of(context)!.vitaminA,
+                            controller: _foodVitaminAController,
+                            unit: 'mg / 100 g',
                           ),
-                          ListTile(
-                            title: Text('Vitamin B1'),
-                            trailing: Container(
-                              width: _formFieldWidth,
-                              height: _formFieldHeight,
-                              child: TextFormField(
-                                controller: _foodVitaminB1Controller,
-                                keyboardType: TextInputType.number,
-                                decoration: InputDecoration(
-                                  suffixText: 'mg / 100 g',
-                                ),
-                                validator: (value) {
-                                  if (!isNumeric(value!)) {
-                                    return _numberValidatorText;
-                                  }
-                                  return null;
-                                },
-                              ),
-                            ),
+                          _customListTile(
+                            title: AppLocalizations.of(context)!.vitaminB1,
+                            controller: _foodVitaminB1Controller,
+                            unit: 'mg / 100 g',
                           ),
-                          ListTile(
-                            title: Text('Vitamin B2'),
-                            trailing: Container(
-                              width: _formFieldWidth,
-                              height: _formFieldHeight,
-                              child: TextFormField(
-                                controller: _foodVitaminB2Controller,
-                                keyboardType: TextInputType.number,
-                                decoration: InputDecoration(
-                                  suffixText: 'mg / 100 g',
-                                ),
-                                validator: (value) {
-                                  if (!isNumeric(value!)) {
-                                    return _numberValidatorText;
-                                  }
-                                  return null;
-                                },
-                              ),
-                            ),
+                          _customListTile(
+                            title: AppLocalizations.of(context)!.vitaminB2,
+                            controller: _foodVitaminB2Controller,
+                            unit: 'mg / 100 g',
                           ),
-                          ListTile(
-                            title: Text('Vitamin B3'),
-                            trailing: Container(
-                              width: _formFieldWidth,
-                              height: _formFieldHeight,
-                              child: TextFormField(
-                                controller: _foodVitaminB3Controller,
-                                keyboardType: TextInputType.number,
-                                decoration: InputDecoration(
-                                  suffixText: 'mg / 100 g',
-                                ),
-                                validator: (value) {
-                                  if (!isNumeric(value!)) {
-                                    return _numberValidatorText;
-                                  }
-                                  return null;
-                                },
-                              ),
-                            ),
+                          _customListTile(
+                            title: AppLocalizations.of(context)!.vitaminB3,
+                            controller: _foodVitaminB3Controller,
+                            unit: 'mg / 100 g',
                           ),
-                          ListTile(
-                            title: Text('Vitamin B5'),
-                            trailing: Container(
-                              width: _formFieldWidth,
-                              height: _formFieldHeight,
-                              child: TextFormField(
-                                controller: _foodVitaminB5Controller,
-                                keyboardType: TextInputType.number,
-                                decoration: InputDecoration(
-                                  suffixText: 'mg / 100 g',
-                                ),
-                                validator: (value) {
-                                  if (!isNumeric(value!)) {
-                                    return _numberValidatorText;
-                                  }
-                                  return null;
-                                },
-                              ),
-                            ),
+                          _customListTile(
+                            title: AppLocalizations.of(context)!.vitaminB5,
+                            controller: _foodVitaminB5Controller,
+                            unit: 'mg / 100 g',
                           ),
-                          ListTile(
-                            title: Text('Vitamin B6'),
-                            trailing: Container(
-                              width: _formFieldWidth,
-                              height: _formFieldHeight,
-                              child: TextFormField(
-                                controller: _foodVitaminB6Controller,
-                                keyboardType: TextInputType.number,
-                                decoration: InputDecoration(
-                                  suffixText: 'mg / 100 g',
-                                ),
-                                validator: (value) {
-                                  if (!isNumeric(value!)) {
-                                    return _numberValidatorText;
-                                  }
-                                  return null;
-                                },
-                              ),
-                            ),
+                          _customListTile(
+                            title: AppLocalizations.of(context)!.vitaminB6,
+                            controller: _foodVitaminB6Controller,
+                            unit: 'mg / 100 g',
                           ),
-                          ListTile(
-                            title: Text('Vitamin B7'),
-                            trailing: Container(
-                              width: _formFieldWidth,
-                              height: _formFieldHeight,
-                              child: TextFormField(
-                                controller: _foodVitaminB7Controller,
-                                keyboardType: TextInputType.number,
-                                decoration: InputDecoration(
-                                  suffixText: 'μg / 100 g',
-                                ),
-                                validator: (value) {
-                                  if (!isNumeric(value!)) {
-                                    return _numberValidatorText;
-                                  }
-                                  return null;
-                                },
-                              ),
-                            ),
+                          _customListTile(
+                            title: AppLocalizations.of(context)!.vitaminB7,
+                            controller: _foodVitaminB7Controller,
+                            unit: 'μg / 100 g',
                           ),
-                          ListTile(
-                            title: Text('Vitamin B9'),
-                            trailing: Container(
-                              width: _formFieldWidth,
-                              height: _formFieldHeight,
-                              child: TextFormField(
-                                controller: _foodVitaminB9Controller,
-                                keyboardType: TextInputType.number,
-                                decoration: InputDecoration(
-                                  suffixText: 'μg / 100 g',
-                                ),
-                                validator: (value) {
-                                  if (!isNumeric(value!)) {
-                                    return _numberValidatorText;
-                                  }
-                                  return null;
-                                },
-                              ),
-                            ),
+                          _customListTile(
+                            title: AppLocalizations.of(context)!.vitaminB9,
+                            controller: _foodVitaminB9Controller,
+                            unit: 'μg / 100 g',
                           ),
-                          ListTile(
-                            title: Text('Vitamin B12'),
-                            trailing: Container(
-                              width: _formFieldWidth,
-                              height: _formFieldHeight,
-                              child: TextFormField(
-                                controller: _foodVitaminB12Controller,
-                                keyboardType: TextInputType.number,
-                                decoration: InputDecoration(
-                                  suffixText: 'μg / 100 g',
-                                ),
-                                validator: (value) {
-                                  if (!isNumeric(value!)) {
-                                    return _numberValidatorText;
-                                  }
-                                  return null;
-                                },
-                              ),
-                            ),
+                          _customListTile(
+                            title: AppLocalizations.of(context)!.vitaminB12,
+                            controller: _foodVitaminB12Controller,
+                            unit: 'μg / 100 g',
                           ),
-                          ListTile(
-                            title: Text('Vitamin C'),
-                            trailing: Container(
-                              width: _formFieldWidth,
-                              height: _formFieldHeight,
-                              child: TextFormField(
-                                controller: _foodVitaminCController,
-                                keyboardType: TextInputType.number,
-                                decoration: InputDecoration(
-                                  suffixText: 'mg / 100 g',
-                                ),
-                                validator: (value) {
-                                  if (!isNumeric(value!)) {
-                                    return _numberValidatorText;
-                                  }
-                                  return null;
-                                },
-                              ),
-                            ),
+                          _customListTile(
+                            title: AppLocalizations.of(context)!.vitaminC,
+                            controller: _foodVitaminCController,
+                            unit: 'mg / 100 g',
                           ),
-                          ListTile(
-                            title: Text('Vitamin D'),
-                            trailing: Container(
-                              width: _formFieldWidth,
-                              height: _formFieldHeight,
-                              child: TextFormField(
-                                controller: _foodVitaminDController,
-                                keyboardType: TextInputType.number,
-                                decoration: InputDecoration(
-                                  suffixText: 'μg / 100 g',
-                                ),
-                                validator: (value) {
-                                  if (!isNumeric(value!)) {
-                                    return _numberValidatorText;
-                                  }
-                                  return null;
-                                },
-                              ),
-                            ),
+                          _customListTile(
+                            title: AppLocalizations.of(context)!.vitaminD,
+                            controller: _foodVitaminDController,
+                            unit: 'μg / 100 g',
                           ),
-                          ListTile(
-                            title: Text('Vitamin E'),
-                            trailing: Container(
-                              width: _formFieldWidth,
-                              height: _formFieldHeight,
-                              child: TextFormField(
-                                controller: _foodVitaminEController,
-                                keyboardType: TextInputType.number,
-                                decoration: InputDecoration(
-                                  suffixText: 'mg / 100 g',
-                                ),
-                                validator: (value) {
-                                  if (!isNumeric(value!)) {
-                                    return _numberValidatorText;
-                                  }
-                                  return null;
-                                },
-                              ),
-                            ),
+                          _customListTile(
+                            title: AppLocalizations.of(context)!.vitaminE,
+                            controller: _foodVitaminEController,
+                            unit: 'mg / 100 g',
                           ),
-                          ListTile(
-                            title: Text('Vitamin K'),
-                            trailing: Container(
-                              width: _formFieldWidth,
-                              height: _formFieldHeight,
-                              child: TextFormField(
-                                controller: _foodVitaminKController,
-                                keyboardType: TextInputType.number,
-                                decoration: InputDecoration(
-                                  suffixText: 'μg / 100 g',
-                                ),
-                                validator: (value) {
-                                  if (!isNumeric(value!)) {
-                                    return _numberValidatorText;
-                                  }
-                                  return null;
-                                },
-                              ),
-                            ),
+                          _customListTile(
+                            title: AppLocalizations.of(context)!.vitaminK,
+                            controller: _foodVitaminKController,
+                            unit: 'μg / 100 g',
                           ),
                         ],
                       ),
@@ -769,132 +541,43 @@ class _AddEditCustomFoodModalState extends State<AddEditCustomFoodModal> {
                       isExpanded: activePanelIndex == 2,
                       canTapOnHeader: true,
                       headerBuilder: (context, isExpanded) {
-                        return ListTile(
-                          title: Text('Major minerals'),
-                          subtitle: Text('Calcium – Sodium'),
+                        return CategoryListTileHeader(
+                          title: AppLocalizations.of(context)!.majorMinerals,
+                          subtitle:
+                              '${AppLocalizations.of(context)!.calcium}, ${AppLocalizations.of(context)!.chloride}, ${AppLocalizations.of(context)!.magnesium}, ...',
                         );
                       },
                       body: Column(
                         children: [
-                          ListTile(
-                            title: Text('Calcium'),
-                            trailing: Container(
-                              width: _formFieldWidth,
-                              height: _formFieldHeight,
-                              child: TextFormField(
-                                controller: _foodCalciumController,
-                                keyboardType: TextInputType.number,
-                                decoration: InputDecoration(
-                                  suffixText: 'mg / 100 g',
-                                ),
-                                validator: (value) {
-                                  if (!isNumeric(value!)) {
-                                    return _numberValidatorText;
-                                  }
-                                  return null;
-                                },
-                              ),
-                            ),
+                          _customListTile(
+                            title: AppLocalizations.of(context)!.calcium,
+                            controller: _foodCalciumController,
+                            unit: 'mg / 100 g',
                           ),
-                          ListTile(
-                            title: Text('Chloride'),
-                            trailing: Container(
-                              width: _formFieldWidth,
-                              height: _formFieldHeight,
-                              child: TextFormField(
-                                controller: _foodChlorideController,
-                                keyboardType: TextInputType.number,
-                                decoration: InputDecoration(
-                                  suffixText: 'mg / 100 g',
-                                ),
-                                validator: (value) {
-                                  if (!isNumeric(value!)) {
-                                    return _numberValidatorText;
-                                  }
-                                  return null;
-                                },
-                              ),
-                            ),
+                          _customListTile(
+                            title: AppLocalizations.of(context)!.chloride,
+                            controller: _foodChlorideController,
+                            unit: 'mg / 100 g',
                           ),
-                          ListTile(
-                            title: Text('Magnesium'),
-                            trailing: Container(
-                              width: _formFieldWidth,
-                              height: _formFieldHeight,
-                              child: TextFormField(
-                                controller: _foodMagnesiumController,
-                                keyboardType: TextInputType.number,
-                                decoration: InputDecoration(
-                                  suffixText: 'mg / 100 g',
-                                ),
-                                validator: (value) {
-                                  if (!isNumeric(value!)) {
-                                    return _numberValidatorText;
-                                  }
-                                  return null;
-                                },
-                              ),
-                            ),
+                          _customListTile(
+                            title: AppLocalizations.of(context)!.magnesium,
+                            controller: _foodMagnesiumController,
+                            unit: 'mg / 100 g',
                           ),
-                          ListTile(
-                            title: Text('Phosphorus'),
-                            trailing: Container(
-                              width: _formFieldWidth,
-                              height: _formFieldHeight,
-                              child: TextFormField(
-                                controller: _foodPhosphorusController,
-                                keyboardType: TextInputType.number,
-                                decoration: InputDecoration(
-                                  suffixText: 'mg / 100 g',
-                                ),
-                                validator: (value) {
-                                  if (!isNumeric(value!)) {
-                                    return _numberValidatorText;
-                                  }
-                                  return null;
-                                },
-                              ),
-                            ),
+                          _customListTile(
+                            title: AppLocalizations.of(context)!.phosphorous,
+                            controller: _foodPhosphorusController,
+                            unit: 'mg / 100 g',
                           ),
-                          ListTile(
-                            title: Text('Potassium'),
-                            trailing: Container(
-                              width: _formFieldWidth,
-                              height: _formFieldHeight,
-                              child: TextFormField(
-                                controller: _foodPotassiumController,
-                                keyboardType: TextInputType.number,
-                                decoration: InputDecoration(
-                                  suffixText: 'mg / 100 g',
-                                ),
-                                validator: (value) {
-                                  if (!isNumeric(value!)) {
-                                    return _numberValidatorText;
-                                  }
-                                  return null;
-                                },
-                              ),
-                            ),
+                          _customListTile(
+                            title: AppLocalizations.of(context)!.potassium,
+                            controller: _foodPotassiumController,
+                            unit: 'mg / 100 g',
                           ),
-                          ListTile(
-                            title: Text('Sodium'),
-                            trailing: Container(
-                              width: _formFieldWidth,
-                              height: _formFieldHeight,
-                              child: TextFormField(
-                                controller: _foodSodiumController,
-                                keyboardType: TextInputType.number,
-                                decoration: InputDecoration(
-                                  suffixText: 'mg / 100 g',
-                                ),
-                                validator: (value) {
-                                  if (!isNumeric(value!)) {
-                                    return _numberValidatorText;
-                                  }
-                                  return null;
-                                },
-                              ),
-                            ),
+                          _customListTile(
+                            title: AppLocalizations.of(context)!.sodium,
+                            controller: _foodSodiumController,
+                            unit: 'mg / 100 g',
                           ),
                         ],
                       ),
@@ -903,192 +586,63 @@ class _AddEditCustomFoodModalState extends State<AddEditCustomFoodModal> {
                       isExpanded: activePanelIndex == 3,
                       canTapOnHeader: true,
                       headerBuilder: (context, isExpanded) {
-                        return ListTile(
-                          title: Text('Trace elements'),
-                          subtitle: Text('Chromium – Zinc'),
+                        return CategoryListTileHeader(
+                          title: AppLocalizations.of(context)!.traceElements,
+                          subtitle:
+                              '${AppLocalizations.of(context)!.chromium}, ${AppLocalizations.of(context)!.iron}, ${AppLocalizations.of(context)!.fluorine}, ${AppLocalizations.of(context)!.iodine}, ${AppLocalizations.of(context)!.copper}, ...',
                         );
                       },
                       body: Column(
                         children: [
-                          ListTile(
-                            title: Text('Chromium'),
-                            trailing: Container(
-                              width: _formFieldWidth,
-                              height: _formFieldHeight,
-                              child: TextFormField(
-                                controller: _foodChromiumController,
-                                keyboardType: TextInputType.number,
-                                decoration: InputDecoration(
-                                  suffixText: 'μg / 100 g',
-                                ),
-                                validator: (value) {
-                                  if (!isNumeric(value!)) {
-                                    return _numberValidatorText;
-                                  }
-                                  return null;
-                                },
-                              ),
-                            ),
+                          _customListTile(
+                            title: AppLocalizations.of(context)!.chromium,
+                            controller: _foodChromiumController,
+                            unit: 'μg / 100 g',
                           ),
-                          ListTile(
-                            title: Text('Iron'),
-                            trailing: Container(
-                              width: _formFieldWidth,
-                              height: _formFieldHeight,
-                              child: TextFormField(
-                                controller: _foodIronController,
-                                keyboardType: TextInputType.number,
-                                decoration: InputDecoration(
-                                  suffixText: 'mg / 100 g',
-                                ),
-                                validator: (value) {
-                                  if (!isNumeric(value!)) {
-                                    return _numberValidatorText;
-                                  }
-                                  return null;
-                                },
-                              ),
-                            ),
+                          _customListTile(
+                            title: AppLocalizations.of(context)!.iron,
+                            controller: _foodIronController,
+                            unit: 'mg / 100 g',
                           ),
-                          ListTile(
-                            title: Text('Fluorine'),
-                            trailing: Container(
-                              width: _formFieldWidth,
-                              height: _formFieldHeight,
-                              child: TextFormField(
-                                controller: _foodFluorineController,
-                                keyboardType: TextInputType.number,
-                                decoration: InputDecoration(
-                                  suffixText: 'mg / 100 g',
-                                ),
-                                validator: (value) {
-                                  if (!isNumeric(value!)) {
-                                    return _numberValidatorText;
-                                  }
-                                  return null;
-                                },
-                              ),
-                            ),
+                          _customListTile(
+                            title: AppLocalizations.of(context)!.fluorine,
+                            controller: _foodFluorineController,
+                            unit: 'mg / 100 g',
                           ),
-                          ListTile(
-                            title: Text('Iodine'),
-                            trailing: Container(
-                              width: _formFieldWidth,
-                              height: _formFieldHeight,
-                              child: TextFormField(
-                                controller: _foodIodineController,
-                                keyboardType: TextInputType.number,
-                                decoration: InputDecoration(
-                                  suffixText: 'μg / 100 g',
-                                ),
-                                validator: (value) {
-                                  if (!isNumeric(value!)) {
-                                    return _numberValidatorText;
-                                  }
-                                  return null;
-                                },
-                              ),
-                            ),
+                          _customListTile(
+                            title: AppLocalizations.of(context)!.iodine,
+                            controller: _foodIodineController,
+                            unit: 'μg / 100 g',
                           ),
-                          ListTile(
-                            title: Text('Copper'),
-                            trailing: Container(
-                              width: _formFieldWidth,
-                              height: _formFieldHeight,
-                              child: TextFormField(
-                                controller: _foodCopperController,
-                                keyboardType: TextInputType.number,
-                                decoration: InputDecoration(
-                                  suffixText: 'mg / 100 g',
-                                ),
-                                validator: (value) {
-                                  if (!isNumeric(value!)) {
-                                    return _numberValidatorText;
-                                  }
-                                  return null;
-                                },
-                              ),
-                            ),
+                          _customListTile(
+                            title: AppLocalizations.of(context)!.copper,
+                            controller: _foodCopperController,
+                            unit: 'mg / 100 g',
                           ),
-                          ListTile(
-                            title: Text('Manganese'),
-                            trailing: Container(
-                              width: _formFieldWidth,
-                              height: _formFieldHeight,
-                              child: TextFormField(
-                                controller: _foodManganeseController,
-                                keyboardType: TextInputType.number,
-                                decoration: InputDecoration(
-                                  suffixText: 'mg / 100 g',
-                                ),
-                                validator: (value) {
-                                  if (!isNumeric(value!)) {
-                                    return _numberValidatorText;
-                                  }
-                                  return null;
-                                },
-                              ),
-                            ),
+                          _customListTile(
+                            title: AppLocalizations.of(context)!.manganese,
+                            controller: _foodManganeseController,
+                            unit: 'mg / 100 g',
                           ),
-                          ListTile(
-                            title: Text('Molybdenum'),
-                            trailing: Container(
-                              width: _formFieldWidth,
-                              height: _formFieldHeight,
-                              child: TextFormField(
-                                controller: _foodMolybdenumController,
-                                keyboardType: TextInputType.number,
-                                decoration: InputDecoration(
-                                  suffixText: 'μg / 100 g',
-                                ),
-                                validator: (value) {
-                                  if (!isNumeric(value!)) {
-                                    return _numberValidatorText;
-                                  }
-                                  return null;
-                                },
-                              ),
-                            ),
+                          _customListTile(
+                            title: AppLocalizations.of(context)!.molybdenum,
+                            controller: _foodMolybdenumController,
+                            unit: 'μg / 100 g',
                           ),
-                          ListTile(
-                            title: Text('Selenium'),
-                            trailing: Container(
-                              width: _formFieldWidth,
-                              height: _formFieldHeight,
-                              child: TextFormField(
-                                controller: _foodSeleniumController,
-                                keyboardType: TextInputType.number,
-                                decoration: InputDecoration(
-                                  suffixText: 'μg / 100 g',
-                                ),
-                                validator: (value) {
-                                  if (!isNumeric(value!)) {
-                                    return _numberValidatorText;
-                                  }
-                                  return null;
-                                },
-                              ),
-                            ),
+                          _customListTile(
+                            title: AppLocalizations.of(context)!.molybdenum,
+                            controller: _foodMolybdenumController,
+                            unit: 'μg / 100 g',
                           ),
-                          ListTile(
-                            title: Text('Zinc'),
-                            trailing: Container(
-                              width: _formFieldWidth,
-                              height: _formFieldHeight,
-                              child: TextFormField(
-                                controller: _foodZincController,
-                                keyboardType: TextInputType.number,
-                                decoration: InputDecoration(
-                                  suffixText: 'mg / 100 g',
-                                ),
-                                validator: (value) {
-                                  if (!isNumeric(value!)) {
-                                    return _numberValidatorText;
-                                  }
-                                  return null;
-                                },
-                              ),
-                            ),
+                          _customListTile(
+                            title: AppLocalizations.of(context)!.selenium,
+                            controller: _foodSeleniumController,
+                            unit: 'μg / 100 g',
+                          ),
+                          _customListTile(
+                            title: AppLocalizations.of(context)!.zinc,
+                            controller: _foodZincController,
+                            unit: 'mg / 100 g',
                           ),
                         ],
                       ),
@@ -1097,152 +651,50 @@ class _AddEditCustomFoodModalState extends State<AddEditCustomFoodModal> {
                       isExpanded: activePanelIndex == 4,
                       canTapOnHeader: true,
                       headerBuilder: (context, isExpanded) {
-                        return ListTile(
-                          title: Text('Fats'),
-                          subtitle: Text('Different kind of fats'),
+                        return CategoryListTileHeader(
+                          title: AppLocalizations.of(context)!.fats,
+                          subtitle:
+                              '${AppLocalizations.of(context)!.omega3}, ${AppLocalizations.of(context)!.omega6}, ${AppLocalizations.of(context)!.cholesterol}, ...',
                         );
                       },
                       body: Column(
                         children: [
-                          ListTile(
-                            title: Text('Monounsaturated fat'),
-                            trailing: Container(
-                              width: _formFieldWidth,
-                              height: _formFieldHeight,
-                              child: TextFormField(
-                                controller: _foodMonounsaturatedFatController,
-                                keyboardType: TextInputType.number,
-                                decoration: InputDecoration(
-                                  suffixText: 'g / 100 g',
-                                ),
-                                validator: (value) {
-                                  if (!isNumeric(value!)) {
-                                    return _numberValidatorText;
-                                  }
-                                  return null;
-                                },
-                              ),
-                            ),
+                          _customListTile(
+                            title: AppLocalizations.of(context)!
+                                .monounsaturatedFat,
+                            controller: _foodMonounsaturatedFatController,
+                            unit: 'g / 100 g',
                           ),
-                          ListTile(
-                            title: Text('Polyunsaturated fat'),
-                            trailing: Container(
-                              width: _formFieldWidth,
-                              height: _formFieldHeight,
-                              child: TextFormField(
-                                controller: _foodPolyunsaturatedFatController,
-                                keyboardType: TextInputType.number,
-                                decoration: InputDecoration(
-                                  suffixText: 'g / 100 g',
-                                ),
-                                validator: (value) {
-                                  if (!isNumeric(value!)) {
-                                    return _numberValidatorText;
-                                  }
-                                  return null;
-                                },
-                              ),
-                            ),
+                          _customListTile(
+                            title: AppLocalizations.of(context)!
+                                .polyunsaturatedFat,
+                            controller: _foodPolyunsaturatedFatController,
+                            unit: 'g / 100 g',
                           ),
-                          ListTile(
-                            title: Text('Omega 3'),
-                            trailing: Container(
-                              width: _formFieldWidth,
-                              height: _formFieldHeight,
-                              child: TextFormField(
-                                controller: _foodOmega3Controller,
-                                keyboardType: TextInputType.number,
-                                decoration: InputDecoration(
-                                  suffixText: 'g / 100 g',
-                                ),
-                                validator: (value) {
-                                  if (!isNumeric(value!)) {
-                                    return _numberValidatorText;
-                                  }
-                                  return null;
-                                },
-                              ),
-                            ),
+                          _customListTile(
+                            title: AppLocalizations.of(context)!.omega3,
+                            controller: _foodOmega3Controller,
+                            unit: 'g / 100 g',
                           ),
-                          ListTile(
-                            title: Text('Omega 6'),
-                            trailing: Container(
-                              width: _formFieldWidth,
-                              height: _formFieldHeight,
-                              child: TextFormField(
-                                controller: _foodOmega6Controller,
-                                keyboardType: TextInputType.number,
-                                decoration: InputDecoration(
-                                  suffixText: 'g / 100 g',
-                                ),
-                                validator: (value) {
-                                  if (!isNumeric(value!)) {
-                                    return _numberValidatorText;
-                                  }
-                                  return null;
-                                },
-                              ),
-                            ),
+                          _customListTile(
+                            title: AppLocalizations.of(context)!.omega6,
+                            controller: _foodOmega6Controller,
+                            unit: 'g / 100 g',
                           ),
-                          ListTile(
-                            title: Text('Saturated fat'),
-                            trailing: Container(
-                              width: _formFieldWidth,
-                              height: _formFieldHeight,
-                              child: TextFormField(
-                                controller: _foodSaturatedFatController,
-                                keyboardType: TextInputType.number,
-                                decoration: InputDecoration(
-                                  suffixText: 'g / 100 g',
-                                ),
-                                validator: (value) {
-                                  if (!isNumeric(value!)) {
-                                    return _numberValidatorText;
-                                  }
-                                  return null;
-                                },
-                              ),
-                            ),
+                          _customListTile(
+                            title: AppLocalizations.of(context)!.saturatedFat,
+                            controller: _foodSaturatedFatController,
+                            unit: 'g / 100 g',
                           ),
-                          ListTile(
-                            title: Text('Transfat'),
-                            trailing: Container(
-                              width: _formFieldWidth,
-                              height: _formFieldHeight,
-                              child: TextFormField(
-                                controller: _foodTransFatController,
-                                keyboardType: TextInputType.number,
-                                decoration: InputDecoration(
-                                  suffixText: 'g / 100 g',
-                                ),
-                                validator: (value) {
-                                  if (!isNumeric(value!)) {
-                                    return _numberValidatorText;
-                                  }
-                                  return null;
-                                },
-                              ),
-                            ),
+                          _customListTile(
+                            title: AppLocalizations.of(context)!.transfat,
+                            controller: _foodTransFatController,
+                            unit: 'g / 100 g',
                           ),
-                          ListTile(
-                            title: Text('Cholesterol'),
-                            trailing: Container(
-                              width: _formFieldWidth,
-                              height: _formFieldHeight,
-                              child: TextFormField(
-                                controller: _foodCholesterolController,
-                                keyboardType: TextInputType.number,
-                                decoration: InputDecoration(
-                                  suffixText: 'mg / 100 g',
-                                ),
-                                validator: (value) {
-                                  if (!isNumeric(value!)) {
-                                    return _numberValidatorText;
-                                  }
-                                  return null;
-                                },
-                              ),
-                            ),
+                          _customListTile(
+                            title: AppLocalizations.of(context)!.cholesterol,
+                            controller: _foodCholesterolController,
+                            unit: 'mg / 100 g',
                           ),
                         ],
                       ),
@@ -1251,92 +703,33 @@ class _AddEditCustomFoodModalState extends State<AddEditCustomFoodModal> {
                       isExpanded: activePanelIndex == 5,
                       canTapOnHeader: true,
                       headerBuilder: (context, isExpanded) {
-                        return ListTile(
-                          title: Text('Carbs'),
-                          subtitle: Text('Fiber, sugar, starch, etc.'),
+                        return CategoryListTileHeader(
+                          title: AppLocalizations.of(context)!.carbs,
+                          subtitle:
+                              '${AppLocalizations.of(context)!.fiber}, ${AppLocalizations.of(context)!.sugar}, ${AppLocalizations.of(context)!.starch}, ...',
                         );
                       },
                       body: Column(
                         children: [
-                          ListTile(
-                            title: Text('Fiber'),
-                            trailing: Container(
-                              width: _formFieldWidth,
-                              height: _formFieldHeight,
-                              child: TextFormField(
-                                controller: _foodFiberController,
-                                keyboardType: TextInputType.number,
-                                decoration: InputDecoration(
-                                  suffixText: 'g / 100 g',
-                                ),
-                                validator: (value) {
-                                  if (!isNumeric(value!)) {
-                                    return _numberValidatorText;
-                                  }
-                                  return null;
-                                },
-                              ),
-                            ),
+                          _customListTile(
+                            title: AppLocalizations.of(context)!.fiber,
+                            controller: _foodFiberController,
+                            unit: 'g / 100 g',
                           ),
-                          ListTile(
-                            title: Text('Sugar'),
-                            trailing: Container(
-                              width: _formFieldWidth,
-                              height: _formFieldHeight,
-                              child: TextFormField(
-                                controller: _foodSugarController,
-                                keyboardType: TextInputType.number,
-                                decoration: InputDecoration(
-                                  suffixText: 'g / 100 g',
-                                ),
-                                validator: (value) {
-                                  if (!isNumeric(value!)) {
-                                    return _numberValidatorText;
-                                  }
-                                  return null;
-                                },
-                              ),
-                            ),
+                          _customListTile(
+                            title: AppLocalizations.of(context)!.sugar,
+                            controller: _foodSugarController,
+                            unit: 'g / 100 g',
                           ),
-                          ListTile(
-                            title: Text('Sugar alcohol'),
-                            trailing: Container(
-                              width: _formFieldWidth,
-                              height: _formFieldHeight,
-                              child: TextFormField(
-                                controller: _foodSugarAlcoholController,
-                                keyboardType: TextInputType.number,
-                                decoration: InputDecoration(
-                                  suffixText: 'g / 100 g',
-                                ),
-                                validator: (value) {
-                                  if (!isNumeric(value!)) {
-                                    return _numberValidatorText;
-                                  }
-                                  return null;
-                                },
-                              ),
-                            ),
+                          _customListTile(
+                            title: AppLocalizations.of(context)!.sugarAlcohol,
+                            controller: _foodSugarAlcoholController,
+                            unit: 'g / 100 g',
                           ),
-                          ListTile(
-                            title: Text('Starch'),
-                            trailing: Container(
-                              width: _formFieldWidth,
-                              height: _formFieldHeight,
-                              child: TextFormField(
-                                controller: _foodStarchController,
-                                keyboardType: TextInputType.number,
-                                decoration: InputDecoration(
-                                  suffixText: 'g / 100 g',
-                                ),
-                                validator: (value) {
-                                  if (!isNumeric(value!)) {
-                                    return _numberValidatorText;
-                                  }
-                                  return null;
-                                },
-                              ),
-                            ),
+                          _customListTile(
+                            title: AppLocalizations.of(context)!.starch,
+                            controller: _foodStarchController,
+                            unit: 'g / 100 g',
                           ),
                         ],
                       ),
@@ -1345,72 +738,28 @@ class _AddEditCustomFoodModalState extends State<AddEditCustomFoodModal> {
                       isExpanded: activePanelIndex == 6,
                       canTapOnHeader: true,
                       headerBuilder: (context, isExpanded) {
-                        return ListTile(
-                          title: Text('Other'),
-                          subtitle: Text('Water, caffeine, alcohol'),
+                        return CategoryListTileHeader(
+                          title: AppLocalizations.of(context)!.other,
+                          subtitle:
+                              '${AppLocalizations.of(context)!.water}, ${AppLocalizations.of(context)!.caffeine}, ${AppLocalizations.of(context)!.alcohol}',
                         );
                       },
                       body: Column(
                         children: [
-                          ListTile(
-                            title: Text('Water'),
-                            trailing: Container(
-                              width: _formFieldWidth,
-                              height: _formFieldHeight,
-                              child: TextFormField(
-                                controller: _foodWaterController,
-                                keyboardType: TextInputType.number,
-                                decoration: InputDecoration(
-                                  suffixText: 'ml / 100 g',
-                                ),
-                                validator: (value) {
-                                  if (!isNumeric(value!)) {
-                                    return _numberValidatorText;
-                                  }
-                                  return null;
-                                },
-                              ),
-                            ),
+                          _customListTile(
+                            title: AppLocalizations.of(context)!.water,
+                            controller: _foodWaterController,
+                            unit: 'ml / 100 g',
                           ),
-                          ListTile(
-                            title: Text('Caffeine'),
-                            trailing: Container(
-                              width: _formFieldWidth,
-                              height: _formFieldHeight,
-                              child: TextFormField(
-                                controller: _foodCaffeineController,
-                                keyboardType: TextInputType.number,
-                                decoration: InputDecoration(
-                                  suffixText: 'mg / 100 g',
-                                ),
-                                validator: (value) {
-                                  if (!isNumeric(value!)) {
-                                    return _numberValidatorText;
-                                  }
-                                  return null;
-                                },
-                              ),
-                            ),
+                          _customListTile(
+                            title: AppLocalizations.of(context)!.caffeine,
+                            controller: _foodCaffeineController,
+                            unit: 'mg / 100 g',
                           ),
-                          ListTile(
-                            title: Text('Alcohol'),
-                            trailing: Container(
-                              width: _formFieldWidth,
-                              height: _formFieldHeight,
-                              child: TextFormField(
-                                controller: _foodAlcoholController,
-                                keyboardType: TextInputType.number,
-                                decoration: InputDecoration(
-                                  suffixText: 'g / 100 g',
-                                ),
-                                validator: (value) {
-                                  if (!isNumeric(value!)) {
-                                    return _numberValidatorText;
-                                  }
-                                  return null;
-                                },
-                              ),
-                            ),
+                          _customListTile(
+                            title: AppLocalizations.of(context)!.alcohol,
+                            controller: _foodAlcoholController,
+                            unit: 'g / 100 g',
                           ),
                         ],
                       ),
