@@ -400,11 +400,11 @@ class _AddEditCustomFoodModalState extends State<AddEditCustomFoodModal> {
               children: [
                 Row(
                   children: [
-                    (food?.imageThumbnailUrl != null)
+                    (food?.imageUrl != null)
                         ? CircleAvatar(
                             radius: AddEditCustomFoodModal._foodAvatarRadius,
                             foregroundImage: NetworkImage(
-                              food!.imageThumbnailUrl!,
+                              food!.imageUrl!,
                             ),
                           )
                         : CircleAvatar(

@@ -183,8 +183,6 @@ class _FoodInputState extends State<FoodInput>
         ),
       );
 
-      // TODO: Issue #9: List.of() is not good here because it does not create a list of food entries but of TrackedFood so that a db exception is thrown when inserting custom food based out of suggested food which was tracked before
-
       // Initial fill of the suggestions list (and when searched for empty string)
       setState(() {
         // Fill with previously tracked foods, newest first
