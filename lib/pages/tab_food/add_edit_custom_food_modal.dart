@@ -18,6 +18,8 @@ class AddEditCustomFoodModalArguments {
 class AddEditCustomFoodModal extends StatefulWidget {
   static const routeName = '/food/add-edit-custom-food';
 
+  static const _foodAvatarRadius = 56.0;
+
   @override
   _AddEditCustomFoodModalState createState() => _AddEditCustomFoodModalState();
 }
@@ -27,6 +29,7 @@ class _AddEditCustomFoodModalState extends State<AddEditCustomFoodModal> {
   Food foodToEditOrCreate = Food(id: 'temp', origin: 'CUSTOM', title: '');
   final _formKey = GlobalKey<FormState>();
   var _foodTitleController = TextEditingController();
+  var _foodEanController = TextEditingController();
   var _foodCaloriesController = TextEditingController();
   var _foodProteinController = TextEditingController();
   var _foodCarbsController = TextEditingController();
@@ -87,6 +90,7 @@ class _AddEditCustomFoodModalState extends State<AddEditCustomFoodModal> {
 
       // Fill all textfields with provided values
       _foodTitleController.text = foodToEditOrCreate.title;
+      _foodEanController.text = (foodToEditOrCreate.ean ?? '').toString();
       _foodCaloriesController.text =
           (foodToEditOrCreate.calories ?? '').toString();
       _foodProteinController.text =
@@ -180,6 +184,7 @@ class _AddEditCustomFoodModalState extends State<AddEditCustomFoodModal> {
     }
 
     foodToEditOrCreate.title = _foodTitleController.text;
+    foodToEditOrCreate.ean = _foodEanController.text;
     foodToEditOrCreate.origin = 'CUSTOM';
     foodToEditOrCreate.calories = _foodCaloriesController.text != ''
         ? double.parse(_foodCaloriesController.text)
@@ -393,19 +398,59 @@ class _AddEditCustomFoodModalState extends State<AddEditCustomFoodModal> {
             padding: const EdgeInsets.all(8.0),
             child: ListView(
               children: [
-                TextFormField(
-                  controller: _foodTitleController,
-                  keyboardType: TextInputType.text,
-                  decoration: InputDecoration(
-                    labelText: AppLocalizations.of(context)!.title,
-                  ),
-                  validator: (value) {
-                    if (value!.isEmpty) {
-                      return AppLocalizations.of(context)!.fieldMandatory;
-                    }
-                    return null;
-                  },
+                Row(
+                  children: [
+                    (food?.imageThumbnailUrl != null)
+                        ? CircleAvatar(
+                            radius: AddEditCustomFoodModal._foodAvatarRadius,
+                            foregroundImage: NetworkImage(
+                              food!.imageThumbnailUrl!,
+                            ),
+                          )
+                        : CircleAvatar(
+                            backgroundColor: Colors.black,
+                            radius: AddEditCustomFoodModal._foodAvatarRadius,
+                            child: Icon(
+                              Icons.image_not_supported_outlined,
+                              size: AddEditCustomFoodModal._foodAvatarRadius *
+                                  1.8,
+                              color: Colors.white,
+                            ),
+                          ),
+                    const SizedBox(width: 20),
+                    Expanded(
+                      child: Column(
+                        children: [
+                          TextFormField(
+                            controller: _foodTitleController,
+                            keyboardType: TextInputType.text,
+                            decoration: InputDecoration(
+                              labelText: AppLocalizations.of(context)!.title,
+                            ),
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return AppLocalizations.of(context)!
+                                    .fieldMandatory;
+                              }
+                              return null;
+                            },
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          TextFormField(
+                            controller: _foodEanController,
+                            keyboardType: TextInputType.number,
+                            decoration: InputDecoration(
+                              labelText: AppLocalizations.of(context)!.barcode,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
                 ),
+
                 SizedBox(
                   height: 10,
                 ),

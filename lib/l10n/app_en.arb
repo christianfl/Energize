@@ -34,6 +34,7 @@
     "addCustomFood": "Add custom food",
     "editCustomFood": "Edit custom food",
     "title": "Title",
+    "barcode": "Barcode",
     "@_SETTINGS": {
     },
     "settings": "Settings",

@@ -34,6 +34,7 @@
     "addCustomFood": "Eigene Nahrung hinzufügen",
     "editCustomFood": "Eigene Nahrung bearbeiten",
     "title": "Titel",
+    "barcode": "Barcode",
     "@_SETTINGS": {
     },
     "settings": "Einstellungen",
