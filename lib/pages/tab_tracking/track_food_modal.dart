@@ -25,6 +25,8 @@ class ModalArguments {
 class TrackFood extends StatefulWidget {
   static const routeName = '/tracking/add-food';
 
+  static const _foodAvatarRadius = 48.0;
+
   @override
   _TrackFoodState createState() => _TrackFoodState();
 }
@@ -37,10 +39,18 @@ class _TrackFoodState extends State<TrackFood>
   final _scrollController = ScrollController();
   final _expandedHeight = 240.0;
   late TabController _tabController;
+  final _amountCtrlFocusNode = FocusNode();
 
   @override
   void initState() {
     _tabController = TabController(vsync: this, length: 2);
+    _amountCtrlFocusNode.addListener(() {
+      print('bla');
+      final double maxHeaderHeight = _expandedHeight - kToolbarHeight;
+      _scrollController.animateTo(maxHeaderHeight,
+          duration: Duration(seconds: 1), curve: Curves.bounceIn);
+    });
+
     super.initState();
   }
 
@@ -126,23 +136,6 @@ class _TrackFoodState extends State<TrackFood>
     }
   }
 
-  bool get _isAppBarCollapsed {
-    final double maxHeaderHeight = _expandedHeight - kToolbarHeight;
-
-    if (_scrollController.hasClients) {
-      double offset = _scrollController.offset;
-
-      if (offset < maxHeaderHeight) {
-        // Not collapsed, starts with offset = 0 which gets bigger by scrolling
-      } else {
-        // Fully collapsed
-        return true;
-      }
-    }
-
-    return false;
-  }
-
   Widget _getActions(Food food) {
     return PopupMenuButton(
       icon: Icon(Icons.more_vert),
@@ -181,7 +174,7 @@ class _TrackFoodState extends State<TrackFood>
     return Container(
       height: 56,
       decoration: new BoxDecoration(
-        color: Theme.of(context).highlightColor.withAlpha(220),
+        color: Colors.black45,
         borderRadius: new BorderRadius.all(Radius.circular(28)),
       ),
       child: Row(
@@ -196,6 +189,7 @@ class _TrackFoodState extends State<TrackFood>
                 setState(() {});
               },
               controller: amountCtrl,
+              focusNode: _amountCtrlFocusNode,
               keyboardType: TextInputType.number,
               decoration: InputDecoration(
                 prefixIcon: Icon(Icons.edit),
@@ -215,8 +209,8 @@ class _TrackFoodState extends State<TrackFood>
                     dropdownValue = newValue!;
                   });
                 },
-                items: <String>['g', 'serving (60 g)']
-                    .map<DropdownMenuItem<String>>((String value) {
+                items:
+                    <String>['g'].map<DropdownMenuItem<String>>((String value) {
                   return DropdownMenuItem<String>(
                     value: value,
                     child: Text(value),
@@ -238,140 +232,126 @@ class _TrackFoodState extends State<TrackFood>
     final modalMode = args.mode;
 
     return Scaffold(
-      body: NestedScrollView(
-        controller: _scrollController,
-        headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
-          return <Widget>[
-            SliverOverlapAbsorber(
-              handle: NestedScrollView.sliverOverlapAbsorberHandleFor(context),
-              sliver: SliverSafeArea(
-                top: false,
-                sliver: SliverAppBar(
-                  expandedHeight: _expandedHeight,
-                  floating: false,
-                  pinned: true,
-                  actions: [_getActions(food)],
-                  flexibleSpace: LayoutBuilder(builder:
-                      (BuildContext context, BoxConstraints constraints) {
-                    return FlexibleSpaceBar(
-                      title: Text(
-                        _getPageTitle(modalMode),
-                        overflow:
-                            _isAppBarCollapsed ? TextOverflow.ellipsis : null,
-                      ),
-                      background: food.imageUrl != null
-                          ? Image.network(
-                              food.imageUrl!,
-                              color: Colors.transparent.withOpacity(0.2),
-                              colorBlendMode: BlendMode.luminosity,
-                              fit: BoxFit.cover,
-                            )
-                          : Image.asset(
-                              'assets/placeholder.png',
-                              color: Colors.transparent.withOpacity(0.2),
-                              colorBlendMode: BlendMode.luminosity,
-                              fit: BoxFit.cover,
-                            ),
-                    );
-                  }),
-                ),
-              ),
-            )
-          ];
+      appBar: AppBar(
+        title: Text(_getPageTitle(modalMode), overflow: TextOverflow.ellipsis),
+        actions: [_getActions(food)],
+      ),
+      body: WillPopScope(
+        onWillPop: () async {
+          Navigator.pop(context, false);
+          return true;
         },
-        body: WillPopScope(
-          onWillPop: () async {
-            Navigator.pop(context, false);
-            return true;
-          },
-          child: Stack(
-            children: [
-              Column(
+        child: Column(
+          children: [
+            Container(
+              padding: const EdgeInsets.all(16.0),
+              color: Colors.black26,
+              child: Row(
                 children: [
-                  TabBar(controller: _tabController, tabs: [
-                    Tab(
-                      icon: const Icon(Icons.info),
-                      text: AppLocalizations.of(context)!.general,
-                    ),
-                    Tab(
-                      icon: const Icon(Icons.biotech),
-                      text: AppLocalizations.of(context)!.micronutrients,
-                    ),
-                  ]),
+                  (food.imageUrl != null)
+                      ? CircleAvatar(
+                          radius: TrackFood._foodAvatarRadius,
+                          foregroundImage: NetworkImage(
+                            food.imageUrl!,
+                          ),
+                        )
+                      : CircleAvatar(
+                          backgroundColor: Colors.black,
+                          radius: TrackFood._foodAvatarRadius,
+                          child: Icon(
+                            Icons.image_not_supported_outlined,
+                            size: TrackFood._foodAvatarRadius * 1.8,
+                            color: Colors.white,
+                          ),
+                        ),
+                  const SizedBox(width: 20),
                   Expanded(
-                    child: TabBarView(
-                      controller: _tabController,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Padding(
-                          padding: const EdgeInsets.all(16.0),
-                          child: SingleChildScrollView(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  food.title,
-                                  maxLines: 3,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                                const SizedBox(height: 10),
-                                Row(
-                                  children: [
-                                    FoodMicroCountPill(
-                                      food.nutrientCount,
-                                      height: _pillHeight,
-                                      showText: true,
-                                    ),
-                                    SizedBox(width: 10),
-                                    InkWell(
-                                      onTap: food.origin == 'OFF'
-                                          ? () =>
-                                              _launchOpenFoodFactsUrl(food.ean!)
-                                          : null,
-                                      child: FoodOriginLogoPill(
-                                        food.origin,
-                                        width: 100,
-                                        height: _pillHeight,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                const SizedBox(height: 10),
-                                MacroChart([_getConvertedFoodForChart(food)]),
-                              ],
+                        Text(
+                          food.title,
+                          maxLines: 3,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        const SizedBox(height: 10),
+                        Row(
+                          children: [
+                            FoodMicroCountPill(
+                              food.nutrientCount,
+                              height: _pillHeight,
+                              showText: true,
                             ),
-                          ),
+                            SizedBox(width: 10),
+                            InkWell(
+                              onTap: food.origin == 'OFF'
+                                  ? () => _launchOpenFoodFactsUrl(food.ean!)
+                                  : null,
+                              child: FoodOriginLogoPill(
+                                food.origin,
+                                width: 100,
+                                height: _pillHeight,
+                              ),
+                            ),
+                          ],
                         ),
-                        SingleChildScrollView(
-                          padding: const EdgeInsets.all(16.0),
-                          child: MicroChart(
-                            [_getConvertedFoodForChart(food)],
-                            showZero: false,
-                            scrollable: false,
-                          ),
-                        ),
-                      ].map((tab) => tab).toList(),
+                      ],
                     ),
                   ),
                 ],
               ),
-              Container(
-                alignment: Alignment.bottomLeft,
-                child: Padding(
-                  padding:
-                      const EdgeInsets.only(left: 14, bottom: 14, right: 85),
-                  child: _getAmountInput(
-                    args,
-                    trackedFood,
-                    food,
+            ),
+            TabBar(
+              controller: _tabController,
+              tabs: [
+                Tab(
+                  icon: const Icon(Icons.info),
+                  text: AppLocalizations.of(context)!.general,
+                ),
+                Tab(
+                  icon: const Icon(Icons.biotech),
+                  text: AppLocalizations.of(context)!.micronutrients,
+                ),
+              ],
+            ),
+            Expanded(
+              child: TabBarView(
+                controller: _tabController,
+                children: [
+                  SingleChildScrollView(
+                    padding: const EdgeInsets.all(16.0),
+                    child: MacroChart(
+                      [_getConvertedFoodForChart(food)],
+                      hideCard: true,
+                    ),
                   ),
+                  SingleChildScrollView(
+                    padding: const EdgeInsets.all(16.0),
+                    child: MicroChart(
+                      [_getConvertedFoodForChart(food)],
+                      showZero: false,
+                      scrollable: false,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Container(
+              alignment: Alignment.bottomLeft,
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(14, 14, 85, 14),
+                child: _getAmountInput(
+                  args,
+                  trackedFood,
+                  food,
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
       floatingActionButton: FloatingActionButton(

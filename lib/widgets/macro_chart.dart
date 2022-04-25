@@ -8,8 +8,12 @@ import '../providers/app_settings.dart';
 
 class MacroChart extends StatelessWidget {
   final List<FoodTracked> foods;
+  final bool? hideCard;
 
-  MacroChart(this.foods);
+  MacroChart(
+    this.foods, {
+    this.hideCard,
+  });
 
   double get _totalCalories {
     return foods.fold(0, (sum, f) => sum + _calcAmount(f.calories, f.amount));
@@ -37,46 +41,57 @@ class MacroChart extends StatelessWidget {
     return 0;
   }
 
+  _getChart(BuildContext context, AppSettings appSettings) {
+    return Column(
+      children: [
+        ChartBar(
+          title: AppLocalizations.of(context)!.energy,
+          value: _totalCalories,
+          target: appSettings.caloriesTarget,
+          unit: 'kcal',
+          decimalPlaces: 0,
+        ),
+        ChartBar(
+          title: AppLocalizations.of(context)!.protein,
+          value: _totalProtein,
+          target: appSettings.proteinTarget,
+          unit: 'g',
+          decimalPlaces: 0,
+        ),
+        ChartBar(
+          title: AppLocalizations.of(context)!.carbs,
+          value: _totalCarbs,
+          target: appSettings.carbsTarget,
+          unit: 'g',
+          decimalPlaces: 0,
+        ),
+        ChartBar(
+          title: AppLocalizations.of(context)!.fat,
+          value: _totalFat,
+          target: appSettings.fatTarget,
+          unit: 'g',
+          decimalPlaces: 0,
+        ),
+      ],
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final appSettings = Provider.of<AppSettings>(context);
-    return Container(
-      width: double.infinity,
-      child: Card(
-        child: Container(
-          margin: EdgeInsets.all(10),
-          child: Column(children: <Widget>[
-            ChartBar(
-              title: AppLocalizations.of(context)!.energy,
-              value: _totalCalories,
-              target: appSettings.caloriesTarget,
-              unit: 'kcal',
-              decimalPlaces: 0,
-            ),
-            ChartBar(
-              title: AppLocalizations.of(context)!.protein,
-              value: _totalProtein,
-              target: appSettings.proteinTarget,
-              unit: 'g',
-              decimalPlaces: 0,
-            ),
-            ChartBar(
-              title: AppLocalizations.of(context)!.carbs,
-              value: _totalCarbs,
-              target: appSettings.carbsTarget,
-              unit: 'g',
-              decimalPlaces: 0,
-            ),
-            ChartBar(
-              title: AppLocalizations.of(context)!.fat,
-              value: _totalFat,
-              target: appSettings.fatTarget,
-              unit: 'g',
-              decimalPlaces: 0,
-            ),
-          ]),
+
+    if (hideCard == true) {
+      return _getChart(context, appSettings);
+    } else {
+      return Container(
+        width: double.infinity,
+        child: Card(
+          child: Container(
+            margin: EdgeInsets.all(10),
+            child: _getChart(context, appSettings),
+          ),
         ),
-      ),
-    );
+      );
+    }
   }
 }
