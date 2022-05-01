@@ -58,7 +58,10 @@ class _FoodInputState extends State<FoodInput>
         .pushNamed(
           TrackFood.routeName,
           arguments: ModalArguments(
-              foodToBeAdded, ModalMode.add, widget._foodAddingDate),
+            foodToBeAdded,
+            ModalMode.add,
+            widget._foodAddingDate,
+          ),
         )
         .then(
           (shouldClose) => {
@@ -104,12 +107,10 @@ class _FoodInputState extends State<FoodInput>
   void _onQRViewCreated(QRViewController controller) {
     this._qrController = controller;
     controller.scannedDataStream.listen((scanData) {
-      // Catch multiple scan trials of same code
-      if (_scannedCode?.code == scanData.code) return;
-      setState(() {
+      if (_scannedCode == null) {
         _scannedCode = scanData;
-      });
-      if (_scannedCode?.code != null) {
+
+        print(_scannedCode?.code);
         OpenFoodFactsBinding.getFoodByEan(_scannedCode!.code!).then((food) {
           flashStatus.then((isFlashOn) =>
               {if (isFlashOn != null && isFlashOn == true) _toggleFlash()});
