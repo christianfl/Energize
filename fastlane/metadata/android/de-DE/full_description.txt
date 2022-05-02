@@ -1,6 +1,6 @@
 <ul>
 <li>Tracke deine Nahrung inkl. Kalorien, Makro- und Mikronährstoffe</li>
-<li>Benutze mehrere Datenbanken (Bisher Schweizer Nährwertdatenbank und Open Food Facts) oder erstelle benutzerdefinierte Nahrung</li>
+<li>Benutze mehrere Datenbanken (Open Food Facts, USDA und Schweizer Nährwertdatenbank) oder erstelle eigene Nahrung</li>
 <li>Suche über den Produktnamen oder scanne den EAN code</li>
 <li>Erhalte Vorschläge für das Tracking basierend auf deinen letzten Eingaben</li>
 <li>Setzte Vorgaben für deine Makro- und Mikronährstoffe oder lass sie anhand deiner persönlichen Daten berechnen</li>

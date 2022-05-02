@@ -28,7 +28,7 @@ Google Play is still in testing phase at the moment. Drop me a message and inclu
 
 ## Features
 
-- Track your meals including macro- and micronutrients
+- Track your meals including calories, macro- and micronutrients
 - Use several databases (currently Open Food Facts and Swiss Nutrition Database) or create custom meals
 - Search meals by product name or just scan the EAN code
 - Get meal suggestions based on your last tracked meals
