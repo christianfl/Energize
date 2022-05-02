@@ -1,0 +1,5 @@
+* Neue Datenbank hinzugefügt: USDA FoodData Central
+* Design des "Nahrung hinzufügen"-Dialogs verbessert
+* Fixed: Einige Barcodes konnten dazu führen, dass der "Nahrung hinzufügen"-Dialog mehrfach geöffnet wurde
+* Bild und EAN code zu "Eigene Nahrung" hinzugefügt
+* Kleinere Verbesserungen

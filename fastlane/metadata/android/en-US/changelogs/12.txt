@@ -1,0 +1,5 @@
+* Added new database: USDA FoodData Central
+* Improved look of track food modal
+* Fixed: Some barcodes could lead the track food modal to open multiple times
+* Added image and EAN code to custom food
+* Minor improvements
