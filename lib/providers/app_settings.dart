@@ -39,6 +39,7 @@ class AppSettings with ChangeNotifier {
 
   bool _isProviderOpenFoodFactsActivated = true;
   bool _isProviderSndbActivated = true;
+  bool _isProviderUsdaActivated = true;
 
   // ########################## Targets ##########################
 
@@ -106,6 +107,7 @@ class AppSettings with ChangeNotifier {
   bool get isProviderOpenFoodFactsActivated =>
       _isProviderOpenFoodFactsActivated;
   bool get isProviderSndbActivated => _isProviderSndbActivated;
+  bool get isProviderUsdaActivated => _isProviderUsdaActivated;
 
   double get caloriesTarget => _caloriesTarget;
   double get proteinTarget => _proteinTarget;
@@ -194,6 +196,8 @@ class AppSettings with ChangeNotifier {
         _preferences!.getBool('isProviderOpenFoodFactsActivated') ?? true;
     _isProviderSndbActivated =
         _preferences!.getBool('isProviderSndbActivated') ?? true;
+    _isProviderUsdaActivated =
+        _preferences!.getBool('isProviderUsdaActivated') ?? true;
 
     _caloriesTarget =
         _preferences!.getDouble('caloriesTarget') ?? _caloriesTarget;
@@ -621,6 +625,12 @@ class AppSettings with ChangeNotifier {
     _isProviderSndbActivated = value;
     notifyListeners();
     _saveToPreferences('isProviderSndbActivated', value);
+  }
+
+  set isProviderUsdaActivated(bool value) {
+    _isProviderUsdaActivated = value;
+    notifyListeners();
+    _saveToPreferences('isProviderUsdaActivated', value);
   }
 
   set age(int value) {

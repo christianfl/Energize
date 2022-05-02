@@ -1,10 +1,14 @@
 import 'dart:ui';
 
+import 'package:collection/collection.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:openfoodfacts/model/Product.dart';
 import 'package:uuid/uuid.dart';
 
-import 'SNDB.dart';
+import '../../services/food_database_bindings/open_food_facts/open_food_facts_binding.dart';
+import '../../services/food_database_bindings/usda/models/usda_food.dart';
+import '../../services/food_database_bindings/usda/models/usda_food_nutrient_unit.dart';
+import '../../services/food_database_bindings/usda/usda_binding.dart';
 
 part 'food.g.dart';
 
@@ -12,19 +16,6 @@ part 'food.g.dart';
   includeIfNull: false,
 )
 class Food {
-  // Gets generated during runtime out of SNDB.dart (CSV)
-  static List<Food> _sndb = [];
-
-  static const openFoodFactsImageUrl = 'assets/food_databases/off.png';
-  static const openFoodFactsTermsUrl =
-      'https://world.openfoodfacts.org/terms-of-use';
-  static const openFoodFactsContributeUrl =
-      'https://world.openfoodfacts.org/contribute';
-  static const openFoodFactsProductUrl = 'https://openfoodfacts.org/product/';
-  static const swissNutritionDatabaseImageUrl =
-      'assets/food_databases/sndb.png';
-  static const swissNutritionDatabaseUrl = 'https://naehrwertdaten.ch/de/';
-
   // #################### Metadata ####################
   String id;
   String title;
@@ -39,7 +30,7 @@ class Food {
 
   // #################### Calories ####################
 
-  /// In g/100 (g or ml)
+  /// In kcal/100 (g or ml)
   double? calories;
 
   // #################### Macronutrients ####################
@@ -248,7 +239,11 @@ class Food {
   });
 
   factory Food.fromOpenFoodFactsProduct(Product product) {
-    var food = Food(id: generatedId, title: '', origin: 'OFF');
+    var food = Food(
+      id: generatedId,
+      title: '',
+      origin: OpenFoodFactsBinding.originName,
+    );
 
     // Title
     food.title = product.brands ?? '';
@@ -416,6 +411,114 @@ class Food {
     return food;
   }
 
+  factory Food.fromUSDAFoodProduct(USDAFood usdaFood) {
+    double? getTransformedValue(
+      String nutrientName,
+      USDAFoodNutrientUnit unit,
+    ) {
+      return usdaFood.foodNutrients
+          ?.firstWhereOrNull((nutrient) =>
+              nutrient.nutrientName == nutrientName &&
+              nutrient.unitName == unit)
+          ?.value;
+    }
+
+    var food = Food(
+      id: generatedId,
+      origin: USDABinding.originName,
+      title: usdaFood.description ?? '',
+    );
+
+    food.calories = getTransformedValue('Energy', USDAFoodNutrientUnit.KCAL);
+    food.protein = getTransformedValue('Protein', USDAFoodNutrientUnit.G);
+    food.carbs = getTransformedValue(
+        'Carbohydrate, by difference', USDAFoodNutrientUnit.G);
+    food.fat = getTransformedValue('Total lipid (fat)', USDAFoodNutrientUnit.G);
+
+    // vitaminA
+
+    food.vitaminB1 = getTransformedValue('Thiamin', USDAFoodNutrientUnit.MG);
+    food.vitaminB2 = getTransformedValue('Riboflavin', USDAFoodNutrientUnit.MG);
+    food.vitaminB3 = getTransformedValue('Niacin', USDAFoodNutrientUnit.MG);
+
+    // vitaminB5
+
+    food.vitaminB6 =
+        getTransformedValue('Vitamin B-6', USDAFoodNutrientUnit.MG);
+
+    // vitaminB7
+    // vitaminB9
+
+    food.vitaminB12 =
+        getTransformedValue('Vitamin B-12', USDAFoodNutrientUnit.UG);
+    food.vitaminC = getTransformedValue(
+        'Vitamin C, total ascorbic acid', USDAFoodNutrientUnit.MG);
+    food.vitaminD =
+        getTransformedValue('Vitamin D (D2 + D3)', USDAFoodNutrientUnit.UG);
+    food.vitaminE = getTransformedValue(
+        'Vitamin E (alpha-tocopherol)', USDAFoodNutrientUnit.MG);
+    food.vitaminK = getTransformedValue(
+        'Vitamin K (phylloquinone)', USDAFoodNutrientUnit.UG);
+    food.calcium = getTransformedValue('Calcium, Ca', USDAFoodNutrientUnit.MG);
+
+    // chloride
+
+    food.magnesium =
+        getTransformedValue('Magnesium, Mg', USDAFoodNutrientUnit.MG);
+    food.phosphorus =
+        getTransformedValue('Phosphorus, P', USDAFoodNutrientUnit.MG);
+    food.potassium =
+        getTransformedValue('Potassium, K', USDAFoodNutrientUnit.MG);
+
+    // For sodium the units are not the same, hence the calulcation
+    final sodiumMg = getTransformedValue('Sodium, Na', USDAFoodNutrientUnit.MG);
+    food.sodium = sodiumMg != null ? sodiumMg / 1000 : null;
+
+    // chromium
+
+    food.iron = getTransformedValue('Iron, Fe', USDAFoodNutrientUnit.MG);
+
+    // fluorine
+    // iodine
+
+    food.copper = getTransformedValue('Copper, Cu', USDAFoodNutrientUnit.MG);
+
+    // manganese
+    // molybdenum
+
+    food.selenium =
+        getTransformedValue('Selenium, Se', USDAFoodNutrientUnit.MG);
+
+    food.zinc = getTransformedValue('Zinc, Zn', USDAFoodNutrientUnit.MG);
+
+    // monounsaturatedFat
+    // polyunsaturatedFat
+    // omega3
+    // omega6
+
+    food.saturatedFat = getTransformedValue(
+        'Fatty acids, total saturated"', USDAFoodNutrientUnit.G);
+
+    // transFat
+
+    food.cholesterol =
+        getTransformedValue('Cholesterol', USDAFoodNutrientUnit.G);
+    food.fiber =
+        getTransformedValue('Fiber, total dietary', USDAFoodNutrientUnit.G);
+    food.sugar = getTransformedValue(
+        'Sugars, total including NLEA', USDAFoodNutrientUnit.G);
+
+    // sugarAlcohol
+    // starch
+
+    food.water = getTransformedValue('Water', USDAFoodNutrientUnit.G);
+    food.caffeine = getTransformedValue('Caffeine', USDAFoodNutrientUnit.MG);
+    food.alcohol =
+        getTransformedValue('Alcohol, ethyl', USDAFoodNutrientUnit.G);
+
+    return food;
+  }
+
   int get nutrientCount {
     int count = 0;
 
@@ -467,60 +570,6 @@ class Food {
     count += alcohol != null && alcohol != 0 ? 1 : 0;
 
     return count;
-  }
-
-  static List<Food> get foodFromSndb {
-    // After first invocation of this method the database is filled
-    if (_sndb.length != 0) return _sndb;
-
-    for (var entry in SNDB) {
-      var food = entry.split('§');
-
-      _sndb.add(
-        Food(
-          id: generatedId,
-          title: food[1],
-          origin: 'SNDB',
-          calories: food[3] != '' ? double.parse(food[3]) : null,
-          protein: food[4] != '' ? double.parse(food[4]) : null,
-          carbs: food[5] != '' ? double.parse(food[5]) : null,
-          fat: food[6] != '' ? double.parse(food[6]) : null,
-          // Micros
-          vitaminA: food[7] != '' ? double.parse(food[7]) / 1000 : null,
-          vitaminB1: food[8] != '' ? double.parse(food[8]) : null,
-          vitaminB2: food[9] != '' ? double.parse(food[9]) : null,
-          vitaminB3: food[10] != '' ? double.parse(food[10]) : null,
-          vitaminB5: food[11] != '' ? double.parse(food[11]) : null,
-          vitaminB6: food[12] != '' ? double.parse(food[12]) : null,
-          vitaminB9: food[13] != '' ? double.parse(food[13]) : null,
-          vitaminB12: food[14] != '' ? double.parse(food[14]) : null,
-          vitaminC: food[15] != '' ? double.parse(food[15]) : null,
-          vitaminD: food[16] != '' ? double.parse(food[16]) : null,
-          vitaminE: food[17] != '' ? double.parse(food[17]) : null,
-          calcium: food[18] != '' ? double.parse(food[18]) : null,
-          chloride: food[19] != '' ? double.parse(food[19]) : null,
-          magnesium: food[20] != '' ? double.parse(food[20]) : null,
-          phosphorus: food[21] != '' ? double.parse(food[21]) : null,
-          potassium: food[22] != '' ? double.parse(food[22]) : null,
-          sodium: food[23] != '' ? double.parse(food[23]) / 1000 : null,
-          iron: food[24] != '' ? double.parse(food[24]) : null,
-          iodine: food[25] != '' ? double.parse(food[25]) : null,
-          selenium: food[26] != '' ? double.parse(food[26]) : null,
-          zinc: food[27] != '' ? double.parse(food[27]) : null,
-          monounsaturatedFat: food[28] != '' ? double.parse(food[28]) : null,
-          polyunsaturatedFat: food[29] != '' ? double.parse(food[29]) : null,
-          saturatedFat: food[30] != '' ? double.parse(food[30]) : null,
-          cholesterol: food[31] != '' ? double.parse(food[31]) : null,
-          fiber: food[32] != '' ? double.parse(food[32]) : null,
-          sugar: food[33] != '' ? double.parse(food[33]) : null,
-          starch: food[34] != '' ? double.parse(food[34]) : null,
-          water: food[35] != '' ? double.parse(food[35]) : null,
-          alcohol: food[36] != '' ? double.parse(food[36]) : null,
-        ),
-      );
-    }
-
-    return _sndb;
   }
 
   static String get generatedId {

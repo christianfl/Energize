@@ -10,8 +10,10 @@ import '../../providers/custom_food_provider.dart';
 import '../../widgets/food_list_item.dart';
 
 class FoodPage extends StatefulWidget {
-  final double _entryPillHeight = 35;
-  final double _entryHeight = 50;
+  static const originName = 'CUSTOM';
+
+  static const double _entryPillHeight = 35;
+  static const double _entryHeight = 50;
 
   @override
   _FoodPageState createState() => _FoodPageState();
@@ -159,8 +161,8 @@ class _FoodPageState extends State<FoodPage> {
                         child: FoodListItem(
                           food,
                           onTapCallback: _navigateToEditCustomFood,
-                          height: widget._entryHeight,
-                          pillHeight: widget._entryPillHeight,
+                          height: FoodPage._entryHeight,
+                          pillHeight: FoodPage._entryPillHeight,
                           hideOrigin: true,
                         ),
                       );

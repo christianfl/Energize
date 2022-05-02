@@ -15,7 +15,9 @@ import '../../widgets/food_list_item.dart';
 import '../models/food/food.dart';
 import '../models/food/food_tracked.dart';
 import '../pages/tab_tracking/track_food_modal.dart';
-import '../services/food_database_bindings/open_food_facts_binding.dart';
+import '../services/food_database_bindings/open_food_facts/open_food_facts_binding.dart';
+import '../services/food_database_bindings/swiss_food_composition_database/swiss_food_composition_database_binding.dart';
+import '../services/food_database_bindings/usda/usda_binding.dart';
 
 enum SheetModalMode { search, ean }
 
@@ -39,12 +41,15 @@ class _FoodInputState extends State<FoodInput>
   Barcode? _scannedCode;
   var _awaitingApiResponse = false;
   String? _productNotFoundExceptionEan;
-  final List<Food> foodsFromSndb = Food.foodFromSndb;
+  final List<Food> foodsFromSndb = SwissFoodCompositionDatabaseBinding.allFoods;
   List<Food> searchResultFood = [];
   Timer? _searchFieldDebounceTimer;
   static const Duration _defaultInputDebounceDuration =
       Duration(milliseconds: 500);
   static const _foodInputSuggestionsFromLastXDays = 21;
+
+  List<Food>? _offSearchResultFood;
+  List<Food>? _usdaSearchResultFood;
 
   @override
   void didChangeDependencies() {
@@ -154,6 +159,30 @@ class _FoodInputState extends State<FoodInput>
         .retainWhere((x) => customHashCodes.remove(x.customHashCode));
   }
 
+  Future<void> _getOpenFoodFactsSearchResultIfActivated(
+      String searchText) async {
+    final appSettings = Provider.of<AppSettings>(context, listen: false);
+
+    if (appSettings.isProviderOpenFoodFactsActivated) {
+      _offSearchResultFood = await OpenFoodFactsBinding.searchFood(searchText);
+      print('off_done');
+    } else {
+      return;
+    }
+  }
+
+  Future<void> _getUsdaSearchResultIfActivated(String searchText) async {
+    final appSettings = Provider.of<AppSettings>(context, listen: false);
+
+    if (appSettings.isProviderUsdaActivated) {
+      print('usda_fetch_started');
+      _usdaSearchResultFood = await USDABinding.searchFood(searchText);
+      print('usda_done');
+    } else {
+      return;
+    }
+  }
+
   void populateSearchedFoodList(String searchText, bool debounce) {
     // Method wrapped in debounce so that API calls are triggered after
     // user has finished typing
@@ -209,21 +238,28 @@ class _FoodInputState extends State<FoodInput>
         }
       });
 
-      // Database: Open Food Facts
-      if (appSettings.isProviderOpenFoodFactsActivated) {
+      if (appSettings.isProviderOpenFoodFactsActivated ||
+          appSettings.isProviderUsdaActivated) {
         setState(() {
           _awaitingApiResponse = true;
         });
 
-        OpenFoodFactsBinding.searchFood(searchText).then((products) => {
-              setState(() {
-                if (products != null) searchResultFood += products;
-                _awaitingApiResponse = false;
+        await Future.wait([
+          _getOpenFoodFactsSearchResultIfActivated(searchText),
+          _getUsdaSearchResultIfActivated(searchText),
+        ]);
 
-                // Remove duplicates again (with added food from OFF)
-                _removeDuplicateSuggestions();
-              }),
-            });
+        setState(() {
+          if (_offSearchResultFood != null) {
+            searchResultFood += _offSearchResultFood!;
+          }
+          if (_usdaSearchResultFood != null) {
+            searchResultFood += _usdaSearchResultFood!;
+          }
+
+          _removeDuplicateSuggestions();
+          _awaitingApiResponse = false;
+        });
       }
     });
   }

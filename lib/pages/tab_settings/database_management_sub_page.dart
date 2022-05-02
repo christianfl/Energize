@@ -3,11 +3,17 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../../models/food/food.dart';
 import '../../providers/app_settings.dart';
+import '../../services/food_database_bindings/open_food_facts/open_food_facts_binding.dart';
+import '../../services/food_database_bindings/swiss_food_composition_database/swiss_food_composition_database_binding.dart';
+import '../../services/food_database_bindings/usda/usda_binding.dart';
+import '../../widgets/food_origin_logo_pill.dart';
 
 class DatabaseManagementSubPage extends StatefulWidget {
   static const routeName = '/settings/database-provider';
+
+  static const double _dbImageWidth = 80;
+  static const double _dbImageHeight = 50;
 
   @override
   _DatabaseManagementSubPageState createState() =>
@@ -15,9 +21,8 @@ class DatabaseManagementSubPage extends StatefulWidget {
 }
 
 class _DatabaseManagementSubPageState extends State<DatabaseManagementSubPage> {
-  var activePanelIndex = -1;
-  static const double _datebaseImageWidth = 80;
-  static const double _databaseImageHeight = 50;
+  var _activeOfflinePanelIndex = -1;
+  var _activeOnlinePanelIndex = -1;
 
   @override
   Widget build(BuildContext context) {
@@ -27,158 +32,243 @@ class _DatabaseManagementSubPageState extends State<DatabaseManagementSubPage> {
       appBar: AppBar(
         title: Text(AppLocalizations.of(context)!.databaseManagement),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(12.0),
-        child: SingleChildScrollView(
-          child: ExpansionPanelList(
-            expansionCallback: (panelIndex, isExpanded) {
-              setState(() {
-                if (activePanelIndex == panelIndex) {
-                  activePanelIndex = -1;
-                } else {
-                  activePanelIndex = panelIndex;
-                }
-              });
-            },
-            children: <ExpansionPanel>[
-              ExpansionPanel(
-                isExpanded: activePanelIndex == 0,
-                canTapOnHeader: true,
-                headerBuilder: (context, isExpanded) {
-                  return SwitchListTile(
-                    secondary: Padding(
-                      padding: const EdgeInsets.only(top: 8.0, bottom: 8.0),
-                      child: Container(
-                        width: _datebaseImageWidth,
-                        height: _databaseImageHeight,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(8),
-                          color: Colors.white,
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              AppLocalizations.of(context)!.storedOnDevice,
+              style: Theme.of(context).textTheme.headline4,
+            ),
+            const SizedBox(height: 16.0),
+            ExpansionPanelList(
+              expansionCallback: (panelIndex, isExpanded) {
+                setState(() {
+                  _activeOnlinePanelIndex = -1;
+                  if (_activeOfflinePanelIndex == panelIndex) {
+                    _activeOfflinePanelIndex = -1;
+                  } else {
+                    _activeOfflinePanelIndex = panelIndex;
+                  }
+                });
+              },
+              children: <ExpansionPanel>[
+                ExpansionPanel(
+                  isExpanded: _activeOfflinePanelIndex == 0,
+                  canTapOnHeader: true,
+                  headerBuilder: (context, isExpanded) {
+                    return SwitchListTile(
+                      secondary: Padding(
+                        padding: const EdgeInsets.only(top: 8.0, bottom: 8.0),
+                        child: Container(
+                          width: DatabaseManagementSubPage._dbImageWidth,
+                          height: DatabaseManagementSubPage._dbImageHeight,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(8),
+                            color: Colors.white,
+                          ),
+                          child: FoodOriginLogoPill(
+                              SwissFoodCompositionDatabaseBinding.originName),
                         ),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(8),
-                          child: Image.asset(
-                            Food.openFoodFactsImageUrl,
+                      ),
+                      title: Text(AppLocalizations.of(context)!
+                          .swissFoodCompositionDatabase),
+                      value: appSettings.isProviderSndbActivated,
+                      onChanged: (val) =>
+                          appSettings.isProviderSndbActivated = val,
+                    );
+                  },
+                  body: Column(
+                    children: [
+                      ListTile(
+                        title: Text(AppLocalizations.of(context)!.publisher),
+                        subtitle: Text(
+                            'Bundesamt für Lebensmittelsicherheit und Veterinärwesen, ${AppLocalizations.of(context)!.switzerland}'),
+                        isThreeLine: true,
+                      ),
+                      ListTile(
+                        title: Text(
+                            AppLocalizations.of(context)!.generalInformation),
+                        subtitle: Text(AppLocalizations.of(context)!
+                            .swissFoodCompositionDatabaseGeneralInformationText),
+                        isThreeLine: true,
+                      ),
+                      InkWell(
+                        onTap: () async {
+                          if (await canLaunch(
+                              SwissFoodCompositionDatabaseBinding.sourceUrl)) {
+                            await launch(
+                                SwissFoodCompositionDatabaseBinding.sourceUrl);
+                          } else {
+                            throw 'Could not launch url';
+                          }
+                        },
+                        child: ListTile(
+                          title: Text(AppLocalizations.of(context)!.source),
+                          subtitle: Text(AppLocalizations.of(context)!
+                              .tapHereForFurtherInformation),
+                          trailing: Icon(Icons.link),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 16.0),
+            Text(
+              AppLocalizations.of(context)!.serverBased,
+              style: Theme.of(context).textTheme.headline4,
+            ),
+            const SizedBox(height: 16.0),
+            ExpansionPanelList(
+              expansionCallback: (panelIndex, isExpanded) {
+                setState(() {
+                  _activeOfflinePanelIndex = -1;
+                  if (_activeOnlinePanelIndex == panelIndex) {
+                    _activeOnlinePanelIndex = -1;
+                  } else {
+                    _activeOnlinePanelIndex = panelIndex;
+                  }
+                });
+              },
+              children: <ExpansionPanel>[
+                ExpansionPanel(
+                  isExpanded: _activeOnlinePanelIndex == 0,
+                  canTapOnHeader: true,
+                  headerBuilder: (context, isExpanded) {
+                    return SwitchListTile(
+                      secondary: Padding(
+                        padding: const EdgeInsets.only(top: 8.0, bottom: 8.0),
+                        child: Container(
+                          width: DatabaseManagementSubPage._dbImageWidth,
+                          height: DatabaseManagementSubPage._dbImageHeight,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(8),
+                            color: Colors.white,
+                          ),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(8),
+                            child: Image.asset(
+                              OpenFoodFactsBinding.imageUrl,
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                    title: Text(
-                      'Open Food Facts',
-                      style: TextStyle(fontWeight: FontWeight.w800),
-                    ),
-                    value: appSettings.isProviderOpenFoodFactsActivated,
-                    onChanged: (val) =>
-                        appSettings.isProviderOpenFoodFactsActivated = val,
-                  );
-                },
-                body: Column(
-                  children: [
-                    ListTile(
-                      title: Text('Publisher'),
-                      subtitle: Text(
-                          'Non-profit institution Open Food Facts ("OFF"), France'),
-                    ),
-                    ListTile(
-                      title: Text('General information'),
-                      subtitle: Text(
-                          'Please be aware that whereas this database is very large, entries can be incomplete or out-of-date. Every registered user can update nutrient values. Adding new products is possible without creating an account. Deactivating this entry does not include EAN scanning as this uses OFF by default.'),
-                    ),
-                    InkWell(
-                      onTap: () async {
-                        if (await canLaunch(Food.openFoodFactsTermsUrl)) {
-                          await launch(Food.openFoodFactsTermsUrl);
-                        } else {
-                          throw 'Could not launch url';
-                        }
-                      },
-                      child: ListTile(
-                        title: Text('Terms of use'),
+                      title: Text('Open Food Facts'),
+                      value: appSettings.isProviderOpenFoodFactsActivated,
+                      onChanged: (val) =>
+                          appSettings.isProviderOpenFoodFactsActivated = val,
+                    );
+                  },
+                  body: Column(
+                    children: [
+                      ListTile(
+                        title: Text(AppLocalizations.of(context)!.publisher),
                         subtitle: Text(
-                            'By activating this database you agree to the terms.'),
-                        trailing: Icon(Icons.link),
+                            '${AppLocalizations.of(context)!.nonProfitInstitution} Open Food Facts ("OFF"), ${AppLocalizations.of(context)!.france}'),
+                        isThreeLine: true,
                       ),
-                    ),
-                    InkWell(
-                      onTap: () async {
-                        if (await canLaunch(Food.openFoodFactsContributeUrl)) {
-                          await launch(Food.openFoodFactsContributeUrl);
-                        } else {
-                          throw 'Could not launch url';
-                        }
-                      },
-                      child: ListTile(
-                        title: Text('Contribute'),
-                        subtitle: Text(
-                            'See how you can help improving this database.'),
-                        trailing: Icon(Icons.link),
+                      ListTile(
+                        title: Text(
+                            AppLocalizations.of(context)!.generalInformation),
+                        subtitle: Text(AppLocalizations.of(context)!
+                            .openFoodFactsGeneralInformationText),
                       ),
-                    ),
-                  ],
-                ),
-              ),
-              ExpansionPanel(
-                isExpanded: activePanelIndex == 1,
-                canTapOnHeader: true,
-                headerBuilder: (context, isExpanded) {
-                  return SwitchListTile(
-                    secondary: Padding(
-                      padding: const EdgeInsets.only(top: 8.0, bottom: 8.0),
-                      child: Container(
-                        width: _datebaseImageWidth,
-                        height: _databaseImageHeight,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(8),
-                          color: Colors.white,
+                      InkWell(
+                        onTap: () async {
+                          if (await canLaunch(OpenFoodFactsBinding.termsUrl)) {
+                            await launch(OpenFoodFactsBinding.termsUrl);
+                          } else {
+                            throw 'Could not launch url';
+                          }
+                        },
+                        child: ListTile(
+                          title: Text(AppLocalizations.of(context)!.termsOfUse),
+                          subtitle: Text(AppLocalizations.of(context)!
+                              .openFoodFactsTermsText),
+                          trailing: Icon(Icons.link),
+                          isThreeLine: true,
                         ),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(8),
-                          child: Image.asset(
-                            Food.swissNutritionDatabaseImageUrl,
+                      ),
+                      InkWell(
+                        onTap: () async {
+                          if (await canLaunch(
+                              OpenFoodFactsBinding.contributeUrl)) {
+                            await launch(OpenFoodFactsBinding.contributeUrl);
+                          } else {
+                            throw 'Could not launch url';
+                          }
+                        },
+                        child: ListTile(
+                          title: Text(AppLocalizations.of(context)!.contribute),
+                          subtitle: Text(AppLocalizations.of(context)!
+                              .databaseContributeText),
+                          trailing: Icon(Icons.link),
+                          isThreeLine: true,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                ExpansionPanel(
+                  isExpanded: _activeOnlinePanelIndex == 1,
+                  canTapOnHeader: true,
+                  headerBuilder: (context, isExpanded) {
+                    return SwitchListTile(
+                      secondary: Padding(
+                        padding: const EdgeInsets.only(top: 8.0, bottom: 8.0),
+                        child: Container(
+                          width: DatabaseManagementSubPage._dbImageWidth,
+                          child: FoodOriginLogoPill(
+                            USDABinding.originName,
+                            height: DatabaseManagementSubPage._dbImageHeight,
+                            fontSize: 20,
                           ),
                         ),
                       ),
-                    ),
-                    title: Text(
-                      'Swiss Nutrition Database',
-                      style: TextStyle(fontWeight: FontWeight.w800),
-                    ),
-                    value: appSettings.isProviderSndbActivated,
-                    onChanged: (val) =>
-                        appSettings.isProviderSndbActivated = val,
-                  );
-                },
-                body: Column(
-                  children: [
-                    ListTile(
-                      title: Text('Publisher'),
-                      subtitle: Text(
-                          'Bundesamt für Lebensmittelsicherheit und Veterinärwesen, Switzerland'),
-                    ),
-                    ListTile(
-                      title: Text('General information'),
-                      subtitle: Text(
-                          'This database offers about 1.100 general products and many micronutrients. It is stored on your device and therefore works offline.'),
-                    ),
-                    InkWell(
-                      onTap: () async {
-                        if (await canLaunch(Food.swissNutritionDatabaseUrl)) {
-                          await launch(Food.swissNutritionDatabaseUrl);
-                        } else {
-                          throw 'Could not launch url';
-                        }
-                      },
-                      child: ListTile(
-                        title: Text('Source'),
-                        subtitle: Text('Tap here for futher information.'),
-                        trailing: Icon(Icons.link),
+                      title: Text('USDA FoodData Central'),
+                      value: appSettings.isProviderUsdaActivated,
+                      onChanged: (val) =>
+                          appSettings.isProviderUsdaActivated = val,
+                    );
+                  },
+                  body: Column(
+                    children: [
+                      ListTile(
+                        title: Text(AppLocalizations.of(context)!.publisher),
+                        subtitle: Text(
+                            'U.S. Department of Agriculture, Agricultural Research Service. FoodData Central, 2019. fdc.nal.usda.gov.'),
+                        isThreeLine: true,
                       ),
-                    ),
-                  ],
+                      ListTile(
+                        title: Text(
+                            AppLocalizations.of(context)!.generalInformation),
+                        subtitle: Text(AppLocalizations.of(context)!
+                            .usdaFoodDataCentralGeneralInformationText),
+                      ),
+                      InkWell(
+                        onTap: () async {
+                          if (await canLaunch(USDABinding.sourceUrl)) {
+                            await launch(USDABinding.sourceUrl);
+                          } else {
+                            throw 'Could not launch url';
+                          }
+                        },
+                        child: ListTile(
+                          title: Text(AppLocalizations.of(context)!.source),
+                          subtitle: Text(AppLocalizations.of(context)!
+                              .tapHereForFurtherInformation),
+                          trailing: Icon(Icons.link),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-            ],
-          ),
+              ],
+            ),
+          ],
         ),
       ),
     );

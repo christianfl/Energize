@@ -7,6 +7,7 @@ import '../../models/food/food.dart';
 import '../../models/food/food_tracked.dart';
 import '../../pages/tab_food/add_edit_custom_food_modal.dart';
 import '../../providers/tracked_food_provider.dart';
+import '../../services/food_database_bindings/open_food_facts/open_food_facts_binding.dart';
 import '../../widgets/food_micro_count_pill.dart';
 import '../../widgets/food_origin_logo_pill.dart';
 import '../../widgets/macro_chart.dart';
@@ -128,7 +129,7 @@ class _TrackFoodState extends State<TrackFood>
   }
 
   void _launchOpenFoodFactsUrl(String ean) async {
-    var url = '${Food.openFoodFactsProductUrl}$ean';
+    var url = '${OpenFoodFactsBinding.productUrl}$ean';
     if (await canLaunch(url)) {
       await launch(url);
     } else {

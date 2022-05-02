@@ -5,19 +5,17 @@ import 'package:openfoodfacts/model/parameter/SearchTerms.dart';
 import 'package:openfoodfacts/openfoodfacts.dart';
 import 'package:openfoodfacts/utils/OpenFoodAPIConfiguration.dart';
 
-import '../../models/food/food.dart';
-
-class ProductNotFoundException implements Exception {
-  String ean;
-  ProductNotFoundException(this.ean);
-
-  @override
-  String toString() {
-    return ean;
-  }
-}
+import '../../../models/food/food.dart';
+import 'product_not_found_exception.dart';
 
 class OpenFoodFactsBinding {
+  static const originName = 'OFF';
+
+  static const imageUrl = 'assets/food_databases/off.png';
+  static const termsUrl = 'https://world.openfoodfacts.org/terms-of-use';
+  static const contributeUrl = 'https://world.openfoodfacts.org/contribute';
+  static const productUrl = 'https://openfoodfacts.org/product/';
+
   OpenFoodFactsBinding._privateConstructor() {
     OpenFoodAPIConfiguration.userAgent = UserAgent(
       name: 'Energize',
