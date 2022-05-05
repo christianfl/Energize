@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
-import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 import './detailed_summary_sub_page.dart';
 import '../../providers/tracked_food_provider.dart';
 import '../../services/complete_days_database_service.dart';
+import '../../utils/date_util.dart';
 import '../../widgets/food_input.dart';
 import '../../widgets/macro_chart.dart';
 import '../../widgets/tracked_food_list.dart';
@@ -19,7 +19,6 @@ class TrackingPage extends StatefulWidget {
 }
 
 class _TrackingPageState extends State<TrackingPage> {
-  final df = new DateFormat('dd.MM.yyyy');
   var _selectedDate = DateTime.now();
   bool? _isSelectedDateCompleted;
   final _scrollController = ScrollController();
@@ -281,11 +280,7 @@ class _TrackingPageState extends State<TrackingPage> {
               color: Colors.white,
             ),
             TextButton(
-              child: Text(
-                df.format(
-                  _selectedDate,
-                ),
-              ),
+              child: Text(DateUtil.getDate(_selectedDate, context)),
               onPressed: () => _pickDateDialog(context),
               style: TextButton.styleFrom(primary: Colors.white),
             ),
