@@ -49,13 +49,16 @@ class MacroChart extends StatelessWidget {
           value: _totalCalories,
           target: appSettings.caloriesTarget,
           unit: 'kcal',
+          color: Colors.yellow,
           decimalPlaces: 0,
         ),
+        const SizedBox(height: 12.0),
         ChartBar(
           title: AppLocalizations.of(context)!.protein,
           value: _totalProtein,
           target: appSettings.proteinTarget,
           unit: 'g',
+          color: Colors.green,
           decimalPlaces: 0,
         ),
         ChartBar(
@@ -63,6 +66,7 @@ class MacroChart extends StatelessWidget {
           value: _totalCarbs,
           target: appSettings.carbsTarget,
           unit: 'g',
+          color: Colors.blue,
           decimalPlaces: 0,
         ),
         ChartBar(
@@ -70,6 +74,7 @@ class MacroChart extends StatelessWidget {
           value: _totalFat,
           target: appSettings.fatTarget,
           unit: 'g',
+          color: Colors.red,
           decimalPlaces: 0,
         ),
       ],

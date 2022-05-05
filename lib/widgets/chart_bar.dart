@@ -4,17 +4,18 @@ class ChartBar extends StatelessWidget {
   final String title;
   final double value;
   final double target;
-  final Color? color;
   final String unit;
+  final Color color;
   final int? decimalPlaces;
 
-  ChartBar(
-      {required this.title,
-      required this.value,
-      required this.target,
-      this.color,
-      required this.unit,
-      this.decimalPlaces});
+  ChartBar({
+    required this.title,
+    required this.value,
+    required this.target,
+    required this.unit,
+    required this.color,
+    this.decimalPlaces,
+  });
 
   double get _percentage {
     if (target > 0)
@@ -33,20 +34,6 @@ class ChartBar extends StatelessWidget {
     }
   }
 
-  Color get _barColor {
-    if (color != null) return color!;
-    var percentage = _percentage.toInt();
-
-    if (percentage < 0) percentage = 0;
-    if (percentage > 100) percentage = 100;
-
-    if (percentage <= 50) {
-      return Color.fromRGBO(255, (percentage * 5.1).toInt(), 0, 1);
-    } else {
-      return Color.fromRGBO(((100 - percentage) * 5.1).toInt(), 255, 0, 1);
-    }
-  }
-
   int get _valueDecimalPlaces {
     if (decimalPlaces == null) return 1;
     return decimalPlaces!;
@@ -55,9 +42,9 @@ class ChartBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      children: <Widget>[
+      children: [
         Row(
-          children: <Widget>[
+          children: [
             Expanded(child: Text(title)),
             Expanded(
               child: Center(
@@ -80,7 +67,7 @@ class ChartBar extends StatelessWidget {
           height: 10,
           margin: EdgeInsets.only(bottom: 6),
           child: Stack(
-            children: <Widget>[
+            children: [
               Container(
                 decoration: BoxDecoration(
                   border: Border.all(color: Colors.grey, width: 1.0),
@@ -93,7 +80,7 @@ class ChartBar extends StatelessWidget {
                 child: Container(
                   margin: EdgeInsets.all(1),
                   decoration: BoxDecoration(
-                    color: _barColor,
+                    color: color,
                     borderRadius: BorderRadius.circular(20),
                   ),
                 ),
