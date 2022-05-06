@@ -675,11 +675,6 @@ class _AddEditCustomFoodModalState extends State<AddEditCustomFoodModal> {
                             unit: 'μg / 100 g',
                           ),
                           _customListTile(
-                            title: AppLocalizations.of(context)!.molybdenum,
-                            controller: _foodMolybdenumController,
-                            unit: 'μg / 100 g',
-                          ),
-                          _customListTile(
                             title: AppLocalizations.of(context)!.selenium,
                             controller: _foodSeleniumController,
                             unit: 'μg / 100 g',
