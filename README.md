@@ -2,9 +2,14 @@
 
 Track your food and nutrition easily and fast. Still in early development.
 
-<a href="https://hosted.weblate.org/engage/energize/">
-  <img src="https://hosted.weblate.org/widgets/energize/-/energize/svg-badge.svg" alt="Übersetzungsstatus" />
-</a>
+<p>
+
+  [![Awesome Humane Tech](https://raw.githubusercontent.com/humanetech-community/awesome-humane-tech/main/humane-tech-badge.svg?sanitize=true)](https://github.com/humanetech-community/awesome-humane-tech)
+  <a href="https://hosted.weblate.org/engage/energize/">
+    <img src="https://hosted.weblate.org/widgets/energize/-/energize/svg-badge.svg" alt="Übersetzungsstatus" />
+  </a>
+
+</p>
 
 <p align="center">
   <a href="https://f-droid.org/packages/com.flasskamp.energize"><img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png" alt="Get it on F-Droid" height="75"></a>
