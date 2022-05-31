@@ -41,6 +41,9 @@ class MyApp extends StatelessWidget {
           Locale('de'), // German, no country code
           Locale('nb', 'NO'), // Norwegian Bokmål
           Locale('tr'), // Turkish, no country code
+          Locale('fr'), // French, no country code
+          Locale('it'), // Italian, no country code
+          Locale('pl'), // Polnish, no country code
         ],
         theme: ThemeData.dark().copyWith(
           highlightColor: Colors.amber,
