@@ -109,6 +109,8 @@ class _FoodInputState extends State<FoodInput>
 
   void _onQRViewCreated(QRViewController controller) {
     this._qrController = controller;
+    _qrController!.resumeCamera();
+
     controller.scannedDataStream.listen((scanData) {
       if (_scannedCode == null) {
         _scannedCode = scanData;
