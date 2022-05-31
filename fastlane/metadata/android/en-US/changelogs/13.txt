@@ -1,0 +1,4 @@
+* Added translations for french, italian and polnish (thanks for contributing!)
+* Improved visibility of bar for calories and macronutrients
+* Format selected tracking day corresponding to user's locale
+* Fix: Removed duplicate molybdenum input for custom food

@@ -1,0 +1,4 @@
+* Französisch, Italienisch und Polnisch hinzugefügt (Danke für die Mithilfe!)
+* Anzeige der Kalorien und Makronährstoffe verbessert
+* Ausgewählter Tracking-Tag ist nun passend zur Gerätesprache formatiert
+* Fix: Doppeltes Eingabefeld für Molybdän bei der "Eigenen Nahrung" entfernt
