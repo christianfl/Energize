@@ -85,6 +85,11 @@
     "contact": "Contact",
     "email": "E-Mail",
     "supportMeByDonating": "Support me by donating",
+    "donate": "Donate",
+    "donationText": "If you want to support the development by a donation, you are very welcome to do so! Creating this app is a lot of fun but also a very time consuming task and sometimes leads to little frustration :-).",
+    "bitcoinAddressCopiedToClipboard": "Bitcoin address copied to clipboard",
+    "bankAccountOrCreditCard": "Bank account or credit card",
+    "writeMeAnEmailForFurtherDonationOptions": "You are welcome to write me an e-mail for further donation options",
     "@_FOOD_AND_NUTRITION": {
     },
     "energyAndMacronutrients": "Energy and macronutrients",

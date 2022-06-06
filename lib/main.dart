@@ -7,6 +7,7 @@ import 'pages/tab_food/add_edit_custom_food_modal.dart';
 import 'pages/tab_settings/about_sub_page.dart';
 import 'pages/tab_settings/backup_and_restore_sub_page.dart';
 import 'pages/tab_settings/database_management_sub_page.dart';
+import 'pages/tab_settings/donation_sub_page.dart';
 import 'pages/tab_settings/macro_targets_sub_page.dart';
 import 'pages/tab_settings/micro_targets_sub_page.dart';
 import 'pages/tab_settings/personalization_sub_page.dart';
@@ -71,6 +72,7 @@ class MyApp extends StatelessWidget {
               DatabaseManagementSubPage(),
           BackupAndRestoreSubPage.routeName: (ctx) => BackupAndRestoreSubPage(),
           AboutSubPage.routeName: (ctx) => AboutSubPage(),
+          DonationSubPage.routeName: (ctx) => DonationSubPage(),
         },
       ),
     );
