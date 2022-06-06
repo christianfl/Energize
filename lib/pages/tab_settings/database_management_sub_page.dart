@@ -82,6 +82,10 @@ class _DatabaseManagementSubPageState extends State<DatabaseManagementSubPage> {
                   body: Column(
                     children: [
                       ListTile(
+                        title: Text(AppLocalizations.of(context)!.language),
+                        subtitle: Text(AppLocalizations.of(context)!.german),
+                      ),
+                      ListTile(
                         title: Text(AppLocalizations.of(context)!.publisher),
                         subtitle: Text(
                             'Bundesamt für Lebensmittelsicherheit und Veterinärwesen, ${AppLocalizations.of(context)!.switzerland}'),
@@ -165,6 +169,11 @@ class _DatabaseManagementSubPageState extends State<DatabaseManagementSubPage> {
                   body: Column(
                     children: [
                       ListTile(
+                        title: Text(AppLocalizations.of(context)!.language),
+                        subtitle: Text(AppLocalizations.of(context)!
+                            .openFoodFactsVariousLanguagesText),
+                      ),
+                      ListTile(
                         title: Text(AppLocalizations.of(context)!.publisher),
                         subtitle: Text(
                             '${AppLocalizations.of(context)!.nonProfitInstitution} Open Food Facts ("OFF"), ${AppLocalizations.of(context)!.france}'),
@@ -236,6 +245,10 @@ class _DatabaseManagementSubPageState extends State<DatabaseManagementSubPage> {
                   },
                   body: Column(
                     children: [
+                      ListTile(
+                        title: Text(AppLocalizations.of(context)!.language),
+                        subtitle: Text(AppLocalizations.of(context)!.english),
+                      ),
                       ListTile(
                         title: Text(AppLocalizations.of(context)!.publisher),
                         subtitle: Text(
