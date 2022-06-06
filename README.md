@@ -2,6 +2,8 @@
 
 Track your food and nutrition easily and fast. Still in early development.
 
+See the <a href="./PRIVACY.md">Privacy Policy</a>
+
 <p>
 
   [![Awesome Humane Tech](https://raw.githubusercontent.com/humanetech-community/awesome-humane-tech/main/humane-tech-badge.svg?sanitize=true)](https://github.com/humanetech-community/awesome-humane-tech)
