@@ -2,7 +2,7 @@
 
 Track your food and nutrition easily and fast. Still in early development.
 
-See the <a href="./PRIVACY.md">Privacy Policy</a>
+See the [Privacy Policy](PRIVACY.md)
 
 <p>
 
