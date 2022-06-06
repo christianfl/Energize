@@ -47,7 +47,7 @@ class AboutSubPage extends StatelessWidget {
                         style: Theme.of(context).textTheme.caption,
                       ),
                       Text(
-                        '$_license ${AppLocalizations.of(context)!.license}',
+                        '${AppLocalizations.of(context)!.license}: $_license',
                         style: Theme.of(context).textTheme.caption,
                       ),
                       OutlinedButton(
@@ -86,6 +86,7 @@ class AboutSubPage extends StatelessWidget {
                   }
                 },
                 child: ListTile(
+                  leading: const Icon(Icons.bug_report),
                   title: Text(AppLocalizations.of(context)!.reportIssue),
                   subtitle: Text('Codeberg.org'),
                   trailing: Icon(Icons.link),
@@ -100,6 +101,7 @@ class AboutSubPage extends StatelessWidget {
                   }
                 },
                 child: ListTile(
+                  leading: const Icon(Icons.code),
                   title: Text(AppLocalizations.of(context)!.sourceCode),
                   subtitle: Text('Codeberg.org'),
                   trailing: Icon(Icons.link),
@@ -114,6 +116,7 @@ class AboutSubPage extends StatelessWidget {
                   }
                 },
                 child: ListTile(
+                  leading: const Icon(Icons.translate),
                   title: Text(AppLocalizations.of(context)!.translation),
                   subtitle: Text('Weblate.org'),
                   trailing: Icon(Icons.link),
@@ -130,7 +133,7 @@ class AboutSubPage extends StatelessWidget {
                 child: ListTile(
                   title: Text(AppLocalizations.of(context)!.contact),
                   subtitle: Text(AppLocalizations.of(context)!.email),
-                  trailing: Icon(Icons.link),
+                  trailing: Icon(Icons.mail),
                 ),
               ),
             ],
