@@ -1,0 +1,4 @@
+* Neues App-Icon!
+* Tschechisch und Dänisch hinzugefügt (Danke für die Mithilfe!)
+* Anzeige der Sprache bei den Nahrungs-Datenbanken hinzugefügt
+* Über-Seite verbessert und Spenden-Seite ausgelagert

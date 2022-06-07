@@ -1,0 +1,4 @@
+* New App-Icon!
+* Czech and danish languages added (Thanks for contributing!)
+* Food databases now show in which language their products are
+* About page improved and donation page added

@@ -10,7 +10,7 @@ class AboutSubPage extends StatelessWidget {
   static const _translationUrl =
       'https://hosted.weblate.org/projects/energize/energize';
   static const _email = 'energize@flasskamp.com';
-  static const _appVersion = '0.3.1';
+  static const _appVersion = '0.4.0';
   static const _copyrightNotice = '© 2022 Christian Flaßkamp';
   static const _license = 'GPLv3';
 
@@ -28,9 +28,12 @@ class AboutSubPage extends StatelessWidget {
               Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  CircleAvatar(
-                    backgroundImage: AssetImage('assets/about_logo.png'),
-                    radius: 70,
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(10),
+                    child: Image.asset(
+                      'assets/about_logo.png',
+                      width: 140,
+                    ),
                   ),
                   const SizedBox(width: 24),
                   Column(
