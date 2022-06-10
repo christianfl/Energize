@@ -1,5 +1,5 @@
 import '../../../models/food/food.dart';
-import 'sfcdb_data.dart';
+import 'SFCDB_DATA.dart';
 
 class SwissFoodCompositionDatabaseBinding {
   static const originName = 'SFCDB';

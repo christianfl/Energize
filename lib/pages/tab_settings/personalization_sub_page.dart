@@ -1,3 +1,4 @@
+import 'package:energize/models/person/enums/sex.dart';
 import 'package:energize/models/person/enums/weight_target.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -5,6 +6,7 @@ import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:provider/provider.dart';
 
 import '../../providers/app_settings.dart';
+import '../../services/micronutrients_recommendations/micronutrients_recommendations.dart';
 
 // In order to make the slider full width
 class CustomTrackShape extends RoundedRectSliderTrackShape {
@@ -36,6 +38,7 @@ class _PersonalizationSubPageState extends State<PersonalizationSubPage> {
   var _proteinTargetController = TextEditingController();
   var _carbsTargetController = TextEditingController();
   var _fatTargetController = TextEditingController();
+  bool _setMicronutrientsBasedOnAgeAndSex = false;
 
   void _showInfoDialog(BuildContext context) {
     showDialog(
@@ -101,148 +104,153 @@ class _PersonalizationSubPageState extends State<PersonalizationSubPage> {
     showDialog(
       context: context,
       builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text('Calculated targets'),
-          content: SingleChildScrollView(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text(
-                    'Feel free to edit the calculated targets according to your needs before applying them.'),
-                TextFormField(
-                  controller: _caloriesTargetController,
-                  keyboardType: TextInputType.number,
-                  decoration: const InputDecoration(
-                    suffixText: 'kcal',
-                    labelText: 'Energy',
+        return StatefulBuilder(builder: (context, setState) {
+          return AlertDialog(
+            title: Text('Calculated targets'),
+            content: SingleChildScrollView(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                      'Feel free to edit the calculated targets according to your needs before applying them.'),
+                  TextFormField(
+                    controller: _caloriesTargetController,
+                    keyboardType: TextInputType.number,
+                    decoration: const InputDecoration(
+                      suffixText: 'kcal',
+                      labelText: 'Energy',
+                    ),
+                    onChanged: (val) => {
+                      _updateData(except: 'calories'),
+                    },
                   ),
-                  onChanged: (val) => {
-                    _updateData(except: 'calories'),
-                  },
-                ),
-                Row(
-                  children: [
-                    Expanded(
-                      child: TextFormField(
-                        initialValue: appSettings.proteinRatio.toString(),
-                        onChanged: (val) => {
-                          appSettings.proteinRatio =
-                              val == '' ? 20 : double.parse(val),
-                          _updateData(),
-                        },
-                        keyboardType: TextInputType.number,
-                        decoration: new InputDecoration(
-                          suffixText: '% of kcal',
-                          labelText: 'Protein ratio',
+                  Row(
+                    children: [
+                      Expanded(
+                        child: TextFormField(
+                          initialValue: appSettings.proteinRatio.toString(),
+                          onChanged: (val) => {
+                            appSettings.proteinRatio =
+                                val == '' ? 20 : double.parse(val),
+                            _updateData(),
+                          },
+                          keyboardType: TextInputType.number,
+                          decoration: new InputDecoration(
+                            suffixText: '% of kcal',
+                            labelText: 'Protein ratio',
+                          ),
                         ),
                       ),
-                    ),
-                    SizedBox(
-                      width: 20,
-                    ),
-                    Expanded(
-                      child: TextFormField(
-                        controller: _proteinTargetController,
-                        keyboardType: TextInputType.number,
-                        decoration: new InputDecoration(
-                          suffixText: 'g',
-                          labelText: 'Protein',
+                      SizedBox(
+                        width: 20,
+                      ),
+                      Expanded(
+                        child: TextFormField(
+                          controller: _proteinTargetController,
+                          keyboardType: TextInputType.number,
+                          decoration: new InputDecoration(
+                            suffixText: 'g',
+                            labelText: 'Protein',
+                          ),
                         ),
                       ),
-                    ),
-                  ],
-                ),
-                Row(
-                  children: [
-                    Expanded(
-                      child: TextFormField(
-                        initialValue: appSettings.carbsRatio.toString(),
-                        onChanged: (val) => {
-                          appSettings.carbsRatio =
-                              val == '' ? 50 : double.parse(val),
-                          _updateData(),
-                        },
-                        keyboardType: TextInputType.number,
-                        decoration: new InputDecoration(
-                          suffixText: '% of kcal',
-                          labelText: 'Carbs ratio',
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: TextFormField(
+                          initialValue: appSettings.carbsRatio.toString(),
+                          onChanged: (val) => {
+                            appSettings.carbsRatio =
+                                val == '' ? 50 : double.parse(val),
+                            _updateData(),
+                          },
+                          keyboardType: TextInputType.number,
+                          decoration: new InputDecoration(
+                            suffixText: '% of kcal',
+                            labelText: 'Carbs ratio',
+                          ),
                         ),
                       ),
-                    ),
-                    SizedBox(
-                      width: 20,
-                    ),
-                    Expanded(
-                      child: TextFormField(
-                        controller: _carbsTargetController,
-                        keyboardType: TextInputType.number,
-                        decoration: new InputDecoration(
-                          suffixText: 'g',
-                          labelText: 'Carbs',
+                      SizedBox(
+                        width: 20,
+                      ),
+                      Expanded(
+                        child: TextFormField(
+                          controller: _carbsTargetController,
+                          keyboardType: TextInputType.number,
+                          decoration: new InputDecoration(
+                            suffixText: 'g',
+                            labelText: 'Carbs',
+                          ),
                         ),
                       ),
-                    ),
-                  ],
-                ),
-                Row(
-                  children: [
-                    Expanded(
-                      child: TextFormField(
-                        initialValue: appSettings.fatRatio.toString(),
-                        onChanged: (val) => {
-                          appSettings.fatRatio =
-                              val == '' ? 30 : double.parse(val),
-                          _updateData(),
-                        },
-                        keyboardType: TextInputType.number,
-                        decoration: new InputDecoration(
-                          suffixText: '% of kcal',
-                          labelText: 'Fat ratio',
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: TextFormField(
+                          initialValue: appSettings.fatRatio.toString(),
+                          onChanged: (val) => {
+                            appSettings.fatRatio =
+                                val == '' ? 30 : double.parse(val),
+                            _updateData(),
+                          },
+                          keyboardType: TextInputType.number,
+                          decoration: new InputDecoration(
+                            suffixText: '% of kcal',
+                            labelText: 'Fat ratio',
+                          ),
                         ),
                       ),
-                    ),
-                    SizedBox(
-                      width: 20,
-                    ),
-                    Expanded(
-                      child: TextFormField(
-                        controller: _fatTargetController,
-                        keyboardType: TextInputType.number,
-                        decoration: new InputDecoration(
-                          suffixText: 'g',
-                          labelText: 'Fat',
+                      SizedBox(
+                        width: 20,
+                      ),
+                      Expanded(
+                        child: TextFormField(
+                          controller: _fatTargetController,
+                          keyboardType: TextInputType.number,
+                          decoration: new InputDecoration(
+                            suffixText: 'g',
+                            labelText: 'Fat',
+                          ),
                         ),
                       ),
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                // TODO: Issue #2: Make checkbox checkable and implement recommended micronutrients by age and sex
-                CheckboxListTile(
-                  contentPadding: EdgeInsets.all(8.0),
-                  title: const Text(
-                      'Also set micronutrient targets based on age and sex'),
-                  value: false,
-                  onChanged: null,
-                ),
-              ],
+                    ],
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  CheckboxListTile(
+                    contentPadding: EdgeInsets.all(8.0),
+                    title: const Text(
+                        'Also set micronutrient targets based on age and sex'),
+                    value: _setMicronutrientsBasedOnAgeAndSex,
+                    onChanged: (val) {
+                      setState(() {
+                        _setMicronutrientsBasedOnAgeAndSex = val!;
+                      });
+                    },
+                  ),
+                ],
+              ),
             ),
-          ),
-          actions: [
-            ElevatedButton.icon(
-                onPressed: () => _applyTargets(context, appSettings),
-                icon: Icon(Icons.save),
-                label: Text('Apply')),
-            TextButton(
-              onPressed: () => {
-                Navigator.pop(context),
-              },
-              child: Text('Close'),
-            )
-          ],
-        );
+            actions: [
+              ElevatedButton.icon(
+                  onPressed: () => _applyTargets(context, appSettings),
+                  icon: Icon(Icons.save),
+                  label: Text('Apply')),
+              TextButton(
+                onPressed: () => {
+                  Navigator.pop(context),
+                },
+                child: Text('Close'),
+              )
+            ],
+          );
+        });
       },
     );
   }
@@ -307,18 +315,38 @@ class _PersonalizationSubPageState extends State<PersonalizationSubPage> {
   }
 
   void _applyTargets(BuildContext context, AppSettings appSettings) {
-    Navigator.pop(context);
+    String snackbarText = 'Targets applied successfully';
+    Color? snackbarColor;
 
-    appSettings.caloriesTarget = double.parse(_caloriesTargetController.text);
-    appSettings.proteinTarget = double.parse(_proteinTargetController.text);
-    appSettings.carbsTarget = double.parse(_carbsTargetController.text);
-    appSettings.fatTarget = double.parse(_fatTargetController.text);
+    try {
+      // Calories and macros
+      appSettings.caloriesTarget = double.parse(_caloriesTargetController.text);
+      appSettings.proteinTarget = double.parse(_proteinTargetController.text);
+      appSettings.carbsTarget = double.parse(_carbsTargetController.text);
+      appSettings.fatTarget = double.parse(_fatTargetController.text);
 
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text('Targets applied successfully!'),
-      ),
-    );
+      // Micros if checkbox is true
+      if (_setMicronutrientsBasedOnAgeAndSex) {
+        // Get nutrient recommendations
+        final int age = appSettings.age;
+        final Sex sex = appSettings.sex == 'Male' ? Sex.male : Sex.female;
+
+        MicronutrientsRecommendations.setRecommendedNutritionAsTargets(
+            appSettings, age, sex);
+      }
+    } catch (e) {
+      snackbarText = 'Error setting targets';
+      snackbarColor = Colors.red;
+    } finally {
+      Navigator.pop(context);
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(snackbarText),
+          backgroundColor: snackbarColor,
+        ),
+      );
+    }
   }
 
   Widget _getActivityDescription(double activityLevel) {
