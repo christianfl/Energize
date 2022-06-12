@@ -18,9 +18,11 @@ import 'providers/app_settings.dart';
 import 'providers/custom_food_provider.dart';
 import 'providers/tracked_food_provider.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
@@ -50,9 +52,9 @@ class MyApp extends StatelessWidget {
         ],
         theme: ThemeData.dark().copyWith(
           highlightColor: Colors.amber,
-          scaffoldBackgroundColor: Color(0xFF1B262C),
-          cardColor: Color(0xFF0F1518),
-          colorScheme: ColorScheme.dark().copyWith(
+          scaffoldBackgroundColor: const Color(0xFF1B262C),
+          cardColor: const Color(0xFF0F1518),
+          colorScheme: const ColorScheme.dark().copyWith(
             primary: Colors.blue,
             onPrimary: Colors.white,
             secondary: Colors.pink,
@@ -60,19 +62,23 @@ class MyApp extends StatelessWidget {
             surface: Colors.pink,
           ),
         ),
-        home: TabsPage(),
+        home: const TabsPage(),
         routes: {
-          TrackFood.routeName: (ctx) => TrackFood(),
-          DetailedSummarySubPage.routeName: (ctx) => DetailedSummarySubPage(),
-          AddEditCustomFoodModal.routeName: (ctx) => AddEditCustomFoodModal(),
-          PersonalizationSubPage.routeName: (ctx) => PersonalizationSubPage(),
-          MacroTargetsSubPage.routeName: (ctx) => MacroTargetsSubPage(),
-          MicroTargetsSubPage.routeName: (ctx) => MicroTargetsSubPage(),
+          TrackFood.routeName: (ctx) => const TrackFood(),
+          DetailedSummarySubPage.routeName: (ctx) =>
+              const DetailedSummarySubPage(),
+          AddEditCustomFoodModal.routeName: (ctx) =>
+              const AddEditCustomFoodModal(),
+          PersonalizationSubPage.routeName: (ctx) =>
+              const PersonalizationSubPage(),
+          MacroTargetsSubPage.routeName: (ctx) => const MacroTargetsSubPage(),
+          MicroTargetsSubPage.routeName: (ctx) => const MicroTargetsSubPage(),
           DatabaseManagementSubPage.routeName: (ctx) =>
-              DatabaseManagementSubPage(),
-          BackupAndRestoreSubPage.routeName: (ctx) => BackupAndRestoreSubPage(),
-          AboutSubPage.routeName: (ctx) => AboutSubPage(),
-          DonationSubPage.routeName: (ctx) => DonationSubPage(),
+              const DatabaseManagementSubPage(),
+          BackupAndRestoreSubPage.routeName: (ctx) =>
+              const BackupAndRestoreSubPage(),
+          AboutSubPage.routeName: (ctx) => const AboutSubPage(),
+          DonationSubPage.routeName: (ctx) => const DonationSubPage(),
         },
       ),
     );

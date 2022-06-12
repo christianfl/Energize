@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import '../models/tab_nav_item.dart';
 
 class TabsPage extends StatefulWidget {
+  const TabsPage({Key? key}) : super(key: key);
+
   @override
   _TabsPageState createState() => _TabsPageState();
 }
@@ -37,7 +39,7 @@ class _TabsPageState extends State<TabsPage> {
           ],
         ),
         bottomNavigationBar: BottomNavigationBar(
-          backgroundColor: Color(0xFF0F1518),
+          backgroundColor: const Color(0xFF0F1518),
           currentIndex: _currentIndex,
           onTap: (int index) => _setIndex(index),
           items: [

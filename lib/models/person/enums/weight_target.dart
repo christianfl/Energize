@@ -34,7 +34,7 @@ extension ParseToString on WeightTarget {
   }
 }
 
-extension mapDoubleValues on WeightTarget {
+extension MapDoubleValues on WeightTarget {
   double toValue() {
     switch (this) {
       case WeightTarget.strongLoss:

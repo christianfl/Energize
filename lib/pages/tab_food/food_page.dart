@@ -15,17 +15,20 @@ class FoodPage extends StatefulWidget {
   static const double _entryPillHeight = 35;
   static const double _entryHeight = 50;
 
+  const FoodPage({Key? key}) : super(key: key);
+
   @override
   _FoodPageState createState() => _FoodPageState();
 }
 
 class _FoodPageState extends State<FoodPage> {
   List<Food> _searchResultFoods = [];
-  var _searchInputController = TextEditingController();
+  final _searchInputController = TextEditingController();
   final _scrollController = ScrollController();
   ScrollDirection? _lastScrollDirection;
   bool _isFabExplicitelyVisible = false;
 
+  @override
   void initState() {
     _scrollController.addListener(() {
       if (_lastScrollDirection !=
@@ -71,7 +74,7 @@ class _FoodPageState extends State<FoodPage> {
   void populateSearchedFoodList(
       String searchText, CustomFoodProvider provider) {
     // No search text, show all custom foods
-    if (searchText.length == 0) {
+    if (searchText.isEmpty) {
       setState(() {
         _searchResultFoods = provider.foods;
       });
@@ -110,13 +113,13 @@ class _FoodPageState extends State<FoodPage> {
                   decoration: InputDecoration(
                     border: InputBorder.none,
                     hintText: AppLocalizations.of(context)!.searchCustomFood,
-                    prefixIcon: Icon(Icons.search),
+                    prefixIcon: const Icon(Icons.search),
                     suffixIcon: IconButton(
                       onPressed: () => {
                         _searchInputController.clear(),
                         populateSearchedFoodList('', customFoodProvider),
                       },
-                      icon: Icon(Icons.clear),
+                      icon: const Icon(Icons.clear),
                     ),
                   ),
                 ),
@@ -124,7 +127,7 @@ class _FoodPageState extends State<FoodPage> {
             ),
           ),
           Expanded(
-            child: (_searchResultFoods.length != 0)
+            child: (_searchResultFoods.isNotEmpty)
                 ? ListView.builder(
                     controller: _scrollController,
                     padding: const EdgeInsets.all(8.0),
@@ -134,9 +137,7 @@ class _FoodPageState extends State<FoodPage> {
                         key: Key(food.id),
                         background: Container(
                           color: Colors.red,
-                          child: Icon(
-                            Icons.delete,
-                          ),
+                          child: const Icon(Icons.delete),
                         ),
                         onDismissed: (direction) {
                           final swipedFood = food;
@@ -148,7 +149,7 @@ class _FoodPageState extends State<FoodPage> {
                               backgroundColor: Theme.of(context).errorColor,
                               content: Text('${food.title} deleted!'),
                               action: SnackBarAction(
-                                label: "Undo",
+                                label: 'Undo',
                                 textColor:
                                     Theme.of(context).colorScheme.onSecondary,
                                 onPressed: () {
@@ -172,7 +173,7 @@ class _FoodPageState extends State<FoodPage> {
                 : Center(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
+                      children: const [
                         Icon(Icons.no_food, size: 100),
                       ],
                     ),

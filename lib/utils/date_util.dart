@@ -8,7 +8,7 @@ class DateUtil {
     DateTime dateTime,
     BuildContext context,
   ) {
-    if (Localizations.localeOf(context) == Locale('de')) {
+    if (Localizations.localeOf(context) == const Locale('de')) {
       // Use two digit dd.MM.yyyy representation
       return DateFormat(
         'dd.MM.yyyy',

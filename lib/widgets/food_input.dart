@@ -27,7 +27,11 @@ class FoodInput extends StatefulWidget {
   final double _entryPillHeight = 35;
   final double _entryHeight = 50;
 
-  FoodInput(this._foodAddingDate, this._sheetModalMode);
+  const FoodInput(
+    this._foodAddingDate,
+    this._sheetModalMode, {
+    Key? key,
+  }) : super(key: key);
 
   @override
   _FoodInputState createState() => _FoodInputState();
@@ -37,7 +41,7 @@ class _FoodInputState extends State<FoodInput>
     with SingleTickerProviderStateMixin {
   final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
   QRViewController? _qrController;
-  var _searchInputController = TextEditingController();
+  final _searchInputController = TextEditingController();
   Barcode? _scannedCode;
   var _awaitingApiResponse = false;
   String? _productNotFoundExceptionEan;
@@ -108,7 +112,7 @@ class _FoodInputState extends State<FoodInput>
   }
 
   void _onQRViewCreated(QRViewController controller) {
-    this._qrController = controller;
+    _qrController = controller;
     _qrController!.resumeCamera();
 
     controller.scannedDataStream.listen((scanData) {
@@ -167,7 +171,6 @@ class _FoodInputState extends State<FoodInput>
 
     if (appSettings.isProviderOpenFoodFactsActivated) {
       _offSearchResultFood = await OpenFoodFactsBinding.searchFood(searchText);
-      print('off_done');
     } else {
       return;
     }
@@ -177,9 +180,7 @@ class _FoodInputState extends State<FoodInput>
     final appSettings = Provider.of<AppSettings>(context, listen: false);
 
     if (appSettings.isProviderUsdaActivated) {
-      print('usda_fetch_started');
       _usdaSearchResultFood = await USDABinding.searchFood(searchText);
-      print('usda_done');
     } else {
       return;
     }
@@ -195,7 +196,7 @@ class _FoodInputState extends State<FoodInput>
     Duration debounceDuration = _defaultInputDebounceDuration;
 
     if (!debounce) {
-      debounceDuration = Duration(milliseconds: 0);
+      debounceDuration = const Duration(milliseconds: 0);
     }
 
     _searchFieldDebounceTimer = Timer(debounceDuration, () async {
@@ -206,8 +207,8 @@ class _FoodInputState extends State<FoodInput>
       // Non duplicate list of the food tracked the last X days
       var foodFromLastXDays = List<Food>.of(
         await TrackedFoodDatabaseService.trackedFoodByDateRange(
-          startDate: DateTime.now()
-              .subtract(Duration(days: _foodInputSuggestionsFromLastXDays)),
+          startDate: DateTime.now().subtract(
+              const Duration(days: _foodInputSuggestionsFromLastXDays)),
           endDate: DateTime.now(),
         ),
       );
@@ -223,7 +224,7 @@ class _FoodInputState extends State<FoodInput>
         // Remove duplicates
         _removeDuplicateSuggestions();
 
-        if (searchText.length != 0) {
+        if (searchText.isNotEmpty) {
           // Fill with foods from (offline) swiss nutrition database
           // only when searched for something
           if (appSettings.isProviderSndbActivated) {
@@ -298,21 +299,21 @@ class _FoodInputState extends State<FoodInput>
                 prefixIcon: _awaitingApiResponse
                     ? Transform.scale(
                         scale: 0.5,
-                        child: CircularProgressIndicator(),
+                        child: const CircularProgressIndicator(),
                       )
-                    : Icon(Icons.search),
+                    : const Icon(Icons.search),
                 suffixIcon: IconButton(
                   onPressed: () => {
                     _searchInputController.clear(),
                     populateSearchedFoodList('', false),
                   },
-                  icon: Icon(Icons.clear),
+                  icon: const Icon(Icons.clear),
                 ),
               ),
             ),
           ),
           Expanded(
-            child: (searchResultFood.length != 0)
+            child: (searchResultFood.isNotEmpty)
                 ? ListView.builder(
                     itemBuilder: (ctx, index) {
                       return FoodListItem(
@@ -328,18 +329,16 @@ class _FoodInputState extends State<FoodInput>
                   )
                 : Center(
                     child: _awaitingApiResponse
-                        ? CircularProgressIndicator()
+                        ? const CircularProgressIndicator()
                         : Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Icon(Icons.no_food, size: 100),
-                              SizedBox(
-                                height: 30,
-                              ),
+                              const Icon(Icons.no_food, size: 100),
+                              const SizedBox(height: 30),
                               ElevatedButton(
                                   onPressed: () =>
                                       _navigateToAddCustomFood(context),
-                                  child: Text('Add custom food')),
+                                  child: const Text('Add custom food')),
                             ],
                           ),
                   ),
@@ -348,7 +347,7 @@ class _FoodInputState extends State<FoodInput>
       );
     } else if (widget._sheetModalMode == SheetModalMode.ean) {
       return Container(
-        margin: EdgeInsets.all(12.0),
+        margin: const EdgeInsets.all(12.0),
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
         child: Column(
@@ -356,7 +355,7 @@ class _FoodInputState extends State<FoodInput>
           children: [
             Expanded(
               child: ClipRRect(
-                borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                borderRadius: const BorderRadius.all(Radius.circular(10.0)),
                 child: Stack(
                   children: [
                     QRView(
@@ -364,17 +363,17 @@ class _FoodInputState extends State<FoodInput>
                       onQRViewCreated: _onQRViewCreated,
                     ),
                     Container(
-                      padding: EdgeInsets.all(8.0),
+                      padding: const EdgeInsets.all(8.0),
                       alignment: Alignment.bottomCenter,
                       child: _productNotFoundExceptionEan != null
                           ? Container(
-                              decoration: new BoxDecoration(
+                              decoration: BoxDecoration(
                                 color: Colors.grey.withAlpha(150),
-                                borderRadius: new BorderRadius.all(
+                                borderRadius: const BorderRadius.all(
                                   Radius.circular(10.0),
                                 ),
                               ),
-                              padding: EdgeInsets.all(8.0),
+                              padding: const EdgeInsets.all(8.0),
                               width: double.infinity,
                               child: Row(
                                 children: [
@@ -386,15 +385,15 @@ class _FoodInputState extends State<FoodInput>
                                       onPressed: () => _navigateToAddCustomFood(
                                           context,
                                           ean: _productNotFoundExceptionEan!),
-                                      icon: Icon(Icons.add),
-                                      label: Text('Add custom food')),
+                                      icon: const Icon(Icons.add),
+                                      label: const Text('Add custom food')),
                                 ],
                               ))
-                          : Container(
+                          : SizedBox(
                               width: double.infinity,
                               child: ClipRRect(
                                   borderRadius: BorderRadius.circular(5),
-                                  child: LinearProgressIndicator()),
+                                  child: const LinearProgressIndicator()),
                             ),
                     )
                   ],
@@ -403,13 +402,14 @@ class _FoodInputState extends State<FoodInput>
             ),
             OutlinedButton.icon(
               onPressed: _toggleFlash,
-              icon: Icon(Icons.bolt),
+              icon: const Icon(Icons.bolt),
               label: Text(AppLocalizations.of(context)!.toggleFlash),
             ),
           ],
         ),
       );
-    } else
+    } else {
       return Container();
+    }
   }
 }

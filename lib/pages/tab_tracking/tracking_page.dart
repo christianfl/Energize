@@ -14,6 +14,8 @@ import '../../widgets/macro_chart.dart';
 import '../../widgets/tracked_food_list.dart';
 
 class TrackingPage extends StatefulWidget {
+  const TrackingPage({Key? key}) : super(key: key);
+
   @override
   _TrackingPageState createState() => _TrackingPageState();
 }
@@ -24,8 +26,9 @@ class _TrackingPageState extends State<TrackingPage> {
   final _scrollController = ScrollController();
   ScrollDirection? _lastScrollDirection;
   bool _isFabExplicitelyVisible = false;
-  double _datePickerHighlightRadius = 16;
+  final double _datePickerHighlightRadius = 16;
 
+  @override
   void initState() {
     _scrollController.addListener(() {
       if (_lastScrollDirection !=
@@ -51,7 +54,7 @@ class _TrackingPageState extends State<TrackingPage> {
   void _startAddEatenFood(BuildContext ctx, SheetModalMode mode) {
     showModalBottomSheet(
       context: ctx,
-      shape: RoundedRectangleBorder(
+      shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(10.0),
           topRight: Radius.circular(10.0),
@@ -80,18 +83,18 @@ class _TrackingPageState extends State<TrackingPage> {
               width: MediaQuery.of(context).size.width,
               child: TableCalendar(
                 locale: Localizations.localeOf(context).toString(),
-                availableCalendarFormats: {CalendarFormat.month: ''},
-                weekendDays: [],
-                headerStyle: HeaderStyle(
+                availableCalendarFormats: const {CalendarFormat.month: ''},
+                weekendDays: const [],
+                headerStyle: const HeaderStyle(
                   titleCentered: true,
                 ),
-                daysOfWeekStyle: DaysOfWeekStyle(
-                  weekdayStyle: const TextStyle(color: Colors.blueGrey),
+                daysOfWeekStyle: const DaysOfWeekStyle(
+                  weekdayStyle: TextStyle(color: Colors.blueGrey),
                 ),
                 daysOfWeekHeight: 32.0,
                 startingDayOfWeek: StartingDayOfWeek.monday,
                 firstDay: DateTime(2000),
-                lastDay: DateTime.now().add(Duration(days: 365)),
+                lastDay: DateTime.now().add(const Duration(days: 365)),
                 focusedDay: _selectedDate,
                 onDaySelected: (selectedDay, focusedDay) {
                   _selectDate(selectedDay);
@@ -116,7 +119,7 @@ class _TrackingPageState extends State<TrackingPage> {
                               Theme.of(context).dialogBackgroundColor,
                           child: Text(
                             '${day.day}',
-                            style: TextStyle(color: Colors.white),
+                            style: const TextStyle(color: Colors.white),
                           ),
                         ),
                       ),
@@ -129,7 +132,7 @@ class _TrackingPageState extends State<TrackingPage> {
                         backgroundColor: Colors.blue,
                         child: Text(
                           '${day.day}',
-                          style: TextStyle(color: Colors.white),
+                          style: const TextStyle(color: Colors.white),
                         ),
                       ),
                     );
@@ -144,10 +147,10 @@ class _TrackingPageState extends State<TrackingPage> {
                             backgroundColor: Colors.green,
                             child: Text(
                               '${day.day}',
-                              style: TextStyle(color: Colors.white),
+                              style: const TextStyle(color: Colors.white),
                             ),
                           ),
-                          Icon(
+                          const Icon(
                             Icons.check,
                             size: 16,
                           ),
@@ -213,17 +216,17 @@ class _TrackingPageState extends State<TrackingPage> {
   Widget _dayCompletionStatusMenuEntry() {
     if (_isSelectedDateCompleted!) {
       return Row(
-        children: <Widget>[
-          Icon(Icons.clear),
-          SizedBox(width: 10),
+        children: [
+          const Icon(Icons.clear),
+          const SizedBox(width: 10),
           Text(AppLocalizations.of(context)!.dayIncomplete),
         ],
       );
     } else {
       return Row(
-        children: <Widget>[
-          Icon(Icons.done),
-          SizedBox(width: 10),
+        children: [
+          const Icon(Icons.done),
+          const SizedBox(width: 10),
           Text(AppLocalizations.of(context)!.dayComplete),
         ],
       );
@@ -239,7 +242,7 @@ class _TrackingPageState extends State<TrackingPage> {
         centerTitle: true,
         actions: [
           PopupMenuButton(
-            icon: Icon(Icons.more_vert),
+            icon: const Icon(Icons.more_vert),
             onSelected: (value) {
               switch (value) {
                 case 0:
@@ -259,12 +262,12 @@ class _TrackingPageState extends State<TrackingPage> {
             },
             itemBuilder: (context) => [
               PopupMenuItem(
-                child: Text(AppLocalizations.of(context)!.detailedSummary),
                 value: 0,
+                child: Text(AppLocalizations.of(context)!.detailedSummary),
               ),
               PopupMenuItem(
-                child: _dayCompletionStatusMenuEntry(),
                 value: 1,
+                child: _dayCompletionStatusMenuEntry(),
               ),
             ],
           ),
@@ -274,19 +277,19 @@ class _TrackingPageState extends State<TrackingPage> {
           children: <Widget>[
             IconButton(
               onPressed: () {
-                _selectDate(_selectedDate.subtract(Duration(days: 1)));
+                _selectDate(_selectedDate.subtract(const Duration(days: 1)));
               },
               icon: const Icon(Icons.arrow_left),
               color: Colors.white,
             ),
             TextButton(
-              child: Text(DateUtil.getDate(_selectedDate, context)),
               onPressed: () => _pickDateDialog(context),
               style: TextButton.styleFrom(primary: Colors.white),
+              child: Text(DateUtil.getDate(_selectedDate, context)),
             ),
             IconButton(
               onPressed: () {
-                _selectDate(_selectedDate.add(Duration(days: 1)));
+                _selectDate(_selectedDate.add(const Duration(days: 1)));
               },
               icon: const Icon(Icons.arrow_right),
               color: Colors.white,
@@ -321,14 +324,14 @@ class _TrackingPageState extends State<TrackingPage> {
         spaceBetweenChildren: 10,
         children: [
           SpeedDialChild(
-            child: Icon(Icons.search),
+            child: const Icon(Icons.search),
             backgroundColor: Colors.red,
             label: AppLocalizations.of(context)!.searchFood,
             labelBackgroundColor: Colors.red,
             onTap: () => _startAddEatenFood(context, SheetModalMode.search),
           ),
           SpeedDialChild(
-            child: Icon(Icons.qr_code),
+            child: const Icon(Icons.qr_code),
             backgroundColor: Colors.blue,
             label: AppLocalizations.of(context)!.scanEANCode,
             labelBackgroundColor: Colors.blue,

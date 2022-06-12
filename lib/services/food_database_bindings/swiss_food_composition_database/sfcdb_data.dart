@@ -2,7 +2,7 @@
 // Field seperator: §
 // ID § Name § Synonyme (; separated) § Energie (kcal) § Protein (g) § Kohlenhydrate, verfügbar (g) § Fett (g) § Vitamin A - RAE (µg-RE) § Vitamin B1 (mg) § Vitamin B2 (mg) § Vitamin B3 (mg) § Vitamin B5 (mg) § Vitamin B6 (mg) § Vitamin B9 (µg) § Vitamin B12 (µg) § Vitamin C (mg) § Vitamin D (µg) § Vitamin E-Aktivität (mg-ATE) § Calcium (mg)§Chlorid (mg) § Magnesium (mg) § Phosphor (mg) § Kalium (mg) § Natrium (mg) § Eisen (mg) § Jod (µg) § Selen (µg) § Zink (mg) § Fettsäuren, einfach ungesättigt (g) § Fettsäuren, mehrfach ungesättigt (g) § Fettsäuren, gesättigt (g) § Cholesterin (mg) § Ballaststoffe (g) § Zucker (g) § Stärke (g) § Wasser (g) § Alkohol (g)
 
-const SFCDB_DATA = [
+const sfcdbData = [
   '10533§Agar Agar§§160§2.4§0§0.2§§§§§§§§§§§§660§§100§34§52§130§4.5§§§1.5§§§§§74.1§§§20.5§',
   '10536§Agavensirup§Agavendicksaft§293§0.2§73.1§0§§§§§§§§§§§§§§§§§4§§§§§§§0§§0§§§§',
   '14093§Ahornsirup§§358§0§88.7§0.3§0§0.02§0.97§0.22§0.05§0§0§0§0§0§0§96§55§30§2.6§280§15§0.1§0§0.8§2.6§0.1§0.1§0§0§0§77.3§0§42.4§0',

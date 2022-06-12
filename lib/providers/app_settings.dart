@@ -1,6 +1,7 @@
-import 'package:energize/models/person/enums/weight_target.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import '../models/person/enums/weight_target.dart';
 
 class AppSettings with ChangeNotifier {
   SharedPreferences? _preferences;
@@ -161,8 +162,7 @@ class AppSettings with ChangeNotifier {
   }
 
   _initPreferences() async {
-    if (_preferences == null)
-      _preferences = await SharedPreferences.getInstance();
+    _preferences ??= await SharedPreferences.getInstance();
   }
 
   // Loads all key value pairs from shared preferences into local variables
@@ -332,11 +332,13 @@ class AppSettings with ChangeNotifier {
   _saveToPreferences(String key, var value) async {
     await _initPreferences();
     if (value is int) _preferences!.setInt(key, value);
-    if (value is double)
+    if (value is double) {
       _preferences!.setDouble(key, value);
-    else if (value is String)
+    } else if (value is String) {
       _preferences!.setString(key, value);
-    else if (value is bool) _preferences!.setBool(key, value);
+    } else if (value is bool) {
+      _preferences!.setBool(key, value);
+    }
   }
 
   set caloriesTarget(double value) {

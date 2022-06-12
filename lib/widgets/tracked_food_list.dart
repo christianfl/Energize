@@ -10,13 +10,17 @@ class TrackedFoodList extends StatelessWidget {
   final Function _setIsFabExplicitelyVisible;
   final double _entryHeight = 50;
 
-  TrackedFoodList(this._scrollController, this._setIsFabExplicitelyVisible);
+  const TrackedFoodList(
+      this._scrollController, this._setIsFabExplicitelyVisible,
+      {Key? key})
+      : super(key: key);
 
   double _caloriesPerAmount(FoodTracked food) {
     if (food.calories != null) {
       return food.calories! / 100 * food.amount;
-    } else
+    } else {
       return 0;
+    }
   }
 
   void _navigateToEditFood(BuildContext context, FoodTracked foodToBeAdded) {
@@ -36,12 +40,12 @@ class TrackedFoodList extends StatelessWidget {
       child: foods.isEmpty
           ? Column(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
+              children: const [
                 Icon(Icons.no_food, size: 100),
               ],
             )
           : ListView.builder(
-              padding: EdgeInsets.all(8.0),
+              padding: const EdgeInsets.all(8.0),
               controller: _scrollController,
               itemBuilder: (ctx, index) {
                 final food = foods[index];
@@ -49,7 +53,7 @@ class TrackedFoodList extends StatelessWidget {
                   key: Key(food.id),
                   background: Container(
                     color: Colors.red,
-                    child: Icon(
+                    child: const Icon(
                       Icons.delete,
                     ),
                   ),
@@ -63,7 +67,7 @@ class TrackedFoodList extends StatelessWidget {
                         backgroundColor: Theme.of(context).errorColor,
                         content: Text('${food.title} deleted!'),
                         action: SnackBarAction(
-                          label: "Undo",
+                          label: 'Undo',
                           textColor: Theme.of(context).colorScheme.onSecondary,
                           onPressed: () {
                             trackedFood.addEatenFood(swipedFood);
@@ -79,7 +83,7 @@ class TrackedFoodList extends StatelessWidget {
                       },
                       child: Container(
                         height: _entryHeight,
-                        margin: EdgeInsets.only(left: 10, right: 10),
+                        margin: const EdgeInsets.only(left: 10, right: 10),
                         child: Row(
                           children: <Widget>[
                             Expanded(
@@ -94,7 +98,7 @@ class TrackedFoodList extends StatelessWidget {
                                   ),
                                   Text(
                                     '${food.amount} g',
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                       color: Colors.grey,
                                       fontWeight: FontWeight.w300,
                                       fontSize: 10,
@@ -111,7 +115,7 @@ class TrackedFoodList extends StatelessWidget {
                                 ),
                                 borderRadius: BorderRadius.circular(6),
                               ),
-                              padding: EdgeInsets.all(4),
+                              padding: const EdgeInsets.all(4),
                               child: Text(
                                 '${_caloriesPerAmount(food).toStringAsFixed(0)} kcal',
                                 style: TextStyle(

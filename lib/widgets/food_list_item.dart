@@ -15,13 +15,15 @@ class FoodListItem extends StatelessWidget {
   final double pillHeight;
   final bool? hideOrigin;
 
-  FoodListItem(this.food,
-      {required this.onTapCallback,
+  const FoodListItem(this.food,
+      {Key? key,
+      required this.onTapCallback,
       this.quickAddFoodCallback,
       this.getQuickAddFoodAmountCallback,
       required this.height,
       required this.pillHeight,
-      this.hideOrigin});
+      this.hideOrigin})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +38,7 @@ class FoodListItem extends StatelessWidget {
         customBorder: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(26),
         ),
-        child: Container(
+        child: SizedBox(
           height: height,
           child: Row(
             children: <Widget>[
@@ -60,9 +62,7 @@ class FoodListItem extends StatelessWidget {
                         ),
                       ),
               ),
-              SizedBox(
-                width: 10,
-              ),
+              const SizedBox(width: 10),
               Expanded(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -76,7 +76,7 @@ class FoodListItem extends StatelessWidget {
                     food.calories != null
                         ? Text(
                             '${food.calories} kcal / 100 g',
-                            style: TextStyle(
+                            style: const TextStyle(
                               color: Colors.grey,
                               fontWeight: FontWeight.w300,
                               fontSize: 10,
@@ -86,17 +86,13 @@ class FoodListItem extends StatelessWidget {
                   ],
                 ),
               ),
-              SizedBox(
-                width: 10,
-              ),
+              const SizedBox(width: 10),
               FoodMicroCountPill(
                 food.nutrientCount,
                 height: pillHeight,
                 showText: false,
               ),
-              SizedBox(
-                width: 8,
-              ),
+              const SizedBox(width: 8),
               hideOrigin == null || hideOrigin == false
                   ? FoodOriginLogoPill(
                       food.origin,
@@ -104,7 +100,7 @@ class FoodListItem extends StatelessWidget {
                       height: pillHeight,
                     )
                   : Container(),
-              this.quickAddFoodCallback != null
+              quickAddFoodCallback != null
                   ? GestureDetector(
                       onTap: () =>
                           quickAddFoodCallback!(food, trackedFoodProvider),
@@ -113,10 +109,10 @@ class FoodListItem extends StatelessWidget {
                         child: Column(
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            Icon(Icons.add),
+                            const Icon(Icons.add),
                             Text(
                               '${((getQuickAddFoodAmountCallback!(food) as double).toStringAsFixed(0))} g',
-                              style: TextStyle(
+                              style: const TextStyle(
                                 fontWeight: FontWeight.w300,
                                 fontSize: 8,
                               ),

@@ -10,6 +10,8 @@ class DonationSubPage extends StatelessWidget {
   static const _donationUrl = 'https://liberapay.com/epinez';
   static const _email = 'energize@flasskamp.com';
 
+  const DonationSubPage({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,7 +39,9 @@ class DonationSubPage extends StatelessWidget {
               InkWell(
                 onTap: () async {
                   try {
-                    Clipboard.setData(ClipboardData(text: _bitcoinAddress));
+                    Clipboard.setData(
+                      const ClipboardData(text: _bitcoinAddress),
+                    );
 
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
@@ -45,10 +49,12 @@ class DonationSubPage extends StatelessWidget {
                             .bitcoinAddressCopiedToClipboard),
                       ),
                     );
-                  } catch (e) {}
+                  } catch (e) {
+                    //
+                  }
                 },
-                child: ListTile(
-                  leading: const Icon(Icons.currency_bitcoin),
+                child: const ListTile(
+                  leading: Icon(Icons.currency_bitcoin),
                   title: Text('Bitcoin'),
                   subtitle: SelectableText(
                     _bitcoinAddress,
@@ -72,8 +78,8 @@ class DonationSubPage extends StatelessWidget {
                   ),
                   title: Text(
                       AppLocalizations.of(context)!.bankAccountOrCreditCard),
-                  subtitle: Text('liberapay.com'),
-                  trailing: Icon(Icons.link),
+                  subtitle: const Text('liberapay.com'),
+                  trailing: const Icon(Icons.link),
                 ),
               ),
               InkWell(
@@ -88,7 +94,7 @@ class DonationSubPage extends StatelessWidget {
                   title: Text(AppLocalizations.of(context)!.contact),
                   subtitle: Text(AppLocalizations.of(context)!
                       .writeMeAnEmailForFurtherDonationOptions),
-                  trailing: Icon(Icons.mail),
+                  trailing: const Icon(Icons.mail),
                 ),
               ),
             ],

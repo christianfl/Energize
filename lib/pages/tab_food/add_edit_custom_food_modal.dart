@@ -20,6 +20,8 @@ class AddEditCustomFoodModal extends StatefulWidget {
 
   static const _foodAvatarRadius = 56.0;
 
+  const AddEditCustomFoodModal({Key? key}) : super(key: key);
+
   @override
   _AddEditCustomFoodModalState createState() => _AddEditCustomFoodModalState();
 }
@@ -28,54 +30,54 @@ class _AddEditCustomFoodModalState extends State<AddEditCustomFoodModal> {
   var activePanelIndex = 0;
   Food foodToEditOrCreate = Food(id: 'temp', origin: 'CUSTOM', title: '');
   final _formKey = GlobalKey<FormState>();
-  var _foodTitleController = TextEditingController();
-  var _foodEanController = TextEditingController();
-  var _foodCaloriesController = TextEditingController();
-  var _foodProteinController = TextEditingController();
-  var _foodCarbsController = TextEditingController();
-  var _foodFatController = TextEditingController();
-  var _foodVitaminAController = TextEditingController();
-  var _foodVitaminB1Controller = TextEditingController();
-  var _foodVitaminB2Controller = TextEditingController();
-  var _foodVitaminB3Controller = TextEditingController();
-  var _foodVitaminB5Controller = TextEditingController();
-  var _foodVitaminB6Controller = TextEditingController();
-  var _foodVitaminB7Controller = TextEditingController();
-  var _foodVitaminB9Controller = TextEditingController();
-  var _foodVitaminB12Controller = TextEditingController();
-  var _foodVitaminCController = TextEditingController();
-  var _foodVitaminDController = TextEditingController();
-  var _foodVitaminEController = TextEditingController();
-  var _foodVitaminKController = TextEditingController();
-  var _foodCalciumController = TextEditingController();
-  var _foodChlorideController = TextEditingController();
-  var _foodMagnesiumController = TextEditingController();
-  var _foodPhosphorusController = TextEditingController();
-  var _foodPotassiumController = TextEditingController();
-  var _foodSodiumController = TextEditingController();
-  var _foodChromiumController = TextEditingController();
-  var _foodIronController = TextEditingController();
-  var _foodFluorineController = TextEditingController();
-  var _foodIodineController = TextEditingController();
-  var _foodCopperController = TextEditingController();
-  var _foodManganeseController = TextEditingController();
-  var _foodMolybdenumController = TextEditingController();
-  var _foodSeleniumController = TextEditingController();
-  var _foodZincController = TextEditingController();
-  var _foodMonounsaturatedFatController = TextEditingController();
-  var _foodPolyunsaturatedFatController = TextEditingController();
-  var _foodOmega3Controller = TextEditingController();
-  var _foodOmega6Controller = TextEditingController();
-  var _foodSaturatedFatController = TextEditingController();
-  var _foodTransFatController = TextEditingController();
-  var _foodCholesterolController = TextEditingController();
-  var _foodFiberController = TextEditingController();
-  var _foodSugarController = TextEditingController();
-  var _foodSugarAlcoholController = TextEditingController();
-  var _foodStarchController = TextEditingController();
-  var _foodWaterController = TextEditingController();
-  var _foodCaffeineController = TextEditingController();
-  var _foodAlcoholController = TextEditingController();
+  final _foodTitleController = TextEditingController();
+  final _foodEanController = TextEditingController();
+  final _foodCaloriesController = TextEditingController();
+  final _foodProteinController = TextEditingController();
+  final _foodCarbsController = TextEditingController();
+  final _foodFatController = TextEditingController();
+  final _foodVitaminAController = TextEditingController();
+  final _foodVitaminB1Controller = TextEditingController();
+  final _foodVitaminB2Controller = TextEditingController();
+  final _foodVitaminB3Controller = TextEditingController();
+  final _foodVitaminB5Controller = TextEditingController();
+  final _foodVitaminB6Controller = TextEditingController();
+  final _foodVitaminB7Controller = TextEditingController();
+  final _foodVitaminB9Controller = TextEditingController();
+  final _foodVitaminB12Controller = TextEditingController();
+  final _foodVitaminCController = TextEditingController();
+  final _foodVitaminDController = TextEditingController();
+  final _foodVitaminEController = TextEditingController();
+  final _foodVitaminKController = TextEditingController();
+  final _foodCalciumController = TextEditingController();
+  final _foodChlorideController = TextEditingController();
+  final _foodMagnesiumController = TextEditingController();
+  final _foodPhosphorusController = TextEditingController();
+  final _foodPotassiumController = TextEditingController();
+  final _foodSodiumController = TextEditingController();
+  final _foodChromiumController = TextEditingController();
+  final _foodIronController = TextEditingController();
+  final _foodFluorineController = TextEditingController();
+  final _foodIodineController = TextEditingController();
+  final _foodCopperController = TextEditingController();
+  final _foodManganeseController = TextEditingController();
+  final _foodMolybdenumController = TextEditingController();
+  final _foodSeleniumController = TextEditingController();
+  final _foodZincController = TextEditingController();
+  final _foodMonounsaturatedFatController = TextEditingController();
+  final _foodPolyunsaturatedFatController = TextEditingController();
+  final _foodOmega3Controller = TextEditingController();
+  final _foodOmega6Controller = TextEditingController();
+  final _foodSaturatedFatController = TextEditingController();
+  final _foodTransFatController = TextEditingController();
+  final _foodCholesterolController = TextEditingController();
+  final _foodFiberController = TextEditingController();
+  final _foodSugarController = TextEditingController();
+  final _foodSugarAlcoholController = TextEditingController();
+  final _foodStarchController = TextEditingController();
+  final _foodWaterController = TextEditingController();
+  final _foodCaffeineController = TextEditingController();
+  final _foodAlcoholController = TextEditingController();
 
   @override
   void initState() {
@@ -354,7 +356,7 @@ class _AddEditCustomFoodModalState extends State<AddEditCustomFoodModal> {
   }) {
     return ListTile(
       title: Text(title),
-      trailing: Container(
+      trailing: SizedBox(
         width: 160,
         height: 45,
         child: TextFormField(
@@ -407,7 +409,7 @@ class _AddEditCustomFoodModalState extends State<AddEditCustomFoodModal> {
                               food!.imageUrl!,
                             ),
                           )
-                        : CircleAvatar(
+                        : const CircleAvatar(
                             backgroundColor: Colors.black,
                             radius: AddEditCustomFoodModal._foodAvatarRadius,
                             child: Icon(
@@ -435,9 +437,7 @@ class _AddEditCustomFoodModalState extends State<AddEditCustomFoodModal> {
                               return null;
                             },
                           ),
-                          SizedBox(
-                            height: 10,
-                          ),
+                          const SizedBox(height: 10),
                           TextFormField(
                             controller: _foodEanController,
                             keyboardType: TextInputType.number,
@@ -451,9 +451,7 @@ class _AddEditCustomFoodModalState extends State<AddEditCustomFoodModal> {
                   ],
                 ),
 
-                SizedBox(
-                  height: 10,
-                ),
+                const SizedBox(height: 10),
                 // Start Micronutrients Expansion Panel
                 ExpansionPanelList(
                   expansionCallback: (panelIndex, isExpanded) {
@@ -812,7 +810,7 @@ class _AddEditCustomFoodModalState extends State<AddEditCustomFoodModal> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.save),
+        child: const Icon(Icons.save),
         onPressed: () => {
           if (_formKey.currentState!.validate())
             {

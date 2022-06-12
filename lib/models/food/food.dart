@@ -247,8 +247,9 @@ class Food {
 
     // Title
     food.title = product.brands ?? '';
-    if (product.brands != null && product.productName != null)
+    if (product.brands != null && product.productName != null) {
       food.title += ' ';
+    }
     if (product.productName != null) food.title += product.productName!;
 
     // Make sure there are no leading or trailing whitespaces
@@ -267,12 +268,12 @@ class Food {
     }
 
     // Other metadata and macronutrients
-    food.ean = product.barcode ?? null;
-    food.imageUrl = product.imageFrontUrl ?? null;
-    food.imageThumbnailUrl = product.imageFrontSmallUrl ?? null;
-    food.protein = product.nutriments?.proteins ?? null;
-    food.carbs = product.nutriments?.carbohydrates ?? null;
-    food.fat = product.nutriments?.fat ?? null;
+    food.ean = product.barcode;
+    food.imageUrl = product.imageFrontUrl;
+    food.imageThumbnailUrl = product.imageFrontSmallUrl;
+    food.protein = product.nutriments?.proteins;
+    food.carbs = product.nutriments?.carbohydrates;
+    food.fat = product.nutriments?.fat;
 
     // Fill serving size with serving and package size
     if (product.servingQuantity != null || product.quantity != null) {
@@ -388,16 +389,16 @@ class Food {
     if (product.nutriments?.polyunsaturatedAcid != null) {
       food.polyunsaturatedFat = product.nutriments!.polyunsaturatedAcid!;
     }
-    food.omega3 = product.nutriments?.omega3Fat ?? null;
-    food.omega6 = product.nutriments?.omega6Fat ?? null;
-    food.saturatedFat = product.nutriments?.saturatedFat ?? null;
-    food.transFat = product.nutriments?.transFat ?? null;
+    food.omega3 = product.nutriments?.omega3Fat;
+    food.omega6 = product.nutriments?.omega6Fat;
+    food.saturatedFat = product.nutriments?.saturatedFat;
+    food.transFat = product.nutriments?.transFat;
     if (product.nutriments?.cholesterol != null) {
       food.cholesterol = product.nutriments!.cholesterol! * 1000;
     }
 
-    food.fiber = product.nutriments?.fiber ?? null;
-    food.sugar = product.nutriments?.sugars ?? null;
+    food.fiber = product.nutriments?.fiber;
+    food.sugar = product.nutriments?.sugars;
 
     // OFF does not support food.sugarAlcohol
     // OFF does not support food.starch
@@ -406,7 +407,7 @@ class Food {
     if (product.nutriments?.caffeine != null) {
       food.caffeine = product.nutriments!.caffeine! * 1000;
     }
-    food.alcohol = product.nutriments?.alcohol ?? null;
+    food.alcohol = product.nutriments?.alcohol;
 
     return food;
   }
@@ -573,7 +574,7 @@ class Food {
   }
 
   static String get generatedId {
-    return Uuid().v4();
+    return const Uuid().v4();
   }
 
   /// Returns hashCode based on all properties except:

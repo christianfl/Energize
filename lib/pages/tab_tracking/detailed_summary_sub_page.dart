@@ -7,6 +7,8 @@ import '../../widgets/micro_chart.dart';
 class DetailedSummarySubPage extends StatelessWidget {
   static const routeName = '/tracking/detailed-summary';
 
+  const DetailedSummarySubPage({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     final foods =

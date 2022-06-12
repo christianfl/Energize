@@ -11,11 +11,12 @@ class MicroChart extends StatelessWidget {
   final bool showZero;
   final bool scrollable;
 
-  MicroChart(
+  const MicroChart(
     this.foods, {
+    Key? key,
     required this.showZero,
     required this.scrollable,
-  });
+  }) : super(key: key);
 
   double _totalVitaminA(List<FoodTracked> foods) {
     return foods.fold(0, (sum, f) => sum + _calcAmount(f.vitaminA, f.amount));

@@ -3,10 +3,10 @@ import 'package:path/path.dart';
 
 class DatabaseService {
   static Database? _database;
-  static final db = 'foods_database.db';
-  static final customFoodstable = 'customfoods';
-  static final trackedFoodsTable = 'trackedfoods';
-  static final completeDaysTable = 'completedays';
+  static const db = 'foods_database.db';
+  static const customFoodstable = 'customfoods';
+  static const trackedFoodsTable = 'trackedfoods';
+  static const completeDaysTable = 'completedays';
 
   Future<Database> get database async {
     if (_database != null) return _database!;

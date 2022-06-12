@@ -58,7 +58,7 @@ class CompleteDaysDatabaseService with DatabaseService {
 
     final List<DateTime> allCompletedDays = [];
 
-    completeDays.forEach((dateEntry) {
+    for (var dateEntry in completeDays) {
       final String date = dateEntry['date'];
       final splittedDate = date.split('-');
 
@@ -68,8 +68,10 @@ class CompleteDaysDatabaseService with DatabaseService {
         final int day = int.parse(splittedDate[2]);
 
         allCompletedDays.add(DateTime(year, month, day));
-      } catch (e) {}
-    });
+      } catch (e) {
+        //
+      }
+    }
 
     return allCompletedDays;
   }

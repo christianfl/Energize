@@ -10,10 +10,11 @@ class MacroChart extends StatelessWidget {
   final List<FoodTracked> foods;
   final bool? hideCard;
 
-  MacroChart(
+  const MacroChart(
     this.foods, {
+    Key? key,
     this.hideCard,
-  });
+  }) : super(key: key);
 
   double get _totalCalories {
     return foods.fold(0, (sum, f) => sum + _calcAmount(f.calories, f.amount));
@@ -88,11 +89,11 @@ class MacroChart extends StatelessWidget {
     if (hideCard == true) {
       return _getChart(context, appSettings);
     } else {
-      return Container(
+      return SizedBox(
         width: double.infinity,
         child: Card(
           child: Container(
-            margin: EdgeInsets.all(10),
+            margin: const EdgeInsets.all(10),
             child: _getChart(context, appSettings),
           ),
         ),

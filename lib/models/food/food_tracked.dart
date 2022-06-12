@@ -9,6 +9,8 @@ part 'food_tracked.g.dart';
   includeIfNull: false,
 )
 class FoodTracked extends Food {
+  @override
+  // ignore: overridden_fields
   final String id;
 
   /// In g ()
@@ -203,7 +205,7 @@ class FoodTracked extends Food {
   // foodTracked items from parsed Maps and set UUIDs, could also be
   // implemented with a factory
   static String get generatedId {
-    return Uuid().v4();
+    return const Uuid().v4();
   }
 
   /// When no servingSize has been selected (index), it just returns the amount
@@ -222,6 +224,7 @@ class FoodTracked extends Food {
       _$FoodTrackedFromJson(json);
 
   /// Connect the generated toJson function to the `toJson` method.
+  @override
   Map<String, dynamic> toJson() => _$FoodTrackedToJson(this);
 
   static _dateToMillisecondsSinceEpoch(DateTime dateTime) =>

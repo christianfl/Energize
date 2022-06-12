@@ -1,15 +1,16 @@
-import 'package:energize/models/person/enums/sex.dart';
-import 'package:energize/models/person/enums/weight_target.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:provider/provider.dart';
 
+import '../../models/person/enums/sex.dart';
+import '../../models/person/enums/weight_target.dart';
 import '../../providers/app_settings.dart';
 import '../../services/micronutrients_recommendations/micronutrients_recommendations.dart';
 
 // In order to make the slider full width
 class CustomTrackShape extends RoundedRectSliderTrackShape {
+  @override
   Rect getPreferredRect({
     required RenderBox parentBox,
     Offset offset = Offset.zero,
@@ -29,15 +30,17 @@ class CustomTrackShape extends RoundedRectSliderTrackShape {
 class PersonalizationSubPage extends StatefulWidget {
   static const routeName = '/settings/personalization';
 
+  const PersonalizationSubPage({Key? key}) : super(key: key);
+
   @override
   _PersonalizationSubPageState createState() => _PersonalizationSubPageState();
 }
 
 class _PersonalizationSubPageState extends State<PersonalizationSubPage> {
-  var _caloriesTargetController = TextEditingController();
-  var _proteinTargetController = TextEditingController();
-  var _carbsTargetController = TextEditingController();
-  var _fatTargetController = TextEditingController();
+  final _caloriesTargetController = TextEditingController();
+  final _proteinTargetController = TextEditingController();
+  final _carbsTargetController = TextEditingController();
+  final _fatTargetController = TextEditingController();
   bool _setMicronutrientsBasedOnAgeAndSex = false;
 
   void _showInfoDialog(BuildContext context) {
@@ -45,11 +48,11 @@ class _PersonalizationSubPageState extends State<PersonalizationSubPage> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('Calculation info'),
+          title: const Text('Calculation info'),
           content: SingleChildScrollView(
             child: Column(
               children: [
-                Text(
+                const Text(
                     'This calculation is based on the Mifflin-St.Jeor formula. Please be aware that it can only act as an approximation to the real world values. These differ from person to person as their body conditions can diverge more or less.'),
                 Padding(
                   padding: const EdgeInsets.all(12.0),
@@ -58,7 +61,7 @@ class _PersonalizationSubPageState extends State<PersonalizationSubPage> {
                     style: Theme.of(context).textTheme.headline6,
                   ),
                 ),
-                Text(
+                const Text(
                     '(10 * Weight in kg) + (6.25 * Height in cm) – (5 * Age in years) - 161'),
                 Padding(
                   padding: const EdgeInsets.all(12.0),
@@ -67,7 +70,7 @@ class _PersonalizationSubPageState extends State<PersonalizationSubPage> {
                     style: Theme.of(context).textTheme.headline6,
                   ),
                 ),
-                Text(
+                const Text(
                     '(10 * Weight in kg) + (6.25 * Height in cm) – (5 * Age in years) + 5'),
               ],
             ),
@@ -75,7 +78,7 @@ class _PersonalizationSubPageState extends State<PersonalizationSubPage> {
           actions: [
             TextButton(
               onPressed: () => Navigator.pop(context),
-              child: Text('OK'),
+              child: const Text('OK'),
             )
           ],
         );
@@ -106,12 +109,12 @@ class _PersonalizationSubPageState extends State<PersonalizationSubPage> {
       builder: (BuildContext context) {
         return StatefulBuilder(builder: (context, setState) {
           return AlertDialog(
-            title: Text('Calculated targets'),
+            title: const Text('Calculated targets'),
             content: SingleChildScrollView(
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Text(
+                  const Text(
                       'Feel free to edit the calculated targets according to your needs before applying them.'),
                   TextFormField(
                     controller: _caloriesTargetController,
@@ -135,20 +138,18 @@ class _PersonalizationSubPageState extends State<PersonalizationSubPage> {
                             _updateData(),
                           },
                           keyboardType: TextInputType.number,
-                          decoration: new InputDecoration(
+                          decoration: const InputDecoration(
                             suffixText: '% of kcal',
                             labelText: 'Protein ratio',
                           ),
                         ),
                       ),
-                      SizedBox(
-                        width: 20,
-                      ),
+                      const SizedBox(width: 20),
                       Expanded(
                         child: TextFormField(
                           controller: _proteinTargetController,
                           keyboardType: TextInputType.number,
-                          decoration: new InputDecoration(
+                          decoration: const InputDecoration(
                             suffixText: 'g',
                             labelText: 'Protein',
                           ),
@@ -167,20 +168,18 @@ class _PersonalizationSubPageState extends State<PersonalizationSubPage> {
                             _updateData(),
                           },
                           keyboardType: TextInputType.number,
-                          decoration: new InputDecoration(
+                          decoration: const InputDecoration(
                             suffixText: '% of kcal',
                             labelText: 'Carbs ratio',
                           ),
                         ),
                       ),
-                      SizedBox(
-                        width: 20,
-                      ),
+                      const SizedBox(width: 20),
                       Expanded(
                         child: TextFormField(
                           controller: _carbsTargetController,
                           keyboardType: TextInputType.number,
-                          decoration: new InputDecoration(
+                          decoration: const InputDecoration(
                             suffixText: 'g',
                             labelText: 'Carbs',
                           ),
@@ -199,20 +198,18 @@ class _PersonalizationSubPageState extends State<PersonalizationSubPage> {
                             _updateData(),
                           },
                           keyboardType: TextInputType.number,
-                          decoration: new InputDecoration(
+                          decoration: const InputDecoration(
                             suffixText: '% of kcal',
                             labelText: 'Fat ratio',
                           ),
                         ),
                       ),
-                      SizedBox(
-                        width: 20,
-                      ),
+                      const SizedBox(width: 20),
                       Expanded(
                         child: TextFormField(
                           controller: _fatTargetController,
                           keyboardType: TextInputType.number,
-                          decoration: new InputDecoration(
+                          decoration: const InputDecoration(
                             suffixText: 'g',
                             labelText: 'Fat',
                           ),
@@ -220,11 +217,9 @@ class _PersonalizationSubPageState extends State<PersonalizationSubPage> {
                       ),
                     ],
                   ),
-                  SizedBox(
-                    height: 20,
-                  ),
+                  const SizedBox(height: 20),
                   CheckboxListTile(
-                    contentPadding: EdgeInsets.all(8.0),
+                    contentPadding: const EdgeInsets.all(8.0),
                     title: const Text(
                         'Also set micronutrient targets based on age and sex'),
                     value: _setMicronutrientsBasedOnAgeAndSex,
@@ -240,13 +235,13 @@ class _PersonalizationSubPageState extends State<PersonalizationSubPage> {
             actions: [
               ElevatedButton.icon(
                   onPressed: () => _applyTargets(context, appSettings),
-                  icon: Icon(Icons.save),
-                  label: Text('Apply')),
+                  icon: const Icon(Icons.save),
+                  label: const Text('Apply')),
               TextButton(
                 onPressed: () => {
                   Navigator.pop(context),
                 },
-                child: Text('Close'),
+                child: const Text('Close'),
               )
             ],
           );
@@ -280,7 +275,7 @@ class _PersonalizationSubPageState extends State<PersonalizationSubPage> {
   }
 
   double _calculateMacros(String targetMacro, AppSettings appSettings) {
-    var caloriesToDistribute;
+    double caloriesToDistribute;
 
     if (_caloriesTargetController.text == '') {
       caloriesToDistribute = _calculateCalories(appSettings);
@@ -288,11 +283,11 @@ class _PersonalizationSubPageState extends State<PersonalizationSubPage> {
       caloriesToDistribute = double.parse(_caloriesTargetController.text);
     }
 
-    final double proteinKcalPerG = 4.0;
-    final double carbsKcalPerG = 4.0;
-    final double fatKcalPerG = 9.0;
+    const double proteinKcalPerG = 4.0;
+    const double carbsKcalPerG = 4.0;
+    const double fatKcalPerG = 9.0;
 
-    var target = 0.0;
+    double target = 0.0;
 
     switch (targetMacro) {
       case 'protein':
@@ -422,12 +417,12 @@ class _PersonalizationSubPageState extends State<PersonalizationSubPage> {
         title: Text(AppLocalizations.of(context)!.personalization),
         actions: [
           IconButton(
-              icon: Icon(Icons.info),
+              icon: const Icon(Icons.info),
               onPressed: () => _showInfoDialog(context)),
         ],
       ),
       body: ListView(
-        padding: EdgeInsets.all(12.0),
+        padding: const EdgeInsets.all(12.0),
         children: [
           Padding(
             padding: const EdgeInsets.only(bottom: 12.0),
@@ -457,7 +452,7 @@ class _PersonalizationSubPageState extends State<PersonalizationSubPage> {
               onChanged: (String? newValue) {
                 appSettings.sex = newValue!;
               },
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 labelText: 'Sex',
               ),
               items: <String>['Female', 'Male']
@@ -509,7 +504,7 @@ class _PersonalizationSubPageState extends State<PersonalizationSubPage> {
             title: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('Activity level'),
+                const Text('Activity level'),
                 SliderTheme(
                   data: SliderThemeData(
                     trackShape: CustomTrackShape(),
@@ -536,7 +531,7 @@ class _PersonalizationSubPageState extends State<PersonalizationSubPage> {
               onChanged: (WeightTarget? newValue) {
                 appSettings.weightTarget = newValue!;
               },
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 labelText: 'Weight target',
               ),
               items: WeightTarget.values.map((WeightTarget weightTarget) {
@@ -546,7 +541,7 @@ class _PersonalizationSubPageState extends State<PersonalizationSubPage> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(weightTarget.toLocalizedString(context)),
-                      Text('${_getWeightTargetRelativePercent(weightTarget)}'),
+                      Text(_getWeightTargetRelativePercent(weightTarget)),
                     ],
                   ),
                 );

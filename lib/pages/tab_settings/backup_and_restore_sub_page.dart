@@ -22,6 +22,8 @@ import '../../widgets/select_action_card.dart';
 class BackupAndRestoreSubPage extends StatefulWidget {
   static const routeName = '/settings/backup-and-restore';
 
+  const BackupAndRestoreSubPage({Key? key}) : super(key: key);
+
   @override
   _BackupAndRestoreSubPageState createState() =>
       _BackupAndRestoreSubPageState();
@@ -30,11 +32,11 @@ class BackupAndRestoreSubPage extends StatefulWidget {
 class _BackupAndRestoreSubPageState extends State<BackupAndRestoreSubPage> {
   final _serverSettingsFormKey = GlobalKey<FormState>();
   final _passwordsFormKey = GlobalKey<FormState>();
-  var _serverUrlController = TextEditingController();
-  var _usernameController = TextEditingController();
-  var _pathAndFilenameController = TextEditingController();
-  var _passwordController = TextEditingController();
-  var _encryptionPasswordController = TextEditingController();
+  final _serverUrlController = TextEditingController();
+  final _usernameController = TextEditingController();
+  final _pathAndFilenameController = TextEditingController();
+  final _passwordController = TextEditingController();
+  final _encryptionPasswordController = TextEditingController();
 
   get _backupTargetPathWithoutFilename =>
       '${_serverUrlController.text}${path.dirname(_pathAndFilenameController.text)}';
@@ -132,7 +134,7 @@ class _BackupAndRestoreSubPageState extends State<BackupAndRestoreSubPage> {
       // Create folder of path if not existing
       try {
         await dio.request(_backupTargetPathWithoutFilename,
-            options: Options(method: "MKCOL"));
+            options: Options(method: 'MKCOL'));
       } on DioError {
         // Folder possibly already created
       }
@@ -153,7 +155,7 @@ class _BackupAndRestoreSubPageState extends State<BackupAndRestoreSubPage> {
           SnackBar(
             backgroundColor: Colors.red,
             content: e.message == 'Http status error [401]'
-                ? Text('Username or password incorrect')
+                ? const Text('Username or password incorrect')
                 : Text(e.message),
           ),
         );
@@ -285,9 +287,9 @@ class _BackupAndRestoreSubPageState extends State<BackupAndRestoreSubPage> {
                     children: [
                       TextFormField(
                         decoration: InputDecoration(
-                          icon: Icon(Icons.cloud),
+                          icon: const Icon(Icons.cloud),
                           labelText: 'Server URL',
-                          hintText: "https://",
+                          hintText: 'https://',
                           suffixIcon: IconButton(
                             onPressed: () => {
                               _serverUrlController.text = '',
@@ -305,9 +307,9 @@ class _BackupAndRestoreSubPageState extends State<BackupAndRestoreSubPage> {
                         },
                       ),
                       TextFormField(
-                        autofillHints: [AutofillHints.username],
+                        autofillHints: const [AutofillHints.username],
                         decoration: InputDecoration(
-                          icon: Icon(Icons.person),
+                          icon: const Icon(Icons.person),
                           labelText: 'Username',
                           suffixIcon: IconButton(
                             onPressed: () => {
@@ -327,7 +329,7 @@ class _BackupAndRestoreSubPageState extends State<BackupAndRestoreSubPage> {
                       ),
                       TextFormField(
                         decoration: InputDecoration(
-                          icon: Icon(Icons.folder),
+                          icon: const Icon(Icons.folder),
                           labelText: 'Path and filename',
                           hintText: '/Energize/backup.json.aes',
                           suffixIcon: IconButton(
@@ -393,7 +395,7 @@ class _BackupAndRestoreSubPageState extends State<BackupAndRestoreSubPage> {
                     children: [
                       TextFormField(
                         keyboardType: TextInputType.visiblePassword,
-                        autofillHints: [AutofillHints.password],
+                        autofillHints: const [AutofillHints.password],
                         obscureText: true,
                         decoration: const InputDecoration(
                           icon: Icon(Icons.password),
@@ -459,7 +461,7 @@ class _BackupAndRestoreSubPageState extends State<BackupAndRestoreSubPage> {
         appSettings.backupUsername.isEmpty ||
         appSettings.backupPathAndFilename.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
+        const SnackBar(
           backgroundColor: Colors.red,
           content: Text(
               'Please click on the settings icon first and setup a WebDAV server.'),
@@ -486,12 +488,12 @@ class _BackupAndRestoreSubPageState extends State<BackupAndRestoreSubPage> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            Padding(
-              padding: const EdgeInsets.fromLTRB(12.0, 12.0, 12.0, 0.0),
+            const Padding(
+              padding: EdgeInsets.fromLTRB(12.0, 12.0, 12.0, 0.0),
               child: InfoCard(
                 message:
                     'Warning: Currently in alpha. You can backup and restore tracked and custom food and completed days at the moment. Settings, personalizations, targets, etc. are still missing.',
-                icon: const Icon(Icons.warning),
+                icon: Icon(Icons.warning),
                 color: Colors.red,
               ),
             ),

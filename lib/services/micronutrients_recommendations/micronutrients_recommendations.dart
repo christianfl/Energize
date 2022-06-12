@@ -3,12 +3,12 @@ import 'package:collection/collection.dart';
 import '../../../models/food/food.dart';
 import '../../models/person/enums/sex.dart';
 import '../../providers/app_settings.dart';
-import 'DGE_DATA.dart';
+import 'dge_data.dart';
 import 'micronutrients_model.dart';
 
 class MicronutrientsRecommendations {
   // Gets generated during runtime out of DGE_DATA.dart (CSV)
-  static List<MicronutrientsModel> _nutrientsByGroup = [];
+  static final List<MicronutrientsModel> _nutrientsByGroup = [];
 
   /// Returns the DGE nutrition recommendation by age and sex, based on https://www.dge.de/wissenschaft/referenzwerte/tool/
   static Food _getNutritionData(
@@ -29,7 +29,7 @@ class MicronutrientsRecommendations {
           : Food(id: '', origin: '', title: '');
     }
 
-    for (var row in DGE_DATA) {
+    for (var row in dgeDATA) {
       final splittedRow = row.split('§');
 
       _nutrientsByGroup.add(

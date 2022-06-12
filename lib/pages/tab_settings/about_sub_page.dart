@@ -14,6 +14,8 @@ class AboutSubPage extends StatelessWidget {
   static const _copyrightNotice = '© 2022 Christian Flaßkamp';
   static const _license = 'GPLv3';
 
+  const AboutSubPage({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,10 +45,10 @@ class AboutSubPage extends StatelessWidget {
                         AppLocalizations.of(context)!.appName,
                         style: Theme.of(context).textTheme.headline4,
                       ),
-                      Text('v$_appVersion'),
+                      const Text('v$_appVersion'),
                       const SizedBox(height: 8),
                       Text(
-                        '$_copyrightNotice',
+                        _copyrightNotice,
                         style: Theme.of(context).textTheme.caption,
                       ),
                       Text(
@@ -58,8 +60,8 @@ class AboutSubPage extends StatelessWidget {
                           context: context,
                           applicationVersion: _appVersion,
                           applicationLegalese: '$_copyrightNotice\n$_license',
-                          applicationIcon: Padding(
-                            padding: const EdgeInsets.all(8.0),
+                          applicationIcon: const Padding(
+                            padding: EdgeInsets.all(8.0),
                             child: CircleAvatar(
                               backgroundImage:
                                   AssetImage('assets/about_logo.png'),
@@ -91,8 +93,8 @@ class AboutSubPage extends StatelessWidget {
                 child: ListTile(
                   leading: const Icon(Icons.bug_report),
                   title: Text(AppLocalizations.of(context)!.reportIssue),
-                  subtitle: Text('Codeberg.org'),
-                  trailing: Icon(Icons.link),
+                  subtitle: const Text('Codeberg.org'),
+                  trailing: const Icon(Icons.link),
                 ),
               ),
               InkWell(
@@ -106,8 +108,8 @@ class AboutSubPage extends StatelessWidget {
                 child: ListTile(
                   leading: const Icon(Icons.code),
                   title: Text(AppLocalizations.of(context)!.sourceCode),
-                  subtitle: Text('Codeberg.org'),
-                  trailing: Icon(Icons.link),
+                  subtitle: const Text('Codeberg.org'),
+                  trailing: const Icon(Icons.link),
                 ),
               ),
               InkWell(
@@ -121,8 +123,8 @@ class AboutSubPage extends StatelessWidget {
                 child: ListTile(
                   leading: const Icon(Icons.translate),
                   title: Text(AppLocalizations.of(context)!.translation),
-                  subtitle: Text('Weblate.org'),
-                  trailing: Icon(Icons.link),
+                  subtitle: const Text('Weblate.org'),
+                  trailing: const Icon(Icons.link),
                 ),
               ),
               InkWell(
@@ -136,7 +138,7 @@ class AboutSubPage extends StatelessWidget {
                 child: ListTile(
                   title: Text(AppLocalizations.of(context)!.contact),
                   subtitle: Text(AppLocalizations.of(context)!.email),
-                  trailing: Icon(Icons.mail),
+                  trailing: const Icon(Icons.mail),
                 ),
               ),
             ],

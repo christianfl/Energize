@@ -5,8 +5,12 @@ class FoodMicroCountPill extends StatelessWidget {
   final double height;
   final bool showText;
 
-  FoodMicroCountPill(this.count,
-      {required this.height, required this.showText});
+  const FoodMicroCountPill(
+    this.count, {
+    Key? key,
+    required this.height,
+    required this.showText,
+  }) : super(key: key);
 
   String get _pillText {
     if (showText) {
@@ -26,7 +30,7 @@ class FoodMicroCountPill extends StatelessWidget {
         ),
         borderRadius: BorderRadius.circular(20),
       ),
-      padding: EdgeInsets.all(4),
+      padding: const EdgeInsets.all(4),
       child: Row(
         children: [
           Icon(

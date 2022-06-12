@@ -8,20 +8,22 @@ class ChartBar extends StatelessWidget {
   final Color color;
   final int? decimalPlaces;
 
-  ChartBar({
+  const ChartBar({
+    Key? key,
     required this.title,
     required this.value,
     required this.target,
     required this.unit,
     required this.color,
     this.decimalPlaces,
-  });
+  }) : super(key: key);
 
   double get _percentage {
-    if (target > 0)
+    if (target > 0) {
       return value / target * 100;
-    else
+    } else {
       return 100;
+    }
   }
 
   double get _percentageBar {
@@ -60,25 +62,23 @@ class ChartBar extends StatelessWidget {
             ),
           ],
         ),
-        SizedBox(
-          height: 2,
-        ),
+        const SizedBox(height: 2),
         Container(
           height: 10,
-          margin: EdgeInsets.only(bottom: 6),
+          margin: const EdgeInsets.only(bottom: 6),
           child: Stack(
             children: [
               Container(
                 decoration: BoxDecoration(
                   border: Border.all(color: Colors.grey, width: 1.0),
-                  color: Color.fromRGBO(220, 220, 220, 1),
+                  color: const Color.fromRGBO(220, 220, 220, 1),
                   borderRadius: BorderRadius.circular(20),
                 ),
               ),
               FractionallySizedBox(
                 widthFactor: _percentageBar,
                 child: Container(
-                  margin: EdgeInsets.all(1),
+                  margin: const EdgeInsets.all(1),
                   decoration: BoxDecoration(
                     color: color,
                     borderRadius: BorderRadius.circular(20),

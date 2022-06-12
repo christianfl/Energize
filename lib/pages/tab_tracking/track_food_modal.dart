@@ -28,6 +28,8 @@ class TrackFood extends StatefulWidget {
 
   static const _foodAvatarRadius = 48.0;
 
+  const TrackFood({Key? key}) : super(key: key);
+
   @override
   _TrackFoodState createState() => _TrackFoodState();
 }
@@ -46,10 +48,9 @@ class _TrackFoodState extends State<TrackFood>
   void initState() {
     _tabController = TabController(vsync: this, length: 2);
     _amountCtrlFocusNode.addListener(() {
-      print('bla');
       final double maxHeaderHeight = _expandedHeight - kToolbarHeight;
       _scrollController.animateTo(maxHeaderHeight,
-          duration: Duration(seconds: 1), curve: Curves.bounceIn);
+          duration: const Duration(seconds: 1), curve: Curves.bounceIn);
     });
 
     super.initState();
@@ -107,7 +108,7 @@ class _TrackFoodState extends State<TrackFood>
 
     DateTime tempDate = DateTime.now();
     return FoodTracked.fromFood(
-        food, "TEMP_FOR_CHART", amount, tempDate, tempDate);
+        food, 'TEMP_FOR_CHART', amount, tempDate, tempDate);
   }
 
   void createCustomFoodFromThis(Food food) {
@@ -139,7 +140,7 @@ class _TrackFoodState extends State<TrackFood>
 
   Widget _getActions(Food food) {
     return PopupMenuButton(
-      icon: Icon(Icons.more_vert),
+      icon: const Icon(Icons.more_vert),
       onSelected: (value) {
         switch (value) {
           case 0:
@@ -151,8 +152,8 @@ class _TrackFoodState extends State<TrackFood>
       },
       itemBuilder: (context) => [
         PopupMenuItem(
-          child: Text(AppLocalizations.of(context)!.useAsTemplateForCustomFood),
           value: 0,
+          child: Text(AppLocalizations.of(context)!.useAsTemplateForCustomFood),
         ),
       ],
     );
@@ -163,8 +164,9 @@ class _TrackFoodState extends State<TrackFood>
       return AppLocalizations.of(context)!.trackFood;
     } else if (modalMode == ModalMode.edit) {
       return AppLocalizations.of(context)!.editTrackedFood;
-    } else
+    } else {
       return '';
+    }
   }
 
   Widget _getAmountInput(
@@ -174,13 +176,13 @@ class _TrackFoodState extends State<TrackFood>
   ) {
     return Container(
       height: 56,
-      decoration: new BoxDecoration(
+      decoration: const BoxDecoration(
         color: Colors.black45,
-        borderRadius: new BorderRadius.all(Radius.circular(28)),
+        borderRadius: BorderRadius.all(Radius.circular(28)),
       ),
       child: Row(
         children: [
-          Container(
+          SizedBox(
             width: 140,
             child: TextField(
               textAlignVertical: TextAlignVertical.center,
@@ -193,13 +195,13 @@ class _TrackFoodState extends State<TrackFood>
               focusNode: _amountCtrlFocusNode,
               keyboardType: TextInputType.number,
               decoration: InputDecoration(
-                prefixIcon: Icon(Icons.edit),
+                prefixIcon: const Icon(Icons.edit),
                 hintText: _getAmount(food).toString(),
                 border: InputBorder.none,
               ),
             ),
           ),
-          Container(
+          SizedBox(
             width: 150,
             height: 50,
             child: DropdownButtonHideUnderline(
@@ -256,7 +258,7 @@ class _TrackFoodState extends State<TrackFood>
                             food.imageUrl!,
                           ),
                         )
-                      : CircleAvatar(
+                      : const CircleAvatar(
                           backgroundColor: Colors.black,
                           radius: TrackFood._foodAvatarRadius,
                           child: Icon(
@@ -274,7 +276,7 @@ class _TrackFoodState extends State<TrackFood>
                           food.title,
                           maxLines: 3,
                           overflow: TextOverflow.ellipsis,
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
                           ),
@@ -287,7 +289,7 @@ class _TrackFoodState extends State<TrackFood>
                               height: _pillHeight,
                               showText: true,
                             ),
-                            SizedBox(width: 10),
+                            const SizedBox(width: 10),
                             InkWell(
                               onTap: food.origin == 'OFF'
                                   ? () => _launchOpenFoodFactsUrl(food.ean!)
@@ -357,7 +359,7 @@ class _TrackFoodState extends State<TrackFood>
       ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: Theme.of(context).colorScheme.secondary.withAlpha(220),
-        child: Icon(Icons.save),
+        child: const Icon(Icons.save),
         onPressed: () => _addOrEditFood(args, trackedFood),
       ),
     );

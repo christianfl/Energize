@@ -15,6 +15,8 @@ class DatabaseManagementSubPage extends StatefulWidget {
   static const double _dbImageWidth = 80;
   static const double _dbImageHeight = 50;
 
+  const DatabaseManagementSubPage({Key? key}) : super(key: key);
+
   @override
   _DatabaseManagementSubPageState createState() =>
       _DatabaseManagementSubPageState();
@@ -68,7 +70,7 @@ class _DatabaseManagementSubPageState extends State<DatabaseManagementSubPage> {
                             borderRadius: BorderRadius.circular(8),
                             color: Colors.white,
                           ),
-                          child: FoodOriginLogoPill(
+                          child: const FoodOriginLogoPill(
                               SwissFoodCompositionDatabaseBinding.originName),
                         ),
                       ),
@@ -112,7 +114,7 @@ class _DatabaseManagementSubPageState extends State<DatabaseManagementSubPage> {
                           title: Text(AppLocalizations.of(context)!.source),
                           subtitle: Text(AppLocalizations.of(context)!
                               .tapHereForFurtherInformation),
-                          trailing: Icon(Icons.link),
+                          trailing: const Icon(Icons.link),
                         ),
                       ),
                     ],
@@ -160,7 +162,7 @@ class _DatabaseManagementSubPageState extends State<DatabaseManagementSubPage> {
                           ),
                         ),
                       ),
-                      title: Text('Open Food Facts'),
+                      title: const Text('Open Food Facts'),
                       value: appSettings.isProviderOpenFoodFactsActivated,
                       onChanged: (val) =>
                           appSettings.isProviderOpenFoodFactsActivated = val,
@@ -197,7 +199,7 @@ class _DatabaseManagementSubPageState extends State<DatabaseManagementSubPage> {
                           title: Text(AppLocalizations.of(context)!.termsOfUse),
                           subtitle: Text(AppLocalizations.of(context)!
                               .openFoodFactsTermsText),
-                          trailing: Icon(Icons.link),
+                          trailing: const Icon(Icons.link),
                           isThreeLine: true,
                         ),
                       ),
@@ -214,7 +216,7 @@ class _DatabaseManagementSubPageState extends State<DatabaseManagementSubPage> {
                           title: Text(AppLocalizations.of(context)!.contribute),
                           subtitle: Text(AppLocalizations.of(context)!
                               .databaseContributeText),
-                          trailing: Icon(Icons.link),
+                          trailing: const Icon(Icons.link),
                           isThreeLine: true,
                         ),
                       ),
@@ -226,9 +228,9 @@ class _DatabaseManagementSubPageState extends State<DatabaseManagementSubPage> {
                   canTapOnHeader: true,
                   headerBuilder: (context, isExpanded) {
                     return SwitchListTile(
-                      secondary: Padding(
-                        padding: const EdgeInsets.only(top: 8.0, bottom: 8.0),
-                        child: Container(
+                      secondary: const Padding(
+                        padding: EdgeInsets.only(top: 8.0, bottom: 8.0),
+                        child: SizedBox(
                           width: DatabaseManagementSubPage._dbImageWidth,
                           child: FoodOriginLogoPill(
                             USDABinding.originName,
@@ -237,7 +239,7 @@ class _DatabaseManagementSubPageState extends State<DatabaseManagementSubPage> {
                           ),
                         ),
                       ),
-                      title: Text('USDA FoodData Central'),
+                      title: const Text('USDA FoodData Central'),
                       value: appSettings.isProviderUsdaActivated,
                       onChanged: (val) =>
                           appSettings.isProviderUsdaActivated = val,
@@ -251,7 +253,7 @@ class _DatabaseManagementSubPageState extends State<DatabaseManagementSubPage> {
                       ),
                       ListTile(
                         title: Text(AppLocalizations.of(context)!.publisher),
-                        subtitle: Text(
+                        subtitle: const Text(
                             'U.S. Department of Agriculture, Agricultural Research Service. FoodData Central, 2019. fdc.nal.usda.gov.'),
                         isThreeLine: true,
                       ),
@@ -273,7 +275,7 @@ class _DatabaseManagementSubPageState extends State<DatabaseManagementSubPage> {
                           title: Text(AppLocalizations.of(context)!.source),
                           subtitle: Text(AppLocalizations.of(context)!
                               .tapHereForFurtherInformation),
-                          trailing: Icon(Icons.link),
+                          trailing: const Icon(Icons.link),
                         ),
                       ),
                     ],

@@ -7,6 +7,8 @@ import '../../providers/app_settings.dart';
 class MacroTargetsSubPage extends StatelessWidget {
   static const routeName = '/settings/targets';
 
+  const MacroTargetsSubPage({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     final appSettings = Provider.of<AppSettings>(context);
@@ -39,7 +41,7 @@ class MacroTargetsSubPage extends StatelessWidget {
               onChanged: (val) =>
                   appSettings.proteinTarget = val == '' ? 0 : double.parse(val),
               keyboardType: TextInputType.number,
-              decoration: new InputDecoration(
+              decoration: InputDecoration(
                 suffixText: 'g',
                 labelText: AppLocalizations.of(context)!.protein,
               ),
@@ -52,7 +54,7 @@ class MacroTargetsSubPage extends StatelessWidget {
               onChanged: (val) =>
                   appSettings.carbsTarget = val == '' ? 0 : double.parse(val),
               keyboardType: TextInputType.number,
-              decoration: new InputDecoration(
+              decoration: InputDecoration(
                 suffixText: 'g',
                 labelText: AppLocalizations.of(context)!.carbs,
               ),
@@ -65,7 +67,7 @@ class MacroTargetsSubPage extends StatelessWidget {
               onChanged: (val) =>
                   appSettings.fatTarget = val == '' ? 0 : double.parse(val),
               keyboardType: TextInputType.number,
-              decoration: new InputDecoration(
+              decoration: InputDecoration(
                 suffixText: 'g',
                 labelText: AppLocalizations.of(context)!.fat,
               ),

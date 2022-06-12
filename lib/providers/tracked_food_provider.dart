@@ -44,7 +44,7 @@ class TrackedFoodProvider with ChangeNotifier {
     TrackedFoodDatabaseService.insert(foodTracked);
   }
 
-  void editEatenFood({food: FoodTracked, amount: double}) {
+  void editEatenFood({food = FoodTracked, amount = double}) {
     var index = foods.indexWhere((element) => element.id == food.id);
     _foods[index].amount = amount;
     notifyListeners();

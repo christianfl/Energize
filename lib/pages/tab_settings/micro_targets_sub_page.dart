@@ -8,6 +8,8 @@ import '../../widgets/category_list_tile_header.dart';
 class MicroTargetsSubPage extends StatefulWidget {
   static const routeName = '/settings/micro-targets';
 
+  const MicroTargetsSubPage({Key? key}) : super(key: key);
+
   @override
   _MicroTargetsSubPageState createState() => _MicroTargetsSubPageState();
 }
@@ -23,7 +25,7 @@ class _MicroTargetsSubPageState extends State<MicroTargetsSubPage> {
   }) {
     return ListTile(
       title: Text(title),
-      trailing: Container(
+      trailing: SizedBox(
         width: 90,
         height: 45,
         child: TextFormField(
@@ -31,7 +33,7 @@ class _MicroTargetsSubPageState extends State<MicroTargetsSubPage> {
           onChanged: setValueFunction,
           keyboardType: TextInputType.number,
           textAlign: TextAlign.center,
-          decoration: new InputDecoration(
+          decoration: InputDecoration(
             suffixText: unit,
           ),
         ),
@@ -48,7 +50,7 @@ class _MicroTargetsSubPageState extends State<MicroTargetsSubPage> {
         title: Text(AppLocalizations.of(context)!.micronutrientsTargets),
         actions: [
           PopupMenuButton(
-            icon: Icon(Icons.more_vert),
+            icon: const Icon(Icons.more_vert),
             onSelected: (value) {
               switch (value) {
                 case 0:
@@ -58,7 +60,7 @@ class _MicroTargetsSubPageState extends State<MicroTargetsSubPage> {
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
                         backgroundColor: Theme.of(context).errorColor,
-                        content: Text(
+                        content: const Text(
                             'Restart the app in order to let the changes take effect!'),
                       ),
                     );
@@ -67,9 +69,9 @@ class _MicroTargetsSubPageState extends State<MicroTargetsSubPage> {
               }
             },
             itemBuilder: (context) => [
-              PopupMenuItem(
-                child: Text("Reset to defaults"),
+              const PopupMenuItem(
                 value: 0,
+                child: Text('Reset to defaults'),
               ),
             ],
           ),

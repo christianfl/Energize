@@ -17,7 +17,7 @@ class OpenFoodFactsBinding {
   static const productUrl = 'https://openfoodfacts.org/product/';
 
   OpenFoodFactsBinding._privateConstructor() {
-    OpenFoodAPIConfiguration.userAgent = UserAgent(
+    OpenFoodAPIConfiguration.userAgent = const UserAgent(
       name: 'Energize',
       version: '0.4.0',
       url: 'https://codeberg.org/epinez/Energize',

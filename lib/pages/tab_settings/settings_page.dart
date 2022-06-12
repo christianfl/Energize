@@ -10,6 +10,8 @@ import 'micro_targets_sub_page.dart';
 import 'personalization_sub_page.dart';
 
 class SettingsPage extends StatelessWidget {
+  const SettingsPage({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,7 +27,7 @@ class SettingsPage extends StatelessWidget {
               );
             },
             child: ListTile(
-              leading: Icon(Icons.person),
+              leading: const Icon(Icons.person),
               title: Text(AppLocalizations.of(context)!.personalization),
               subtitle: Text(AppLocalizations.of(context)!.personalizationHint),
             ),
@@ -37,7 +39,7 @@ class SettingsPage extends StatelessWidget {
               );
             },
             child: ListTile(
-              leading: Icon(Icons.bolt),
+              leading: const Icon(Icons.bolt),
               title: Text(
                   AppLocalizations.of(context)!.energyAndMacronutrientsTargets),
               subtitle: Text(AppLocalizations.of(context)!
@@ -51,13 +53,13 @@ class SettingsPage extends StatelessWidget {
               );
             },
             child: ListTile(
-              leading: Icon(Icons.emoji_flags),
+              leading: const Icon(Icons.emoji_flags),
               title: Text(AppLocalizations.of(context)!.micronutrientsTargets),
               subtitle:
                   Text(AppLocalizations.of(context)!.micronutrientsTargetsHint),
             ),
           ),
-          Divider(),
+          const Divider(),
           InkWell(
             onTap: () {
               Navigator.of(context).pushNamed(
@@ -65,7 +67,7 @@ class SettingsPage extends StatelessWidget {
               );
             },
             child: ListTile(
-              leading: Icon(Icons.perm_data_setting),
+              leading: const Icon(Icons.perm_data_setting),
               title: Text(AppLocalizations.of(context)!.databaseManagement),
               subtitle:
                   Text(AppLocalizations.of(context)!.databaseManagementHint),
@@ -79,13 +81,13 @@ class SettingsPage extends StatelessWidget {
             },
             child: ListTile(
               isThreeLine: true,
-              leading: Icon(Icons.cloud),
+              leading: const Icon(Icons.cloud),
               title: Text(AppLocalizations.of(context)!.backupAndRestore),
               subtitle:
                   Text(AppLocalizations.of(context)!.backupAndRestoreHint),
             ),
           ),
-          Divider(),
+          const Divider(),
           InkWell(
             onTap: () {
               Navigator.of(context).pushNamed(
@@ -93,7 +95,7 @@ class SettingsPage extends StatelessWidget {
               );
             },
             child: ListTile(
-              leading: Icon(Icons.info),
+              leading: const Icon(Icons.info),
               title: Text(AppLocalizations.of(context)!.aboutEnergize),
             ),
           ),
@@ -104,7 +106,7 @@ class SettingsPage extends StatelessWidget {
               );
             },
             child: ListTile(
-              tileColor: Color(0xFFF6C915),
+              tileColor: const Color(0xFFF6C915),
               textColor: Colors.black,
               leading: const Icon(
                 Icons.paid,

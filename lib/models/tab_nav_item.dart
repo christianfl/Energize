@@ -19,18 +19,18 @@ class TabNavItem {
   static List<TabNavItem> getItems(BuildContext context) {
     return [
       TabNavItem(
-        page: TrackingPage(),
-        icon: Icon(Icons.list),
+        page: const TrackingPage(),
+        icon: const Icon(Icons.list),
         label: AppLocalizations.of(context)!.tracking,
       ),
       TabNavItem(
-        page: FoodPage(),
-        icon: Icon(Icons.fastfood),
+        page: const FoodPage(),
+        icon: const Icon(Icons.fastfood),
         label: AppLocalizations.of(context)!.customFood,
       ),
       TabNavItem(
-        page: SettingsPage(),
-        icon: Icon(Icons.settings),
+        page: const SettingsPage(),
+        icon: const Icon(Icons.settings),
         label: AppLocalizations.of(context)!.settings,
       ),
     ];

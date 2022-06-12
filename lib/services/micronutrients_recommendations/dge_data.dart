@@ -2,7 +2,7 @@
 // Field seperator: §
 // 0:Bevölkerungsgruppe ([Alter von-Alter bis]) § 1:Geschlecht § 2:Alkohol § 3:Ballaststoffe § 4:Calcium § 5:Chlorid § 6:Chrom § 7:Eisen § 8:Fluorid § 9:Jod § 10:Kalium § 11:Kupfer § 12:Magnesium § 13:Mangan § 14:Molybdän § 15:Natrium § 16:Phosphor § 17:Selen § 18:Vit.A § 19:Vit.B1  § 20:Vit.B12 § 21:Vit.B2 § 22:Vit.B3 § 23:Vit.B5 § 24:Vit.B6 § 25:Vit.B7 § 26:Vit.B9 § 27:Vit.C § 28:Vit.D § 29:Vit.E § 30:Vit.K § 31:Wasser § 32:Zink
 
-const DGE_DATA = [
+const dgeDATA = [
   '[1,3]§Männlich§0§0§600§600§60§8§0.7§100§1100§1§170§1.5§50§400§500§15§0.3§0.6§1.5§0.7§8§4§0.6§20§120§20§20§6§15§820§3',
   '[4,6]§Männlich§0§0§750§750§80§8§1.1§120§1300§1§190§2§75§500§600§20§0.35§0.7§2§0.8§9§4§0.7§25§140§30§20§8§20§940§4',
   '[7,9]§Männlich§0§0§900§1150§100§10§1.1§140§2000§1.5§240§3§80§750§800§30§0.45§0.9§2.5§1§11§4§1§25§180§45§20§10§30§970§6',

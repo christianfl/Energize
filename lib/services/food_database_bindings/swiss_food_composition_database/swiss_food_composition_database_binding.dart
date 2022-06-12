@@ -1,5 +1,5 @@
 import '../../../models/food/food.dart';
-import 'SFCDB_DATA.dart';
+import 'sfcdb_data.dart';
 
 class SwissFoodCompositionDatabaseBinding {
   static const originName = 'SFCDB';
@@ -8,13 +8,13 @@ class SwissFoodCompositionDatabaseBinding {
   static const sourceUrl = 'https://naehrwertdaten.ch/de/';
 
   // Gets generated during runtime out of SFCDB_data.dart (CSV)
-  static List<Food> _sfcdb = [];
+  static final List<Food> _sfcdb = [];
 
   static List<Food> get allFoods {
     // After first invocation of this method the database is filled
-    if (_sfcdb.length != 0) return _sfcdb;
+    if (_sfcdb.isNotEmpty) return _sfcdb;
 
-    for (var entry in SFCDB_DATA) {
+    for (var entry in sfcdbData) {
       var food = entry.split('§');
 
       _sfcdb.add(

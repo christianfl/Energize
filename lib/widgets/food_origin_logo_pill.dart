@@ -11,12 +11,13 @@ class FoodOriginLogoPill extends StatelessWidget {
   final double? height;
   final double? fontSize;
 
-  FoodOriginLogoPill(
+  const FoodOriginLogoPill(
     this.foodOrigin, {
+    Key? key,
     this.width,
     this.height,
     this.fontSize,
-  });
+  }) : super(key: key);
 
   String? get _assetUrl {
     switch (foodOrigin) {
@@ -35,7 +36,7 @@ class FoodOriginLogoPill extends StatelessWidget {
   Color? _getColor(BuildContext context) {
     switch (foodOrigin) {
       case USDABinding.originName:
-        return Color(0xFF004785);
+        return const Color(0xFF004785);
       case FoodPage.originName:
         return Theme.of(context).colorScheme.secondary;
     }
@@ -67,7 +68,7 @@ class FoodOriginLogoPill extends StatelessWidget {
               ),
               borderRadius: BorderRadius.circular(10),
             ),
-            padding: EdgeInsets.all(6),
+            padding: const EdgeInsets.all(6),
             child: Center(
               child: Text(
                 foodOrigin,

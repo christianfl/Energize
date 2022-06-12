@@ -22,8 +22,6 @@ class USDABinding {
     if (response.statusCode == 200) {
       var decodedResponse = jsonDecode(response.body);
 
-      print('usda_fetch_done');
-
       final List<dynamic> foods = decodedResponse['foods'];
       final List<Food> foodReturn = [];
 
@@ -39,7 +37,6 @@ class USDABinding {
 
       return foodReturn;
     } else {
-      print(response.statusCode);
       throw Exception('Failed to load data');
     }
   }
