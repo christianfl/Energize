@@ -1,42 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:provider/provider.dart';
 
-import '../../models/person/enums/sex.dart';
-import '../../models/person/enums/weight_target.dart';
-import '../../providers/app_settings.dart';
-import '../../services/micronutrients_recommendations/micronutrients_recommendations.dart';
+import '../../../../../models/person/enums/sex.dart';
+import '../../../../../models/person/enums/weight_target.dart';
+import '../../../../../providers/app_settings.dart';
+import '../../../../../services/micronutrients_recommendations/micronutrients_recommendations.dart';
+import 'custom_track_shape.dart';
 
-// In order to make the slider full width
-class CustomTrackShape extends RoundedRectSliderTrackShape {
-  @override
-  Rect getPreferredRect({
-    required RenderBox parentBox,
-    Offset offset = Offset.zero,
-    required SliderThemeData sliderTheme,
-    bool isEnabled = false,
-    bool isDiscrete = false,
-  }) {
-    final double trackHeight = sliderTheme.trackHeight!;
-    final double trackLeft = offset.dx;
-    final double trackTop =
-        offset.dy + (parentBox.size.height - trackHeight) / 2;
-    final double trackWidth = parentBox.size.width;
-    return Rect.fromLTWH(trackLeft, trackTop, trackWidth, trackHeight);
-  }
-}
-
-class PersonalizationSubPage extends StatefulWidget {
+class CalculationTab extends StatefulWidget {
   static const routeName = '/settings/personalization';
 
-  const PersonalizationSubPage({Key? key}) : super(key: key);
+  const CalculationTab({
+    Key? key,
+  }) : super(key: key);
 
   @override
-  _PersonalizationSubPageState createState() => _PersonalizationSubPageState();
+  _CalculationTabState createState() => _CalculationTabState();
 }
 
-class _PersonalizationSubPageState extends State<PersonalizationSubPage> {
+class _CalculationTabState extends State<CalculationTab> {
   final _caloriesTargetController = TextEditingController();
   final _proteinTargetController = TextEditingController();
   final _carbsTargetController = TextEditingController();
@@ -51,27 +34,29 @@ class _PersonalizationSubPageState extends State<PersonalizationSubPage> {
           title: const Text('Calculation info'),
           content: SingleChildScrollView(
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const Text(
-                    'This calculation is based on the Mifflin-St.Jeor formula. Please be aware that it can only act as an approximation to the real world values. These differ from person to person as their body conditions can diverge more or less.'),
-                Padding(
-                  padding: const EdgeInsets.all(12.0),
-                  child: Text(
-                    'Female',
-                    style: Theme.of(context).textTheme.headline6,
-                  ),
+                    'The calorie intake calculation is based on the Mifflin-St.Jeor formula. Please be aware that it can only act as an approximation to the real world values. These differ from person to person as their body conditions can diverge more or less.'),
+                const SizedBox(height: 20),
+                Text(
+                  'Calculation for females',
+                  style: Theme.of(context).textTheme.headline6,
                 ),
+                const SizedBox(height: 10),
                 const Text(
                     '(10 * Weight in kg) + (6.25 * Height in cm) – (5 * Age in years) - 161'),
-                Padding(
-                  padding: const EdgeInsets.all(12.0),
-                  child: Text(
-                    'Male',
-                    style: Theme.of(context).textTheme.headline6,
-                  ),
+                const SizedBox(height: 20),
+                Text(
+                  'Calculation for males',
+                  style: Theme.of(context).textTheme.headline6,
                 ),
+                const SizedBox(height: 10),
                 const Text(
                     '(10 * Weight in kg) + (6.25 * Height in cm) – (5 * Age in years) + 5'),
+                const SizedBox(height: 10),
+                const Text(
+                    'The output of this calculation is defined as the basal metabolic rate (BMR). It gets multiplied with your activity factor to receive your total power conversion. This is your calculated energy intake in kcal.'),
               ],
             ),
           ),
@@ -412,153 +397,178 @@ class _PersonalizationSubPageState extends State<PersonalizationSubPage> {
   Widget build(BuildContext context) {
     final appSettings = Provider.of<AppSettings>(context);
 
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(AppLocalizations.of(context)!.personalization),
-        actions: [
-          IconButton(
-              icon: const Icon(Icons.info),
-              onPressed: () => _showInfoDialog(context)),
-        ],
-      ),
-      body: ListView(
-        padding: const EdgeInsets.all(12.0),
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(bottom: 12.0),
-            child: Text(
-              'Body',
-              style: Theme.of(context).textTheme.headline6,
-            ),
-          ),
-          ListTile(
-            leading: const Icon(Icons.elderly),
-            title: TextFormField(
-              initialValue: appSettings.age.toString(),
-              onChanged: (val) =>
-                  appSettings.age = val == '' ? 20 : int.parse(val),
-              keyboardType: TextInputType.number,
-              decoration: const InputDecoration(
-                suffixText: 'years',
-                labelText: 'Age',
-              ),
-            ),
-          ),
-          ListTile(
-            leading: const Icon(Icons.female),
-            title: DropdownButtonFormField<String>(
-              value: appSettings.sex,
-              isExpanded: true,
-              onChanged: (String? newValue) {
-                appSettings.sex = newValue!;
-              },
-              decoration: const InputDecoration(
-                labelText: 'Sex',
-              ),
-              items: <String>['Female', 'Male']
-                  .map<DropdownMenuItem<String>>((String value) {
-                return DropdownMenuItem<String>(
-                  value: value,
-                  child: Text(value),
-                );
-              }).toList(),
-            ),
-          ),
-          ListTile(
-            leading: const Icon(Icons.monitor_weight),
-            title: TextFormField(
-              initialValue: appSettings.weight.toString(),
-              onChanged: (val) =>
-                  appSettings.weight = val == '' ? 80 : int.parse(val),
-              keyboardType: TextInputType.number,
-              decoration: const InputDecoration(
-                suffixText: 'kg',
-                labelText: 'Weight',
-              ),
-            ),
-          ),
-          ListTile(
-            leading: const Icon(Icons.height),
-            title: TextFormField(
-              initialValue: appSettings.height.toString(),
-              onChanged: (val) =>
-                  appSettings.height = val == '' ? 180 : int.parse(val),
-              keyboardType: TextInputType.number,
-              decoration: const InputDecoration(
-                suffixText: 'cm',
-                labelText: 'Height',
-              ),
-            ),
-          ),
-          const SizedBox(height: 24),
-          Padding(
-            padding: const EdgeInsets.only(bottom: 12.0),
-            child: Text(
-              'Behaviour',
-              style: Theme.of(context).textTheme.headline6,
-            ),
-          ),
-          ListTile(
-            leading: const Icon(Icons.kitesurfing),
-            subtitle: _getActivityDescription(appSettings.activityLevel),
-            title: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Text('Activity level'),
-                SliderTheme(
-                  data: SliderThemeData(
-                    trackShape: CustomTrackShape(),
+    return Column(
+      children: [
+        Expanded(
+          child: SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.all(12.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 16.0),
+                    child: Text(
+                      'Your Body',
+                      style: Theme.of(context).textTheme.headline4,
+                    ),
                   ),
-                  child: Slider(
-                    value: appSettings.activityLevel,
-                    min: 1.0,
-                    max: 2.0,
-                    divisions: 10,
-                    label: appSettings.activityLevel.toString(),
-                    onChanged: (double value) {
-                      appSettings.activityLevel = value;
-                    },
-                  ),
-                ),
-              ],
-            ),
-          ),
-          ListTile(
-            leading: const Icon(Icons.adjust),
-            title: DropdownButtonFormField<WeightTarget>(
-              value: appSettings.weightTarget,
-              isExpanded: true,
-              onChanged: (WeightTarget? newValue) {
-                appSettings.weightTarget = newValue!;
-              },
-              decoration: const InputDecoration(
-                labelText: 'Weight target',
-              ),
-              items: WeightTarget.values.map((WeightTarget weightTarget) {
-                return DropdownMenuItem<WeightTarget>(
-                  value: weightTarget,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  Row(
                     children: [
-                      Text(weightTarget.toLocalizedString(context)),
-                      Text(_getWeightTargetRelativePercent(weightTarget)),
+                      Expanded(
+                        child: ListTile(
+                          title: TextFormField(
+                            initialValue: appSettings.age.toString(),
+                            onChanged: (val) => appSettings.age =
+                                val == '' ? 20 : int.parse(val),
+                            keyboardType: TextInputType.number,
+                            decoration: const InputDecoration(
+                              suffixText: 'years',
+                              labelText: 'Age',
+                            ),
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        child: ListTile(
+                          title: DropdownButtonFormField<String>(
+                            value: appSettings.sex,
+                            isExpanded: true,
+                            onChanged: (String? newValue) {
+                              appSettings.sex = newValue!;
+                            },
+                            decoration: InputDecoration(
+                              labelText: AppLocalizations.of(context)!.sex,
+                            ),
+                            items: Sex.values
+                                .map<DropdownMenuItem<String>>((Sex sex) {
+                              return DropdownMenuItem<String>(
+                                value: sex.fromValue(),
+                                child: Text(sex.toLocalizedString(context)),
+                              );
+                            }).toList(),
+                          ),
+                        ),
+                      ),
                     ],
                   ),
-                );
-              }).toList(),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: ListTile(
+                          title: TextFormField(
+                            initialValue: appSettings.weight.toString(),
+                            onChanged: (val) => appSettings.weight =
+                                val == '' ? 80 : int.parse(val),
+                            keyboardType: TextInputType.number,
+                            decoration: const InputDecoration(
+                              suffixText: 'kg',
+                              labelText: 'Weight',
+                            ),
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        child: ListTile(
+                          title: TextFormField(
+                            initialValue: appSettings.height.toString(),
+                            onChanged: (val) => appSettings.height =
+                                val == '' ? 180 : int.parse(val),
+                            keyboardType: TextInputType.number,
+                            decoration: const InputDecoration(
+                              suffixText: 'cm',
+                              labelText: 'Height',
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 24),
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 20.0),
+                    child: Text(
+                      'Behaviour and target',
+                      style: Theme.of(context).textTheme.headline4,
+                    ),
+                  ),
+                  ListTile(
+                    subtitle:
+                        _getActivityDescription(appSettings.activityLevel),
+                    title: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text('Activity level'),
+                        SliderTheme(
+                          data: SliderThemeData(
+                            trackShape: CustomTrackShape(),
+                          ),
+                          child: Slider(
+                            value: appSettings.activityLevel,
+                            min: 1.0,
+                            max: 2.0,
+                            divisions: 10,
+                            label: appSettings.activityLevel.toString(),
+                            onChanged: (double value) {
+                              appSettings.activityLevel = value;
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(height: 12),
+                  ListTile(
+                    leading: const Icon(Icons.adjust),
+                    title: DropdownButtonFormField<WeightTarget>(
+                      value: appSettings.weightTarget,
+                      isExpanded: true,
+                      onChanged: (WeightTarget? newValue) {
+                        appSettings.weightTarget = newValue!;
+                      },
+                      decoration: const InputDecoration(
+                        labelText: 'Weight target',
+                      ),
+                      items:
+                          WeightTarget.values.map((WeightTarget weightTarget) {
+                        return DropdownMenuItem<WeightTarget>(
+                          value: weightTarget,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(weightTarget.toLocalizedString(context)),
+                              Text(_getWeightTargetRelativePercent(
+                                  weightTarget)),
+                            ],
+                          ),
+                        );
+                      }).toList(),
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
-        ],
-      ),
-      floatingActionButton: SpeedDial(
-        onPress: () {
-          _showApplyDialog(context, appSettings);
-        },
-        curve: Curves.linear,
-        icon: Icons.settings_suggest,
-        backgroundColor: Theme.of(context).colorScheme.secondary,
-        foregroundColor: Theme.of(context).colorScheme.onSecondary,
-      ),
+        ),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Row(
+            children: [
+              Expanded(
+                child: ElevatedButton.icon(
+                  onPressed: () => _showApplyDialog(context, appSettings),
+                  icon: const Icon(Icons.calculate),
+                  label: const Text('Calculate nutrition targets'),
+                ),
+              ),
+              IconButton(
+                onPressed: () => {_showInfoDialog(context)},
+                icon: const Icon(Icons.info),
+              ),
+            ],
+          ),
+        ),
+      ],
     );
   }
 }

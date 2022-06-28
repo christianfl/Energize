@@ -5,9 +5,7 @@ import 'about_sub_page.dart';
 import 'backup_and_restore_sub_page.dart';
 import 'database_management_sub_page.dart';
 import 'donation_sub_page.dart';
-import 'macro_targets_sub_page.dart';
-import 'micro_targets_sub_page.dart';
-import 'personalization_sub_page.dart';
+import 'personalization_page/nutrition_targets_page.dart';
 
 class SettingsPage extends StatelessWidget {
   const SettingsPage({Key? key}) : super(key: key);
@@ -23,40 +21,16 @@ class SettingsPage extends StatelessWidget {
           InkWell(
             onTap: () {
               Navigator.of(context).pushNamed(
-                PersonalizationSubPage.routeName,
+                NutritionTargetsPage.routeName,
               );
             },
             child: ListTile(
+              isThreeLine: true,
               leading: const Icon(Icons.person),
-              title: Text(AppLocalizations.of(context)!.personalization),
-              subtitle: Text(AppLocalizations.of(context)!.personalizationHint),
-            ),
-          ),
-          InkWell(
-            onTap: () {
-              Navigator.of(context).pushNamed(
-                MacroTargetsSubPage.routeName,
-              );
-            },
-            child: ListTile(
-              leading: const Icon(Icons.bolt),
               title: Text(
-                  AppLocalizations.of(context)!.energyAndMacronutrientsTargets),
-              subtitle: Text(AppLocalizations.of(context)!
-                  .energyAndMacronutrientsTargetsHint),
-            ),
-          ),
-          InkWell(
-            onTap: () {
-              Navigator.of(context).pushNamed(
-                MicroTargetsSubPage.routeName,
-              );
-            },
-            child: ListTile(
-              leading: const Icon(Icons.emoji_flags),
-              title: Text(AppLocalizations.of(context)!.micronutrientsTargets),
-              subtitle:
-                  Text(AppLocalizations.of(context)!.micronutrientsTargetsHint),
+                  AppLocalizations.of(context)!.yourPersonalNutritionNeeds),
+              subtitle: Text(
+                  AppLocalizations.of(context)!.personalNutritionNeedsHint),
             ),
           ),
           const Divider(),

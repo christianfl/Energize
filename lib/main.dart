@@ -8,11 +8,9 @@ import 'pages/tab_settings/about_sub_page.dart';
 import 'pages/tab_settings/backup_and_restore_sub_page.dart';
 import 'pages/tab_settings/database_management_sub_page.dart';
 import 'pages/tab_settings/donation_sub_page.dart';
-import 'pages/tab_settings/macro_targets_sub_page.dart';
-import 'pages/tab_settings/micro_targets_sub_page.dart';
-import 'pages/tab_settings/personalization_sub_page.dart';
-import 'pages/tab_tracking/track_food_modal.dart';
+import 'pages/tab_settings/personalization_page/nutrition_targets_page.dart';
 import 'pages/tab_tracking/detailed_summary_sub_page.dart';
+import 'pages/tab_tracking/track_food_modal.dart';
 import 'pages/tabs_page.dart';
 import 'providers/app_settings.dart';
 import 'providers/custom_food_provider.dart';
@@ -69,10 +67,7 @@ class MyApp extends StatelessWidget {
               const DetailedSummarySubPage(),
           AddEditCustomFoodModal.routeName: (ctx) =>
               const AddEditCustomFoodModal(),
-          PersonalizationSubPage.routeName: (ctx) =>
-              const PersonalizationSubPage(),
-          MacroTargetsSubPage.routeName: (ctx) => const MacroTargetsSubPage(),
-          MicroTargetsSubPage.routeName: (ctx) => const MicroTargetsSubPage(),
+          NutritionTargetsPage.routeName: (ctx) => const NutritionTargetsPage(),
           DatabaseManagementSubPage.routeName: (ctx) =>
               const DatabaseManagementSubPage(),
           BackupAndRestoreSubPage.routeName: (ctx) =>
