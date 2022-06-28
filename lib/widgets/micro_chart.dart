@@ -382,7 +382,7 @@ class MicroChart extends StatelessWidget {
             value: _totalSodium(foods),
             target: appSettings.sodiumTarget,
             color: Colors.blue,
-            unit: 'g',
+            unit: 'mg',
           ),
         if (showZero)
           Padding(

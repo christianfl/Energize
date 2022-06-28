@@ -43,7 +43,7 @@ class SwissFoodCompositionDatabaseBinding {
           magnesium: food[20] != '' ? double.parse(food[20]) : null,
           phosphorus: food[21] != '' ? double.parse(food[21]) : null,
           potassium: food[22] != '' ? double.parse(food[22]) : null,
-          sodium: food[23] != '' ? double.parse(food[23]) / 1000 : null,
+          sodium: food[23] != '' ? double.parse(food[23]) : null,
           iron: food[24] != '' ? double.parse(food[24]) : null,
           iodine: food[25] != '' ? double.parse(food[25]) : null,
           selenium: food[26] != '' ? double.parse(food[26]) : null,

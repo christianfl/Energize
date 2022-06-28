@@ -102,7 +102,7 @@ class Food {
   /// In mg/100 (g or ml)
   double? potassium;
 
-  /// In g/100 (g or ml)
+  /// In mg/100 (g or ml)
   double? sodium;
 
   // #################### Trace elements ####################
@@ -350,7 +350,7 @@ class Food {
       food.potassium = product.nutriments!.potassium! * 1000;
     }
     if (product.nutriments?.sodium != null) {
-      food.sodium = product.nutriments!.sodium!;
+      food.sodium = product.nutriments!.sodium! * 1000;
     }
     if (product.nutriments?.chromium != null) {
       food.chromium = product.nutriments!.chromium! * 1000 * 1000;
@@ -471,9 +471,10 @@ class Food {
     food.potassium =
         getTransformedValue('Potassium, K', USDAFoodNutrientUnit.MG);
 
-    // For sodium the units are not the same, hence the calulcation
-    final sodiumMg = getTransformedValue('Sodium, Na', USDAFoodNutrientUnit.MG);
-    food.sodium = sodiumMg != null ? sodiumMg / 1000 : null;
+    food.potassium =
+        getTransformedValue('Potassium, K', USDAFoodNutrientUnit.MG);
+
+    food.sodium = getTransformedValue('Sodium, Na', USDAFoodNutrientUnit.MG);
 
     // chromium
 
