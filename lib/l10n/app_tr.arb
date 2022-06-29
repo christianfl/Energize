@@ -53,8 +53,6 @@
   "@editCustomFood": {},
   "settings": "Ayarlar",
   "@settings": {},
-  "personalizationHint": "Kişisel beslenme ihtiyaçlarınızı hesaplayın",
-  "@personalizationHint": {},
   "micronutrientsTargetsHint": "Vitaminler, mineraller ve diğer hedefler",
   "@micronutrientsTargetsHint": {},
   "databaseManagementHint": "Hangi gıda veri tabanlarının sorgulanacağını seçin",
