@@ -36,22 +36,16 @@ class TrackFood extends StatefulWidget {
 
 class _TrackFoodState extends State<TrackFood>
     with SingleTickerProviderStateMixin {
-  final amountCtrl = TextEditingController();
+  final _amountCtrl = TextEditingController();
   final double _pillHeight = 35;
-  var dropdownValue = 'g';
-  final _scrollController = ScrollController();
-  final _expandedHeight = 240.0;
+  var _dropdownValue = 'g';
+
   late TabController _tabController;
   final _amountCtrlFocusNode = FocusNode();
 
   @override
   void initState() {
     _tabController = TabController(vsync: this, length: 2);
-    _amountCtrlFocusNode.addListener(() {
-      final double maxHeaderHeight = _expandedHeight - kToolbarHeight;
-      _scrollController.animateTo(maxHeaderHeight,
-          duration: const Duration(seconds: 1), curve: Curves.bounceIn);
-    });
 
     super.initState();
   }
@@ -64,12 +58,40 @@ class _TrackFoodState extends State<TrackFood>
     super.didChangeDependencies();
   }
 
+  double _getParsedAmount(Food food) {
+    String amount = _amountCtrl.text.replaceAll(',', '.');
+
+    if (amount.contains('-')) {
+      // Substract the substrings
+      final splittedAmount = amount.split('-');
+
+      final firstValue = double.tryParse(splittedAmount[0]);
+      if (firstValue == null) {
+        return _getAmount(food);
+      }
+
+      double returnValue = firstValue;
+
+      for (int i = 1; i < splittedAmount.length; i++) {
+        final value = double.tryParse(splittedAmount[i]);
+        if (value != null) {
+          returnValue -= value;
+        }
+      }
+
+      return returnValue;
+    } else {
+      final parsedAmount = double.tryParse(amount);
+      return parsedAmount ?? 0.0;
+    }
+  }
+
   void _addOrEditFood(
       ModalArguments args, TrackedFoodProvider trackedFoodProvider) {
     double amount;
 
-    if (amountCtrl.text != '') {
-      amount = double.parse(amountCtrl.text);
+    if (_amountCtrl.text != '') {
+      amount = _getParsedAmount(args.food);
     } else {
       amount = _getAmount(args.food);
     }
@@ -100,8 +122,8 @@ class _TrackFoodState extends State<TrackFood>
   FoodTracked _getConvertedFoodForChart(Food food) {
     double amount;
 
-    if (amountCtrl.text != '') {
-      amount = double.parse(amountCtrl.text);
+    if (_amountCtrl.text != '') {
+      amount = _getParsedAmount(food);
     } else {
       amount = _getAmount(food);
     }
@@ -191,7 +213,7 @@ class _TrackFoodState extends State<TrackFood>
                 // Set state to immediately show chart changes
                 setState(() {});
               },
-              controller: amountCtrl,
+              controller: _amountCtrl,
               focusNode: _amountCtrlFocusNode,
               keyboardType: TextInputType.number,
               decoration: InputDecoration(
@@ -206,10 +228,10 @@ class _TrackFoodState extends State<TrackFood>
             height: 50,
             child: DropdownButtonHideUnderline(
               child: DropdownButton<String>(
-                value: dropdownValue,
+                value: _dropdownValue,
                 onChanged: (String? newValue) {
                   setState(() {
-                    dropdownValue = newValue!;
+                    _dropdownValue = newValue!;
                   });
                 },
                 items:
