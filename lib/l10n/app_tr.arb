@@ -237,7 +237,7 @@
   "@swissFoodCompositionDatabase": {},
   "generalInformation": "Genel bilgiler",
   "@generalInformation": {},
-  "openFoodFactsGeneralInformationText": "Lütfen bu veri tabanının çok büyük olmasına rağmen girdilerin eksik veya güncelliğini yitirmiş olabileceğini unutmayın. Kayıtlı her kullanıcı besin değerlerini güncelleyebilir. Hesap oluşturmadan yeni ürünler eklenebilir. Bu girdinin devre dışı bırakılması, öntanımlı olarak OFF'yi kullandığından EAN taramasını içermez.",
+  "openFoodFactsGeneralInformationText": "Lütfen bu veri tabanının çok büyük olmasına rağmen girdilerin eksik veya güncelliğini yitirmiş olabileceğini unutmayın. Kayıtlı her kullanıcı besin değerlerini güncelleyebilir. Hesap oluşturmadan yeni ürünler eklenebilir. Bu veri tabanının devre dışı bırakılması EAN taramasını da içerir, bu nedenle yalnızca özel gıdaları EAN koduna göre tarayabileceksiniz.",
   "@openFoodFactsGeneralInformationText": {},
   "language": "Dil",
   "@language": {},
