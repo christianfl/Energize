@@ -217,7 +217,7 @@
   "@serverBased": {},
   "nonProfitInstitution": "Istituzione senza scopo di lucro",
   "@nonProfitInstitution": {},
-  "openFoodFactsGeneralInformationText": "Si prega di essere consapevoli che mentre questa banca dati è molto grande, le voci possono essere incomplete o non aggiornate. Ogni utente registrato può aggiornare i valori dei nutrienti. L'aggiunta di nuovi prodotti è possibile senza creare un account. La disattivazione di questa voce non include la scansione EAN in quanto questa è disattivata per impostazione predefinita.",
+  "openFoodFactsGeneralInformationText": "Si tenga presente che, essendo questa base di dati molto ampio, le voci possono essere incomplete o non aggiornate. Ogni utente registrato può aggiornare i valori dei nutrienti. L'aggiunta di nuovi prodotti è possibile senza creare un account. La disattivazione di questa base di dati include anche la scansione EAN, quindi sarà possibile scansionare gli alimenti personalizzati solo in base al codice EAN.",
   "@openFoodFactsGeneralInformationText": {},
   "energyAndMacronutrients": "Energia e macronutrienti",
   "@energyAndMacronutrients": {},
