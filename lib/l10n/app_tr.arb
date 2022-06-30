@@ -256,5 +256,19 @@
   "donationText": "Geliştirilmesini bağış yaparak desteklemek isterseniz, bunu memnuniyetle karşılarız! Bu uygulamayı oluşturmak çok eğlenceli ama aynı zamanda çok zaman alan bir görev ve bazen biraz yılgınlığa yol açıyor :-).",
   "@donationText": {},
   "bankAccountOrCreditCard": "Banka hesabı veya kredi kartı",
-  "@bankAccountOrCreditCard": {}
+  "@bankAccountOrCreditCard": {},
+  "energyDistribution": "Enerji dağılımı",
+  "@energyDistribution": {},
+  "sex": "Cinsiyet",
+  "@sex": {},
+  "female": "Kadın",
+  "@female": {},
+  "personalNutritionNeedsHint": "Kişisel beslenme ihtiyaçlarınızı hesaplayın veya kendiniz belirleyin",
+  "@personalNutritionNeedsHint": {},
+  "calculate": "Hesapla",
+  "@calculate": {},
+  "yourPersonalNutritionNeeds": "Kişisel beslenme ihtiyaçlarınız",
+  "@yourPersonalNutritionNeeds": {},
+  "male": "Erkek",
+  "@male": {}
 }
