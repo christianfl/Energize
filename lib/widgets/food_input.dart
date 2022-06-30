@@ -14,7 +14,9 @@ import '../../services/tracked_foods_database_service.dart';
 import '../../widgets/food_list_item.dart';
 import '../models/food/food.dart';
 import '../models/food/food_tracked.dart';
+import '../pages/tab_food/food_page.dart';
 import '../pages/tab_tracking/track_food_modal.dart';
+import '../services/custom_foods_database_service.dart';
 import '../services/food_database_bindings/open_food_facts/open_food_facts_binding.dart';
 import '../services/food_database_bindings/swiss_food_composition_database/swiss_food_composition_database_binding.dart';
 import '../services/food_database_bindings/usda/usda_binding.dart';
@@ -62,42 +64,61 @@ class _FoodInputState extends State<FoodInput>
     populateSearchedFoodList('', false);
   }
 
-  void _navigateToAddFood(BuildContext context, Food foodToBeAdded) {
+  void _navigateToAddFood(
+    BuildContext context,
+    Food foodToBeAdded, {
+    bool? forcePop,
+  }) {
+    _qrController?.pauseCamera();
+    _turnOffFlash();
+
     Navigator.of(context)
         .pushNamed(
-          TrackFood.routeName,
-          arguments: ModalArguments(
-            foodToBeAdded,
-            ModalMode.add,
-            widget._foodAddingDate,
-          ),
-        )
-        .then(
-          (shouldClose) => {
-            setState(() {
-              _scannedCode = null;
-              _productNotFoundExceptionEan = null;
-            }),
-            if (shouldClose == true) Navigator.pop(context),
-          },
-        );
+      TrackFood.routeName,
+      arguments: ModalArguments(
+        foodToBeAdded,
+        ModalMode.add,
+        widget._foodAddingDate,
+      ),
+    )
+        .then((shouldClose) {
+      setState(() {
+        _scannedCode = null;
+        _productNotFoundExceptionEan = null;
+      });
+      if (shouldClose == true || forcePop == true) {
+        Navigator.of(context).pop();
+      }
+    });
   }
 
   void _navigateToAddCustomFood(BuildContext context, {String? ean}) {
-    // TODO: Issue #6: Use scanned ean code
+    _qrController?.pauseCamera();
+    _turnOffFlash();
 
     Navigator.of(context)
         .pushNamed(
-          AddEditCustomFoodModal.routeName,
-          arguments: AddEditCustomFoodModalArguments(
-              AddEditCustomFoodModalMode.addNew, null),
-        )
+      AddEditCustomFoodModal.routeName,
+      arguments: AddEditCustomFoodModalArguments(
+        AddEditCustomFoodModalMode.addNew,
+        Food(
+          id: Food.generatedId,
+          origin: FoodPage.originName,
+          title: '',
+          ean: ean,
+        ),
+      ),
+    )
         .then(
-          (value) => {
-            Navigator.pop(context),
-            // TODO: Issue #6: Get returned created food and_navigateToAddFood!
-          },
-        );
+      (createdFood) {
+        if (createdFood is Food) {
+          _navigateToAddFood(context, createdFood, forcePop: true);
+        } else {
+          // In case the custom food has not been created and another code wants to be scanned
+          _qrController?.resumeCamera();
+        }
+      },
+    );
   }
 
   // This method is just for hot reloading to work
@@ -119,15 +140,34 @@ class _FoodInputState extends State<FoodInput>
       if (_scannedCode == null) {
         _scannedCode = scanData;
 
-        OpenFoodFactsBinding.getFoodByEan(_scannedCode!.code!).then((food) {
-          flashStatus.then((isFlashOn) =>
-              {if (isFlashOn != null && isFlashOn == true) _toggleFlash()});
+        // Try first to look up the EAN in the custom foods
+        CustomFoodDatabaseService.getCustomFoodByEan(_scannedCode!.code!)
+            .then((customFoodIfFound) {
+          if (customFoodIfFound != null) {
+            // Custom food with this EAN was found
 
-          _navigateToAddFood(context, food);
-        }).catchError((error) {
-          setState(() {
-            _productNotFoundExceptionEan = error.toString();
-          });
+            _navigateToAddFood(context, customFoodIfFound, forcePop: true);
+          } else {
+            // Look up on Open Food Facts if this is activated
+            final appSettings =
+                Provider.of<AppSettings>(context, listen: false);
+
+            if (appSettings.isProviderOpenFoodFactsActivated) {
+              OpenFoodFactsBinding.getFoodByEan(_scannedCode!.code!)
+                  .then((food) {
+                _navigateToAddFood(context, food, forcePop: true);
+              }).catchError((error) {
+                // If there is also no match, show an error that no product could be found
+                setState(() {
+                  _productNotFoundExceptionEan = '$error';
+                });
+              });
+            } else {
+              setState(() {
+                _productNotFoundExceptionEan = _scannedCode!.code!;
+              });
+            }
+          }
         });
       }
     });
@@ -275,6 +315,11 @@ class _FoodInputState extends State<FoodInput>
     return await _qrController!.getFlashStatus();
   }
 
+  Future<void> _turnOffFlash() async {
+    flashStatus.then((isFlashOn) =>
+        {if (isFlashOn != null && isFlashOn == true) _toggleFlash()});
+  }
+
   @override
   void dispose() {
     _qrController?.dispose();
@@ -336,9 +381,10 @@ class _FoodInputState extends State<FoodInput>
                               const Icon(Icons.no_food, size: 100),
                               const SizedBox(height: 30),
                               ElevatedButton(
-                                  onPressed: () =>
-                                      _navigateToAddCustomFood(context),
-                                  child: const Text('Add custom food')),
+                                onPressed: () =>
+                                    _navigateToAddCustomFood(context),
+                                child: const Text('Add custom food'),
+                              ),
                             ],
                           ),
                   ),
@@ -379,21 +425,26 @@ class _FoodInputState extends State<FoodInput>
                                 children: [
                                   Expanded(
                                     child: Text(
-                                        'Sorry! No product found for barcode ${_productNotFoundExceptionEan!}'),
+                                      'No product found for $_productNotFoundExceptionEan',
+                                    ),
                                   ),
                                   ElevatedButton.icon(
-                                      onPressed: () => _navigateToAddCustomFood(
-                                          context,
-                                          ean: _productNotFoundExceptionEan!),
-                                      icon: const Icon(Icons.add),
-                                      label: const Text('Add custom food')),
+                                    onPressed: () => _navigateToAddCustomFood(
+                                      context,
+                                      ean: _productNotFoundExceptionEan!,
+                                    ),
+                                    icon: const Icon(Icons.add),
+                                    label: const Text('Add custom food'),
+                                  ),
                                 ],
-                              ))
+                              ),
+                            )
                           : SizedBox(
                               width: double.infinity,
                               child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(5),
-                                  child: const LinearProgressIndicator()),
+                                borderRadius: BorderRadius.circular(5),
+                                child: const LinearProgressIndicator(),
+                              ),
                             ),
                     )
                   ],

@@ -108,6 +108,7 @@ class _TrackFoodState extends State<TrackFood>
       trackedFoodProvider.editEatenFood(
           food: args.food as FoodTracked, amount: amount);
     }
+    // Pop page and tell that the previous page should stay open
     Navigator.pop(context, true);
   }
 
@@ -138,7 +139,11 @@ class _TrackFoodState extends State<TrackFood>
         .pushNamed(
           AddEditCustomFoodModal.routeName,
           arguments: AddEditCustomFoodModalArguments(
-              AddEditCustomFoodModalMode.addFrom, Food.fromJson(food.toJson())),
+            AddEditCustomFoodModalMode.addFrom,
+            Food.fromJson(
+              food.toJson(),
+            ),
+          ),
         )
         .then(
           (value) => {

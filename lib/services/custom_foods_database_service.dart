@@ -53,4 +53,27 @@ class CustomFoodDatabaseService with DatabaseService {
       return Food.fromJson(maps[i]);
     });
   }
+
+  /// Gets the first custom food with the specified EAN code (ordered by name)
+  static Future<Food?> getCustomFoodByEan(String ean) async {
+    final db = await instance.database;
+
+    final foodJsonList = await db.query(
+      DatabaseService.customFoodstable,
+      where: 'ean = ?',
+      whereArgs: [ean],
+      orderBy: 'title asc',
+      limit: 1,
+    );
+
+    try {
+      final foodJson = foodJsonList[0];
+
+      final foodWithEan = Food.fromJson(foodJson);
+      return foodWithEan;
+    } catch (e) {
+      // No custom food with this EAN found
+      return null;
+    }
+  }
 }

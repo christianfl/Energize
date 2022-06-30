@@ -73,7 +73,7 @@
     "openFoodFactsVariousLanguagesText": "Various",
     "nonProfitInstitution": "Nonprofit institution",
     "france": "France",
-    "openFoodFactsGeneralInformationText": "Please be aware that whereas this database is very large, entries can be incomplete or out-of-date. Every registered user can update nutrient values. Adding new products is possible without creating an account. Deactivating this entry does not include EAN scanning as this uses OFF by default.",
+    "openFoodFactsGeneralInformationText": "Please be aware that whereas this database is very large, entries can be incomplete or out-of-date. Every registered user can update nutrient values. Adding new products is possible without creating an account. Deactivating this database does also include EAN scanning so you will only be able to scan custom foods by EAN code then.",
     "termsOfUse": "Terms of use",
     "openFoodFactsTermsText": "By activating this database you agree to the terms.",
     "contribute": "Contribute",

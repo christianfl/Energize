@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import '../../models/food/food.dart';
 import '../../providers/custom_food_provider.dart';
 import '../../widgets/category_list_tile_header.dart';
+import 'food_page.dart';
 
 enum AddEditCustomFoodModalMode { addNew, addFrom, edit }
 
@@ -28,7 +29,11 @@ class AddEditCustomFoodModal extends StatefulWidget {
 
 class _AddEditCustomFoodModalState extends State<AddEditCustomFoodModal> {
   var activePanelIndex = 0;
-  Food foodToEditOrCreate = Food(id: 'temp', origin: 'CUSTOM', title: '');
+  Food foodToEditOrCreate = Food(
+    id: 'temp',
+    origin: FoodPage.originName,
+    title: '',
+  );
   final _formKey = GlobalKey<FormState>();
   final _foodTitleController = TextEditingController();
   final _foodEanController = TextEditingController();
@@ -187,7 +192,7 @@ class _AddEditCustomFoodModalState extends State<AddEditCustomFoodModal> {
 
     foodToEditOrCreate.title = _foodTitleController.text;
     foodToEditOrCreate.ean = _foodEanController.text;
-    foodToEditOrCreate.origin = 'CUSTOM';
+    foodToEditOrCreate.origin = FoodPage.originName;
     foodToEditOrCreate.calories = _foodCaloriesController.text != ''
         ? double.parse(_foodCaloriesController.text)
         : null;

@@ -122,7 +122,7 @@
   "@nonProfitInstitution": {},
   "france": "Frankreich",
   "@france": {},
-  "openFoodFactsGeneralInformationText": "Diese Datenbank beinhaltet sehr viele Lebensmittel, allerdings können Daten unter Umständen unvollständig, veraltet oder falsch sein. Jeder registrierte Benutzer kann Werte bearbeiten; das Hinzufügen neuer Produkte ist für jeden möglich. Das Deaktivieren wirkt sich nicht auf das EAN-Scanning aus, da dies aktuell nur mittels Open Food Facts funktioniert.",
+  "openFoodFactsGeneralInformationText": "Diese Datenbank beinhaltet sehr viele Lebensmittel, allerdings können Daten unter Umständen unvollständig, veraltet oder falsch sein. Jeder registrierte Benutzer kann Werte bearbeiten; das Hinzufügen neuer Produkte ist für jeden möglich. Das Deaktivieren wirkt sich auch auf das EAN-Scanning aus, sodass dort dann ausschließlich selbsterstellte Nahrung gefunden werden kann.",
   "@openFoodFactsGeneralInformationText": {},
   "termsOfUse": "Nutzungsbedingungen",
   "@termsOfUse": {},
