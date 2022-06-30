@@ -39,6 +39,8 @@ Google Play is still in testing phase at the moment. Drop me a message and inclu
 - Use several databases or create custom meals
   - Currently Open Food Facts, the Swiss Food Composition Database and USDA FoodData Central are supported
 - Search meals by product name or just scan the EAN code
+  - the EAN code of the first matching custom food will be used or
+  - Open Food Facts will be searched if that database is activated and no matching custom food was found
 - Get meal suggestions based on your last tracked meals
 - Set targets for macro- and micronutrients including calculating them based on your personal details
 - See your daily nutrition details
