@@ -3,7 +3,7 @@
 This app is designed to be privacy-friendly. It stores the processed data on the user's device. It use the network connection in these cases:
 
 ## 1. The user has not opted out for Open Food Facts database use and searches for food
-## 2. The user scans an EAN code (no matter wether Open Food Facts is activated or not, it uses their database)
+## 2. The user has not opted out for Open Food Facts database use and scans an EAN code
 
 In such cases the following data is transmitted to the Open Food Facts service:
 
