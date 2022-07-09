@@ -75,8 +75,6 @@
   "@weightTargetStrongLoss": {},
   "energyAndMacronutrientsTargetsHint": "Kalorier, proteiner, kulhydrater og fedt",
   "@energyAndMacronutrientsTargetsHint": {},
-  "micronutrientsTargetsHint": "Vitaminer, mineraler og andre mål",
-  "@micronutrientsTargetsHint": {},
   "databaseManagement": "Styr databaser",
   "@databaseManagement": {},
   "databaseManagementHint": "Vælg hvilke maddatabaser informationer skal hentes fra",

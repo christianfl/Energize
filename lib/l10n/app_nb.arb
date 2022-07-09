@@ -51,8 +51,6 @@
   "@settings": {},
   "energyAndMacronutrientsTargetsHint": "Kalorier, protein, karbohydrater, fett",
   "@energyAndMacronutrientsTargetsHint": {},
-  "micronutrientsTargetsHint": "Vitaminer, mineraler, og andre mål",
-  "@micronutrientsTargetsHint": {},
   "databaseManagementHint": "Velg matdatabaser å søke i",
   "@databaseManagementHint": {},
   "backupAndRestore": "Sikkerhetskopiering og gjenoppretting",

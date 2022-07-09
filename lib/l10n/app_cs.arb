@@ -69,8 +69,6 @@
   "@weightTargetStrongGain": {},
   "energyAndMacronutrientsTargetsHint": "Kalorie, bílkoviny, sacharidy, tuky",
   "@energyAndMacronutrientsTargetsHint": {},
-  "micronutrientsTargetsHint": "Vitamíny, minerály a další cíle",
-  "@micronutrientsTargetsHint": {},
   "databaseManagement": "Správa databáze",
   "@databaseManagement": {},
   "databaseManagementHint": "Výběr jaké používat databáze potravin",

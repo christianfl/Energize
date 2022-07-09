@@ -43,8 +43,6 @@
   "@title": {},
   "energyAndMacronutrientsTargetsHint": "Kalorie, białko, węglowodany, tłuszcz",
   "@energyAndMacronutrientsTargetsHint": {},
-  "micronutrientsTargetsHint": "Witaminy, minerały i inne cele",
-  "@micronutrientsTargetsHint": {},
   "databaseManagement": "Zarządzanie bazami danych",
   "@databaseManagement": {},
   "databaseManagementHint": "Wybierz bazy danych z których korzysta aplikacja",
