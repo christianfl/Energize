@@ -1,0 +1,7 @@
+* Setzen der Mikronährstoffvorgaben basierend auf Alter und Geschlecht (basiert auf DGE) nun möglich
+* Komplettes Redesign der Nährstoffvorgaben-Seite
+* Fix: Falsche Natriumeinheiten
+* Scannen von "Eigener Nahrung" nun möglich (diese haben Priorität über Open Food Facts)
+* Scanne Open Food Facts mit EAN code nur, wenn OFF Datenbank in den Einstellungen aktiviert ist
+* Weiterleitungs-Verbesserungen: Wenn ein Produkt nicht gefunden wurde, kann man direkt "Eigene Nahrung" erstellen und diese in einem Rutsch hinzufügen
+* Übersetzungen geupdated (Vielen Dank!)

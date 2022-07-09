@@ -1,0 +1,7 @@
+* Added setting micronutrients targets based on age and sex
+* Complete overhaul of nutrition targets page
+* Fix: Wrong sodium units
+* Added scanning custom food with EAN code (they have priority over Open Food Facts)
+* Scan Open Food Facts food with EAN only if OFF database is activated in settings
+* Several routing improvements: Scanning and not finding a product can directly create a custom food and adds it after that
+* Updated translation files (Thanks!)
