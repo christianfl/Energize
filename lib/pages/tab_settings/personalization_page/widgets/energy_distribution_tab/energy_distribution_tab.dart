@@ -25,16 +25,13 @@ class _EnergyDistributionTabState extends State<EnergyDistributionTab> {
     BuildContext context,
     AppSettings appSettings,
   ) {
-    double totalCalories = appSettings.caloriesTarget;
-
     double proteinPercentageOfCalories =
-        appSettings.proteinTarget * 4 / totalCalories * 100;
+        _getProteinPercentageOfCalories(appSettings);
 
     double carbsPercentageOfCalories =
-        appSettings.carbsTarget * 4 / totalCalories * 100;
+        _getCarbsPercentageOfCalories(appSettings);
 
-    double fatPercentageOfCalories =
-        appSettings.fatTarget * 9 / totalCalories * 100;
+    double fatPercentageOfCalories = _getFatPercentageOfCalories(appSettings);
 
     final List<MacroChartSegment> chartData = [
       MacroChartSegment(
@@ -65,6 +62,29 @@ class _EnergyDistributionTabState extends State<EnergyDistributionTab> {
     ];
   }
 
+  double _getTotalCalories(AppSettings appSettings) {
+    return appSettings.caloriesTarget;
+  }
+
+  double _getProteinPercentageOfCalories(AppSettings appSettings) {
+    return appSettings.proteinTarget * 4 / _getTotalCalories(appSettings) * 100;
+  }
+
+  double _getCarbsPercentageOfCalories(AppSettings appSettings) {
+    return appSettings.carbsTarget * 4 / _getTotalCalories(appSettings) * 100;
+  }
+
+  double _getFatPercentageOfCalories(AppSettings appSettings) {
+    return appSettings.fatTarget * 9 / _getTotalCalories(appSettings) * 100;
+  }
+
+  /// Returns the sum of percentages of each macronutrient from the total calories, can be more than 100%
+  double _getTotalCaloriesPercentage(AppSettings appSettings) {
+    return _getProteinPercentageOfCalories(appSettings) +
+        _getCarbsPercentageOfCalories(appSettings) +
+        _getFatPercentageOfCalories(appSettings);
+  }
+
   @override
   Widget build(BuildContext context) {
     final appSettings = Provider.of<AppSettings>(context);
@@ -79,7 +99,7 @@ class _EnergyDistributionTabState extends State<EnergyDistributionTab> {
       padding: const EdgeInsets.all(12.0),
       children: [
         Text(
-          'Total energy',
+          AppLocalizations.of(context)!.totalEnergy,
           style: Theme.of(context).textTheme.headline4,
         ),
         ListTile(
@@ -97,49 +117,56 @@ class _EnergyDistributionTabState extends State<EnergyDistributionTab> {
         ),
         SizedBox(
           height: 300,
-          child: charts.PieChart<String>(
-            _createSampleData(context, appSettings),
-            animate: true,
-            defaultRenderer: charts.ArcRendererConfig(
-              arcWidth: 100,
-              arcRendererDecorators: [
-                charts.ArcLabelDecorator(
-                  insideLabelStyleSpec: charts.TextStyleSpec(
-                    color: charts.ColorUtil.fromDartColor(Colors.black),
-                    fontSize: 14,
-                  ),
-                  outsideLabelStyleSpec: charts.TextStyleSpec(
-                    color: charts.ColorUtil.fromDartColor(Colors.black),
-                    fontSize: 14,
-                  ),
+          child: Stack(
+            alignment: AlignmentDirectional.center,
+            children: [
+              Text(
+                  '= ${_getTotalCaloriesPercentage(appSettings).toStringAsFixed(0)}%'),
+              charts.PieChart<String>(
+                _createSampleData(context, appSettings),
+                animate: true,
+                defaultRenderer: charts.ArcRendererConfig(
+                  arcWidth: 100,
+                  arcRendererDecorators: [
+                    charts.ArcLabelDecorator(
+                      insideLabelStyleSpec: charts.TextStyleSpec(
+                        color: charts.ColorUtil.fromDartColor(Colors.black),
+                        fontSize: 14,
+                      ),
+                      outsideLabelStyleSpec: charts.TextStyleSpec(
+                        color: charts.ColorUtil.fromDartColor(Colors.black),
+                        fontSize: 14,
+                      ),
+                    ),
+                  ],
                 ),
-              ],
-            ),
-            selectionModels: [
-              charts.SelectionModelConfig(
-                changedListener: (charts.SelectionModel model) {
-                  final indexOfSelected = model.selectedDatum[0].index;
+                selectionModels: [
+                  charts.SelectionModelConfig(
+                    changedListener: (charts.SelectionModel model) {
+                      final indexOfSelected = model.selectedDatum[0].index;
 
-                  if (indexOfSelected != null) {
-                    setState(() {
-                      _selectedChartSegmentDropdownItem =
-                          _chartSegmentDropdownItems.keys
-                              .toList()[indexOfSelected];
-                    });
-                  }
-                },
-              )
+                      if (indexOfSelected != null) {
+                        setState(() {
+                          _selectedChartSegmentDropdownItem =
+                              _chartSegmentDropdownItems.keys
+                                  .toList()[indexOfSelected];
+                        });
+                      }
+                    },
+                  )
+                ],
+              ),
             ],
           ),
         ),
         Text(
-          '* Percent of total energy (kcal)',
+          '* ${AppLocalizations.of(context)!.percentOfTotalEnergy} (kcal)',
           style: Theme.of(context).textTheme.caption,
           textAlign: TextAlign.end,
         ),
         const SizedBox(height: 20),
         Text(
-          'Selected Macronutrient',
+          AppLocalizations.of(context)!.selectedMacronutrient,
           style: Theme.of(context).textTheme.headline4,
         ),
         const SizedBox(height: 10),

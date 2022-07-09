@@ -31,32 +31,33 @@ class _CalculationTabState extends State<CalculationTab> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text('Calculation info'),
+          insetPadding: const EdgeInsets.all(12.0),
+          title: Text(AppLocalizations.of(context)!.calculationInfo),
           content: SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
-                    'The calorie intake calculation is based on the Mifflin-St.Jeor formula. Please be aware that it can only act as an approximation to the real world values. These differ from person to person as their body conditions can diverge more or less.'),
+                Text(AppLocalizations.of(context)!.calculationInfoText1),
                 const SizedBox(height: 20),
                 Text(
-                  'Calculation for females',
+                  AppLocalizations.of(context)!.formulaForFemales,
                   style: Theme.of(context).textTheme.headline6,
                 ),
                 const SizedBox(height: 10),
-                const Text(
-                    '(10 * Weight in kg) + (6.25 * Height in cm) – (5 * Age in years) - 161'),
+                Text(
+                  '(10 * ${AppLocalizations.of(context)!.weightInKg}) + (6.25 * ${AppLocalizations.of(context)!.heightInCm}) – (5 * ${AppLocalizations.of(context)!.ageInYears}) - 161',
+                ),
                 const SizedBox(height: 20),
                 Text(
-                  'Calculation for males',
+                  AppLocalizations.of(context)!.formulaForMales,
                   style: Theme.of(context).textTheme.headline6,
                 ),
                 const SizedBox(height: 10),
-                const Text(
-                    '(10 * Weight in kg) + (6.25 * Height in cm) – (5 * Age in years) + 5'),
+                Text(
+                  '(10 * ${AppLocalizations.of(context)!.weightInKg}) + (6.25 * ${AppLocalizations.of(context)!.heightInCm}) – (5 * ${AppLocalizations.of(context)!.ageInYears}) + 5',
+                ),
                 const SizedBox(height: 10),
-                const Text(
-                    'The output of this calculation is defined as the basal metabolic rate (BMR). It gets multiplied with your activity factor to receive your total power conversion. This is your calculated energy intake in kcal.'),
+                Text(AppLocalizations.of(context)!.calculationInfoText2),
               ],
             ),
           ),
@@ -94,24 +95,30 @@ class _CalculationTabState extends State<CalculationTab> {
       builder: (BuildContext context) {
         return StatefulBuilder(builder: (context, setState) {
           return AlertDialog(
-            title: const Text('Calculated targets'),
+            insetPadding: const EdgeInsets.all(12.0),
+            title: Text(
+              AppLocalizations.of(context)!.calculatedNutritionTargets,
+            ),
             content: SingleChildScrollView(
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  const Text(
-                      'Feel free to edit the calculated targets according to your needs before applying them.'),
+                  Text(
+                    AppLocalizations.of(context)!
+                        .calculatedNutritionTargetsHint,
+                  ),
                   TextFormField(
                     controller: _caloriesTargetController,
                     keyboardType: TextInputType.number,
-                    decoration: const InputDecoration(
+                    decoration: InputDecoration(
                       suffixText: 'kcal',
-                      labelText: 'Energy',
+                      labelText: AppLocalizations.of(context)!.energy,
                     ),
                     onChanged: (val) => {
                       _updateData(except: 'calories'),
                     },
                   ),
+                  const SizedBox(height: 20),
                   Row(
                     children: [
                       Expanded(
@@ -123,9 +130,11 @@ class _CalculationTabState extends State<CalculationTab> {
                             _updateData(),
                           },
                           keyboardType: TextInputType.number,
-                          decoration: const InputDecoration(
-                            suffixText: '% of kcal',
-                            labelText: 'Protein ratio',
+                          decoration: InputDecoration(
+                            suffixText:
+                                AppLocalizations.of(context)!.percentOfCalories,
+                            labelText:
+                                AppLocalizations.of(context)!.proteinRatio,
                           ),
                         ),
                       ),
@@ -134,9 +143,9 @@ class _CalculationTabState extends State<CalculationTab> {
                         child: TextFormField(
                           controller: _proteinTargetController,
                           keyboardType: TextInputType.number,
-                          decoration: const InputDecoration(
+                          decoration: InputDecoration(
                             suffixText: 'g',
-                            labelText: 'Protein',
+                            labelText: AppLocalizations.of(context)!.protein,
                           ),
                         ),
                       ),
@@ -153,9 +162,10 @@ class _CalculationTabState extends State<CalculationTab> {
                             _updateData(),
                           },
                           keyboardType: TextInputType.number,
-                          decoration: const InputDecoration(
-                            suffixText: '% of kcal',
-                            labelText: 'Carbs ratio',
+                          decoration: InputDecoration(
+                            suffixText:
+                                AppLocalizations.of(context)!.percentOfCalories,
+                            labelText: AppLocalizations.of(context)!.carbsRatio,
                           ),
                         ),
                       ),
@@ -164,9 +174,9 @@ class _CalculationTabState extends State<CalculationTab> {
                         child: TextFormField(
                           controller: _carbsTargetController,
                           keyboardType: TextInputType.number,
-                          decoration: const InputDecoration(
+                          decoration: InputDecoration(
                             suffixText: 'g',
-                            labelText: 'Carbs',
+                            labelText: AppLocalizations.of(context)!.carbs,
                           ),
                         ),
                       ),
@@ -183,9 +193,10 @@ class _CalculationTabState extends State<CalculationTab> {
                             _updateData(),
                           },
                           keyboardType: TextInputType.number,
-                          decoration: const InputDecoration(
-                            suffixText: '% of kcal',
-                            labelText: 'Fat ratio',
+                          decoration: InputDecoration(
+                            suffixText:
+                                AppLocalizations.of(context)!.percentOfCalories,
+                            labelText: AppLocalizations.of(context)!.fatRatio,
                           ),
                         ),
                       ),
@@ -194,9 +205,9 @@ class _CalculationTabState extends State<CalculationTab> {
                         child: TextFormField(
                           controller: _fatTargetController,
                           keyboardType: TextInputType.number,
-                          decoration: const InputDecoration(
+                          decoration: InputDecoration(
                             suffixText: 'g',
-                            labelText: 'Fat',
+                            labelText: AppLocalizations.of(context)!.fat,
                           ),
                         ),
                       ),
@@ -205,8 +216,9 @@ class _CalculationTabState extends State<CalculationTab> {
                   const SizedBox(height: 20),
                   CheckboxListTile(
                     contentPadding: const EdgeInsets.all(8.0),
-                    title: const Text(
-                        'Also set micronutrient targets based on age and sex'),
+                    title: Text(
+                      AppLocalizations.of(context)!.alsoSetMicronutrientsSwitch,
+                    ),
                     value: _setMicronutrientsBasedOnAgeAndSex,
                     onChanged: (val) {
                       setState(() {
@@ -219,14 +231,16 @@ class _CalculationTabState extends State<CalculationTab> {
             ),
             actions: [
               ElevatedButton.icon(
-                  onPressed: () => _applyTargets(context, appSettings),
-                  icon: const Icon(Icons.save),
-                  label: const Text('Apply')),
+                onPressed: () => _applyTargets(context, appSettings),
+                icon: const Icon(Icons.save),
+                label: Text(AppLocalizations.of(context)!.apply.toUpperCase()),
+              ),
               TextButton(
                 onPressed: () => {
                   Navigator.pop(context),
                 },
-                child: const Text('Close'),
+                child:
+                    Text(MaterialLocalizations.of(context).cancelButtonLabel),
               )
             ],
           );
@@ -295,7 +309,7 @@ class _CalculationTabState extends State<CalculationTab> {
   }
 
   void _applyTargets(BuildContext context, AppSettings appSettings) {
-    String snackbarText = 'Targets applied successfully';
+    String snackbarText = AppLocalizations.of(context)!.targetsApplied;
     Color? snackbarColor;
 
     try {
@@ -315,7 +329,7 @@ class _CalculationTabState extends State<CalculationTab> {
             appSettings, age, sex);
       }
     } catch (e) {
-      snackbarText = 'Error setting targets';
+      snackbarText = AppLocalizations.of(context)!.targetsApplyError;
       snackbarColor = Colors.red;
     } finally {
       Navigator.pop(context);
@@ -331,43 +345,41 @@ class _CalculationTabState extends State<CalculationTab> {
 
   Widget _getActivityDescription(double activityLevel) {
     final activityLevelString = activityLevel.toString();
-    var description = 'No activity level description!';
+    var description = AppLocalizations.of(context)!.noActivityLevelDescription;
 
     switch (activityLevelString) {
       case '1.0':
-        description = 'You do basically nothing than sleep';
+        description = AppLocalizations.of(context)!.activityLevel1_0;
         break;
       case '1.1':
-        description = 'You are laying in your bed the whole day';
+        description = AppLocalizations.of(context)!.activityLevel1_1;
         break;
       case '1.2':
-        description = 'You are sitting in your bed the whole day';
+        description = AppLocalizations.of(context)!.activityLevel1_2;
         break;
       case '1.3':
-        description = 'You don\'t really go outside very often';
+        description = AppLocalizations.of(context)!.activityLevel1_3;
         break;
       case '1.4':
-        description = 'You are not that active at all';
+        description = AppLocalizations.of(context)!.activityLevel1_4;
         break;
       case '1.5':
-        description = 'You do an office work';
+        description = AppLocalizations.of(context)!.activityLevel1_5;
         break;
       case '1.6':
-        description = 'You are a bit active, work and sometimes do sports';
+        description = AppLocalizations.of(context)!.activityLevel1_6;
         break;
       case '1.7':
-        description = 'You do workout often';
+        description = AppLocalizations.of(context)!.activityLevel1_7;
         break;
       case '1.8':
-        description = 'You do workout hard regularly';
+        description = AppLocalizations.of(context)!.activityLevel1_8;
         break;
       case '1.9':
-        description =
-            'You are very active, workout and don\'t have an office job';
+        description = AppLocalizations.of(context)!.activityLevel1_9;
         break;
       case '2.0':
-        description =
-            'You do a physically active job and workout hard regularly';
+        description = AppLocalizations.of(context)!.activityLevel2_0;
         break;
     }
 
@@ -409,7 +421,7 @@ class _CalculationTabState extends State<CalculationTab> {
                   Padding(
                     padding: const EdgeInsets.only(bottom: 16.0),
                     child: Text(
-                      'Your Body',
+                      AppLocalizations.of(context)!.yourBody,
                       style: Theme.of(context).textTheme.headline4,
                     ),
                   ),
@@ -422,9 +434,9 @@ class _CalculationTabState extends State<CalculationTab> {
                             onChanged: (val) => appSettings.age =
                                 val == '' ? 20 : int.parse(val),
                             keyboardType: TextInputType.number,
-                            decoration: const InputDecoration(
-                              suffixText: 'years',
-                              labelText: 'Age',
+                            decoration: InputDecoration(
+                              suffixText: AppLocalizations.of(context)!.years,
+                              labelText: AppLocalizations.of(context)!.age,
                             ),
                           ),
                         ),
@@ -461,9 +473,9 @@ class _CalculationTabState extends State<CalculationTab> {
                             onChanged: (val) => appSettings.weight =
                                 val == '' ? 80 : int.parse(val),
                             keyboardType: TextInputType.number,
-                            decoration: const InputDecoration(
+                            decoration: InputDecoration(
                               suffixText: 'kg',
-                              labelText: 'Weight',
+                              labelText: AppLocalizations.of(context)!.weight,
                             ),
                           ),
                         ),
@@ -475,9 +487,9 @@ class _CalculationTabState extends State<CalculationTab> {
                             onChanged: (val) => appSettings.height =
                                 val == '' ? 180 : int.parse(val),
                             keyboardType: TextInputType.number,
-                            decoration: const InputDecoration(
+                            decoration: InputDecoration(
                               suffixText: 'cm',
-                              labelText: 'Height',
+                              labelText: AppLocalizations.of(context)!.height,
                             ),
                           ),
                         ),
@@ -488,7 +500,7 @@ class _CalculationTabState extends State<CalculationTab> {
                   Padding(
                     padding: const EdgeInsets.only(bottom: 20.0),
                     child: Text(
-                      'Behaviour and target',
+                      AppLocalizations.of(context)!.behaviourAndTarget,
                       style: Theme.of(context).textTheme.headline4,
                     ),
                   ),
@@ -498,7 +510,7 @@ class _CalculationTabState extends State<CalculationTab> {
                     title: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Text('Activity level'),
+                        Text(AppLocalizations.of(context)!.activityLevel),
                         SliderTheme(
                           data: SliderThemeData(
                             trackShape: CustomTrackShape(),
@@ -526,8 +538,8 @@ class _CalculationTabState extends State<CalculationTab> {
                       onChanged: (WeightTarget? newValue) {
                         appSettings.weightTarget = newValue!;
                       },
-                      decoration: const InputDecoration(
-                        labelText: 'Weight target',
+                      decoration: InputDecoration(
+                        labelText: AppLocalizations.of(context)!.weightTarget,
                       ),
                       items:
                           WeightTarget.values.map((WeightTarget weightTarget) {
@@ -555,10 +567,13 @@ class _CalculationTabState extends State<CalculationTab> {
           child: Row(
             children: [
               Expanded(
-                child: ElevatedButton.icon(
+                child: ElevatedButton(
                   onPressed: () => _showApplyDialog(context, appSettings),
-                  icon: const Icon(Icons.calculate),
-                  label: const Text('Calculate nutrition targets'),
+                  child: Text(
+                    AppLocalizations.of(context)!
+                        .calculateNutritionTargets
+                        .toUpperCase(),
+                  ),
                 ),
               ),
               IconButton(
