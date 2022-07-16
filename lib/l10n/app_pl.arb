@@ -344,5 +344,9 @@
   "calculationInfoText2": "Wynikiem obliczenia jest podstawowa przemiana baterii (PPM), która po pomnożeniu przez współczynnik aktywności daje wartość spożycia energii wyrażaną w kilokaloriach.",
   "@calculationInfoText2": {},
   "calculationInfoText1": "Formuła ta jest oparta na równianiu Mifflina-St.Jeora. Użytkownik powinien mieć na uwadze fakt, że podane progi są jedynie uśrednieniem rzeczywistych wartości.",
-  "@calculationInfoText1": {}
+  "@calculationInfoText1": {},
+  "totalEnergy": "Całość energii",
+  "@totalEnergy": {},
+  "percentOfTotalEnergy": "Procent energii",
+  "@percentOfTotalEnergy": {}
 }
