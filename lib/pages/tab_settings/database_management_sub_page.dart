@@ -102,10 +102,10 @@ class _DatabaseManagementSubPageState extends State<DatabaseManagementSubPage> {
                       ),
                       InkWell(
                         onTap: () async {
-                          if (await canLaunch(
-                              SwissFoodCompositionDatabaseBinding.sourceUrl)) {
-                            await launch(
-                                SwissFoodCompositionDatabaseBinding.sourceUrl);
+                          final uri = Uri.parse(
+                              SwissFoodCompositionDatabaseBinding.sourceUrl);
+                          if (await canLaunchUrl(uri)) {
+                            await launchUrl(uri);
                           } else {
                             throw 'Could not launch url';
                           }
@@ -189,8 +189,9 @@ class _DatabaseManagementSubPageState extends State<DatabaseManagementSubPage> {
                       ),
                       InkWell(
                         onTap: () async {
-                          if (await canLaunch(OpenFoodFactsBinding.termsUrl)) {
-                            await launch(OpenFoodFactsBinding.termsUrl);
+                          final uri = Uri.parse(OpenFoodFactsBinding.termsUrl);
+                          if (await canLaunchUrl(uri)) {
+                            await launchUrl(uri);
                           } else {
                             throw 'Could not launch url';
                           }
@@ -205,9 +206,10 @@ class _DatabaseManagementSubPageState extends State<DatabaseManagementSubPage> {
                       ),
                       InkWell(
                         onTap: () async {
-                          if (await canLaunch(
-                              OpenFoodFactsBinding.contributeUrl)) {
-                            await launch(OpenFoodFactsBinding.contributeUrl);
+                          final uri =
+                              Uri.parse(OpenFoodFactsBinding.contributeUrl);
+                          if (await canLaunchUrl(uri)) {
+                            await launchUrl(uri);
                           } else {
                             throw 'Could not launch url';
                           }
@@ -265,8 +267,9 @@ class _DatabaseManagementSubPageState extends State<DatabaseManagementSubPage> {
                       ),
                       InkWell(
                         onTap: () async {
-                          if (await canLaunch(USDABinding.sourceUrl)) {
-                            await launch(USDABinding.sourceUrl);
+                          final uri = Uri.parse(USDABinding.sourceUrl);
+                          if (await canLaunchUrl(uri)) {
+                            await launchUrl(uri);
                           } else {
                             throw 'Could not launch url';
                           }

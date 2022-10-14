@@ -196,7 +196,7 @@ class _FoodPageState extends State<FoodPage> {
         backgroundColor: Theme.of(context).colorScheme.secondary,
         foregroundColor: Theme.of(context).colorScheme.onSecondary,
         overlayOpacity: 0,
-        animationSpeed: 0,
+        animationDuration: const Duration(),
       ),
     );
   }

@@ -5,12 +5,13 @@ import 'package:url_launcher/url_launcher.dart';
 class AboutSubPage extends StatelessWidget {
   static const routeName = '/settings/about';
 
+  static const appVersion = '0.5.0';
+  static const email = 'energize@flasskamp.com';
+
   static const _repoUrl = 'https://codeberg.org/epinez/Energize';
   static const _issueUrl = 'https://codeberg.org/epinez/Energize/issues';
   static const _translationUrl =
       'https://hosted.weblate.org/projects/energize/energize';
-  static const _email = 'energize@flasskamp.com';
-  static const _appVersion = '0.5.0';
   static const _copyrightNotice = '© 2022 Christian Flaßkamp';
   static const _license = 'GPLv3';
 
@@ -45,7 +46,7 @@ class AboutSubPage extends StatelessWidget {
                         AppLocalizations.of(context)!.appName,
                         style: Theme.of(context).textTheme.headline4,
                       ),
-                      const Text('v$_appVersion'),
+                      const Text('v$appVersion'),
                       const SizedBox(height: 8),
                       Text(
                         _copyrightNotice,
@@ -58,7 +59,7 @@ class AboutSubPage extends StatelessWidget {
                       OutlinedButton(
                         onPressed: () => showLicensePage(
                           context: context,
-                          applicationVersion: _appVersion,
+                          applicationVersion: appVersion,
                           applicationLegalese: '$_copyrightNotice\n$_license',
                           applicationIcon: const Padding(
                             padding: EdgeInsets.all(8.0),
@@ -84,8 +85,9 @@ class AboutSubPage extends StatelessWidget {
               ),
               InkWell(
                 onTap: () async {
-                  if (await canLaunch(_issueUrl)) {
-                    await launch(_issueUrl);
+                  final uri = Uri.parse(_issueUrl);
+                  if (await canLaunchUrl(uri)) {
+                    await launchUrl(uri);
                   } else {
                     throw 'Could not launch url';
                   }
@@ -99,8 +101,9 @@ class AboutSubPage extends StatelessWidget {
               ),
               InkWell(
                 onTap: () async {
-                  if (await canLaunch(_repoUrl)) {
-                    await launch(_repoUrl);
+                  final uri = Uri.parse(_repoUrl);
+                  if (await canLaunchUrl(uri)) {
+                    await launchUrl(uri);
                   } else {
                     throw 'Could not launch url';
                   }
@@ -114,8 +117,9 @@ class AboutSubPage extends StatelessWidget {
               ),
               InkWell(
                 onTap: () async {
-                  if (await canLaunch(_translationUrl)) {
-                    await launch(_translationUrl);
+                  final uri = Uri.parse(_translationUrl);
+                  if (await canLaunchUrl(uri)) {
+                    await launchUrl(uri);
                   } else {
                     throw 'Could not launch url';
                   }
@@ -129,8 +133,15 @@ class AboutSubPage extends StatelessWidget {
               ),
               InkWell(
                 onTap: () async {
-                  if (await canLaunch('mailto:$_email')) {
-                    await launch('mailto:$_email');
+                  final uri = Uri(
+                    scheme: 'mailto',
+                    path: email,
+                    query:
+                        'subject=Energize App Feedback&body=App Version ${AboutSubPage.appVersion}',
+                  );
+
+                  if (await canLaunchUrl(uri)) {
+                    await launchUrl(uri);
                   } else {
                     throw 'Could not launch url';
                   }

@@ -320,7 +320,7 @@ class _TrackingPageState extends State<TrackingPage> {
         icon: Icons.add,
         activeIcon: Icons.close,
         overlayOpacity: 0,
-        animationSpeed: 0,
+        animationDuration: const Duration(),
         spaceBetweenChildren: 10,
         children: [
           SpeedDialChild(

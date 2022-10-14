@@ -3,12 +3,13 @@ import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import 'about_sub_page.dart';
+
 class DonationSubPage extends StatelessWidget {
   static const routeName = '/settings/donate';
 
   static const _bitcoinAddress = '35DcbAwi66LDyvxfpmvxVrM7nYrrZVC59k';
   static const _donationUrl = 'https://liberapay.com/epinez';
-  static const _email = 'energize@flasskamp.com';
 
   const DonationSubPage({Key? key}) : super(key: key);
 
@@ -65,8 +66,9 @@ class DonationSubPage extends StatelessWidget {
               ),
               InkWell(
                 onTap: () async {
-                  if (await canLaunch(_donationUrl)) {
-                    await launch(_donationUrl);
+                  final uri = Uri.parse(_donationUrl);
+                  if (await canLaunchUrl(uri)) {
+                    await launchUrl(uri);
                   } else {
                     throw 'Could not launch url';
                   }
@@ -84,8 +86,15 @@ class DonationSubPage extends StatelessWidget {
               ),
               InkWell(
                 onTap: () async {
-                  if (await canLaunch('mailto:$_email')) {
-                    await launch('mailto:$_email');
+                  final uri = Uri(
+                    scheme: 'mailto',
+                    path: AboutSubPage.email,
+                    query:
+                        'subject=Energize App Feedback&body=App Version ${AboutSubPage.appVersion}',
+                  );
+
+                  if (await canLaunchUrl(uri)) {
+                    await launchUrl(uri);
                   } else {
                     throw 'Could not launch url';
                   }
