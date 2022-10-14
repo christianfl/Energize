@@ -284,7 +284,7 @@ class _TrackingPageState extends State<TrackingPage> {
             ),
             TextButton(
               onPressed: () => _pickDateDialog(context),
-              style: TextButton.styleFrom(primary: Colors.white),
+              style: TextButton.styleFrom(foregroundColor: Colors.white),
               child: Text(DateUtil.getDate(_selectedDate, context)),
             ),
             IconButton(

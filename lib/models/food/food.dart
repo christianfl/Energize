@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:collection/collection.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:openfoodfacts/model/Product.dart';
@@ -635,7 +633,7 @@ class Food {
       alcohol,
     ];
 
-    return hashList(attributes);
+    return Object.hashAll(attributes);
   }
 
   /// Connect the generated fromJson function to the `fromJson` factory.
