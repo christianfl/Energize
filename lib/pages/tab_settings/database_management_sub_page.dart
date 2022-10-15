@@ -18,11 +18,11 @@ class DatabaseManagementSubPage extends StatefulWidget {
   const DatabaseManagementSubPage({Key? key}) : super(key: key);
 
   @override
-  _DatabaseManagementSubPageState createState() =>
-      _DatabaseManagementSubPageState();
+  DatabaseManagementSubPageState createState() =>
+      DatabaseManagementSubPageState();
 }
 
-class _DatabaseManagementSubPageState extends State<DatabaseManagementSubPage> {
+class DatabaseManagementSubPageState extends State<DatabaseManagementSubPage> {
   var _activeOfflinePanelIndex = -1;
   var _activeOnlinePanelIndex = -1;
 

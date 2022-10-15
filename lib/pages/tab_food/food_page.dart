@@ -18,10 +18,10 @@ class FoodPage extends StatefulWidget {
   const FoodPage({Key? key}) : super(key: key);
 
   @override
-  _FoodPageState createState() => _FoodPageState();
+  FoodPageState createState() => FoodPageState();
 }
 
-class _FoodPageState extends State<FoodPage> {
+class FoodPageState extends State<FoodPage> {
   List<Food> _searchResultFoods = [];
   final _searchInputController = TextEditingController();
   final _scrollController = ScrollController();

@@ -36,10 +36,10 @@ class FoodInput extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _FoodInputState createState() => _FoodInputState();
+  FoodInputState createState() => FoodInputState();
 }
 
-class _FoodInputState extends State<FoodInput>
+class FoodInputState extends State<FoodInput>
     with SingleTickerProviderStateMixin {
   final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
   QRViewController? _qrController;

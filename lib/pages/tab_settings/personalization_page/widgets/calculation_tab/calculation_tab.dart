@@ -16,10 +16,10 @@ class CalculationTab extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _CalculationTabState createState() => _CalculationTabState();
+  CalculationTabState createState() => CalculationTabState();
 }
 
-class _CalculationTabState extends State<CalculationTab> {
+class CalculationTabState extends State<CalculationTab> {
   final _caloriesTargetController = TextEditingController();
   final _proteinTargetController = TextEditingController();
   final _carbsTargetController = TextEditingController();
@@ -73,7 +73,7 @@ class _CalculationTabState extends State<CalculationTab> {
   }
 
   void _showApplyDialog(BuildContext context, AppSettings appSettings) {
-    void _updateData({String? except}) {
+    void updateData({String? except}) {
       if (except != 'calories') {
         _caloriesTargetController.text =
             _calculateCalories(appSettings).toString();
@@ -88,7 +88,7 @@ class _CalculationTabState extends State<CalculationTab> {
     }
 
     _caloriesTargetController.text = '';
-    _updateData();
+    updateData();
 
     showDialog(
       context: context,
@@ -115,7 +115,7 @@ class _CalculationTabState extends State<CalculationTab> {
                       labelText: AppLocalizations.of(context)!.energy,
                     ),
                     onChanged: (val) => {
-                      _updateData(except: 'calories'),
+                      updateData(except: 'calories'),
                     },
                   ),
                   const SizedBox(height: 20),
@@ -127,7 +127,7 @@ class _CalculationTabState extends State<CalculationTab> {
                           onChanged: (val) => {
                             appSettings.proteinRatio =
                                 val == '' ? 20 : double.parse(val),
-                            _updateData(),
+                            updateData(),
                           },
                           keyboardType: TextInputType.number,
                           decoration: InputDecoration(
@@ -159,7 +159,7 @@ class _CalculationTabState extends State<CalculationTab> {
                           onChanged: (val) => {
                             appSettings.carbsRatio =
                                 val == '' ? 50 : double.parse(val),
-                            _updateData(),
+                            updateData(),
                           },
                           keyboardType: TextInputType.number,
                           decoration: InputDecoration(
@@ -190,7 +190,7 @@ class _CalculationTabState extends State<CalculationTab> {
                           onChanged: (val) => {
                             appSettings.fatRatio =
                                 val == '' ? 30 : double.parse(val),
-                            _updateData(),
+                            updateData(),
                           },
                           keyboardType: TextInputType.number,
                           decoration: InputDecoration(

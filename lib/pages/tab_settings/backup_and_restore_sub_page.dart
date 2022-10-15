@@ -25,11 +25,10 @@ class BackupAndRestoreSubPage extends StatefulWidget {
   const BackupAndRestoreSubPage({Key? key}) : super(key: key);
 
   @override
-  _BackupAndRestoreSubPageState createState() =>
-      _BackupAndRestoreSubPageState();
+  BackupAndRestoreSubPageState createState() => BackupAndRestoreSubPageState();
 }
 
-class _BackupAndRestoreSubPageState extends State<BackupAndRestoreSubPage> {
+class BackupAndRestoreSubPageState extends State<BackupAndRestoreSubPage> {
   final _serverSettingsFormKey = GlobalKey<FormState>();
   final _passwordsFormKey = GlobalKey<FormState>();
   final _serverUrlController = TextEditingController();
@@ -56,9 +55,9 @@ class _BackupAndRestoreSubPageState extends State<BackupAndRestoreSubPage> {
   }
 
   Dio _initializeDio() {
-    String basicAuth = 'Basic ' +
-        base64Encode(utf8
-            .encode('${_usernameController.text}:${_passwordController.text}'));
+    final encoded =
+        utf8.encode('${_usernameController.text}:${_passwordController.text}');
+    final basicAuth = 'Basic ${base64Encode(encoded)}';
 
     Dio dio = Dio();
     dio.options.headers['authorization'] = basicAuth;
@@ -151,6 +150,8 @@ class _BackupAndRestoreSubPageState extends State<BackupAndRestoreSubPage> {
               },
             );
       } on DioError catch (e) {
+        if (!mounted) return;
+
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             backgroundColor: Colors.red,
@@ -176,6 +177,8 @@ class _BackupAndRestoreSubPageState extends State<BackupAndRestoreSubPage> {
       try {
         String decryptedString;
         BackupData backupData;
+
+        if (!mounted) return;
 
         final customFoodProvider =
             Provider.of<CustomFoodProvider>(context, listen: false);
@@ -216,6 +219,8 @@ class _BackupAndRestoreSubPageState extends State<BackupAndRestoreSubPage> {
       } on DioError catch (e) {
         // In case something went wrong with the WebDAV part
 
+        if (!mounted) return;
+
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             backgroundColor: Colors.red,
@@ -225,6 +230,8 @@ class _BackupAndRestoreSubPageState extends State<BackupAndRestoreSubPage> {
         );
       } on Error catch (e) {
         // In case something went wrong with decryption, etc.
+
+        if (!mounted) return;
 
         String errorText;
 

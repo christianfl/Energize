@@ -9,10 +9,10 @@ class MicroTargetsTab extends StatefulWidget {
   const MicroTargetsTab({Key? key}) : super(key: key);
 
   @override
-  _MicroTargetsTabState createState() => _MicroTargetsTabState();
+  MicroTargetsTabState createState() => MicroTargetsTabState();
 }
 
-class _MicroTargetsTabState extends State<MicroTargetsTab> {
+class MicroTargetsTabState extends State<MicroTargetsTab> {
   var activePanelIndex = -1;
 
   Widget _getCustomListTile({

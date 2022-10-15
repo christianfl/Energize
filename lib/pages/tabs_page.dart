@@ -6,10 +6,10 @@ class TabsPage extends StatefulWidget {
   const TabsPage({Key? key}) : super(key: key);
 
   @override
-  _TabsPageState createState() => _TabsPageState();
+  TabsPageState createState() => TabsPageState();
 }
 
-class _TabsPageState extends State<TabsPage> {
+class TabsPageState extends State<TabsPage> {
   int _currentIndex = 0;
 
   void _setIndex(int index) {

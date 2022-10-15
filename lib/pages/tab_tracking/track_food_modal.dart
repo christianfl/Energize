@@ -31,10 +31,10 @@ class TrackFood extends StatefulWidget {
   const TrackFood({Key? key}) : super(key: key);
 
   @override
-  _TrackFoodState createState() => _TrackFoodState();
+  TrackFoodState createState() => TrackFoodState();
 }
 
-class _TrackFoodState extends State<TrackFood>
+class TrackFoodState extends State<TrackFood>
     with SingleTickerProviderStateMixin {
   final _amountCtrl = TextEditingController();
   final double _pillHeight = 35;

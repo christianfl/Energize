@@ -11,10 +11,10 @@ class NutritionTargetsPage extends StatefulWidget {
   const NutritionTargetsPage({Key? key}) : super(key: key);
 
   @override
-  _NutritionTargetsPageState createState() => _NutritionTargetsPageState();
+  NutritionTargetsPageState createState() => NutritionTargetsPageState();
 }
 
-class _NutritionTargetsPageState extends State<NutritionTargetsPage> {
+class NutritionTargetsPageState extends State<NutritionTargetsPage> {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(

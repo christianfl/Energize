@@ -24,10 +24,10 @@ class AddEditCustomFoodModal extends StatefulWidget {
   const AddEditCustomFoodModal({Key? key}) : super(key: key);
 
   @override
-  _AddEditCustomFoodModalState createState() => _AddEditCustomFoodModalState();
+  AddEditCustomFoodModalState createState() => AddEditCustomFoodModalState();
 }
 
-class _AddEditCustomFoodModalState extends State<AddEditCustomFoodModal> {
+class AddEditCustomFoodModalState extends State<AddEditCustomFoodModal> {
   var activePanelIndex = 0;
   Food foodToEditOrCreate = Food(
     id: 'temp',

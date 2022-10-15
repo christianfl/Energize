@@ -17,10 +17,10 @@ class TrackingPage extends StatefulWidget {
   const TrackingPage({Key? key}) : super(key: key);
 
   @override
-  _TrackingPageState createState() => _TrackingPageState();
+  TrackingPageState createState() => TrackingPageState();
 }
 
-class _TrackingPageState extends State<TrackingPage> {
+class TrackingPageState extends State<TrackingPage> {
   var _selectedDate = DateTime.now();
   bool? _isSelectedDateCompleted;
   final _scrollController = ScrollController();
