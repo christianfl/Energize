@@ -1,7 +1,11 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
+import 'package:sqflite/sqflite.dart';
+import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 
 import 'pages/tab_food/add_edit_custom_food_modal.dart';
 import 'pages/tab_settings/about_sub_page.dart';
@@ -16,7 +20,15 @@ import 'providers/app_settings.dart';
 import 'providers/custom_food_provider.dart';
 import 'providers/tracked_food_provider.dart';
 
-void main() => runApp(const MyApp());
+Future main() async {
+  if (Platform.isLinux) {
+    // Initialize FFI
+    sqfliteFfiInit();
+    // Change the default factory
+    databaseFactory = databaseFactoryFfi;
+  }
+  runApp(const MyApp());
+}
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);

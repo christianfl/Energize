@@ -43,8 +43,9 @@ dependencies:
   json_annotation: ^4.7.0
   table_calendar: ^3.0.7
   charts_flutter: ^0.12.0 # Discontinued: https://github.com/google/charts/issues/798
-  collection: ^1.17.0
+  collection: ^1.16.0
   http: ^0.13.5
+  sqflite_common_ffi: ^2.1.1+1
 
 dev_dependencies:
   flutter_test:
