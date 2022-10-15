@@ -1,6 +1,9 @@
 import 'package:collection/collection.dart';
 import 'package:json_annotation/json_annotation.dart';
+import 'package:openfoodfacts/model/Nutrient.dart';
+import 'package:openfoodfacts/model/PerSize.dart';
 import 'package:openfoodfacts/model/Product.dart';
+import 'package:openfoodfacts/utils/UnitHelper.dart';
 import 'package:uuid/uuid.dart';
 
 import '../../services/food_database_bindings/open_food_facts/open_food_facts_binding.dart';
@@ -237,6 +240,33 @@ class Food {
   });
 
   factory Food.fromOpenFoodFactsProduct(Product product) {
+    // Returns the value of the given nutrient in the desired unit per 100g or null
+    double? getValInUnit(
+      Nutrient nutrient, {
+      Unit unit = Unit.G,
+    }) {
+      // Value in G
+      double? value =
+          product.nutriments?.getValue(nutrient, PerSize.oneHundredGrams);
+
+      // Conversion of vol % in g because alcohol value is not stored in G within OFF
+      if (value != null && nutrient == Nutrient.alcohol) {
+        value *= 7.89;
+      }
+
+      if (value == null) {
+        return null;
+      } else if (unit == Unit.G) {
+        return value;
+      } else if (unit == Unit.MILLI_G) {
+        return value * 1000;
+      } else if (unit == Unit.MICRO_G) {
+        return value * 1000 * 1000;
+      } else {
+        throw UnimplementedError('This unit conversion is not implemented');
+      }
+    }
+
     var food = Food(
       id: generatedId,
       title: '',
@@ -254,11 +284,15 @@ class Food {
     food.title = food.title.trim();
 
     // Calories
-    if (product.nutriments?.energyKcal100g != null) {
-      food.calories = product.nutriments!.energyKcal100g!;
+    if (product.nutriments
+            ?.getValue(Nutrient.energyKCal, PerSize.oneHundredGrams) !=
+        null) {
+      food.calories = product.nutriments
+          ?.getValue(Nutrient.energyKCal, PerSize.oneHundredGrams);
     } else {
-      if (product.nutriments?.energy != null) {
-        var kcal = product.nutriments!.energy! / 4.184;
+      if (product.nutriments?.getComputedKJ(PerSize.oneHundredGrams) != null) {
+        var kcal =
+            product.nutriments!.getComputedKJ(PerSize.oneHundredGrams)! / 4.184;
         food.calories = double.parse(kcal.toStringAsFixed(1));
       } else {
         food.calories = null;
@@ -269,9 +303,9 @@ class Food {
     food.ean = product.barcode;
     food.imageUrl = product.imageFrontUrl;
     food.imageThumbnailUrl = product.imageFrontSmallUrl;
-    food.protein = product.nutriments?.proteins;
-    food.carbs = product.nutriments?.carbohydrates;
-    food.fat = product.nutriments?.fat;
+    food.protein = getValInUnit(Nutrient.proteins, unit: Unit.G);
+    food.carbs = getValInUnit(Nutrient.carbohydrates, unit: Unit.G);
+    food.fat = getValInUnit(Nutrient.fat, unit: Unit.G);
 
     // Fill serving size with serving and package size
     if (product.servingQuantity != null || product.quantity != null) {
@@ -292,120 +326,60 @@ class Food {
     // print(product.quantity);
     // Package size / quantity is not supported by OFF server yet
 
-    // Micronutrients and other
-    if (product.nutriments?.vitaminA != null) {
-      food.vitaminA = product.nutriments!.vitaminA! * 1000;
-    }
-    if (product.nutriments?.vitaminB1 != null) {
-      food.vitaminB1 = product.nutriments!.vitaminB1! * 1000;
-    }
-    if (product.nutriments?.vitaminB2 != null) {
-      food.vitaminB2 = product.nutriments!.vitaminB2! * 1000;
-    }
-    if (product.nutriments?.vitaminPP != null) {
-      food.vitaminB3 = product.nutriments!.vitaminPP! * 1000;
-    }
-    if (product.nutriments?.pantothenicAcid != null) {
-      food.vitaminB5 = product.nutriments!.pantothenicAcid! * 1000;
-    }
-    if (product.nutriments?.vitaminB6 != null) {
-      food.vitaminB6 = product.nutriments!.vitaminB6! * 1000;
-    }
-    if (product.nutriments?.biotin != null) {
-      food.vitaminB7 = product.nutriments!.biotin! * 1000 * 1000;
-    }
-    if (product.nutriments?.vitaminB9 != null) {
-      food.vitaminB9 = product.nutriments!.vitaminB9! * 1000 * 1000;
-    }
-    if (product.nutriments?.vitaminB12 != null) {
-      food.vitaminB12 = product.nutriments!.vitaminB12! * 1000 * 1000;
-    }
-    if (product.nutriments?.vitaminC != null) {
-      food.vitaminC = product.nutriments!.vitaminC! * 1000;
-    }
-    if (product.nutriments?.vitaminD != null) {
-      food.vitaminD = product.nutriments!.vitaminD! * 1000 * 1000;
-    }
-    if (product.nutriments?.vitaminE != null) {
-      food.vitaminE = product.nutriments!.vitaminE! * 1000;
-    }
-    if (product.nutriments?.vitaminK != null) {
-      food.vitaminK = product.nutriments!.vitaminK! * 1000 * 1000;
-    }
-    if (product.nutriments?.calcium != null) {
-      food.calcium = product.nutriments!.calcium! * 1000;
-    }
-    if (product.nutriments?.chloride != null) {
-      food.chloride = product.nutriments!.chloride! * 1000;
-    }
-    if (product.nutriments?.magnesium != null) {
-      food.magnesium = product.nutriments!.magnesium! * 1000;
-    }
-    if (product.nutriments?.phosphorus != null) {
-      food.phosphorus = product.nutriments!.phosphorus! * 1000;
-    }
-    if (product.nutriments?.potassium != null) {
-      food.potassium = product.nutriments!.potassium! * 1000;
-    }
-    if (product.nutriments?.sodium != null) {
-      food.sodium = product.nutriments!.sodium! * 1000;
-    }
-    if (product.nutriments?.chromium != null) {
-      food.chromium = product.nutriments!.chromium! * 1000 * 1000;
-    }
-    if (product.nutriments?.iron != null) {
-      food.iron = product.nutriments!.iron! * 1000;
-    }
-    if (product.nutriments?.fluoride != null) {
-      food.fluorine = product.nutriments!.fluoride! * 1000;
-    }
-    if (product.nutriments?.iodine != null) {
-      food.iodine = product.nutriments!.iodine! * 1000 * 1000;
-    }
-    if (product.nutriments?.copper != null) {
-      food.copper = product.nutriments!.copper! * 1000;
-    }
-    if (product.nutriments?.manganese != null) {
-      food.manganese = product.nutriments!.manganese! * 1000;
-    }
-    if (product.nutriments?.molybdenum != null) {
-      food.molybdenum = product.nutriments!.molybdenum! * 1000 * 1000;
-    }
-    if (product.nutriments?.selenium != null) {
-      food.selenium = product.nutriments!.selenium! * 1000 * 1000;
-    }
-    if (product.nutriments?.calcium != null) {
-      food.calcium = product.nutriments!.calcium! * 1000;
-    }
-    if (product.nutriments?.zinc != null) {
-      food.zinc = product.nutriments!.zinc! * 1000;
-    }
+    // Vitamins
+    food.vitaminA = getValInUnit(Nutrient.vitaminA, unit: Unit.MILLI_G);
+    food.vitaminB1 = getValInUnit(Nutrient.vitaminB1, unit: Unit.MILLI_G);
+    food.vitaminB2 = getValInUnit(Nutrient.vitaminB2, unit: Unit.MILLI_G);
+    food.vitaminB3 = getValInUnit(Nutrient.vitaminPP, unit: Unit.MILLI_G);
+    food.vitaminB5 = getValInUnit(Nutrient.pantothenicAcid, unit: Unit.MILLI_G);
+    food.vitaminB6 = getValInUnit(Nutrient.vitaminB6, unit: Unit.MILLI_G);
+    food.vitaminB7 = getValInUnit(Nutrient.biotin, unit: Unit.MICRO_G);
+    food.vitaminB9 = getValInUnit(Nutrient.vitaminB9, unit: Unit.MICRO_G);
+    food.vitaminB12 = getValInUnit(Nutrient.vitaminB12, unit: Unit.MICRO_G);
+    food.vitaminC = getValInUnit(Nutrient.vitaminC, unit: Unit.MILLI_G);
+    food.vitaminD = getValInUnit(Nutrient.vitaminD, unit: Unit.MICRO_G);
+    food.vitaminE = getValInUnit(Nutrient.vitaminE, unit: Unit.MILLI_G);
+    food.vitaminK = getValInUnit(Nutrient.vitaminK, unit: Unit.MICRO_G);
 
-    if (product.nutriments?.monounsaturatedAcid != null) {
-      food.monounsaturatedFat = product.nutriments!.monounsaturatedAcid!;
-    }
-    if (product.nutriments?.polyunsaturatedAcid != null) {
-      food.polyunsaturatedFat = product.nutriments!.polyunsaturatedAcid!;
-    }
-    food.omega3 = product.nutriments?.omega3Fat;
-    food.omega6 = product.nutriments?.omega6Fat;
-    food.saturatedFat = product.nutriments?.saturatedFat;
-    food.transFat = product.nutriments?.transFat;
-    if (product.nutriments?.cholesterol != null) {
-      food.cholesterol = product.nutriments!.cholesterol! * 1000;
-    }
+    // Minerals
+    food.calcium = getValInUnit(Nutrient.calcium, unit: Unit.MILLI_G);
+    food.chloride = getValInUnit(Nutrient.chloride, unit: Unit.MILLI_G);
+    food.magnesium = getValInUnit(Nutrient.magnesium, unit: Unit.MILLI_G);
+    food.phosphorus = getValInUnit(Nutrient.phosphorus, unit: Unit.MILLI_G);
+    food.potassium = getValInUnit(Nutrient.potassium, unit: Unit.MILLI_G);
+    food.sodium = getValInUnit(Nutrient.sodium, unit: Unit.MILLI_G);
+    food.chromium = getValInUnit(Nutrient.chromium, unit: Unit.MICRO_G);
+    food.iron = getValInUnit(Nutrient.iron, unit: Unit.MILLI_G);
+    food.fluorine = getValInUnit(Nutrient.fluoride, unit: Unit.MILLI_G);
+    food.iodine = getValInUnit(Nutrient.iodine, unit: Unit.MICRO_G);
+    food.copper = getValInUnit(Nutrient.copper, unit: Unit.MILLI_G);
+    food.manganese = getValInUnit(Nutrient.manganese, unit: Unit.MILLI_G);
+    food.molybdenum = getValInUnit(Nutrient.molybdenum, unit: Unit.MICRO_G);
+    food.selenium = getValInUnit(Nutrient.selenium, unit: Unit.MICRO_G);
+    food.calcium = getValInUnit(Nutrient.calcium, unit: Unit.MILLI_G);
+    food.zinc = getValInUnit(Nutrient.zinc, unit: Unit.MILLI_G);
 
-    food.fiber = product.nutriments?.fiber;
-    food.sugar = product.nutriments?.sugars;
+    // Fats
+    food.monounsaturatedFat =
+        getValInUnit(Nutrient.monounsaturatedFat, unit: Unit.G);
+    food.polyunsaturatedFat =
+        getValInUnit(Nutrient.polyunsaturatedFat, unit: Unit.G);
+    food.omega3 = getValInUnit(Nutrient.omega3, unit: Unit.G);
+    food.omega6 = getValInUnit(Nutrient.omega6, unit: Unit.G);
+    food.saturatedFat = getValInUnit(Nutrient.saturatedFat, unit: Unit.G);
+    food.transFat = getValInUnit(Nutrient.transFat, unit: Unit.G);
+    food.cholesterol = getValInUnit(Nutrient.cholesterol, unit: Unit.MILLI_G);
 
+    // Carbs
+    food.fiber = getValInUnit(Nutrient.fiber, unit: Unit.G);
+    food.sugar = getValInUnit(Nutrient.sugars, unit: Unit.G);
     // OFF does not support food.sugarAlcohol
     // OFF does not support food.starch
-    // OFF does not support food.water
 
-    if (product.nutriments?.caffeine != null) {
-      food.caffeine = product.nutriments!.caffeine! * 1000;
-    }
-    food.alcohol = product.nutriments?.alcohol;
+    // Other
+    // OFF does not support food.water
+    food.caffeine = getValInUnit(Nutrient.caffeine, unit: Unit.MILLI_G);
+    food.alcohol = getValInUnit(Nutrient.alcohol, unit: Unit.G);
 
     return food;
   }
