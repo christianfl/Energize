@@ -2,5 +2,11 @@
   "fat": "肥胖",
   "@fat": {},
   "appDescriptionShort": "轻松快速地跟踪您的食物和营养情况。",
-  "@appDescriptionShort": {}
+  "@appDescriptionShort": {},
+  "france": "法国",
+  "@france": {},
+  "english": "英语",
+  "@english": {},
+  "water": "水",
+  "@water": {}
 }
