@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
@@ -281,8 +282,9 @@ class FoodInputState extends State<FoodInput>
         }
       });
 
-      if (appSettings.isProviderOpenFoodFactsActivated ||
-          appSettings.isProviderUsdaActivated) {
+      if ((appSettings.isProviderOpenFoodFactsActivated ||
+              appSettings.isProviderUsdaActivated) &&
+          !kIsWeb) {
         setState(() {
           _awaitingApiResponse = true;
         });
@@ -312,7 +314,11 @@ class FoodInputState extends State<FoodInput>
   }
 
   Future<bool?> get flashStatus async {
-    return await _qrController!.getFlashStatus();
+    if (kIsWeb) {
+      return false;
+    } else {
+      return await _qrController!.getFlashStatus();
+    }
   }
 
   Future<void> _turnOffFlash() async {
