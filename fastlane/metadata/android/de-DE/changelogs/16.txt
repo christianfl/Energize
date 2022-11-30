@@ -1,0 +1,3 @@
+* Übersetzung hinzugefügt für Punjabi (Pakistan) und Chinesisch (Danke!)
+* Übersetzung verbessert für Türkisch, Polnisch, Deutsch, Französisch, Italienisch und Tschechisch (Danke!)
+* Kleine Änderungen und Verbesserungen unter der Haube
