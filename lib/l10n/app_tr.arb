@@ -348,5 +348,7 @@
   "targetsApplyError": "Beslenme hedefleri uygulanamadı",
   "@targetsApplyError": {},
   "totalEnergy": "Toplam enerji",
-  "@totalEnergy": {}
+  "@totalEnergy": {},
+  "emailHint": "Lütfen bunu yalnızca kişisel mesajlar için kullanın. Sorunları bildirmek, iyileştirmeler önermek veya daha fazla yardım almak için lütfen yukarıdaki bağlantıları kullanın.",
+  "@emailHint": {}
 }
