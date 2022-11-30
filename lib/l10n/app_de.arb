@@ -241,6 +241,7 @@
   "@contact": {},
   "email": "E-Mail",
   "@email": {},
+  "emailHint": "Bitte nur für persönliche Nachrichten nutzen. Um Fehler zu melden, Verbesserungen vorzuschlagen oder weitere Hilfe zu bekommen, nutze bitte die oben aufgeführten Links.",
   "supportMeByDonating": "Unterstütze mich mit einer Spende",
   "@supportMeByDonating": {},
   "donate": "Spenden",

@@ -129,6 +129,7 @@
     "translation": "Translation",
     "contact": "Contact",
     "email": "E-Mail",
+    "emailHint": "Please use this only for personal messages. To file issues, suggest improvements, or to get further help, please use the links above.",
     "supportMeByDonating": "Support me by donating",
     "donate": "Donate",
     "donationText": "If you want to support the development by a donation, you are very welcome to do so! Creating this app is a lot of fun but also a very time consuming task and sometimes leads to little frustration :-).",

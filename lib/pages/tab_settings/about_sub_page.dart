@@ -5,7 +5,7 @@ import 'package:url_launcher/url_launcher.dart';
 class AboutSubPage extends StatelessWidget {
   static const routeName = '/settings/about';
 
-  static const appVersion = '0.5.0';
+  static const appVersion = '0.5.1';
   static const email = 'energize@flasskamp.com';
 
   static const _repoUrl = 'https://codeberg.org/epinez/Energize';
@@ -147,9 +147,18 @@ class AboutSubPage extends StatelessWidget {
                   }
                 },
                 child: ListTile(
-                  title: Text(AppLocalizations.of(context)!.contact),
-                  subtitle: Text(AppLocalizations.of(context)!.email),
-                  trailing: const Icon(Icons.mail),
+                  isThreeLine: true,
+                  title: Padding(
+                    padding: const EdgeInsets.only(bottom: 4.0),
+                    child: Text(AppLocalizations.of(context)!.contact),
+                  ),
+                  subtitle: Text(AppLocalizations.of(context)!.emailHint),
+                  trailing: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: const [
+                      Icon(Icons.mail),
+                    ],
+                  ),
                 ),
               ),
             ],
