@@ -348,5 +348,7 @@
   "formulaForMales": "Formula per gli uomini",
   "@formulaForMales": {},
   "fatRatio": "Livello di grasso",
-  "@fatRatio": {}
+  "@fatRatio": {},
+  "emailHint": "Da usare solo per messaggi personali. Per segnalare problemi, suggerire miglioramenti o ottenere ulteriore assistenza, utilizzare i collegamenti riportati sopra.",
+  "@emailHint": {}
 }
