@@ -18,6 +18,9 @@ FoodTracked _$FoodTrackedFromJson(Map<String, dynamic> json) => FoodTracked(
       ean: json['ean'] as String?,
       imageUrl: json['imageUrl'] as String?,
       imageThumbnailUrl: json['imageThumbnailUrl'] as String?,
+      servingSizes: (json['servingSizes'] as List<dynamic>?)
+          ?.map((e) => ServingSize.fromJson(e as Map<String, dynamic>))
+          .toList(),
       calories: (json['calories'] as num?)?.toDouble(),
       protein: (json['protein'] as num?)?.toDouble(),
       carbs: (json['carbs'] as num?)?.toDouble(),
@@ -81,6 +84,7 @@ Map<String, dynamic> _$FoodTrackedToJson(FoodTracked instance) {
   writeNotNull('ean', instance.ean);
   writeNotNull('imageUrl', instance.imageUrl);
   writeNotNull('imageThumbnailUrl', instance.imageThumbnailUrl);
+  writeNotNull('servingSizes', instance.servingSizes);
   writeNotNull('calories', instance.calories);
   writeNotNull('protein', instance.protein);
   writeNotNull('carbs', instance.carbs);

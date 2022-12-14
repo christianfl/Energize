@@ -2,6 +2,7 @@ import 'package:json_annotation/json_annotation.dart';
 import 'package:uuid/uuid.dart';
 
 import 'food.dart';
+import 'serving_size.dart';
 
 part 'food_tracked.g.dart';
 
@@ -40,7 +41,7 @@ class FoodTracked extends Food {
     String? ean,
     String? imageUrl,
     String? imageThumbnailUrl,
-    Map<String, double>? servingSizes,
+    List<ServingSize>? servingSizes,
     double? calories,
     double? protein,
     double? carbs,
@@ -215,7 +216,10 @@ class FoodTracked extends Food {
     if (selectedServingSizeIndex == null) {
       return amount;
     } else {
-      return servingSizes!.values.elementAt(selectedServingSizeIndex!) * amount;
+      // TODO
+      return 100000000;
+      // return servingSizes!.values.elementAt(selectedServingSizeIndex!).inGrams *
+      //     amount;
     }
   }
 

@@ -10,6 +10,7 @@ import '../../services/food_database_bindings/open_food_facts/open_food_facts_bi
 import '../../services/food_database_bindings/usda/models/usda_food.dart';
 import '../../services/food_database_bindings/usda/models/usda_food_nutrient_unit.dart';
 import '../../services/food_database_bindings/usda/usda_binding.dart';
+import 'serving_size.dart';
 
 part 'food.g.dart';
 
@@ -26,8 +27,12 @@ class Food {
   String? imageThumbnailUrl;
 
   /// String: servingName, double: Amount in g per servingName
-  @JsonKey(ignore: true)
-  Map<String, double>? servingSizes;
+  //@JsonKey(ignore: true)
+  @JsonKey(
+    fromJson: _fromServingSizesString,
+    toJson: _toServingSizesString,
+  )
+  List<ServingSize>? servingSizes = [];
 
   // #################### Calories ####################
 
@@ -307,24 +312,24 @@ class Food {
     food.carbs = getValInUnit(Nutrient.carbohydrates, unit: Unit.G);
     food.fat = getValInUnit(Nutrient.fat, unit: Unit.G);
 
+    print('PRODUCT DATA #####');
+    print(product.packagingQuantity);
+
     // Fill serving size with serving and package size
-    if (product.servingQuantity != null || product.quantity != null) {
-      food.servingSizes = {};
+    // if (product.packagingQuantity != null) {
+    //   food.servingSizes?.putIfAbsent(
+    //       'package', () => ServingSize('Packung', product.packagingQuantity!));
+    // }
+
+    // TEST
+    print('TEST');
+    if (food.servingSizes == null) {
+      food.servingSizes = [];
     }
 
-    if (product.servingQuantity != null) {
-      // MapEntry<String, double> test =
-      //     MapEntry<String, double>('serving', product.servingQuantity!);
-      // TODO: Fix!
-      // food.servingSizes!.putIfAbsent(key, () => null)(test);
-    }
-    if (product.quantity != null) {
-      //food.servingSizes = {'serving': product.servingQuantity!};
-    }
+    food.servingSizes?.add(ServingSize(null, 'Packung', 450));
 
-    // print(product.servingQuantity);
-    // print(product.quantity);
-    // Package size / quantity is not supported by OFF server yet
+    print(food.servingSizes);
 
     // Vitamins
     food.vitaminA = getValInUnit(Nutrient.vitaminA, unit: Unit.MILLI_G);
@@ -615,4 +620,18 @@ class Food {
 
   /// Connect the generated toJson function to the `toJson` method.
   Map<String, dynamic> toJson() => _$FoodToJson(this);
+
+  /// TODO
+  static _fromServingSizesString(String jsonString) => [];
+
+  /// TODO
+  static _toServingSizesString(List<ServingSize> servingSizes) {
+    String ret = '[';
+
+    for (var element in servingSizes) {
+      element.toJson().toString();
+    }
+
+    ret += ']';
+  }
 }

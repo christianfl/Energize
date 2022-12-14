@@ -5,6 +5,7 @@ import 'package:url_launcher/url_launcher.dart';
 
 import '../../models/food/food.dart';
 import '../../models/food/food_tracked.dart';
+import '../../models/food/serving_size.dart';
 import '../../pages/tab_food/add_edit_custom_food_modal.dart';
 import '../../providers/tracked_food_provider.dart';
 import '../../services/food_database_bindings/open_food_facts/open_food_facts_binding.dart';
@@ -38,14 +39,18 @@ class TrackFoodState extends State<TrackFood>
     with SingleTickerProviderStateMixin {
   final _amountCtrl = TextEditingController();
   final double _pillHeight = 35;
-  var _dropdownValue = 'g';
-
+  final List<ServingSize> _servingSizes = [];
+  late ServingSize _selectedServingSize;
+  final ServingSize _initialServingSize = ServingSize('g', 'g', 1);
   late TabController _tabController;
   final _amountCtrlFocusNode = FocusNode();
 
   @override
   void initState() {
     _tabController = TabController(vsync: this, length: 2);
+
+    _servingSizes.add(_initialServingSize);
+    _selectedServingSize = _servingSizes[0];
 
     super.initState();
   }
@@ -55,6 +60,21 @@ class TrackFoodState extends State<TrackFood>
     // final args = ModalRoute.of(context)!.settings.arguments as ModalArguments;
     // final food = args.food;
     // print(food);
+
+    final args = ModalRoute.of(context)!.settings.arguments as ModalArguments;
+    final food = args.food;
+
+    if (food.servingSizes != null) {
+      _servingSizes.addAll(food.servingSizes!);
+      // for (var servingSize in food.servingSizes!) {
+      //   //if (!_servingSizes.contains(servingSize)) {
+      //   _servingSizes.add(servingSize);
+      //   //}
+      // }
+    }
+
+    print('HUI');
+
     super.didChangeDependencies();
   }
 
@@ -82,7 +102,13 @@ class TrackFoodState extends State<TrackFood>
       return returnValue;
     } else {
       final parsedAmount = double.tryParse(amount);
-      return parsedAmount ?? 0.0;
+      final ret = parsedAmount != null
+          ? parsedAmount * _selectedServingSize.inGrams
+          : 0.0;
+
+      print(ret * _selectedServingSize.inGrams);
+
+      return ret;
     }
   }
 
@@ -232,20 +258,20 @@ class TrackFoodState extends State<TrackFood>
             width: 150,
             height: 50,
             child: DropdownButtonHideUnderline(
-              child: DropdownButton<String>(
-                value: _dropdownValue,
-                onChanged: (String? newValue) {
+              child: DropdownButton<ServingSize>(
+                value: _selectedServingSize,
+                onChanged: (ServingSize? newValue) {
                   setState(() {
-                    _dropdownValue = newValue!;
+                    _selectedServingSize = newValue!;
+                    print(_selectedServingSize.translatedName);
                   });
                 },
-                items:
-                    <String>['g'].map<DropdownMenuItem<String>>((String value) {
-                  return DropdownMenuItem<String>(
-                    value: value,
-                    child: Text(value),
-                  );
-                }).toList(),
+                items: _servingSizes
+                    .map((e) => DropdownMenuItem<ServingSize>(
+                          value: e,
+                          child: Text(e.translatedName),
+                        ))
+                    .toList(),
               ),
             ),
           ),
