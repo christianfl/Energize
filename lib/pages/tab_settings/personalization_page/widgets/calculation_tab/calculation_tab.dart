@@ -41,7 +41,7 @@ class CalculationTabState extends State<CalculationTab> {
                 const SizedBox(height: 20),
                 Text(
                   AppLocalizations.of(context)!.formulaForFemales,
-                  style: Theme.of(context).textTheme.headline6,
+                  style: Theme.of(context).textTheme.titleLarge,
                 ),
                 const SizedBox(height: 10),
                 Text(
@@ -50,7 +50,7 @@ class CalculationTabState extends State<CalculationTab> {
                 const SizedBox(height: 20),
                 Text(
                   AppLocalizations.of(context)!.formulaForMales,
-                  style: Theme.of(context).textTheme.headline6,
+                  style: Theme.of(context).textTheme.titleLarge,
                 ),
                 const SizedBox(height: 10),
                 Text(
@@ -422,7 +422,7 @@ class CalculationTabState extends State<CalculationTab> {
                     padding: const EdgeInsets.only(bottom: 16.0),
                     child: Text(
                       AppLocalizations.of(context)!.yourBody,
-                      style: Theme.of(context).textTheme.headline4,
+                      style: Theme.of(context).textTheme.headlineMedium,
                     ),
                   ),
                   Row(
@@ -501,7 +501,7 @@ class CalculationTabState extends State<CalculationTab> {
                     padding: const EdgeInsets.only(bottom: 20.0),
                     child: Text(
                       AppLocalizations.of(context)!.behaviourAndTarget,
-                      style: Theme.of(context).textTheme.headline4,
+                      style: Theme.of(context).textTheme.headlineMedium,
                     ),
                   ),
                   ListTile(

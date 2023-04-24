@@ -28,7 +28,7 @@ class DonationSubPage extends StatelessWidget {
                 padding: const EdgeInsets.all(16.0),
                 child: Text(
                   AppLocalizations.of(context)!.supportMeByDonating,
-                  style: Theme.of(context).textTheme.headline3,
+                  style: Theme.of(context).textTheme.displaySmall,
                 ),
               ),
               Padding(

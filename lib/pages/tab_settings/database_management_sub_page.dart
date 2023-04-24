@@ -41,7 +41,7 @@ class DatabaseManagementSubPageState extends State<DatabaseManagementSubPage> {
           children: [
             Text(
               AppLocalizations.of(context)!.storedOnDevice,
-              style: Theme.of(context).textTheme.headline4,
+              style: Theme.of(context).textTheme.headlineMedium,
             ),
             const SizedBox(height: 16.0),
             ExpansionPanelList(
@@ -125,7 +125,7 @@ class DatabaseManagementSubPageState extends State<DatabaseManagementSubPage> {
             const SizedBox(height: 16.0),
             Text(
               AppLocalizations.of(context)!.serverBased,
-              style: Theme.of(context).textTheme.headline4,
+              style: Theme.of(context).textTheme.headlineMedium,
             ),
             const SizedBox(height: 16.0),
             ExpansionPanelList(

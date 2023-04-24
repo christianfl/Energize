@@ -71,12 +71,12 @@ class TrackingPageState extends State<TrackingPage> {
         await CompleteDaysDatabaseService.completedDays;
 
     return showDialog<void>(
-      context: context,
+      context: ctx,
       builder: (BuildContext context) {
         return AlertDialog(
           title: Text(
             MaterialLocalizations.of(context).datePickerHelpText.toUpperCase(),
-            style: Theme.of(context).textTheme.overline,
+            style: Theme.of(context).textTheme.labelSmall,
           ),
           content: SingleChildScrollView(
             child: SizedBox(
@@ -196,7 +196,7 @@ class TrackingPageState extends State<TrackingPage> {
 
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          backgroundColor: Theme.of(context).errorColor,
+          backgroundColor: Theme.of(context).colorScheme.error,
           content: Text(AppLocalizations.of(context)!.unmarkedDayAsComplete),
         ),
       );

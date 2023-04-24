@@ -100,7 +100,7 @@ class _EnergyDistributionTabState extends State<EnergyDistributionTab> {
       children: [
         Text(
           AppLocalizations.of(context)!.totalEnergy,
-          style: Theme.of(context).textTheme.headline4,
+          style: Theme.of(context).textTheme.headlineMedium,
         ),
         ListTile(
           leading: const Icon(Icons.bolt),
@@ -161,13 +161,13 @@ class _EnergyDistributionTabState extends State<EnergyDistributionTab> {
         ),
         Text(
           '* ${AppLocalizations.of(context)!.percentOfTotalEnergy} (kcal)',
-          style: Theme.of(context).textTheme.caption,
+          style: Theme.of(context).textTheme.bodySmall,
           textAlign: TextAlign.end,
         ),
         const SizedBox(height: 20),
         Text(
           AppLocalizations.of(context)!.selectedMacronutrient,
-          style: Theme.of(context).textTheme.headline4,
+          style: Theme.of(context).textTheme.headlineMedium,
         ),
         const SizedBox(height: 10),
         Card(

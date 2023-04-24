@@ -1,9 +1,6 @@
 import 'package:collection/collection.dart';
 import 'package:json_annotation/json_annotation.dart';
-import 'package:openfoodfacts/model/Nutrient.dart';
-import 'package:openfoodfacts/model/PerSize.dart';
-import 'package:openfoodfacts/model/Product.dart';
-import 'package:openfoodfacts/utils/UnitHelper.dart';
+import 'package:openfoodfacts/openfoodfacts.dart';
 import 'package:uuid/uuid.dart';
 
 import '../../services/food_database_bindings/open_food_facts/open_food_facts_binding.dart';
@@ -26,7 +23,10 @@ class Food {
   String? imageThumbnailUrl;
 
   /// String: servingName, double: Amount in g per servingName
-  @JsonKey(ignore: true)
+  @JsonKey(
+    includeFromJson: false,
+    includeToJson: false,
+  )
   Map<String, double>? servingSizes;
 
   // #################### Calories ####################

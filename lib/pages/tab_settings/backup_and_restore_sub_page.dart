@@ -157,7 +157,7 @@ class BackupAndRestoreSubPageState extends State<BackupAndRestoreSubPage> {
             backgroundColor: Colors.red,
             content: e.message == 'Http status error [401]'
                 ? const Text('Username or password incorrect')
-                : Text(e.message),
+                : Text(e.message ?? 'Unknown error'),
           ),
         );
       }
@@ -433,7 +433,7 @@ class BackupAndRestoreSubPageState extends State<BackupAndRestoreSubPage> {
                       const SizedBox(height: 20),
                       Text(
                         'Please note the encryption password. You won\'t be able to restore your data without it.',
-                        style: Theme.of(context).textTheme.caption,
+                        style: Theme.of(context).textTheme.bodySmall,
                       ),
                     ],
                   ),

@@ -1,9 +1,6 @@
 import 'dart:io';
 
-import 'package:openfoodfacts/model/UserAgent.dart';
-import 'package:openfoodfacts/model/parameter/SearchTerms.dart';
 import 'package:openfoodfacts/openfoodfacts.dart';
-import 'package:openfoodfacts/utils/OpenFoodAPIConfiguration.dart';
 
 import '../../../models/food/food.dart';
 import 'product_not_found_exception.dart';
@@ -31,10 +28,12 @@ class OpenFoodFactsBinding {
       barcode,
       language: _queryLanguage,
       fields: [ProductField.ALL],
+      version: const ProductQueryVersion(3),
     );
-    ProductResult result = await OpenFoodAPIClient.getProduct(configuration);
+    ProductResultV3 result =
+        await OpenFoodAPIClient.getProductV3(configuration);
 
-    if (result.status == 1) {
+    if (result.status == 'statusSuccess') {
       return Food.fromOpenFoodFactsProduct(result.product!);
     } else {
       throw ProductNotFoundException(barcode);
@@ -52,7 +51,10 @@ class OpenFoodFactsBinding {
 
     ProductSearchQueryConfiguration configuration =
         ProductSearchQueryConfiguration(
-            parametersList: parameters, language: _queryLanguage);
+      parametersList: parameters,
+      language: _queryLanguage,
+      version: const ProductQueryVersion(3),
+    );
 
     SearchResult result =
         await OpenFoodAPIClient.searchProducts(null, configuration);

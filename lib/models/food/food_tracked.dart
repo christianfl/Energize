@@ -27,7 +27,10 @@ class FoodTracked extends Food {
   final DateTime dateEaten;
 
   /// Refers to index of servingSizes Map, if serving size was selected
-  @JsonKey(ignore: true)
+  @JsonKey(
+    includeFromJson: false,
+    includeToJson: false,
+  )
   int? selectedServingSizeIndex;
 
   FoodTracked({

@@ -88,7 +88,7 @@ class SettingsPage extends StatelessWidget {
               ),
               title: Text(
                 AppLocalizations.of(context)!.supportMeByDonating,
-                style: Theme.of(context).textTheme.subtitle1?.copyWith(
+                style: Theme.of(context).textTheme.titleMedium?.copyWith(
                       fontWeight: FontWeight.bold,
                       color: Colors.black,
                     ),

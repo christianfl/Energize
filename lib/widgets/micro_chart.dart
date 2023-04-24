@@ -213,7 +213,7 @@ class MicroChart extends StatelessWidget {
             padding: const EdgeInsets.only(bottom: 12.0),
             child: Text(
               AppLocalizations.of(context)!.vitamins,
-              style: Theme.of(context).textTheme.headline4,
+              style: Theme.of(context).textTheme.headlineMedium,
             ),
           ),
         if (showZero || (!showZero && _totalVitaminA(foods) != 0))
@@ -325,7 +325,7 @@ class MicroChart extends StatelessWidget {
             padding: const EdgeInsets.only(top: 12.0),
             child: Text(
               AppLocalizations.of(context)!.minerals,
-              style: Theme.of(context).textTheme.headline4,
+              style: Theme.of(context).textTheme.headlineMedium,
             ),
           ),
         if (showZero)
@@ -333,7 +333,7 @@ class MicroChart extends StatelessWidget {
             padding: const EdgeInsets.only(top: 12.0, bottom: 12.0),
             child: Text(
               AppLocalizations.of(context)!.majorMinerals,
-              style: Theme.of(context).textTheme.headline5,
+              style: Theme.of(context).textTheme.headlineSmall,
             ),
           ),
         if (showZero || (!showZero && _totalCalcium(foods) != 0))
@@ -389,7 +389,7 @@ class MicroChart extends StatelessWidget {
             padding: const EdgeInsets.only(top: 12.0, bottom: 12.0),
             child: Text(
               AppLocalizations.of(context)!.traceElements,
-              style: Theme.of(context).textTheme.headline5,
+              style: Theme.of(context).textTheme.headlineSmall,
             ),
           ),
         if (showZero || (!showZero && _totalChromium(foods) != 0))
@@ -469,7 +469,7 @@ class MicroChart extends StatelessWidget {
             padding: const EdgeInsets.only(top: 12.0, bottom: 12.0),
             child: Text(
               AppLocalizations.of(context)!.fats,
-              style: Theme.of(context).textTheme.headline4,
+              style: Theme.of(context).textTheme.headlineMedium,
             ),
           ),
         if (showZero || (!showZero && _totalMonounsaturatedFat(foods) != 0))
@@ -539,7 +539,7 @@ class MicroChart extends StatelessWidget {
             padding: const EdgeInsets.only(top: 12.0, bottom: 12.0),
             child: Text(
               AppLocalizations.of(context)!.carbs,
-              style: Theme.of(context).textTheme.headline4,
+              style: Theme.of(context).textTheme.headlineMedium,
             ),
           ),
         if (showZero || (!showZero && _totalFiber(foods) != 0))
@@ -579,7 +579,7 @@ class MicroChart extends StatelessWidget {
             padding: const EdgeInsets.only(top: 12.0, bottom: 12.0),
             child: Text(
               AppLocalizations.of(context)!.other,
-              style: Theme.of(context).textTheme.headline4,
+              style: Theme.of(context).textTheme.headlineMedium,
             ),
           ),
         if (showZero || (!showZero && _totalWater(foods) != 0))

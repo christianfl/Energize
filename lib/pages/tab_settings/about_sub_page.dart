@@ -44,17 +44,17 @@ class AboutSubPage extends StatelessWidget {
                     children: [
                       Text(
                         AppLocalizations.of(context)!.appName,
-                        style: Theme.of(context).textTheme.headline4,
+                        style: Theme.of(context).textTheme.headlineMedium,
                       ),
                       const Text('v$appVersion'),
                       const SizedBox(height: 8),
                       Text(
                         _copyrightNotice,
-                        style: Theme.of(context).textTheme.caption,
+                        style: Theme.of(context).textTheme.bodySmall,
                       ),
                       Text(
                         '${AppLocalizations.of(context)!.license}: $_license',
-                        style: Theme.of(context).textTheme.caption,
+                        style: Theme.of(context).textTheme.bodySmall,
                       ),
                       OutlinedButton(
                         onPressed: () => showLicensePage(
@@ -72,7 +72,7 @@ class AboutSubPage extends StatelessWidget {
                         ),
                         child: Text(
                           AppLocalizations.of(context)!.allLicenses,
-                          style: Theme.of(context).textTheme.caption,
+                          style: Theme.of(context).textTheme.bodySmall,
                         ),
                       ),
                     ],
