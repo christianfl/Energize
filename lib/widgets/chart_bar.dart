@@ -50,7 +50,7 @@ class ChartBar extends StatelessWidget {
             Expanded(child: Text(title)),
             Expanded(
               child: Center(
-                child: Text('${_percentage.toStringAsFixed(0)}%'),
+                child: Text('${_percentage.toStringAsFixed(0)} %'),
               ),
             ),
             Expanded(
