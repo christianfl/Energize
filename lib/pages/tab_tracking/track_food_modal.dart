@@ -357,6 +357,7 @@ class TrackFoodState extends State<TrackFood>
                     child: MacroChart(
                       [_getConvertedFoodForChart(food)],
                       hideCard: true,
+                      decimalPlaces: 1,
                     ),
                   ),
                   SingleChildScrollView(

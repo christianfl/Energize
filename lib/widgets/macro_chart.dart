@@ -9,11 +9,13 @@ import '../providers/app_settings.dart';
 class MacroChart extends StatelessWidget {
   final List<FoodTracked> foods;
   final bool? hideCard;
+  final int? decimalPlaces;
 
   const MacroChart(
     this.foods, {
     Key? key,
     this.hideCard,
+    this.decimalPlaces = 0,
   }) : super(key: key);
 
   double get _totalCalories {
@@ -51,7 +53,7 @@ class MacroChart extends StatelessWidget {
           target: appSettings.caloriesTarget,
           unit: 'kcal',
           color: Colors.yellow,
-          decimalPlaces: 0,
+          decimalPlaces: decimalPlaces,
         ),
         const SizedBox(height: 12.0),
         ChartBar(
@@ -60,7 +62,7 @@ class MacroChart extends StatelessWidget {
           target: appSettings.proteinTarget,
           unit: 'g',
           color: Colors.green,
-          decimalPlaces: 0,
+          decimalPlaces: decimalPlaces,
         ),
         ChartBar(
           title: AppLocalizations.of(context)!.carbs,
@@ -68,7 +70,7 @@ class MacroChart extends StatelessWidget {
           target: appSettings.carbsTarget,
           unit: 'g',
           color: Colors.blue,
-          decimalPlaces: 0,
+          decimalPlaces: decimalPlaces,
         ),
         ChartBar(
           title: AppLocalizations.of(context)!.fat,
@@ -76,7 +78,7 @@ class MacroChart extends StatelessWidget {
           target: appSettings.fatTarget,
           unit: 'g',
           color: Colors.red,
-          decimalPlaces: 0,
+          decimalPlaces: decimalPlaces,
         ),
       ],
     );
