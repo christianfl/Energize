@@ -1,10 +1,9 @@
-import 'package:charts_flutter/flutter.dart' as charts;
+import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../../providers/app_settings.dart';
-import 'macro_chart_segment.dart';
 
 class EnergyDistributionTab extends StatefulWidget {
   const EnergyDistributionTab({Key? key}) : super(key: key);
@@ -14,68 +13,32 @@ class EnergyDistributionTab extends StatefulWidget {
 }
 
 class _EnergyDistributionTabState extends State<EnergyDistributionTab> {
-  Map<String, String> _chartSegmentDropdownItems = {
-    'protein': 'protein',
-    'carbs': 'carbs',
-    'fat': 'fat',
-  };
-  String _selectedChartSegmentDropdownItem = 'protein';
-
-  List<charts.Series<MacroChartSegment, String>> _createSampleData(
-    BuildContext context,
-    AppSettings appSettings,
-  ) {
-    double proteinPercentageOfCalories =
-        _getProteinPercentageOfCalories(appSettings);
-
-    double carbsPercentageOfCalories =
-        _getCarbsPercentageOfCalories(appSettings);
-
-    double fatPercentageOfCalories = _getFatPercentageOfCalories(appSettings);
-
-    final List<MacroChartSegment> chartData = [
-      MacroChartSegment(
-        '${AppLocalizations.of(context)!.protein}\n(${proteinPercentageOfCalories.toStringAsFixed(1)}% *)',
-        proteinPercentageOfCalories,
-        charts.ColorUtil.fromDartColor(Colors.green),
-      ),
-      MacroChartSegment(
-        '${AppLocalizations.of(context)!.carbs}\n(${carbsPercentageOfCalories.toStringAsFixed(1)}% *)',
-        carbsPercentageOfCalories,
-        charts.ColorUtil.fromDartColor(Colors.blue),
-      ),
-      MacroChartSegment(
-        '${AppLocalizations.of(context)!.fat}\n(${fatPercentageOfCalories.toStringAsFixed(1)}% *)',
-        fatPercentageOfCalories,
-        charts.ColorUtil.fromDartColor(Colors.red),
-      ),
-    ];
-
-    return [
-      charts.Series<MacroChartSegment, String>(
-        id: 'MacroDistribution',
-        domainFn: (MacroChartSegment macro, _) => macro.partName,
-        measureFn: (MacroChartSegment macro, _) => macro.fraction,
-        data: chartData,
-        colorFn: (MacroChartSegment segment, _) => segment.color,
-      )
-    ];
-  }
+  /// 0 = protein, 1 = carbs, 2 = fat
+  int _touchedIndex = 0;
 
   double _getTotalCalories(AppSettings appSettings) {
     return appSettings.caloriesTarget;
   }
 
+  /// Hint: Calorie factor: 4
   double _getProteinPercentageOfCalories(AppSettings appSettings) {
-    return appSettings.proteinTarget * 4 / _getTotalCalories(appSettings) * 100;
+    return double.parse(
+        (appSettings.proteinTarget * 4 / _getTotalCalories(appSettings) * 100)
+            .toStringAsFixed(1));
   }
 
+  /// Hint: Calorie factor: 4
   double _getCarbsPercentageOfCalories(AppSettings appSettings) {
-    return appSettings.carbsTarget * 4 / _getTotalCalories(appSettings) * 100;
+    return double.parse(
+        (appSettings.carbsTarget * 4 / _getTotalCalories(appSettings) * 100)
+            .toStringAsFixed(1));
   }
 
+  /// Hint: Calorie factor: 9
   double _getFatPercentageOfCalories(AppSettings appSettings) {
-    return appSettings.fatTarget * 9 / _getTotalCalories(appSettings) * 100;
+    return double.parse(
+        (appSettings.fatTarget * 9 / _getTotalCalories(appSettings) * 100)
+            .toStringAsFixed(1));
   }
 
   /// Returns the sum of percentages of each macronutrient from the total calories, can be more than 100%
@@ -88,12 +51,6 @@ class _EnergyDistributionTabState extends State<EnergyDistributionTab> {
   @override
   Widget build(BuildContext context) {
     final appSettings = Provider.of<AppSettings>(context);
-
-    _chartSegmentDropdownItems = {
-      'protein': AppLocalizations.of(context)!.protein,
-      'carbs': AppLocalizations.of(context)!.carbs,
-      'fat': AppLocalizations.of(context)!.fat,
-    };
 
     return ListView(
       padding: const EdgeInsets.all(12.0),
@@ -115,46 +72,35 @@ class _EnergyDistributionTabState extends State<EnergyDistributionTab> {
             ),
           ),
         ),
-        SizedBox(
-          height: 300,
+        AspectRatio(
+          aspectRatio: 1.1,
           child: Stack(
-            alignment: AlignmentDirectional.center,
+            alignment: Alignment.center,
             children: [
               Text(
-                  '= ${_getTotalCaloriesPercentage(appSettings).toStringAsFixed(0)}%'),
-              charts.PieChart<String>(
-                _createSampleData(context, appSettings),
-                animate: true,
-                defaultRenderer: charts.ArcRendererConfig(
-                  arcWidth: 100,
-                  arcRendererDecorators: [
-                    charts.ArcLabelDecorator(
-                      insideLabelStyleSpec: charts.TextStyleSpec(
-                        color: charts.ColorUtil.fromDartColor(Colors.black),
-                        fontSize: 14,
-                      ),
-                      outsideLabelStyleSpec: charts.TextStyleSpec(
-                        color: charts.ColorUtil.fromDartColor(Colors.black),
-                        fontSize: 14,
-                      ),
-                    ),
-                  ],
-                ),
-                selectionModels: [
-                  charts.SelectionModelConfig(
-                    changedListener: (charts.SelectionModel model) {
-                      final indexOfSelected = model.selectedDatum[0].index;
-
-                      if (indexOfSelected != null) {
-                        setState(() {
-                          _selectedChartSegmentDropdownItem =
-                              _chartSegmentDropdownItems.keys
-                                  .toList()[indexOfSelected];
-                        });
-                      }
+                  '= ${_getTotalCaloriesPercentage(appSettings).toStringAsFixed(0)} %'),
+              PieChart(
+                PieChartData(
+                  pieTouchData: PieTouchData(
+                    touchCallback: (FlTouchEvent event, pieTouchResponse) {
+                      setState(() {
+                        if (!event.isInterestedForInteractions ||
+                            pieTouchResponse == null ||
+                            pieTouchResponse.touchedSection == null) {
+                          return;
+                        }
+                        _touchedIndex = pieTouchResponse
+                            .touchedSection!.touchedSectionIndex;
+                      });
                     },
-                  )
-                ],
+                  ),
+                  borderData: FlBorderData(
+                    show: false,
+                  ),
+                  sectionsSpace: 5,
+                  centerSpaceRadius: 30,
+                  sections: showingSections(),
+                ),
               ),
             ],
           ),
@@ -171,11 +117,11 @@ class _EnergyDistributionTabState extends State<EnergyDistributionTab> {
         ),
         const SizedBox(height: 10),
         Card(
-          color: _selectedChartSegmentDropdownItem == 'protein'
+          color: _touchedIndex == 0
               ? Colors.green
-              : _selectedChartSegmentDropdownItem == 'carbs'
+              : _touchedIndex == 1
                   ? Colors.blue
-                  : _selectedChartSegmentDropdownItem == 'fat'
+                  : _touchedIndex == 2
                       ? Colors.red
                       : null,
           child: Padding(
@@ -183,28 +129,31 @@ class _EnergyDistributionTabState extends State<EnergyDistributionTab> {
             child: Row(
               children: [
                 Expanded(
-                  child: DropdownButtonFormField<String>(
-                    value: _selectedChartSegmentDropdownItem,
+                  child: DropdownButtonFormField<int>(
+                    value: _touchedIndex,
                     isExpanded: true,
-                    onChanged: (String? newValue) {
+                    onChanged: (int? newValue) {
                       setState(() {
-                        _selectedChartSegmentDropdownItem = newValue!;
+                        _touchedIndex = newValue!;
                       });
                     },
-                    items: _chartSegmentDropdownItems
-                        .map((value, valueName) {
-                          return MapEntry(
-                              value,
-                              DropdownMenuItem<String>(
-                                value: value,
-                                child: Text(valueName),
-                              ));
-                        })
-                        .values
-                        .toList(),
+                    items: [
+                      DropdownMenuItem<int>(
+                        value: 0,
+                        child: Text(AppLocalizations.of(context)!.protein),
+                      ),
+                      DropdownMenuItem<int>(
+                        value: 1,
+                        child: Text(AppLocalizations.of(context)!.carbs),
+                      ),
+                      DropdownMenuItem<int>(
+                        value: 2,
+                        child: Text(AppLocalizations.of(context)!.fat),
+                      ),
+                    ],
                   ),
                 ),
-                if (_selectedChartSegmentDropdownItem == 'protein')
+                if (_touchedIndex == 0)
                   Expanded(
                     child: ListTile(
                       title: TextFormField(
@@ -223,7 +172,7 @@ class _EnergyDistributionTabState extends State<EnergyDistributionTab> {
                       ),
                     ),
                   )
-                else if (_selectedChartSegmentDropdownItem == 'carbs')
+                else if (_touchedIndex == 1)
                   Expanded(
                     child: ListTile(
                       title: TextFormField(
@@ -242,7 +191,7 @@ class _EnergyDistributionTabState extends State<EnergyDistributionTab> {
                       ),
                     ),
                   )
-                else if (_selectedChartSegmentDropdownItem == 'fat')
+                else if (_touchedIndex == 2)
                   Expanded(
                     child: ListTile(
                       title: TextFormField(
@@ -267,5 +216,78 @@ class _EnergyDistributionTabState extends State<EnergyDistributionTab> {
         ),
       ],
     );
+  }
+
+  PieChartSectionData _getPieChartSectionData(
+    Color color,
+    double value,
+    String title,
+    double radius,
+    double fontSize,
+    double widgetSize,
+  ) {
+    return PieChartSectionData(
+      color: color,
+      value: value,
+      title: '$value%',
+      radius: radius,
+      titleStyle: TextStyle(
+        fontSize: fontSize,
+        fontWeight: FontWeight.bold,
+        color: const Color(0xffffffff),
+        shadows: const [Shadow(color: Colors.black, blurRadius: 2)],
+      ),
+      badgeWidget: CircleAvatar(
+        backgroundColor: Colors.white,
+        child: Text(title.substring(0, 1)),
+      ),
+      badgePositionPercentageOffset: .98,
+    );
+  }
+
+  List<PieChartSectionData> showingSections() {
+    final appSettings = Provider.of<AppSettings>(context, listen: false);
+
+    return List.generate(3, (i) {
+      final isTouched = i == _touchedIndex;
+      final fontSize = isTouched ? 20.0 : 16.0;
+      final radius = isTouched ? 110.0 : 100.0;
+      final widgetSize = isTouched ? 55.0 : 40.0;
+
+      switch (i) {
+        case 0:
+          return _getPieChartSectionData(
+            Colors.green,
+            _getProteinPercentageOfCalories(appSettings),
+            AppLocalizations.of(context)!.protein,
+            radius,
+            fontSize,
+            widgetSize,
+          );
+
+        case 1:
+          return _getPieChartSectionData(
+            Colors.blue,
+            _getCarbsPercentageOfCalories(appSettings),
+            AppLocalizations.of(context)!.carbs,
+            radius,
+            fontSize,
+            widgetSize,
+          );
+
+        case 2:
+          return _getPieChartSectionData(
+            Colors.red,
+            _getFatPercentageOfCalories(appSettings),
+            AppLocalizations.of(context)!.fat,
+            radius,
+            fontSize,
+            widgetSize,
+          );
+
+        default:
+          throw Exception('Oh no');
+      }
+    });
   }
 }

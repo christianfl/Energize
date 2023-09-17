@@ -153,9 +153,9 @@ class AboutSubPage extends StatelessWidget {
                     child: Text(AppLocalizations.of(context)!.contact),
                   ),
                   subtitle: Text(AppLocalizations.of(context)!.emailHint),
-                  trailing: Column(
+                  trailing: const Column(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: const [
+                    children: [
                       Icon(Icons.mail),
                     ],
                   ),

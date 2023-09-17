@@ -171,10 +171,10 @@ class FoodPageState extends State<FoodPage> {
                     },
                     itemCount: _searchResultFoods.length,
                   )
-                : Center(
+                : const Center(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
-                      children: const [
+                      children: [
                         Icon(Icons.no_food, size: 100),
                       ],
                     ),

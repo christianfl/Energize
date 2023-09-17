@@ -1,7 +1,7 @@
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 
-class DatabaseService {
+mixin DatabaseService {
   static Database? _database;
   static const db = 'foods_database.db';
   static const customFoodstable = 'customfoods';

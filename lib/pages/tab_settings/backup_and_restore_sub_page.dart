@@ -134,7 +134,7 @@ class BackupAndRestoreSubPageState extends State<BackupAndRestoreSubPage> {
       try {
         await dio.request(_backupTargetPathWithoutFilename,
             options: Options(method: 'MKCOL'));
-      } on DioError {
+      } on DioException {
         // Folder possibly already created
       }
 
@@ -149,7 +149,7 @@ class BackupAndRestoreSubPageState extends State<BackupAndRestoreSubPage> {
                 ),
               },
             );
-      } on DioError catch (e) {
+      } on DioException catch (e) {
         if (!mounted) return;
 
         ScaffoldMessenger.of(context).showSnackBar(
@@ -216,7 +216,7 @@ class BackupAndRestoreSubPageState extends State<BackupAndRestoreSubPage> {
                 ),
               ),
             });
-      } on DioError catch (e) {
+      } on DioException catch (e) {
         // In case something went wrong with the WebDAV part
 
         if (!mounted) return;

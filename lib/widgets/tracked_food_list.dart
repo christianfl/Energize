@@ -38,9 +38,9 @@ class TrackedFoodList extends StatelessWidget {
 
     return Expanded(
       child: foods.isEmpty
-          ? Column(
+          ? const Column(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: const [
+              children: [
                 Icon(Icons.no_food, size: 100),
               ],
             )
