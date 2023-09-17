@@ -222,6 +222,21 @@ class FoodTracked extends Food {
     }
   }
 
+  /// Returns the total protein of the tracked food in g
+  double get proteinPerAmount {
+    return (protein ?? 0) / 100 * amount;
+  }
+
+  /// Returns the total carbs of the tracked food in g
+  double get carbsPerAmount {
+    return (carbs ?? 0) / 100 * amount;
+  }
+
+  /// Returns the total fat of the tracked food in g
+  double get fatPerAmount {
+    return (fat ?? 0) / 100 * amount;
+  }
+
   /// Connect the generated fromJson function to the `fromJson` factory.
   factory FoodTracked.fromJson(Map<String, dynamic> json) =>
       _$FoodTrackedFromJson(json);

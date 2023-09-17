@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 
 import '../../providers/tracked_food_provider.dart';
@@ -96,13 +97,44 @@ class TrackedFoodList extends StatelessWidget {
                                     maxLines: 2,
                                     overflow: TextOverflow.ellipsis,
                                   ),
-                                  Text(
-                                    '${food.amount} g',
-                                    style: const TextStyle(
-                                      color: Colors.grey,
-                                      fontWeight: FontWeight.w300,
-                                      fontSize: 10,
-                                    ),
+                                  Row(
+                                    children: [
+                                      Text(
+                                        '${food.amount} g',
+                                        style: const TextStyle(
+                                          color: Colors.grey,
+                                          fontWeight: FontWeight.w300,
+                                          fontSize: 10,
+                                        ),
+                                      ),
+                                      const SizedBox(width: 10),
+                                      Text(
+                                        '[${AppLocalizations.of(context)!.protein.substring(0, 1)} ${food.proteinPerAmount.toStringAsFixed(0)}]',
+                                        style: const TextStyle(
+                                          color: Colors.green,
+                                          fontWeight: FontWeight.w300,
+                                          fontSize: 10,
+                                        ),
+                                      ),
+                                      const SizedBox(width: 10),
+                                      Text(
+                                        '[${AppLocalizations.of(context)!.carbs.substring(0, 1)} ${food.carbsPerAmount.toStringAsFixed(0)}]',
+                                        style: const TextStyle(
+                                          color: Colors.blue,
+                                          fontWeight: FontWeight.w300,
+                                          fontSize: 10,
+                                        ),
+                                      ),
+                                      const SizedBox(width: 10),
+                                      Text(
+                                        '[${AppLocalizations.of(context)!.fat.substring(0, 1)} ${food.fatPerAmount.toStringAsFixed(0)}]',
+                                        style: const TextStyle(
+                                          color: Colors.red,
+                                          fontWeight: FontWeight.w300,
+                                          fontSize: 10,
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                 ],
                               ),
