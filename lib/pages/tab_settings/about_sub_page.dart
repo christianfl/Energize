@@ -5,7 +5,7 @@ import 'package:url_launcher/url_launcher.dart';
 class AboutSubPage extends StatelessWidget {
   static const routeName = '/settings/about';
 
-  static const appVersion = '0.5.1';
+  static const appVersion = '0.6.0';
   static const email = 'energize@flasskamp.com';
 
   static const _repoUrl = 'https://codeberg.org/epinez/Energize';

@@ -1,0 +1,6 @@
+* The overview for tracked food now shows macronutrients for each entry
+* When adding new food, the macronutrients are shown with one decimal place
+* Added translations for: Serbian, Ukrainian, Catalan, and Spanish (thanks to the Weblate contributors!)
+* Updated translations for multiple languages (thanks, too!)
+* New pie chart for macronutrients targets distribution
+* Minor changes and improvements under the hood
