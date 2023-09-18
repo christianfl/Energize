@@ -33,7 +33,7 @@ class OpenFoodFactsBinding {
     ProductResultV3 result =
         await OpenFoodAPIClient.getProductV3(configuration);
 
-    if (result.status == 'statusSuccess') {
+    if (result.status == ProductResultV3.statusSuccess) {
       return Food.fromOpenFoodFactsProduct(result.product!);
     } else {
       throw ProductNotFoundException(barcode);
