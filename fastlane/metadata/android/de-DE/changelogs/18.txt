@@ -1,0 +1,6 @@
+* Die Übersicht über getrackte Nahrung zeigt nun bei jedem Eintrag jeweils die Makronährstoffe
+* Wenn neue Nahrung hinzugefügt wird, werden die Makronährstoffe mit einer Nachkommastelle angezeigt
+* Übersetzungen hinzugefügt für: Serbisch, Ukrainisch, Katalanisch und Spanisch (Vielen Dank!)
+* Übersetzungen verbessert für zahlreiche Sprachen (Vielen Dank auch an euch!)
+* Neues Tortendiagramm für die Verteilung der Makronährstoffe
+* Kleine Änderungen und Verbesserungen unter der Haube
