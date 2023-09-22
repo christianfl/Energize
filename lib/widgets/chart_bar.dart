@@ -99,14 +99,12 @@ class ChartBar extends StatelessWidget {
                   ),
                 ),
               ),
-              Expanded(
-                child: Center(
-                  child: Text(
-                    _percentageString,
-                    style: const TextStyle(
-                      color: Colors.black,
-                      fontSize: 12,
-                    ),
+              Center(
+                child: Text(
+                  _percentageString,
+                  style: const TextStyle(
+                    color: Colors.black,
+                    fontSize: 12,
                   ),
                 ),
               ),
