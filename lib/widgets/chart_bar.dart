@@ -22,7 +22,16 @@ class ChartBar extends StatelessWidget {
     if (target > 0) {
       return value / target * 100;
     } else {
-      return 100;
+      return 0;
+    }
+  }
+
+  /// Return 'x %' or an empty string in case of 0 %
+  String get _percentageString {
+    if (_percentage > 0) {
+      return '${_percentage.toStringAsFixed(0)} %';
+    } else {
+      return '';
     }
   }
 
@@ -41,6 +50,19 @@ class ChartBar extends StatelessWidget {
     return decimalPlaces!;
   }
 
+  /// If there are no targets return e.g. '30 g', otherwise e.g. '30 / 90 g'
+  String get _fromTargetString {
+    String trackedSum = value.toStringAsFixed(_valueDecimalPlaces);
+
+    if (target == 0) {
+      trackedSum += ' $unit';
+    } else {
+      trackedSum += ' / ${target.toStringAsFixed(_valueDecimalPlaces)} $unit';
+    }
+
+    return trackedSum;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -49,28 +71,21 @@ class ChartBar extends StatelessWidget {
           children: [
             Expanded(child: Text(title)),
             Expanded(
-              child: Center(
-                child: Text('${_percentage.toStringAsFixed(0)} %'),
-              ),
-            ),
-            Expanded(
               child: Container(
                 alignment: Alignment.centerRight,
-                child: Text(
-                    '${value.toStringAsFixed(_valueDecimalPlaces)} / ${target.toStringAsFixed(_valueDecimalPlaces)} $unit'),
+                child: Text(_fromTargetString),
               ),
             ),
           ],
         ),
         const SizedBox(height: 2),
         Container(
-          height: 10,
+          height: 12,
           margin: const EdgeInsets.only(bottom: 6),
           child: Stack(
             children: [
               Container(
                 decoration: BoxDecoration(
-                  border: Border.all(color: Colors.grey, width: 1.0),
                   color: const Color.fromRGBO(220, 220, 220, 1),
                   borderRadius: BorderRadius.circular(20),
                 ),
@@ -78,13 +93,23 @@ class ChartBar extends StatelessWidget {
               FractionallySizedBox(
                 widthFactor: _percentageBar,
                 child: Container(
-                  margin: const EdgeInsets.all(1),
                   decoration: BoxDecoration(
                     color: color,
                     borderRadius: BorderRadius.circular(20),
                   ),
                 ),
-              )
+              ),
+              Expanded(
+                child: Center(
+                  child: Text(
+                    _percentageString,
+                    style: const TextStyle(
+                      color: Colors.black,
+                      fontSize: 12,
+                    ),
+                  ),
+                ),
+              ),
             ],
           ),
         )
