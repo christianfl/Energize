@@ -66,9 +66,10 @@ class TrackedFoodList extends StatelessWidget {
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
                         backgroundColor: Theme.of(context).colorScheme.error,
-                        content: Text('${food.title} deleted!'),
+                        content: Text(
+                            '${food.title} ${AppLocalizations.of(context)!.deleted}'),
                         action: SnackBarAction(
-                          label: 'Undo',
+                          label: AppLocalizations.of(context)!.undo,
                           textColor: Theme.of(context).colorScheme.onSecondary,
                           onPressed: () {
                             trackedFood.addEatenFood(swipedFood);

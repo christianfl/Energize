@@ -9,6 +9,8 @@
   "@fieldMandatory": {},
   "onlyNumbersAllowed": "Nur Zahlen sind erlaubt",
   "@onlyNumbersAllowed": {},
+  "undo": "Rückgängig machen",
+  "deleted": "gelöscht",
   "tracking": "Tracking",
   "@tracking": {},
   "energy": "Energie",

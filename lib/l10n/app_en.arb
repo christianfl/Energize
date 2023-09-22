@@ -6,6 +6,8 @@
     "appDescription": "Track your food and nutrition easily and fast. Scan your products or search manually in different databases.",
     "fieldMandatory": "Please enter a value",
     "onlyNumbersAllowed": "Only numbers are allowed",
+    "undo": "Undo",
+    "deleted": "deleted",
     "@_TRACKING": {
     },
     "tracking": "Tracking",
