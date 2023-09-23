@@ -305,7 +305,7 @@
   "@iodine": {},
   "copper": "Cobre",
   "@copper": {},
-  "manganese": "Magnesio",
+  "manganese": "Manganeso",
   "@manganese": {},
   "molybdenum": "Molibdeno",
   "@molybdenum": {},
@@ -350,5 +350,9 @@
   "tapHereForFurtherInformation": "Toque aquí para más información.",
   "@tapHereForFurtherInformation": {},
   "openFoodFactsGeneralInformationText": "Tenga en cuenta que aunque esta base de datos es muy grande, el contenido puede ser incompleto u obsoleto. Todo usuario registrado puede actualizar los valores de nutrientes. Añadir nuevos productos es posible sin crear cuenta alguna. Si desactiva esta base de datos, también desactivará el escaneo EAN, por lo que sólo podrá escanear alimentos personalizados por su código EAN.",
-  "@openFoodFactsGeneralInformationText": {}
+  "@openFoodFactsGeneralInformationText": {},
+  "deleted": "borrado",
+  "@deleted": {},
+  "undo": "Deshacer",
+  "@undo": {}
 }
