@@ -61,7 +61,7 @@
   "@swissFoodCompositionDatabase": {},
   "publisher": "Editore",
   "@publisher": {},
-  "swissFoodCompositionDatabaseGeneralInformationText": "Questa banca dati offre circa 1100 prodotti generali e molti micronutrienti. Poiché è memorizzato sul tuo dispositivo, funziona quindi fuori linea.",
+  "swissFoodCompositionDatabaseGeneralInformationText": "Questa banca dati offre circa 1 100 prodotti generali e molti micronutrienti. Visto che è memorizzata sul tuo dispositivo, funziona senza rete dati.",
   "@swissFoodCompositionDatabaseGeneralInformationText": {},
   "source": "Fonte",
   "@source": {},
@@ -323,7 +323,7 @@
   "@age": {},
   "targetsApplyError": "Non è stato possibile applicare gli obiettivi nutrizionali",
   "@targetsApplyError": {},
-  "activityLevel1_6": "Sei un po' attivo/attiva, lavorai e a volte fai sport",
+  "activityLevel1_6": "Sei un po' attivo/attiva, lavori e a volte fai sport",
   "@activityLevel1_6": {},
   "noActivityLevelDescription": "Nessuna descrizione del livello di attività",
   "@noActivityLevelDescription": {},
@@ -350,5 +350,9 @@
   "fatRatio": "Livello di grasso",
   "@fatRatio": {},
   "emailHint": "Da usare solo per messaggi personali. Per segnalare problemi, suggerire miglioramenti o ottenere ulteriore assistenza, utilizzare i collegamenti riportati sopra.",
-  "@emailHint": {}
+  "@emailHint": {},
+  "deleted": "eliminato",
+  "@deleted": {},
+  "undo": "Annulla",
+  "@undo": {}
 }
