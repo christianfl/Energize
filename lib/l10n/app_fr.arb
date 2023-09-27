@@ -350,5 +350,9 @@
   "calculationInfoText2": "Le résultat de ce calcul est défini comme le métabolisme de base (MB). Il est multiplié par votre facteur d'activité pour obtenir votre conversion totale d'énergie. C'est votre apport énergétique calculé en kcal.",
   "@calculationInfoText2": {},
   "emailHint": "À utiliser uniquement pour les messages personnels. Pour signaler des problèmes, suggérer des améliorations ou obtenir de l'aide supplémentaire, veuillez utiliser les liens ci-dessus.",
-  "@emailHint": {}
+  "@emailHint": {},
+  "deleted": "supprimé",
+  "@deleted": {},
+  "undo": "Annuler",
+  "@undo": {}
 }
