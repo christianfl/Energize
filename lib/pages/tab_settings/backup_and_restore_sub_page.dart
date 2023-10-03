@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:crypto/crypto.dart';
@@ -29,6 +30,7 @@ class BackupAndRestoreSubPage extends StatefulWidget {
 }
 
 class BackupAndRestoreSubPageState extends State<BackupAndRestoreSubPage> {
+  bool _isCreatingBackup = false;
   final _serverSettingsFormKey = GlobalKey<FormState>();
   final _passwordsFormKey = GlobalKey<FormState>();
   final _serverUrlController = TextEditingController();
@@ -37,10 +39,10 @@ class BackupAndRestoreSubPageState extends State<BackupAndRestoreSubPage> {
   final _passwordController = TextEditingController();
   final _encryptionPasswordController = TextEditingController();
 
-  get _backupTargetPathWithoutFilename =>
+  String get _backupTargetPathWithoutFilename =>
       '${_serverUrlController.text}${path.dirname(_pathAndFilenameController.text)}';
 
-  get _backupTargetPathWithFilename =>
+  String get _backupTargetPathWithFilename =>
       '${_serverUrlController.text}${_pathAndFilenameController.text}';
 
   @override
@@ -59,9 +61,13 @@ class BackupAndRestoreSubPageState extends State<BackupAndRestoreSubPage> {
         utf8.encode('${_usernameController.text}:${_passwordController.text}');
     final basicAuth = 'Basic ${base64Encode(encoded)}';
 
-    Dio dio = Dio();
-    dio.options.headers['authorization'] = basicAuth;
-    dio.options.responseType = ResponseType.plain;
+    Dio dio = Dio(
+      BaseOptions(
+        connectTimeout: const Duration(seconds: 5),
+        headers: {'authorization': basicAuth},
+        responseType: ResponseType.plain,
+      ),
+    );
 
     return dio;
   }
@@ -111,14 +117,37 @@ class BackupAndRestoreSubPageState extends State<BackupAndRestoreSubPage> {
     return decrypted;
   }
 
+  _showError(BuildContext context, {String? text}) {
+    // STandard error text
+    text ??= 'An unknown error has occured';
+
+    // Show error
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        backgroundColor: Colors.red,
+        content: Text(text),
+      ),
+    );
+
+    // Stop loading spinner
+    setState(() {
+      _isCreatingBackup = false;
+    });
+  }
+
   _backup() async {
-    if (_isBackupServerDataPresent() == false) {
+    if (!_isBackupServerDataPresent) {
       return;
     }
 
     final hasUserConfirmedPasswords = await _showPasswordDialog();
 
     if (hasUserConfirmedPasswords == true) {
+      // Show creating backup loading spinner
+      setState(() {
+        _isCreatingBackup = true;
+      });
+
       Dio dio = _initializeDio();
 
       final backupData = BackupData(
@@ -130,42 +159,97 @@ class BackupAndRestoreSubPageState extends State<BackupAndRestoreSubPage> {
       final encodedBackupData = json.encode(backupData.toJson());
       final encryptedData = _encryptData(encodedBackupData);
 
-      // Create folder of path if not existing
+      // Check if server URL is reachable (without additional folder)
       try {
-        await dio.request(_backupTargetPathWithoutFilename,
-            options: Options(method: 'MKCOL'));
-      } on DioException {
-        // Folder possibly already created
+        await dio.request(
+          _serverUrlController.text,
+          options: Options(
+            method: 'PROPFIND',
+          ),
+        );
+      } on DioException catch (e) {
+        if (!mounted) return;
+
+        String? errorMessage;
+
+        if (e.error is SocketException) {
+          errorMessage = 'The server address is unknown';
+        } else if (e.type == DioExceptionType.connectionTimeout) {
+          errorMessage = 'Timeout while trying to reach the address';
+        } else if (e.response?.statusCode == 401) {
+          errorMessage = 'WebDAV server username or password incorrect';
+        }
+
+        return _showError(context, text: errorMessage);
+      } catch (e) {
+        if (!mounted) return;
+
+        return _showError(context);
       }
 
+      // We know the server exists and we have valid credentials. Now look up the target folder
       try {
-        await dio.put(_backupTargetPathWithFilename, data: encryptedData).then(
-              (response) => {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    content: Text(
-                        'Successfully created backup.\nExported ${backupData.customFood?.length ?? 0} custom foods and ${backupData.trackedFood?.length ?? 0} tracked foods'),
-                  ),
-                ),
-              },
+        Response res = await dio.request(
+          _backupTargetPathWithoutFilename,
+          options: Options(
+            method: 'PROPFIND',
+          ),
+        );
+
+        if (res.statusCode == 207) {
+          // Target backup folder already exists: All is fine!
+        } else if (res.statusCode == 404) {
+          // Target backup folder does not exist
+
+          // Create the folder
+          try {
+            await dio.request(
+              _backupTargetPathWithoutFilename,
+              options: Options(method: 'MKCOL'),
             );
-      } on DioException catch (e) {
+          } catch (e) {
+            // Error while creating the target folder for the backup
+            if (!mounted) return;
+
+            return _showError(context);
+          }
+        }
+      } catch (e) {
+        // Error while checking wether target backup folder exists or not
+        if (!mounted) return;
+
+        return _showError(context);
+      }
+
+      // Backup folder is accessible and does exist: Now upload backup to WebDAV share!
+      try {
+        await dio.put(_backupTargetPathWithFilename, data: encryptedData);
+
         if (!mounted) return;
 
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            backgroundColor: Colors.red,
-            content: e.message == 'Http status error [401]'
-                ? const Text('Username or password incorrect')
-                : Text(e.message ?? 'Unknown error'),
+            content: Text(
+              'Successfully created backup.\nExported ${backupData.customFood?.length ?? 0} custom foods and ${backupData.trackedFood?.length ?? 0} tracked foods',
+            ),
           ),
         );
+      } catch (e) {
+        // Error while uploading backup
+        if (!mounted) return;
+
+        return _showError(context);
       }
+
+      // Backup done, hide loading spinner
+      setState(() {
+        _isCreatingBackup = false;
+      });
     }
   }
 
   _restore() async {
-    if (_isBackupServerDataPresent() == false) {
+    if (!_isBackupServerDataPresent) {
       return;
     }
 
@@ -447,11 +531,10 @@ class BackupAndRestoreSubPageState extends State<BackupAndRestoreSubPage> {
               child: const Text('Cancel'),
             ),
             TextButton(
-              onPressed: () => {
-                if (_passwordsFormKey.currentState!.validate())
-                  {
-                    Navigator.of(context).pop(true),
-                  },
+              onPressed: () {
+                if (_passwordsFormKey.currentState!.validate()) {
+                  Navigator.of(context).pop(true);
+                }
               },
               child: const Text('OK'),
             ),
@@ -461,7 +544,7 @@ class BackupAndRestoreSubPageState extends State<BackupAndRestoreSubPage> {
     );
   }
 
-  bool _isBackupServerDataPresent() {
+  bool get _isBackupServerDataPresent {
     final appSettings = Provider.of<AppSettings>(context, listen: false);
 
     if (appSettings.backupServerUrl.isEmpty ||
@@ -471,7 +554,8 @@ class BackupAndRestoreSubPageState extends State<BackupAndRestoreSubPage> {
         const SnackBar(
           backgroundColor: Colors.red,
           content: Text(
-              'Please click on the settings icon first and setup a WebDAV server.'),
+            'Please click on the settings icon first and setup a WebDAV server.',
+          ),
         ),
       );
       return false;
@@ -499,7 +583,7 @@ class BackupAndRestoreSubPageState extends State<BackupAndRestoreSubPage> {
               padding: EdgeInsets.fromLTRB(12.0, 12.0, 12.0, 0.0),
               child: InfoCard(
                 message:
-                    'Warning: Currently in alpha. You can backup and restore tracked and custom food and completed days at the moment. Settings, personalizations, targets, etc. are still missing.',
+                    'Warning: Currently in alpha. You can backup and restore tracked and custom food and completed days at the moment. Settings, personalizations, targets, etc. are still missing. The encryption method might change in the future so it is not guaranteed that you can restore old backups within newer versions of Energize.',
                 icon: Icon(Icons.warning),
                 color: Colors.red,
               ),
@@ -513,9 +597,8 @@ class BackupAndRestoreSubPageState extends State<BackupAndRestoreSubPage> {
                 SelectActionCard(
                   icon: Icons.cloud_upload,
                   title: 'Create encrypted backup',
-                  onTap: () {
-                    _backup();
-                  },
+                  onTap: _isCreatingBackup ? null : () => _backup(),
+                  isLoading: _isCreatingBackup,
                 ),
                 SelectActionCard(
                   icon: Icons.cloud_download,
@@ -523,6 +606,7 @@ class BackupAndRestoreSubPageState extends State<BackupAndRestoreSubPage> {
                   onTap: () {
                     _restore();
                   },
+                  isLoading: false,
                 ),
               ],
             ),

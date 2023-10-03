@@ -3,13 +3,15 @@ import 'package:flutter/material.dart';
 class SelectActionCard extends StatelessWidget {
   final IconData icon;
   final String title;
-  final VoidCallback onTap;
+  final VoidCallback? onTap;
+  final bool isLoading;
 
   const SelectActionCard({
     Key? key,
     required this.icon,
     required this.title,
-    required this.onTap,
+    this.onTap,
+    required this.isLoading,
   }) : super(key: key);
 
   @override
@@ -24,20 +26,33 @@ class SelectActionCard extends StatelessWidget {
         onTap: onTap,
         child: Padding(
           padding: const EdgeInsets.all(8.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+          child: Stack(
+            alignment: Alignment.topRight,
             children: [
-              Icon(
-                icon,
-                size: 52,
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(
+                    icon,
+                    size: 52,
+                  ),
+                  const SizedBox(height: 6),
+                  Text(
+                    title,
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                    textAlign: TextAlign.center,
+                  ),
+                ],
               ),
-              const SizedBox(height: 6),
-              Text(
-                title,
-                maxLines: 2,
-                overflow: TextOverflow.ellipsis,
-                textAlign: TextAlign.center,
-              ),
+              if (isLoading)
+                const SizedBox(
+                  width: 16,
+                  height: 16,
+                  child: CircularProgressIndicator(
+                    strokeWidth: 2.0,
+                  ),
+                ),
             ],
           ),
         ),
