@@ -305,7 +305,15 @@ class TrackingPageState extends State<TrackingPage> {
               left: 8.0,
               right: 8.0,
             ),
-            child: MacroChart(trackedFoodProvider.foods),
+            child: ConstrainedBox(
+              constraints: BoxConstraints(
+                maxHeight: MediaQuery.of(context).size.height / 3,
+              ),
+              child: MacroChart(
+                trackedFoodProvider.foods,
+                padding: 10.0,
+              ),
+            ),
           ),
           TrackedFoodList(_scrollController, _setIsFabExplicitelyVisible),
         ],

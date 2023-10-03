@@ -12,9 +12,6 @@ import '../../widgets/food_origin_logo_pill.dart';
 class DatabaseManagementSubPage extends StatefulWidget {
   static const routeName = '/settings/database-provider';
 
-  static const double _dbImageWidth = 80;
-  static const double _dbImageHeight = 50;
-
   const DatabaseManagementSubPage({Key? key}) : super(key: key);
 
   @override
@@ -61,19 +58,6 @@ class DatabaseManagementSubPageState extends State<DatabaseManagementSubPage> {
                   canTapOnHeader: true,
                   headerBuilder: (context, isExpanded) {
                     return SwitchListTile(
-                      secondary: Padding(
-                        padding: const EdgeInsets.only(top: 8.0, bottom: 8.0),
-                        child: Container(
-                          width: DatabaseManagementSubPage._dbImageWidth,
-                          height: DatabaseManagementSubPage._dbImageHeight,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(8),
-                            color: Colors.white,
-                          ),
-                          child: const FoodOriginLogoPill(
-                              SwissFoodCompositionDatabaseBinding.originName),
-                        ),
-                      ),
                       title: Text(AppLocalizations.of(context)!
                           .swissFoodCompositionDatabase),
                       value: appSettings.isProviderSndbActivated,
@@ -83,6 +67,12 @@ class DatabaseManagementSubPageState extends State<DatabaseManagementSubPage> {
                   },
                   body: Column(
                     children: [
+                      const Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 16.0),
+                        child: FoodOriginLogoPill(
+                          SwissFoodCompositionDatabaseBinding.originName,
+                        ),
+                      ),
                       ListTile(
                         title: Text(AppLocalizations.of(context)!.language),
                         subtitle: Text(AppLocalizations.of(context)!.german),
@@ -145,23 +135,6 @@ class DatabaseManagementSubPageState extends State<DatabaseManagementSubPage> {
                   canTapOnHeader: true,
                   headerBuilder: (context, isExpanded) {
                     return SwitchListTile(
-                      secondary: Padding(
-                        padding: const EdgeInsets.only(top: 8.0, bottom: 8.0),
-                        child: Container(
-                          width: DatabaseManagementSubPage._dbImageWidth,
-                          height: DatabaseManagementSubPage._dbImageHeight,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(8),
-                            color: Colors.white,
-                          ),
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(8),
-                            child: Image.asset(
-                              OpenFoodFactsBinding.imageUrl,
-                            ),
-                          ),
-                        ),
-                      ),
                       title: const Text('Open Food Facts'),
                       value: appSettings.isProviderOpenFoodFactsActivated,
                       onChanged: (val) =>
@@ -170,6 +143,12 @@ class DatabaseManagementSubPageState extends State<DatabaseManagementSubPage> {
                   },
                   body: Column(
                     children: [
+                      const Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 16.0),
+                        child: FoodOriginLogoPill(
+                          OpenFoodFactsBinding.originName,
+                        ),
+                      ),
                       ListTile(
                         title: Text(AppLocalizations.of(context)!.language),
                         subtitle: Text(AppLocalizations.of(context)!
@@ -230,17 +209,6 @@ class DatabaseManagementSubPageState extends State<DatabaseManagementSubPage> {
                   canTapOnHeader: true,
                   headerBuilder: (context, isExpanded) {
                     return SwitchListTile(
-                      secondary: const Padding(
-                        padding: EdgeInsets.only(top: 8.0, bottom: 8.0),
-                        child: SizedBox(
-                          width: DatabaseManagementSubPage._dbImageWidth,
-                          child: FoodOriginLogoPill(
-                            USDABinding.originName,
-                            height: DatabaseManagementSubPage._dbImageHeight,
-                            fontSize: 20,
-                          ),
-                        ),
-                      ),
                       title: const Text('USDA FoodData Central'),
                       value: appSettings.isProviderUsdaActivated,
                       onChanged: (val) =>
@@ -249,6 +217,13 @@ class DatabaseManagementSubPageState extends State<DatabaseManagementSubPage> {
                   },
                   body: Column(
                     children: [
+                      const Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 16.0),
+                        child: FoodOriginLogoPill(
+                          USDABinding.originName,
+                          fontSize: 20,
+                        ),
+                      ),
                       ListTile(
                         title: Text(AppLocalizations.of(context)!.language),
                         subtitle: Text(AppLocalizations.of(context)!.english),

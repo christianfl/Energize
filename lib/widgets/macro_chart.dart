@@ -10,12 +10,14 @@ class MacroChart extends StatelessWidget {
   final List<FoodTracked> foods;
   final bool? hideCard;
   final int? decimalPlaces;
+  final double padding;
 
   const MacroChart(
     this.foods, {
     Key? key,
     this.hideCard,
     this.decimalPlaces = 0,
+    this.padding = 16.0,
   }) : super(key: key);
 
   double get _totalCalories {
@@ -45,7 +47,9 @@ class MacroChart extends StatelessWidget {
   }
 
   _getChart(BuildContext context, AppSettings appSettings) {
-    return Column(
+    return ListView(
+      padding: EdgeInsets.all(padding),
+      shrinkWrap: true,
       children: [
         ChartBar(
           title: AppLocalizations.of(context)!.energy,
@@ -91,14 +95,8 @@ class MacroChart extends StatelessWidget {
     if (hideCard == true) {
       return _getChart(context, appSettings);
     } else {
-      return SizedBox(
-        width: double.infinity,
-        child: Card(
-          child: Container(
-            margin: const EdgeInsets.all(10),
-            child: _getChart(context, appSettings),
-          ),
-        ),
+      return Card(
+        child: _getChart(context, appSettings),
       );
     }
   }
