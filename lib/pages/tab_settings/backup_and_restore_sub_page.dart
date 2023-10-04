@@ -81,6 +81,16 @@ class BackupAndRestoreSubPageState extends State<BackupAndRestoreSubPage> {
     return key;
   }
 
+  /// Returns Encrypter to make sure encrypt and decrypt functions use the same encryption algorithms
+  enc.Encrypter _getEncrypter(enc.Key key) {
+    return enc.Encrypter(
+      enc.AES(
+        key,
+        mode: enc.AESMode.ctr,
+      ),
+    );
+  }
+
   /// Input: Plaintext, random IV and SHA256 derived from password input field
   /// Returns: Base64(IV)Base64(ciphertext)
   String _encryptData(String plaintext) {
@@ -90,7 +100,7 @@ class BackupAndRestoreSubPageState extends State<BackupAndRestoreSubPage> {
     final iv = enc.IV.fromSecureRandom(16);
 
     // Make encrypter ready and encrypt
-    final encrypter = enc.Encrypter(enc.AES(key));
+    final encrypter = _getEncrypter(key);
     final ciphertext = encrypter.encrypt(plaintext, iv: iv);
     final encrypted = '${iv.base64}${ciphertext.base64}';
 
@@ -111,7 +121,7 @@ class BackupAndRestoreSubPageState extends State<BackupAndRestoreSubPage> {
     final encrypted = enc.Encrypted.fromBase64(ciphertextBase64String);
 
     // Make encrypter ready and decrypt
-    final encrypter = enc.Encrypter(enc.AES(key));
+    final encrypter = _getEncrypter(key);
     final decrypted = encrypter.decrypt(encrypted, iv: iv);
 
     return decrypted;

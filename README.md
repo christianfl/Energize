@@ -45,7 +45,7 @@ Google Play is still in testing phase at the moment. Drop me a message and inclu
 - Get meal suggestions based on your last tracked meals
 - Set targets for macro- and micronutrients including calculating them based on your personal details
 - See your daily nutrition details
-- Create an encrypted backup with WebDAV and restore it
+- Create an [encrypted backup](docs/backup-encryption/README.md) with WebDAV and restore it
 
 ## Build
 
