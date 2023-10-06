@@ -8,6 +8,8 @@
     "onlyNumbersAllowed": "Only numbers are allowed",
     "undo": "Undo",
     "deleted": "deleted",
+    "loading": "Loading",
+    "notFound": "not found",
     "@_TRACKING": {
     },
     "tracking": "Tracking",
@@ -26,7 +28,9 @@
     "micronutrients": "Micronutrients",
     "editTrackedFood": "Edit tracked food",
     "scanEANCode": "Scan EAN code",
-    "toggleFlash": "Toggle Flash",
+    "turnFlashOn": "Turn flash on",
+    "turnFlashOff": "Turn flash off",
+    "flashUnsupported": "Flash unsupported",
     "searchFood": "Search food",
     "searchForProductNameOrBrand": "Search for product name or brand",
     "@_CUSTOM_FOOD": {

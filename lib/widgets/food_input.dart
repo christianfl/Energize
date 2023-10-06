@@ -71,7 +71,12 @@ class FoodInputState extends State<FoodInput>
     bool? forcePop,
   }) {
     _qrController?.pauseCamera();
-    _turnOffFlash();
+    try {
+      // Turn of flash
+      _setFlash(false);
+    } catch (e) {
+      // Do nothing if that fails
+    }
 
     Navigator.of(context)
         .pushNamed(
@@ -95,7 +100,12 @@ class FoodInputState extends State<FoodInput>
 
   void _navigateToAddCustomFood(BuildContext context, {String? ean}) {
     _qrController?.pauseCamera();
-    _turnOffFlash();
+    try {
+      // Turn of flash
+      _setFlash(false);
+    } catch (e) {
+      // Do nothing if that fails
+    }
 
     Navigator.of(context)
         .pushNamed(
@@ -309,21 +319,31 @@ class FoodInputState extends State<FoodInput>
     });
   }
 
-  Future<void> _toggleFlash() async {
-    await _qrController!.toggleFlash();
-  }
+  /// Turns flash on if true ; off if false ; or leaves as is
+  Future<void> _setFlash(bool newFlashStatus) async {
+    bool? flashStatus = await _flashStatus;
 
-  Future<bool?> get flashStatus async {
-    if (kIsWeb) {
-      return false;
-    } else {
-      return await _qrController!.getFlashStatus();
+    if (flashStatus == null) {
+      // Cannot set flash if unsupported
+      throw Exception('Flash is unsupported');
+    }
+
+    if (newFlashStatus != flashStatus) {
+      return await _qrController!.toggleFlash();
     }
   }
 
-  Future<void> _turnOffFlash() async {
-    flashStatus.then((isFlashOn) =>
-        {if (isFlashOn != null && isFlashOn == true) _toggleFlash()});
+  /// Returns true if flash is on, false if off and null if unsupported
+  Future<bool?> get _flashStatus async {
+    bool? flashStatus;
+
+    try {
+      flashStatus = await _qrController!.getFlashStatus();
+    } catch (e) {
+      // Flash unsupported
+    }
+
+    return flashStatus;
   }
 
   @override
@@ -389,7 +409,9 @@ class FoodInputState extends State<FoodInput>
                               ElevatedButton(
                                 onPressed: () =>
                                     _navigateToAddCustomFood(context),
-                                child: const Text('Add custom food'),
+                                child: Text(
+                                  AppLocalizations.of(context)!.addCustomFood,
+                                ),
                               ),
                             ],
                           ),
@@ -431,7 +453,7 @@ class FoodInputState extends State<FoodInput>
                                 children: [
                                   Expanded(
                                     child: Text(
-                                      'No product found for $_productNotFoundExceptionEan',
+                                      '$_productNotFoundExceptionEan ${AppLocalizations.of(context)!.notFound}',
                                     ),
                                   ),
                                   ElevatedButton.icon(
@@ -440,7 +462,10 @@ class FoodInputState extends State<FoodInput>
                                       ean: _productNotFoundExceptionEan!,
                                     ),
                                     icon: const Icon(Icons.add),
-                                    label: const Text('Add custom food'),
+                                    label: Text(
+                                      AppLocalizations.of(context)!
+                                          .addCustomFood,
+                                    ),
                                   ),
                                 ],
                               ),
@@ -457,10 +482,48 @@ class FoodInputState extends State<FoodInput>
                 ),
               ),
             ),
-            OutlinedButton.icon(
-              onPressed: _toggleFlash,
-              icon: const Icon(Icons.bolt),
-              label: Text(AppLocalizations.of(context)!.toggleFlash),
+            FutureBuilder<bool?>(
+              future: _flashStatus,
+              builder: (BuildContext context, AsyncSnapshot<bool?> snapshot) {
+                switch (snapshot.connectionState) {
+                  case ConnectionState.waiting:
+                    return OutlinedButton.icon(
+                      onPressed: null,
+                      icon: const Icon(Icons.refresh),
+                      label: Text(AppLocalizations.of(context)!.loading),
+                    );
+                  default:
+                    if (snapshot.hasError) {
+                      return Text('Error: ${snapshot.error}');
+                    } else if (snapshot.data == true) {
+                      // Offer possibility to turn flash off
+
+                      return OutlinedButton.icon(
+                        onPressed: () => _setFlash(false),
+                        icon: const Icon(Icons.bolt),
+                        label: Text(AppLocalizations.of(context)!.turnFlashOff),
+                      );
+                    } else if (snapshot.data == false) {
+                      // Offer possibility to turn flash on
+
+                      return OutlinedButton.icon(
+                        onPressed: () => _setFlash(true),
+                        icon: const Icon(Icons.bolt),
+                        label: Text(AppLocalizations.of(context)!.turnFlashOn),
+                      );
+                    } else {
+                      // Show flash is unsupported
+
+                      return OutlinedButton.icon(
+                        onPressed: null,
+                        icon: const Icon(Icons.error),
+                        label: Text(
+                          AppLocalizations.of(context)!.flashUnsupported,
+                        ),
+                      );
+                    }
+                }
+              },
             ),
           ],
         ),
