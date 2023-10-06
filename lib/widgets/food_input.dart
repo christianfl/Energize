@@ -51,6 +51,10 @@ class FoodInputState extends State<FoodInput>
   final List<Food> foodsFromSndb = SwissFoodCompositionDatabaseBinding.allFoods;
   List<Food> searchResultFood = [];
   Timer? _searchFieldDebounceTimer;
+
+  /// true = on, false = off, null = unsupported
+  bool? _flashStatus = false;
+
   static const Duration _defaultInputDebounceDuration =
       Duration(milliseconds: 500);
   static const _foodInputSuggestionsFromLastXDays = 21;
@@ -321,20 +325,26 @@ class FoodInputState extends State<FoodInput>
 
   /// Turns flash on if true ; off if false ; or leaves as is
   Future<void> _setFlash(bool newFlashStatus) async {
-    bool? flashStatus = await _flashStatus;
+    bool? flashStatus = await _getFlashStatus;
 
     if (flashStatus == null) {
-      // Cannot set flash if unsupported
-      throw Exception('Flash is unsupported');
+      // Cannot set flash if unsupported (on web)
+      setState(() {
+        _flashStatus = null;
+      });
     }
 
     if (newFlashStatus != flashStatus) {
+      setState(() {
+        _flashStatus = newFlashStatus;
+      });
+
       return await _qrController!.toggleFlash();
     }
   }
 
   /// Returns true if flash is on, false if off and null if unsupported
-  Future<bool?> get _flashStatus async {
+  Future<bool?> get _getFlashStatus async {
     bool? flashStatus;
 
     try {
@@ -482,46 +492,37 @@ class FoodInputState extends State<FoodInput>
                 ),
               ),
             ),
-            FutureBuilder<bool?>(
-              future: _flashStatus,
-              builder: (BuildContext context, AsyncSnapshot<bool?> snapshot) {
-                switch (snapshot.connectionState) {
-                  case ConnectionState.waiting:
+            Builder(
+              builder: (BuildContext context) {
+                switch (_flashStatus) {
+                  case null:
+                    // Flash unsupported
+
                     return OutlinedButton.icon(
                       onPressed: null,
-                      icon: const Icon(Icons.refresh),
-                      label: Text(AppLocalizations.of(context)!.loading),
+                      icon: const Icon(Icons.error),
+                      label: Text(
+                        AppLocalizations.of(context)!.flashUnsupported,
+                      ),
                     );
-                  default:
-                    if (snapshot.hasError) {
-                      return Text('Error: ${snapshot.error}');
-                    } else if (snapshot.data == true) {
-                      // Offer possibility to turn flash off
 
-                      return OutlinedButton.icon(
-                        onPressed: () => _setFlash(false),
-                        icon: const Icon(Icons.bolt),
-                        label: Text(AppLocalizations.of(context)!.turnFlashOff),
-                      );
-                    } else if (snapshot.data == false) {
-                      // Offer possibility to turn flash on
+                  case true:
+                    // Offer possibility to turn flash off
 
-                      return OutlinedButton.icon(
-                        onPressed: () => _setFlash(true),
-                        icon: const Icon(Icons.bolt),
-                        label: Text(AppLocalizations.of(context)!.turnFlashOn),
-                      );
-                    } else {
-                      // Show flash is unsupported
+                    return OutlinedButton.icon(
+                      onPressed: () => _setFlash(false),
+                      icon: const Icon(Icons.bolt),
+                      label: Text(AppLocalizations.of(context)!.turnFlashOff),
+                    );
 
-                      return OutlinedButton.icon(
-                        onPressed: null,
-                        icon: const Icon(Icons.error),
-                        label: Text(
-                          AppLocalizations.of(context)!.flashUnsupported,
-                        ),
-                      );
-                    }
+                  case false:
+                    // Offer possibility to turn flash on
+
+                    return OutlinedButton.icon(
+                      onPressed: () => _setFlash(true),
+                      icon: const Icon(Icons.bolt),
+                      label: Text(AppLocalizations.of(context)!.turnFlashOn),
+                    );
                 }
               },
             ),

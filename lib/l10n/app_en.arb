@@ -28,9 +28,9 @@
     "micronutrients": "Micronutrients",
     "editTrackedFood": "Edit tracked food",
     "scanEANCode": "Scan EAN code",
-    "turnFlashOn": "Turn flash on",
-    "turnFlashOff": "Turn flash off",
-    "flashUnsupported": "Flash unsupported",
+    "turnFlashOn": "Flash on",
+    "turnFlashOff": "Flash off",
+    "flashUnsupported": "No flash",
     "searchFood": "Search food",
     "searchForProductNameOrBrand": "Search for product name or brand",
     "@_CUSTOM_FOOD": {
