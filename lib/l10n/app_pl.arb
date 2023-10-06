@@ -23,8 +23,6 @@
   "@editTrackedFood": {},
   "scanEANCode": "Skanuj kod kreskowy",
   "@scanEANCode": {},
-  "toggleFlash": "Przełącz lampę błyskową",
-  "@toggleFlash": {},
   "detailedSummary": "Bilans szczegółowy",
   "@detailedSummary": {},
   "searchFood": "Szukaj produktów",

@@ -39,8 +39,6 @@
   "@editTrackedFood": {},
   "scanEANCode": "Escanear código EAN",
   "@scanEANCode": {},
-  "toggleFlash": "Conmutar Flash",
-  "@toggleFlash": {},
   "searchFood": "Buscar alimento",
   "@searchFood": {},
   "searchForProductNameOrBrand": "Buscar producto por nombre o marca",

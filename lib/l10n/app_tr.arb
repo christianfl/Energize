@@ -35,8 +35,6 @@
   "@editTrackedFood": {},
   "scanEANCode": "EAN kodunu tara",
   "@scanEANCode": {},
-  "toggleFlash": "Feneri Aç/Kapat",
-  "@toggleFlash": {},
   "searchFood": "Yiyecek ara",
   "@searchFood": {},
   "searchForProductNameOrBrand": "Ürün adı veya markası ara",
