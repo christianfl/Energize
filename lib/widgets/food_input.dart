@@ -43,8 +43,10 @@ class FoodInput extends StatefulWidget {
 class FoodInputState extends State<FoodInput>
     with SingleTickerProviderStateMixin {
   final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
+  final _eanCodeFormKey = GlobalKey<FormState>();
   QRViewController? _qrController;
   final _searchInputController = TextEditingController();
+  final _searchEanController = TextEditingController();
   Barcode? _scannedCode;
   var _awaitingApiResponse = false;
   String? _productNotFoundExceptionEan;
@@ -147,6 +149,7 @@ class FoodInputState extends State<FoodInput>
     }
   }
 
+  /// Listen for the scanned stream until an EAN code is found
   void _onQRViewCreated(QRViewController controller) {
     _qrController = controller;
     _qrController!.resumeCamera();
@@ -155,35 +158,37 @@ class FoodInputState extends State<FoodInput>
       if (_scannedCode == null) {
         _scannedCode = scanData;
 
-        // Try first to look up the EAN in the custom foods
-        CustomFoodDatabaseService.getCustomFoodByEan(_scannedCode!.code!)
-            .then((customFoodIfFound) {
-          if (customFoodIfFound != null) {
-            // Custom food with this EAN was found
+        searchEanAndRedirect(_scannedCode!.code!);
+      }
+    });
+  }
 
-            _navigateToAddFood(context, customFoodIfFound, forcePop: true);
-          } else {
-            // Look up on Open Food Facts if this is activated
-            final appSettings =
-                Provider.of<AppSettings>(context, listen: false);
+  /// Look up ean code and redirect accordingly
+  void searchEanAndRedirect(String ean) {
+    // Try first to look up the EAN in the custom foods
+    CustomFoodDatabaseService.getCustomFoodByEan(ean).then((customFoodIfFound) {
+      if (customFoodIfFound != null) {
+        // Custom food with this EAN was found
 
-            if (appSettings.isProviderOpenFoodFactsActivated) {
-              OpenFoodFactsBinding.getFoodByEan(_scannedCode!.code!)
-                  .then((food) {
-                _navigateToAddFood(context, food, forcePop: true);
-              }).catchError((error) {
-                // If there is also no match, show an error that no product could be found
-                setState(() {
-                  _productNotFoundExceptionEan = '$error';
-                });
-              });
-            } else {
-              setState(() {
-                _productNotFoundExceptionEan = _scannedCode!.code!;
-              });
-            }
-          }
-        });
+        _navigateToAddFood(context, customFoodIfFound, forcePop: true);
+      } else {
+        // Look up on Open Food Facts if this is activated
+        final appSettings = Provider.of<AppSettings>(context, listen: false);
+
+        if (appSettings.isProviderOpenFoodFactsActivated) {
+          OpenFoodFactsBinding.getFoodByEan(ean).then((food) {
+            _navigateToAddFood(context, food, forcePop: true);
+          }).catchError((error) {
+            // If there is also no match, show an error that no product could be found
+            setState(() {
+              _productNotFoundExceptionEan = '$error';
+            });
+          });
+        } else {
+          setState(() {
+            _productNotFoundExceptionEan = ean;
+          });
+        }
       }
     });
   }
@@ -339,7 +344,7 @@ class FoodInputState extends State<FoodInput>
         _flashStatus = newFlashStatus;
       });
 
-      return await _qrController!.toggleFlash();
+      return await _qrController?.toggleFlash();
     }
   }
 
@@ -348,7 +353,7 @@ class FoodInputState extends State<FoodInput>
     bool? flashStatus;
 
     try {
-      flashStatus = await _qrController!.getFlashStatus();
+      flashStatus = await _qrController?.getFlashStatus();
     } catch (e) {
       // Flash unsupported
     }
@@ -360,6 +365,9 @@ class FoodInputState extends State<FoodInput>
   void dispose() {
     _qrController?.dispose();
     _searchFieldDebounceTimer?.cancel();
+    _searchInputController.dispose();
+    _searchEanController.dispose();
+
     super.dispose();
   }
 
@@ -432,11 +440,92 @@ class FoodInputState extends State<FoodInput>
     } else if (widget._sheetModalMode == SheetModalMode.ean) {
       return Container(
         margin: const EdgeInsets.all(12.0),
-        width: MediaQuery.of(context).size.width,
-        height: MediaQuery.of(context).size.height,
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.end,
           children: [
+            Row(
+              children: [
+                Expanded(
+                  child: Card(
+                    margin: EdgeInsets.zero,
+                    child: Form(
+                      key: _eanCodeFormKey,
+                      child: TextFormField(
+                        controller: _searchEanController,
+                        validator: (text) {
+                          if (text == null || text.isEmpty) {
+                            return AppLocalizations.of(context)!.fieldMandatory;
+                          }
+                          return null;
+                        },
+                        onFieldSubmitted: (value) {
+                          if (_eanCodeFormKey.currentState!.validate()) {
+                            searchEanAndRedirect(
+                              _searchEanController.text,
+                            );
+                          }
+                        },
+                        decoration: InputDecoration(
+                          border: InputBorder.none,
+                          hintText: 'EAN',
+                          prefixIcon: const Icon(Icons.search),
+                          suffixIcon: IconButton(
+                            onPressed: () {
+                              if (_eanCodeFormKey.currentState!.validate()) {
+                                searchEanAndRedirect(
+                                  _searchEanController.text,
+                                );
+                              }
+                            },
+                            icon: const Icon(Icons.check),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 10),
+                IntrinsicHeight(
+                  child: Builder(
+                    builder: (BuildContext context) {
+                      switch (_flashStatus) {
+                        case null:
+                          // Flash unsupported
+
+                          return OutlinedButton.icon(
+                            onPressed: null,
+                            icon: const Icon(Icons.error),
+                            label: Text(
+                              AppLocalizations.of(context)!.flashUnsupported,
+                            ),
+                          );
+
+                        case true:
+                          // Offer possibility to turn flash off
+
+                          return OutlinedButton.icon(
+                            onPressed: () => _setFlash(false),
+                            icon: const Icon(Icons.bolt),
+                            label: Text(
+                              AppLocalizations.of(context)!.turnFlashOff,
+                            ),
+                          );
+
+                        case false:
+                          // Offer possibility to turn flash on
+
+                          return OutlinedButton.icon(
+                            onPressed: () => _setFlash(true),
+                            icon: const Icon(Icons.bolt),
+                            label:
+                                Text(AppLocalizations.of(context)!.turnFlashOn),
+                          );
+                      }
+                    },
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 10),
             Expanded(
               child: ClipRRect(
                 borderRadius: const BorderRadius.all(Radius.circular(10.0)),
@@ -491,40 +580,6 @@ class FoodInputState extends State<FoodInput>
                   ],
                 ),
               ),
-            ),
-            Builder(
-              builder: (BuildContext context) {
-                switch (_flashStatus) {
-                  case null:
-                    // Flash unsupported
-
-                    return OutlinedButton.icon(
-                      onPressed: null,
-                      icon: const Icon(Icons.error),
-                      label: Text(
-                        AppLocalizations.of(context)!.flashUnsupported,
-                      ),
-                    );
-
-                  case true:
-                    // Offer possibility to turn flash off
-
-                    return OutlinedButton.icon(
-                      onPressed: () => _setFlash(false),
-                      icon: const Icon(Icons.bolt),
-                      label: Text(AppLocalizations.of(context)!.turnFlashOff),
-                    );
-
-                  case false:
-                    // Offer possibility to turn flash on
-
-                    return OutlinedButton.icon(
-                      onPressed: () => _setFlash(true),
-                      icon: const Icon(Icons.bolt),
-                      label: Text(AppLocalizations.of(context)!.turnFlashOn),
-                    );
-                }
-              },
             ),
           ],
         ),
