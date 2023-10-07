@@ -21,8 +21,6 @@
   "@useAsTemplateForCustomFood": {},
   "general": "Général",
   "@general": {},
-  "toggleFlash": "Activer/désactiver le flash",
-  "@toggleFlash": {},
   "searchFood": "Rechercher des aliments",
   "@searchFood": {},
   "searchForProductNameOrBrand": "Rechercher un nom de produit ou une marque",

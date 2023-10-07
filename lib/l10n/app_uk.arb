@@ -29,8 +29,6 @@
   "@editTrackedFood": {},
   "scanEANCode": "Відсканувати EAN код",
   "@scanEANCode": {},
-  "toggleFlash": "Увімкнути Спалах",
-  "@toggleFlash": {},
   "searchForProductNameOrBrand": "Пошук за назвою або брендом",
   "@searchForProductNameOrBrand": {},
   "customFood": "Власна Їжа",

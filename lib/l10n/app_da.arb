@@ -39,8 +39,6 @@
   "@editTrackedFood": {},
   "scanEANCode": "Skan stregkode",
   "@scanEANCode": {},
-  "toggleFlash": "Slå blitz til og fra",
-  "@toggleFlash": {},
   "searchFood": "Søg efter mad",
   "@searchFood": {},
   "searchForProductNameOrBrand": "Søg efter produktnavn eller producent",

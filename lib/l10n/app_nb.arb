@@ -33,8 +33,6 @@
   "@editTrackedFood": {},
   "scanEANCode": "Skann EAN-kode",
   "@scanEANCode": {},
-  "toggleFlash": "Veksle lommelykt",
-  "@toggleFlash": {},
   "searchFood": "Søk etter mat",
   "@searchFood": {},
   "searchForProductNameOrBrand": "Søk etter produktnavn eller merke",
