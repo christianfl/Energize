@@ -362,5 +362,13 @@
   "loading": "Cargando",
   "@loading": {},
   "notFound": "no encontrado",
-  "@notFound": {}
+  "@notFound": {},
+  "dailyTarget": "meta diaria",
+  "@dailyTarget": {},
+  "labelingEu": "Etiquetado (UE)",
+  "@labelingEu": {},
+  "salt": "Sal",
+  "@salt": {},
+  "contain": "contener",
+  "@contain": {}
 }
