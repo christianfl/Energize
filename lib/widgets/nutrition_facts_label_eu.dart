@@ -10,7 +10,7 @@ import '../providers/app_settings.dart';
 class NutritionFactsLabelEU extends StatelessWidget {
   final List<FoodTracked> foods;
 
-  static const double _sodiumToSaltFacor = 2.54;
+  static const double sodiumToSaltFacor = 2.54;
 
   const NutritionFactsLabelEU(
     this.foods, {
@@ -58,7 +58,7 @@ class NutritionFactsLabelEU extends StatelessWidget {
       return 0;
     }
 
-    double salt = sodium / 1000 * _sodiumToSaltFacor;
+    double salt = sodium / 1000 * sodiumToSaltFacor;
 
     return salt;
   }
@@ -150,7 +150,7 @@ class NutritionFactsLabelEU extends StatelessWidget {
           title: '${AppLocalizations.of(context)!.salt}*',
           value: _totalSalt,
           target: appSettings.sodiumTarget != 0
-              ? appSettings.sodiumTarget / 1000 * _sodiumToSaltFacor
+              ? appSettings.sodiumTarget / 1000 * sodiumToSaltFacor
               : 0,
           unit: 'g',
           color: Colors.blueGrey,
@@ -158,7 +158,7 @@ class NutritionFactsLabelEU extends StatelessWidget {
         ),
         const SizedBox(height: 10),
         Text(
-          '* ${AppLocalizations.of(context)!.sodium} × ${NumberFormat.decimalPattern(Localizations.localeOf(context).languageCode).format(_sodiumToSaltFacor)}',
+          '* ${AppLocalizations.of(context)!.sodium} × ${NumberFormat.decimalPattern(Localizations.localeOf(context).languageCode).format(sodiumToSaltFacor)}',
           textAlign: TextAlign.end,
         ),
       ],

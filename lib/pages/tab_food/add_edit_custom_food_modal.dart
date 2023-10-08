@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import '../../models/food/food.dart';
 import '../../providers/custom_food_provider.dart';
 import '../../widgets/category_list_tile_header.dart';
+import '../../widgets/nutrition_facts_label_eu.dart';
 import 'food_page.dart';
 
 enum AddEditCustomFoodModalMode { addNew, addFrom, edit }
@@ -60,6 +61,10 @@ class AddEditCustomFoodModalState extends State<AddEditCustomFoodModal> {
   final _foodPhosphorusController = TextEditingController();
   final _foodPotassiumController = TextEditingController();
   final _foodSodiumController = TextEditingController();
+
+  // This gets synced with _foodSodiumController
+  final _foodSaltController = TextEditingController();
+
   final _foodChromiumController = TextEditingController();
   final _foodIronController = TextEditingController();
   final _foodFluorineController = TextEditingController();
@@ -84,8 +89,49 @@ class AddEditCustomFoodModalState extends State<AddEditCustomFoodModal> {
   final _foodCaffeineController = TextEditingController();
   final _foodAlcoholController = TextEditingController();
 
+  // Focus nodes for synchronizing salt and sodium
+  final _foodSaltFocusNode = FocusNode();
+  final _foodSodiumFocusNode = FocusNode();
+
   @override
   void initState() {
+    // Conversion between sodium and salt
+    _foodSodiumController.addListener(() {
+      // Update only value which doesn't have focus or when both fields don't have focus (= on initial loading)
+      if (_foodSodiumFocusNode.hasFocus ||
+          (!_foodSodiumFocusNode.hasFocus && !_foodSaltFocusNode.hasFocus)) {
+        setState(() {
+          try {
+            double sodium = double.parse(_foodSodiumController.text);
+            double salt =
+                sodium / 1000 * NutritionFactsLabelEU.sodiumToSaltFacor;
+
+            _foodSaltController.text = salt.toString();
+          } catch (e) {
+            // do nothing
+          }
+        });
+      }
+    });
+
+    // Conversion between salt and sodium
+    _foodSaltController.addListener(() {
+      // Update only value which doesn't have focus
+      if (_foodSaltFocusNode.hasFocus) {
+        setState(() {
+          try {
+            double salt = double.parse(_foodSaltController.text);
+            double sodium =
+                salt * 1000 / NutritionFactsLabelEU.sodiumToSaltFacor;
+
+            _foodSodiumController.text = sodium.toString();
+          } catch (e) {
+            // do nothing
+          }
+        });
+      }
+    });
+
     Future.delayed(Duration.zero, () {
       setState(() {
         final args = ModalRoute.of(context)!.settings.arguments
@@ -358,6 +404,7 @@ class AddEditCustomFoodModalState extends State<AddEditCustomFoodModal> {
     required String title,
     required TextEditingController controller,
     required String unit,
+    FocusNode? focusNode,
   }) {
     return ListTile(
       title: Text(title),
@@ -365,6 +412,7 @@ class AddEditCustomFoodModalState extends State<AddEditCustomFoodModal> {
         width: 160,
         height: 45,
         child: TextFormField(
+          focusNode: focusNode,
           controller: controller,
           keyboardType: TextInputType.number,
           decoration: InputDecoration(
@@ -488,19 +536,46 @@ class AddEditCustomFoodModalState extends State<AddEditCustomFoodModal> {
                             unit: 'kcal / 100 g',
                           ),
                           _customListTile(
-                            title: AppLocalizations.of(context)!.protein,
-                            controller: _foodProteinController,
+                            title: AppLocalizations.of(context)!.fat,
+                            controller: _foodFatController,
                             unit: 'g / 100 g',
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 20.0),
+                            child: _customListTile(
+                              title: AppLocalizations.of(context)!.saturatedFat,
+                              controller: _foodSaturatedFatController,
+                              unit: 'g / 100 g',
+                            ),
                           ),
                           _customListTile(
                             title: AppLocalizations.of(context)!.carbs,
                             controller: _foodCarbsController,
                             unit: 'g / 100 g',
                           ),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 20.0),
+                            child: _customListTile(
+                              title: AppLocalizations.of(context)!.sugar,
+                              controller: _foodSugarController,
+                              unit: 'g / 100 g',
+                            ),
+                          ),
                           _customListTile(
-                            title: AppLocalizations.of(context)!.fat,
-                            controller: _foodFatController,
+                            title: AppLocalizations.of(context)!.fiber,
+                            controller: _foodFiberController,
                             unit: 'g / 100 g',
+                          ),
+                          _customListTile(
+                            title: AppLocalizations.of(context)!.protein,
+                            controller: _foodProteinController,
+                            unit: 'g / 100 g',
+                          ),
+                          _customListTile(
+                            title: AppLocalizations.of(context)!.salt,
+                            controller: _foodSaltController,
+                            unit: 'g / 100 g',
+                            focusNode: _foodSaltFocusNode,
                           ),
                         ],
                       ),
@@ -626,6 +701,7 @@ class AddEditCustomFoodModalState extends State<AddEditCustomFoodModal> {
                             title: AppLocalizations.of(context)!.sodium,
                             controller: _foodSodiumController,
                             unit: 'mg / 100 g',
+                            focusNode: _foodSodiumFocusNode,
                           ),
                         ],
                       ),
