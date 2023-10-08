@@ -159,7 +159,10 @@ class TrackFoodState extends State<TrackFood>
   void _launchOpenFoodFactsUrl(String ean) async {
     final uri = Uri.parse('${OpenFoodFactsBinding.productUrl}$ean');
     if (await canLaunchUrl(uri)) {
-      await launchUrl(uri);
+      await launchUrl(
+        uri,
+        mode: LaunchMode.externalApplication,
+      );
     } else {
       throw 'Could not launch url';
     }

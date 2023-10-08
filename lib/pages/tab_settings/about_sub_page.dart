@@ -87,7 +87,10 @@ class AboutSubPage extends StatelessWidget {
                 onTap: () async {
                   final uri = Uri.parse(_issueUrl);
                   if (await canLaunchUrl(uri)) {
-                    await launchUrl(uri);
+                    await launchUrl(
+                      uri,
+                      mode: LaunchMode.externalApplication,
+                    );
                   } else {
                     throw 'Could not launch url';
                   }
@@ -103,7 +106,10 @@ class AboutSubPage extends StatelessWidget {
                 onTap: () async {
                   final uri = Uri.parse(_repoUrl);
                   if (await canLaunchUrl(uri)) {
-                    await launchUrl(uri);
+                    await launchUrl(
+                      uri,
+                      mode: LaunchMode.externalApplication,
+                    );
                   } else {
                     throw 'Could not launch url';
                   }
@@ -119,7 +125,10 @@ class AboutSubPage extends StatelessWidget {
                 onTap: () async {
                   final uri = Uri.parse(_translationUrl);
                   if (await canLaunchUrl(uri)) {
-                    await launchUrl(uri);
+                    await launchUrl(
+                      uri,
+                      mode: LaunchMode.externalApplication,
+                    );
                   } else {
                     throw 'Could not launch url';
                   }
@@ -141,7 +150,10 @@ class AboutSubPage extends StatelessWidget {
                   );
 
                   if (await canLaunchUrl(uri)) {
-                    await launchUrl(uri);
+                    await launchUrl(
+                      uri,
+                      mode: LaunchMode.externalApplication,
+                    );
                   } else {
                     throw 'Could not launch url';
                   }

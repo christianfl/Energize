@@ -68,7 +68,10 @@ class DonationSubPage extends StatelessWidget {
                 onTap: () async {
                   final uri = Uri.parse(_donationUrl);
                   if (await canLaunchUrl(uri)) {
-                    await launchUrl(uri);
+                    await launchUrl(
+                      uri,
+                      mode: LaunchMode.externalApplication,
+                    );
                   } else {
                     throw 'Could not launch url';
                   }
@@ -94,7 +97,10 @@ class DonationSubPage extends StatelessWidget {
                   );
 
                   if (await canLaunchUrl(uri)) {
-                    await launchUrl(uri);
+                    await launchUrl(
+                      uri,
+                      mode: LaunchMode.externalApplication,
+                    );
                   } else {
                     throw 'Could not launch url';
                   }

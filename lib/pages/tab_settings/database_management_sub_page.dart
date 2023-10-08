@@ -95,7 +95,10 @@ class DatabaseManagementSubPageState extends State<DatabaseManagementSubPage> {
                           final uri = Uri.parse(
                               SwissFoodCompositionDatabaseBinding.sourceUrl);
                           if (await canLaunchUrl(uri)) {
-                            await launchUrl(uri);
+                            await launchUrl(
+                              uri,
+                              mode: LaunchMode.externalApplication,
+                            );
                           } else {
                             throw 'Could not launch url';
                           }
@@ -170,7 +173,10 @@ class DatabaseManagementSubPageState extends State<DatabaseManagementSubPage> {
                         onTap: () async {
                           final uri = Uri.parse(OpenFoodFactsBinding.termsUrl);
                           if (await canLaunchUrl(uri)) {
-                            await launchUrl(uri);
+                            await launchUrl(
+                              uri,
+                              mode: LaunchMode.externalApplication,
+                            );
                           } else {
                             throw 'Could not launch url';
                           }
@@ -188,7 +194,10 @@ class DatabaseManagementSubPageState extends State<DatabaseManagementSubPage> {
                           final uri =
                               Uri.parse(OpenFoodFactsBinding.contributeUrl);
                           if (await canLaunchUrl(uri)) {
-                            await launchUrl(uri);
+                            await launchUrl(
+                              uri,
+                              mode: LaunchMode.externalApplication,
+                            );
                           } else {
                             throw 'Could not launch url';
                           }
@@ -244,7 +253,10 @@ class DatabaseManagementSubPageState extends State<DatabaseManagementSubPage> {
                         onTap: () async {
                           final uri = Uri.parse(USDABinding.sourceUrl);
                           if (await canLaunchUrl(uri)) {
-                            await launchUrl(uri);
+                            await launchUrl(
+                              uri,
+                              mode: LaunchMode.externalApplication,
+                            );
                           } else {
                             throw 'Could not launch url';
                           }
