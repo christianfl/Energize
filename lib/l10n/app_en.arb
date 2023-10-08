@@ -24,6 +24,9 @@
     "unmarkedDayAsComplete": "Unmarked day as complete",
     "trackFood": "Track food",
     "useAsTemplateForCustomFood": "Use as template for custom food",
+    "labelingEu": "Labeling (EU)",
+    "contain": "contain",
+    "dailyTarget": "daily target",
     "general": "General",
     "micronutrients": "Micronutrients",
     "editTrackedFood": "Edit tracked food",
@@ -192,5 +195,6 @@
     "other": "Other",
     "water": "Water",
     "caffeine": "Caffeine",
-    "alcohol": "Alcohol"
+    "alcohol": "Alcohol",
+    "salt": "Salt"
 }

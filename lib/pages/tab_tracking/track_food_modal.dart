@@ -12,6 +12,7 @@ import '../../widgets/food_micro_count_pill.dart';
 import '../../widgets/food_origin_logo_pill.dart';
 import '../../widgets/macro_chart.dart';
 import '../../widgets/micro_chart.dart';
+import '../../widgets/nutrition_facts_label_eu.dart';
 
 enum ModalMode { add, edit }
 
@@ -45,7 +46,7 @@ class TrackFoodState extends State<TrackFood>
 
   @override
   void initState() {
-    _tabController = TabController(vsync: this, length: 2);
+    _tabController = TabController(vsync: this, length: 3);
 
     super.initState();
   }
@@ -345,8 +346,14 @@ class TrackFoodState extends State<TrackFood>
               ),
             ),
             TabBar(
+              isScrollable: true,
               controller: _tabController,
               tabs: [
+                // Change length of TabController in initState() when adding tabs
+                Tab(
+                  icon: const Icon(Icons.public),
+                  text: AppLocalizations.of(context)!.labelingEu,
+                ),
                 Tab(
                   icon: const Icon(Icons.info),
                   text: AppLocalizations.of(context)!.general,
@@ -361,6 +368,7 @@ class TrackFoodState extends State<TrackFood>
               child: TabBarView(
                 controller: _tabController,
                 children: [
+                  NutritionFactsLabelEU([_getConvertedFoodForChart(food)]),
                   MacroChart(
                     [_getConvertedFoodForChart(food)],
                     hideCard: true,

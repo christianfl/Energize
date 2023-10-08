@@ -39,6 +39,9 @@
   "@trackFood": {},
   "useAsTemplateForCustomFood": "Als Vorlage für eigene Nahrung benutzen",
   "@useAsTemplateForCustomFood": {},
+  "labelingEu": "Kennzeichnung (EU)",
+  "contain": "enthalten",
+  "dailyTarget": "Tagesziel",
   "general": "Allgemein",
   "@general": {},
   "micronutrients": "Mikronährstoffe",
@@ -359,5 +362,6 @@
   "caffeine": "Koffein",
   "@caffeine": {},
   "alcohol": "Alkohol",
-  "@alcohol": {}
+  "@alcohol": {},
+  "salt": "Salz"
 }
