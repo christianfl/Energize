@@ -12,7 +12,7 @@ class AboutSubPage extends StatelessWidget {
   static const _issueUrl = 'https://codeberg.org/epinez/Energize/issues';
   static const _translationUrl =
       'https://hosted.weblate.org/projects/energize/energize';
-  static const _copyrightNotice = '© 2022 Christian Flaßkamp';
+  static const _copyrightNotice = '© 2023 Christian Flaßkamp';
   static const _license = 'GPLv3';
 
   const AboutSubPage({Key? key}) : super(key: key);

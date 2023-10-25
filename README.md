@@ -93,4 +93,4 @@ If you want to support the development by a donation, you are very welcome to do
 
 ---
 
-© 2022 Christian Flaßkamp – energize@flasskamp.com
+© 2023 Christian Flaßkamp – energize@flasskamp.com
