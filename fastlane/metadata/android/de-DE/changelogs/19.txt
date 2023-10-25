@@ -1,0 +1,8 @@
+* Beim Tracken von Nahrung oder Hinzufügen von Eigener Nahrung orientieren sich die Nährwerte an der EU-Verpackung
+* Suchen via manueller Eingabe eines EAN-Codes nun möglich
+* Links werden in separatem Browser statt In-App geöffnet
+* WebDAV Backup & Wiederherstellung etwas zuverlässiger
+* Fixes für kleinere Displaygrößen
+* Look der Balken bei getrackter Nahrung verbessert
+* Mehr Zeichenketten sind übersetzbar
+* Übersetzungen für zahlreiche Sprachen aktualisiert (vielen Dank!)

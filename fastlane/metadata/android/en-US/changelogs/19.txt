@@ -1,0 +1,8 @@
+* When tracking new food and adding/editing custom food show nutrition facts based on EU packaging label
+* Added EAN search by typing in the code
+* Open links in separate browser instead of in-app
+* Made WebDAV backup and restore more reliable
+* Fixes for smaller screen sizes
+* Improved tracked food percentage bar look
+* Made a few strings translatable
+* Updated translations for multiple languages (thanks!)
