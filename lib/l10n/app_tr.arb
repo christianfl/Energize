@@ -358,5 +358,17 @@
   "loading": "Yükleniyor",
   "@loading": {},
   "notFound": "bulunamadı",
-  "@notFound": {}
+  "@notFound": {},
+  "dailyTarget": "günlük hedef",
+  "@dailyTarget": {},
+  "turnFlashOn": "Flaş açık",
+  "@turnFlashOn": {},
+  "turnFlashOff": "Flaş kapalı",
+  "@turnFlashOff": {},
+  "flashUnsupported": "Flaş yok",
+  "@flashUnsupported": {},
+  "salt": "Tuz",
+  "@salt": {},
+  "contain": "içerir",
+  "@contain": {}
 }
