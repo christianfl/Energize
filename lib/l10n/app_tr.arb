@@ -352,5 +352,11 @@
   "deleted": "silindi",
   "@deleted": {},
   "undo": "Geri al",
-  "@undo": {}
+  "@undo": {},
+  "labelingEu": "Etiket (EU)",
+  "@labelingEu": {},
+  "loading": "Yükleniyor",
+  "@loading": {},
+  "notFound": "bulunamadı",
+  "@notFound": {}
 }
