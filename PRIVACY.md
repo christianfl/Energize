@@ -27,3 +27,12 @@ In this case the following data is transmitted to the USDA:
 **Further information about USDA**
 
 - Privacy policy (not specific about the FoodData Central database but the USDA in total): https://www.usda.gov/privacy-policy
+
+## 4. The user has set a remote WebDAV target for backups and tried to connect to it or uploaded an encrypted backup
+
+In this case the following data is transmitted to the custom server:
+
+- the device's external IP-address (for technical reasons)
+- the [encrypted backup](docs/backup-encryption/README.md) file
+
+Please note that there is no default WebDAV-server configured at the moment, which means that you or your configured provider is fully responsible for processing the data.
