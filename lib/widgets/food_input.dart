@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
@@ -63,6 +64,19 @@ class FoodInputState extends State<FoodInput>
 
   List<Food>? _offSearchResultFood;
   List<Food>? _usdaSearchResultFood;
+
+  /// Only when opening this widget with EAN mode, block landscape orientation to improve scanning experience
+  @override
+  void initState() {
+    super.initState();
+
+    if (widget._sheetModalMode == SheetModalMode.ean) {
+      SystemChrome.setPreferredOrientations([
+        DeviceOrientation.portraitUp,
+        DeviceOrientation.portraitDown,
+      ]);
+    }
+  }
 
   @override
   void didChangeDependencies() {
@@ -367,6 +381,14 @@ class FoodInputState extends State<FoodInput>
     _searchFieldDebounceTimer?.cancel();
     _searchInputController.dispose();
     _searchEanController.dispose();
+
+    // Re-enable all device screen orientations
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.landscapeRight,
+      DeviceOrientation.landscapeLeft,
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
 
     super.dispose();
   }
