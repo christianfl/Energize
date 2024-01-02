@@ -8,6 +8,8 @@ import '../../models/food/food_tracked.dart';
 import '../../pages/tab_food/add_edit_custom_food_modal.dart';
 import '../../providers/tracked_food_provider.dart';
 import '../../services/food_database_bindings/open_food_facts/open_food_facts_binding.dart';
+import '../../utils/date_util.dart';
+import '../../utils/time_util.dart';
 import '../../widgets/food_micro_count_pill.dart';
 import '../../widgets/food_origin_logo_pill.dart';
 import '../../widgets/macro_chart.dart';
@@ -179,11 +181,15 @@ class TrackFoodState extends State<TrackFood>
                     children: [
                       ListTile(
                         title: Text(AppLocalizations.of(context)!.addedDate),
-                        subtitle: Text('${food.dateAdded}'),
+                        subtitle: Text(
+                          '${DateUtil.getDate(food.dateAdded, context)} @ ${TimeUtil.getTime(food.dateAdded, context)}',
+                        ),
                       ),
                       ListTile(
                         title: Text(AppLocalizations.of(context)!.consumedDate),
-                        subtitle: Text('${food.dateEaten}'),
+                        subtitle: Text(
+                          '${DateUtil.getDate(food.dateEaten, context)} @ ${TimeUtil.getTime(food.dateEaten, context)}',
+                        ),
                       ),
                     ],
                   ),
