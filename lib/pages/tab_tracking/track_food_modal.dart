@@ -41,9 +41,11 @@ class TrackFoodState extends State<TrackFood>
     with SingleTickerProviderStateMixin {
   final _amountCtrl = TextEditingController();
   final double _pillHeight = 35;
-  var _dropdownValue = 'g';
 
   late TabController _tabController;
+
+  /// The UI reflected adding date, gets initialized and is used for setting the new desired value
+  late DateTime _foodTrackDate;
   final _amountCtrlFocusNode = FocusNode();
 
   @override
@@ -55,9 +57,20 @@ class TrackFoodState extends State<TrackFood>
 
   @override
   void didChangeDependencies() {
-    // final args = ModalRoute.of(context)!.settings.arguments as ModalArguments;
-    // final food = args.food;
-    // print(food);
+    // Get the Food or FoodTracked
+    final args = ModalRoute.of(context)!.settings.arguments as ModalArguments;
+    final food = args.food;
+
+    if (args.mode == ModalMode.edit) {
+      // Editing previous tracked food
+      _foodTrackDate = (food as FoodTracked).dateEaten;
+    } else if (args.foodAddingDate != null) {
+      // Tracking a new item with given date
+      _foodTrackDate = args.foodAddingDate!;
+    } else {
+      // Fallback, should not be reached
+      _foodTrackDate = DateTime.now();
+    }
     super.didChangeDependencies();
   }
 
@@ -103,13 +116,21 @@ class TrackFoodState extends State<TrackFood>
       DateTime dateAdded = DateTime.now();
       String id = FoodTracked.generatedId;
       FoodTracked foodToAdd = FoodTracked.fromFood(
-          args.food, id, amount, args.foodAddingDate!, dateAdded);
+        args.food,
+        id,
+        amount,
+        _foodTrackDate,
+        dateAdded,
+      );
 
       trackedFoodProvider.addEatenFood(foodToAdd);
     } else if (args.mode == ModalMode.edit) {
       // We are in edit mode, so we can safely assume args.food is a FoodTracked
       trackedFoodProvider.editEatenFood(
-          food: args.food as FoodTracked, amount: amount);
+        food: args.food as FoodTracked,
+        amount: amount,
+        dateEaten: _foodTrackDate,
+      );
     }
     // Pop page and tell that the previous page should stay open
     Navigator.pop(context, true);
@@ -261,6 +282,22 @@ class TrackFoodState extends State<TrackFood>
     }
   }
 
+  void _selectTrackedTime() async {
+    TimeOfDay? selectedTime = await showTimePicker(
+      initialTime: TimeOfDay.now(),
+      context: context,
+    );
+
+    if (selectedTime != null) {
+      setState(() {
+        _foodTrackDate = _foodTrackDate.copyWith(
+          hour: selectedTime.hour,
+          minute: selectedTime.minute,
+        );
+      });
+    }
+  }
+
   Widget _getAmountInput(
     ModalArguments args,
     TrackedFoodProvider trackedFood,
@@ -274,8 +311,7 @@ class TrackFoodState extends State<TrackFood>
       ),
       child: Row(
         children: [
-          SizedBox(
-            width: 140,
+          Expanded(
             child: TextField(
               textAlignVertical: TextAlignVertical.center,
               onEditingComplete: () => _addOrEditFood(args, trackedFood),
@@ -290,28 +326,22 @@ class TrackFoodState extends State<TrackFood>
                 prefixIcon: const Icon(Icons.edit),
                 hintText: _getAmount(food).toString(),
                 border: InputBorder.none,
+                suffix: const Text('g'),
               ),
             ),
           ),
-          Expanded(
-            child: DropdownButtonHideUnderline(
-              child: DropdownButton<String>(
-                value: _dropdownValue,
-                onChanged: (String? newValue) {
-                  setState(() {
-                    _dropdownValue = newValue!;
-                  });
-                },
-                items:
-                    <String>['g'].map<DropdownMenuItem<String>>((String value) {
-                  return DropdownMenuItem<String>(
-                    value: value,
-                    child: Text(value),
-                  );
-                }).toList(),
+          const SizedBox(width: 10),
+          OutlinedButton.icon(
+            style: OutlinedButton.styleFrom(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(18.0),
               ),
             ),
+            onPressed: () => _selectTrackedTime(),
+            icon: const Icon(Icons.schedule),
+            label: Text(TimeUtil.getTime(_foodTrackDate, context)),
           ),
+          const SizedBox(width: 10),
         ],
       ),
     );

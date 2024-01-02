@@ -24,7 +24,7 @@ class FoodTracked extends Food {
     fromJson: _millisecondsSinceEpochToDate,
     toJson: _dateToMillisecondsSinceEpoch,
   )
-  final DateTime dateEaten;
+  DateTime dateEaten;
 
   /// Refers to index of servingSizes Map, if serving size was selected
   @JsonKey(
