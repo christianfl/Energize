@@ -39,6 +39,7 @@
   "@trackFood": {},
   "useAsTemplateForCustomFood": "Als Vorlage für eigene Nahrung benutzen",
   "@useAsTemplateForCustomFood": {},
+  "nutrients": "Nährstoffe",
   "labelingEu": "Kennzeichnung (EU)",
   "contain": "enthalten",
   "dailyTarget": "Tagesziel",

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class FoodMicroCountPill extends StatelessWidget {
   final int count;
@@ -12,9 +13,9 @@ class FoodMicroCountPill extends StatelessWidget {
     required this.showText,
   }) : super(key: key);
 
-  String get _pillText {
+  String _getPillText(BuildContext context) {
     if (showText) {
-      return 'Nutrients: $count';
+      return '${AppLocalizations.of(context)!.nutrients}: $count';
     }
     return count.toString();
   }
@@ -38,7 +39,7 @@ class FoodMicroCountPill extends StatelessWidget {
             color: Theme.of(context).highlightColor,
           ),
           Text(
-            _pillText,
+            _getPillText(context),
             style: TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: 14,
