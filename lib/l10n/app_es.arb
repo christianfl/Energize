@@ -370,5 +370,17 @@
   "salt": "Sal",
   "@salt": {},
   "contain": "contener",
-  "@contain": {}
+  "@contain": {},
+  "nutrients": "Nutrientes",
+  "@nutrients": {},
+  "additionalInformation": "Información adicional",
+  "@additionalInformation": {},
+  "ok": "De acuerdo",
+  "@ok": {},
+  "addedDate": "Añadido",
+  "@addedDate": {},
+  "completeProductName": "Nombre completo del producto",
+  "@completeProductName": {},
+  "consumedDate": "Consumido",
+  "@consumedDate": {}
 }
