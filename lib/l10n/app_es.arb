@@ -382,5 +382,7 @@
   "completeProductName": "Nombre completo del producto",
   "@completeProductName": {},
   "consumedDate": "Consumido",
-  "@consumedDate": {}
+  "@consumedDate": {},
+  "timeSetHelpText": "Esta hora se fijará automáticamente durante el inicio de Energize. Si realiza un seguimiento de nuevos alimentos, se utilizará como plantilla para la hora de consumo. Esto facilita la recuperación de los días perdidos o la planificación de días futuros.",
+  "@timeSetHelpText": {}
 }
