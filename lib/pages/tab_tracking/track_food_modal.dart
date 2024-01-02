@@ -157,6 +157,52 @@ class TrackFoodState extends State<TrackFood>
         );
   }
 
+  Future<void> _openFoodTrackedInfoDialog(Food food) async {
+    return showDialog<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(AppLocalizations.of(context)!.additionalInformation),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: <Widget>[
+                ListTile(
+                  isThreeLine: true,
+                  title: Text(
+                    AppLocalizations.of(context)!.completeProductName,
+                  ),
+                  subtitle: Text(food.title),
+                ),
+                if (food is FoodTracked)
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      ListTile(
+                        title: Text(AppLocalizations.of(context)!.addedDate),
+                        subtitle: Text('${food.dateAdded}'),
+                      ),
+                      ListTile(
+                        title: Text(AppLocalizations.of(context)!.consumedDate),
+                        subtitle: Text('${food.dateEaten}'),
+                      ),
+                    ],
+                  ),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: Text(AppLocalizations.of(context)!.ok),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   void _launchOpenFoodFactsUrl(String ean) async {
     final uri = Uri.parse('${OpenFoodFactsBinding.productUrl}$ean');
     if (await canLaunchUrl(uri)) {
@@ -169,7 +215,7 @@ class TrackFoodState extends State<TrackFood>
     }
   }
 
-  Widget _getActions(Food food) {
+  Widget _getActions(Food food, ModalMode modalMode) {
     return PopupMenuButton(
       icon: const Icon(Icons.more_vert),
       onSelected: (value) {
@@ -179,12 +225,21 @@ class TrackFoodState extends State<TrackFood>
               createCustomFoodFromThis(food);
             }
             break;
+          case 1:
+            {
+              _openFoodTrackedInfoDialog(food);
+            }
+            break;
         }
       },
       itemBuilder: (context) => [
         PopupMenuItem(
           value: 0,
           child: Text(AppLocalizations.of(context)!.useAsTemplateForCustomFood),
+        ),
+        PopupMenuItem(
+          value: 1,
+          child: Text(AppLocalizations.of(context)!.additionalInformation),
         ),
       ],
     );
@@ -263,10 +318,15 @@ class TrackFoodState extends State<TrackFood>
     final food = args.food;
     final modalMode = args.mode;
 
+    // if (food is FoodTracked) {
+    //   print(food.dateAdded);
+    //   print(food.dateEaten);
+    // }
+
     return Scaffold(
       appBar: AppBar(
         title: Text(_getPageTitle(modalMode), overflow: TextOverflow.ellipsis),
-        actions: [_getActions(food)],
+        actions: [_getActions(food, modalMode)],
       ),
       body: WillPopScope(
         onWillPop: () async {
