@@ -486,6 +486,7 @@ class FoodInputState extends State<FoodInput>
                             );
                           }
                         },
+                        keyboardType: TextInputType.number,
                         decoration: InputDecoration(
                           border: InputBorder.none,
                           hintText: 'EAN',
