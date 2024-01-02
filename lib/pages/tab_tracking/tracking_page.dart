@@ -98,7 +98,13 @@ class TrackingPageState extends State<TrackingPage> {
                 lastDay: DateTime.now().add(const Duration(days: 365)),
                 focusedDay: _selectedDate,
                 onDaySelected: (selectedDay, focusedDay) {
-                  _selectDate(selectedDay);
+                  DateTime selectedDateWithPreviousTime =
+                      _selectedDate.copyWith(
+                    year: selectedDay.year,
+                    month: selectedDay.month,
+                    day: selectedDay.day,
+                  );
+                  _selectDate(selectedDateWithPreviousTime);
                   Navigator.of(context).pop();
                 },
                 // Mark current selected date
@@ -309,7 +315,7 @@ class TrackingPageState extends State<TrackingPage> {
             ),
             const SizedBox(width: 3),
             Text(
-              '@',
+              '|',
               style: Theme.of(context).textTheme.labelMedium,
             ),
             const SizedBox(width: 3),
