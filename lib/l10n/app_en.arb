@@ -24,6 +24,7 @@
     "dayIncomplete": "Day incomplete",
     "unmarkedDayAsComplete": "Unmarked day as complete",
     "trackFood": "Track food",
+    "timeSetHelpText": "This time will be set automatically during start of Energize. If you track new food, it will be used as a template for the time of consume. This makes it easier to efficiently catch up missed days or plan future days.",
     "useAsTemplateForCustomFood": "Use as template for custom food",
     "additionalInformation": "Additional information",
     "completeProductName": "Complete product name",

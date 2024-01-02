@@ -5,6 +5,7 @@ import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
 
+import '../../utils/time_util.dart';
 import './detailed_summary_sub_page.dart';
 import '../../providers/tracked_food_provider.dart';
 import '../../services/complete_days_database_service.dart';
@@ -179,6 +180,25 @@ class TrackingPageState extends State<TrackingPage> {
     );
   }
 
+  /// Sets the current in-app time which acts as standard value for newly added food items
+  void _selectTime(BuildContext context) async {
+    TimeOfDay? selectedTime = await showTimePicker(
+      initialTime: TimeOfDay.now(),
+      context: context,
+      helpText:
+          '${MaterialLocalizations.of(context).timePickerDialHelpText}\n\n${AppLocalizations.of(context)!.timeSetHelpText}',
+    );
+
+    if (selectedTime != null) {
+      setState(() {
+        _selectedDate = _selectedDate.copyWith(
+          hour: selectedTime.hour,
+          minute: selectedTime.minute,
+        );
+      });
+    }
+  }
+
   void _selectDate(DateTime date) {
     final provider = Provider.of<TrackedFoodProvider>(context, listen: false);
 
@@ -286,6 +306,17 @@ class TrackingPageState extends State<TrackingPage> {
               onPressed: () => _pickDateDialog(context),
               style: TextButton.styleFrom(foregroundColor: Colors.white),
               child: Text(DateUtil.getDate(_selectedDate, context)),
+            ),
+            const SizedBox(width: 3),
+            Text(
+              '@',
+              style: Theme.of(context).textTheme.labelMedium,
+            ),
+            const SizedBox(width: 3),
+            TextButton(
+              onPressed: () => _selectTime(context),
+              style: TextButton.styleFrom(foregroundColor: Colors.white),
+              child: Text(TimeUtil.getTime(_selectedDate, context)),
             ),
             IconButton(
               onPressed: () {

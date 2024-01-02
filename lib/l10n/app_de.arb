@@ -38,6 +38,7 @@
   "@unmarkedDayAsComplete": {},
   "trackFood": "Nahrung tracken",
   "@trackFood": {},
+  "timeSetHelpText": "Die hier gewählte Uhrzeit wird beim Starten von Energize vorausgefüllt. Wird neue Nahrung getracked, dient sie als Vorlage für die Zeit des Verzehrs. So kann auch über mehrere Tage hinweg das Tracking effizient nachgeholt oder im Voraus geplant werden.",
   "useAsTemplateForCustomFood": "Als Vorlage für eigene Nahrung benutzen",
   "@useAsTemplateForCustomFood": {},
   "additionalInformation": "Weitere Informationen",
