@@ -370,5 +370,19 @@
   "salt": "Tuz",
   "@salt": {},
   "contain": "içerir",
-  "@contain": {}
+  "@contain": {},
+  "ok": "Tamam",
+  "@ok": {},
+  "additionalInformation": "Ek bilgiler",
+  "@additionalInformation": {},
+  "completeProductName": "Tam ürün adı",
+  "@completeProductName": {},
+  "addedDate": "Eklendi",
+  "@addedDate": {},
+  "consumedDate": "Tüketildi",
+  "@consumedDate": {},
+  "nutrients": "Besinler",
+  "@nutrients": {},
+  "timeSetHelpText": "Bu zaman Energize'ın başlangıcı sırasında otomatik olarak ayarlanacaktır. Yeni yiyecekleri takip ederseniz, tüketme zamanı için bir şablon olarak kullanılacaktır. Bu, kaçırılan günleri verimli bir şekilde yakalamayı veya gelecek günleri planlamayı kolaylaştırır.",
+  "@timeSetHelpText": {}
 }
