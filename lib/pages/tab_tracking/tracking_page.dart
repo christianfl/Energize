@@ -79,6 +79,7 @@ class TrackingPageState extends State<TrackingPage> {
             MaterialLocalizations.of(context).datePickerHelpText.toUpperCase(),
             style: Theme.of(context).textTheme.labelSmall,
           ),
+          backgroundColor: Theme.of(context).colorScheme.surface,
           content: SingleChildScrollView(
             child: SizedBox(
               width: MediaQuery.of(context).size.width,

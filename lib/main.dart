@@ -79,8 +79,9 @@ class MyApp extends StatelessWidget {
             onPrimary: Colors.white,
             secondary: Colors.pink,
             onSecondary: Colors.white,
-            surface: Colors.pink,
+            surface: const Color(0xFF1B262C),
           ),
+          appBarTheme: const AppBarTheme(color: Colors.pink),
         ),
         home: const TabsPage(),
         routes: {
