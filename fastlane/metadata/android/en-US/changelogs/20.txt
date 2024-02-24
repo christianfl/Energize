@@ -1,0 +1,7 @@
+* Added consume times for food items
+* Added possibility to set food consume time app-wide as a reference when tracking food
+* Added Portuguese Brazil translation (thanks for this contribution!)
+* Updated Turkish, Spanish, and French translation (thanks to the contributors, again!)
+* Fix: Using the calendar widget to set another day, now keeps tracked food within this day, no matter which time and timezone is set
+* Fix: Lock device screen orientation when scanning EAN codes
+* A few small fixes and improvements

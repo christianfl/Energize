@@ -16,7 +16,7 @@ class OpenFoodFactsBinding {
   OpenFoodFactsBinding._privateConstructor() {
     OpenFoodAPIConfiguration.userAgent = const UserAgent(
       name: 'Energize',
-      version: '0.7.0',
+      version: '0.8.0',
       url: 'https://codeberg.org/epinez/Energize',
     );
   }
