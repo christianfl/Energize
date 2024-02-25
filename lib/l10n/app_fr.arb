@@ -370,5 +370,19 @@
   "loading": "Chargement",
   "@loading": {},
   "notFound": "introuvable",
-  "@notFound": {}
+  "@notFound": {},
+  "ok": "OK",
+  "@ok": {},
+  "additionalInformation": "Information additionnelle",
+  "@additionalInformation": {},
+  "completeProductName": "Nom de produit complet",
+  "@completeProductName": {},
+  "timeSetHelpText": "Ce temps sera defini automatiquement au démarrage d'Energize. Si vous suivez un nouvel aliment, il sera utilisé comme modèle durant le temps de consommation. Ceci facilitera le suivi efficace des jours ignorés ou la planification des jours futurs.",
+  "@timeSetHelpText": {},
+  "consumedDate": "Consommé",
+  "@consumedDate": {},
+  "addedDate": "Ajouté",
+  "@addedDate": {},
+  "nutrients": "Nutriments",
+  "@nutrients": {}
 }
