@@ -53,24 +53,7 @@ class MyApp extends StatelessWidget {
           GlobalWidgetsLocalizations.delegate,
           GlobalCupertinoLocalizations.delegate,
         ],
-        supportedLocales: const [
-          Locale('en'), // English, no country code
-          Locale('de'), // German, no country code
-          Locale('nb', 'NO'), // Norwegian Bokmål
-          Locale('tr'), // Turkish, no country code
-          Locale('fr'), // French, no country code
-          Locale('it'), // Italian, no country code
-          Locale('pl'), // Polnish, no country code
-          Locale('cs'), // Czech, no country code
-          Locale('da'), // Danish, no country code
-          Locale('pa', 'PK'), // Punjabi, Pakistan
-          Locale('zh'), // Chinese, no country code
-          Locale('sr'), // Serbian, no country code
-          Locale('uk'), // Ukrainian, no country code
-          Locale('ca'), // Catalan, no country code
-          Locale('es'), // Spanish, no country code
-          Locale('pt', 'BR'), // Portuguese, Brazil
-        ],
+        supportedLocales: AppLocalizations.supportedLocales,
         theme: ThemeData.dark().copyWith(
           highlightColor: Colors.amber,
           scaffoldBackgroundColor: const Color(0xFF1B262C),
