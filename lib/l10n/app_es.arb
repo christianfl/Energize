@@ -235,7 +235,7 @@
   "@bitcoinAddressCopiedToClipboard": {},
   "bankAccountOrCreditCard": "Cuenta bancaria o tarjeta de crédito",
   "@bankAccountOrCreditCard": {},
-  "emailHint": "Por favor, utilícelo únicamente para mensajes personales. Para notificar problemas, sugerir mejoras o obtener ayuda adicional, utilice el enlace de arriba.",
+  "emailHint": "Por favor, utilice esto solo para otros temas además de los anteriores",
   "@emailHint": {},
   "supportMeByDonating": "Ayúdeme donando",
   "@supportMeByDonating": {},
@@ -384,5 +384,7 @@
   "consumedDate": "Consumido",
   "@consumedDate": {},
   "timeSetHelpText": "Esta hora se fijará automáticamente durante el inicio de Energize. Si realiza un seguimiento de nuevos alimentos, se utilizará como plantilla para la hora de consumo. Esto facilita la recuperación de los días perdidos o la planificación de días futuros.",
-  "@timeSetHelpText": {}
+  "@timeSetHelpText": {},
+  "proposeImprovement": "Proponer mejoras",
+  "@proposeImprovement": {}
 }
