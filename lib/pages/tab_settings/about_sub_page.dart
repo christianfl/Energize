@@ -104,6 +104,25 @@ class AboutSubPage extends StatelessWidget {
               ),
               InkWell(
                 onTap: () async {
+                  final uri = Uri.parse(_issueUrl);
+                  if (await canLaunchUrl(uri)) {
+                    await launchUrl(
+                      uri,
+                      mode: LaunchMode.externalApplication,
+                    );
+                  } else {
+                    throw 'Could not launch url';
+                  }
+                },
+                child: ListTile(
+                  leading: const Icon(Icons.extension),
+                  title: Text(AppLocalizations.of(context)!.proposeImprovement),
+                  subtitle: const Text('Codeberg.org'),
+                  trailing: const Icon(Icons.link),
+                ),
+              ),
+              InkWell(
+                onTap: () async {
                   final uri = Uri.parse(_repoUrl);
                   if (await canLaunchUrl(uri)) {
                     await launchUrl(
