@@ -1,6 +1,6 @@
 import 'package:sqflite/sqlite_api.dart';
 
-import '../models/food/food_tracked.dart';
+import '../../models/food/food_tracked.dart';
 import 'database_service.dart';
 
 class TrackedFoodDatabaseService with DatabaseService {

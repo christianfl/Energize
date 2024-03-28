@@ -8,7 +8,7 @@ import 'package:table_calendar/table_calendar.dart';
 import '../../utils/time_util.dart';
 import './detailed_summary_sub_page.dart';
 import '../../providers/tracked_food_provider.dart';
-import '../../services/complete_days_database_service.dart';
+import '../../services/sqlite/complete_days_database_service.dart';
 import '../../utils/date_util.dart';
 import '../../widgets/food_input.dart';
 import '../../widgets/macro_chart.dart';

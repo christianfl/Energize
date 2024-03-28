@@ -11,10 +11,10 @@ import '../../models/backup_data.dart';
 import '../../providers/app_settings.dart';
 import '../../providers/custom_food_provider.dart';
 import '../../providers/tracked_food_provider.dart';
-import '../../services/complete_days_database_service.dart';
-import '../../services/custom_foods_database_service.dart';
+import '../../services/sqlite/complete_days_database_service.dart';
+import '../../services/sqlite/custom_foods_database_service.dart';
 import '../../services/encryption_service.dart';
-import '../../services/tracked_foods_database_service.dart';
+import '../../services/sqlite/tracked_foods_database_service.dart';
 import '../../widgets/info_card.dart';
 import '../../widgets/select_action_card.dart';
 

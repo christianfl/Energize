@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../services/custom_foods_database_service.dart';
+import '../../services/sqlite/custom_foods_database_service.dart';
 import '../models/food/food.dart';
 
 class CustomFoodProvider with ChangeNotifier {
