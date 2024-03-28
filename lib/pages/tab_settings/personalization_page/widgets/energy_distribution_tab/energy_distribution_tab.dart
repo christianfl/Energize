@@ -15,7 +15,7 @@ class EnergyDistributionTab extends StatefulWidget {
 
 class _EnergyDistributionTabState extends State<EnergyDistributionTab> {
   /// 0 = protein, 1 = carbs, 2 = fat
-  int _touchedIndex = 0;
+  int _selectedMacroIndex = 0;
 
   double _getTotalCalories(AppSettings appSettings) {
     return appSettings.caloriesTarget;
@@ -120,8 +120,14 @@ class _EnergyDistributionTabState extends State<EnergyDistributionTab> {
                                   pieTouchResponse.touchedSection == null) {
                                 return;
                               }
-                              _touchedIndex = pieTouchResponse
+                              int touchedPieChartIndex = pieTouchResponse
                                   .touchedSection!.touchedSectionIndex;
+
+                              // Set value only if valid (0, 1, 2)
+                              if ([0, 1, 2].contains(touchedPieChartIndex)) {
+                                _selectedMacroIndex = pieTouchResponse
+                                    .touchedSection!.touchedSectionIndex;
+                              }
                             });
                           },
                         ),
@@ -149,11 +155,11 @@ class _EnergyDistributionTabState extends State<EnergyDistributionTab> {
         ),
         const SizedBox(height: 10),
         Card(
-          color: _touchedIndex == 0
+          color: _selectedMacroIndex == 0
               ? Colors.green
-              : _touchedIndex == 1
+              : _selectedMacroIndex == 1
                   ? Colors.blue
-                  : _touchedIndex == 2
+                  : _selectedMacroIndex == 2
                       ? Colors.red
                       : null,
           child: Padding(
@@ -162,11 +168,11 @@ class _EnergyDistributionTabState extends State<EnergyDistributionTab> {
               children: [
                 Expanded(
                   child: DropdownButtonFormField<int>(
-                    value: _touchedIndex,
+                    value: _selectedMacroIndex,
                     isExpanded: true,
                     onChanged: (int? newValue) {
                       setState(() {
-                        _touchedIndex = newValue!;
+                        _selectedMacroIndex = newValue!;
                       });
                     },
                     items: [
@@ -185,7 +191,7 @@ class _EnergyDistributionTabState extends State<EnergyDistributionTab> {
                     ],
                   ),
                 ),
-                if (_touchedIndex == 0)
+                if (_selectedMacroIndex == 0)
                   Expanded(
                     child: ListTile(
                       title: TextFormField(
@@ -204,7 +210,7 @@ class _EnergyDistributionTabState extends State<EnergyDistributionTab> {
                       ),
                     ),
                   )
-                else if (_touchedIndex == 1)
+                else if (_selectedMacroIndex == 1)
                   Expanded(
                     child: ListTile(
                       title: TextFormField(
@@ -223,7 +229,7 @@ class _EnergyDistributionTabState extends State<EnergyDistributionTab> {
                       ),
                     ),
                   )
-                else if (_touchedIndex == 2)
+                else if (_selectedMacroIndex == 2)
                   Expanded(
                     child: ListTile(
                       title: TextFormField(
@@ -281,7 +287,7 @@ class _EnergyDistributionTabState extends State<EnergyDistributionTab> {
     final appSettings = Provider.of<AppSettings>(context, listen: false);
 
     return List.generate(3, (i) {
-      final isTouched = i == _touchedIndex;
+      final isTouched = i == _selectedMacroIndex;
       final fontSize = isTouched ? 20.0 : 16.0;
       final radius = isTouched ? 110.0 : 100.0;
       final widgetSize = isTouched ? 55.0 : 40.0;
