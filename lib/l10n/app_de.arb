@@ -186,6 +186,8 @@
   "@targetsApplyError": {},
   "totalEnergy": "Gesamtenergie",
   "@totalEnergy": {},
+  "energyDistributionChartMissingHint": "Das Diagramm der Energieverteilung wird erst gezeigt wenn die Gesamtenergie und ein Ziel für mindestens eines der Makronährstoffe gesetzt ist.",
+  "@energyDistributionChartMissingHint": {},
   "percentOfTotalEnergy": "Prozent der Gesamtenergie",
   "@percentOfTotalEnergy": {},
   "selectedMacronutrient": "Ausgewählter Makronährstoff",

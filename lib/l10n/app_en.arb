@@ -109,6 +109,7 @@
     "targetsApplied": "Nutrition targets were applied",
     "targetsApplyError": "Nutrition targets could not be applied",
     "totalEnergy": "Total energy",
+    "energyDistributionChartMissingHint": "The energy distribution chart is only shown if you have set a calories target and a target for at least one of the macronutrients.",
     "percentOfTotalEnergy": "Percent of total energy",
     "selectedMacronutrient": "Selected macronutrient",
     "energyAndMacronutrientsTargetsHint": "Calories, protein, carbs, fat",

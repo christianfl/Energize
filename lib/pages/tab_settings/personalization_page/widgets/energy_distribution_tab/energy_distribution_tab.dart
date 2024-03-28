@@ -4,6 +4,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../../providers/app_settings.dart';
+import '../../../../../widgets/info_card.dart';
 
 class EnergyDistributionTab extends StatefulWidget {
   const EnergyDistributionTab({Key? key}) : super(key: key);
@@ -48,6 +49,27 @@ class _EnergyDistributionTabState extends State<EnergyDistributionTab> {
         _getFatPercentageOfCalories(appSettings);
   }
 
+  /// Hide the pie chart if not at least _getTotalCalories > 0 and one of the macros > 0
+  bool _isPieChartHidden(AppSettings appSettings) {
+    if (_getTotalCalories(appSettings) <= 0) {
+      return true;
+    }
+
+    // Now _getTotalCalories > 0, need just one macro
+
+    if (appSettings.proteinTarget > 0) {
+      return false;
+    }
+    if (appSettings.carbsTarget > 0) {
+      return false;
+    }
+    if (appSettings.fatTarget > 0) {
+      return false;
+    }
+
+    return true;
+  }
+
   @override
   Widget build(BuildContext context) {
     final appSettings = Provider.of<AppSettings>(context);
@@ -72,44 +94,54 @@ class _EnergyDistributionTabState extends State<EnergyDistributionTab> {
             ),
           ),
         ),
-        AspectRatio(
-          aspectRatio: 1.1,
-          child: Stack(
-            alignment: Alignment.center,
-            children: [
-              Text(
-                  '= ${_getTotalCaloriesPercentage(appSettings).toStringAsFixed(0)} %'),
-              PieChart(
-                PieChartData(
-                  pieTouchData: PieTouchData(
-                    touchCallback: (FlTouchEvent event, pieTouchResponse) {
-                      setState(() {
-                        if (!event.isInterestedForInteractions ||
-                            pieTouchResponse == null ||
-                            pieTouchResponse.touchedSection == null) {
-                          return;
-                        }
-                        _touchedIndex = pieTouchResponse
-                            .touchedSection!.touchedSectionIndex;
-                      });
-                    },
-                  ),
-                  borderData: FlBorderData(
-                    show: false,
-                  ),
-                  sectionsSpace: 5,
-                  centerSpaceRadius: 30,
-                  sections: showingSections(),
+        _isPieChartHidden(appSettings)
+            ? Padding(
+                padding: const EdgeInsets.fromLTRB(0.0, 32.0, 0.0, 16.0),
+                child: InfoCard(
+                  message: AppLocalizations.of(context)!
+                      .energyDistributionChartMissingHint,
+                ),
+              )
+            : AspectRatio(
+                aspectRatio: 1.1,
+                child: Stack(
+                  alignment: Alignment.center,
+                  children: [
+                    Text(
+                        '= ${_getTotalCaloriesPercentage(appSettings).toStringAsFixed(0)} %'),
+                    PieChart(
+                      PieChartData(
+                        pieTouchData: PieTouchData(
+                          touchCallback:
+                              (FlTouchEvent event, pieTouchResponse) {
+                            setState(() {
+                              if (!event.isInterestedForInteractions ||
+                                  pieTouchResponse == null ||
+                                  pieTouchResponse.touchedSection == null) {
+                                return;
+                              }
+                              _touchedIndex = pieTouchResponse
+                                  .touchedSection!.touchedSectionIndex;
+                            });
+                          },
+                        ),
+                        borderData: FlBorderData(
+                          show: false,
+                        ),
+                        sectionsSpace: 5,
+                        centerSpaceRadius: 30,
+                        sections: showingSections(),
+                      ),
+                    ),
+                  ],
                 ),
               ),
-            ],
+        if (!_isPieChartHidden(appSettings))
+          Text(
+            '* ${AppLocalizations.of(context)!.percentOfTotalEnergy} (kcal)',
+            style: Theme.of(context).textTheme.bodySmall,
+            textAlign: TextAlign.end,
           ),
-        ),
-        Text(
-          '* ${AppLocalizations.of(context)!.percentOfTotalEnergy} (kcal)',
-          style: Theme.of(context).textTheme.bodySmall,
-          textAlign: TextAlign.end,
-        ),
         const SizedBox(height: 20),
         Text(
           AppLocalizations.of(context)!.selectedMacronutrient,
