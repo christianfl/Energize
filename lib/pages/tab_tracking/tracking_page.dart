@@ -190,6 +190,7 @@ class TrackingPageState extends State<TrackingPage> {
   /// Sets the current in-app time which acts as standard value for newly added food items
   void _selectTime(BuildContext context) async {
     TimeOfDay? selectedTime = await showTimePicker(
+      initialEntryMode: TimePickerEntryMode.dialOnly,
       initialTime: TimeOfDay.now(),
       context: context,
       helpText:
