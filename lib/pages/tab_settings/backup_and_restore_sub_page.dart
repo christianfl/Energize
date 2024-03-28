@@ -1,10 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
-import 'dart:typed_data';
 
-import 'package:crypto/crypto.dart';
 import 'package:dio/dio.dart';
-import 'package:encrypt/encrypt.dart' as enc;
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:path/path.dart' as path;
@@ -16,6 +13,7 @@ import '../../providers/custom_food_provider.dart';
 import '../../providers/tracked_food_provider.dart';
 import '../../services/complete_days_database_service.dart';
 import '../../services/custom_foods_database_service.dart';
+import '../../services/encryption_service.dart';
 import '../../services/tracked_foods_database_service.dart';
 import '../../widgets/info_card.dart';
 import '../../widgets/select_action_card.dart';
@@ -72,61 +70,6 @@ class BackupAndRestoreSubPageState extends State<BackupAndRestoreSubPage> {
     return dio;
   }
 
-  /// Returns a 256bit AES key based on a given keyphrase
-  enc.Key _generateAesKey(String keyphrase) {
-    var bytes = utf8.encode(keyphrase);
-    var digest = sha256.convert(bytes);
-    Uint8List digestAsUint8List = Uint8List.fromList(digest.bytes);
-    final key = enc.Key(digestAsUint8List);
-    return key;
-  }
-
-  /// Returns Encrypter to make sure encrypt and decrypt functions use the same encryption algorithms
-  enc.Encrypter _getEncrypter(enc.Key key) {
-    return enc.Encrypter(
-      enc.AES(
-        key,
-        mode: enc.AESMode.ctr,
-      ),
-    );
-  }
-
-  /// Input: Plaintext, random IV and SHA256 derived from password input field
-  /// Returns: Base64(IV)Base64(ciphertext)
-  String _encryptData(String plaintext) {
-    final key = _generateAesKey(_encryptionPasswordController.text);
-
-    // Generate iv
-    final iv = enc.IV.fromSecureRandom(16);
-
-    // Make encrypter ready and encrypt
-    final encrypter = _getEncrypter(key);
-    final ciphertext = encrypter.encrypt(plaintext, iv: iv);
-    final encrypted = '${iv.base64}${ciphertext.base64}';
-
-    return encrypted;
-  }
-
-  /// Input: Base64(IV)Base64(ciphertext)
-  /// Returns: Plaintext
-  String _decryptData(String data) {
-    final key = _generateAesKey(_encryptionPasswordController.text);
-
-    // Get IV
-    final ivBase64String = data.substring(0, 24);
-    final iv = enc.IV.fromBase64(ivBase64String);
-
-    // Get ciphertext (Base64)
-    final ciphertextBase64String = data.substring(24);
-    final encrypted = enc.Encrypted.fromBase64(ciphertextBase64String);
-
-    // Make encrypter ready and decrypt
-    final encrypter = _getEncrypter(key);
-    final decrypted = encrypter.decrypt(encrypted, iv: iv);
-
-    return decrypted;
-  }
-
   _showError(BuildContext context, {String? text}) {
     // STandard error text
     text ??= 'An unknown error has occured';
@@ -167,7 +110,10 @@ class BackupAndRestoreSubPageState extends State<BackupAndRestoreSubPage> {
       );
 
       final encodedBackupData = json.encode(backupData.toJson());
-      final encryptedData = _encryptData(encodedBackupData);
+      final encryptedData = EncryptionService.encrypt(
+        encodedBackupData,
+        _encryptionPasswordController.text,
+      );
 
       // Check if server URL is reachable (without additional folder)
       try {
@@ -280,7 +226,10 @@ class BackupAndRestoreSubPageState extends State<BackupAndRestoreSubPage> {
             Provider.of<TrackedFoodProvider>(context, listen: false);
 
         await dio.get(_backupTargetPathWithFilename).then((value) => {
-              decryptedString = _decryptData(value.toString()),
+              decryptedString = EncryptionService.decrypt(
+                value.toString(),
+                _encryptionPasswordController.text,
+              ),
               backupData = BackupData.fromJson(json.decode(decryptedString)),
               if (backupData.customFood != null)
                 {
