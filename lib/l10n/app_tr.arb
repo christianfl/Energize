@@ -347,7 +347,7 @@
   "@targetsApplyError": {},
   "totalEnergy": "Toplam enerji",
   "@totalEnergy": {},
-  "emailHint": "Lütfen bunu yalnızca kişisel mesajlar için kullanın. Sorunları bildirmek, iyileştirmeler önermek veya daha fazla yardım almak için lütfen yukarıdaki bağlantıları kullanın.",
+  "emailHint": "Lütfen bunu yalnızca yukarıdakiler dışındaki konular için kullanın",
   "@emailHint": {},
   "deleted": "silindi",
   "@deleted": {},
@@ -384,5 +384,9 @@
   "nutrients": "Besinler",
   "@nutrients": {},
   "timeSetHelpText": "Bu zaman Energize'ın başlangıcı sırasında otomatik olarak ayarlanacaktır. Yeni yiyecekleri takip ederseniz, tüketme zamanı için bir şablon olarak kullanılacaktır. Bu, kaçırılan günleri verimli bir şekilde yakalamayı veya gelecek günleri planlamayı kolaylaştırır.",
-  "@timeSetHelpText": {}
+  "@timeSetHelpText": {},
+  "energyDistributionChartMissingHint": "Enerji dağılım grafiği yalnızca bir kalori hedefi ve makro besinlerden en az biri için bir hedef belirlediyseniz gösterilir.",
+  "@energyDistributionChartMissingHint": {},
+  "proposeImprovement": "İyileştirme öner",
+  "@proposeImprovement": {}
 }
