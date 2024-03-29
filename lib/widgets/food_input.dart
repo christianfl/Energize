@@ -18,10 +18,10 @@ import '../models/food/food.dart';
 import '../models/food/food_tracked.dart';
 import '../pages/tab_food/food_page.dart';
 import '../pages/tab_tracking/track_food_modal.dart';
-import '../services/sqlite/custom_foods_database_service.dart';
 import '../services/food_database_bindings/open_food_facts/open_food_facts_binding.dart';
 import '../services/food_database_bindings/swiss_food_composition_database/swiss_food_composition_database_binding.dart';
 import '../services/food_database_bindings/usda/usda_binding.dart';
+import '../services/sqlite/custom_foods_database_service.dart';
 
 enum SheetModalMode { search, ean }
 
@@ -190,7 +190,7 @@ class FoodInputState extends State<FoodInput>
         final appSettings = Provider.of<AppSettings>(context, listen: false);
 
         if (appSettings.isProviderOpenFoodFactsActivated) {
-          OpenFoodFactsBinding.getFoodByEan(ean).then((food) {
+          OpenFoodFactsBinding().getFoodByEan(ean).then((food) {
             _navigateToAddFood(context, food, forcePop: true);
           }).catchError((error) {
             // If there is also no match, show an error that no product could be found
@@ -244,7 +244,8 @@ class FoodInputState extends State<FoodInput>
     final appSettings = Provider.of<AppSettings>(context, listen: false);
 
     if (appSettings.isProviderOpenFoodFactsActivated) {
-      _offSearchResultFood = await OpenFoodFactsBinding.searchFood(searchText);
+      _offSearchResultFood =
+          await OpenFoodFactsBinding().searchFood(searchText);
     } else {
       return;
     }

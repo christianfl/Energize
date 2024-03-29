@@ -20,10 +20,14 @@ class OpenFoodFactsBinding {
       url: 'https://codeberg.org/epinez/Energize',
     );
   }
-  static final OpenFoodFactsBinding instance =
+  static final OpenFoodFactsBinding _instance =
       OpenFoodFactsBinding._privateConstructor();
 
-  static Future<Food> getFoodByEan(String barcode) async {
+  factory OpenFoodFactsBinding() {
+    return _instance;
+  }
+
+  Future<Food> getFoodByEan(String barcode) async {
     ProductQueryConfiguration configuration = ProductQueryConfiguration(
       barcode,
       language: _queryLanguage,
@@ -40,7 +44,7 @@ class OpenFoodFactsBinding {
     }
   }
 
-  static Future<List<Food>?> searchFood(String searchText) async {
+  Future<List<Food>?> searchFood(String searchText) async {
     if (searchText.isEmpty) return null;
     var parameters = <Parameter>[
       const PageNumber(page: 1),
