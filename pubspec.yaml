@@ -41,7 +41,7 @@ dependencies:
   json_serializable: ^6.7.1
   build_runner: ^2.4.9
   json_annotation: ^4.8.1
-  table_calendar: ^3.0.9
+  table_calendar: ^3.0.9 # Cannot be upgraded right now https://github.com/aleksanderwozniak/table_calendar/issues/856#issuecomment-1962336836
   collection: ^1.18.0
   http: ^1.2.1
   sqflite_common_ffi: ^2.3.3
