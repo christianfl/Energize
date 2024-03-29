@@ -386,5 +386,7 @@
   "timeSetHelpText": "Esta hora se fijará automáticamente durante el inicio de Energize. Si realiza un seguimiento de nuevos alimentos, se utilizará como plantilla para la hora de consumo. Esto facilita la recuperación de los días perdidos o la planificación de días futuros.",
   "@timeSetHelpText": {},
   "proposeImprovement": "Proponer mejoras",
-  "@proposeImprovement": {}
+  "@proposeImprovement": {},
+  "energyDistributionChartMissingHint": "El gráfico de distribución de energía sólo se muestra si ha establecido un objetivo de calorías y un objetivo para al menos uno de los macronutrientes.",
+  "@energyDistributionChartMissingHint": {}
 }
