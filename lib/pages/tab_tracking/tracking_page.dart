@@ -317,23 +317,17 @@ class TrackingPageState extends State<TrackingPage> {
               style: TextButton.styleFrom(foregroundColor: Colors.white),
               child: Text(DateUtil.getDate(_selectedDate, context)),
             ),
-            const SizedBox(width: 3),
-            Text(
-              '|',
-              style: Theme.of(context).textTheme.labelMedium,
-            ),
-            const SizedBox(width: 3),
-            TextButton(
-              onPressed: () => _selectTime(context),
-              style: TextButton.styleFrom(foregroundColor: Colors.white),
-              child: Text(TimeUtil.getTime(_selectedDate, context)),
-            ),
             IconButton(
               onPressed: () {
                 _selectDate(_selectedDate.add(const Duration(days: 1)));
               },
               icon: const Icon(Icons.arrow_right),
               color: Colors.white,
+            ),
+            TextButton(
+              onPressed: () => _selectTime(context),
+              style: TextButton.styleFrom(foregroundColor: Colors.white),
+              child: Text(TimeUtil.getTime(_selectedDate, context)),
             ),
           ],
         ),
