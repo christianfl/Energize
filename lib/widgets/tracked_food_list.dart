@@ -139,6 +139,7 @@ class TrackedFoodList extends StatelessWidget {
                                 ],
                               ),
                             ),
+                            const SizedBox(width: 10),
                             Container(
                               decoration: BoxDecoration(
                                 border: Border.all(
