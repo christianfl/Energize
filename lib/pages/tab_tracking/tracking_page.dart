@@ -368,6 +368,8 @@ class TrackingPageState extends State<TrackingPage> {
         curve: Curves.linear,
         icon: Icons.add,
         activeIcon: Icons.close,
+        backgroundColor: Theme.of(context).colorScheme.secondary,
+        foregroundColor: Theme.of(context).colorScheme.onSecondary,
         overlayOpacity: 0,
         animationDuration: const Duration(),
         spaceBetweenChildren: 10,
