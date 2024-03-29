@@ -72,16 +72,15 @@ class FoodListItem extends StatelessWidget {
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                     ),
-                    food.calories != null
-                        ? Text(
-                            '${food.calories} kcal / 100 g',
-                            style: const TextStyle(
-                              color: Colors.grey,
-                              fontWeight: FontWeight.w300,
-                              fontSize: 10,
-                            ),
-                          )
-                        : Container(),
+                    if (food.calories != null)
+                      Text(
+                        '${food.calories?.toStringAsFixed(0)} kcal / 100 g',
+                        style: const TextStyle(
+                          color: Colors.grey,
+                          fontWeight: FontWeight.w300,
+                          fontSize: 10,
+                        ),
+                      )
                   ],
                 ),
               ),

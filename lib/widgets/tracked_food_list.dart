@@ -100,7 +100,7 @@ class TrackedFoodList extends StatelessWidget {
                                   Row(
                                     children: [
                                       Text(
-                                        '${food.amount} g',
+                                        '${food.amount.toStringAsFixed(0)} g',
                                         style: const TextStyle(
                                           color: Colors.grey,
                                           fontWeight: FontWeight.w300,
