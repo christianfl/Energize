@@ -69,7 +69,7 @@ class FoodListItem extends StatelessWidget {
                   children: <Widget>[
                     Text(
                       food.title,
-                      maxLines: 2,
+                      maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                     ),
                     food.calories != null
