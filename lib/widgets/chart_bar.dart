@@ -103,6 +103,7 @@ class ChartBar extends StatelessWidget {
                 child: Text(
                   _percentageString,
                   style: const TextStyle(
+                    height: 1.0,
                     color: Colors.black,
                     fontSize: 12,
                   ),
