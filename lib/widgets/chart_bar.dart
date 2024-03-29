@@ -9,14 +9,14 @@ class ChartBar extends StatelessWidget {
   final int? decimalPlaces;
 
   const ChartBar({
-    Key? key,
+    super.key,
     required this.title,
     required this.value,
     required this.target,
     required this.unit,
     required this.color,
     this.decimalPlaces,
-  }) : super(key: key);
+  });
 
   double get _percentage {
     if (target > 0) {

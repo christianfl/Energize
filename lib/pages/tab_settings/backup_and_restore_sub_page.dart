@@ -21,7 +21,7 @@ import '../../widgets/select_action_card.dart';
 class BackupAndRestoreSubPage extends StatefulWidget {
   static const routeName = '/settings/backup-and-restore';
 
-  const BackupAndRestoreSubPage({Key? key}) : super(key: key);
+  const BackupAndRestoreSubPage({super.key});
 
   @override
   BackupAndRestoreSubPageState createState() => BackupAndRestoreSubPageState();

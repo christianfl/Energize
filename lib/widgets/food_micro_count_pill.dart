@@ -8,10 +8,10 @@ class FoodMicroCountPill extends StatelessWidget {
 
   const FoodMicroCountPill(
     this.count, {
-    Key? key,
+    super.key,
     required this.height,
     required this.showText,
-  }) : super(key: key);
+  });
 
   String _getPillText(BuildContext context) {
     if (showText) {

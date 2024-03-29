@@ -13,11 +13,11 @@ class FoodOriginLogoPill extends StatelessWidget {
 
   const FoodOriginLogoPill(
     this.foodOrigin, {
-    Key? key,
+    super.key,
     this.width,
     this.height,
     this.fontSize,
-  }) : super(key: key);
+  });
 
   String? get _assetUrl {
     switch (foodOrigin) {

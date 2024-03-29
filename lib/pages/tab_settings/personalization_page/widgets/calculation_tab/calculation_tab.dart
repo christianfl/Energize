@@ -12,8 +12,8 @@ class CalculationTab extends StatefulWidget {
   static const routeName = '/settings/personalization';
 
   const CalculationTab({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   CalculationTabState createState() => CalculationTabState();

@@ -15,7 +15,7 @@ class AboutSubPage extends StatelessWidget {
   static const _copyrightNotice = '© Christian Flaßkamp';
   static const _license = 'GPLv3';
 
-  const AboutSubPage({Key? key}) : super(key: key);
+  const AboutSubPage({super.key});
 
   @override
   Widget build(BuildContext context) {

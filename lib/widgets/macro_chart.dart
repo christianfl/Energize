@@ -14,11 +14,11 @@ class MacroChart extends StatelessWidget {
 
   const MacroChart(
     this.foods, {
-    Key? key,
+    super.key,
     this.hideCard,
     this.decimalPlaces = 0,
     this.padding = 16.0,
-  }) : super(key: key);
+  });
 
   double get _totalCalories {
     return foods.fold(0, (sum, f) => sum + _calcAmount(f.calories, f.amount));

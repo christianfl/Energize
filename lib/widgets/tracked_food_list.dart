@@ -13,8 +13,7 @@ class TrackedFoodList extends StatelessWidget {
 
   const TrackedFoodList(
       this._scrollController, this._setIsFabExplicitelyVisible,
-      {Key? key})
-      : super(key: key);
+      {super.key});
 
   double _caloriesPerAmount(FoodTracked food) {
     if (food.calories != null) {

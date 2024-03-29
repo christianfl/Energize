@@ -5,10 +5,10 @@ class CategoryListTileHeader extends StatelessWidget {
   final String subtitle;
 
   const CategoryListTileHeader({
-    Key? key,
+    super.key,
     required this.title,
     required this.subtitle,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

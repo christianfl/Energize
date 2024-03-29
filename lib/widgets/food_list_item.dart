@@ -16,14 +16,13 @@ class FoodListItem extends StatelessWidget {
   final bool? hideOrigin;
 
   const FoodListItem(this.food,
-      {Key? key,
+      {super.key,
       required this.onTapCallback,
       this.quickAddFoodCallback,
       this.getQuickAddFoodAmountCallback,
       required this.height,
       required this.pillHeight,
-      this.hideOrigin})
-      : super(key: key);
+      this.hideOrigin});
 
   @override
   Widget build(BuildContext context) {

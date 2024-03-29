@@ -34,8 +34,8 @@ class FoodInput extends StatefulWidget {
   const FoodInput(
     this._foodAddingDate,
     this._sheetModalMode, {
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   FoodInputState createState() => FoodInputState();

@@ -14,8 +14,8 @@ class NutritionFactsLabelEU extends StatelessWidget {
 
   const NutritionFactsLabelEU(
     this.foods, {
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   double get _totalCalories {
     return foods.fold(0, (sum, f) => sum + _calcAmount(f.calories, f.amount));

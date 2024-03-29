@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../models/tab_nav_item.dart';
 
 class TabsPage extends StatefulWidget {
-  const TabsPage({Key? key}) : super(key: key);
+  const TabsPage({super.key});
 
   @override
   TabsPageState createState() => TabsPageState();

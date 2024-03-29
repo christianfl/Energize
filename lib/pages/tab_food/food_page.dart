@@ -15,7 +15,7 @@ class FoodPage extends StatefulWidget {
   static const double _entryPillHeight = 35;
   static const double _entryHeight = 50;
 
-  const FoodPage({Key? key}) : super(key: key);
+  const FoodPage({super.key});
 
   @override
   FoodPageState createState() => FoodPageState();

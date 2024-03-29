@@ -12,7 +12,7 @@ import '../../widgets/food_origin_logo_pill.dart';
 class DatabaseManagementSubPage extends StatefulWidget {
   static const routeName = '/settings/database-provider';
 
-  const DatabaseManagementSubPage({Key? key}) : super(key: key);
+  const DatabaseManagementSubPage({super.key});
 
   @override
   DatabaseManagementSubPageState createState() =>

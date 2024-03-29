@@ -31,7 +31,7 @@ class TrackFood extends StatefulWidget {
 
   static const _foodAvatarRadius = 48.0;
 
-  const TrackFood({Key? key}) : super(key: key);
+  const TrackFood({super.key});
 
   @override
   TrackFoodState createState() => TrackFoodState();

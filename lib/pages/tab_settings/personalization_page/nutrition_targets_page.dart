@@ -8,7 +8,7 @@ import 'widgets/calculation_tab/calculation_tab.dart';
 class NutritionTargetsPage extends StatefulWidget {
   static const routeName = '/settings/personalization';
 
-  const NutritionTargetsPage({Key? key}) : super(key: key);
+  const NutritionTargetsPage({super.key});
 
   @override
   NutritionTargetsPageState createState() => NutritionTargetsPageState();

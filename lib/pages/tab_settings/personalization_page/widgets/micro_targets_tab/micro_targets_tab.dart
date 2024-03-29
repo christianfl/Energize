@@ -6,7 +6,7 @@ import '../../../../../providers/app_settings.dart';
 import '../../../../../widgets/category_list_tile_header.dart';
 
 class MicroTargetsTab extends StatefulWidget {
-  const MicroTargetsTab({Key? key}) : super(key: key);
+  const MicroTargetsTab({super.key});
 
   @override
   MicroTargetsTabState createState() => MicroTargetsTabState();

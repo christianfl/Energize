@@ -7,7 +7,7 @@ import '../../../../../providers/app_settings.dart';
 import '../../../../../widgets/info_card.dart';
 
 class EnergyDistributionTab extends StatefulWidget {
-  const EnergyDistributionTab({Key? key}) : super(key: key);
+  const EnergyDistributionTab({super.key});
 
   @override
   State<EnergyDistributionTab> createState() => _EnergyDistributionTabState();

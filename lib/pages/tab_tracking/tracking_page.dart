@@ -15,7 +15,7 @@ import '../../widgets/macro_chart.dart';
 import '../../widgets/tracked_food_list.dart';
 
 class TrackingPage extends StatefulWidget {
-  const TrackingPage({Key? key}) : super(key: key);
+  const TrackingPage({super.key});
 
   @override
   TrackingPageState createState() => TrackingPageState();

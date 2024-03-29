@@ -22,7 +22,7 @@ class AddEditCustomFoodModal extends StatefulWidget {
 
   static const _foodAvatarRadius = 56.0;
 
-  const AddEditCustomFoodModal({Key? key}) : super(key: key);
+  const AddEditCustomFoodModal({super.key});
 
   @override
   AddEditCustomFoodModalState createState() => AddEditCustomFoodModalState();

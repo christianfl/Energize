@@ -11,7 +11,7 @@ class DonationSubPage extends StatelessWidget {
   static const _bitcoinAddress = '35DcbAwi66LDyvxfpmvxVrM7nYrrZVC59k';
   static const _donationUrl = 'https://liberapay.com/epinez';
 
-  const DonationSubPage({Key? key}) : super(key: key);
+  const DonationSubPage({super.key});
 
   @override
   Widget build(BuildContext context) {
