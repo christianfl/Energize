@@ -71,6 +71,8 @@ class TrackingPageState extends State<TrackingPage> {
     final List<DateTime> completedDays =
         await CompleteDaysDatabaseService.completedDays;
 
+    if (!ctx.mounted) return;
+
     return showDialog<void>(
       context: ctx,
       builder: (BuildContext context) {
