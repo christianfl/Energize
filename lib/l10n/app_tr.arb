@@ -383,7 +383,7 @@
   "@consumedDate": {},
   "nutrients": "Besinler",
   "@nutrients": {},
-  "timeSetHelpText": "Bu zaman Energize'ın başlangıcı sırasında otomatik olarak ayarlanacaktır. Yeni yiyecekleri takip ederseniz, tüketme zamanı için bir şablon olarak kullanılacaktır. Bu, kaçırılan günleri verimli bir şekilde yakalamayı veya gelecek günleri planlamayı kolaylaştırır.",
+  "timeSetHelpText": "Yiyecekler takip edilirken, bu zaman tüketim zamanı için bir şablon olarak kullanılacaktır.",
   "@timeSetHelpText": {},
   "energyDistributionChartMissingHint": "Enerji dağılım grafiği yalnızca bir kalori hedefi ve makro besinlerden en az biri için bir hedef belirlediyseniz gösterilir.",
   "@energyDistributionChartMissingHint": {},
