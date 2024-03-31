@@ -29,6 +29,7 @@
 .packages
 .pub-cache/
 .pub/
+devtools_options.yaml
 /build/
 
 # Web related
