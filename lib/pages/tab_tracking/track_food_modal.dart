@@ -26,6 +26,7 @@ class ModalArguments {
   ModalArguments(this.food, this.mode, [this.foodAddingDate]);
 }
 
+/// This page can be opened in two modes: 1) Add new food 2) Edit tracked food
 class TrackFood extends StatefulWidget {
   static const routeName = '/tracking/add-food';
 
@@ -353,11 +354,6 @@ class TrackFoodState extends State<TrackFood>
     final args = ModalRoute.of(context)!.settings.arguments as ModalArguments;
     final food = args.food;
     final modalMode = args.mode;
-
-    // if (food is FoodTracked) {
-    //   print(food.dateAdded);
-    //   print(food.dateEaten);
-    // }
 
     return Scaffold(
       appBar: AppBar(
