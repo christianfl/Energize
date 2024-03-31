@@ -88,7 +88,15 @@ class FoodInputState extends State<FoodInput>
   void _navigateToAddFood(
     BuildContext context,
     Food foodToBeAdded, {
-    bool? forcePop,
+    /// After popping TrackFood.routeName, should THIS route be popped or not?
+    ///
+    /// When going back after scanning a product with EAN, it is desired behvior
+    /// that this input field gets popped because scanning should immediately
+    /// return to the desired product; if the user want to get back after
+    /// landing on the product page, it is assumed that the user does not want
+    /// to track this food anymore, resulting in popping the input field and
+    /// returning to the tracking page
+    bool popAfterReturn = false,
   }) {
     _qrController?.pauseCamera();
     try {
@@ -107,12 +115,12 @@ class FoodInputState extends State<FoodInput>
         widget._foodAddingDate,
       ),
     )
-        .then((shouldClose) {
+        .then((result) {
       setState(() {
         _scannedCode = null;
         _productNotFoundExceptionEan = null;
       });
-      if (shouldClose == true || forcePop == true) {
+      if (popAfterReturn) {
         Navigator.of(context).pop();
       }
     });
@@ -143,7 +151,7 @@ class FoodInputState extends State<FoodInput>
         .then(
       (createdFood) {
         if (createdFood is Food) {
-          _navigateToAddFood(context, createdFood, forcePop: true);
+          _navigateToAddFood(context, createdFood, popAfterReturn: true);
         } else {
           // In case the custom food has not been created and another code wants to be scanned
           _qrController?.resumeCamera();
@@ -184,14 +192,14 @@ class FoodInputState extends State<FoodInput>
       if (customFoodIfFound != null) {
         // Custom food with this EAN was found
 
-        _navigateToAddFood(context, customFoodIfFound, forcePop: true);
+        _navigateToAddFood(context, customFoodIfFound, popAfterReturn: true);
       } else {
         // Look up on Open Food Facts if this is activated
         final appSettings = Provider.of<AppSettings>(context, listen: false);
 
         if (appSettings.isProviderOpenFoodFactsActivated) {
           OpenFoodFactsBinding().getFoodByEan(ean).then((food) {
-            _navigateToAddFood(context, food, forcePop: true);
+            _navigateToAddFood(context, food, popAfterReturn: true);
           }).catchError((error) {
             // If there is also no match, show an error that no product could be found
             setState(() {

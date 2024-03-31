@@ -364,136 +364,130 @@ class TrackFoodState extends State<TrackFood>
         title: Text(_getPageTitle(modalMode), overflow: TextOverflow.ellipsis),
         actions: [_getActions(food, modalMode)],
       ),
-      body: WillPopScope(
-        onWillPop: () async {
-          Navigator.pop(context, false);
-          return true;
-        },
-        child: Column(
-          children: [
-            Container(
-              color: Colors.black26,
-              child: Padding(
-                padding: const EdgeInsets.fromLTRB(16.0, 16.0, 0.0, 16.0),
-                child: Row(
-                  children: [
-                    (food.imageUrl != null)
-                        ? CircleAvatar(
-                            radius: TrackFood._foodAvatarRadius,
-                            foregroundImage: NetworkImage(
-                              food.imageUrl!,
-                            ),
-                          )
-                        : const CircleAvatar(
-                            backgroundColor: Colors.black,
-                            radius: TrackFood._foodAvatarRadius,
-                            child: Icon(
-                              Icons.image_not_supported_outlined,
-                              size: TrackFood._foodAvatarRadius * 1.8,
-                              color: Colors.white,
-                            ),
-                          ),
-                    const SizedBox(width: 20),
-                    Flexible(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(right: 16.0),
-                            child: Text(
-                              food.title,
-                              maxLines: 3,
-                              overflow: TextOverflow.ellipsis,
-                              style: const TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ),
-                          const SizedBox(height: 10),
-                          SingleChildScrollView(
-                            scrollDirection: Axis.horizontal,
-                            child: Row(
-                              children: [
-                                FoodMicroCountPill(
-                                  food.nutrientCount,
-                                  height: _pillHeight,
-                                  showText: true,
-                                ),
-                                const SizedBox(width: 10),
-                                InkWell(
-                                  onTap: food.origin == 'OFF'
-                                      ? () => _launchOpenFoodFactsUrl(food.ean!)
-                                      : null,
-                                  child: FoodOriginLogoPill(
-                                    food.origin,
-                                    width: 100,
-                                    height: _pillHeight,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            TabBar(
-              isScrollable: true,
-              controller: _tabController,
-              tabs: [
-                // Change length of TabController in initState() when adding tabs
-                Tab(
-                  icon: const Icon(Icons.public),
-                  text: AppLocalizations.of(context)!.labelingEu,
-                ),
-                Tab(
-                  icon: const Icon(Icons.info),
-                  text: AppLocalizations.of(context)!.general,
-                ),
-                Tab(
-                  icon: const Icon(Icons.biotech),
-                  text: AppLocalizations.of(context)!.micronutrients,
-                ),
-              ],
-            ),
-            Expanded(
-              child: TabBarView(
-                controller: _tabController,
+      body: Column(
+        children: [
+          Container(
+            color: Colors.black26,
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(16.0, 16.0, 0.0, 16.0),
+              child: Row(
                 children: [
-                  NutritionFactsLabelEU([_getConvertedFoodForChart(food)]),
-                  MacroChart(
-                    [_getConvertedFoodForChart(food)],
-                    hideCard: true,
-                    decimalPlaces: 1,
-                  ),
-                  SingleChildScrollView(
-                    padding: const EdgeInsets.all(16.0),
-                    child: MicroChart(
-                      [_getConvertedFoodForChart(food)],
-                      showZero: false,
-                      scrollable: false,
+                  (food.imageUrl != null)
+                      ? CircleAvatar(
+                          radius: TrackFood._foodAvatarRadius,
+                          foregroundImage: NetworkImage(
+                            food.imageUrl!,
+                          ),
+                        )
+                      : const CircleAvatar(
+                          backgroundColor: Colors.black,
+                          radius: TrackFood._foodAvatarRadius,
+                          child: Icon(
+                            Icons.image_not_supported_outlined,
+                            size: TrackFood._foodAvatarRadius * 1.8,
+                            color: Colors.white,
+                          ),
+                        ),
+                  const SizedBox(width: 20),
+                  Flexible(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(right: 16.0),
+                          child: Text(
+                            food.title,
+                            maxLines: 3,
+                            overflow: TextOverflow.ellipsis,
+                            style: const TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                        const SizedBox(height: 10),
+                        SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: Row(
+                            children: [
+                              FoodMicroCountPill(
+                                food.nutrientCount,
+                                height: _pillHeight,
+                                showText: true,
+                              ),
+                              const SizedBox(width: 10),
+                              InkWell(
+                                onTap: food.origin == 'OFF'
+                                    ? () => _launchOpenFoodFactsUrl(food.ean!)
+                                    : null,
+                                child: FoodOriginLogoPill(
+                                  food.origin,
+                                  width: 100,
+                                  height: _pillHeight,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ],
               ),
             ),
-            Container(
-              alignment: Alignment.bottomLeft,
-              child: Padding(
-                padding: const EdgeInsets.fromLTRB(14, 14, 85, 14),
-                child: _getAmountInput(
-                  args,
-                  trackedFood,
-                  food,
+          ),
+          TabBar(
+            isScrollable: true,
+            controller: _tabController,
+            tabs: [
+              // Change length of TabController in initState() when adding tabs
+              Tab(
+                icon: const Icon(Icons.public),
+                text: AppLocalizations.of(context)!.labelingEu,
+              ),
+              Tab(
+                icon: const Icon(Icons.info),
+                text: AppLocalizations.of(context)!.general,
+              ),
+              Tab(
+                icon: const Icon(Icons.biotech),
+                text: AppLocalizations.of(context)!.micronutrients,
+              ),
+            ],
+          ),
+          Expanded(
+            child: TabBarView(
+              controller: _tabController,
+              children: [
+                NutritionFactsLabelEU([_getConvertedFoodForChart(food)]),
+                MacroChart(
+                  [_getConvertedFoodForChart(food)],
+                  hideCard: true,
+                  decimalPlaces: 1,
                 ),
+                SingleChildScrollView(
+                  padding: const EdgeInsets.all(16.0),
+                  child: MicroChart(
+                    [_getConvertedFoodForChart(food)],
+                    showZero: false,
+                    scrollable: false,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Container(
+            alignment: Alignment.bottomLeft,
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(14, 14, 85, 14),
+              child: _getAmountInput(
+                args,
+                trackedFood,
+                food,
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: Theme.of(context).colorScheme.secondary.withAlpha(220),
