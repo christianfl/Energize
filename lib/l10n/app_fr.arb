@@ -347,7 +347,7 @@
   "@selectedMacronutrient": {},
   "calculationInfoText2": "Le résultat de ce calcul est défini comme le métabolisme de base (MB). Il est multiplié par votre facteur d'activité pour obtenir votre conversion totale d'énergie. C'est votre apport énergétique calculé en kcal.",
   "@calculationInfoText2": {},
-  "emailHint": "À utiliser uniquement pour les messages personnels. Pour signaler des problèmes, suggérer des améliorations ou obtenir de l'aide supplémentaire, veuillez utiliser les liens ci-dessus.",
+  "emailHint": "Veuillez utiliser ceci uniquement pour d'autres sujets que ceux ci-dessus",
   "@emailHint": {},
   "deleted": "supprimé",
   "@deleted": {},
@@ -377,12 +377,16 @@
   "@additionalInformation": {},
   "completeProductName": "Nom de produit complet",
   "@completeProductName": {},
-  "timeSetHelpText": "Ce temps sera defini automatiquement au démarrage d'Energize. Si vous suivez un nouvel aliment, il sera utilisé comme modèle durant le temps de consommation. Ceci facilitera le suivi efficace des jours ignorés ou la planification des jours futurs.",
+  "timeSetHelpText": "Lors du suivi des aliments, cette fois sera utilisé comme modèle pour le moment de consommation.",
   "@timeSetHelpText": {},
   "consumedDate": "Consommé",
   "@consumedDate": {},
   "addedDate": "Ajouté",
   "@addedDate": {},
   "nutrients": "Nutriments",
-  "@nutrients": {}
+  "@nutrients": {},
+  "energyDistributionChartMissingHint": "Le graphique de distribution d'énergie n'est affiché que si vous avez défini une cible de calories et une cible pour au moins un des macronutriments.",
+  "@energyDistributionChartMissingHint": {},
+  "proposeImprovement": "Proposer une amélioration",
+  "@proposeImprovement": {}
 }
