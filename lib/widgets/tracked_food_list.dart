@@ -34,7 +34,9 @@ class TrackedFoodList extends StatelessWidget {
   Widget build(BuildContext context) {
     final trackedFood = Provider.of<TrackedFoodProvider>(context);
     final foods = trackedFood.foods;
-    foods.sort((a, b) => b.dateAdded.compareTo(a.dateAdded));
+
+    // Sort trackedFood in the UI, so it gets updated on each build
+    foods.sort((a, b) => b.dateEaten.compareTo(a.dateEaten));
 
     return Expanded(
       child: foods.isEmpty
