@@ -45,8 +45,10 @@ class TrackFoodState extends State<TrackFood>
 
   late TabController _tabController;
 
-  /// The UI reflected adding date, gets initialized and is used for setting the new desired value
-  late DateTime _foodTrackDate;
+  /// UI-reflected adding date.
+  /// Gets initialized and is used for setting the new desired value
+  /// Is non-null after first call of didChangeDependencies
+  DateTime? _foodTrackDate;
   final _amountCtrlFocusNode = FocusNode();
 
   @override
@@ -64,7 +66,9 @@ class TrackFoodState extends State<TrackFood>
 
     if (args.mode == ModalMode.edit) {
       // Editing previous tracked food
-      _foodTrackDate = (food as FoodTracked).dateEaten;
+
+      // Initialize _foodTrackDate once, otherwise it would get overwritten
+      _foodTrackDate ??= (food as FoodTracked).dateEaten;
     } else if (args.foodAddingDate != null) {
       // Tracking a new item with given date
       _foodTrackDate = args.foodAddingDate!;
@@ -120,7 +124,7 @@ class TrackFoodState extends State<TrackFood>
         args.food,
         id,
         amount,
-        _foodTrackDate,
+        _foodTrackDate!,
         dateAdded,
       );
 
@@ -291,7 +295,7 @@ class TrackFoodState extends State<TrackFood>
 
     if (selectedTime != null) {
       setState(() {
-        _foodTrackDate = _foodTrackDate.copyWith(
+        _foodTrackDate = _foodTrackDate!.copyWith(
           hour: selectedTime.hour,
           minute: selectedTime.minute,
         );
@@ -340,7 +344,9 @@ class TrackFoodState extends State<TrackFood>
             ),
             onPressed: () => _selectTrackedTime(),
             icon: const Icon(Icons.schedule),
-            label: Text(TimeUtil.getTime(_foodTrackDate, context)),
+            label: Text(
+              TimeUtil.getTime(_foodTrackDate!, context),
+            ),
           ),
           const SizedBox(width: 10),
         ],
