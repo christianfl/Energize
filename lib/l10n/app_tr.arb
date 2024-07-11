@@ -53,7 +53,7 @@
   "@databaseManagementHint": {},
   "backupAndRestore": "Yedekle & Geri Yükle",
   "@backupAndRestore": {},
-  "backupAndRestoreHint": "Verilerinizi Nextcloud gibi WebDAV uyumlu bir bulut deposunda saklayın",
+  "backupAndRestoreHint": "Verilerinizi yerel olarak veya Nextcloud gibi WebDAV uyumlu bir bulut deposunda saklayın",
   "@backupAndRestoreHint": {},
   "aboutEnergize": "Energize Hakkında",
   "@aboutEnergize": {},
