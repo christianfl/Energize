@@ -55,7 +55,7 @@ class SettingsPage extends StatelessWidget {
             },
             child: ListTile(
               isThreeLine: true,
-              leading: const Icon(Icons.cloud),
+              leading: const Icon(Icons.import_export),
               title: Text(AppLocalizations.of(context)!.backupAndRestore),
               subtitle:
                   Text(AppLocalizations.of(context)!.backupAndRestoreHint),

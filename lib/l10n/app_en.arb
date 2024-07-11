@@ -137,7 +137,7 @@
     "english": "English",
     "usdaFoodDataCentralGeneralInformationText": "FoodData Central is a database of food and nutritions from the US department of agriculture. The data is under the public domain and contains about 200 foundation foods and over 380.000 branded foods.",
     "backupAndRestore": "Backup & Restore",
-    "backupAndRestoreHint": "Store your data on a WebDAV compatible cloud storage like Nextcloud",
+    "backupAndRestoreHint": "Store your data locally or on a WebDAV compatible cloud storage like Nextcloud",
     "aboutEnergize": "About Energize",
     "license": "license",
     "allLicenses": "All licenses",

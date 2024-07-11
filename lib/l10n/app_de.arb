@@ -242,7 +242,7 @@
   "@usdaFoodDataCentralGeneralInformationText": {},
   "backupAndRestore": "Sichern und Wiederherstellen",
   "@backupAndRestore": {},
-  "backupAndRestoreHint": "Sichere deine Daten auf einem WebDAV-kompatiblen Server, wie z.B. Nextcloud",
+  "backupAndRestoreHint": "Sichere deine Daten lokal oder auf einem WebDAV-kompatiblen Server, wie z.B. Nextcloud",
   "@backupAndRestoreHint": {},
   "aboutEnergize": "Über Energize",
   "@aboutEnergize": {},

@@ -1,25 +1,22 @@
 import 'dart:convert';
 import 'dart:io';
+import 'dart:typed_data';
 
-import 'package:dio/dio.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:path/path.dart' as path;
 import 'package:provider/provider.dart';
 
-import '../../models/backup_data.dart';
 import '../../providers/app_settings.dart';
-import '../../providers/custom_food_provider.dart';
-import '../../providers/tracked_food_provider.dart';
-import '../../services/sqlite/complete_days_database_service.dart';
-import '../../services/sqlite/custom_foods_database_service.dart';
-import '../../services/encryption_service.dart';
-import '../../services/sqlite/tracked_foods_database_service.dart';
+import '../../services/backup_service.dart';
+import '../../services/webdav_service.dart';
 import '../../widgets/info_card.dart';
 import '../../widgets/select_action_card.dart';
 
 class BackupAndRestoreSubPage extends StatefulWidget {
   static const routeName = '/settings/backup-and-restore';
+  static const defaultBackupFileName = 'backup.json.aes';
+  static const defaultBackupPath = 'Energize';
 
   const BackupAndRestoreSubPage({super.key});
 
@@ -28,20 +25,18 @@ class BackupAndRestoreSubPage extends StatefulWidget {
 }
 
 class BackupAndRestoreSubPageState extends State<BackupAndRestoreSubPage> {
-  bool _isCreatingBackup = false;
+  /// Indicates whether a backup or restore is currently running
+  bool _isBusy = false;
   final _serverSettingsFormKey = GlobalKey<FormState>();
   final _passwordsFormKey = GlobalKey<FormState>();
+
+  /// FormKey for only the encryption passphrase (local backup/restore)
+  final _encryptionPassphraseOnlyFormKey = GlobalKey<FormState>();
   final _serverUrlController = TextEditingController();
   final _usernameController = TextEditingController();
   final _pathAndFilenameController = TextEditingController();
   final _passwordController = TextEditingController();
   final _encryptionPasswordController = TextEditingController();
-
-  String get _backupTargetPathWithoutFilename =>
-      '${_serverUrlController.text}${path.dirname(_pathAndFilenameController.text)}';
-
-  String get _backupTargetPathWithFilename =>
-      '${_serverUrlController.text}${_pathAndFilenameController.text}';
 
   @override
   didChangeDependencies() {
@@ -54,41 +49,26 @@ class BackupAndRestoreSubPageState extends State<BackupAndRestoreSubPage> {
     super.didChangeDependencies();
   }
 
-  Dio _initializeDio() {
-    final encoded =
-        utf8.encode('${_usernameController.text}:${_passwordController.text}');
-    final basicAuth = 'Basic ${base64Encode(encoded)}';
-
-    Dio dio = Dio(
-      BaseOptions(
-        connectTimeout: const Duration(seconds: 5),
-        headers: {'authorization': basicAuth},
-        responseType: ResponseType.plain,
-      ),
-    );
-
-    return dio;
-  }
-
-  _showError(BuildContext context, {String? text}) {
-    // STandard error text
+  void _showError(BuildContext context, {String? text}) {
+    // Default error text
     text ??= 'An unknown error has occured';
 
     // Show error
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         backgroundColor: Colors.red,
-        content: Text(text),
+        content: Text(text.replaceAll('Exception: ', '')),
       ),
     );
 
     // Stop loading spinner
     setState(() {
-      _isCreatingBackup = false;
+      _isBusy = false;
     });
   }
 
-  _backup() async {
+  /// Create an encrypted WebDAV backup
+  _createWebDAVBackup() async {
     if (!_isBackupServerDataPresent) {
       return;
     }
@@ -98,113 +78,60 @@ class BackupAndRestoreSubPageState extends State<BackupAndRestoreSubPage> {
     if (hasUserConfirmedPasswords == true) {
       // Show creating backup loading spinner
       setState(() {
-        _isCreatingBackup = true;
+        _isBusy = true;
       });
 
-      Dio dio = _initializeDio();
+      final encryptionPassword = _encryptionPasswordController.text;
+      final createBackupReturnData =
+          await BackupService.createBackup(encryptionPassword);
+      final encryptedData = createBackupReturnData.encryptedData;
+      final backupData = createBackupReturnData.backupData;
 
-      final backupData = BackupData(
-        customFood: await CustomFoodDatabaseService.customFoods,
-        trackedFood: await TrackedFoodDatabaseService.trackedFoods,
-        completedDays: await CompleteDaysDatabaseService.completedDays,
-      );
+      // Create WebDAV backup
 
-      final encodedBackupData = json.encode(backupData.toJson());
-      final encryptedData = EncryptionService.encrypt(
-        encodedBackupData,
-        _encryptionPasswordController.text,
-      );
+      bool backupSucceeded = true;
 
-      // Check if server URL is reachable (without additional folder)
       try {
-        await dio.request(
-          _serverUrlController.text,
-          options: Options(
-            method: 'PROPFIND',
-          ),
+        await WebDAVService.writeFile(
+          username: _usernameController.text,
+          password: _passwordController.text,
+          url: _serverUrlController.text,
+          pathAndFilename: _pathAndFilenameController.text,
+          data: encryptedData,
         );
-      } on DioException catch (e) {
+      } catch (exception) {
+        backupSucceeded = false;
         if (!mounted) return;
-
-        String? errorMessage;
-
-        if (e.error is SocketException) {
-          errorMessage = 'The server address is unknown';
-        } else if (e.type == DioExceptionType.connectionTimeout) {
-          errorMessage = 'Timeout while trying to reach the address';
-        } else if (e.response?.statusCode == 401) {
-          errorMessage = 'WebDAV server username or password incorrect';
-        }
-
-        return _showError(context, text: errorMessage);
-      } catch (e) {
-        if (!mounted) return;
-
-        return _showError(context);
+        _showError(context, text: exception.toString());
+      } finally {
+        // Backup done or failed, hide progress bar
+        setState(() {
+          _isBusy = false;
+        });
       }
 
-      // We know the server exists and we have valid credentials. Now look up the target folder
-      try {
-        Response res = await dio.request(
-          _backupTargetPathWithoutFilename,
-          options: Options(
-            method: 'PROPFIND',
-          ),
-        );
-
-        if (res.statusCode == 207) {
-          // Target backup folder already exists: All is fine!
-        } else if (res.statusCode == 404) {
-          // Target backup folder does not exist
-
-          // Create the folder
-          try {
-            await dio.request(
-              _backupTargetPathWithoutFilename,
-              options: Options(method: 'MKCOL'),
-            );
-          } catch (e) {
-            // Error while creating the target folder for the backup
-            if (!mounted) return;
-
-            return _showError(context);
-          }
-        }
-      } catch (e) {
-        // Error while checking wether target backup folder exists or not
+      if (backupSucceeded) {
         if (!mounted) return;
 
-        return _showError(context);
-      }
-
-      // Backup folder is accessible and does exist: Now upload backup to WebDAV share!
-      try {
-        await dio.put(_backupTargetPathWithFilename, data: encryptedData);
-
-        if (!mounted) return;
+        // Show successful backup message
+        final numberOfCustomFoods = backupData.customFood?.length ?? 0;
+        final numberOfTrackedFoods = backupData.trackedFood?.length ?? 0;
 
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text(
-              'Successfully created backup.\nExported ${backupData.customFood?.length ?? 0} custom foods and ${backupData.trackedFood?.length ?? 0} tracked foods',
+              '''
+Successfully created backup.
+Exported $numberOfCustomFoods custom foods and $numberOfTrackedFoods tracked foods''',
             ),
           ),
         );
-      } catch (e) {
-        // Error while uploading backup
-        if (!mounted) return;
-
-        return _showError(context);
       }
-
-      // Backup done, hide loading spinner
-      setState(() {
-        _isCreatingBackup = false;
-      });
     }
   }
 
-  _restore() async {
+  /// Restore an encrypted WebDAV backup
+  _restoreWebDAVBackup() async {
     if (!_isBackupServerDataPresent) {
       return;
     }
@@ -212,70 +139,50 @@ class BackupAndRestoreSubPageState extends State<BackupAndRestoreSubPage> {
     final hasUserConfirmedPasswords = await _showPasswordDialog();
 
     if (hasUserConfirmedPasswords == true) {
-      Dio dio = _initializeDio();
+      Object readBackup;
 
+      // Read file from WebDAV
       try {
-        String decryptedString;
-        BackupData backupData;
-
+        readBackup = await WebDAVService.readFile(
+          username: _usernameController.text,
+          password: _passwordController.text,
+          url: _serverUrlController.text,
+          pathAndFilename: _pathAndFilenameController.text,
+        );
+      } catch (webDAVRestoreError) {
         if (!mounted) return;
+        _showError(context, text: webDAVRestoreError.toString());
 
-        final customFoodProvider =
-            Provider.of<CustomFoodProvider>(context, listen: false);
-        final trackedFoodProvider =
-            Provider.of<TrackedFoodProvider>(context, listen: false);
+        // End function
+        return;
+      }
 
-        await dio.get(_backupTargetPathWithFilename).then((value) => {
-              decryptedString = EncryptionService.decrypt(
-                value.toString(),
-                _encryptionPasswordController.text,
-              ),
-              backupData = BackupData.fromJson(json.decode(decryptedString)),
-              if (backupData.customFood != null)
-                {
-                  for (var customFood in backupData.customFood!)
-                    {
-                      customFoodProvider.addFood(customFood),
-                    },
-                },
-              if (backupData.trackedFood != null)
-                {
-                  for (var trackedFood in backupData.trackedFood!)
-                    {
-                      trackedFoodProvider.addEatenFood(trackedFood),
-                    },
-                },
-              if (backupData.completedDays != null)
-                {
-                  for (var completedDay in backupData.completedDays!)
-                    {
-                      CompleteDaysDatabaseService.insert(completedDay),
-                    },
-                },
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  content: Text(
-                      'Successfully restored backup.\nImported ${backupData.customFood?.length ?? 0} custom foods and ${backupData.trackedFood?.length ?? 0} tracked foods'),
-                ),
-              ),
-            });
-      } on DioException catch (e) {
-        // In case something went wrong with the WebDAV part
+      if (!mounted) return;
 
-        if (!mounted) return;
+      // Restore downloaded backup
+      try {
+        final encryptedBackupString = readBackup.toString();
+        final backupData = BackupService.restoreBackup(
+          encryptedBackupString,
+          _encryptionPasswordController.text,
+          context,
+        );
+
+        // Show successful backup message
+        final numberOfCustomFoods = backupData.customFood?.length ?? 0;
+        final numberOfTrackedFoods = backupData.trackedFood?.length ?? 0;
 
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            backgroundColor: Colors.red,
             content: Text(
-                'Error ${e.response?.statusCode}: ${e.response?.statusMessage}'),
+              '''
+Successfully restored backup.
+Imported $numberOfCustomFoods custom foods and $numberOfTrackedFoods tracked foods''',
+            ),
           ),
         );
-      } on Error catch (e) {
+      } catch (e) {
         // In case something went wrong with decryption, etc.
-
-        if (!mounted) return;
-
         String errorText;
 
         if (e.toString() ==
@@ -283,15 +190,10 @@ class BackupAndRestoreSubPageState extends State<BackupAndRestoreSubPage> {
           errorText =
               'Something went wrong. Is the decryption password correct?';
         } else {
-          errorText = 'Error while restoring backup: $e';
+          errorText = 'Error while restoring backup';
         }
 
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            backgroundColor: Colors.red,
-            content: Text(errorText),
-          ),
-        );
+        _showError(context, text: errorText);
       }
     }
   }
@@ -381,11 +283,12 @@ class BackupAndRestoreSubPageState extends State<BackupAndRestoreSubPage> {
                         decoration: InputDecoration(
                           icon: const Icon(Icons.folder),
                           labelText: 'Path and filename',
-                          hintText: '/Energize/backup.json.aes',
+                          hintText:
+                              '/${BackupAndRestoreSubPage.defaultBackupPath}/${BackupAndRestoreSubPage.defaultBackupFileName}',
                           suffixIcon: IconButton(
                             onPressed: () => {
                               _pathAndFilenameController.text =
-                                  '/Energize/backup.json.aes',
+                                  '/${BackupAndRestoreSubPage.defaultBackupPath}/${BackupAndRestoreSubPage.defaultBackupFileName}',
                               _resetBackupPathAndFilename(),
                             },
                             icon: const Icon(Icons.clear),
@@ -487,7 +390,9 @@ class BackupAndRestoreSubPageState extends State<BackupAndRestoreSubPage> {
           actions: <Widget>[
             TextButton(
               onPressed: () => Navigator.of(context).pop(),
-              child: const Text('Cancel'),
+              child: Text(
+                MaterialLocalizations.of(context).cancelButtonLabel,
+              ),
             ),
             TextButton(
               onPressed: () {
@@ -495,12 +400,216 @@ class BackupAndRestoreSubPageState extends State<BackupAndRestoreSubPage> {
                   Navigator.of(context).pop(true);
                 }
               },
-              child: const Text('OK'),
+              child: Text(
+                MaterialLocalizations.of(context).okButtonLabel,
+              ),
             ),
           ],
         );
       },
     );
+  }
+
+  /// Asks for encryption/decryption password
+  /// Used when:
+  /// - creating an encrypted local backup
+  /// - restoring an encrypted local backup
+  Future<bool?> _showEncryptionPasswordInputDialog({
+    bool forEncrypting = true,
+  }) {
+    return showDialog<bool>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(
+            forEncrypting
+                ? 'Create local encrypted backup'
+                : 'Restore local encrypted backup',
+          ),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Form(
+                key: _encryptionPassphraseOnlyFormKey,
+                child: TextFormField(
+                  obscureText: true,
+                  decoration: InputDecoration(
+                    icon: const Icon(Icons.password),
+                    labelText: forEncrypting
+                        ? 'Encryption passphrase'
+                        : 'Decryption passphrase',
+                  ),
+                  controller: _encryptionPasswordController,
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return 'Please enter a passphrase';
+                    }
+                    return null;
+                  },
+                ),
+              ),
+              const SizedBox(height: 20),
+              Text(
+                'Without the encryption password, it is impossible to restore a backup.',
+                style: Theme.of(context).textTheme.bodySmall,
+              ),
+            ],
+          ),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop(false);
+                return;
+              },
+              child: Text(
+                MaterialLocalizations.of(context).cancelButtonLabel,
+              ),
+            ),
+            TextButton(
+              onPressed: () {
+                if (_encryptionPassphraseOnlyFormKey.currentState!.validate()) {
+                  Navigator.of(context).pop(true);
+                }
+              },
+              child: Text(MaterialLocalizations.of(context).okButtonLabel),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  /// Creates a local encrypted backup and saves it via native file picker
+  _createLocalEncryptedBackup() async {
+    try {
+      // Ask for encryption passphrase
+      final dialogConfirmed = await _showEncryptionPasswordInputDialog();
+
+      // Check whether dialog was cancelled
+      if (dialogConfirmed != true) {
+        return;
+      }
+
+      // Show progress bar
+      setState(() {
+        _isBusy = true;
+      });
+
+      final encryptionPassword = _encryptionPasswordController.text;
+      final backup = await BackupService.createBackup(encryptionPassword);
+      final encryptedBackupDataAsBytes =
+          Uint8List.fromList(backup.encryptedData.codeUnits);
+
+      // Pick file destination
+      final String? path = await FilePicker.platform.saveFile(
+        fileName: BackupAndRestoreSubPage.defaultBackupFileName,
+        bytes: encryptedBackupDataAsBytes,
+      );
+
+      // Backup probably done, hide progress bar
+      setState(() {
+        _isBusy = false;
+      });
+
+      // Picking was cancelled, bye!
+      if (path == null) {
+        return;
+      }
+
+      if (!mounted) return;
+
+      // Show successful backup message
+      final numberOfCustomFoods = backup.backupData.customFood?.length ?? 0;
+      final numberOfTrackedFoods = backup.backupData.trackedFood?.length ?? 0;
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            '''
+Successfully created backup.
+Exported $numberOfCustomFoods custom foods and $numberOfTrackedFoods tracked foods''',
+          ),
+        ),
+      );
+    } catch (e) {
+      if (!mounted) return;
+
+      // Error while creating backup
+      return _showError(context);
+    }
+  }
+
+  /// Restores a local encrypted backup picked via native file picker
+  _restoreLocalEncryptedBackup() async {
+    // Ask for encryption passphrase
+    final dialogConfirmed = await _showEncryptionPasswordInputDialog();
+
+    // Check whether dialog was cancelled
+    if (dialogConfirmed != true) {
+      return;
+    }
+
+    // Pick file destination
+    FilePickerResult? pickerResult = await FilePicker.platform.pickFiles();
+    final pickedPath = pickerResult?.files.single.path;
+
+    // Picking was cancelled, bye!
+    if (pickedPath == null) {
+      return;
+    }
+
+    // Prepare file
+    File file = File(pickedPath);
+
+    // Show progress bar
+    setState(() {
+      _isBusy = true;
+    });
+
+    final fileAsString = await file.readAsString(encoding: utf8);
+    final encryptionPassword = _encryptionPasswordController.text;
+
+    if (!mounted) return;
+
+    // Restore backup
+    try {
+      final backupData = BackupService.restoreBackup(
+        fileAsString,
+        encryptionPassword,
+        context,
+      );
+
+      // Show successful backup message
+      final numberOfCustomFoods = backupData.customFood?.length ?? 0;
+      final numberOfTrackedFoods = backupData.trackedFood?.length ?? 0;
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            '''
+Successfully restored backup.
+Imported $numberOfCustomFoods custom foods and $numberOfTrackedFoods tracked foods''',
+          ),
+        ),
+      );
+    } catch (e) {
+      // In case something went wrong with decryption, etc.
+      String errorText;
+
+      if (e.toString() ==
+          'Invalid argument(s): Invalid or corrupted pad block') {
+        errorText = 'Something went wrong. Is the decryption password correct?';
+      } else {
+        errorText = 'Error while restoring backup';
+      }
+
+      _showError(context, text: errorText);
+    } finally {
+      // Restore probably done, hide progress bar
+      setState(() {
+        _isBusy = false;
+      });
+    }
   }
 
   bool get _isBackupServerDataPresent {
@@ -536,36 +645,53 @@ class BackupAndRestoreSubPageState extends State<BackupAndRestoreSubPage> {
         ],
       ),
       body: SingleChildScrollView(
-        child: Column(
+        child: Stack(
           children: [
-            const Padding(
-              padding: EdgeInsets.fromLTRB(12.0, 12.0, 12.0, 0.0),
-              child: InfoCard(
-                message:
-                    'Warning: Currently in alpha. You can backup and restore tracked and custom food and completed days at the moment. Settings, personalizations, targets, etc. are still missing. The encryption method might change in the future so it is not guaranteed that you can restore old backups within newer versions of Energize.',
-                icon: Icon(Icons.warning),
-                color: Colors.red,
-              ),
-            ),
-            GridView.count(
-              padding: const EdgeInsets.all(12.0),
-              shrinkWrap: true,
-              crossAxisCount: 2,
-              crossAxisSpacing: 4.0,
+            if (_isBusy) const LinearProgressIndicator(),
+            Column(
               children: [
-                SelectActionCard(
-                  icon: Icons.cloud_upload,
-                  title: 'Create encrypted backup',
-                  onTap: _isCreatingBackup ? null : () => _backup(),
-                  isLoading: _isCreatingBackup,
+                const Padding(
+                  padding: EdgeInsets.fromLTRB(12.0, 12.0, 12.0, 0.0),
+                  child: InfoCard(
+                    message:
+                        'Warning: Currently in alpha. You can backup and restore tracked and custom food and completed days at the moment. Settings, personalizations, targets, etc. are still missing. The encryption method might change in the future so it is not guaranteed that you can restore old backups within newer versions of Energize.',
+                    icon: Icon(Icons.warning),
+                    color: Colors.red,
+                  ),
                 ),
-                SelectActionCard(
-                  icon: Icons.cloud_download,
-                  title: 'Restore encrypted backup',
-                  onTap: () {
-                    _restore();
-                  },
-                  isLoading: false,
+                GridView.count(
+                  padding: const EdgeInsets.all(12.0),
+                  shrinkWrap: true,
+                  crossAxisCount: 2,
+                  crossAxisSpacing: 4.0,
+                  children: [
+                    SelectActionCard(
+                      icon: Icons.cloud_upload,
+                      title: 'Create encrypted WebDAV backup',
+                      onTap: _isBusy ? null : () => _createWebDAVBackup(),
+                      isLoading: false,
+                    ),
+                    SelectActionCard(
+                      icon: Icons.cloud_download,
+                      title: 'Restore encrypted WebDAV backup',
+                      onTap: _isBusy ? null : () => _restoreWebDAVBackup(),
+                      isLoading: false,
+                    ),
+                    SelectActionCard(
+                      icon: Icons.file_upload,
+                      title: 'Create local encrypted backup',
+                      onTap:
+                          _isBusy ? null : () => _createLocalEncryptedBackup(),
+                      isLoading: false,
+                    ),
+                    SelectActionCard(
+                      icon: Icons.file_download,
+                      title: 'Restore local encrypted backup',
+                      onTap:
+                          _isBusy ? null : () => _restoreLocalEncryptedBackup(),
+                      isLoading: false,
+                    ),
+                  ],
                 ),
               ],
             ),
