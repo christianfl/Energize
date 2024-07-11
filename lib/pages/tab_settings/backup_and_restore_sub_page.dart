@@ -442,7 +442,7 @@ Imported $numberOfCustomFoods custom foods and $numberOfTrackedFoods tracked foo
                   controller: _encryptionPasswordController,
                   validator: (value) {
                     if (value!.isEmpty) {
-                      return 'Please enter a passphrase';
+                      return 'The textfield must not be empty';
                     }
                     return null;
                   },
@@ -541,8 +541,10 @@ Exported $numberOfCustomFoods custom foods and $numberOfTrackedFoods tracked foo
 
   /// Restores a local encrypted backup picked via native file picker
   _restoreLocalEncryptedBackup() async {
-    // Ask for encryption passphrase
-    final dialogConfirmed = await _showEncryptionPasswordInputDialog();
+    // Ask for decryption passphrase
+    final dialogConfirmed = await _showEncryptionPasswordInputDialog(
+      forEncrypting: false,
+    );
 
     // Check whether dialog was cancelled
     if (dialogConfirmed != true) {
