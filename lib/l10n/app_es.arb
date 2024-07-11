@@ -213,7 +213,7 @@
   "@usdaFoodDataCentralGeneralInformationText": {},
   "backupAndRestore": "Copia y Restauración de seguridad",
   "@backupAndRestore": {},
-  "backupAndRestoreHint": "Guarde sus datos en un servidor de almacenamiento en la nube compatible con WebDAV como Nextcloud",
+  "backupAndRestoreHint": "Almacena tus datos localmente o en un almacenamiento en la nube compatible con WebDAV como Nextcloud",
   "@backupAndRestoreHint": {},
   "aboutEnergize": "Sobre Energize",
   "@aboutEnergize": {},
