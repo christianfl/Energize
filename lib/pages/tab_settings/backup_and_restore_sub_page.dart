@@ -343,10 +343,10 @@ Imported $numberOfCustomFoods custom foods and $numberOfTrackedFoods tracked foo
                             hintText:
                                 '/${BackupAndRestoreSubPage.defaultBackupPath}/${BackupAndRestoreSubPage.defaultBackupFileName}',
                             suffixIcon: IconButton(
-                              onPressed: () => {
+                              onPressed: () {
                                 _pathAndFilenameController.text =
-                                    '/${BackupAndRestoreSubPage.defaultBackupPath}/${BackupAndRestoreSubPage.defaultBackupFileName}',
-                                _resetBackupPathAndFilename(),
+                                    '/${BackupAndRestoreSubPage.defaultBackupPath}/${BackupAndRestoreSubPage.defaultBackupFileName}';
+                                _resetBackupPathAndFilename();
                               },
                               icon: const Icon(Icons.clear),
                             ),

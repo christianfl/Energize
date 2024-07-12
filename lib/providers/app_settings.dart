@@ -188,9 +188,8 @@ class AppSettings with ChangeNotifier {
         _preferences!.getString('backupServerUrl') ?? _backupServerUrl;
     _backupUsername =
         _preferences!.getString('backupUsername') ?? _backupUsername;
-    _backupPathAndFilename =
-        _preferences!.getString('backupPathAndFilenamec') ??
-            _backupPathAndFilename;
+    _backupPathAndFilename = _preferences!.getString('backupPathAndFilename') ??
+        _backupPathAndFilename;
 
     _isProviderOpenFoodFactsActivated =
         _preferences!.getBool('isProviderOpenFoodFactsActivated') ?? true;
