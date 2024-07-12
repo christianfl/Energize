@@ -217,6 +217,12 @@ class TrackFoodState extends State<TrackFood>
                           '${DateUtil.getDate(food.dateEaten, context)} @ ${TimeUtil.getTime(food.dateEaten, context)}',
                         ),
                       ),
+                      if (food.ean != null)
+                        if (food.ean!.isNotEmpty)
+                          ListTile(
+                            title: Text(AppLocalizations.of(context)!.barcode),
+                            subtitle: Text(food.ean!),
+                          ),
                     ],
                   ),
               ],
