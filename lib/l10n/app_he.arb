@@ -267,7 +267,7 @@
   "@nonProfitInstitution": {},
   "france": "צרפת",
   "@france": {},
-  "backupAndRestoreHint": "אפשר לאחסן את הנתונים שלך באחסון ענן תומך WebDAV כמו למשל Nextcloud",
+  "backupAndRestoreHint": "אפשר לאחסן את הנתונים שלך מקומית או באחסון ענן תומך WebDAV כמו למשל Nextcloud",
   "@backupAndRestoreHint": {},
   "usdaFoodDataCentralGeneralInformationText": "FoodData Central הוא מסד נתוני מזון ומזינים מבית משרד החקלאות האמריקאי. הנתונים מוגשים לנחלת הכללי ומכילים בערך 200 רכיבי מזון בסיסיים ולמעלה מ־380,000 מוצרי מזון ממותגים.",
   "@usdaFoodDataCentralGeneralInformationText": {},
