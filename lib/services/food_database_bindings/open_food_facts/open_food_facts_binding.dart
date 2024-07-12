@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:openfoodfacts/openfoodfacts.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 
 import '../../../models/food/food.dart';
 import 'product_not_found_exception.dart';
@@ -14,12 +15,20 @@ class OpenFoodFactsBinding {
   static const productUrl = 'https://openfoodfacts.org/product/';
 
   OpenFoodFactsBinding._privateConstructor() {
+    _prepareUserAgent();
+  }
+
+  /// Fetch Energize app version and set OFF UserAgent with correct version
+  void _prepareUserAgent() async {
+    final packageInfo = await PackageInfo.fromPlatform();
+
     OpenFoodAPIConfiguration.userAgent = UserAgent(
       name: 'Energize',
-      version: '0.8.0',
+      version: packageInfo.version,
       url: 'https://codeberg.org/epinez/Energize',
     );
   }
+
   static final OpenFoodFactsBinding _instance =
       OpenFoodFactsBinding._privateConstructor();
 

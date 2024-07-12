@@ -91,12 +91,7 @@ If you want to support the development by a donation, you are very welcome to do
 
 ## Release preparations
 
-1. Make sure to match the version number in:
-
-- `pubspec.yaml`
-- `lib/pages/tab_settings/about_sub_page.dart`
-- `lib/services/food_database_bindings/open_food_facts/open_food_facts_binding.dart`
-
+1. Change the version number in: `pubspec.yaml`
 2. Compile with `flutter build apk`
 3. Don't forget changelogs!
 

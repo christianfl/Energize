@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class AboutSubPage extends StatelessWidget {
+class AboutSubPage extends StatefulWidget {
   static const routeName = '/settings/about';
 
-  static const appVersion = '0.8.0';
   static const email = 'energize@flasskamp.com';
 
   static const _repoUrl = 'https://codeberg.org/epinez/Energize';
@@ -16,6 +16,29 @@ class AboutSubPage extends StatelessWidget {
   static const _license = 'GPLv3';
 
   const AboutSubPage({super.key});
+
+  @override
+  State<AboutSubPage> createState() => _AboutSubPageState();
+}
+
+class _AboutSubPageState extends State<AboutSubPage> {
+  String _appVersion = '';
+
+  @override
+  void initState() {
+    _getAppVersion();
+
+    super.initState();
+  }
+
+  /// Fetch Energize app version
+  void _getAppVersion() async {
+    final packageInfo = await PackageInfo.fromPlatform();
+
+    setState(() {
+      _appVersion = packageInfo.version;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -46,21 +69,22 @@ class AboutSubPage extends StatelessWidget {
                         AppLocalizations.of(context)!.appName,
                         style: Theme.of(context).textTheme.headlineMedium,
                       ),
-                      const Text('v$appVersion'),
+                      Text(_appVersion),
                       const SizedBox(height: 8),
                       Text(
-                        _copyrightNotice,
+                        AboutSubPage._copyrightNotice,
                         style: Theme.of(context).textTheme.bodySmall,
                       ),
                       Text(
-                        '${AppLocalizations.of(context)!.license}: $_license',
+                        '${AppLocalizations.of(context)!.license}: ${AboutSubPage._license}',
                         style: Theme.of(context).textTheme.bodySmall,
                       ),
                       OutlinedButton(
                         onPressed: () => showLicensePage(
                           context: context,
-                          applicationVersion: appVersion,
-                          applicationLegalese: '$_copyrightNotice\n$_license',
+                          applicationVersion: _appVersion,
+                          applicationLegalese:
+                              '${AboutSubPage._copyrightNotice}\n${AboutSubPage._license}',
                           applicationIcon: const Padding(
                             padding: EdgeInsets.all(8.0),
                             child: CircleAvatar(
@@ -85,7 +109,7 @@ class AboutSubPage extends StatelessWidget {
               ),
               InkWell(
                 onTap: () async {
-                  final uri = Uri.parse(_issueUrl);
+                  final uri = Uri.parse(AboutSubPage._issueUrl);
                   if (await canLaunchUrl(uri)) {
                     await launchUrl(
                       uri,
@@ -104,7 +128,7 @@ class AboutSubPage extends StatelessWidget {
               ),
               InkWell(
                 onTap: () async {
-                  final uri = Uri.parse(_issueUrl);
+                  final uri = Uri.parse(AboutSubPage._issueUrl);
                   if (await canLaunchUrl(uri)) {
                     await launchUrl(
                       uri,
@@ -123,7 +147,7 @@ class AboutSubPage extends StatelessWidget {
               ),
               InkWell(
                 onTap: () async {
-                  final uri = Uri.parse(_repoUrl);
+                  final uri = Uri.parse(AboutSubPage._repoUrl);
                   if (await canLaunchUrl(uri)) {
                     await launchUrl(
                       uri,
@@ -142,7 +166,7 @@ class AboutSubPage extends StatelessWidget {
               ),
               InkWell(
                 onTap: () async {
-                  final uri = Uri.parse(_translationUrl);
+                  final uri = Uri.parse(AboutSubPage._translationUrl);
                   if (await canLaunchUrl(uri)) {
                     await launchUrl(
                       uri,
@@ -163,9 +187,9 @@ class AboutSubPage extends StatelessWidget {
                 onTap: () async {
                   final uri = Uri(
                     scheme: 'mailto',
-                    path: email,
+                    path: AboutSubPage.email,
                     query:
-                        'subject=Energize App Feedback&body=App Version ${AboutSubPage.appVersion}',
+                        'subject=Energize App Feedback&body=App Version $_appVersion',
                   );
 
                   if (await canLaunchUrl(uri)) {

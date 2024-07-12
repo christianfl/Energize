@@ -1,17 +1,41 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import 'about_sub_page.dart';
 
-class DonationSubPage extends StatelessWidget {
+class DonationSubPage extends StatefulWidget {
   static const routeName = '/settings/donate';
 
   static const _bitcoinAddress = '35DcbAwi66LDyvxfpmvxVrM7nYrrZVC59k';
   static const _donationUrl = 'https://liberapay.com/epinez';
 
   const DonationSubPage({super.key});
+
+  @override
+  State<DonationSubPage> createState() => _DonationSubPageState();
+}
+
+class _DonationSubPageState extends State<DonationSubPage> {
+  String _appVersion = '';
+
+  @override
+  void initState() {
+    _getAppVersion();
+
+    super.initState();
+  }
+
+  /// Fetch Energize app version
+  void _getAppVersion() async {
+    final packageInfo = await PackageInfo.fromPlatform();
+
+    setState(() {
+      _appVersion = packageInfo.version;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +65,8 @@ class DonationSubPage extends StatelessWidget {
                 onTap: () async {
                   try {
                     Clipboard.setData(
-                      const ClipboardData(text: _bitcoinAddress),
+                      const ClipboardData(
+                          text: DonationSubPage._bitcoinAddress),
                     );
 
                     ScaffoldMessenger.of(context).showSnackBar(
@@ -58,7 +83,7 @@ class DonationSubPage extends StatelessWidget {
                   leading: Icon(Icons.currency_bitcoin),
                   title: Text('Bitcoin'),
                   subtitle: SelectableText(
-                    _bitcoinAddress,
+                    DonationSubPage._bitcoinAddress,
                     style: TextStyle(fontSize: 12),
                   ),
                   trailing: Icon(Icons.copy),
@@ -66,7 +91,7 @@ class DonationSubPage extends StatelessWidget {
               ),
               InkWell(
                 onTap: () async {
-                  final uri = Uri.parse(_donationUrl);
+                  final uri = Uri.parse(DonationSubPage._donationUrl);
                   if (await canLaunchUrl(uri)) {
                     await launchUrl(
                       uri,
@@ -93,7 +118,7 @@ class DonationSubPage extends StatelessWidget {
                     scheme: 'mailto',
                     path: AboutSubPage.email,
                     query:
-                        'subject=Energize App Feedback&body=App Version ${AboutSubPage.appVersion}',
+                        'subject=Energize App Feedback&body=App Version $_appVersion',
                   );
 
                   if (await canLaunchUrl(uri)) {
