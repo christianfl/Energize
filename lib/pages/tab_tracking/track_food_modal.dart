@@ -71,10 +71,10 @@ class TrackFoodState extends State<TrackFood>
       _foodTrackDate ??= (food as FoodTracked).dateEaten;
     } else if (args.foodAddingDate != null) {
       // Tracking a new item with given date
-      _foodTrackDate = args.foodAddingDate!;
+      _foodTrackDate ??= args.foodAddingDate!;
     } else {
       // Fallback, should not be reached
-      _foodTrackDate = DateTime.now();
+      _foodTrackDate ??= DateTime.now();
     }
     super.didChangeDependencies();
   }
