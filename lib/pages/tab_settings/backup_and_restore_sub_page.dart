@@ -32,8 +32,8 @@ class BackupAndRestoreSubPageState extends State<BackupAndRestoreSubPage> {
   final _webDAVBackupOrRestoreFormKey = GlobalKey<FormState>();
   // final _passwordsFormKey = GlobalKey<FormState>();
 
-  /// FormKey for only the encryption passphrase (local backup/restore)
-  final _encryptionPassphraseOnlyFormKey = GlobalKey<FormState>();
+  /// FormKey for only the encryption password (local backup/restore)
+  final _encryptionPasswordOnlyFormKey = GlobalKey<FormState>();
   final _serverUrlController = TextEditingController();
   final _usernameController = TextEditingController();
   final _pathAndFilenameController = TextEditingController();
@@ -71,7 +71,7 @@ class BackupAndRestoreSubPageState extends State<BackupAndRestoreSubPage> {
 
   /// Create an encrypted WebDAV backup
   _createWebDAVBackup() async {
-    // Ask for WebDAV server data and encryption passphrase
+    // Ask for WebDAV server data and encryption password
     final wantsBackup = await _showWebDAVBackupOrRestoreDialog();
 
     // Do backup only if confirmed
@@ -132,7 +132,7 @@ Exported $numberOfCustomFoods custom foods and $numberOfTrackedFoods tracked foo
 
   /// Restore an encrypted WebDAV backup
   _restoreWebDAVBackup() async {
-    // Ask for WebDAV server data and encryption passphrase
+    // Ask for WebDAV server data and encryption password
     final wantsRestore = await _showWebDAVBackupOrRestoreDialog(
       isForBackup: false,
     );
@@ -181,19 +181,9 @@ Imported $numberOfCustomFoods custom foods and $numberOfTrackedFoods tracked foo
             ),
           ),
         );
-      } catch (e) {
+      } catch (exception) {
         // In case something went wrong with decryption, etc.
-        String errorText;
-
-        if (e.toString() ==
-            'Invalid argument(s): Invalid or corrupted pad block') {
-          errorText =
-              'Something went wrong. Is the decryption password correct?';
-        } else {
-          errorText = 'Error while restoring backup';
-        }
-
-        _showError(context, text: errorText);
+        _showError(context, text: exception.toString());
       }
     }
   }
@@ -423,14 +413,12 @@ Imported $numberOfCustomFoods custom foods and $numberOfTrackedFoods tracked foo
             mainAxisSize: MainAxisSize.min,
             children: [
               Form(
-                key: _encryptionPassphraseOnlyFormKey,
+                key: _encryptionPasswordOnlyFormKey,
                 child: TextFormField(
                   obscureText: true,
-                  decoration: InputDecoration(
-                    icon: const Icon(Icons.password),
-                    labelText: forEncrypting
-                        ? 'Encryption passphrase'
-                        : 'Decryption passphrase',
+                  decoration: const InputDecoration(
+                    icon: Icon(Icons.password),
+                    labelText: 'Encryption password',
                   ),
                   controller: _encryptionPasswordController,
                   validator: (value) {
@@ -460,7 +448,7 @@ Imported $numberOfCustomFoods custom foods and $numberOfTrackedFoods tracked foo
             ),
             TextButton(
               onPressed: () {
-                if (_encryptionPassphraseOnlyFormKey.currentState!.validate()) {
+                if (_encryptionPasswordOnlyFormKey.currentState!.validate()) {
                   Navigator.of(context).pop(true);
                 }
               },
@@ -475,7 +463,7 @@ Imported $numberOfCustomFoods custom foods and $numberOfTrackedFoods tracked foo
   /// Creates a local encrypted backup and saves it via native file picker
   _createLocalEncryptedBackup() async {
     try {
-      // Ask for encryption passphrase
+      // Ask for encryption password
       final dialogConfirmed = await _showEncryptionPasswordInputDialog();
 
       // Check whether dialog was cancelled
@@ -534,7 +522,7 @@ Exported $numberOfCustomFoods custom foods and $numberOfTrackedFoods tracked foo
 
   /// Restores a local encrypted backup picked via native file picker
   _restoreLocalEncryptedBackup() async {
-    // Ask for decryption passphrase
+    // Ask for decryption password
     final dialogConfirmed = await _showEncryptionPasswordInputDialog(
       forEncrypting: false,
     );
@@ -587,18 +575,9 @@ Imported $numberOfCustomFoods custom foods and $numberOfTrackedFoods tracked foo
           ),
         ),
       );
-    } catch (e) {
+    } catch (exception) {
       // In case something went wrong with decryption, etc.
-      String errorText;
-
-      if (e.toString() ==
-          'Invalid argument(s): Invalid or corrupted pad block') {
-        errorText = 'Something went wrong. Is the decryption password correct?';
-      } else {
-        errorText = 'Error while restoring backup';
-      }
-
-      _showError(context, text: errorText);
+      _showError(context, text: exception.toString());
     } finally {
       // Restore probably done, hide progress bar
       setState(() {

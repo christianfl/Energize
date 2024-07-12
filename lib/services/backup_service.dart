@@ -45,40 +45,56 @@ class BackupService {
   /// Returns backupData (Object which contains plaintext backup as Objects)
   static BackupData restoreBackup(
       String encryptedData, String encryptionPassword, BuildContext context) {
-    final decryptedBackup = EncryptionService.decrypt(
-      encryptedData,
-      encryptionPassword,
-    );
+    try {
+      final decryptedBackup = EncryptionService.decrypt(
+        encryptedData,
+        encryptionPassword,
+      );
 
-    final backupData = BackupData.fromJson(json.decode(decryptedBackup));
+      final backupData = BackupData.fromJson(json.decode(decryptedBackup));
 
-    // Initialize providers for directly reflect data changes in UI
-    final customFoodProvider =
-        Provider.of<CustomFoodProvider>(context, listen: false);
-    final trackedFoodProvider =
-        Provider.of<TrackedFoodProvider>(context, listen: false);
+      // Initialize providers for directly reflect data changes in UI
+      final customFoodProvider =
+          Provider.of<CustomFoodProvider>(context, listen: false);
+      final trackedFoodProvider =
+          Provider.of<TrackedFoodProvider>(context, listen: false);
 
-    // Custum food
-    if (backupData.customFood != null) {
-      for (var customFood in backupData.customFood!) {
-        customFoodProvider.addFood(customFood);
+      // Custum food
+      if (backupData.customFood != null) {
+        for (var customFood in backupData.customFood!) {
+          customFoodProvider.addFood(customFood);
+        }
       }
-    }
 
-    // Tracked food
-    if (backupData.trackedFood != null) {
-      for (var trackedFood in backupData.trackedFood!) {
-        trackedFoodProvider.addEatenFood(trackedFood);
+      // Tracked food
+      if (backupData.trackedFood != null) {
+        for (var trackedFood in backupData.trackedFood!) {
+          trackedFoodProvider.addEatenFood(trackedFood);
+        }
       }
-    }
-    if (backupData.completedDays != null) {
-      for (var completedDay in backupData.completedDays!) {
-        CompleteDaysDatabaseService.insert(completedDay);
+      if (backupData.completedDays != null) {
+        for (var completedDay in backupData.completedDays!) {
+          CompleteDaysDatabaseService.insert(completedDay);
+        }
       }
-    }
 
-    // Return backupData so that the UI can show how many objects where restored
-    return backupData;
+      // Return backupData so that the UI can show how many objects where restored
+      return backupData;
+    } catch (exception) {
+      // do something to catch
+
+      String errorMessage = 'Error while restoring backup';
+
+      if (exception
+          .toString()
+          .toLowerCase()
+          .contains('invalid or corrupted pad block')) {
+        errorMessage =
+            'Something went wrong. Is the decryption password correct?';
+      }
+
+      throw Exception(errorMessage);
+    }
   }
 }
 
