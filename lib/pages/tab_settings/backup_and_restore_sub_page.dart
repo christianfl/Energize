@@ -27,8 +27,10 @@ class BackupAndRestoreSubPage extends StatefulWidget {
 class BackupAndRestoreSubPageState extends State<BackupAndRestoreSubPage> {
   /// Indicates whether a backup or restore is currently running
   bool _isBusy = false;
-  final _serverSettingsFormKey = GlobalKey<FormState>();
-  final _passwordsFormKey = GlobalKey<FormState>();
+
+  /// FormKey for mask of WebDAV Backup and Restore dialog
+  final _webDAVBackupOrRestoreFormKey = GlobalKey<FormState>();
+  // final _passwordsFormKey = GlobalKey<FormState>();
 
   /// FormKey for only the encryption passphrase (local backup/restore)
   final _encryptionPassphraseOnlyFormKey = GlobalKey<FormState>();
@@ -69,14 +71,12 @@ class BackupAndRestoreSubPageState extends State<BackupAndRestoreSubPage> {
 
   /// Create an encrypted WebDAV backup
   _createWebDAVBackup() async {
-    if (!_isBackupServerDataPresent) {
-      return;
-    }
+    // Ask for WebDAV server data and encryption passphrase
+    final wantsBackup = await _showWebDAVBackupOrRestoreDialog();
 
-    final hasUserConfirmedPasswords = await _showPasswordDialog();
-
-    if (hasUserConfirmedPasswords == true) {
-      // Show creating backup loading spinner
+    // Do backup only if confirmed
+    if (wantsBackup == true) {
+      // Show progress bar
       setState(() {
         _isBusy = true;
       });
@@ -89,7 +89,7 @@ class BackupAndRestoreSubPageState extends State<BackupAndRestoreSubPage> {
 
       // Create WebDAV backup
 
-      bool backupSucceeded = true;
+      bool backupSucceeded = true; // Just an assumption so far
 
       try {
         await WebDAVService.writeFile(
@@ -132,13 +132,13 @@ Exported $numberOfCustomFoods custom foods and $numberOfTrackedFoods tracked foo
 
   /// Restore an encrypted WebDAV backup
   _restoreWebDAVBackup() async {
-    if (!_isBackupServerDataPresent) {
-      return;
-    }
+    // Ask for WebDAV server data and encryption passphrase
+    final wantsRestore = await _showWebDAVBackupOrRestoreDialog(
+      isForBackup: false,
+    );
 
-    final hasUserConfirmedPasswords = await _showPasswordDialog();
-
-    if (hasUserConfirmedPasswords == true) {
+    // Do backup only if confirmed
+    if (wantsRestore == true) {
       Object readBackup;
 
       // Read file from WebDAV
@@ -198,7 +198,11 @@ Imported $numberOfCustomFoods custom foods and $numberOfTrackedFoods tracked foo
     }
   }
 
-  _saveBackupServerSettings() {
+  /// Save setting for connection to the WebDAV server (excl. passwords)
+  ///
+  /// Passwords could in future be saved to Keystore
+  /// or better handling with Password managers could be evaluated
+  _saveWebDAVServerSettings() {
     final appSettings = Provider.of<AppSettings>(context, listen: false);
 
     appSettings.backupServerUrl = _serverUrlController.text;
@@ -221,190 +225,179 @@ Imported $numberOfCustomFoods custom foods and $numberOfTrackedFoods tracked foo
     appSettings.clearBackupPathAndFilename();
   }
 
-  Future<void> _showSettingsDialog() async {
-    return showDialog<void>(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: const Text('WebDAV server settings'),
-          insetPadding: const EdgeInsets.all(16.0),
-          contentPadding: const EdgeInsets.all(16.0),
-          content: SizedBox(
-            width: MediaQuery.of(context).size.width,
-            child: SingleChildScrollView(
-              child: Form(
-                key: _serverSettingsFormKey,
-                child: AutofillGroup(
-                  child: Column(
-                    children: [
-                      TextFormField(
-                        decoration: InputDecoration(
-                          icon: const Icon(Icons.cloud),
-                          labelText: 'Server URL',
-                          hintText: 'https://',
-                          suffixIcon: IconButton(
-                            onPressed: () => {
-                              _serverUrlController.text = '',
-                              _clearBackupServerUrl(),
-                            },
-                            icon: const Icon(Icons.clear),
-                          ),
-                        ),
-                        controller: _serverUrlController,
-                        validator: (value) {
-                          if (value!.isEmpty) {
-                            return 'Please enter a server address';
-                          }
-                          return null;
-                        },
-                      ),
-                      TextFormField(
-                        autofillHints: const [AutofillHints.username],
-                        decoration: InputDecoration(
-                          icon: const Icon(Icons.person),
-                          labelText: 'Username',
-                          suffixIcon: IconButton(
-                            onPressed: () => {
-                              _usernameController.text = '',
-                              _clearBackupUsername(),
-                            },
-                            icon: const Icon(Icons.clear),
-                          ),
-                        ),
-                        controller: _usernameController,
-                        validator: (value) {
-                          if (value!.isEmpty) {
-                            return 'Please enter a username';
-                          }
-                          return null;
-                        },
-                      ),
-                      TextFormField(
-                        decoration: InputDecoration(
-                          icon: const Icon(Icons.folder),
-                          labelText: 'Path and filename',
-                          hintText:
-                              '/${BackupAndRestoreSubPage.defaultBackupPath}/${BackupAndRestoreSubPage.defaultBackupFileName}',
-                          suffixIcon: IconButton(
-                            onPressed: () => {
-                              _pathAndFilenameController.text =
-                                  '/${BackupAndRestoreSubPage.defaultBackupPath}/${BackupAndRestoreSubPage.defaultBackupFileName}',
-                              _resetBackupPathAndFilename(),
-                            },
-                            icon: const Icon(Icons.clear),
-                          ),
-                        ),
-                        controller: _pathAndFilenameController,
-                        validator: (value) {
-                          if (value!.isEmpty) {
-                            return 'Please enter a path/filename';
-                          }
-                          return null;
-                        },
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-          ),
-          actions: <Widget>[
-            TextButton(
-              onPressed: () => Navigator.of(context).pop(),
-              child: const Text('Cancel'),
-            ),
-            TextButton(
-              onPressed: () => {
-                if (_serverSettingsFormKey.currentState!.validate())
-                  {
-                    _saveBackupServerSettings(),
-                    Navigator.of(context).pop(),
-                  },
-              },
-              child: const Text('Save'),
-            ),
-          ],
-        );
-      },
-    );
-  }
-
-  /// Returns true if clicked on OK
-  Future<bool?> _showPasswordDialog() async {
+  /// Dialog just for asking for needed data for backup/restore with WebDAV
+  /// Returns true if clicked on save and values seem valid
+  /// bool isForBackup switches between backup and restore texts and icons
+  Future<bool?> _showWebDAVBackupOrRestoreDialog({isForBackup = true}) async {
     return showDialog<bool>(
       context: context,
       builder: (BuildContext context) {
-        return AlertDialog(
-          title: const Text('Please enter passwords'),
-          insetPadding: const EdgeInsets.all(16.0),
-          contentPadding: const EdgeInsets.all(16.0),
-          content: SizedBox(
-            width: MediaQuery.of(context).size.width,
-            child: SingleChildScrollView(
-              child: Form(
-                key: _passwordsFormKey,
-                child: AutofillGroup(
-                  child: Column(
-                    children: [
-                      TextFormField(
-                        keyboardType: TextInputType.visiblePassword,
-                        autofillHints: const [AutofillHints.password],
-                        obscureText: true,
-                        decoration: const InputDecoration(
-                          icon: Icon(Icons.password),
-                          labelText: 'WebDAV server password',
+        return Dialog.fullscreen(
+          child: Scaffold(
+            appBar: AppBar(
+              title: Text(
+                isForBackup ? 'Create WebDAV Backup' : 'Restore from WebDAV',
+              ),
+              centerTitle: false,
+              automaticallyImplyLeading: false,
+              leading: IconButton(
+                onPressed: () => Navigator.of(context).pop(),
+                icon: const Icon(Icons.close),
+              ),
+              actions: <Widget>[
+                IconButton(
+                  onPressed: () {
+                    // Only close dialog of values successfully validated
+                    if (_webDAVBackupOrRestoreFormKey.currentState!
+                        .validate()) {
+                      // Save validated settings
+                      _saveWebDAVServerSettings();
+                      // Return true, indicating confirmation
+                      Navigator.of(context).pop(true);
+                    }
+                  },
+                  icon: Icon(
+                    isForBackup ? Icons.cloud_upload : Icons.cloud_download,
+                  ),
+                ),
+              ],
+            ),
+            body: SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.all(24.0),
+                child: Form(
+                  key: _webDAVBackupOrRestoreFormKey,
+                  child: AutofillGroup(
+                    child: Wrap(
+                      runSpacing: 16,
+                      children: [
+                        const Text('WebDAV settings'),
+                        TextFormField(
+                          decoration: InputDecoration(
+                            border: const OutlineInputBorder(),
+                            icon: const Icon(Icons.cloud),
+                            labelText: 'Server URL',
+                            hintText: 'https://',
+                            suffixIcon: IconButton(
+                              onPressed: () => {
+                                _serverUrlController.text = '',
+                                _clearBackupServerUrl(),
+                              },
+                              icon: const Icon(Icons.clear),
+                            ),
+                          ),
+                          controller: _serverUrlController,
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return 'Please enter a server address';
+                              // Simple check for URI
+                            } else if (Uri.tryParse(value) == null) {
+                              return 'The server address is not a valid URL';
+                            } else {
+                              // More deep host check
+                              if (!(value.startsWith('http://') ||
+                                      value.startsWith('https://')) ||
+                                  Uri.parse(value).host.isEmpty) {
+                                return 'The server address is not a valid host';
+                              }
+                            }
+                            return null;
+                          },
                         ),
-                        controller: _passwordController,
-                        validator: (value) {
-                          if (value!.isEmpty) {
-                            return 'Please enter the password';
-                          }
-                          return null;
-                        },
-                      ),
-                      TextFormField(
-                        obscureText: true,
-                        decoration: const InputDecoration(
-                          icon: Icon(Icons.password),
-                          labelText: 'Encryption Password',
+                        TextFormField(
+                          autofillHints: const [AutofillHints.username],
+                          decoration: InputDecoration(
+                            border: const OutlineInputBorder(),
+                            icon: const Icon(Icons.person),
+                            labelText: 'Username',
+                            suffixIcon: IconButton(
+                              onPressed: () => {
+                                _usernameController.text = '',
+                                _clearBackupUsername(),
+                              },
+                              icon: const Icon(Icons.clear),
+                            ),
+                          ),
+                          controller: _usernameController,
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return 'Please enter a username';
+                            }
+                            return null;
+                          },
                         ),
-                        controller: _encryptionPasswordController,
-                        validator: (value) {
-                          if (value!.isEmpty) {
-                            return 'Please enter an encryption/decryption password';
-                          }
-                          return null;
-                        },
-                      ),
-                      const SizedBox(height: 20),
-                      Text(
-                        'Please note the encryption password. You won\'t be able to restore your data without it.',
-                        style: Theme.of(context).textTheme.bodySmall,
-                      ),
-                    ],
+                        TextFormField(
+                          keyboardType: TextInputType.visiblePassword,
+                          autofillHints: const [AutofillHints.password],
+                          obscureText: true,
+                          decoration: const InputDecoration(
+                            border: OutlineInputBorder(),
+                            icon: Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 12),
+                            ),
+                            labelText: 'Password',
+                          ),
+                          controller: _passwordController,
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return 'Please enter the password';
+                            }
+                            return null;
+                          },
+                        ),
+                        TextFormField(
+                          decoration: InputDecoration(
+                            border: const OutlineInputBorder(),
+                            icon: const Icon(Icons.folder),
+                            labelText: 'Path and filename',
+                            hintText:
+                                '/${BackupAndRestoreSubPage.defaultBackupPath}/${BackupAndRestoreSubPage.defaultBackupFileName}',
+                            suffixIcon: IconButton(
+                              onPressed: () => {
+                                _pathAndFilenameController.text =
+                                    '/${BackupAndRestoreSubPage.defaultBackupPath}/${BackupAndRestoreSubPage.defaultBackupFileName}',
+                                _resetBackupPathAndFilename(),
+                              },
+                              icon: const Icon(Icons.clear),
+                            ),
+                          ),
+                          controller: _pathAndFilenameController,
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return 'Please enter a path/filename';
+                            }
+                            return null;
+                          },
+                        ),
+                        const Text('Energize database'),
+                        TextFormField(
+                          obscureText: true,
+                          keyboardType: TextInputType.visiblePassword,
+                          decoration: const InputDecoration(
+                            icon: Icon(Icons.lock),
+                            border: OutlineInputBorder(),
+                            labelText: 'Encryption password',
+                          ),
+                          controller: _encryptionPasswordController,
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return 'Please enter the encryption password';
+                            }
+                            return null;
+                          },
+                        ),
+                        const SizedBox(height: 20),
+                        Text(
+                          'Without the encryption password, it is impossible to restore a backup.',
+                          style: Theme.of(context).textTheme.bodySmall,
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
             ),
           ),
-          actions: <Widget>[
-            TextButton(
-              onPressed: () => Navigator.of(context).pop(),
-              child: Text(
-                MaterialLocalizations.of(context).cancelButtonLabel,
-              ),
-            ),
-            TextButton(
-              onPressed: () {
-                if (_passwordsFormKey.currentState!.validate()) {
-                  Navigator.of(context).pop(true);
-                }
-              },
-              child: Text(
-                MaterialLocalizations.of(context).okButtonLabel,
-              ),
-            ),
-          ],
         );
       },
     );
@@ -614,37 +607,11 @@ Imported $numberOfCustomFoods custom foods and $numberOfTrackedFoods tracked foo
     }
   }
 
-  bool get _isBackupServerDataPresent {
-    final appSettings = Provider.of<AppSettings>(context, listen: false);
-
-    if (appSettings.backupServerUrl.isEmpty ||
-        appSettings.backupUsername.isEmpty ||
-        appSettings.backupPathAndFilename.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          backgroundColor: Colors.red,
-          content: Text(
-            'Please click on the settings icon first and setup a WebDAV server.',
-          ),
-        ),
-      );
-      return false;
-    } else {
-      return true;
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(AppLocalizations.of(context)!.backupAndRestore),
-        actions: [
-          IconButton(
-            onPressed: () => _showSettingsDialog(),
-            icon: const Icon(Icons.settings),
-          ),
-        ],
       ),
       body: SingleChildScrollView(
         child: Stack(
@@ -656,9 +623,9 @@ Imported $numberOfCustomFoods custom foods and $numberOfTrackedFoods tracked foo
                   padding: EdgeInsets.fromLTRB(12.0, 12.0, 12.0, 0.0),
                   child: InfoCard(
                     message:
-                        'Warning: Currently in alpha. You can backup and restore tracked and custom food and completed days at the moment. Settings, personalizations, targets, etc. are still missing. The encryption method might change in the future so it is not guaranteed that you can restore old backups within newer versions of Energize.',
+                        'Warning: Settings, personalizations and targets are not yet included!',
                     icon: Icon(Icons.warning),
-                    color: Colors.red,
+                    color: Colors.deepOrange,
                   ),
                 ),
                 GridView.count(

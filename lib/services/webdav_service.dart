@@ -44,7 +44,7 @@ class WebDAVService {
     } on DioException catch (dioException) {
       throw Exception(_dioExceptionHandling(dioException));
     } catch (generalException) {
-      throw Exception();
+      throw Exception('Error while connecting to remote server');
     }
 
     // Server URL seems fine
@@ -122,14 +122,22 @@ class WebDAVService {
 
   /// Returns different error messages based on a given dioException
   static String? _dioExceptionHandling(DioException dioException) {
-    String? errorMessage;
+    String errorMessage = 'An unknown error has occured';
 
     if (dioException.error is SocketException) {
       errorMessage = 'The server address is unknown';
     } else if (dioException.type == DioExceptionType.connectionTimeout) {
       errorMessage = 'Timeout while trying to reach the address';
     } else if (dioException.response?.statusCode == 401) {
-      errorMessage = 'WebDAV server username or password incorrect';
+      errorMessage = 'WebDAV username or password incorrect';
+    } else if (dioException.response?.statusCode == 405) {
+      errorMessage = 'Method not allowed. Is the server correct?';
+    } else if (dioException.response?.statusCode == 500) {
+      errorMessage = 'Server error';
+    } else if (dioException.error
+        .toString()
+        .contains('No host specified in URI')) {
+      errorMessage = 'The server address seems incorrect';
     }
 
     return errorMessage;
