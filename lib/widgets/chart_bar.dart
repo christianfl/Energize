@@ -84,20 +84,12 @@ class ChartBar extends StatelessWidget {
           margin: const EdgeInsets.only(bottom: 6),
           child: Stack(
             children: [
-              Container(
-                decoration: BoxDecoration(
-                  color: const Color.fromRGBO(220, 220, 220, 1),
-                  borderRadius: BorderRadius.circular(20),
-                ),
-              ),
-              FractionallySizedBox(
-                widthFactor: _percentageBar,
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: color,
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                ),
+              LinearProgressIndicator(
+                borderRadius: BorderRadius.circular(20),
+                minHeight: 12,
+                color: color,
+                backgroundColor: const Color.fromRGBO(220, 220, 220, 1),
+                value: _percentageBar,
               ),
               Center(
                 child: Text(
