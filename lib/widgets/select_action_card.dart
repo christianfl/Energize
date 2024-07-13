@@ -4,14 +4,12 @@ class SelectActionCard extends StatelessWidget {
   final IconData icon;
   final String title;
   final VoidCallback? onTap;
-  final bool isLoading;
 
   const SelectActionCard({
     super.key,
     required this.icon,
     required this.title,
     this.onTap,
-    required this.isLoading,
   });
 
   @override
@@ -25,9 +23,9 @@ class SelectActionCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(20),
         onTap: onTap,
         child: Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.all(16.0),
           child: Stack(
-            alignment: Alignment.topRight,
+            alignment: Alignment.topCenter,
             children: [
               Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -45,14 +43,6 @@ class SelectActionCard extends StatelessWidget {
                   ),
                 ],
               ),
-              if (isLoading)
-                const SizedBox(
-                  width: 16,
-                  height: 16,
-                  child: CircularProgressIndicator(
-                    strokeWidth: 2.0,
-                  ),
-                ),
             ],
           ),
         ),

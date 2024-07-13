@@ -405,9 +405,7 @@ Imported $numberOfCustomFoods custom foods and $numberOfTrackedFoods tracked foo
       builder: (BuildContext context) {
         return AlertDialog(
           title: Text(
-            forEncrypting
-                ? 'Create local encrypted backup'
-                : 'Restore local encrypted backup',
+            forEncrypting ? 'Create local backup' : 'Restore local backup',
           ),
           content: Column(
             mainAxisSize: MainAxisSize.min,
@@ -417,13 +415,14 @@ Imported $numberOfCustomFoods custom foods and $numberOfTrackedFoods tracked foo
                 child: TextFormField(
                   obscureText: true,
                   decoration: const InputDecoration(
-                    icon: Icon(Icons.password),
+                    border: OutlineInputBorder(),
+                    icon: Icon(Icons.lock),
                     labelText: 'Encryption password',
                   ),
                   controller: _encryptionPasswordController,
                   validator: (value) {
                     if (value!.isEmpty) {
-                      return 'The textfield must not be empty';
+                      return 'Please enter the encryption password';
                     }
                     return null;
                   },
@@ -615,29 +614,25 @@ Imported $numberOfCustomFoods custom foods and $numberOfTrackedFoods tracked foo
                   children: [
                     SelectActionCard(
                       icon: Icons.cloud_upload,
-                      title: 'Create encrypted WebDAV backup',
+                      title: 'Create WebDAV backup',
                       onTap: _isBusy ? null : () => _createWebDAVBackup(),
-                      isLoading: false,
                     ),
                     SelectActionCard(
                       icon: Icons.cloud_download,
-                      title: 'Restore encrypted WebDAV backup',
+                      title: 'Restore WebDAV backup',
                       onTap: _isBusy ? null : () => _restoreWebDAVBackup(),
-                      isLoading: false,
                     ),
                     SelectActionCard(
                       icon: Icons.file_upload,
-                      title: 'Create local encrypted backup',
+                      title: 'Create local backup',
                       onTap:
                           _isBusy ? null : () => _createLocalEncryptedBackup(),
-                      isLoading: false,
                     ),
                     SelectActionCard(
                       icon: Icons.file_download,
-                      title: 'Restore local encrypted backup',
+                      title: 'Restore local backup',
                       onTap:
                           _isBusy ? null : () => _restoreLocalEncryptedBackup(),
-                      isLoading: false,
                     ),
                   ],
                 ),
