@@ -20,17 +20,9 @@ class TabsPageState extends State<TabsPage> {
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () async {
-        if (_currentIndex == 0) {
-          return true;
-        } else {
-          setState(() {
-            _currentIndex = 0;
-          });
-          return false;
-        }
-      },
+    return PopScope(
+      canPop: _currentIndex == 0,
+      onPopInvoked: (didPop) => didPop ? null : _setIndex(0),
       child: Scaffold(
         body: IndexedStack(
           index: _currentIndex,
