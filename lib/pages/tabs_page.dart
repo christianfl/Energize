@@ -30,13 +30,12 @@ class TabsPageState extends State<TabsPage> {
             for (final tabItem in TabNavItem.getItems(context)) tabItem.page,
           ],
         ),
-        bottomNavigationBar: BottomNavigationBar(
-          backgroundColor: const Color(0xFF0F1518),
-          currentIndex: _currentIndex,
-          onTap: (int index) => _setIndex(index),
-          items: [
+        bottomNavigationBar: NavigationBar(
+          selectedIndex: _currentIndex,
+          onDestinationSelected: (int index) => _setIndex(index),
+          destinations: [
             for (final tabItem in TabNavItem.getItems(context))
-              BottomNavigationBarItem(
+              NavigationDestination(
                 icon: tabItem.icon,
                 label: tabItem.label,
               )
