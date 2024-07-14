@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:provider/provider.dart';
 
 import '../../models/food/food.dart';
@@ -183,23 +182,18 @@ class FoodPageState extends State<FoodPage> {
           ),
         ],
       ),
-      floatingActionButton: SpeedDial(
-        // _isFabExplicitelyVisible is there because otherwise the fab could
-        // hide itself after deleting entries until there is no scrollable
-        // area anymore
-        visible: _lastScrollDirection != ScrollDirection.reverse ||
-            _isFabExplicitelyVisible,
-        onPress: () {
-          _navigateToAddCustomFood(context);
-        },
-        curve: Curves.linear,
-        icon: Icons.add,
-        activeIcon: Icons.close,
-        backgroundColor: Theme.of(context).colorScheme.secondary,
-        foregroundColor: Theme.of(context).colorScheme.onSecondary,
-        overlayOpacity: 0,
-        animationDuration: const Duration(),
-      ),
+      // _isFabExplicitelyVisible is there because otherwise the fab could
+      // hide itself after deleting entries until there is no scrollable
+      // area anymore
+      floatingActionButton: _lastScrollDirection != ScrollDirection.reverse ||
+              _isFabExplicitelyVisible
+          ? FloatingActionButton(
+              onPressed: () => _navigateToAddCustomFood(context),
+              backgroundColor: Theme.of(context).colorScheme.secondary,
+              foregroundColor: Theme.of(context).colorScheme.onSecondary,
+              child: const Icon(Icons.add),
+            )
+          : null,
     );
   }
 }
