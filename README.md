@@ -61,7 +61,6 @@ As this app is still in an early stage, a few things have still to be developed.
 You are very welcome to:
 
 - Help translating via Weblate: [![Translation status](https://hosted.weblate.org/widgets/energize/-/energize/svg-badge.svg)](https://hosted.weblate.org/engage/energize/)
-</a>
 - Create issues for
   - things not working as intended
   - feature requests
@@ -75,11 +74,9 @@ You are very welcome to:
 
 If you want to support the development by a donation, you are very welcome to do so! Creating this app is a lot of fun but also a very time consuming task and sometimes leads to little frustration...
 
-<a href="https://liberapay.com/epinez/donate">
-  <img alt="Donate using Liberapay" src="https://liberapay.com/assets/widgets/donate.svg">
-</a>
+[![Donate using Liberapay](https://liberapay.com/assets/widgets/donate.svg)](https://liberapay.com/epinez/donate)
 
-<b>BTC: 35DcbAwi66LDyvxfpmvxVrM7nYrrZVC59k</b>
+**BTC: 35DcbAwi66LDyvxfpmvxVrM7nYrrZVC59k**
 
 ## Release preparations
 
