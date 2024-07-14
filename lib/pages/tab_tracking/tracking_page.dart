@@ -5,14 +5,14 @@ import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
 
-import '../../utils/time_util.dart';
-import './detailed_summary_sub_page.dart';
 import '../../providers/tracked_food_provider.dart';
 import '../../services/sqlite/complete_days_database_service.dart';
 import '../../utils/date_util.dart';
+import '../../utils/time_util.dart';
 import '../../widgets/food_input.dart';
 import '../../widgets/macro_chart.dart';
 import '../../widgets/tracked_food_list.dart';
+import './detailed_summary_sub_page.dart';
 
 class TrackingPage extends StatefulWidget {
   const TrackingPage({super.key});
@@ -353,37 +353,50 @@ class TrackingPageState extends State<TrackingPage> {
           TrackedFoodList(_scrollController, _setIsFabExplicitelyVisible),
         ],
       ),
-      floatingActionButton: SpeedDial(
-        // _isFabExplicitelyVisible is there because otherwise the fab could
-        // hide itself after deleting entries until there is no scrollable
-        // area anymore
-        visible: _lastScrollDirection != ScrollDirection.reverse ||
-            _isFabExplicitelyVisible,
-        curve: Curves.linear,
-        icon: Icons.add,
-        activeIcon: Icons.close,
-        backgroundColor: Theme.of(context).colorScheme.secondary,
-        foregroundColor: Theme.of(context).colorScheme.onSecondary,
-        overlayOpacity: 0,
-        animationDuration: const Duration(),
-        spaceBetweenChildren: 10,
-        children: [
-          SpeedDialChild(
-            child: const Icon(Icons.search),
-            backgroundColor: Colors.red,
-            label: AppLocalizations.of(context)!.searchFood,
-            labelBackgroundColor: Colors.red,
-            onTap: () => _startAddEatenFood(context, SheetModalMode.search),
-          ),
-          SpeedDialChild(
-            child: const Icon(Icons.qr_code),
-            backgroundColor: Colors.blue,
-            label: AppLocalizations.of(context)!.scanEANCode,
-            labelBackgroundColor: Colors.blue,
-            onTap: () => _startAddEatenFood(context, SheetModalMode.ean),
-          ),
-        ],
-      ),
+      // _isFabExplicitelyVisible is there because otherwise the fab could
+      // hide itself after deleting entries until there is no scrollable
+      // area anymore
+      floatingActionButton: _lastScrollDirection != ScrollDirection.reverse ||
+              _isFabExplicitelyVisible
+          ? SpeedDial(
+              shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(16)),
+              ),
+              spacing: 16,
+              childMargin: EdgeInsets.zero,
+              childPadding: const EdgeInsets.all(8),
+              curve: Curves.linear,
+              icon: Icons.add,
+              activeIcon: Icons.close,
+              backgroundColor: Theme.of(context).colorScheme.secondary,
+              foregroundColor: Theme.of(context).colorScheme.onSecondary,
+              overlayOpacity: 0,
+              animationDuration: const Duration(),
+              children: [
+                SpeedDialChild(
+                  shape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(12)),
+                  ),
+                  backgroundColor: Colors.red,
+                  label: AppLocalizations.of(context)!.searchFood,
+                  labelBackgroundColor: Colors.red,
+                  onTap: () =>
+                      _startAddEatenFood(context, SheetModalMode.search),
+                  child: const Icon(Icons.search),
+                ),
+                SpeedDialChild(
+                  shape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(12)),
+                  ),
+                  backgroundColor: Colors.blue,
+                  label: AppLocalizations.of(context)!.scanEANCode,
+                  labelBackgroundColor: Colors.blue,
+                  onTap: () => _startAddEatenFood(context, SheetModalMode.ean),
+                  child: const Icon(Icons.qr_code),
+                ),
+              ],
+            )
+          : null,
     );
   }
 }
