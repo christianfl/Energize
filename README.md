@@ -1,18 +1,11 @@
 # Energize
 
+[![Translation status](https://hosted.weblate.org/widgets/energize/-/energize/svg-badge.svg)](https://hosted.weblate.org/engage/energize/) [![Delightful Humane Tech](https://codeberg.org/teaserbot-labs/delightful-humane-design/raw/branch/main/humane-tech-badge.svg)](https://codeberg.org/teaserbot-labs/delightful-humane-design)
+
 Track your food and nutrition easily and fast. Still in early development.
 
   - 🔒 [Privacy Policy](PRIVACY.md)
   - Community-moderated [[Matrix] room](https://matrix.to/#/%23energize:matrix.org)
-
-<p>
-
-  [![Awesome Humane Tech](https://raw.githubusercontent.com/humanetech-community/awesome-humane-tech/main/humane-tech-badge.svg?sanitize=true)](https://github.com/humanetech-community/awesome-humane-tech)
-  <a href="https://hosted.weblate.org/engage/energize/">
-    <img src="https://hosted.weblate.org/widgets/energize/-/energize/svg-badge.svg" alt="Übersetzungsstatus" />
-  </a>
-
-</p>
 
 <p align="center">
   <a href="https://epinez.codeberg.page/projects/energize/index.html"><img src="https://codeberg.org/epinez/pages/raw/branch/main/try_on_codeberg_pages.png" alt="Try it on Codeberg Pages" height="75"></a>
@@ -67,8 +60,7 @@ As this app is still in an early stage, a few things have still to be developed.
 
 You are very welcome to:
 
-- Help translating via Weblate: &nbsp; <a href="https://hosted.weblate.org/engage/energize/">
-  <img src="https://hosted.weblate.org/widgets/energize/-/energize/svg-badge.svg" alt="Übersetzungsstatus" />
+- Help translating via Weblate: [![Translation status](https://hosted.weblate.org/widgets/energize/-/energize/svg-badge.svg)](https://hosted.weblate.org/engage/energize/)
 </a>
 - Create issues for
   - things not working as intended
@@ -79,14 +71,14 @@ You are very welcome to:
     - There is no written roadmap or code style guidelines yet
     - it's easier to reach out in advance if you want something to be merged later. :-)
 
-## Donate 
+## Donate
 
 If you want to support the development by a donation, you are very welcome to do so! Creating this app is a lot of fun but also a very time consuming task and sometimes leads to little frustration...
 
 <a href="https://liberapay.com/epinez/donate">
   <img alt="Donate using Liberapay" src="https://liberapay.com/assets/widgets/donate.svg">
 </a>
-  
+
 <b>BTC: 35DcbAwi66LDyvxfpmvxVrM7nYrrZVC59k</b>
 
 ## Release preparations
