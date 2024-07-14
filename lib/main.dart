@@ -54,18 +54,11 @@ class MyApp extends StatelessWidget {
           GlobalCupertinoLocalizations.delegate,
         ],
         supportedLocales: AppLocalizations.supportedLocales,
-        theme: ThemeData.dark().copyWith(
-          highlightColor: Colors.amber,
-          scaffoldBackgroundColor: const Color(0xFF1B262C),
-          cardColor: const Color(0xFF0F1518),
-          colorScheme: const ColorScheme.dark().copyWith(
-            primary: Colors.blue,
-            onPrimary: Colors.white,
-            secondary: Colors.pink,
-            onSecondary: Colors.white,
-            surface: const Color(0xFF1B262C),
+        theme: ThemeData(
+          colorScheme: ColorScheme.fromSeed(
+            seedColor: Colors.pink,
+            brightness: Brightness.dark,
           ),
-          appBarTheme: const AppBarTheme(color: Colors.pink),
         ),
         home: const TabsPage(),
         routes: {
