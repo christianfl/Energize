@@ -26,7 +26,7 @@ class FoodMicroCountPill extends StatelessWidget {
       height: height,
       decoration: BoxDecoration(
         border: Border.all(
-          color: Theme.of(context).highlightColor,
+          color: Colors.amber,
           width: 2,
         ),
         borderRadius: BorderRadius.circular(20),
@@ -34,16 +34,16 @@ class FoodMicroCountPill extends StatelessWidget {
       padding: const EdgeInsets.all(4),
       child: Row(
         children: [
-          Icon(
+          const Icon(
             Icons.biotech,
-            color: Theme.of(context).highlightColor,
+            color: Colors.amber,
           ),
           Text(
             _getPillText(context),
-            style: TextStyle(
+            style: const TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: 14,
-              color: Theme.of(context).highlightColor,
+              color: Colors.amber,
             ),
           ),
         ],

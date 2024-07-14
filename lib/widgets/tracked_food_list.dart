@@ -145,7 +145,7 @@ class TrackedFoodList extends StatelessWidget {
                             Container(
                               decoration: BoxDecoration(
                                 border: Border.all(
-                                  color: Theme.of(context).highlightColor,
+                                  color: Colors.amber,
                                   width: 2,
                                 ),
                                 borderRadius: BorderRadius.circular(6),
@@ -153,10 +153,10 @@ class TrackedFoodList extends StatelessWidget {
                               padding: const EdgeInsets.all(4),
                               child: Text(
                                 '${_caloriesPerAmount(food).toStringAsFixed(0)} kcal',
-                                style: TextStyle(
+                                style: const TextStyle(
                                   fontWeight: FontWeight.bold,
                                   fontSize: 14,
-                                  color: Theme.of(context).highlightColor,
+                                  color: Colors.amber,
                                 ),
                               ),
                             ),
