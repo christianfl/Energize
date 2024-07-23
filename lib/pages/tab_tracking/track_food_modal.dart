@@ -498,7 +498,6 @@ class TrackFoodState extends State<TrackFood>
         ],
       ),
       floatingActionButton: FloatingActionButton(
-        backgroundColor: Theme.of(context).colorScheme.secondary.withAlpha(220),
         child: const Icon(Icons.save),
         onPressed: () => _addOrEditFood(args, trackedFood),
       ),
