@@ -37,6 +37,7 @@ class TabsPageState extends State<TabsPage> {
             for (final tabItem in TabNavItem.getItems(context))
               NavigationDestination(
                 icon: tabItem.icon,
+                selectedIcon: tabItem.selectedIcon,
                 label: tabItem.label,
               )
           ],
