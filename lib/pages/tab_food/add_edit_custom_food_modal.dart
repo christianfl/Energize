@@ -442,451 +442,445 @@ class AddEditCustomFoodModalState extends State<AddEditCustomFoodModal> {
             ? Text(AppLocalizations.of(context)!.editCustomFood)
             : Text(AppLocalizations.of(context)!.addCustomFood),
       ),
-      body: WillPopScope(
-        onWillPop: () async {
-          Navigator.pop(context, false);
-          return true;
-        },
-        child: Form(
-          key: _formKey,
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: ListView(
-              children: [
-                Row(
-                  children: [
-                    (food?.imageUrl != null)
-                        ? CircleAvatar(
-                            radius: AddEditCustomFoodModal._foodAvatarRadius,
-                            foregroundImage: NetworkImage(
-                              food!.imageUrl!,
-                            ),
-                          )
-                        : const CircleAvatar(
-                            backgroundColor: Colors.black,
-                            radius: AddEditCustomFoodModal._foodAvatarRadius,
-                            child: Icon(
-                              Icons.image_not_supported_outlined,
-                              size: AddEditCustomFoodModal._foodAvatarRadius *
-                                  1.8,
-                              color: Colors.white,
-                            ),
+      body: Form(
+        key: _formKey,
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: ListView(
+            children: [
+              Row(
+                children: [
+                  (food?.imageUrl != null)
+                      ? CircleAvatar(
+                          radius: AddEditCustomFoodModal._foodAvatarRadius,
+                          foregroundImage: NetworkImage(
+                            food!.imageUrl!,
                           ),
-                    const SizedBox(width: 20),
-                    Expanded(
-                      child: Column(
-                        children: [
-                          TextFormField(
-                            controller: _foodTitleController,
-                            keyboardType: TextInputType.text,
-                            decoration: InputDecoration(
-                              labelText: AppLocalizations.of(context)!.title,
-                            ),
-                            validator: (value) {
-                              if (value!.isEmpty) {
-                                return AppLocalizations.of(context)!
-                                    .fieldMandatory;
-                              }
-                              return null;
-                            },
+                        )
+                      : const CircleAvatar(
+                          backgroundColor: Colors.black,
+                          radius: AddEditCustomFoodModal._foodAvatarRadius,
+                          child: Icon(
+                            Icons.image_not_supported_outlined,
+                            size:
+                                AddEditCustomFoodModal._foodAvatarRadius * 1.8,
+                            color: Colors.white,
                           ),
-                          const SizedBox(height: 10),
-                          TextFormField(
-                            controller: _foodEanController,
-                            keyboardType: TextInputType.number,
-                            decoration: InputDecoration(
-                              labelText: AppLocalizations.of(context)!.barcode,
-                            ),
+                        ),
+                  const SizedBox(width: 20),
+                  Expanded(
+                    child: Column(
+                      children: [
+                        TextFormField(
+                          controller: _foodTitleController,
+                          keyboardType: TextInputType.text,
+                          decoration: InputDecoration(
+                            labelText: AppLocalizations.of(context)!.title,
                           ),
-                        ],
-                      ),
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return AppLocalizations.of(context)!
+                                  .fieldMandatory;
+                            }
+                            return null;
+                          },
+                        ),
+                        const SizedBox(height: 10),
+                        TextFormField(
+                          controller: _foodEanController,
+                          keyboardType: TextInputType.number,
+                          decoration: InputDecoration(
+                            labelText: AppLocalizations.of(context)!.barcode,
+                          ),
+                        ),
+                      ],
                     ),
-                  ],
-                ),
+                  ),
+                ],
+              ),
 
-                const SizedBox(height: 10),
-                // Start Micronutrients Expansion Panel
-                ExpansionPanelList(
-                  expansionCallback: (panelIndex, isExpanded) {
-                    setState(() {
-                      if (activePanelIndex == panelIndex) {
-                        activePanelIndex = -1;
-                      } else {
-                        activePanelIndex = panelIndex;
-                      }
-                    });
-                  },
-                  children: <ExpansionPanel>[
-                    ExpansionPanel(
-                      isExpanded: activePanelIndex == 0,
-                      canTapOnHeader: true,
-                      headerBuilder: (context, isExpanded) {
-                        return CategoryListTileHeader(
-                          title: AppLocalizations.of(context)!
-                              .energyAndMacronutrients,
-                          subtitle: AppLocalizations.of(context)!
-                              .energyAndMacronutrientsTargetsHint,
-                        );
-                      },
-                      body: Column(
-                        children: [
-                          _customListTile(
-                            title: AppLocalizations.of(context)!.energy,
-                            controller: _foodCaloriesController,
-                            unit: 'kcal / 100 g',
-                          ),
-                          _customListTile(
-                            title: AppLocalizations.of(context)!.fat,
-                            controller: _foodFatController,
-                            unit: 'g / 100 g',
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(left: 20.0),
-                            child: _customListTile(
-                              title: AppLocalizations.of(context)!.saturatedFat,
-                              controller: _foodSaturatedFatController,
-                              unit: 'g / 100 g',
-                            ),
-                          ),
-                          _customListTile(
-                            title: AppLocalizations.of(context)!.carbs,
-                            controller: _foodCarbsController,
-                            unit: 'g / 100 g',
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(left: 20.0),
-                            child: _customListTile(
-                              title: AppLocalizations.of(context)!.sugar,
-                              controller: _foodSugarController,
-                              unit: 'g / 100 g',
-                            ),
-                          ),
-                          _customListTile(
-                            title: AppLocalizations.of(context)!.fiber,
-                            controller: _foodFiberController,
-                            unit: 'g / 100 g',
-                          ),
-                          _customListTile(
-                            title: AppLocalizations.of(context)!.protein,
-                            controller: _foodProteinController,
-                            unit: 'g / 100 g',
-                          ),
-                          _customListTile(
-                            title: AppLocalizations.of(context)!.salt,
-                            controller: _foodSaltController,
-                            unit: 'g / 100 g',
-                            focusNode: _foodSaltFocusNode,
-                          ),
-                        ],
-                      ),
-                    ),
-                    ExpansionPanel(
-                      isExpanded: activePanelIndex == 1,
-                      canTapOnHeader: true,
-                      headerBuilder: (context, isExpanded) {
-                        return CategoryListTileHeader(
-                          title: AppLocalizations.of(context)!.vitamins,
-                          subtitle:
-                              '${AppLocalizations.of(context)!.vitaminA} – ${AppLocalizations.of(context)!.vitaminK}',
-                        );
-                      },
-                      body: Column(
-                        children: [
-                          _customListTile(
-                            title: AppLocalizations.of(context)!.vitaminA,
-                            controller: _foodVitaminAController,
-                            unit: 'mg / 100 g',
-                          ),
-                          _customListTile(
-                            title: AppLocalizations.of(context)!.vitaminB1,
-                            controller: _foodVitaminB1Controller,
-                            unit: 'mg / 100 g',
-                          ),
-                          _customListTile(
-                            title: AppLocalizations.of(context)!.vitaminB2,
-                            controller: _foodVitaminB2Controller,
-                            unit: 'mg / 100 g',
-                          ),
-                          _customListTile(
-                            title: AppLocalizations.of(context)!.vitaminB3,
-                            controller: _foodVitaminB3Controller,
-                            unit: 'mg / 100 g',
-                          ),
-                          _customListTile(
-                            title: AppLocalizations.of(context)!.vitaminB5,
-                            controller: _foodVitaminB5Controller,
-                            unit: 'mg / 100 g',
-                          ),
-                          _customListTile(
-                            title: AppLocalizations.of(context)!.vitaminB6,
-                            controller: _foodVitaminB6Controller,
-                            unit: 'mg / 100 g',
-                          ),
-                          _customListTile(
-                            title: AppLocalizations.of(context)!.vitaminB7,
-                            controller: _foodVitaminB7Controller,
-                            unit: 'μg / 100 g',
-                          ),
-                          _customListTile(
-                            title: AppLocalizations.of(context)!.vitaminB9,
-                            controller: _foodVitaminB9Controller,
-                            unit: 'μg / 100 g',
-                          ),
-                          _customListTile(
-                            title: AppLocalizations.of(context)!.vitaminB12,
-                            controller: _foodVitaminB12Controller,
-                            unit: 'μg / 100 g',
-                          ),
-                          _customListTile(
-                            title: AppLocalizations.of(context)!.vitaminC,
-                            controller: _foodVitaminCController,
-                            unit: 'mg / 100 g',
-                          ),
-                          _customListTile(
-                            title: AppLocalizations.of(context)!.vitaminD,
-                            controller: _foodVitaminDController,
-                            unit: 'μg / 100 g',
-                          ),
-                          _customListTile(
-                            title: AppLocalizations.of(context)!.vitaminE,
-                            controller: _foodVitaminEController,
-                            unit: 'mg / 100 g',
-                          ),
-                          _customListTile(
-                            title: AppLocalizations.of(context)!.vitaminK,
-                            controller: _foodVitaminKController,
-                            unit: 'μg / 100 g',
-                          ),
-                        ],
-                      ),
-                    ),
-                    ExpansionPanel(
-                      isExpanded: activePanelIndex == 2,
-                      canTapOnHeader: true,
-                      headerBuilder: (context, isExpanded) {
-                        return CategoryListTileHeader(
-                          title: AppLocalizations.of(context)!.majorMinerals,
-                          subtitle:
-                              '${AppLocalizations.of(context)!.calcium}, ${AppLocalizations.of(context)!.chloride}, ${AppLocalizations.of(context)!.magnesium}, ...',
-                        );
-                      },
-                      body: Column(
-                        children: [
-                          _customListTile(
-                            title: AppLocalizations.of(context)!.calcium,
-                            controller: _foodCalciumController,
-                            unit: 'mg / 100 g',
-                          ),
-                          _customListTile(
-                            title: AppLocalizations.of(context)!.chloride,
-                            controller: _foodChlorideController,
-                            unit: 'mg / 100 g',
-                          ),
-                          _customListTile(
-                            title: AppLocalizations.of(context)!.magnesium,
-                            controller: _foodMagnesiumController,
-                            unit: 'mg / 100 g',
-                          ),
-                          _customListTile(
-                            title: AppLocalizations.of(context)!.phosphorous,
-                            controller: _foodPhosphorusController,
-                            unit: 'mg / 100 g',
-                          ),
-                          _customListTile(
-                            title: AppLocalizations.of(context)!.potassium,
-                            controller: _foodPotassiumController,
-                            unit: 'mg / 100 g',
-                          ),
-                          _customListTile(
-                            title: AppLocalizations.of(context)!.sodium,
-                            controller: _foodSodiumController,
-                            unit: 'mg / 100 g',
-                            focusNode: _foodSodiumFocusNode,
-                          ),
-                        ],
-                      ),
-                    ),
-                    ExpansionPanel(
-                      isExpanded: activePanelIndex == 3,
-                      canTapOnHeader: true,
-                      headerBuilder: (context, isExpanded) {
-                        return CategoryListTileHeader(
-                          title: AppLocalizations.of(context)!.traceElements,
-                          subtitle:
-                              '${AppLocalizations.of(context)!.chromium}, ${AppLocalizations.of(context)!.iron}, ${AppLocalizations.of(context)!.fluorine}, ${AppLocalizations.of(context)!.iodine}, ${AppLocalizations.of(context)!.copper}, ...',
-                        );
-                      },
-                      body: Column(
-                        children: [
-                          _customListTile(
-                            title: AppLocalizations.of(context)!.chromium,
-                            controller: _foodChromiumController,
-                            unit: 'μg / 100 g',
-                          ),
-                          _customListTile(
-                            title: AppLocalizations.of(context)!.iron,
-                            controller: _foodIronController,
-                            unit: 'mg / 100 g',
-                          ),
-                          _customListTile(
-                            title: AppLocalizations.of(context)!.fluorine,
-                            controller: _foodFluorineController,
-                            unit: 'mg / 100 g',
-                          ),
-                          _customListTile(
-                            title: AppLocalizations.of(context)!.iodine,
-                            controller: _foodIodineController,
-                            unit: 'μg / 100 g',
-                          ),
-                          _customListTile(
-                            title: AppLocalizations.of(context)!.copper,
-                            controller: _foodCopperController,
-                            unit: 'mg / 100 g',
-                          ),
-                          _customListTile(
-                            title: AppLocalizations.of(context)!.manganese,
-                            controller: _foodManganeseController,
-                            unit: 'mg / 100 g',
-                          ),
-                          _customListTile(
-                            title: AppLocalizations.of(context)!.molybdenum,
-                            controller: _foodMolybdenumController,
-                            unit: 'μg / 100 g',
-                          ),
-                          _customListTile(
-                            title: AppLocalizations.of(context)!.selenium,
-                            controller: _foodSeleniumController,
-                            unit: 'μg / 100 g',
-                          ),
-                          _customListTile(
-                            title: AppLocalizations.of(context)!.zinc,
-                            controller: _foodZincController,
-                            unit: 'mg / 100 g',
-                          ),
-                        ],
-                      ),
-                    ),
-                    ExpansionPanel(
-                      isExpanded: activePanelIndex == 4,
-                      canTapOnHeader: true,
-                      headerBuilder: (context, isExpanded) {
-                        return CategoryListTileHeader(
-                          title: AppLocalizations.of(context)!.fats,
-                          subtitle:
-                              '${AppLocalizations.of(context)!.omega3}, ${AppLocalizations.of(context)!.omega6}, ${AppLocalizations.of(context)!.cholesterol}, ...',
-                        );
-                      },
-                      body: Column(
-                        children: [
-                          _customListTile(
-                            title: AppLocalizations.of(context)!
-                                .monounsaturatedFat,
-                            controller: _foodMonounsaturatedFatController,
-                            unit: 'g / 100 g',
-                          ),
-                          _customListTile(
-                            title: AppLocalizations.of(context)!
-                                .polyunsaturatedFat,
-                            controller: _foodPolyunsaturatedFatController,
-                            unit: 'g / 100 g',
-                          ),
-                          _customListTile(
-                            title: AppLocalizations.of(context)!.omega3,
-                            controller: _foodOmega3Controller,
-                            unit: 'g / 100 g',
-                          ),
-                          _customListTile(
-                            title: AppLocalizations.of(context)!.omega6,
-                            controller: _foodOmega6Controller,
-                            unit: 'g / 100 g',
-                          ),
-                          _customListTile(
+              const SizedBox(height: 10),
+              // Start Micronutrients Expansion Panel
+              ExpansionPanelList(
+                expansionCallback: (panelIndex, isExpanded) {
+                  setState(() {
+                    if (activePanelIndex == panelIndex) {
+                      activePanelIndex = -1;
+                    } else {
+                      activePanelIndex = panelIndex;
+                    }
+                  });
+                },
+                children: <ExpansionPanel>[
+                  ExpansionPanel(
+                    isExpanded: activePanelIndex == 0,
+                    canTapOnHeader: true,
+                    headerBuilder: (context, isExpanded) {
+                      return CategoryListTileHeader(
+                        title: AppLocalizations.of(context)!
+                            .energyAndMacronutrients,
+                        subtitle: AppLocalizations.of(context)!
+                            .energyAndMacronutrientsTargetsHint,
+                      );
+                    },
+                    body: Column(
+                      children: [
+                        _customListTile(
+                          title: AppLocalizations.of(context)!.energy,
+                          controller: _foodCaloriesController,
+                          unit: 'kcal / 100 g',
+                        ),
+                        _customListTile(
+                          title: AppLocalizations.of(context)!.fat,
+                          controller: _foodFatController,
+                          unit: 'g / 100 g',
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 20.0),
+                          child: _customListTile(
                             title: AppLocalizations.of(context)!.saturatedFat,
                             controller: _foodSaturatedFatController,
                             unit: 'g / 100 g',
                           ),
-                          _customListTile(
-                            title: AppLocalizations.of(context)!.transfat,
-                            controller: _foodTransFatController,
-                            unit: 'g / 100 g',
-                          ),
-                          _customListTile(
-                            title: AppLocalizations.of(context)!.cholesterol,
-                            controller: _foodCholesterolController,
-                            unit: 'mg / 100 g',
-                          ),
-                        ],
-                      ),
-                    ),
-                    ExpansionPanel(
-                      isExpanded: activePanelIndex == 5,
-                      canTapOnHeader: true,
-                      headerBuilder: (context, isExpanded) {
-                        return CategoryListTileHeader(
+                        ),
+                        _customListTile(
                           title: AppLocalizations.of(context)!.carbs,
-                          subtitle:
-                              '${AppLocalizations.of(context)!.fiber}, ${AppLocalizations.of(context)!.sugar}, ${AppLocalizations.of(context)!.starch}, ...',
-                        );
-                      },
-                      body: Column(
-                        children: [
-                          _customListTile(
-                            title: AppLocalizations.of(context)!.fiber,
-                            controller: _foodFiberController,
-                            unit: 'g / 100 g',
-                          ),
-                          _customListTile(
+                          controller: _foodCarbsController,
+                          unit: 'g / 100 g',
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 20.0),
+                          child: _customListTile(
                             title: AppLocalizations.of(context)!.sugar,
                             controller: _foodSugarController,
                             unit: 'g / 100 g',
                           ),
-                          _customListTile(
-                            title: AppLocalizations.of(context)!.sugarAlcohol,
-                            controller: _foodSugarAlcoholController,
-                            unit: 'g / 100 g',
-                          ),
-                          _customListTile(
-                            title: AppLocalizations.of(context)!.starch,
-                            controller: _foodStarchController,
-                            unit: 'g / 100 g',
-                          ),
-                        ],
-                      ),
+                        ),
+                        _customListTile(
+                          title: AppLocalizations.of(context)!.fiber,
+                          controller: _foodFiberController,
+                          unit: 'g / 100 g',
+                        ),
+                        _customListTile(
+                          title: AppLocalizations.of(context)!.protein,
+                          controller: _foodProteinController,
+                          unit: 'g / 100 g',
+                        ),
+                        _customListTile(
+                          title: AppLocalizations.of(context)!.salt,
+                          controller: _foodSaltController,
+                          unit: 'g / 100 g',
+                          focusNode: _foodSaltFocusNode,
+                        ),
+                      ],
                     ),
-                    ExpansionPanel(
-                      isExpanded: activePanelIndex == 6,
-                      canTapOnHeader: true,
-                      headerBuilder: (context, isExpanded) {
-                        return CategoryListTileHeader(
-                          title: AppLocalizations.of(context)!.other,
-                          subtitle:
-                              '${AppLocalizations.of(context)!.water}, ${AppLocalizations.of(context)!.caffeine}, ${AppLocalizations.of(context)!.alcohol}',
-                        );
-                      },
-                      body: Column(
-                        children: [
-                          _customListTile(
-                            title: AppLocalizations.of(context)!.water,
-                            controller: _foodWaterController,
-                            unit: 'ml / 100 g',
-                          ),
-                          _customListTile(
-                            title: AppLocalizations.of(context)!.caffeine,
-                            controller: _foodCaffeineController,
-                            unit: 'mg / 100 g',
-                          ),
-                          _customListTile(
-                            title: AppLocalizations.of(context)!.alcohol,
-                            controller: _foodAlcoholController,
-                            unit: 'g / 100 g',
-                          ),
-                        ],
-                      ),
+                  ),
+                  ExpansionPanel(
+                    isExpanded: activePanelIndex == 1,
+                    canTapOnHeader: true,
+                    headerBuilder: (context, isExpanded) {
+                      return CategoryListTileHeader(
+                        title: AppLocalizations.of(context)!.vitamins,
+                        subtitle:
+                            '${AppLocalizations.of(context)!.vitaminA} – ${AppLocalizations.of(context)!.vitaminK}',
+                      );
+                    },
+                    body: Column(
+                      children: [
+                        _customListTile(
+                          title: AppLocalizations.of(context)!.vitaminA,
+                          controller: _foodVitaminAController,
+                          unit: 'mg / 100 g',
+                        ),
+                        _customListTile(
+                          title: AppLocalizations.of(context)!.vitaminB1,
+                          controller: _foodVitaminB1Controller,
+                          unit: 'mg / 100 g',
+                        ),
+                        _customListTile(
+                          title: AppLocalizations.of(context)!.vitaminB2,
+                          controller: _foodVitaminB2Controller,
+                          unit: 'mg / 100 g',
+                        ),
+                        _customListTile(
+                          title: AppLocalizations.of(context)!.vitaminB3,
+                          controller: _foodVitaminB3Controller,
+                          unit: 'mg / 100 g',
+                        ),
+                        _customListTile(
+                          title: AppLocalizations.of(context)!.vitaminB5,
+                          controller: _foodVitaminB5Controller,
+                          unit: 'mg / 100 g',
+                        ),
+                        _customListTile(
+                          title: AppLocalizations.of(context)!.vitaminB6,
+                          controller: _foodVitaminB6Controller,
+                          unit: 'mg / 100 g',
+                        ),
+                        _customListTile(
+                          title: AppLocalizations.of(context)!.vitaminB7,
+                          controller: _foodVitaminB7Controller,
+                          unit: 'μg / 100 g',
+                        ),
+                        _customListTile(
+                          title: AppLocalizations.of(context)!.vitaminB9,
+                          controller: _foodVitaminB9Controller,
+                          unit: 'μg / 100 g',
+                        ),
+                        _customListTile(
+                          title: AppLocalizations.of(context)!.vitaminB12,
+                          controller: _foodVitaminB12Controller,
+                          unit: 'μg / 100 g',
+                        ),
+                        _customListTile(
+                          title: AppLocalizations.of(context)!.vitaminC,
+                          controller: _foodVitaminCController,
+                          unit: 'mg / 100 g',
+                        ),
+                        _customListTile(
+                          title: AppLocalizations.of(context)!.vitaminD,
+                          controller: _foodVitaminDController,
+                          unit: 'μg / 100 g',
+                        ),
+                        _customListTile(
+                          title: AppLocalizations.of(context)!.vitaminE,
+                          controller: _foodVitaminEController,
+                          unit: 'mg / 100 g',
+                        ),
+                        _customListTile(
+                          title: AppLocalizations.of(context)!.vitaminK,
+                          controller: _foodVitaminKController,
+                          unit: 'μg / 100 g',
+                        ),
+                      ],
                     ),
-                  ],
-                ),
-              ],
-            ),
+                  ),
+                  ExpansionPanel(
+                    isExpanded: activePanelIndex == 2,
+                    canTapOnHeader: true,
+                    headerBuilder: (context, isExpanded) {
+                      return CategoryListTileHeader(
+                        title: AppLocalizations.of(context)!.majorMinerals,
+                        subtitle:
+                            '${AppLocalizations.of(context)!.calcium}, ${AppLocalizations.of(context)!.chloride}, ${AppLocalizations.of(context)!.magnesium}, ...',
+                      );
+                    },
+                    body: Column(
+                      children: [
+                        _customListTile(
+                          title: AppLocalizations.of(context)!.calcium,
+                          controller: _foodCalciumController,
+                          unit: 'mg / 100 g',
+                        ),
+                        _customListTile(
+                          title: AppLocalizations.of(context)!.chloride,
+                          controller: _foodChlorideController,
+                          unit: 'mg / 100 g',
+                        ),
+                        _customListTile(
+                          title: AppLocalizations.of(context)!.magnesium,
+                          controller: _foodMagnesiumController,
+                          unit: 'mg / 100 g',
+                        ),
+                        _customListTile(
+                          title: AppLocalizations.of(context)!.phosphorous,
+                          controller: _foodPhosphorusController,
+                          unit: 'mg / 100 g',
+                        ),
+                        _customListTile(
+                          title: AppLocalizations.of(context)!.potassium,
+                          controller: _foodPotassiumController,
+                          unit: 'mg / 100 g',
+                        ),
+                        _customListTile(
+                          title: AppLocalizations.of(context)!.sodium,
+                          controller: _foodSodiumController,
+                          unit: 'mg / 100 g',
+                          focusNode: _foodSodiumFocusNode,
+                        ),
+                      ],
+                    ),
+                  ),
+                  ExpansionPanel(
+                    isExpanded: activePanelIndex == 3,
+                    canTapOnHeader: true,
+                    headerBuilder: (context, isExpanded) {
+                      return CategoryListTileHeader(
+                        title: AppLocalizations.of(context)!.traceElements,
+                        subtitle:
+                            '${AppLocalizations.of(context)!.chromium}, ${AppLocalizations.of(context)!.iron}, ${AppLocalizations.of(context)!.fluorine}, ${AppLocalizations.of(context)!.iodine}, ${AppLocalizations.of(context)!.copper}, ...',
+                      );
+                    },
+                    body: Column(
+                      children: [
+                        _customListTile(
+                          title: AppLocalizations.of(context)!.chromium,
+                          controller: _foodChromiumController,
+                          unit: 'μg / 100 g',
+                        ),
+                        _customListTile(
+                          title: AppLocalizations.of(context)!.iron,
+                          controller: _foodIronController,
+                          unit: 'mg / 100 g',
+                        ),
+                        _customListTile(
+                          title: AppLocalizations.of(context)!.fluorine,
+                          controller: _foodFluorineController,
+                          unit: 'mg / 100 g',
+                        ),
+                        _customListTile(
+                          title: AppLocalizations.of(context)!.iodine,
+                          controller: _foodIodineController,
+                          unit: 'μg / 100 g',
+                        ),
+                        _customListTile(
+                          title: AppLocalizations.of(context)!.copper,
+                          controller: _foodCopperController,
+                          unit: 'mg / 100 g',
+                        ),
+                        _customListTile(
+                          title: AppLocalizations.of(context)!.manganese,
+                          controller: _foodManganeseController,
+                          unit: 'mg / 100 g',
+                        ),
+                        _customListTile(
+                          title: AppLocalizations.of(context)!.molybdenum,
+                          controller: _foodMolybdenumController,
+                          unit: 'μg / 100 g',
+                        ),
+                        _customListTile(
+                          title: AppLocalizations.of(context)!.selenium,
+                          controller: _foodSeleniumController,
+                          unit: 'μg / 100 g',
+                        ),
+                        _customListTile(
+                          title: AppLocalizations.of(context)!.zinc,
+                          controller: _foodZincController,
+                          unit: 'mg / 100 g',
+                        ),
+                      ],
+                    ),
+                  ),
+                  ExpansionPanel(
+                    isExpanded: activePanelIndex == 4,
+                    canTapOnHeader: true,
+                    headerBuilder: (context, isExpanded) {
+                      return CategoryListTileHeader(
+                        title: AppLocalizations.of(context)!.fats,
+                        subtitle:
+                            '${AppLocalizations.of(context)!.omega3}, ${AppLocalizations.of(context)!.omega6}, ${AppLocalizations.of(context)!.cholesterol}, ...',
+                      );
+                    },
+                    body: Column(
+                      children: [
+                        _customListTile(
+                          title:
+                              AppLocalizations.of(context)!.monounsaturatedFat,
+                          controller: _foodMonounsaturatedFatController,
+                          unit: 'g / 100 g',
+                        ),
+                        _customListTile(
+                          title:
+                              AppLocalizations.of(context)!.polyunsaturatedFat,
+                          controller: _foodPolyunsaturatedFatController,
+                          unit: 'g / 100 g',
+                        ),
+                        _customListTile(
+                          title: AppLocalizations.of(context)!.omega3,
+                          controller: _foodOmega3Controller,
+                          unit: 'g / 100 g',
+                        ),
+                        _customListTile(
+                          title: AppLocalizations.of(context)!.omega6,
+                          controller: _foodOmega6Controller,
+                          unit: 'g / 100 g',
+                        ),
+                        _customListTile(
+                          title: AppLocalizations.of(context)!.saturatedFat,
+                          controller: _foodSaturatedFatController,
+                          unit: 'g / 100 g',
+                        ),
+                        _customListTile(
+                          title: AppLocalizations.of(context)!.transfat,
+                          controller: _foodTransFatController,
+                          unit: 'g / 100 g',
+                        ),
+                        _customListTile(
+                          title: AppLocalizations.of(context)!.cholesterol,
+                          controller: _foodCholesterolController,
+                          unit: 'mg / 100 g',
+                        ),
+                      ],
+                    ),
+                  ),
+                  ExpansionPanel(
+                    isExpanded: activePanelIndex == 5,
+                    canTapOnHeader: true,
+                    headerBuilder: (context, isExpanded) {
+                      return CategoryListTileHeader(
+                        title: AppLocalizations.of(context)!.carbs,
+                        subtitle:
+                            '${AppLocalizations.of(context)!.fiber}, ${AppLocalizations.of(context)!.sugar}, ${AppLocalizations.of(context)!.starch}, ...',
+                      );
+                    },
+                    body: Column(
+                      children: [
+                        _customListTile(
+                          title: AppLocalizations.of(context)!.fiber,
+                          controller: _foodFiberController,
+                          unit: 'g / 100 g',
+                        ),
+                        _customListTile(
+                          title: AppLocalizations.of(context)!.sugar,
+                          controller: _foodSugarController,
+                          unit: 'g / 100 g',
+                        ),
+                        _customListTile(
+                          title: AppLocalizations.of(context)!.sugarAlcohol,
+                          controller: _foodSugarAlcoholController,
+                          unit: 'g / 100 g',
+                        ),
+                        _customListTile(
+                          title: AppLocalizations.of(context)!.starch,
+                          controller: _foodStarchController,
+                          unit: 'g / 100 g',
+                        ),
+                      ],
+                    ),
+                  ),
+                  ExpansionPanel(
+                    isExpanded: activePanelIndex == 6,
+                    canTapOnHeader: true,
+                    headerBuilder: (context, isExpanded) {
+                      return CategoryListTileHeader(
+                        title: AppLocalizations.of(context)!.other,
+                        subtitle:
+                            '${AppLocalizations.of(context)!.water}, ${AppLocalizations.of(context)!.caffeine}, ${AppLocalizations.of(context)!.alcohol}',
+                      );
+                    },
+                    body: Column(
+                      children: [
+                        _customListTile(
+                          title: AppLocalizations.of(context)!.water,
+                          controller: _foodWaterController,
+                          unit: 'ml / 100 g',
+                        ),
+                        _customListTile(
+                          title: AppLocalizations.of(context)!.caffeine,
+                          controller: _foodCaffeineController,
+                          unit: 'mg / 100 g',
+                        ),
+                        _customListTile(
+                          title: AppLocalizations.of(context)!.alcohol,
+                          controller: _foodAlcoholController,
+                          unit: 'g / 100 g',
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ],
           ),
         ),
       ),
