@@ -9,28 +9,33 @@ class TabNavItem {
   final Widget page;
   final String label;
   final Icon icon;
+  final Icon selectedIcon;
 
   TabNavItem({
     required this.page,
     required this.label,
     required this.icon,
+    required this.selectedIcon,
   });
 
   static List<TabNavItem> getItems(BuildContext context) {
     return [
       TabNavItem(
         page: const TrackingPage(),
-        icon: const Icon(Icons.list),
+        icon: const Icon(Icons.list_outlined),
+        selectedIcon: const Icon(Icons.list),
         label: AppLocalizations.of(context)!.tracking,
       ),
       TabNavItem(
         page: const FoodPage(),
-        icon: const Icon(Icons.fastfood),
+        icon: const Icon(Icons.fastfood_outlined),
+        selectedIcon: const Icon(Icons.fastfood),
         label: AppLocalizations.of(context)!.customFood,
       ),
       TabNavItem(
         page: const SettingsPage(),
-        icon: const Icon(Icons.settings),
+        icon: const Icon(Icons.settings_outlined),
+        selectedIcon: const Icon(Icons.settings),
         label: AppLocalizations.of(context)!.settings,
       ),
     ];
