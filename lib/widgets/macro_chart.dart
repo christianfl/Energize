@@ -11,6 +11,7 @@ class MacroChart extends StatelessWidget {
   final bool? hideCard;
   final int? decimalPlaces;
   final double padding;
+  final Function(BuildContext, String)? onChartBarTap;
 
   const MacroChart(
     this.foods, {
@@ -18,6 +19,7 @@ class MacroChart extends StatelessWidget {
     this.hideCard,
     this.decimalPlaces = 0,
     this.padding = 16.0,
+    this.onChartBarTap,
   });
 
   double get _totalCalories {
@@ -58,6 +60,7 @@ class MacroChart extends StatelessWidget {
           unit: 'kcal',
           color: Colors.yellow,
           decimalPlaces: decimalPlaces,
+          onTap: onChartBarTap,
         ),
         const SizedBox(height: 12.0),
         ChartBar(
@@ -67,6 +70,7 @@ class MacroChart extends StatelessWidget {
           unit: 'g',
           color: Colors.green,
           decimalPlaces: decimalPlaces,
+          onTap: onChartBarTap,
         ),
         ChartBar(
           title: AppLocalizations.of(context)!.carbs,
@@ -75,6 +79,7 @@ class MacroChart extends StatelessWidget {
           unit: 'g',
           color: Colors.blue,
           decimalPlaces: decimalPlaces,
+          onTap: onChartBarTap,
         ),
         ChartBar(
           title: AppLocalizations.of(context)!.fat,
@@ -83,6 +88,7 @@ class MacroChart extends StatelessWidget {
           unit: 'g',
           color: Colors.red,
           decimalPlaces: decimalPlaces,
+          onTap: onChartBarTap,
         ),
       ],
     );

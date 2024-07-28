@@ -10,12 +10,14 @@ class MicroChart extends StatelessWidget {
   final List<FoodTracked> foods;
   final bool showZero;
   final bool scrollable;
+  final Function(BuildContext, String)? onChartBarTap;
 
   const MicroChart(
     this.foods, {
     super.key,
     required this.showZero,
     required this.scrollable,
+    this.onChartBarTap,
   });
 
   double _totalVitaminA(List<FoodTracked> foods) {
@@ -218,6 +220,7 @@ class MicroChart extends StatelessWidget {
           ),
         if (showZero || (!showZero && _totalVitaminA(foods) != 0))
           ChartBar(
+            onTap: onChartBarTap,
             title: AppLocalizations.of(context)!.vitaminA,
             value: _totalVitaminA(foods),
             target: appSettings.vitaminATarget,
@@ -226,6 +229,7 @@ class MicroChart extends StatelessWidget {
           ),
         if (showZero || (!showZero && _totalVitaminB1(foods) != 0))
           ChartBar(
+            onTap: onChartBarTap,
             title: AppLocalizations.of(context)!.vitaminB1,
             value: _totalVitaminB1(foods),
             target: appSettings.vitaminB1Target,
@@ -234,6 +238,7 @@ class MicroChart extends StatelessWidget {
           ),
         if (showZero || (!showZero && _totalVitaminB2(foods) != 0))
           ChartBar(
+            onTap: onChartBarTap,
             title: AppLocalizations.of(context)!.vitaminB2,
             value: _totalVitaminB2(foods),
             target: appSettings.vitaminB2Target,
@@ -242,6 +247,7 @@ class MicroChart extends StatelessWidget {
           ),
         if (showZero || (!showZero && _totalVitaminB3(foods) != 0))
           ChartBar(
+            onTap: onChartBarTap,
             title: AppLocalizations.of(context)!.vitaminB3,
             value: _totalVitaminB3(foods),
             target: appSettings.vitaminB3Target,
@@ -250,6 +256,7 @@ class MicroChart extends StatelessWidget {
           ),
         if (showZero || (!showZero && _totalVitaminB5(foods) != 0))
           ChartBar(
+            onTap: onChartBarTap,
             title: AppLocalizations.of(context)!.vitaminB5,
             value: _totalVitaminB5(foods),
             target: appSettings.vitaminB5Target,
@@ -258,6 +265,7 @@ class MicroChart extends StatelessWidget {
           ),
         if (showZero || (!showZero && _totalVitaminB6(foods) != 0))
           ChartBar(
+            onTap: onChartBarTap,
             title: AppLocalizations.of(context)!.vitaminB6,
             value: _totalVitaminB6(foods),
             target: appSettings.vitaminB6Target,
@@ -266,6 +274,7 @@ class MicroChart extends StatelessWidget {
           ),
         if (showZero || (!showZero && _totalVitaminB7(foods) != 0))
           ChartBar(
+            onTap: onChartBarTap,
             title: AppLocalizations.of(context)!.vitaminB7,
             value: _totalVitaminB7(foods),
             target: appSettings.vitaminB7Target,
@@ -274,6 +283,7 @@ class MicroChart extends StatelessWidget {
           ),
         if (showZero || (!showZero && _totalVitaminB9(foods) != 0))
           ChartBar(
+            onTap: onChartBarTap,
             title: AppLocalizations.of(context)!.vitaminB9,
             value: _totalVitaminB9(foods),
             target: appSettings.vitaminB9Target,
@@ -282,6 +292,7 @@ class MicroChart extends StatelessWidget {
           ),
         if (showZero || (!showZero && _totalVitaminB12(foods) != 0))
           ChartBar(
+            onTap: onChartBarTap,
             title: AppLocalizations.of(context)!.vitaminB12,
             value: _totalVitaminB12(foods),
             target: appSettings.vitaminB12Target,
@@ -290,6 +301,7 @@ class MicroChart extends StatelessWidget {
           ),
         if (showZero || (!showZero && _totalVitaminC(foods) != 0))
           ChartBar(
+            onTap: onChartBarTap,
             title: AppLocalizations.of(context)!.vitaminC,
             value: _totalVitaminC(foods),
             target: appSettings.vitaminCTarget,
@@ -298,6 +310,7 @@ class MicroChart extends StatelessWidget {
           ),
         if (showZero || (!showZero && _totalVitaminD(foods) != 0))
           ChartBar(
+            onTap: onChartBarTap,
             title: AppLocalizations.of(context)!.vitaminD,
             value: _totalVitaminD(foods),
             target: appSettings.vitaminDTarget,
@@ -306,6 +319,7 @@ class MicroChart extends StatelessWidget {
           ),
         if (showZero || (!showZero && _totalVitaminE(foods) != 0))
           ChartBar(
+            onTap: onChartBarTap,
             title: AppLocalizations.of(context)!.vitaminE,
             value: _totalVitaminE(foods),
             target: appSettings.vitaminETarget,
@@ -314,6 +328,7 @@ class MicroChart extends StatelessWidget {
           ),
         if (showZero || (!showZero && _totalVitaminK(foods) != 0))
           ChartBar(
+            onTap: onChartBarTap,
             title: AppLocalizations.of(context)!.vitaminK,
             value: _totalVitaminK(foods),
             target: appSettings.vitaminKTarget,
@@ -338,6 +353,7 @@ class MicroChart extends StatelessWidget {
           ),
         if (showZero || (!showZero && _totalCalcium(foods) != 0))
           ChartBar(
+            onTap: onChartBarTap,
             title: AppLocalizations.of(context)!.calcium,
             value: _totalCalcium(foods),
             target: appSettings.calciumTarget,
@@ -346,6 +362,7 @@ class MicroChart extends StatelessWidget {
           ),
         if (showZero || (!showZero && _totalChloride(foods) != 0))
           ChartBar(
+            onTap: onChartBarTap,
             title: AppLocalizations.of(context)!.chloride,
             value: _totalChloride(foods),
             target: appSettings.chlorideTarget,
@@ -354,6 +371,7 @@ class MicroChart extends StatelessWidget {
           ),
         if (showZero || (!showZero && _totalMagnesium(foods) != 0))
           ChartBar(
+            onTap: onChartBarTap,
             title: AppLocalizations.of(context)!.magnesium,
             value: _totalMagnesium(foods),
             target: appSettings.magnesiumTarget,
@@ -362,6 +380,7 @@ class MicroChart extends StatelessWidget {
           ),
         if (showZero || (!showZero && _totalPhosphorus(foods) != 0))
           ChartBar(
+            onTap: onChartBarTap,
             title: AppLocalizations.of(context)!.phosphorous,
             value: _totalPhosphorus(foods),
             target: appSettings.phosphorusTarget,
@@ -370,6 +389,7 @@ class MicroChart extends StatelessWidget {
           ),
         if (showZero || (!showZero && _totalPotassium(foods) != 0))
           ChartBar(
+            onTap: onChartBarTap,
             title: AppLocalizations.of(context)!.potassium,
             value: _totalPotassium(foods),
             target: appSettings.potassiumTarget,
@@ -378,6 +398,7 @@ class MicroChart extends StatelessWidget {
           ),
         if (showZero || (!showZero && _totalSodium(foods) != 0))
           ChartBar(
+            onTap: onChartBarTap,
             title: AppLocalizations.of(context)!.sodium,
             value: _totalSodium(foods),
             target: appSettings.sodiumTarget,
@@ -394,6 +415,7 @@ class MicroChart extends StatelessWidget {
           ),
         if (showZero || (!showZero && _totalChromium(foods) != 0))
           ChartBar(
+            onTap: onChartBarTap,
             title: AppLocalizations.of(context)!.chromium,
             value: _totalChromium(foods),
             target: appSettings.chromiumTarget,
@@ -402,6 +424,7 @@ class MicroChart extends StatelessWidget {
           ),
         if (showZero || (!showZero && _totalIron(foods) != 0))
           ChartBar(
+            onTap: onChartBarTap,
             title: AppLocalizations.of(context)!.iron,
             value: _totalIron(foods),
             target: appSettings.ironTarget,
@@ -410,6 +433,7 @@ class MicroChart extends StatelessWidget {
           ),
         if (showZero || (!showZero && _totalFluorine(foods) != 0))
           ChartBar(
+            onTap: onChartBarTap,
             title: AppLocalizations.of(context)!.fluorine,
             value: _totalFluorine(foods),
             target: appSettings.fluorineTarget,
@@ -418,6 +442,7 @@ class MicroChart extends StatelessWidget {
           ),
         if (showZero || (!showZero && _totalIodine(foods) != 0))
           ChartBar(
+            onTap: onChartBarTap,
             title: AppLocalizations.of(context)!.iodine,
             value: _totalIodine(foods),
             target: appSettings.iodineTarget,
@@ -426,6 +451,7 @@ class MicroChart extends StatelessWidget {
           ),
         if (showZero || (!showZero && _totalCopper(foods) != 0))
           ChartBar(
+            onTap: onChartBarTap,
             title: AppLocalizations.of(context)!.copper,
             value: _totalCopper(foods),
             target: appSettings.copperTarget,
@@ -434,6 +460,7 @@ class MicroChart extends StatelessWidget {
           ),
         if (showZero || (!showZero && _totalManganese(foods) != 0))
           ChartBar(
+            onTap: onChartBarTap,
             title: AppLocalizations.of(context)!.manganese,
             value: _totalManganese(foods),
             target: appSettings.manganeseTarget,
@@ -442,6 +469,7 @@ class MicroChart extends StatelessWidget {
           ),
         if (showZero || (!showZero && _totalMolybdenum(foods) != 0))
           ChartBar(
+            onTap: onChartBarTap,
             title: AppLocalizations.of(context)!.molybdenum,
             value: _totalMolybdenum(foods),
             target: appSettings.molybdenumTarget,
@@ -450,6 +478,7 @@ class MicroChart extends StatelessWidget {
           ),
         if (showZero || (!showZero && _totalSelenium(foods) != 0))
           ChartBar(
+            onTap: onChartBarTap,
             title: AppLocalizations.of(context)!.selenium,
             value: _totalSelenium(foods),
             target: appSettings.seleniumTarget,
@@ -458,6 +487,7 @@ class MicroChart extends StatelessWidget {
           ),
         if (showZero || (!showZero && _totalZinc(foods) != 0))
           ChartBar(
+            onTap: onChartBarTap,
             title: AppLocalizations.of(context)!.zinc,
             value: _totalZinc(foods),
             target: appSettings.zincTarget,
@@ -474,6 +504,7 @@ class MicroChart extends StatelessWidget {
           ),
         if (showZero || (!showZero && _totalMonounsaturatedFat(foods) != 0))
           ChartBar(
+            onTap: onChartBarTap,
             title: AppLocalizations.of(context)!.monounsaturatedFat,
             value: _totalMonounsaturatedFat(foods),
             target: appSettings.monounsaturatedFatTarget,
@@ -482,6 +513,7 @@ class MicroChart extends StatelessWidget {
           ),
         if (showZero || (!showZero && _totalPolyunsaturatedFat(foods) != 0))
           ChartBar(
+            onTap: onChartBarTap,
             title: AppLocalizations.of(context)!.polyunsaturatedFat,
             value: _totalPolyunsaturatedFat(foods),
             target: appSettings.polyunsaturatedFatTarget,
@@ -492,6 +524,7 @@ class MicroChart extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(left: 20.0),
             child: ChartBar(
+              onTap: onChartBarTap,
               title: AppLocalizations.of(context)!.omega3,
               value: _totalOmega3(foods),
               target: appSettings.omega3Target,
@@ -503,6 +536,7 @@ class MicroChart extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(left: 20.0),
             child: ChartBar(
+              onTap: onChartBarTap,
               title: AppLocalizations.of(context)!.omega6,
               value: _totalOmega6(foods),
               target: appSettings.omega6Target,
@@ -512,6 +546,7 @@ class MicroChart extends StatelessWidget {
           ),
         if (showZero || (!showZero && _totalSaturatedFat(foods) != 0))
           ChartBar(
+            onTap: onChartBarTap,
             title: AppLocalizations.of(context)!.saturatedFat,
             value: _totalSaturatedFat(foods),
             target: appSettings.saturatedFatTarget,
@@ -520,6 +555,7 @@ class MicroChart extends StatelessWidget {
           ),
         if (showZero || (!showZero && _totalTransFat(foods) != 0))
           ChartBar(
+            onTap: onChartBarTap,
             title: AppLocalizations.of(context)!.transfat,
             value: _totalTransFat(foods),
             target: appSettings.transFatTarget,
@@ -528,6 +564,7 @@ class MicroChart extends StatelessWidget {
           ),
         if (showZero || (!showZero && _totalCholesterol(foods) != 0))
           ChartBar(
+            onTap: onChartBarTap,
             title: AppLocalizations.of(context)!.cholesterol,
             value: _totalCholesterol(foods),
             target: appSettings.cholesterolTarget,
@@ -544,6 +581,7 @@ class MicroChart extends StatelessWidget {
           ),
         if (showZero || (!showZero && _totalFiber(foods) != 0))
           ChartBar(
+            onTap: onChartBarTap,
             title: AppLocalizations.of(context)!.fiber,
             value: _totalFiber(foods),
             target: appSettings.fiberTarget,
@@ -552,6 +590,7 @@ class MicroChart extends StatelessWidget {
           ),
         if (showZero || (!showZero && _totalSugar(foods) != 0))
           ChartBar(
+            onTap: onChartBarTap,
             title: AppLocalizations.of(context)!.sugar,
             value: _totalSugar(foods),
             target: appSettings.sugarTarget,
@@ -560,6 +599,7 @@ class MicroChart extends StatelessWidget {
           ),
         if (showZero || (!showZero && _totalSugarAlcohol(foods) != 0))
           ChartBar(
+            onTap: onChartBarTap,
             title: AppLocalizations.of(context)!.sugarAlcohol,
             value: _totalSugarAlcohol(foods),
             target: appSettings.sugarAlcoholTarget,
@@ -568,6 +608,7 @@ class MicroChart extends StatelessWidget {
           ),
         if (showZero || (!showZero && _totalStarch(foods) != 0))
           ChartBar(
+            onTap: onChartBarTap,
             title: AppLocalizations.of(context)!.starch,
             value: _totalStarch(foods),
             target: appSettings.starchTarget,
@@ -584,6 +625,7 @@ class MicroChart extends StatelessWidget {
           ),
         if (showZero || (!showZero && _totalWater(foods) != 0))
           ChartBar(
+            onTap: onChartBarTap,
             title: AppLocalizations.of(context)!.water,
             value: _totalWater(foods),
             target: appSettings.waterTarget,
@@ -592,6 +634,7 @@ class MicroChart extends StatelessWidget {
           ),
         if (showZero || (!showZero && _totalCaffeine(foods) != 0))
           ChartBar(
+            onTap: onChartBarTap,
             title: AppLocalizations.of(context)!.caffeine,
             value: _totalCaffeine(foods),
             target: appSettings.caffeineTarget,
@@ -600,6 +643,7 @@ class MicroChart extends StatelessWidget {
           ),
         if (showZero || (!showZero && _totalAlcohol(foods) != 0))
           ChartBar(
+            onTap: onChartBarTap,
             title: AppLocalizations.of(context)!.alcohol,
             value: _totalAlcohol(foods),
             target: appSettings.alcoholTarget,

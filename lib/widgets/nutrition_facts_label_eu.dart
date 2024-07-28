@@ -9,12 +9,14 @@ import '../providers/app_settings.dart';
 
 class NutritionFactsLabelEU extends StatelessWidget {
   final List<FoodTracked> foods;
+  final double padding;
 
   static const double sodiumToSaltFacor = 2.54;
 
   const NutritionFactsLabelEU(
     this.foods, {
     super.key,
+    this.padding = 16.0,
   });
 
   double get _totalCalories {
@@ -75,7 +77,7 @@ class NutritionFactsLabelEU extends StatelessWidget {
 
   _getChart(BuildContext context, AppSettings appSettings) {
     return ListView(
-      padding: const EdgeInsets.all(16.0),
+      padding: EdgeInsets.all(padding),
       shrinkWrap: true,
       children: [
         Text(

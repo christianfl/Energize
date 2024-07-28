@@ -346,7 +346,7 @@ class TrackingPageState extends State<TrackingPage> {
               ),
               child: MacroChart(
                 trackedFoodProvider.foods,
-                padding: 10.0,
+                padding: 0.0,
               ),
             ),
           ),

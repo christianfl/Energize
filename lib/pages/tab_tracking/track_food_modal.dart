@@ -467,14 +467,18 @@ class TrackFoodState extends State<TrackFood>
             child: TabBarView(
               controller: _tabController,
               children: [
-                NutritionFactsLabelEU([_getConvertedFoodForChart(food)]),
+                NutritionFactsLabelEU(
+                  [_getConvertedFoodForChart(food)],
+                  padding: 12.0,
+                ),
                 MacroChart(
                   [_getConvertedFoodForChart(food)],
                   hideCard: true,
                   decimalPlaces: 1,
+                  padding: 12.0,
                 ),
                 SingleChildScrollView(
-                  padding: const EdgeInsets.all(16.0),
+                  padding: const EdgeInsets.all(12.0),
                   child: MicroChart(
                     [_getConvertedFoodForChart(food)],
                     showZero: false,

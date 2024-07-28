@@ -7,6 +7,7 @@ class ChartBar extends StatelessWidget {
   final String unit;
   final Color color;
   final int? decimalPlaces;
+  final Function(BuildContext, String)? onTap;
 
   const ChartBar({
     super.key,
@@ -16,6 +17,7 @@ class ChartBar extends StatelessWidget {
     required this.unit,
     required this.color,
     this.decimalPlaces,
+    this.onTap,
   });
 
   double get _percentage {
@@ -65,46 +67,60 @@ class ChartBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Row(
-          children: [
-            Expanded(child: Text(title)),
-            Expanded(
-              child: Container(
-                alignment: Alignment.centerRight,
-                child: Text(_fromTargetString),
-              ),
-            ),
-          ],
+    return InkWell(
+      customBorder: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(8.0),
+      ),
+      onTap: onTap != null ? () => onTap!(context, title) : null,
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(
+          8.0,
+          4.0,
+          8.0,
+          0.0,
         ),
-        const SizedBox(height: 2),
-        Container(
-          height: 12,
-          margin: const EdgeInsets.only(bottom: 6),
-          child: Stack(
-            children: [
-              LinearProgressIndicator(
-                borderRadius: BorderRadius.circular(20),
-                minHeight: 12,
-                color: color,
-                backgroundColor: const Color.fromRGBO(220, 220, 220, 1),
-                value: _percentageBar,
-              ),
-              Center(
-                child: Text(
-                  _percentageString,
-                  style: const TextStyle(
-                    height: 1.0,
-                    color: Colors.black,
-                    fontSize: 12,
+        child: Column(
+          children: [
+            Row(
+              children: [
+                Expanded(child: Text(title)),
+                Expanded(
+                  child: Container(
+                    alignment: Alignment.centerRight,
+                    child: Text(_fromTargetString),
                   ),
                 ),
+              ],
+            ),
+            const SizedBox(height: 2),
+            Container(
+              height: 12,
+              margin: const EdgeInsets.only(bottom: 6),
+              child: Stack(
+                children: [
+                  LinearProgressIndicator(
+                    borderRadius: BorderRadius.circular(20),
+                    minHeight: 12,
+                    color: color,
+                    backgroundColor: const Color.fromRGBO(220, 220, 220, 1),
+                    value: _percentageBar,
+                  ),
+                  Center(
+                    child: Text(
+                      _percentageString,
+                      style: const TextStyle(
+                        height: 1.0,
+                        color: Colors.black,
+                        fontSize: 12,
+                      ),
+                    ),
+                  ),
+                ],
               ),
-            ],
-          ),
-        )
-      ],
+            )
+          ],
+        ),
+      ),
     );
   }
 }
