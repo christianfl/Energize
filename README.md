@@ -54,6 +54,22 @@ This app is built with Flutter. You can get the current used SDK version under [
 4. Run build runner to generate types: `dart run build_runner build --delete-conflicting-outputs`
 5. Build and install: `flutter run`
 
+## Test
+
+Testing is at an initial stage right now. The goal is to create integration tests which automatically create different screenshots using all supported locales.
+
+Run integration tests:
+
+```
+flutter drive --driver=test_driver/integration_test.dart --target=integration_test/app_test.dart
+```
+
+This currently only saves one screenshot to:
+
+```
+fastlane/metadata/android/en-US/images/phoneScreenshots/test.png
+```
+
 ## Contribute
 
 As this app is still in an early stage, a few things have still to be developed. The app is usable but sometimes has rough edges.
