@@ -18,6 +18,9 @@ import '../../widgets/nutrition_facts_label_eu.dart';
 
 enum ModalMode { add, edit }
 
+const double _fabSize = 56.0;
+const double _fabPadding = 16.0;
+
 class ModalArguments {
   Food food;
   final ModalMode mode;
@@ -309,53 +312,46 @@ class TrackFoodState extends State<TrackFood>
     }
   }
 
-  Widget _getAmountInput(
-    ModalArguments args,
-    TrackedFoodProvider trackedFood,
-    Food food,
-  ) {
-    return Container(
-      height: 56,
-      decoration: const BoxDecoration(
-        color: Colors.black45,
-        borderRadius: BorderRadius.all(Radius.circular(28)),
-      ),
-      child: Row(
-        children: [
-          Expanded(
-            child: TextField(
-              textAlignVertical: TextAlignVertical.center,
-              onEditingComplete: () => _addOrEditFood(args, trackedFood),
-              onChanged: (value) {
-                // Set state to immediately show chart changes
-                setState(() {});
-              },
-              controller: _amountCtrl,
-              focusNode: _amountCtrlFocusNode,
-              keyboardType: TextInputType.number,
-              decoration: InputDecoration(
-                prefixIcon: const Icon(Icons.edit),
-                hintText: _getAmount(food).toString(),
-                border: InputBorder.none,
-                suffix: const Text('g'),
+  Widget _getAmountInput({
+    VoidCallback? onEditingComplete,
+    required Food food,
+  }) {
+    return TextField(
+      onEditingComplete: onEditingComplete,
+      expands: true,
+      maxLines: null,
+      onChanged: (_) {
+        // Set state to immediately show chart changes
+        setState(() {});
+      },
+      textAlignVertical: TextAlignVertical.center,
+      controller: _amountCtrl,
+      focusNode: _amountCtrlFocusNode,
+      keyboardType: TextInputType.number,
+      decoration: InputDecoration(
+        prefixIcon: const Icon(Icons.edit),
+        hintText: _getAmount(food).toString(),
+        filled: true,
+        suffixText: 'g',
+        suffixIcon: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const SizedBox(width: 10),
+            OutlinedButton.icon(
+              style: OutlinedButton.styleFrom(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(18.0),
+                ),
+              ),
+              onPressed: () => _selectTrackedTime(),
+              icon: const Icon(Icons.schedule),
+              label: Text(
+                TimeUtil.getTime(_foodTrackDate!, context),
               ),
             ),
-          ),
-          const SizedBox(width: 10),
-          OutlinedButton.icon(
-            style: OutlinedButton.styleFrom(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(18.0),
-              ),
-            ),
-            onPressed: () => _selectTrackedTime(),
-            icon: const Icon(Icons.schedule),
-            label: Text(
-              TimeUtil.getTime(_foodTrackDate!, context),
-            ),
-          ),
-          const SizedBox(width: 10),
-        ],
+            const SizedBox(width: 10),
+          ],
+        ),
       ),
     );
   }
@@ -484,19 +480,18 @@ class TrackFoodState extends State<TrackFood>
               ],
             ),
           ),
-          Container(
-            alignment: Alignment.bottomLeft,
-            child: Padding(
-              padding: const EdgeInsets.fromLTRB(14, 14, 85, 14),
-              child: _getAmountInput(
-                args,
-                trackedFood,
-                food,
-              ),
-            ),
-          ),
         ],
       ),
+      bottomNavigationBar: BottomAppBar(
+        child: Padding(
+          padding: const EdgeInsets.only(right: _fabSize + _fabPadding),
+          child: _getAmountInput(
+            onEditingComplete: () => _addOrEditFood(args, trackedFood),
+            food: food,
+          ),
+        ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.endContained,
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.save),
         onPressed: () => _addOrEditFood(args, trackedFood),
