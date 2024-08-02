@@ -264,7 +264,7 @@ Imported $numberOfCustomFoods custom foods and $numberOfTrackedFoods tracked foo
                         const Text('WebDAV settings'),
                         TextFormField(
                           decoration: InputDecoration(
-                            border: const OutlineInputBorder(),
+                            filled: true,
                             icon: const Icon(Icons.cloud),
                             labelText: 'Server URL',
                             hintText: 'https://',
@@ -297,7 +297,7 @@ Imported $numberOfCustomFoods custom foods and $numberOfTrackedFoods tracked foo
                         TextFormField(
                           autofillHints: const [AutofillHints.username],
                           decoration: InputDecoration(
-                            border: const OutlineInputBorder(),
+                            filled: true,
                             icon: const Icon(Icons.person),
                             labelText: 'Username',
                             suffixIcon: IconButton(
@@ -321,7 +321,7 @@ Imported $numberOfCustomFoods custom foods and $numberOfTrackedFoods tracked foo
                           autofillHints: const [AutofillHints.password],
                           obscureText: true,
                           decoration: const InputDecoration(
-                            border: OutlineInputBorder(),
+                            filled: true,
                             icon: Padding(
                               padding: EdgeInsets.symmetric(horizontal: 12),
                             ),
@@ -337,7 +337,7 @@ Imported $numberOfCustomFoods custom foods and $numberOfTrackedFoods tracked foo
                         ),
                         TextFormField(
                           decoration: InputDecoration(
-                            border: const OutlineInputBorder(),
+                            filled: true,
                             icon: const Icon(Icons.folder),
                             labelText: 'Path and filename',
                             hintText:
@@ -365,7 +365,7 @@ Imported $numberOfCustomFoods custom foods and $numberOfTrackedFoods tracked foo
                           keyboardType: TextInputType.visiblePassword,
                           decoration: const InputDecoration(
                             icon: Icon(Icons.lock),
-                            border: OutlineInputBorder(),
+                            filled: true,
                             labelText: 'Encryption password',
                           ),
                           controller: _encryptionPasswordController,
@@ -415,7 +415,7 @@ Imported $numberOfCustomFoods custom foods and $numberOfTrackedFoods tracked foo
                 child: TextFormField(
                   obscureText: true,
                   decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
+                    filled: true,
                     icon: Icon(Icons.lock),
                     labelText: 'Encryption password',
                   ),

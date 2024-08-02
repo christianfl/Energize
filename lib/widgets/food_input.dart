@@ -407,28 +407,26 @@ class FoodInputState extends State<FoodInput>
     if (widget._sheetModalMode == SheetModalMode.search) {
       return Column(
         children: [
-          Card(
-            child: TextField(
-              controller: _searchInputController,
-              onChanged: (value) => populateSearchedFoodList(value, true),
-              onSubmitted: (value) => populateSearchedFoodList(value, false),
-              decoration: InputDecoration(
-                border: InputBorder.none,
-                hintText:
-                    AppLocalizations.of(context)!.searchForProductNameOrBrand,
-                prefixIcon: _awaitingApiResponse
-                    ? Transform.scale(
-                        scale: 0.5,
-                        child: const CircularProgressIndicator(),
-                      )
-                    : const Icon(Icons.search),
-                suffixIcon: IconButton(
-                  onPressed: () => {
-                    _searchInputController.clear(),
-                    populateSearchedFoodList('', false),
-                  },
-                  icon: const Icon(Icons.clear),
-                ),
+          TextField(
+            controller: _searchInputController,
+            onChanged: (value) => populateSearchedFoodList(value, true),
+            onSubmitted: (value) => populateSearchedFoodList(value, false),
+            textAlignVertical: TextAlignVertical.center,
+            decoration: InputDecoration(
+              filled: true,
+              hintText: AppLocalizations.of(context)!.productOrBrand,
+              prefixIcon: _awaitingApiResponse
+                  ? Transform.scale(
+                      scale: 0.5,
+                      child: const CircularProgressIndicator(),
+                    )
+                  : const Icon(Icons.search),
+              suffixIcon: IconButton(
+                onPressed: () => {
+                  _searchInputController.clear(),
+                  populateSearchedFoodList('', false),
+                },
+                icon: const Icon(Icons.clear),
               ),
             ),
           ),
@@ -476,88 +474,84 @@ class FoodInputState extends State<FoodInput>
             Row(
               children: [
                 Expanded(
-                  child: Card(
-                    margin: EdgeInsets.zero,
-                    child: Form(
-                      key: _eanCodeFormKey,
-                      child: TextFormField(
-                        controller: _searchEanController,
-                        validator: (text) {
-                          if (text == null || text.isEmpty) {
-                            return AppLocalizations.of(context)!.fieldMandatory;
-                          }
-                          return null;
-                        },
-                        onFieldSubmitted: (value) {
-                          if (_eanCodeFormKey.currentState!.validate()) {
-                            searchEanAndRedirect(
-                              _searchEanController.text,
-                            );
-                          }
-                        },
-                        keyboardType: TextInputType.number,
-                        decoration: InputDecoration(
-                          border: InputBorder.none,
-                          hintText: 'EAN',
-                          prefixIcon: const Icon(Icons.search),
-                          suffixIcon: IconButton(
-                            onPressed: () {
-                              if (_eanCodeFormKey.currentState!.validate()) {
-                                searchEanAndRedirect(
-                                  _searchEanController.text,
-                                );
-                              }
-                            },
-                            icon: const Icon(Icons.check),
-                          ),
+                  child: Form(
+                    key: _eanCodeFormKey,
+                    child: TextFormField(
+                      controller: _searchEanController,
+                      validator: (text) {
+                        if (text == null || text.isEmpty) {
+                          return AppLocalizations.of(context)!.fieldMandatory;
+                        }
+                        return null;
+                      },
+                      onFieldSubmitted: (value) {
+                        if (_eanCodeFormKey.currentState!.validate()) {
+                          searchEanAndRedirect(
+                            _searchEanController.text,
+                          );
+                        }
+                      },
+                      keyboardType: TextInputType.number,
+                      textAlignVertical: TextAlignVertical.center,
+                      decoration: InputDecoration(
+                        filled: true,
+                        hintText: AppLocalizations.of(context)!.barcode,
+                        prefixIcon: const Icon(Icons.search),
+                        suffixIcon: IconButton(
+                          onPressed: () {
+                            if (_eanCodeFormKey.currentState!.validate()) {
+                              searchEanAndRedirect(
+                                _searchEanController.text,
+                              );
+                            }
+                          },
+                          icon: const Icon(Icons.send),
                         ),
                       ),
                     ),
                   ),
                 ),
                 const SizedBox(width: 10),
-                IntrinsicHeight(
-                  child: Builder(
-                    builder: (BuildContext context) {
-                      switch (_flashStatus) {
-                        case null:
-                          // Flash unsupported
+                Builder(
+                  builder: (BuildContext context) {
+                    switch (_flashStatus) {
+                      case null:
+                        // Flash unsupported
 
-                          return OutlinedButton.icon(
-                            onPressed: null,
-                            icon: const Icon(Icons.error),
-                            label: Text(
-                              AppLocalizations.of(context)!.flashUnsupported,
-                            ),
-                          );
+                        return const IconButton(
+                          onPressed: null,
+                          icon: Icon(
+                            Icons.bolt,
+                          ),
+                        );
 
-                        case true:
-                          // Offer possibility to turn flash off
+                      case true:
+                        // Offer possibility to turn flash off
 
-                          return OutlinedButton.icon(
-                            onPressed: () => _setFlash(false),
-                            icon: const Icon(Icons.bolt),
-                            label: Text(
-                              AppLocalizations.of(context)!.turnFlashOff,
-                            ),
-                          );
+                        return IconButton(
+                          isSelected: true,
+                          onPressed: () => _setFlash(false),
+                          icon: const Icon(
+                            Icons.bolt,
+                          ),
+                        );
 
-                        case false:
-                          // Offer possibility to turn flash on
+                      case false:
+                        // Offer possibility to turn flash on
 
-                          return OutlinedButton.icon(
-                            onPressed: () => _setFlash(true),
-                            icon: const Icon(Icons.bolt),
-                            label:
-                                Text(AppLocalizations.of(context)!.turnFlashOn),
-                          );
-                      }
-                    },
-                  ),
+                        return IconButton(
+                          isSelected: false,
+                          onPressed: () => _setFlash(true),
+                          icon: const Icon(
+                            Icons.bolt,
+                          ),
+                        );
+                    }
+                  },
                 ),
               ],
             ),
-            const SizedBox(height: 10),
+            const SizedBox(height: 12),
             Expanded(
               child: ClipRRect(
                 borderRadius: const BorderRadius.all(Radius.circular(10.0)),

@@ -406,25 +406,24 @@ class AddEditCustomFoodModalState extends State<AddEditCustomFoodModal> {
     required String unit,
     FocusNode? focusNode,
   }) {
-    return ListTile(
-      title: Text(title),
-      trailing: SizedBox(
-        width: 160,
-        height: 45,
-        child: TextFormField(
-          focusNode: focusNode,
-          controller: controller,
-          keyboardType: TextInputType.number,
-          decoration: InputDecoration(
-            suffixText: unit,
-          ),
-          validator: (value) {
-            if (!isNumeric(value!)) {
-              return AppLocalizations.of(context)!.onlyNumbersAllowed;
-            }
-            return null;
-          },
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: TextFormField(
+        focusNode: focusNode,
+        controller: controller,
+        keyboardType: TextInputType.number,
+        decoration: InputDecoration(
+          isDense: true,
+          labelText: title,
+          filled: true,
+          suffixText: unit,
         ),
+        validator: (value) {
+          if (!isNumeric(value!)) {
+            return AppLocalizations.of(context)!.onlyNumbersAllowed;
+          }
+          return null;
+        },
       ),
     );
   }
@@ -475,6 +474,8 @@ class AddEditCustomFoodModalState extends State<AddEditCustomFoodModal> {
                           controller: _foodTitleController,
                           keyboardType: TextInputType.text,
                           decoration: InputDecoration(
+                            isDense: true,
+                            filled: true,
                             labelText: AppLocalizations.of(context)!.title,
                           ),
                           validator: (value) {
@@ -490,6 +491,8 @@ class AddEditCustomFoodModalState extends State<AddEditCustomFoodModal> {
                           controller: _foodEanController,
                           keyboardType: TextInputType.number,
                           decoration: InputDecoration(
+                            isDense: true,
+                            filled: true,
                             labelText: AppLocalizations.of(context)!.barcode,
                           ),
                         ),

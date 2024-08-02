@@ -389,7 +389,7 @@ class TrackingPageState extends State<TrackingPage> {
                     borderRadius: BorderRadius.all(Radius.circular(12)),
                   ),
                   backgroundColor: Colors.blue,
-                  label: AppLocalizations.of(context)!.scanEANCode,
+                  label: AppLocalizations.of(context)!.scanBarcode,
                   labelBackgroundColor: Colors.blue,
                   onTap: () => _startAddEatenFood(context, SheetModalMode.ean),
                   child: const Icon(Icons.qr_code),
