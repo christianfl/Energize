@@ -378,5 +378,9 @@
   "proposeImprovement": "Proponer mejoras",
   "@proposeImprovement": {},
   "energyDistributionChartMissingHint": "El gráfico de distribución de energía sólo se muestra si ha establecido un objetivo de calorías y un objetivo para al menos uno de los macronutrientes.",
-  "@energyDistributionChartMissingHint": {}
+  "@energyDistributionChartMissingHint": {},
+  "scanBarcode": "Escanear código de barras",
+  "@scanBarcode": {},
+  "productOrBrand": "Producto o marca",
+  "@productOrBrand": {}
 }
