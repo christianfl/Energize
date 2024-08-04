@@ -312,7 +312,7 @@ class TrackFoodState extends State<TrackFood>
     }
   }
 
-  Widget _getAmountInput({
+  TextField _getAmountInput({
     VoidCallback? onEditingComplete,
     required Food food,
   }) {
@@ -333,25 +333,6 @@ class TrackFoodState extends State<TrackFood>
         hintText: _getAmount(food).toString(),
         filled: true,
         suffixText: 'g',
-        suffixIcon: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            const SizedBox(width: 10),
-            OutlinedButton.icon(
-              style: OutlinedButton.styleFrom(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(18.0),
-                ),
-              ),
-              onPressed: () => _selectTrackedTime(),
-              icon: const Icon(Icons.schedule),
-              label: Text(
-                TimeUtil.getTime(_foodTrackDate!, context),
-              ),
-            ),
-            const SizedBox(width: 10),
-          ],
-        ),
       ),
     );
   }
@@ -485,9 +466,23 @@ class TrackFoodState extends State<TrackFood>
       bottomNavigationBar: BottomAppBar(
         child: Padding(
           padding: const EdgeInsets.only(right: _fabSize + _fabPadding),
-          child: _getAmountInput(
-            onEditingComplete: () => _addOrEditFood(args, trackedFood),
-            food: food,
+          child: Row(
+            children: [
+              Expanded(
+                child: _getAmountInput(
+                  onEditingComplete: () => _addOrEditFood(args, trackedFood),
+                  food: food,
+                ),
+              ),
+              const SizedBox(width: _fabPadding),
+              TextButton.icon(
+                icon: const Icon(Icons.schedule),
+                onPressed: () => _selectTrackedTime(),
+                label: Text(
+                  TimeUtil.getTime(_foodTrackDate!, context),
+                ),
+              ),
+            ],
           ),
         ),
       ),
