@@ -357,12 +357,6 @@
   "@nutrients": {},
   "contain": "zawiera",
   "@contain": {},
-  "turnFlashOff": "Latarka OFF",
-  "@turnFlashOff": {},
-  "flashUnsupported": "Bez latarki",
-  "@flashUnsupported": {},
-  "turnFlashOn": "Latarka ON",
-  "@turnFlashOn": {},
   "loading": "Ładowanie",
   "@loading": {},
   "notFound": "nie znaleziono",
@@ -374,5 +368,9 @@
   "consumedDate": "Spożyto",
   "@consumedDate": {},
   "dailyTarget": "dzienny cel",
-  "@dailyTarget": {}
+  "@dailyTarget": {},
+  "labelingEu": "Etykieta (EU)",
+  "@labelingEu": {},
+  "productOrBrand": "Produkt lub marka",
+  "@productOrBrand": {}
 }

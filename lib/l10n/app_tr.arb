@@ -378,5 +378,9 @@
   "energyDistributionChartMissingHint": "Enerji dağılım grafiği yalnızca bir kalori hedefi ve makro besinlerden en az biri için bir hedef belirlediyseniz gösterilir.",
   "@energyDistributionChartMissingHint": {},
   "proposeImprovement": "İyileştirme öner",
-  "@proposeImprovement": {}
+  "@proposeImprovement": {},
+  "productOrBrand": "Ürün veya marka",
+  "@productOrBrand": {},
+  "scanBarcode": "Barkod tara",
+  "@scanBarcode": {}
 }
