@@ -7,7 +7,7 @@ part of 'usda_food.dart';
 // **************************************************************************
 
 USDAFood _$USDAFoodFromJson(Map<String, dynamic> json) => USDAFood(
-      fdcId: json['fdcId'] as int?,
+      fdcId: (json['fdcId'] as num?)?.toInt(),
       description: json['description'] as String?,
       dataType: json['dataType'] as String?,
       publishedDate: json['publishedDate'] as String?,

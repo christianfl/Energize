@@ -9,10 +9,10 @@ part of 'food_tracked.dart';
 FoodTracked _$FoodTrackedFromJson(Map<String, dynamic> json) => FoodTracked(
       id: json['id'] as String,
       amount: (json['amount'] as num).toDouble(),
-      dateAdded:
-          FoodTracked._millisecondsSinceEpochToDate(json['dateAdded'] as int),
-      dateEaten:
-          FoodTracked._millisecondsSinceEpochToDate(json['dateEaten'] as int),
+      dateAdded: FoodTracked._millisecondsSinceEpochToDate(
+          (json['dateAdded'] as num).toInt()),
+      dateEaten: FoodTracked._millisecondsSinceEpochToDate(
+          (json['dateEaten'] as num).toInt()),
       title: json['title'] as String,
       origin: json['origin'] as String,
       ean: json['ean'] as String?,
@@ -129,13 +129,9 @@ Map<String, dynamic> _$FoodTrackedToJson(FoodTracked instance) {
   writeNotNull('alcohol', instance.alcohol);
   val['id'] = instance.id;
   val['amount'] = instance.amount;
-  writeNotNull(
-    'dateAdded',
-    FoodTracked._dateToMillisecondsSinceEpoch(instance.dateAdded),
-  );
-  writeNotNull(
-    'dateEaten',
-    FoodTracked._dateToMillisecondsSinceEpoch(instance.dateEaten),
-  );
+  writeNotNull('dateAdded',
+      FoodTracked._dateToMillisecondsSinceEpoch(instance.dateAdded));
+  writeNotNull('dateEaten',
+      FoodTracked._dateToMillisecondsSinceEpoch(instance.dateEaten));
   return val;
 }
