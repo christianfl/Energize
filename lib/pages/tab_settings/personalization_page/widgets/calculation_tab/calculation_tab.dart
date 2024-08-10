@@ -548,7 +548,7 @@ class CalculationTabState extends State<CalculationTab> {
                       return DropdownMenuItem<WeightTarget>(
                         value: weightTarget,
                         child: Row(
-                          mainAxisSize: MainAxisSize.min,
+                          mainAxisSize: MainAxisSize.max,
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(weightTarget.toLocalizedString(context)),
