@@ -15,8 +15,12 @@ mixin DatabaseService {
   }
 
   _initDatabase() async {
-    return await openDatabase(join(await getDatabasesPath(), db),
-        version: 2, onCreate: _onCreate, onUpgrade: _onUpgrade);
+    return await openDatabase(
+      join(await getDatabasesPath(), db),
+      version: 2,
+      onCreate: _onCreate,
+      onUpgrade: _onUpgrade,
+    );
   }
 
   Future _onUpgrade(Database db, int oldVersion, int newVersion) async {
@@ -27,7 +31,8 @@ mixin DatabaseService {
       await db.execute('ALTER TABLE $customFoodstable ADD COLUMN alcohol REAL');
 
       await db.execute(
-          'ALTER TABLE $trackedFoodsTable ADD COLUMN cholesterol REAL');
+        'ALTER TABLE $trackedFoodsTable ADD COLUMN cholesterol REAL',
+      );
       await db.execute('ALTER TABLE $trackedFoodsTable ADD COLUMN starch REAL');
       await db
           .execute('ALTER TABLE $trackedFoodsTable ADD COLUMN alcohol REAL');

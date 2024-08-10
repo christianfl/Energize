@@ -58,8 +58,10 @@ class DatabaseManagementSubPageState extends State<DatabaseManagementSubPage> {
                   canTapOnHeader: true,
                   headerBuilder: (context, isExpanded) {
                     return SwitchListTile(
-                      title: Text(AppLocalizations.of(context)!
-                          .swissFoodCompositionDatabase),
+                      title: Text(
+                        AppLocalizations.of(context)!
+                            .swissFoodCompositionDatabase,
+                      ),
                       value: appSettings.isProviderSndbActivated,
                       onChanged: (val) =>
                           appSettings.isProviderSndbActivated = val,
@@ -80,20 +82,25 @@ class DatabaseManagementSubPageState extends State<DatabaseManagementSubPage> {
                       ListTile(
                         title: Text(AppLocalizations.of(context)!.publisher),
                         subtitle: Text(
-                            'Bundesamt für Lebensmittelsicherheit und Veterinärwesen, ${AppLocalizations.of(context)!.switzerland}'),
+                          'Bundesamt für Lebensmittelsicherheit und Veterinärwesen, ${AppLocalizations.of(context)!.switzerland}',
+                        ),
                         isThreeLine: true,
                       ),
                       ListTile(
                         title: Text(
-                            AppLocalizations.of(context)!.generalInformation),
-                        subtitle: Text(AppLocalizations.of(context)!
-                            .swissFoodCompositionDatabaseGeneralInformationText),
+                          AppLocalizations.of(context)!.generalInformation,
+                        ),
+                        subtitle: Text(
+                          AppLocalizations.of(context)!
+                              .swissFoodCompositionDatabaseGeneralInformationText,
+                        ),
                         isThreeLine: true,
                       ),
                       InkWell(
                         onTap: () async {
                           final uri = Uri.parse(
-                              SwissFoodCompositionDatabaseBinding.sourceUrl);
+                            SwissFoodCompositionDatabaseBinding.sourceUrl,
+                          );
                           if (await canLaunchUrl(uri)) {
                             await launchUrl(
                               uri,
@@ -105,8 +112,10 @@ class DatabaseManagementSubPageState extends State<DatabaseManagementSubPage> {
                         },
                         child: ListTile(
                           title: Text(AppLocalizations.of(context)!.source),
-                          subtitle: Text(AppLocalizations.of(context)!
-                              .tapHereForFurtherInformation),
+                          subtitle: Text(
+                            AppLocalizations.of(context)!
+                                .tapHereForFurtherInformation,
+                          ),
                           trailing: const Icon(Icons.link),
                         ),
                       ),
@@ -154,20 +163,26 @@ class DatabaseManagementSubPageState extends State<DatabaseManagementSubPage> {
                       ),
                       ListTile(
                         title: Text(AppLocalizations.of(context)!.language),
-                        subtitle: Text(AppLocalizations.of(context)!
-                            .openFoodFactsVariousLanguagesText),
+                        subtitle: Text(
+                          AppLocalizations.of(context)!
+                              .openFoodFactsVariousLanguagesText,
+                        ),
                       ),
                       ListTile(
                         title: Text(AppLocalizations.of(context)!.publisher),
                         subtitle: Text(
-                            '${AppLocalizations.of(context)!.nonProfitInstitution} Open Food Facts ("OFF"), ${AppLocalizations.of(context)!.france}'),
+                          '${AppLocalizations.of(context)!.nonProfitInstitution} Open Food Facts ("OFF"), ${AppLocalizations.of(context)!.france}',
+                        ),
                         isThreeLine: true,
                       ),
                       ListTile(
                         title: Text(
-                            AppLocalizations.of(context)!.generalInformation),
-                        subtitle: Text(AppLocalizations.of(context)!
-                            .openFoodFactsGeneralInformationText),
+                          AppLocalizations.of(context)!.generalInformation,
+                        ),
+                        subtitle: Text(
+                          AppLocalizations.of(context)!
+                              .openFoodFactsGeneralInformationText,
+                        ),
                       ),
                       InkWell(
                         onTap: () async {
@@ -183,8 +198,10 @@ class DatabaseManagementSubPageState extends State<DatabaseManagementSubPage> {
                         },
                         child: ListTile(
                           title: Text(AppLocalizations.of(context)!.termsOfUse),
-                          subtitle: Text(AppLocalizations.of(context)!
-                              .openFoodFactsTermsText),
+                          subtitle: Text(
+                            AppLocalizations.of(context)!
+                                .openFoodFactsTermsText,
+                          ),
                           trailing: const Icon(Icons.link),
                           isThreeLine: true,
                         ),
@@ -204,8 +221,10 @@ class DatabaseManagementSubPageState extends State<DatabaseManagementSubPage> {
                         },
                         child: ListTile(
                           title: Text(AppLocalizations.of(context)!.contribute),
-                          subtitle: Text(AppLocalizations.of(context)!
-                              .databaseContributeText),
+                          subtitle: Text(
+                            AppLocalizations.of(context)!
+                                .databaseContributeText,
+                          ),
                           trailing: const Icon(Icons.link),
                           isThreeLine: true,
                         ),
@@ -240,14 +259,18 @@ class DatabaseManagementSubPageState extends State<DatabaseManagementSubPage> {
                       ListTile(
                         title: Text(AppLocalizations.of(context)!.publisher),
                         subtitle: const Text(
-                            'U.S. Department of Agriculture, Agricultural Research Service. FoodData Central, 2019. fdc.nal.usda.gov.'),
+                          'U.S. Department of Agriculture, Agricultural Research Service. FoodData Central, 2019. fdc.nal.usda.gov.',
+                        ),
                         isThreeLine: true,
                       ),
                       ListTile(
                         title: Text(
-                            AppLocalizations.of(context)!.generalInformation),
-                        subtitle: Text(AppLocalizations.of(context)!
-                            .usdaFoodDataCentralGeneralInformationText),
+                          AppLocalizations.of(context)!.generalInformation,
+                        ),
+                        subtitle: Text(
+                          AppLocalizations.of(context)!
+                              .usdaFoodDataCentralGeneralInformationText,
+                        ),
                       ),
                       InkWell(
                         onTap: () async {
@@ -263,8 +286,10 @@ class DatabaseManagementSubPageState extends State<DatabaseManagementSubPage> {
                         },
                         child: ListTile(
                           title: Text(AppLocalizations.of(context)!.source),
-                          subtitle: Text(AppLocalizations.of(context)!
-                              .tapHereForFurtherInformation),
+                          subtitle: Text(
+                            AppLocalizations.of(context)!
+                                .tapHereForFurtherInformation,
+                          ),
                           trailing: const Icon(Icons.link),
                         ),
                       ),

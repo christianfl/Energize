@@ -30,7 +30,9 @@ class TrackedFoodProvider with ChangeNotifier {
 
   void _getFromDatabase() async {
     _foods = await TrackedFoodDatabaseService.trackedFoodByDateRange(
-        startDate: selectedDate, endDate: selectedDate);
+      startDate: selectedDate,
+      endDate: selectedDate,
+    );
     notifyListeners();
   }
 

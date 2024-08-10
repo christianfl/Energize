@@ -58,7 +58,9 @@ class FoodPageState extends State<FoodPage> {
     Navigator.of(context).pushNamed(
       AddEditCustomFoodModal.routeName,
       arguments: AddEditCustomFoodModalArguments(
-          AddEditCustomFoodModalMode.addNew, null),
+        AddEditCustomFoodModalMode.addNew,
+        null,
+      ),
     );
   }
 
@@ -66,12 +68,16 @@ class FoodPageState extends State<FoodPage> {
     Navigator.of(context).pushNamed(
       AddEditCustomFoodModal.routeName,
       arguments: AddEditCustomFoodModalArguments(
-          AddEditCustomFoodModalMode.edit, food),
+        AddEditCustomFoodModalMode.edit,
+        food,
+      ),
     );
   }
 
   void populateSearchedFoodList(
-      String searchText, CustomFoodProvider provider) {
+    String searchText,
+    CustomFoodProvider provider,
+  ) {
     // No search text, show all custom foods
     if (searchText.isEmpty) {
       setState(() {
@@ -81,8 +87,10 @@ class FoodPageState extends State<FoodPage> {
     } else {
       setState(() {
         _searchResultFoods = provider.foods
-            .where((food) =>
-                food.title.toLowerCase().contains(searchText.toLowerCase()))
+            .where(
+              (food) =>
+                  food.title.toLowerCase().contains(searchText.toLowerCase()),
+            )
             .toList();
       });
     }
@@ -108,7 +116,9 @@ class FoodPageState extends State<FoodPage> {
                 child: TextField(
                   controller: _searchInputController,
                   onChanged: (searchString) => populateSearchedFoodList(
-                      searchString, customFoodProvider),
+                    searchString,
+                    customFoodProvider,
+                  ),
                   decoration: InputDecoration(
                     border: InputBorder.none,
                     hintText: AppLocalizations.of(context)!.searchCustomFood,
@@ -148,7 +158,8 @@ class FoodPageState extends State<FoodPage> {
                               backgroundColor:
                                   Theme.of(context).colorScheme.error,
                               content: Text(
-                                  '${food.title} ${AppLocalizations.of(context)!.deleted}'),
+                                '${food.title} ${AppLocalizations.of(context)!.deleted}',
+                              ),
                               action: SnackBarAction(
                                 label: AppLocalizations.of(context)!.undo,
                                 textColor:

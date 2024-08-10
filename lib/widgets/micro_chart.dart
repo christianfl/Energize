@@ -132,12 +132,16 @@ class MicroChart extends StatelessWidget {
 
   double _totalMonounsaturatedFat(List<FoodTracked> foods) {
     return foods.fold(
-        0, (sum, f) => sum + _calcAmount(f.monounsaturatedFat, f.amount));
+      0,
+      (sum, f) => sum + _calcAmount(f.monounsaturatedFat, f.amount),
+    );
   }
 
   double _totalPolyunsaturatedFat(List<FoodTracked> foods) {
     return foods.fold(
-        0, (sum, f) => sum + _calcAmount(f.polyunsaturatedFat, f.amount));
+      0,
+      (sum, f) => sum + _calcAmount(f.polyunsaturatedFat, f.amount),
+    );
   }
 
   double _totalOmega3(List<FoodTracked> foods) {
@@ -150,7 +154,9 @@ class MicroChart extends StatelessWidget {
 
   double _totalSaturatedFat(List<FoodTracked> foods) {
     return foods.fold(
-        0, (sum, f) => sum + _calcAmount(f.saturatedFat, f.amount));
+      0,
+      (sum, f) => sum + _calcAmount(f.saturatedFat, f.amount),
+    );
   }
 
   double _totalTransFat(List<FoodTracked> foods) {
@@ -159,7 +165,9 @@ class MicroChart extends StatelessWidget {
 
   double _totalCholesterol(List<FoodTracked> foods) {
     return foods.fold(
-        0, (sum, f) => sum + _calcAmount(f.cholesterol, f.amount));
+      0,
+      (sum, f) => sum + _calcAmount(f.cholesterol, f.amount),
+    );
   }
 
   double _totalFiber(List<FoodTracked> foods) {
@@ -172,7 +180,9 @@ class MicroChart extends StatelessWidget {
 
   double _totalSugarAlcohol(List<FoodTracked> foods) {
     return foods.fold(
-        0, (sum, f) => sum + _calcAmount(f.sugarAlcohol, f.amount));
+      0,
+      (sum, f) => sum + _calcAmount(f.sugarAlcohol, f.amount),
+    );
   }
 
   double _totalStarch(List<FoodTracked> foods) {

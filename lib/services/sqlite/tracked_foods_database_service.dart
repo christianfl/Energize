@@ -8,8 +8,10 @@ class TrackedFoodDatabaseService with DatabaseService {
   static final TrackedFoodDatabaseService instance =
       TrackedFoodDatabaseService._privateConstructor();
 
-  static Future<List<FoodTracked>> trackedFoodByDateRange(
-      {required DateTime startDate, required DateTime endDate}) async {
+  static Future<List<FoodTracked>> trackedFoodByDateRange({
+    required DateTime startDate,
+    required DateTime endDate,
+  }) async {
     final db = await instance.database;
 
     DateTime dayStart =
@@ -20,9 +22,10 @@ class TrackedFoodDatabaseService with DatabaseService {
     var args = [dayStart.millisecondsSinceEpoch, dayEnd.millisecondsSinceEpoch];
 
     final List<Map<String, dynamic>> trackedFoodMap = await db.query(
-        DatabaseService.trackedFoodsTable,
-        where: 'dateEaten BETWEEN ? AND ?',
-        whereArgs: args);
+      DatabaseService.trackedFoodsTable,
+      where: 'dateEaten BETWEEN ? AND ?',
+      whereArgs: args,
+    );
 
     return _generateFoodList(trackedFoodMap);
   }

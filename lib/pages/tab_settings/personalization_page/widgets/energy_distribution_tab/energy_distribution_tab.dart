@@ -24,22 +24,25 @@ class _EnergyDistributionTabState extends State<EnergyDistributionTab> {
   /// Hint: Calorie factor: 4
   double _getProteinPercentageOfCalories(AppSettings appSettings) {
     return double.parse(
-        (appSettings.proteinTarget * 4 / _getTotalCalories(appSettings) * 100)
-            .toStringAsFixed(1));
+      (appSettings.proteinTarget * 4 / _getTotalCalories(appSettings) * 100)
+          .toStringAsFixed(1),
+    );
   }
 
   /// Hint: Calorie factor: 4
   double _getCarbsPercentageOfCalories(AppSettings appSettings) {
     return double.parse(
-        (appSettings.carbsTarget * 4 / _getTotalCalories(appSettings) * 100)
-            .toStringAsFixed(1));
+      (appSettings.carbsTarget * 4 / _getTotalCalories(appSettings) * 100)
+          .toStringAsFixed(1),
+    );
   }
 
   /// Hint: Calorie factor: 9
   double _getFatPercentageOfCalories(AppSettings appSettings) {
     return double.parse(
-        (appSettings.fatTarget * 9 / _getTotalCalories(appSettings) * 100)
-            .toStringAsFixed(1));
+      (appSettings.fatTarget * 9 / _getTotalCalories(appSettings) * 100)
+          .toStringAsFixed(1),
+    );
   }
 
   /// Returns the sum of percentages of each macronutrient from the total calories, can be more than 100%
@@ -108,7 +111,8 @@ class _EnergyDistributionTabState extends State<EnergyDistributionTab> {
                   alignment: Alignment.center,
                   children: [
                     Text(
-                        '= ${_getTotalCaloriesPercentage(appSettings).toStringAsFixed(0)} %'),
+                      '= ${_getTotalCaloriesPercentage(appSettings).toStringAsFixed(0)} %',
+                    ),
                     PieChart(
                       PieChartData(
                         pieTouchData: PieTouchData(

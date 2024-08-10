@@ -15,14 +15,16 @@ class FoodListItem extends StatelessWidget {
   final double pillHeight;
   final bool? hideOrigin;
 
-  const FoodListItem(this.food,
-      {super.key,
-      required this.onTapCallback,
-      this.quickAddFoodCallback,
-      this.getQuickAddFoodAmountCallback,
-      required this.height,
-      required this.pillHeight,
-      this.hideOrigin});
+  const FoodListItem(
+    this.food, {
+    super.key,
+    required this.onTapCallback,
+    this.quickAddFoodCallback,
+    this.getQuickAddFoodAmountCallback,
+    required this.height,
+    required this.pillHeight,
+    this.hideOrigin,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -80,7 +82,7 @@ class FoodListItem extends StatelessWidget {
                           fontWeight: FontWeight.w300,
                           fontSize: 10,
                         ),
-                      )
+                      ),
                   ],
                 ),
               ),

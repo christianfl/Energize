@@ -95,8 +95,12 @@ class FoodTracked extends Food {
         );
 
   FoodTracked.fromFood(
-      Food food, this.id, this.amount, this.dateEaten, this.dateAdded)
-      : super(
+    Food food,
+    this.id,
+    this.amount,
+    this.dateEaten,
+    this.dateAdded,
+  ) : super(
           id: id,
           title: food.title,
           origin: food.origin,

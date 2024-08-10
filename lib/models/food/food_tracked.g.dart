@@ -129,9 +129,13 @@ Map<String, dynamic> _$FoodTrackedToJson(FoodTracked instance) {
   writeNotNull('alcohol', instance.alcohol);
   val['id'] = instance.id;
   val['amount'] = instance.amount;
-  writeNotNull('dateAdded',
-      FoodTracked._dateToMillisecondsSinceEpoch(instance.dateAdded));
-  writeNotNull('dateEaten',
-      FoodTracked._dateToMillisecondsSinceEpoch(instance.dateEaten));
+  writeNotNull(
+    'dateAdded',
+    FoodTracked._dateToMillisecondsSinceEpoch(instance.dateAdded),
+  );
+  writeNotNull(
+    'dateEaten',
+    FoodTracked._dateToMillisecondsSinceEpoch(instance.dateEaten),
+  );
   return val;
 }

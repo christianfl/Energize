@@ -390,9 +390,11 @@ class Food {
       USDAFoodNutrientUnit unit,
     ) {
       return usdaFood.foodNutrients
-          ?.firstWhereOrNull((nutrient) =>
-              nutrient.nutrientName == nutrientName &&
-              nutrient.unitName == unit)
+          ?.firstWhereOrNull(
+            (nutrient) =>
+                nutrient.nutrientName == nutrientName &&
+                nutrient.unitName == unit,
+          )
           ?.value;
     }
 
@@ -405,7 +407,9 @@ class Food {
     food.calories = getTransformedValue('Energy', USDAFoodNutrientUnit.KCAL);
     food.protein = getTransformedValue('Protein', USDAFoodNutrientUnit.G);
     food.carbs = getTransformedValue(
-        'Carbohydrate, by difference', USDAFoodNutrientUnit.G);
+      'Carbohydrate, by difference',
+      USDAFoodNutrientUnit.G,
+    );
     food.fat = getTransformedValue('Total lipid (fat)', USDAFoodNutrientUnit.G);
 
     // vitaminA
@@ -425,13 +429,19 @@ class Food {
     food.vitaminB12 =
         getTransformedValue('Vitamin B-12', USDAFoodNutrientUnit.UG);
     food.vitaminC = getTransformedValue(
-        'Vitamin C, total ascorbic acid', USDAFoodNutrientUnit.MG);
+      'Vitamin C, total ascorbic acid',
+      USDAFoodNutrientUnit.MG,
+    );
     food.vitaminD =
         getTransformedValue('Vitamin D (D2 + D3)', USDAFoodNutrientUnit.UG);
     food.vitaminE = getTransformedValue(
-        'Vitamin E (alpha-tocopherol)', USDAFoodNutrientUnit.MG);
+      'Vitamin E (alpha-tocopherol)',
+      USDAFoodNutrientUnit.MG,
+    );
     food.vitaminK = getTransformedValue(
-        'Vitamin K (phylloquinone)', USDAFoodNutrientUnit.UG);
+      'Vitamin K (phylloquinone)',
+      USDAFoodNutrientUnit.UG,
+    );
     food.calcium = getTransformedValue('Calcium, Ca', USDAFoodNutrientUnit.MG);
 
     // chloride
@@ -471,7 +481,9 @@ class Food {
     // omega6
 
     food.saturatedFat = getTransformedValue(
-        'Fatty acids, total saturated"', USDAFoodNutrientUnit.G);
+      'Fatty acids, total saturated"',
+      USDAFoodNutrientUnit.G,
+    );
 
     // transFat
 
@@ -480,7 +492,9 @@ class Food {
     food.fiber =
         getTransformedValue('Fiber, total dietary', USDAFoodNutrientUnit.G);
     food.sugar = getTransformedValue(
-        'Sugars, total including NLEA', USDAFoodNutrientUnit.G);
+      'Sugars, total including NLEA',
+      USDAFoodNutrientUnit.G,
+    );
 
     // sugarAlcohol
     // starch

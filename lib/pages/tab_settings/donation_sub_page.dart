@@ -66,13 +66,16 @@ class _DonationSubPageState extends State<DonationSubPage> {
                   try {
                     Clipboard.setData(
                       const ClipboardData(
-                          text: DonationSubPage._bitcoinAddress),
+                        text: DonationSubPage._bitcoinAddress,
+                      ),
                     );
 
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
-                        content: Text(AppLocalizations.of(context)!
-                            .bitcoinAddressCopiedToClipboard),
+                        content: Text(
+                          AppLocalizations.of(context)!
+                              .bitcoinAddressCopiedToClipboard,
+                        ),
                       ),
                     );
                   } catch (e) {
@@ -107,7 +110,8 @@ class _DonationSubPageState extends State<DonationSubPage> {
                     width: 28,
                   ),
                   title: Text(
-                      AppLocalizations.of(context)!.bankAccountOrCreditCard),
+                    AppLocalizations.of(context)!.bankAccountOrCreditCard,
+                  ),
                   subtitle: const Text('liberapay.com'),
                   trailing: const Icon(Icons.link),
                 ),
@@ -132,8 +136,10 @@ class _DonationSubPageState extends State<DonationSubPage> {
                 },
                 child: ListTile(
                   title: Text(AppLocalizations.of(context)!.contact),
-                  subtitle: Text(AppLocalizations.of(context)!
-                      .writeMeAnEmailForFurtherDonationOptions),
+                  subtitle: Text(
+                    AppLocalizations.of(context)!
+                        .writeMeAnEmailForFurtherDonationOptions,
+                  ),
                   trailing: const Icon(Icons.mail),
                 ),
               ),

@@ -893,7 +893,7 @@ class AddEditCustomFoodModalState extends State<AddEditCustomFoodModal> {
           if (_formKey.currentState!.validate())
             {
               _addOrEditFood(food, modalMode),
-            }
+            },
         },
       ),
     );

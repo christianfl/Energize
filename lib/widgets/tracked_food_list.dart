@@ -12,8 +12,10 @@ class TrackedFoodList extends StatelessWidget {
   final double _entryHeight = 50;
 
   const TrackedFoodList(
-      this._scrollController, this._setIsFabExplicitelyVisible,
-      {super.key});
+    this._scrollController,
+    this._setIsFabExplicitelyVisible, {
+    super.key,
+  });
 
   double _caloriesPerAmount(FoodTracked food) {
     if (food.calories != null) {
@@ -68,7 +70,8 @@ class TrackedFoodList extends StatelessWidget {
                       SnackBar(
                         backgroundColor: Theme.of(context).colorScheme.error,
                         content: Text(
-                            '${food.title} ${AppLocalizations.of(context)!.deleted}'),
+                          '${food.title} ${AppLocalizations.of(context)!.deleted}',
+                        ),
                         action: SnackBarAction(
                           label: AppLocalizations.of(context)!.undo,
                           textColor: Theme.of(context).colorScheme.onSecondary,

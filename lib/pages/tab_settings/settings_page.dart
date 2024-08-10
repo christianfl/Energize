@@ -28,9 +28,11 @@ class SettingsPage extends StatelessWidget {
               isThreeLine: true,
               leading: const Icon(Icons.person),
               title: Text(
-                  AppLocalizations.of(context)!.yourPersonalNutritionNeeds),
+                AppLocalizations.of(context)!.yourPersonalNutritionNeeds,
+              ),
               subtitle: Text(
-                  AppLocalizations.of(context)!.personalNutritionNeedsHint),
+                AppLocalizations.of(context)!.personalNutritionNeedsHint,
+              ),
             ),
           ),
           const Divider(),

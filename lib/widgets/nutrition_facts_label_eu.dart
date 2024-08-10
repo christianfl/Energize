@@ -31,7 +31,9 @@ class NutritionFactsLabelEU extends StatelessWidget {
 
   double get _totalSaturatedFat {
     return foods.fold(
-        0, (sum, f) => sum + _calcAmount(f.saturatedFat, f.amount));
+      0,
+      (sum, f) => sum + _calcAmount(f.saturatedFat, f.amount),
+    );
   }
 
   double get _totalCarbs {

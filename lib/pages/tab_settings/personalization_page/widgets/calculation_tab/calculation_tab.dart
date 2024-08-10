@@ -65,7 +65,7 @@ class CalculationTabState extends State<CalculationTab> {
             TextButton(
               onPressed: () => Navigator.pop(context),
               child: const Text('OK'),
-            )
+            ),
           ],
         );
       },
@@ -93,158 +93,163 @@ class CalculationTabState extends State<CalculationTab> {
     showDialog(
       context: context,
       builder: (BuildContext context) {
-        return StatefulBuilder(builder: (context, setState) {
-          return AlertDialog(
-            insetPadding: const EdgeInsets.all(12.0),
-            title: Text(
-              AppLocalizations.of(context)!.calculatedNutritionTargets,
-            ),
-            content: SingleChildScrollView(
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text(
-                    AppLocalizations.of(context)!
-                        .calculatedNutritionTargetsHint,
-                  ),
-                  TextFormField(
-                    controller: _caloriesTargetController,
-                    keyboardType: TextInputType.number,
-                    decoration: InputDecoration(
-                      suffixText: 'kcal',
-                      labelText: AppLocalizations.of(context)!.energy,
-                    ),
-                    onChanged: (val) => {
-                      updateData(except: 'calories'),
-                    },
-                  ),
-                  const SizedBox(height: 20),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: TextFormField(
-                          initialValue: appSettings.proteinRatio.toString(),
-                          onChanged: (val) => {
-                            appSettings.proteinRatio =
-                                val == '' ? 20 : double.parse(val),
-                            updateData(),
-                          },
-                          keyboardType: TextInputType.number,
-                          decoration: InputDecoration(
-                            suffixText:
-                                AppLocalizations.of(context)!.percentOfCalories,
-                            labelText:
-                                AppLocalizations.of(context)!.proteinRatio,
-                          ),
-                        ),
-                      ),
-                      const SizedBox(width: 20),
-                      Expanded(
-                        child: TextFormField(
-                          controller: _proteinTargetController,
-                          keyboardType: TextInputType.number,
-                          decoration: InputDecoration(
-                            suffixText: 'g',
-                            labelText: AppLocalizations.of(context)!.protein,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: TextFormField(
-                          initialValue: appSettings.carbsRatio.toString(),
-                          onChanged: (val) => {
-                            appSettings.carbsRatio =
-                                val == '' ? 50 : double.parse(val),
-                            updateData(),
-                          },
-                          keyboardType: TextInputType.number,
-                          decoration: InputDecoration(
-                            suffixText:
-                                AppLocalizations.of(context)!.percentOfCalories,
-                            labelText: AppLocalizations.of(context)!.carbsRatio,
-                          ),
-                        ),
-                      ),
-                      const SizedBox(width: 20),
-                      Expanded(
-                        child: TextFormField(
-                          controller: _carbsTargetController,
-                          keyboardType: TextInputType.number,
-                          decoration: InputDecoration(
-                            suffixText: 'g',
-                            labelText: AppLocalizations.of(context)!.carbs,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: TextFormField(
-                          initialValue: appSettings.fatRatio.toString(),
-                          onChanged: (val) => {
-                            appSettings.fatRatio =
-                                val == '' ? 30 : double.parse(val),
-                            updateData(),
-                          },
-                          keyboardType: TextInputType.number,
-                          decoration: InputDecoration(
-                            suffixText:
-                                AppLocalizations.of(context)!.percentOfCalories,
-                            labelText: AppLocalizations.of(context)!.fatRatio,
-                          ),
-                        ),
-                      ),
-                      const SizedBox(width: 20),
-                      Expanded(
-                        child: TextFormField(
-                          controller: _fatTargetController,
-                          keyboardType: TextInputType.number,
-                          decoration: InputDecoration(
-                            suffixText: 'g',
-                            labelText: AppLocalizations.of(context)!.fat,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 20),
-                  CheckboxListTile(
-                    contentPadding: const EdgeInsets.all(8.0),
-                    title: Text(
-                      AppLocalizations.of(context)!.alsoSetMicronutrientsSwitch,
-                    ),
-                    value: _setMicronutrientsBasedOnAgeAndSex,
-                    onChanged: (val) {
-                      setState(() {
-                        _setMicronutrientsBasedOnAgeAndSex = val!;
-                      });
-                    },
-                  ),
-                ],
+        return StatefulBuilder(
+          builder: (context, setState) {
+            return AlertDialog(
+              insetPadding: const EdgeInsets.all(12.0),
+              title: Text(
+                AppLocalizations.of(context)!.calculatedNutritionTargets,
               ),
-            ),
-            actions: [
-              ElevatedButton.icon(
-                onPressed: () => _applyTargets(context, appSettings),
-                icon: const Icon(Icons.save),
-                label: Text(AppLocalizations.of(context)!.apply.toUpperCase()),
+              content: SingleChildScrollView(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      AppLocalizations.of(context)!
+                          .calculatedNutritionTargetsHint,
+                    ),
+                    TextFormField(
+                      controller: _caloriesTargetController,
+                      keyboardType: TextInputType.number,
+                      decoration: InputDecoration(
+                        suffixText: 'kcal',
+                        labelText: AppLocalizations.of(context)!.energy,
+                      ),
+                      onChanged: (val) => {
+                        updateData(except: 'calories'),
+                      },
+                    ),
+                    const SizedBox(height: 20),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: TextFormField(
+                            initialValue: appSettings.proteinRatio.toString(),
+                            onChanged: (val) => {
+                              appSettings.proteinRatio =
+                                  val == '' ? 20 : double.parse(val),
+                              updateData(),
+                            },
+                            keyboardType: TextInputType.number,
+                            decoration: InputDecoration(
+                              suffixText: AppLocalizations.of(context)!
+                                  .percentOfCalories,
+                              labelText:
+                                  AppLocalizations.of(context)!.proteinRatio,
+                            ),
+                          ),
+                        ),
+                        const SizedBox(width: 20),
+                        Expanded(
+                          child: TextFormField(
+                            controller: _proteinTargetController,
+                            keyboardType: TextInputType.number,
+                            decoration: InputDecoration(
+                              suffixText: 'g',
+                              labelText: AppLocalizations.of(context)!.protein,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: TextFormField(
+                            initialValue: appSettings.carbsRatio.toString(),
+                            onChanged: (val) => {
+                              appSettings.carbsRatio =
+                                  val == '' ? 50 : double.parse(val),
+                              updateData(),
+                            },
+                            keyboardType: TextInputType.number,
+                            decoration: InputDecoration(
+                              suffixText: AppLocalizations.of(context)!
+                                  .percentOfCalories,
+                              labelText:
+                                  AppLocalizations.of(context)!.carbsRatio,
+                            ),
+                          ),
+                        ),
+                        const SizedBox(width: 20),
+                        Expanded(
+                          child: TextFormField(
+                            controller: _carbsTargetController,
+                            keyboardType: TextInputType.number,
+                            decoration: InputDecoration(
+                              suffixText: 'g',
+                              labelText: AppLocalizations.of(context)!.carbs,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: TextFormField(
+                            initialValue: appSettings.fatRatio.toString(),
+                            onChanged: (val) => {
+                              appSettings.fatRatio =
+                                  val == '' ? 30 : double.parse(val),
+                              updateData(),
+                            },
+                            keyboardType: TextInputType.number,
+                            decoration: InputDecoration(
+                              suffixText: AppLocalizations.of(context)!
+                                  .percentOfCalories,
+                              labelText: AppLocalizations.of(context)!.fatRatio,
+                            ),
+                          ),
+                        ),
+                        const SizedBox(width: 20),
+                        Expanded(
+                          child: TextFormField(
+                            controller: _fatTargetController,
+                            keyboardType: TextInputType.number,
+                            decoration: InputDecoration(
+                              suffixText: 'g',
+                              labelText: AppLocalizations.of(context)!.fat,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 20),
+                    CheckboxListTile(
+                      contentPadding: const EdgeInsets.all(8.0),
+                      title: Text(
+                        AppLocalizations.of(context)!
+                            .alsoSetMicronutrientsSwitch,
+                      ),
+                      value: _setMicronutrientsBasedOnAgeAndSex,
+                      onChanged: (val) {
+                        setState(() {
+                          _setMicronutrientsBasedOnAgeAndSex = val!;
+                        });
+                      },
+                    ),
+                  ],
+                ),
               ),
-              TextButton(
-                onPressed: () => {
-                  Navigator.pop(context),
-                },
-                child:
-                    Text(MaterialLocalizations.of(context).cancelButtonLabel),
-              )
-            ],
-          );
-        });
+              actions: [
+                ElevatedButton.icon(
+                  onPressed: () => _applyTargets(context, appSettings),
+                  icon: const Icon(Icons.save),
+                  label:
+                      Text(AppLocalizations.of(context)!.apply.toUpperCase()),
+                ),
+                TextButton(
+                  onPressed: () => {
+                    Navigator.pop(context),
+                  },
+                  child:
+                      Text(MaterialLocalizations.of(context).cancelButtonLabel),
+                ),
+              ],
+            );
+          },
+        );
       },
     );
   }
@@ -326,7 +331,10 @@ class CalculationTabState extends State<CalculationTab> {
         final Sex sex = appSettings.sex == 'Male' ? Sex.male : Sex.female;
 
         MicronutrientsRecommendations.setRecommendedNutritionAsTargets(
-            appSettings, age, sex);
+          appSettings,
+          age,
+          sex,
+        );
       }
     } catch (e) {
       snackbarText = AppLocalizations.of(context)!.targetsApplyError;
@@ -549,8 +557,11 @@ class CalculationTabState extends State<CalculationTab> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(weightTarget.toLocalizedString(context)),
-                              Text(_getWeightTargetRelativePercent(
-                                  weightTarget)),
+                              Text(
+                                _getWeightTargetRelativePercent(
+                                  weightTarget,
+                                ),
+                              ),
                             ],
                           ),
                         );

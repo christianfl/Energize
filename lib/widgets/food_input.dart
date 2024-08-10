@@ -248,7 +248,8 @@ class FoodInputState extends State<FoodInput>
   }
 
   Future<void> _getOpenFoodFactsSearchResultIfActivated(
-      String searchText) async {
+    String searchText,
+  ) async {
     final appSettings = Provider.of<AppSettings>(context, listen: false);
 
     if (appSettings.isProviderOpenFoodFactsActivated) {
@@ -291,7 +292,8 @@ class FoodInputState extends State<FoodInput>
       var foodFromLastXDays = List<Food>.of(
         await TrackedFoodDatabaseService.trackedFoodByDateRange(
           startDate: DateTime.now().subtract(
-              const Duration(days: _foodInputSuggestionsFromLastXDays)),
+            const Duration(days: _foodInputSuggestionsFromLastXDays),
+          ),
           endDate: DateTime.now(),
         ),
       );
@@ -315,8 +317,10 @@ class FoodInputState extends State<FoodInput>
           }
 
           searchResultFood = searchResultFood
-              .where((food) =>
-                  food.title.toLowerCase().contains(searchText.toLowerCase()))
+              .where(
+                (food) =>
+                    food.title.toLowerCase().contains(searchText.toLowerCase()),
+              )
               .toList();
 
           // Remove duplicates again (with added food from SNDB)
@@ -602,7 +606,7 @@ class FoodInputState extends State<FoodInput>
                                 child: const LinearProgressIndicator(),
                               ),
                             ),
-                    )
+                    ),
                   ],
                 ),
               ),

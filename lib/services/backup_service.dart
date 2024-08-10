@@ -21,7 +21,8 @@ class BackupService {
   /// - backupData: Object which contains plaintext backup as Objects
   /// - encryptedData: encrypted data as JSON encoded encrypted String and
   static Future<CreateBackupReturnData> createBackup(
-      String encryptionPassword) async {
+    String encryptionPassword,
+  ) async {
     final backupData = BackupData(
       customFood: await CustomFoodDatabaseService.customFoods,
       trackedFood: await TrackedFoodDatabaseService.trackedFoods,
@@ -44,7 +45,10 @@ class BackupService {
   ///
   /// Returns backupData (Object which contains plaintext backup as Objects)
   static BackupData restoreBackup(
-      String encryptedData, String encryptionPassword, BuildContext context) {
+    String encryptedData,
+    String encryptionPassword,
+    BuildContext context,
+  ) {
     try {
       final decryptedBackup = EncryptionService.decrypt(
         encryptedData,
@@ -102,6 +106,8 @@ class CreateBackupReturnData {
   final BackupData backupData;
   final String encryptedData;
 
-  CreateBackupReturnData(
-      {required this.encryptedData, required this.backupData});
+  CreateBackupReturnData({
+    required this.encryptedData,
+    required this.backupData,
+  });
 }

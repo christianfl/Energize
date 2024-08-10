@@ -278,8 +278,9 @@ class TrackingPageState extends State<TrackingPage> {
                 case 0:
                   {
                     Navigator.of(context).pushNamed(
-                        DetailedSummarySubPage.routeName,
-                        arguments: trackedFoodProvider.foods);
+                      DetailedSummarySubPage.routeName,
+                      arguments: trackedFoodProvider.foods,
+                    );
                   }
                   break;
 

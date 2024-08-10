@@ -111,7 +111,9 @@ class TrackFoodState extends State<TrackFood>
   }
 
   void _addOrEditFood(
-      ModalArguments args, TrackedFoodProvider trackedFoodProvider) {
+    ModalArguments args,
+    TrackedFoodProvider trackedFoodProvider,
+  ) {
     double amount;
 
     if (_amountCtrl.text != '') {
@@ -163,7 +165,12 @@ class TrackFoodState extends State<TrackFood>
 
     DateTime tempDate = DateTime.now();
     return FoodTracked.fromFood(
-        food, 'TEMP_FOR_CHART', amount, tempDate, tempDate);
+      food,
+      'TEMP_FOR_CHART',
+      amount,
+      tempDate,
+      tempDate,
+    );
   }
 
   void createCustomFoodFromThis(Food food) {

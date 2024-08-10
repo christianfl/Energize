@@ -39,7 +39,7 @@ class TabsPageState extends State<TabsPage> {
                 icon: tabItem.icon,
                 selectedIcon: tabItem.selectedIcon,
                 label: tabItem.label,
-              )
+              ),
           ],
         ),
       ),
