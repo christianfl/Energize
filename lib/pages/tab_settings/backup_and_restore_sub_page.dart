@@ -600,8 +600,10 @@ Imported $numberOfCustomFoods custom foods and $numberOfTrackedFoods tracked foo
                   child: InfoCard(
                     message:
                         'Warning: Settings, personalizations and targets are not yet included!',
-                    icon: Icon(Icons.warning,
-                        color: Theme.of(context).onWarningContainer),
+                    icon: Icon(
+                      Icons.warning,
+                      color: Theme.of(context).onWarningContainer,
+                    ),
                     color: Theme.of(context).warningContainer,
                   ),
                 ),

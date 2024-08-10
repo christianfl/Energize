@@ -147,8 +147,10 @@ class FoodPageState extends State<FoodPage> {
                         key: Key(food.id),
                         background: Container(
                           color: Theme.of(context).dangerContainer,
-                          child: Icon(Icons.delete,
-                              color: Theme.of(context).onDangerContainer),
+                          child: Icon(
+                            Icons.delete,
+                            color: Theme.of(context).onDangerContainer,
+                          ),
                         ),
                         onDismissed: (direction) {
                           final swipedFood = food;

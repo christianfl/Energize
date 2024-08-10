@@ -90,7 +90,8 @@ class TrackingPageState extends State<TrackingPage> {
                 ),
                 daysOfWeekStyle: DaysOfWeekStyle(
                   weekdayStyle: TextStyle(
-                      color: Theme.of(context).microNutrientsContainer),
+                    color: Theme.of(context).microNutrientsContainer,
+                  ),
                 ),
                 daysOfWeekHeight: 32.0,
                 startingDayOfWeek: StartingDayOfWeek.monday,
@@ -128,7 +129,8 @@ class TrackingPageState extends State<TrackingPage> {
                           child: Text(
                             '${day.day}',
                             style: TextStyle(
-                                color: Theme.of(context).colorScheme.onSurface),
+                              color: Theme.of(context).colorScheme.onSurface,
+                            ),
                           ),
                         ),
                       ),
@@ -143,9 +145,9 @@ class TrackingPageState extends State<TrackingPage> {
                         child: Text(
                           '${day.day}',
                           style: TextStyle(
-                              color: Theme.of(context)
-                                  .colorScheme
-                                  .onInverseSurface),
+                            color:
+                                Theme.of(context).colorScheme.onInverseSurface,
+                          ),
                         ),
                       ),
                     );
@@ -161,7 +163,8 @@ class TrackingPageState extends State<TrackingPage> {
                             child: Text(
                               '${day.day}',
                               style: TextStyle(
-                                  color: Theme.of(context).onSuccessContainer),
+                                color: Theme.of(context).onSuccessContainer,
+                              ),
                             ),
                           ),
                           Icon(
@@ -318,8 +321,9 @@ class TrackingPageState extends State<TrackingPage> {
             TextButton(
               onPressed: () => _pickDateDialog(context),
               style: TextButton.styleFrom(
-                  foregroundColor:
-                      Theme.of(context).colorScheme.onPrimaryContainer),
+                foregroundColor:
+                    Theme.of(context).colorScheme.onPrimaryContainer,
+              ),
               child: Text(DateUtil.getDate(_selectedDate, context)),
             ),
             IconButton(
@@ -331,8 +335,9 @@ class TrackingPageState extends State<TrackingPage> {
             TextButton(
               onPressed: () => _selectTime(context),
               style: TextButton.styleFrom(
-                  foregroundColor:
-                      Theme.of(context).colorScheme.onPrimaryContainer),
+                foregroundColor:
+                    Theme.of(context).colorScheme.onPrimaryContainer,
+              ),
               child: Text(TimeUtil.getTime(_selectedDate, context)),
             ),
           ],
