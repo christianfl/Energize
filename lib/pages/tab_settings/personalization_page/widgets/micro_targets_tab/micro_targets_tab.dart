@@ -21,19 +21,17 @@ class MicroTargetsTabState extends State<MicroTargetsTab> {
     required Function(String) setValueFunction,
     required String unit,
   }) {
-    return ListTile(
-      title: Text(title),
-      trailing: SizedBox(
-        width: 90,
-        height: 45,
-        child: TextFormField(
-          initialValue: initialValue,
-          onChanged: setValueFunction,
-          keyboardType: TextInputType.number,
-          textAlign: TextAlign.center,
-          decoration: InputDecoration(
-            suffixText: unit,
-          ),
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: TextFormField(
+        initialValue: initialValue,
+        onChanged: setValueFunction,
+        keyboardType: TextInputType.number,
+        decoration: InputDecoration(
+          isDense: true,
+          labelText: title,
+          filled: true,
+          suffixText: unit,
         ),
       ),
     );
@@ -44,7 +42,7 @@ class MicroTargetsTabState extends State<MicroTargetsTab> {
     final appSettings = Provider.of<AppSettings>(context);
 
     return SingleChildScrollView(
-      padding: const EdgeInsets.all(12.0),
+      padding: const EdgeInsets.all(0.0),
       child: ExpansionPanelList(
         expansionCallback: (panelIndex, isExpanded) {
           setState(() {

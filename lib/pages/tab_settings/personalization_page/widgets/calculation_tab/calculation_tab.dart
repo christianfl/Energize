@@ -6,7 +6,6 @@ import '../../../../../models/person/enums/sex.dart';
 import '../../../../../models/person/enums/weight_target.dart';
 import '../../../../../providers/app_settings.dart';
 import '../../../../../services/micronutrients_recommendations/micronutrients_recommendations.dart';
-import 'custom_track_shape.dart';
 
 class CalculationTab extends StatefulWidget {
   static const routeName = '/settings/personalization';
@@ -108,10 +107,12 @@ class CalculationTabState extends State<CalculationTab> {
                       AppLocalizations.of(context)!
                           .calculatedNutritionTargetsHint,
                     ),
+                    const SizedBox(height: 12),
                     TextFormField(
                       controller: _caloriesTargetController,
                       keyboardType: TextInputType.number,
                       decoration: InputDecoration(
+                        filled: true,
                         suffixText: 'kcal',
                         labelText: AppLocalizations.of(context)!.energy,
                       ),
@@ -119,7 +120,7 @@ class CalculationTabState extends State<CalculationTab> {
                         updateData(except: 'calories'),
                       },
                     ),
-                    const SizedBox(height: 20),
+                    const SizedBox(height: 24),
                     Row(
                       children: [
                         Expanded(
@@ -132,6 +133,7 @@ class CalculationTabState extends State<CalculationTab> {
                             },
                             keyboardType: TextInputType.number,
                             decoration: InputDecoration(
+                              filled: true,
                               suffixText: AppLocalizations.of(context)!
                                   .percentOfCalories,
                               labelText:
@@ -145,6 +147,7 @@ class CalculationTabState extends State<CalculationTab> {
                             controller: _proteinTargetController,
                             keyboardType: TextInputType.number,
                             decoration: InputDecoration(
+                              filled: true,
                               suffixText: 'g',
                               labelText: AppLocalizations.of(context)!.protein,
                             ),
@@ -152,6 +155,7 @@ class CalculationTabState extends State<CalculationTab> {
                         ),
                       ],
                     ),
+                    const SizedBox(height: 12),
                     Row(
                       children: [
                         Expanded(
@@ -164,6 +168,7 @@ class CalculationTabState extends State<CalculationTab> {
                             },
                             keyboardType: TextInputType.number,
                             decoration: InputDecoration(
+                              filled: true,
                               suffixText: AppLocalizations.of(context)!
                                   .percentOfCalories,
                               labelText:
@@ -177,6 +182,7 @@ class CalculationTabState extends State<CalculationTab> {
                             controller: _carbsTargetController,
                             keyboardType: TextInputType.number,
                             decoration: InputDecoration(
+                              filled: true,
                               suffixText: 'g',
                               labelText: AppLocalizations.of(context)!.carbs,
                             ),
@@ -184,6 +190,7 @@ class CalculationTabState extends State<CalculationTab> {
                         ),
                       ],
                     ),
+                    const SizedBox(height: 12),
                     Row(
                       children: [
                         Expanded(
@@ -196,6 +203,7 @@ class CalculationTabState extends State<CalculationTab> {
                             },
                             keyboardType: TextInputType.number,
                             decoration: InputDecoration(
+                              filled: true,
                               suffixText: AppLocalizations.of(context)!
                                   .percentOfCalories,
                               labelText: AppLocalizations.of(context)!.fatRatio,
@@ -208,6 +216,7 @@ class CalculationTabState extends State<CalculationTab> {
                             controller: _fatTargetController,
                             keyboardType: TextInputType.number,
                             decoration: InputDecoration(
+                              filled: true,
                               suffixText: 'g',
                               labelText: AppLocalizations.of(context)!.fat,
                             ),
@@ -417,7 +426,7 @@ class CalculationTabState extends State<CalculationTab> {
         Expanded(
           child: SingleChildScrollView(
             child: Padding(
-              padding: const EdgeInsets.all(12.0),
+              padding: const EdgeInsets.all(16.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -431,69 +440,68 @@ class CalculationTabState extends State<CalculationTab> {
                   Row(
                     children: [
                       Expanded(
-                        child: ListTile(
-                          title: TextFormField(
-                            initialValue: appSettings.age.toString(),
-                            onChanged: (val) => appSettings.age =
-                                val == '' ? 20 : int.parse(val),
-                            keyboardType: TextInputType.number,
-                            decoration: InputDecoration(
-                              suffixText: AppLocalizations.of(context)!.years,
-                              labelText: AppLocalizations.of(context)!.age,
-                            ),
+                        child: TextFormField(
+                          initialValue: appSettings.age.toString(),
+                          onChanged: (val) =>
+                              appSettings.age = val == '' ? 20 : int.parse(val),
+                          keyboardType: TextInputType.number,
+                          decoration: InputDecoration(
+                            filled: true,
+                            suffixText: AppLocalizations.of(context)!.years,
+                            labelText: AppLocalizations.of(context)!.age,
                           ),
                         ),
                       ),
+                      const SizedBox(width: 12),
                       Expanded(
-                        child: ListTile(
-                          title: DropdownButtonFormField<String>(
-                            value: appSettings.sex,
-                            isExpanded: true,
-                            onChanged: (String? newValue) {
-                              appSettings.sex = newValue!;
-                            },
-                            decoration: InputDecoration(
-                              labelText: AppLocalizations.of(context)!.sex,
-                            ),
-                            items: Sex.values
-                                .map<DropdownMenuItem<String>>((Sex sex) {
-                              return DropdownMenuItem<String>(
-                                value: sex.fromValue(),
-                                child: Text(sex.toLocalizedString(context)),
-                              );
-                            }).toList(),
+                        child: DropdownButtonFormField<String>(
+                          value: appSettings.sex,
+                          isExpanded: true,
+                          onChanged: (String? newValue) {
+                            appSettings.sex = newValue!;
+                          },
+                          decoration: InputDecoration(
+                            filled: true,
+                            labelText: AppLocalizations.of(context)!.sex,
                           ),
+                          items: Sex.values
+                              .map<DropdownMenuItem<String>>((Sex sex) {
+                            return DropdownMenuItem<String>(
+                              value: sex.fromValue(),
+                              child: Text(sex.toLocalizedString(context)),
+                            );
+                          }).toList(),
                         ),
                       ),
                     ],
                   ),
+                  const SizedBox(height: 12),
                   Row(
                     children: [
                       Expanded(
-                        child: ListTile(
-                          title: TextFormField(
-                            initialValue: appSettings.weight.toString(),
-                            onChanged: (val) => appSettings.weight =
-                                val == '' ? 80 : int.parse(val),
-                            keyboardType: TextInputType.number,
-                            decoration: InputDecoration(
-                              suffixText: 'kg',
-                              labelText: AppLocalizations.of(context)!.weight,
-                            ),
+                        child: TextFormField(
+                          initialValue: appSettings.weight.toString(),
+                          onChanged: (val) => appSettings.weight =
+                              val == '' ? 80 : int.parse(val),
+                          keyboardType: TextInputType.number,
+                          decoration: InputDecoration(
+                            filled: true,
+                            suffixText: 'kg',
+                            labelText: AppLocalizations.of(context)!.weight,
                           ),
                         ),
                       ),
+                      const SizedBox(width: 12),
                       Expanded(
-                        child: ListTile(
-                          title: TextFormField(
-                            initialValue: appSettings.height.toString(),
-                            onChanged: (val) => appSettings.height =
-                                val == '' ? 180 : int.parse(val),
-                            keyboardType: TextInputType.number,
-                            decoration: InputDecoration(
-                              suffixText: 'cm',
-                              labelText: AppLocalizations.of(context)!.height,
-                            ),
+                        child: TextFormField(
+                          initialValue: appSettings.height.toString(),
+                          onChanged: (val) => appSettings.height =
+                              val == '' ? 180 : int.parse(val),
+                          keyboardType: TextInputType.number,
+                          decoration: InputDecoration(
+                            filled: true,
+                            suffixText: 'cm',
+                            labelText: AppLocalizations.of(context)!.height,
                           ),
                         ),
                       ),
@@ -507,61 +515,52 @@ class CalculationTabState extends State<CalculationTab> {
                       style: Theme.of(context).textTheme.headlineMedium,
                     ),
                   ),
-                  ListTile(
-                    subtitle:
-                        _getActivityDescription(appSettings.activityLevel),
-                    title: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(AppLocalizations.of(context)!.activityLevel),
-                        SliderTheme(
-                          data: SliderThemeData(
-                            trackShape: CustomTrackShape(),
-                          ),
-                          child: Slider(
-                            value: appSettings.activityLevel,
-                            min: 1.0,
-                            max: 2.0,
-                            divisions: 10,
-                            label: appSettings.activityLevel.toString(),
-                            onChanged: (double value) {
-                              appSettings.activityLevel = value;
-                            },
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  const SizedBox(height: 12),
-                  ListTile(
-                    leading: const Icon(Icons.adjust),
-                    title: DropdownButtonFormField<WeightTarget>(
-                      value: appSettings.weightTarget,
-                      isExpanded: true,
-                      onChanged: (WeightTarget? newValue) {
-                        appSettings.weightTarget = newValue!;
-                      },
-                      decoration: InputDecoration(
-                        labelText: AppLocalizations.of(context)!.weightTarget,
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(AppLocalizations.of(context)!.activityLevel),
+                      Slider(
+                        value: appSettings.activityLevel,
+                        min: 1.0,
+                        max: 2.0,
+                        divisions: 10,
+                        label: appSettings.activityLevel.toString(),
+                        onChanged: (double value) {
+                          appSettings.activityLevel = value;
+                        },
                       ),
-                      items:
-                          WeightTarget.values.map((WeightTarget weightTarget) {
-                        return DropdownMenuItem<WeightTarget>(
-                          value: weightTarget,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(weightTarget.toLocalizedString(context)),
-                              Text(
-                                _getWeightTargetRelativePercent(
-                                  weightTarget,
-                                ),
-                              ),
-                            ],
-                          ),
-                        );
-                      }).toList(),
+                      _getActivityDescription(appSettings.activityLevel),
+                    ],
+                  ),
+                  const SizedBox(height: 24),
+                  DropdownButtonFormField<WeightTarget>(
+                    value: appSettings.weightTarget,
+                    isExpanded: true,
+                    onChanged: (WeightTarget? newValue) {
+                      appSettings.weightTarget = newValue!;
+                    },
+                    decoration: InputDecoration(
+                      icon: const Icon(Icons.adjust),
+                      filled: true,
+                      labelText: AppLocalizations.of(context)!.weightTarget,
                     ),
+                    items: WeightTarget.values.map((WeightTarget weightTarget) {
+                      return DropdownMenuItem<WeightTarget>(
+                        value: weightTarget,
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(weightTarget.toLocalizedString(context)),
+                            Text(
+                              _getWeightTargetRelativePercent(
+                                weightTarget,
+                              ),
+                            ),
+                          ],
+                        ),
+                      );
+                    }).toList(),
                   ),
                 ],
               ),

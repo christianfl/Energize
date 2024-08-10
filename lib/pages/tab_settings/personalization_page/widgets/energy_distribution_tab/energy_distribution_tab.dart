@@ -79,23 +79,23 @@ class _EnergyDistributionTabState extends State<EnergyDistributionTab> {
     final appSettings = Provider.of<AppSettings>(context);
 
     return ListView(
-      padding: const EdgeInsets.all(12.0),
+      padding: const EdgeInsets.all(16.0),
       children: [
         Text(
           AppLocalizations.of(context)!.totalEnergy,
           style: Theme.of(context).textTheme.headlineMedium,
         ),
-        ListTile(
-          leading: const Icon(Icons.bolt),
-          title: TextFormField(
-            initialValue: appSettings.caloriesTarget.toString(),
-            onChanged: (val) =>
-                appSettings.caloriesTarget = val == '' ? 0 : double.parse(val),
-            keyboardType: TextInputType.number,
-            decoration: InputDecoration(
-              suffixText: 'kcal',
-              labelText: AppLocalizations.of(context)!.energy,
-            ),
+        const SizedBox(height: 12),
+        TextFormField(
+          initialValue: appSettings.caloriesTarget.toString(),
+          onChanged: (val) =>
+              appSettings.caloriesTarget = val == '' ? 0 : double.parse(val),
+          keyboardType: TextInputType.number,
+          decoration: InputDecoration(
+            icon: const Icon(Icons.bolt),
+            filled: true,
+            suffixText: 'kcal',
+            labelText: AppLocalizations.of(context)!.energy,
           ),
         ),
         _isPieChartHidden(appSettings)
@@ -158,104 +158,102 @@ class _EnergyDistributionTabState extends State<EnergyDistributionTab> {
           AppLocalizations.of(context)!.selectedMacronutrient,
           style: Theme.of(context).textTheme.headlineMedium,
         ),
-        const SizedBox(height: 10),
-        Card(
-          color: _selectedMacroIndex == 0
-              ? Theme.of(context).proteinContainer
-              : _selectedMacroIndex == 1
-                  ? Theme.of(context).carbsContainer
-                  : _selectedMacroIndex == 2
-                      ? Theme.of(context).fatContainer
-                      : null,
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Row(
-              children: [
-                Expanded(
-                  child: DropdownButtonFormField<int>(
-                    value: _selectedMacroIndex,
-                    isExpanded: true,
-                    onChanged: (int? newValue) {
-                      setState(() {
-                        _selectedMacroIndex = newValue!;
-                      });
-                    },
-                    items: [
-                      DropdownMenuItem<int>(
-                        value: 0,
-                        child: Text(AppLocalizations.of(context)!.protein),
-                      ),
-                      DropdownMenuItem<int>(
-                        value: 1,
-                        child: Text(AppLocalizations.of(context)!.carbs),
-                      ),
-                      DropdownMenuItem<int>(
-                        value: 2,
-                        child: Text(AppLocalizations.of(context)!.fat),
-                      ),
-                    ],
+        const SizedBox(height: 12),
+        Row(
+          children: [
+            Expanded(
+              child: DropdownButtonFormField<int>(
+                value: _selectedMacroIndex,
+                isExpanded: true,
+                onChanged: (int? newValue) {
+                  setState(() {
+                    _selectedMacroIndex = newValue!;
+                  });
+                },
+                decoration: InputDecoration(
+                  filled: true,
+                  fillColor: _selectedMacroIndex == 0
+                      ? Theme.of(context).proteinContainer
+                      : _selectedMacroIndex == 1
+                          ? Theme.of(context).carbsContainer
+                          : _selectedMacroIndex == 2
+                              ? Theme.of(context).fatContainer
+                              : null,
+                ),
+                items: [
+                  DropdownMenuItem<int>(
+                    value: 0,
+                    child: Text(AppLocalizations.of(context)!.protein),
+                  ),
+                  DropdownMenuItem<int>(
+                    value: 1,
+                    child: Text(AppLocalizations.of(context)!.carbs),
+                  ),
+                  DropdownMenuItem<int>(
+                    value: 2,
+                    child: Text(AppLocalizations.of(context)!.fat),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(width: 12),
+            if (_selectedMacroIndex == 0)
+              Expanded(
+                child: TextFormField(
+                  key: const Key('protein'),
+                  initialValue: appSettings.proteinTarget.toString(),
+                  onChanged: (val) {
+                    setState(() {
+                      appSettings.proteinTarget =
+                          val == '' ? 0 : double.parse(val);
+                    });
+                  },
+                  keyboardType: TextInputType.number,
+                  decoration: InputDecoration(
+                    filled: true,
+                    fillColor: Theme.of(context).proteinContainer,
+                    suffixText: 'g',
                   ),
                 ),
-                if (_selectedMacroIndex == 0)
-                  Expanded(
-                    child: ListTile(
-                      title: TextFormField(
-                        key: const Key('protein'),
-                        initialValue: appSettings.proteinTarget.toString(),
-                        onChanged: (val) {
-                          setState(() {
-                            appSettings.proteinTarget =
-                                val == '' ? 0 : double.parse(val);
-                          });
-                        },
-                        keyboardType: TextInputType.number,
-                        decoration: const InputDecoration(
-                          suffixText: 'g',
-                        ),
-                      ),
-                    ),
-                  )
-                else if (_selectedMacroIndex == 1)
-                  Expanded(
-                    child: ListTile(
-                      title: TextFormField(
-                        key: const Key('carbs'),
-                        initialValue: appSettings.carbsTarget.toString(),
-                        onChanged: (val) {
-                          setState(() {
-                            appSettings.carbsTarget =
-                                val == '' ? 0 : double.parse(val);
-                          });
-                        },
-                        keyboardType: TextInputType.number,
-                        decoration: const InputDecoration(
-                          suffixText: 'g',
-                        ),
-                      ),
-                    ),
-                  )
-                else if (_selectedMacroIndex == 2)
-                  Expanded(
-                    child: ListTile(
-                      title: TextFormField(
-                        key: const Key('fat'),
-                        initialValue: appSettings.fatTarget.toString(),
-                        onChanged: (val) {
-                          setState(() {
-                            appSettings.fatTarget =
-                                val == '' ? 0 : double.parse(val);
-                          });
-                        },
-                        keyboardType: TextInputType.number,
-                        decoration: const InputDecoration(
-                          suffixText: 'g',
-                        ),
-                      ),
-                    ),
+              )
+            else if (_selectedMacroIndex == 1)
+              Expanded(
+                child: TextFormField(
+                  key: const Key('carbs'),
+                  initialValue: appSettings.carbsTarget.toString(),
+                  onChanged: (val) {
+                    setState(() {
+                      appSettings.carbsTarget =
+                          val == '' ? 0 : double.parse(val);
+                    });
+                  },
+                  keyboardType: TextInputType.number,
+                  decoration: InputDecoration(
+                    filled: true,
+                    fillColor: Theme.of(context).carbsContainer,
+                    suffixText: 'g',
                   ),
-              ],
-            ),
-          ),
+                ),
+              )
+            else if (_selectedMacroIndex == 2)
+              Expanded(
+                child: TextFormField(
+                  key: const Key('fat'),
+                  initialValue: appSettings.fatTarget.toString(),
+                  onChanged: (val) {
+                    setState(() {
+                      appSettings.fatTarget = val == '' ? 0 : double.parse(val);
+                    });
+                  },
+                  keyboardType: TextInputType.number,
+                  decoration: InputDecoration(
+                    filled: true,
+                    fillColor: Theme.of(context).fatContainer,
+                    suffixText: 'g',
+                  ),
+                ),
+              ),
+          ],
         ),
       ],
     );
