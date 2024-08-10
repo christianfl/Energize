@@ -382,5 +382,11 @@
   "productOrBrand": "Ürün veya marka",
   "@productOrBrand": {},
   "scanBarcode": "Barkod tara",
-  "@scanBarcode": {}
+  "@scanBarcode": {},
+  "contributors": "Katkıda bulunanlar",
+  "@contributors": {},
+  "thanksToContributorsText": "Energize'a katkıda bulunan herkese teşekkürler. Yardımlarınız sayesinde Energize şu anki haline gelebildi.",
+  "@thanksToContributorsText": {},
+  "allTranslatorsOnWeblate": "Weblate'teki tüm çevirmenler",
+  "@allTranslatorsOnWeblate": {}
 }
