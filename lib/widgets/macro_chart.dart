@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 
-import './chart_bar.dart';
 import '../models/food/food_tracked.dart';
 import '../providers/app_settings.dart';
+import '../theme/energize_theme.dart';
+import './chart_bar.dart';
 
 class MacroChart extends StatelessWidget {
   final List<FoodTracked> foods;
@@ -56,7 +57,7 @@ class MacroChart extends StatelessWidget {
           value: _totalCalories,
           target: appSettings.caloriesTarget,
           unit: 'kcal',
-          color: Colors.yellow,
+          color: Theme.of(context).energyContainer,
           decimalPlaces: decimalPlaces,
         ),
         const SizedBox(height: 12.0),
@@ -65,7 +66,7 @@ class MacroChart extends StatelessWidget {
           value: _totalProtein,
           target: appSettings.proteinTarget,
           unit: 'g',
-          color: Colors.green,
+          color: Theme.of(context).proteinContainer,
           decimalPlaces: decimalPlaces,
         ),
         ChartBar(
@@ -73,7 +74,7 @@ class MacroChart extends StatelessWidget {
           value: _totalCarbs,
           target: appSettings.carbsTarget,
           unit: 'g',
-          color: Colors.blue,
+          color: Theme.of(context).carbsContainer,
           decimalPlaces: decimalPlaces,
         ),
         ChartBar(
@@ -81,7 +82,7 @@ class MacroChart extends StatelessWidget {
           value: _totalFat,
           target: appSettings.fatTarget,
           unit: 'g',
-          color: Colors.red,
+          color: Theme.of(context).fatContainer,
           decimalPlaces: decimalPlaces,
         ),
       ],

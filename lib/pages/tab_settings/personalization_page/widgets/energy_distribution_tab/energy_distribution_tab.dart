@@ -4,6 +4,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../../providers/app_settings.dart';
+import '../../../../../theme/energize_theme.dart';
 import '../../../../../widgets/info_card.dart';
 
 class EnergyDistributionTab extends StatefulWidget {
@@ -160,11 +161,11 @@ class _EnergyDistributionTabState extends State<EnergyDistributionTab> {
         const SizedBox(height: 10),
         Card(
           color: _selectedMacroIndex == 0
-              ? Colors.green
+              ? Theme.of(context).proteinContainer
               : _selectedMacroIndex == 1
-                  ? Colors.blue
+                  ? Theme.of(context).carbsContainer
                   : _selectedMacroIndex == 2
-                      ? Colors.red
+                      ? Theme.of(context).fatContainer
                       : null,
           child: Padding(
             padding: const EdgeInsets.all(8.0),
@@ -280,8 +281,13 @@ class _EnergyDistributionTabState extends State<EnergyDistributionTab> {
         shadows: const [Shadow(color: Colors.black, blurRadius: 2)],
       ),
       badgeWidget: CircleAvatar(
-        backgroundColor: Colors.white,
-        child: Text(title.substring(0, 1)),
+        backgroundColor: Theme.of(context).colorScheme.surfaceContainerHigh,
+        child: Text(
+          title.substring(0, 1),
+          style: TextStyle(
+            color: Theme.of(context).colorScheme.onSurface,
+          ),
+        ),
       ),
       badgePositionPercentageOffset: .98,
     );
@@ -299,7 +305,7 @@ class _EnergyDistributionTabState extends State<EnergyDistributionTab> {
       switch (i) {
         case 0:
           return _getPieChartSectionData(
-            Colors.green,
+            Theme.of(context).proteinContainer,
             _getProteinPercentageOfCalories(appSettings),
             AppLocalizations.of(context)!.protein,
             radius,
@@ -309,7 +315,7 @@ class _EnergyDistributionTabState extends State<EnergyDistributionTab> {
 
         case 1:
           return _getPieChartSectionData(
-            Colors.blue,
+            Theme.of(context).carbsContainer,
             _getCarbsPercentageOfCalories(appSettings),
             AppLocalizations.of(context)!.carbs,
             radius,
@@ -319,7 +325,7 @@ class _EnergyDistributionTabState extends State<EnergyDistributionTab> {
 
         case 2:
           return _getPieChartSectionData(
-            Colors.red,
+            Theme.of(context).fatContainer,
             _getFatPercentageOfCalories(appSettings),
             AppLocalizations.of(context)!.fat,
             radius,

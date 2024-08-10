@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../models/food/food.dart';
 import '../../providers/tracked_food_provider.dart';
 import '../../widgets/food_micro_count_pill.dart';
 import '../../widgets/food_origin_logo_pill.dart';
+import '../models/food/food.dart';
+import '../theme/energize_theme.dart';
 
 class FoodListItem extends StatelessWidget {
   final Food food;
@@ -54,12 +55,12 @@ class FoodListItem extends StatelessWidget {
                         ),
                       )
                     : CircleAvatar(
-                        backgroundColor: Colors.black,
+                        backgroundColor: Theme.of(context).noPictureBackground,
                         radius: height / 2,
                         child: Icon(
                           Icons.image_not_supported_outlined,
                           size: height * 0.8,
-                          color: Colors.white,
+                          color: Theme.of(context).onNoPictureBackground,
                         ),
                       ),
               ),
@@ -78,7 +79,6 @@ class FoodListItem extends StatelessWidget {
                       Text(
                         '${food.calories?.toStringAsFixed(0)} kcal / 100 g',
                         style: const TextStyle(
-                          color: Colors.grey,
                           fontWeight: FontWeight.w300,
                           fontSize: 10,
                         ),

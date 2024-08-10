@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import '../../providers/tracked_food_provider.dart';
 import '../models/food/food_tracked.dart';
 import '../pages/tab_tracking/track_food_modal.dart';
+import '../theme/energize_theme.dart';
 
 class TrackedFoodList extends StatelessWidget {
   final ScrollController _scrollController;
@@ -56,9 +57,10 @@ class TrackedFoodList extends StatelessWidget {
                 return Dismissible(
                   key: Key(food.id),
                   background: Container(
-                    color: Colors.red,
-                    child: const Icon(
+                    color: Theme.of(context).dangerContainer,
+                    child: Icon(
                       Icons.delete,
+                      color: Theme.of(context).onDangerContainer,
                     ),
                   ),
                   onDismissed: (direction) {
@@ -68,13 +70,11 @@ class TrackedFoodList extends StatelessWidget {
 
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
-                        backgroundColor: Theme.of(context).colorScheme.error,
                         content: Text(
                           '${food.title} ${AppLocalizations.of(context)!.deleted}',
                         ),
                         action: SnackBarAction(
                           label: AppLocalizations.of(context)!.undo,
-                          textColor: Theme.of(context).colorScheme.onSecondary,
                           onPressed: () {
                             trackedFood.addEatenFood(swipedFood);
                           },
@@ -107,7 +107,6 @@ class TrackedFoodList extends StatelessWidget {
                                       Text(
                                         '${food.amount.toStringAsFixed(0)} g',
                                         style: const TextStyle(
-                                          color: Colors.grey,
                                           fontWeight: FontWeight.w300,
                                           fontSize: 10,
                                         ),
@@ -115,8 +114,9 @@ class TrackedFoodList extends StatelessWidget {
                                       const SizedBox(width: 10),
                                       Text(
                                         '[${AppLocalizations.of(context)!.protein.substring(0, 1)} ${food.proteinPerAmount.toStringAsFixed(0)}]',
-                                        style: const TextStyle(
-                                          color: Colors.green,
+                                        style: TextStyle(
+                                          color: Theme.of(context)
+                                              .proteinContainer,
                                           fontWeight: FontWeight.w300,
                                           fontSize: 10,
                                         ),
@@ -124,8 +124,9 @@ class TrackedFoodList extends StatelessWidget {
                                       const SizedBox(width: 10),
                                       Text(
                                         '[${AppLocalizations.of(context)!.carbs.substring(0, 1)} ${food.carbsPerAmount.toStringAsFixed(0)}]',
-                                        style: const TextStyle(
-                                          color: Colors.blue,
+                                        style: TextStyle(
+                                          color:
+                                              Theme.of(context).carbsContainer,
                                           fontWeight: FontWeight.w300,
                                           fontSize: 10,
                                         ),
@@ -133,8 +134,8 @@ class TrackedFoodList extends StatelessWidget {
                                       const SizedBox(width: 10),
                                       Text(
                                         '[${AppLocalizations.of(context)!.fat.substring(0, 1)} ${food.fatPerAmount.toStringAsFixed(0)}]',
-                                        style: const TextStyle(
-                                          color: Colors.red,
+                                        style: TextStyle(
+                                          color: Theme.of(context).fatContainer,
                                           fontWeight: FontWeight.w300,
                                           fontSize: 10,
                                         ),
@@ -148,7 +149,7 @@ class TrackedFoodList extends StatelessWidget {
                             Container(
                               decoration: BoxDecoration(
                                 border: Border.all(
-                                  color: Colors.amber,
+                                  color: Theme.of(context).extraHighlightColor,
                                   width: 2,
                                 ),
                                 borderRadius: BorderRadius.circular(6),
@@ -156,10 +157,10 @@ class TrackedFoodList extends StatelessWidget {
                               padding: const EdgeInsets.all(4),
                               child: Text(
                                 '${_caloriesPerAmount(food).toStringAsFixed(0)} kcal',
-                                style: const TextStyle(
+                                style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                   fontSize: 14,
-                                  color: Colors.amber,
+                                  color: Theme.of(context).extraHighlightColor,
                                 ),
                               ),
                             ),

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+import '../theme/energize_theme.dart';
+
 class FoodMicroCountPill extends StatelessWidget {
   final int count;
   final double height;
@@ -26,7 +28,7 @@ class FoodMicroCountPill extends StatelessWidget {
       height: height,
       decoration: BoxDecoration(
         border: Border.all(
-          color: Colors.amber,
+          color: Theme.of(context).extraHighlightColor,
           width: 2,
         ),
         borderRadius: BorderRadius.circular(20),
@@ -34,16 +36,16 @@ class FoodMicroCountPill extends StatelessWidget {
       padding: const EdgeInsets.all(4),
       child: Row(
         children: [
-          const Icon(
+          Icon(
             Icons.biotech,
-            color: Colors.amber,
+            color: Theme.of(context).extraHighlightColor,
           ),
           Text(
             _getPillText(context),
-            style: const TextStyle(
+            style: TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: 14,
-              color: Colors.amber,
+              color: Theme.of(context).extraHighlightColor,
             ),
           ),
         ],

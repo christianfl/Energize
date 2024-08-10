@@ -20,6 +20,7 @@ import 'pages/tabs_page.dart';
 import 'providers/app_settings.dart';
 import 'providers/custom_food_provider.dart';
 import 'providers/tracked_food_provider.dart';
+import 'theme/energize_theme.dart';
 
 Future main() async {
   if (kIsWeb) {
@@ -54,12 +55,8 @@ class MyApp extends StatelessWidget {
           GlobalCupertinoLocalizations.delegate,
         ],
         supportedLocales: AppLocalizations.supportedLocales,
-        theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(
-            seedColor: Colors.pink,
-            brightness: Brightness.dark,
-          ),
-        ),
+        theme: EnergizeTheme.theme,
+        darkTheme: EnergizeTheme.darkTheme,
         home: const TabsPage(),
         routes: {
           TrackFood.routeName: (ctx) => const TrackFood(),

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../theme/energize_theme.dart';
+
 class ChartBar extends StatelessWidget {
   final String title;
   final double value;
@@ -88,15 +90,15 @@ class ChartBar extends StatelessWidget {
                 borderRadius: BorderRadius.circular(20),
                 minHeight: 12,
                 color: color,
-                backgroundColor: const Color.fromRGBO(220, 220, 220, 1),
+                backgroundColor: Theme.of(context).progressBar,
                 value: _percentageBar,
               ),
               Center(
                 child: Text(
                   _percentageString,
-                  style: const TextStyle(
+                  style: TextStyle(
                     height: 1.0,
-                    color: Colors.black,
+                    color: Theme.of(context).onProgressBar,
                     fontSize: 12,
                   ),
                 ),

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+import 'widgets/calculation_tab/calculation_tab.dart';
 import 'widgets/energy_distribution_tab/energy_distribution_tab.dart';
 import 'widgets/micro_targets_tab/micro_targets_tab.dart';
-import 'widgets/calculation_tab/calculation_tab.dart';
 
 class NutritionTargetsPage extends StatefulWidget {
   static const routeName = '/settings/personalization';
@@ -24,7 +24,6 @@ class NutritionTargetsPageState extends State<NutritionTargetsPage> {
           title: Text(AppLocalizations.of(context)!.yourPersonalNutritionNeeds),
           bottom: TabBar(
             isScrollable: true,
-            indicatorColor: Colors.white,
             tabs: [
               Tab(
                 icon: const Icon(Icons.calculate),

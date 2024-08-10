@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+import '../../theme/energize_theme.dart';
 import 'about_sub_page.dart';
 import 'backup_and_restore_sub_page.dart';
 import 'database_management_sub_page.dart';
@@ -82,17 +83,15 @@ class SettingsPage extends StatelessWidget {
               );
             },
             child: ListTile(
-              tileColor: const Color(0xFFF6C915),
-              textColor: Colors.black,
-              leading: const Icon(
-                Icons.paid,
-                color: Colors.black,
-              ),
+              tileColor: Theme.of(context).donateContainer,
+              textColor: Theme.of(context).onDonateContainer,
+              iconColor: Theme.of(context).onDonateContainer,
+              leading: const Icon(Icons.paid),
               title: Text(
                 AppLocalizations.of(context)!.supportMeByDonating,
                 style: Theme.of(context).textTheme.titleMedium?.copyWith(
                       fontWeight: FontWeight.bold,
-                      color: Colors.black,
+                      color: Theme.of(context).onDonateContainer,
                     ),
               ),
               subtitle: const Text('Bitcoin, liberapay.com'),

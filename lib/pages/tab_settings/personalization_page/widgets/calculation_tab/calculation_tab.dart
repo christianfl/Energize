@@ -315,7 +315,6 @@ class CalculationTabState extends State<CalculationTab> {
 
   void _applyTargets(BuildContext context, AppSettings appSettings) {
     String snackbarText = AppLocalizations.of(context)!.targetsApplied;
-    Color? snackbarColor;
 
     try {
       // Calories and macros
@@ -338,15 +337,11 @@ class CalculationTabState extends State<CalculationTab> {
       }
     } catch (e) {
       snackbarText = AppLocalizations.of(context)!.targetsApplyError;
-      snackbarColor = Colors.red;
     } finally {
       Navigator.pop(context);
 
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(snackbarText),
-          backgroundColor: snackbarColor,
-        ),
+        SnackBar(content: Text(snackbarText)),
       );
     }
   }

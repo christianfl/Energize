@@ -3,9 +3,10 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
-import './chart_bar.dart';
 import '../models/food/food_tracked.dart';
 import '../providers/app_settings.dart';
+import '../theme/energize_theme.dart';
+import './chart_bar.dart';
 
 class NutritionFactsLabelEU extends StatelessWidget {
   final List<FoodTracked> foods;
@@ -90,7 +91,7 @@ class NutritionFactsLabelEU extends StatelessWidget {
           value: _totalCalories,
           target: appSettings.caloriesTarget,
           unit: 'kcal',
-          color: Colors.yellow,
+          color: Theme.of(context).energyContainer,
           decimalPlaces: 1,
         ),
         const SizedBox(height: 12.0),
@@ -99,7 +100,7 @@ class NutritionFactsLabelEU extends StatelessWidget {
           value: _totalFat,
           target: appSettings.fatTarget,
           unit: 'g',
-          color: Colors.red,
+          color: Theme.of(context).fatContainer,
           decimalPlaces: 1,
         ),
         Padding(
@@ -109,7 +110,7 @@ class NutritionFactsLabelEU extends StatelessWidget {
             value: _totalSaturatedFat,
             target: appSettings.saturatedFatTarget,
             unit: 'g',
-            color: Colors.red,
+            color: Theme.of(context).fatContainer,
             decimalPlaces: 1,
           ),
         ),
@@ -118,7 +119,7 @@ class NutritionFactsLabelEU extends StatelessWidget {
           value: _totalCarbs,
           target: appSettings.carbsTarget,
           unit: 'g',
-          color: Colors.blue,
+          color: Theme.of(context).carbsContainer,
           decimalPlaces: 1,
         ),
         Padding(
@@ -128,7 +129,7 @@ class NutritionFactsLabelEU extends StatelessWidget {
             value: _totalSugar,
             target: appSettings.sugarTarget,
             unit: 'g',
-            color: Colors.blue,
+            color: Theme.of(context).carbsContainer,
             decimalPlaces: 1,
           ),
         ),
@@ -137,7 +138,7 @@ class NutritionFactsLabelEU extends StatelessWidget {
           value: _totalFiber,
           target: appSettings.fiberTarget,
           unit: 'g',
-          color: Colors.blueGrey,
+          color: Theme.of(context).microNutrientsContainer,
           decimalPlaces: 1,
         ),
         ChartBar(
@@ -145,7 +146,7 @@ class NutritionFactsLabelEU extends StatelessWidget {
           value: _totalProtein,
           target: appSettings.proteinTarget,
           unit: 'g',
-          color: Colors.green,
+          color: Theme.of(context).proteinContainer,
           decimalPlaces: 1,
         ),
         ChartBar(
@@ -155,7 +156,7 @@ class NutritionFactsLabelEU extends StatelessWidget {
               ? appSettings.sodiumTarget / 1000 * sodiumToSaltFacor
               : 0,
           unit: 'g',
-          color: Colors.blueGrey,
+          color: Theme.of(context).microNutrientsContainer,
           decimalPlaces: 1,
         ),
         const SizedBox(height: 10),

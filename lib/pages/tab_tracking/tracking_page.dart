@@ -7,6 +7,7 @@ import 'package:table_calendar/table_calendar.dart';
 
 import '../../providers/tracked_food_provider.dart';
 import '../../services/sqlite/complete_days_database_service.dart';
+import '../../theme/energize_theme.dart';
 import '../../utils/date_util.dart';
 import '../../utils/time_util.dart';
 import '../../widgets/food_input.dart';
@@ -55,12 +56,7 @@ class TrackingPageState extends State<TrackingPage> {
   void _startAddEatenFood(BuildContext ctx, SheetModalMode mode) {
     showModalBottomSheet(
       context: ctx,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(10.0),
-          topRight: Radius.circular(10.0),
-        ),
-      ),
+      showDragHandle: true,
       builder: (_) {
         return FoodInput(_selectedDate, mode);
       },
@@ -92,8 +88,9 @@ class TrackingPageState extends State<TrackingPage> {
                 headerStyle: const HeaderStyle(
                   titleCentered: true,
                 ),
-                daysOfWeekStyle: const DaysOfWeekStyle(
-                  weekdayStyle: TextStyle(color: Colors.blueGrey),
+                daysOfWeekStyle: DaysOfWeekStyle(
+                  weekdayStyle: TextStyle(
+                      color: Theme.of(context).microNutrientsContainer),
                 ),
                 daysOfWeekHeight: 32.0,
                 startingDayOfWeek: StartingDayOfWeek.monday,
@@ -122,14 +119,16 @@ class TrackingPageState extends State<TrackingPage> {
                     return Center(
                       child: CircleAvatar(
                         radius: _datePickerHighlightRadius,
-                        backgroundColor: Colors.blue,
+                        backgroundColor:
+                            Theme.of(context).colorScheme.inverseSurface,
                         child: CircleAvatar(
                           radius: _datePickerHighlightRadius - 1,
                           backgroundColor:
                               Theme.of(context).dialogBackgroundColor,
                           child: Text(
                             '${day.day}',
-                            style: const TextStyle(color: Colors.white),
+                            style: TextStyle(
+                                color: Theme.of(context).colorScheme.onSurface),
                           ),
                         ),
                       ),
@@ -139,10 +138,14 @@ class TrackingPageState extends State<TrackingPage> {
                     return Center(
                       child: CircleAvatar(
                         radius: _datePickerHighlightRadius,
-                        backgroundColor: Colors.blue,
+                        backgroundColor:
+                            Theme.of(context).colorScheme.inverseSurface,
                         child: Text(
                           '${day.day}',
-                          style: const TextStyle(color: Colors.white),
+                          style: TextStyle(
+                              color: Theme.of(context)
+                                  .colorScheme
+                                  .onInverseSurface),
                         ),
                       ),
                     );
@@ -154,15 +157,17 @@ class TrackingPageState extends State<TrackingPage> {
                         children: [
                           CircleAvatar(
                             radius: _datePickerHighlightRadius,
-                            backgroundColor: Colors.green,
+                            backgroundColor: Theme.of(context).successContainer,
                             child: Text(
                               '${day.day}',
-                              style: const TextStyle(color: Colors.white),
+                              style: TextStyle(
+                                  color: Theme.of(context).onSuccessContainer),
                             ),
                           ),
-                          const Icon(
+                          Icon(
                             Icons.check,
                             size: 16,
+                            color: Theme.of(context).onSuccessContainer,
                           ),
                         ],
                       ),
@@ -226,7 +231,6 @@ class TrackingPageState extends State<TrackingPage> {
 
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          backgroundColor: Theme.of(context).colorScheme.error,
           content: Text(AppLocalizations.of(context)!.unmarkedDayAsComplete),
         ),
       );
@@ -235,7 +239,6 @@ class TrackingPageState extends State<TrackingPage> {
 
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          backgroundColor: Theme.of(context).colorScheme.secondary,
           content: Text(AppLocalizations.of(context)!.markedDayAsComplete),
         ),
       );
@@ -311,11 +314,12 @@ class TrackingPageState extends State<TrackingPage> {
                 _selectDate(_selectedDate.subtract(const Duration(days: 1)));
               },
               icon: const Icon(Icons.arrow_left),
-              color: Colors.white,
             ),
             TextButton(
               onPressed: () => _pickDateDialog(context),
-              style: TextButton.styleFrom(foregroundColor: Colors.white),
+              style: TextButton.styleFrom(
+                  foregroundColor:
+                      Theme.of(context).colorScheme.onPrimaryContainer),
               child: Text(DateUtil.getDate(_selectedDate, context)),
             ),
             IconButton(
@@ -323,11 +327,12 @@ class TrackingPageState extends State<TrackingPage> {
                 _selectDate(_selectedDate.add(const Duration(days: 1)));
               },
               icon: const Icon(Icons.arrow_right),
-              color: Colors.white,
             ),
             TextButton(
               onPressed: () => _selectTime(context),
-              style: TextButton.styleFrom(foregroundColor: Colors.white),
+              style: TextButton.styleFrom(
+                  foregroundColor:
+                      Theme.of(context).colorScheme.onPrimaryContainer),
               child: Text(TimeUtil.getTime(_selectedDate, context)),
             ),
           ],
@@ -369,8 +374,6 @@ class TrackingPageState extends State<TrackingPage> {
               curve: Curves.linear,
               icon: Icons.add,
               activeIcon: Icons.close,
-              backgroundColor: Theme.of(context).colorScheme.secondary,
-              foregroundColor: Theme.of(context).colorScheme.onSecondary,
               overlayOpacity: 0,
               animationDuration: const Duration(),
               children: [
@@ -378,9 +381,13 @@ class TrackingPageState extends State<TrackingPage> {
                   shape: const RoundedRectangleBorder(
                     borderRadius: BorderRadius.all(Radius.circular(12)),
                   ),
-                  backgroundColor: Colors.red,
+                  backgroundColor:
+                      Theme.of(context).colorScheme.primaryContainer,
+                  foregroundColor:
+                      Theme.of(context).colorScheme.onPrimaryContainer,
                   label: AppLocalizations.of(context)!.searchFood,
-                  labelBackgroundColor: Colors.red,
+                  labelBackgroundColor:
+                      Theme.of(context).colorScheme.primaryContainer,
                   onTap: () =>
                       _startAddEatenFood(context, SheetModalMode.search),
                   child: const Icon(Icons.search),
@@ -389,9 +396,13 @@ class TrackingPageState extends State<TrackingPage> {
                   shape: const RoundedRectangleBorder(
                     borderRadius: BorderRadius.all(Radius.circular(12)),
                   ),
-                  backgroundColor: Colors.blue,
+                  backgroundColor:
+                      Theme.of(context).colorScheme.primaryContainer,
+                  foregroundColor:
+                      Theme.of(context).colorScheme.onPrimaryContainer,
                   label: AppLocalizations.of(context)!.scanBarcode,
-                  labelBackgroundColor: Colors.blue,
+                  labelBackgroundColor:
+                      Theme.of(context).colorScheme.primaryContainer,
                   onTap: () => _startAddEatenFood(context, SheetModalMode.ean),
                   child: const Icon(Icons.qr_code),
                 ),

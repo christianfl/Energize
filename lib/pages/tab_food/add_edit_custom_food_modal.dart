@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 
 import '../../models/food/food.dart';
 import '../../providers/custom_food_provider.dart';
+import '../../theme/energize_theme.dart';
 import '../../widgets/category_list_tile_header.dart';
 import '../../widgets/nutrition_facts_label_eu.dart';
 import 'food_page.dart';
@@ -456,14 +457,15 @@ class AddEditCustomFoodModalState extends State<AddEditCustomFoodModal> {
                             food!.imageUrl!,
                           ),
                         )
-                      : const CircleAvatar(
-                          backgroundColor: Colors.black,
+                      : CircleAvatar(
+                          backgroundColor:
+                              Theme.of(context).noPictureBackground,
                           radius: AddEditCustomFoodModal._foodAvatarRadius,
                           child: Icon(
                             Icons.image_not_supported_outlined,
                             size:
                                 AddEditCustomFoodModal._foodAvatarRadius * 1.8,
-                            color: Colors.white,
+                            color: Theme.of(context).onNoPictureBackground,
                           ),
                         ),
                   const SizedBox(width: 20),

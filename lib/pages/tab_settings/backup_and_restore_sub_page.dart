@@ -10,6 +10,7 @@ import 'package:provider/provider.dart';
 import '../../providers/app_settings.dart';
 import '../../services/backup_service.dart';
 import '../../services/webdav_service.dart';
+import '../../theme/energize_theme.dart';
 import '../../widgets/info_card.dart';
 import '../../widgets/select_action_card.dart';
 
@@ -57,10 +58,7 @@ class BackupAndRestoreSubPageState extends State<BackupAndRestoreSubPage> {
 
     // Show error
     ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        backgroundColor: Colors.red,
-        content: Text(text.replaceAll('Exception: ', '')),
-      ),
+      SnackBar(content: Text(text.replaceAll('Exception: ', ''))),
     );
 
     // Stop loading spinner
@@ -597,13 +595,14 @@ Imported $numberOfCustomFoods custom foods and $numberOfTrackedFoods tracked foo
             if (_isBusy) const LinearProgressIndicator(),
             Column(
               children: [
-                const Padding(
-                  padding: EdgeInsets.fromLTRB(12.0, 12.0, 12.0, 0.0),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(12.0, 12.0, 12.0, 0.0),
                   child: InfoCard(
                     message:
                         'Warning: Settings, personalizations and targets are not yet included!',
-                    icon: Icon(Icons.warning),
-                    color: Colors.deepOrange,
+                    icon: Icon(Icons.warning,
+                        color: Theme.of(context).onWarningContainer),
+                    color: Theme.of(context).warningContainer,
                   ),
                 ),
                 GridView.count(

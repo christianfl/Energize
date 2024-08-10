@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import '../../models/food/food.dart';
 import '../../pages/tab_food/add_edit_custom_food_modal.dart';
 import '../../providers/custom_food_provider.dart';
+import '../../theme/energize_theme.dart';
 import '../../widgets/food_list_item.dart';
 
 class FoodPage extends StatefulWidget {
@@ -145,8 +146,9 @@ class FoodPageState extends State<FoodPage> {
                       return Dismissible(
                         key: Key(food.id),
                         background: Container(
-                          color: Colors.red,
-                          child: const Icon(Icons.delete),
+                          color: Theme.of(context).dangerContainer,
+                          child: Icon(Icons.delete,
+                              color: Theme.of(context).onDangerContainer),
                         ),
                         onDismissed: (direction) {
                           final swipedFood = food;
@@ -155,15 +157,11 @@ class FoodPageState extends State<FoodPage> {
 
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(
-                              backgroundColor:
-                                  Theme.of(context).colorScheme.error,
                               content: Text(
                                 '${food.title} ${AppLocalizations.of(context)!.deleted}',
                               ),
                               action: SnackBarAction(
                                 label: AppLocalizations.of(context)!.undo,
-                                textColor:
-                                    Theme.of(context).colorScheme.onSecondary,
                                 onPressed: () {
                                   customFoodProvider.addFood(swipedFood);
                                 },
@@ -200,8 +198,6 @@ class FoodPageState extends State<FoodPage> {
               _isFabExplicitelyVisible
           ? FloatingActionButton(
               onPressed: () => _navigateToAddCustomFood(context),
-              backgroundColor: Theme.of(context).colorScheme.secondary,
-              foregroundColor: Theme.of(context).colorScheme.onSecondary,
               child: const Icon(Icons.add),
             )
           : null,

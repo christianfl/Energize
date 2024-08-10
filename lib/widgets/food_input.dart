@@ -571,7 +571,10 @@ class FoodInputState extends State<FoodInput>
                       child: _productNotFoundExceptionEan != null
                           ? Container(
                               decoration: BoxDecoration(
-                                color: Colors.grey.withAlpha(150),
+                                color: Theme.of(context)
+                                    .colorScheme
+                                    .surface
+                                    .withAlpha(150),
                                 borderRadius: const BorderRadius.all(
                                   Radius.circular(10.0),
                                 ),
@@ -583,6 +586,11 @@ class FoodInputState extends State<FoodInput>
                                   Expanded(
                                     child: Text(
                                       '$_productNotFoundExceptionEan ${AppLocalizations.of(context)!.notFound}',
+                                      style: TextStyle(
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .onSurface,
+                                      ),
                                     ),
                                   ),
                                   ElevatedButton.icon(

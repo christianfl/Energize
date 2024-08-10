@@ -4,6 +4,7 @@ import '../pages/tab_food/food_page.dart';
 import '../services/food_database_bindings/open_food_facts/open_food_facts_binding.dart';
 import '../services/food_database_bindings/swiss_food_composition_database/swiss_food_composition_database_binding.dart';
 import '../services/food_database_bindings/usda/usda_binding.dart';
+import '../theme/energize_theme.dart';
 
 class FoodOriginLogoPill extends StatelessWidget {
   final String foodOrigin;
@@ -36,7 +37,7 @@ class FoodOriginLogoPill extends StatelessWidget {
   Color? _getColor(BuildContext context) {
     switch (foodOrigin) {
       case USDABinding.originName:
-        return const Color(0xFF004785);
+        return Theme.of(context).usdaColor;
       case FoodPage.originName:
         return Theme.of(context).colorScheme.secondary;
     }

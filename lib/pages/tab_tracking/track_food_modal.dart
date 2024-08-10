@@ -8,6 +8,7 @@ import '../../models/food/food_tracked.dart';
 import '../../pages/tab_food/add_edit_custom_food_modal.dart';
 import '../../providers/tracked_food_provider.dart';
 import '../../services/food_database_bindings/open_food_facts/open_food_facts_binding.dart';
+import '../../theme/energize_theme.dart';
 import '../../utils/date_util.dart';
 import '../../utils/time_util.dart';
 import '../../widgets/food_micro_count_pill.dart';
@@ -371,13 +372,14 @@ class TrackFoodState extends State<TrackFood>
                             food.imageUrl!,
                           ),
                         )
-                      : const CircleAvatar(
-                          backgroundColor: Colors.black,
+                      : CircleAvatar(
+                          backgroundColor:
+                              Theme.of(context).noPictureBackground,
                           radius: TrackFood._foodAvatarRadius,
                           child: Icon(
                             Icons.image_not_supported_outlined,
                             size: TrackFood._foodAvatarRadius * 1.8,
-                            color: Colors.white,
+                            color: Theme.of(context).onNoPictureBackground,
                           ),
                         ),
                   const SizedBox(width: 20),
