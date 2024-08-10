@@ -36,7 +36,15 @@ Future main() async {
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  /// Call MyApp in debug mode without debug mode banner.
+  ///
+  /// Used for screenshot creation within integration tests.
+  final bool debugShowCheckedModeBanner;
+
+  const MyApp({
+    super.key,
+    this.debugShowCheckedModeBanner = true,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -47,6 +55,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (ctx) => CustomFoodProvider()),
       ],
       child: MaterialApp(
+        debugShowCheckedModeBanner: debugShowCheckedModeBanner,
         title: 'Energize',
         localizationsDelegates: const [
           AppLocalizations.delegate,

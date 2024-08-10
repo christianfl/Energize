@@ -35,7 +35,7 @@ void main() {
   group('Settings Page Test', () {
     testWidgets('isLoaded', (WidgetTester tester) async {
       // Load MyApp widget
-      await tester.pumpWidget(const MyApp());
+      await tester.pumpWidget(const MyApp(debugShowCheckedModeBanner: false));
 
       /// Check there are three navigation bar items
       final navigationItems = find.byType(NavigationDestination);
