@@ -14,6 +14,9 @@ class AboutSubPage extends StatefulWidget {
       'https://hosted.weblate.org/projects/energize/energize';
   static const _copyrightNotice = '© Christian Flaßkamp';
   static const _license = 'GPLv3';
+  static const _contributors = [
+    'Marijn Kok',
+  ];
 
   const AboutSubPage({super.key});
 
@@ -38,6 +41,47 @@ class _AboutSubPageState extends State<AboutSubPage> {
     setState(() {
       _appVersion = packageInfo.version;
     });
+  }
+
+  /// Shows dialog for listing the Energize contributors
+  Future<void> _showContributorsDialog() async {
+    final contributors = List.from(AboutSubPage._contributors);
+    contributors.add(AppLocalizations.of(context)!.allTranslatorsOnWeblate);
+
+    return showDialog<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(AppLocalizations.of(context)!.contributors),
+              const SizedBox(height: 18),
+              Text(
+                AppLocalizations.of(context)!.thanksToContributorsText,
+                style: Theme.of(context).textTheme.bodyMedium,
+              ),
+            ],
+          ),
+          content: SizedBox(
+            width: MediaQuery.of(context).size.width,
+            child: ListView.builder(
+              itemCount: contributors.length,
+              shrinkWrap: true,
+              itemBuilder: (BuildContext context, int index) {
+                return ListTile(title: Text(contributors[index]));
+              },
+            ),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(),
+              child: Text(MaterialLocalizations.of(context).okButtonLabel),
+            ),
+          ],
+        );
+      },
+    );
   }
 
   @override
@@ -181,6 +225,15 @@ class _AboutSubPageState extends State<AboutSubPage> {
                   title: Text(AppLocalizations.of(context)!.translation),
                   subtitle: const Text('Weblate.org'),
                   trailing: const Icon(Icons.link),
+                ),
+              ),
+              InkWell(
+                onTap: () async {
+                  _showContributorsDialog();
+                },
+                child: ListTile(
+                  leading: const Icon(Icons.people),
+                  title: Text(AppLocalizations.of(context)!.contributors),
                 ),
               ),
               InkWell(
