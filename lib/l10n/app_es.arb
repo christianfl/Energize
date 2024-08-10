@@ -382,5 +382,11 @@
   "scanBarcode": "Escanear código de barras",
   "@scanBarcode": {},
   "productOrBrand": "Producto o marca",
-  "@productOrBrand": {}
+  "@productOrBrand": {},
+  "allTranslatorsOnWeblate": "Todos los traductores de Weblate",
+  "@allTranslatorsOnWeblate": {},
+  "contributors": "Colaboradores",
+  "@contributors": {},
+  "thanksToContributorsText": "Gracias a todas las personas que han contribuido a Energize. Gracias a su ayuda, Energize pudo convertirse en lo que es ahora.",
+  "@thanksToContributorsText": {}
 }
