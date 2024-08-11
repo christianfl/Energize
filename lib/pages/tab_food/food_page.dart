@@ -110,37 +110,31 @@ class FoodPageState extends State<FoodPage> {
       body: Column(
         children: [
           Padding(
-            padding: const EdgeInsets.fromLTRB(8.0, 8.0, 8.0, 0.0),
-            child: Card(
-              child: Padding(
-                padding: const EdgeInsets.all(5.0),
-                child: TextField(
-                  controller: _searchInputController,
-                  onChanged: (searchString) => populateSearchedFoodList(
-                    searchString,
-                    customFoodProvider,
-                  ),
-                  decoration: InputDecoration(
-                    border: InputBorder.none,
-                    hintText: AppLocalizations.of(context)!.searchCustomFood,
-                    prefixIcon: const Icon(Icons.search),
-                    suffixIcon: IconButton(
-                      onPressed: () => {
-                        _searchInputController.clear(),
-                        populateSearchedFoodList('', customFoodProvider),
-                      },
-                      icon: const Icon(Icons.clear),
-                    ),
-                  ),
-                ),
+            padding: const EdgeInsets.all(12.0),
+            child: SearchBar(
+              controller: _searchInputController,
+              onChanged: (searchString) => populateSearchedFoodList(
+                searchString,
+                customFoodProvider,
               ),
+              hintText: AppLocalizations.of(context)!.searchCustomFood,
+              leading: const Icon(Icons.search),
+              trailing: [
+                IconButton(
+                  onPressed: () => {
+                    _searchInputController.clear(),
+                    populateSearchedFoodList('', customFoodProvider),
+                  },
+                  icon: const Icon(Icons.clear),
+                ),
+              ],
+              elevation: WidgetStateProperty.all(0),
             ),
           ),
           Expanded(
             child: (_searchResultFoods.isNotEmpty)
                 ? ListView.builder(
                     controller: _scrollController,
-                    padding: const EdgeInsets.all(8.0),
                     itemBuilder: (ctx, index) {
                       final food = _searchResultFoods[index];
                       return Dismissible(

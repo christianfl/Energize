@@ -31,100 +31,78 @@ class FoodListItem extends StatelessWidget {
   Widget build(BuildContext context) {
     final trackedFoodProvider = Provider.of<TrackedFoodProvider>(context);
 
-    return Card(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(26),
+    return ListTile(
+      dense: true,
+      contentPadding: const EdgeInsets.only(left: 16.0, right: 8.0),
+      onTap: () => onTapCallback(context, food),
+      leading: (food.imageThumbnailUrl != null)
+          ? CircleAvatar(
+              radius: height / 2,
+              foregroundImage: NetworkImage(
+                food.imageThumbnailUrl!,
+              ),
+            )
+          : CircleAvatar(
+              backgroundColor: Theme.of(context).noPictureBackground,
+              radius: height / 2,
+              child: Icon(
+                Icons.image_not_supported_outlined,
+                size: height * 0.8,
+                color: Theme.of(context).onNoPictureBackground,
+              ),
+            ),
+      title: Text(
+        food.title,
+        maxLines: 1,
+        overflow: TextOverflow.ellipsis,
       ),
-      child: InkWell(
-        onTap: () => onTapCallback(context, food),
-        customBorder: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(26),
-        ),
-        child: SizedBox(
-          height: height,
-          child: Row(
-            children: <Widget>[
-              Padding(
-                padding:
-                    const EdgeInsets.only(left: 0.5, top: 3.0, bottom: 3.0),
-                child: (food.imageThumbnailUrl != null)
-                    ? CircleAvatar(
-                        radius: height / 2,
-                        foregroundImage: NetworkImage(
-                          food.imageThumbnailUrl!,
-                        ),
-                      )
-                    : CircleAvatar(
-                        backgroundColor: Theme.of(context).noPictureBackground,
-                        radius: height / 2,
-                        child: Icon(
-                          Icons.image_not_supported_outlined,
-                          size: height * 0.8,
-                          color: Theme.of(context).onNoPictureBackground,
-                        ),
-                      ),
+      subtitle: (food.calories != null)
+          ? Text(
+              '${food.calories?.toStringAsFixed(0)} kcal / 100 g',
+              style: const TextStyle(
+                fontWeight: FontWeight.w300,
+                fontSize: 10,
               ),
-              const SizedBox(width: 10),
-              Expanded(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Text(
-                      food.title,
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                    if (food.calories != null)
-                      Text(
-                        '${food.calories?.toStringAsFixed(0)} kcal / 100 g',
-                        style: const TextStyle(
-                          fontWeight: FontWeight.w300,
-                          fontSize: 10,
-                        ),
-                      ),
-                  ],
-                ),
-              ),
-              const SizedBox(width: 10),
-              FoodMicroCountPill(
-                food.nutrientCount,
-                height: pillHeight,
-                showText: false,
-              ),
-              const SizedBox(width: 8),
-              hideOrigin == null || hideOrigin == false
-                  ? FoodOriginLogoPill(
-                      food.origin,
-                      width: 50,
-                      height: pillHeight,
-                    )
-                  : Container(),
-              quickAddFoodCallback != null
-                  ? GestureDetector(
-                      onTap: () =>
-                          quickAddFoodCallback!(food, trackedFoodProvider),
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 8.0, right: 8.0),
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            const Icon(Icons.add),
-                            Text(
-                              '${((getQuickAddFoodAmountCallback!(food) as double).toStringAsFixed(0))} g',
-                              style: const TextStyle(
-                                fontWeight: FontWeight.w300,
-                                fontSize: 8,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    )
-                  : Container(),
-            ],
+            )
+          : null,
+      trailing: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          FoodMicroCountPill(
+            food.nutrientCount,
+            height: pillHeight,
+            showText: false,
           ),
-        ),
+          const SizedBox(width: 8),
+          hideOrigin == null || hideOrigin == false
+              ? FoodOriginLogoPill(
+                  food.origin,
+                  width: 50,
+                  height: pillHeight,
+                )
+              : Container(),
+          quickAddFoodCallback != null
+              ? GestureDetector(
+                  onTap: () => quickAddFoodCallback!(food, trackedFoodProvider),
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 8.0, right: 8.0),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        const Icon(Icons.add),
+                        Text(
+                          '${((getQuickAddFoodAmountCallback!(food) as double).toStringAsFixed(0))} g',
+                          style: const TextStyle(
+                            fontWeight: FontWeight.w300,
+                            fontSize: 8,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                )
+              : Container(),
+        ],
       ),
     );
   }
