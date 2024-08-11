@@ -388,5 +388,51 @@
   "contributors": "Colaboradores",
   "@contributors": {},
   "thanksToContributorsText": "Gracias a todas las personas que han contribuido a Energize. Gracias a su ayuda, Energize pudo convertirse en lo que es ahora.",
-  "@thanksToContributorsText": {}
+  "@thanksToContributorsText": {},
+  "unknownErrorText": "Se ha producido un error desconocido",
+  "@unknownErrorText": {},
+  "missingBackupPartsHint": "Advertencia: ¡Las configuraciones, personalizaciones y objetivos aún no están incluidos!",
+  "@missingBackupPartsHint": {},
+  "importedNumberOfFoodsMessage": "Importados {customFoodsCount} alimentos personalizados y {trackedFoodsCount} alimentos rastreados",
+  "@importedNumberOfFoodsMessage": {
+    "placeholders": {
+      "customFoodsCount": {
+        "type": "int",
+        "format": "decimalPattern",
+        "example": "123"
+      },
+      "trackedFoodsCount": {
+        "type": "int",
+        "format": "decimalPattern",
+        "example": "123"
+      }
+    }
+  },
+  "restoreWebDAVBackup": "Restaurar copia de seguridad de WebDAV",
+  "@restoreWebDAVBackup": {},
+  "exportedNumberOfFoodsMessage": "Exportado {customFoodsCount} alimentos personalizados y {trackedFoodsCount} alimentos rastreados",
+  "@exportedNumberOfFoodsMessage": {
+    "placeholders": {
+      "customFoodsCount": {
+        "type": "int",
+        "format": "decimalPattern",
+        "example": "123"
+      },
+      "trackedFoodsCount": {
+        "type": "int",
+        "format": "decimalPattern",
+        "example": "123"
+      }
+    }
+  },
+  "successfullyRestoredBackup": "Copia de seguridad restaurada correctamente",
+  "@successfullyRestoredBackup": {},
+  "restoreLocalBackup": "Restaurar copia de seguridad local",
+  "@restoreLocalBackup": {},
+  "successfullyCreatedBackup": "Copia de seguridad creada correctamente",
+  "@successfullyCreatedBackup": {},
+  "createWebDAVBackup": "Crear copia de seguridad de WebDAV",
+  "@createWebDAVBackup": {},
+  "createLocalBackup": "Crear copia de seguridad local",
+  "@createLocalBackup": {}
 }
