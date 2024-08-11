@@ -15,7 +15,7 @@ class SwissFoodCompositionDatabaseBinding {
     if (_sfcdb.isNotEmpty) return _sfcdb;
 
     for (var entry in sfcdbData) {
-      var food = entry.split('§');
+      final food = entry.split('§');
 
       _sfcdb.add(
         Food(

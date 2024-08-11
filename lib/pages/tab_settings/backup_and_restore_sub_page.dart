@@ -543,7 +543,7 @@ ${AppLocalizations.of(context)!.exportedNumberOfFoodsMessage(
     }
 
     // Pick file destination
-    FilePickerResult? pickerResult = await FilePicker.platform.pickFiles();
+    final FilePickerResult? pickerResult = await FilePicker.platform.pickFiles();
     final pickedPath = pickerResult?.files.single.path;
 
     // Picking was cancelled, bye!
@@ -552,7 +552,7 @@ ${AppLocalizations.of(context)!.exportedNumberOfFoodsMessage(
     }
 
     // Prepare file
-    File file = File(pickedPath);
+    final File file = File(pickedPath);
 
     // Show progress bar
     setState(() {

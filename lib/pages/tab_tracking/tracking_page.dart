@@ -99,7 +99,7 @@ class TrackingPageState extends State<TrackingPage> {
                 lastDay: DateTime.now().add(const Duration(days: 365)),
                 focusedDay: _selectedDate,
                 onDaySelected: (selectedDay, focusedDay) {
-                  DateTime selectedDateWithPreviousTime =
+                  final DateTime selectedDateWithPreviousTime =
                       _selectedDate.copyWith(
                     year: selectedDay.year,
                     month: selectedDay.month,
@@ -199,7 +199,7 @@ class TrackingPageState extends State<TrackingPage> {
 
   /// Sets the current in-app time which acts as standard value for newly added food items
   void _selectTime(BuildContext context) async {
-    TimeOfDay? selectedTime = await showTimePicker(
+    final TimeOfDay? selectedTime = await showTimePicker(
       initialEntryMode: TimePickerEntryMode.dialOnly,
       initialTime: TimeOfDay.now(),
       context: context,

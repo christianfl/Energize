@@ -38,7 +38,7 @@ class ChartBar extends StatelessWidget {
   }
 
   double get _percentageBar {
-    double scaleFactor = _percentage / 100;
+    final double scaleFactor = _percentage / 100;
 
     if (scaleFactor > 1) {
       return 1;

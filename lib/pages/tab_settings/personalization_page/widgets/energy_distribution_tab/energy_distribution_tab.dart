@@ -125,7 +125,7 @@ class _EnergyDistributionTabState extends State<EnergyDistributionTab> {
                                   pieTouchResponse.touchedSection == null) {
                                 return;
                               }
-                              int touchedPieChartIndex = pieTouchResponse
+                              final int touchedPieChartIndex = pieTouchResponse
                                   .touchedSection!.touchedSectionIndex;
 
                               // Set value only if valid (0, 1, 2)

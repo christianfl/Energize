@@ -227,7 +227,7 @@ class FoodInputState extends State<FoodInput>
   }
 
   void _quickAddFood(Food food, TrackedFoodProvider trackedFoodProvider) {
-    var foodToBeTracked = FoodTracked.fromFood(
+    final foodToBeTracked = FoodTracked.fromFood(
       food,
       FoodTracked.generatedId,
       _getQuickFoodAmount(food),
@@ -289,7 +289,7 @@ class FoodInputState extends State<FoodInput>
           Provider.of<CustomFoodProvider>(context, listen: false);
 
       // Non duplicate list of the food tracked the last X days
-      var foodFromLastXDays = List<Food>.of(
+      final foodFromLastXDays = List<Food>.of(
         await TrackedFoodDatabaseService.trackedFoodByDateRange(
           startDate: DateTime.now().subtract(
             const Duration(days: _foodInputSuggestionsFromLastXDays),
@@ -357,7 +357,7 @@ class FoodInputState extends State<FoodInput>
 
   /// Turns flash on if true ; off if false ; or leaves as is
   Future<void> _setFlash(bool newFlashStatus) async {
-    bool? flashStatus = await _getFlashStatus;
+    final bool? flashStatus = await _getFlashStatus;
 
     if (flashStatus == null) {
       // Cannot set flash if unsupported (on web)

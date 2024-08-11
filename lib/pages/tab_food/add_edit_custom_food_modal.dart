@@ -103,8 +103,8 @@ class AddEditCustomFoodModalState extends State<AddEditCustomFoodModal> {
           (!_foodSodiumFocusNode.hasFocus && !_foodSaltFocusNode.hasFocus)) {
         setState(() {
           try {
-            double sodium = double.parse(_foodSodiumController.text);
-            double salt =
+            final double sodium = double.parse(_foodSodiumController.text);
+            final double salt =
                 sodium / 1000 * NutritionFactsLabelEU.sodiumToSaltFacor;
 
             _foodSaltController.text = salt.toString();
@@ -121,8 +121,8 @@ class AddEditCustomFoodModalState extends State<AddEditCustomFoodModal> {
       if (_foodSaltFocusNode.hasFocus) {
         setState(() {
           try {
-            double salt = double.parse(_foodSaltController.text);
-            double sodium =
+            final double salt = double.parse(_foodSaltController.text);
+            final double sodium =
                 salt * 1000 / NutritionFactsLabelEU.sodiumToSaltFacor;
 
             _foodSodiumController.text = sodium.toString();
@@ -434,7 +434,7 @@ class AddEditCustomFoodModalState extends State<AddEditCustomFoodModal> {
     final args = ModalRoute.of(context)!.settings.arguments
         as AddEditCustomFoodModalArguments;
     final modalMode = args.mode;
-    var food = args.food;
+    final food = args.food;
 
     return Scaffold(
       appBar: AppBar(

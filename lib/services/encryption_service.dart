@@ -8,9 +8,9 @@ import 'package:encrypt/encrypt.dart' as enc;
 class EncryptionService {
   /// Returns a 256 bit AES key based on a given keyphrase
   static enc.Key _generateAesKey(String keyphrase) {
-    var bytes = utf8.encode(keyphrase);
-    var digest = sha256.convert(bytes);
-    Uint8List digestAsUint8List = Uint8List.fromList(digest.bytes);
+    final bytes = utf8.encode(keyphrase);
+    final digest = sha256.convert(bytes);
+    final Uint8List digestAsUint8List = Uint8List.fromList(digest.bytes);
     final key = enc.Key(digestAsUint8List);
     return key;
   }

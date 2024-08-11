@@ -86,7 +86,7 @@ class TrackFoodState extends State<TrackFood>
   }
 
   double _getParsedAmount(Food food) {
-    String amount = _amountCtrl.text.replaceAll(',', '.');
+    final String amount = _amountCtrl.text.replaceAll(',', '.');
 
     if (amount.contains('-')) {
       // Substract the substrings
@@ -126,9 +126,9 @@ class TrackFoodState extends State<TrackFood>
     }
 
     if (args.mode == ModalMode.add) {
-      DateTime dateAdded = DateTime.now();
-      String id = FoodTracked.generatedId;
-      FoodTracked foodToAdd = FoodTracked.fromFood(
+      final DateTime dateAdded = DateTime.now();
+      final String id = FoodTracked.generatedId;
+      final FoodTracked foodToAdd = FoodTracked.fromFood(
         args.food,
         id,
         amount,
@@ -166,7 +166,7 @@ class TrackFoodState extends State<TrackFood>
       amount = _getAmount(food);
     }
 
-    DateTime tempDate = DateTime.now();
+    final DateTime tempDate = DateTime.now();
     return FoodTracked.fromFood(
       food,
       'TEMP_FOR_CHART',
@@ -307,7 +307,7 @@ class TrackFoodState extends State<TrackFood>
   }
 
   void _selectTrackedTime() async {
-    TimeOfDay? selectedTime = await showTimePicker(
+    final TimeOfDay? selectedTime = await showTimePicker(
       initialTime: TimeOfDay.now(),
       context: context,
     );

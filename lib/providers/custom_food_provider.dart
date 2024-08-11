@@ -26,7 +26,7 @@ class CustomFoodProvider with ChangeNotifier {
   }
 
   void updateFood(Food food) {
-    var index = foods.indexWhere((element) => element.id == food.id);
+    final index = foods.indexWhere((element) => element.id == food.id);
     _foods[index] = food;
     notifyListeners();
 

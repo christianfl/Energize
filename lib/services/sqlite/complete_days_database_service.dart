@@ -8,7 +8,7 @@ class CompleteDaysDatabaseService with DatabaseService {
   static Future<bool> isDateCompleted(DateTime date) async {
     final db = await instance.database;
 
-    String day = '${date.year}-${date.month}-${date.day}';
+    final String day = '${date.year}-${date.month}-${date.day}';
 
     final List<Map<String, dynamic>> completeDay = await db.query(
       DatabaseService.completeDaysTable,
@@ -27,7 +27,7 @@ class CompleteDaysDatabaseService with DatabaseService {
   static Future<void> insert(DateTime date) async {
     final db = await instance.database;
 
-    Map<String, String> value = {
+    final Map<String, String> value = {
       'date': '${date.year}-${date.month}-${date.day}',
     };
 
@@ -40,7 +40,7 @@ class CompleteDaysDatabaseService with DatabaseService {
   static Future<void> remove(DateTime date) async {
     final db = await instance.database;
 
-    String day = '${date.year}-${date.month}-${date.day}';
+    final String day = '${date.year}-${date.month}-${date.day}';
 
     await db.delete(
       DatabaseService.completeDaysTable,

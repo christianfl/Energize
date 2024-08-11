@@ -1,5 +1,5 @@
-import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
+import 'package:sqflite/sqflite.dart';
 
 mixin DatabaseService {
   static Database? _database;
@@ -40,7 +40,7 @@ mixin DatabaseService {
   }
 
   Future _onCreate(Database db, int version) async {
-    var createCustomFoodstable = '''CREATE TABLE $customFoodstable(
+    const createCustomFoodstable = '''CREATE TABLE $customFoodstable(
       id TEXT PRIMARY KEY,
       title TEXT,
       origin TEXT,
@@ -96,7 +96,7 @@ mixin DatabaseService {
     )''';
     await db.execute(createCustomFoodstable);
 
-    var createTrackedFoodsTable = '''CREATE TABLE $trackedFoodsTable(
+    const createTrackedFoodsTable = '''CREATE TABLE $trackedFoodsTable(
       id TEXT PRIMARY KEY,
       amount REAL,
       dateEaten INTEGER,
@@ -155,7 +155,7 @@ mixin DatabaseService {
     )''';
     await db.execute(createTrackedFoodsTable);
 
-    var createCompleteDaysTable = '''CREATE TABLE $completeDaysTable(
+    const createCompleteDaysTable = '''CREATE TABLE $completeDaysTable(
       date TEXT PRIMARY KEY
     )''';
     await db.execute(createCompleteDaysTable);

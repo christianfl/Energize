@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../models/food/food_tracked.dart';
 import '../../services/sqlite/tracked_foods_database_service.dart';
+import '../models/food/food_tracked.dart';
 
 /// Gets food only from the selected date
 class TrackedFoodProvider with ChangeNotifier {
@@ -51,7 +51,7 @@ class TrackedFoodProvider with ChangeNotifier {
     double? amount,
     DateTime? dateEaten,
   }) {
-    var index = foods.indexWhere((element) => element.id == food.id);
+    final index = foods.indexWhere((element) => element.id == food.id);
 
     if (amount != null) {
       _foods[index].amount = amount;

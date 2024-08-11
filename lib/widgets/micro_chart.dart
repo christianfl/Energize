@@ -215,7 +215,8 @@ class MicroChart extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final appSettings = Provider.of<AppSettings>(context);
-    final microNutrientsContainerColor = Theme.of(context).microNutrientsContainer;
+    final microNutrientsContainerColor =
+        Theme.of(context).microNutrientsContainer;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,

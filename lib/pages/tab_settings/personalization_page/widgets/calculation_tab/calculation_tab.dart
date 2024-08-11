@@ -403,9 +403,9 @@ class CalculationTabState extends State<CalculationTab> {
       return '';
     }
 
-    String absolutePercent = (weightTarget.toValue() * 100).toStringAsFixed(0);
-    int absolutePercentInt = int.parse(absolutePercent);
-    int relativePercentInt = absolutePercentInt - 100;
+    final String absolutePercent = (weightTarget.toValue() * 100).toStringAsFixed(0);
+    final int absolutePercentInt = int.parse(absolutePercent);
+    final int relativePercentInt = absolutePercentInt - 100;
 
     String relativePercent = '$relativePercentInt %';
 

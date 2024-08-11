@@ -1,8 +1,8 @@
 import 'dart:convert';
 import 'dart:io';
-import 'package:path/path.dart' as p;
 
 import 'package:dio/dio.dart';
+import 'package:path/path.dart' as p;
 
 /// Offers methods for reading from and writing to remote WebDAV storage
 class WebDAVService {
@@ -55,7 +55,7 @@ class WebDAVService {
     final String urlAndPath = '$url${p.dirname(pathAndFilename)}';
 
     try {
-      Response res = await dioConnection.request(
+      final Response res = await dioConnection.request(
         urlAndPath,
         options: Options(
           method: 'PROPFIND',

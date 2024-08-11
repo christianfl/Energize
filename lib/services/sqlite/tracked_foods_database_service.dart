@@ -14,12 +14,12 @@ class TrackedFoodDatabaseService with DatabaseService {
   }) async {
     final db = await instance.database;
 
-    DateTime dayStart =
+    final DateTime dayStart =
         DateTime(startDate.year, startDate.month, startDate.day);
-    DateTime dayEnd =
+    final DateTime dayEnd =
         DateTime(endDate.year, endDate.month, endDate.day, 23, 59, 59, 999);
 
-    var args = [dayStart.millisecondsSinceEpoch, dayEnd.millisecondsSinceEpoch];
+    final args = [dayStart.millisecondsSinceEpoch, dayEnd.millisecondsSinceEpoch];
 
     final List<Map<String, dynamic>> trackedFoodMap = await db.query(
       DatabaseService.trackedFoodsTable,

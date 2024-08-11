@@ -54,14 +54,14 @@ class NutritionFactsLabelEU extends StatelessWidget {
   }
 
   double get _totalSalt {
-    double sodium =
+    final double sodium =
         foods.fold(0, (sum, f) => sum + _calcAmount(f.sodium, f.amount));
 
     if (sodium == 0) {
       return 0;
     }
 
-    double salt = sodium / 1000 * sodiumToSaltFacor;
+    final double salt = sodium / 1000 * sodiumToSaltFacor;
 
     return salt;
   }

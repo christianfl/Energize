@@ -37,13 +37,13 @@ class OpenFoodFactsBinding {
   }
 
   Future<Food> getFoodByEan(String barcode) async {
-    ProductQueryConfiguration configuration = ProductQueryConfiguration(
+    final ProductQueryConfiguration configuration = ProductQueryConfiguration(
       barcode,
       language: _queryLanguage,
       fields: [ProductField.ALL],
       version: const ProductQueryVersion(3),
     );
-    ProductResultV3 result =
+    final ProductResultV3 result =
         await OpenFoodAPIClient.getProductV3(configuration);
 
     if (result.status == ProductResultV3.statusSuccess) {
@@ -55,24 +55,24 @@ class OpenFoodFactsBinding {
 
   Future<List<Food>?> searchFood(String searchText) async {
     if (searchText.isEmpty) return null;
-    var parameters = <Parameter>[
+    final parameters = <Parameter>[
       const PageNumber(page: 1),
       const PageSize(size: 10),
       const SortBy(option: SortOption.POPULARITY),
       SearchTerms(terms: [searchText]),
     ];
 
-    ProductSearchQueryConfiguration configuration =
+    final ProductSearchQueryConfiguration configuration =
         ProductSearchQueryConfiguration(
       parametersList: parameters,
       language: _queryLanguage,
       version: const ProductQueryVersion(3),
     );
 
-    SearchResult result =
+    final SearchResult result =
         await OpenFoodAPIClient.searchProducts(null, configuration);
 
-    List<Food> transformedProducts = [];
+    final List<Food> transformedProducts = [];
 
     if (result.products != null) {
       for (var product in result.products!) {

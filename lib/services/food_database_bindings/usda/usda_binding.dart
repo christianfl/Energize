@@ -14,13 +14,13 @@ class USDABinding {
   static Future<List<Food>?> searchFood(String searchText) async {
     if (searchText.isEmpty) return null;
 
-    var url =
+    final url =
         'https://api.nal.usda.gov/fdc/v1/foods/search?api_key=$_apiKey&query=$searchText';
-    var uri = Uri.parse(url);
-    var response = await http.get(uri);
+    final uri = Uri.parse(url);
+    final response = await http.get(uri);
 
     if (response.statusCode == 200) {
-      var decodedResponse = jsonDecode(response.body);
+      final decodedResponse = jsonDecode(response.body);
 
       final List<dynamic> foods = decodedResponse['foods'];
       final List<Food> foodReturn = [];

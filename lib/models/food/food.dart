@@ -267,7 +267,7 @@ class Food {
       }
     }
 
-    var food = Food(
+    final food = Food(
       id: generatedId,
       title: '',
       origin: OpenFoodFactsBinding.originName,
@@ -291,7 +291,7 @@ class Food {
           ?.getValue(Nutrient.energyKCal, PerSize.oneHundredGrams);
     } else {
       if (product.nutriments?.getComputedKJ(PerSize.oneHundredGrams) != null) {
-        var kcal =
+        final kcal =
             product.nutriments!.getComputedKJ(PerSize.oneHundredGrams)! / 4.184;
         food.calories = double.parse(kcal.toStringAsFixed(1));
       } else {
@@ -398,7 +398,7 @@ class Food {
           ?.value;
     }
 
-    var food = Food(
+    final food = Food(
       id: generatedId,
       origin: USDABinding.originName,
       title: usdaFood.description ?? '',
