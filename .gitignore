@@ -46,4 +46,4 @@ app.*.map.json
 /android/app/release
 
 # Fastlane related
-/fastlane/metadata/android/en-US/images/phoneScreenshots/test.png
+/fastlane/metadata/android/en-US/images/phoneScreenshots/test*.png
