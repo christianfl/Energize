@@ -11,8 +11,10 @@ import '../../services/food_database_bindings/open_food_facts/open_food_facts_bi
 import '../../theme/energize_theme.dart';
 import '../../utils/date_util.dart';
 import '../../utils/time_util.dart';
+import '../../widgets/moving_end_contained_fab_location.dart';
 import '../../widgets/food_micro_count_pill.dart';
 import '../../widgets/food_origin_logo_pill.dart';
+import '../../widgets/keyboard_margin.dart';
 import '../../widgets/macro_chart.dart';
 import '../../widgets/micro_chart.dart';
 import '../../widgets/nutrition_facts_label_eu.dart';
@@ -472,30 +474,32 @@ class TrackFoodState extends State<TrackFood>
           ),
         ],
       ),
-      bottomNavigationBar: BottomAppBar(
-        child: Padding(
-          padding: const EdgeInsets.only(right: _fabSize + _fabPadding),
-          child: Row(
-            children: [
-              Expanded(
-                child: _getAmountInput(
-                  onEditingComplete: () => _addOrEditFood(args, trackedFood),
-                  food: food,
+      bottomNavigationBar: KeyboardMargin(
+        child: BottomAppBar(
+          child: Padding(
+            padding: const EdgeInsets.only(right: _fabSize + _fabPadding),
+            child: Row(
+              children: [
+                Expanded(
+                  child: _getAmountInput(
+                    onEditingComplete: () => _addOrEditFood(args, trackedFood),
+                    food: food,
+                  ),
                 ),
-              ),
-              const SizedBox(width: _fabPadding),
-              TextButton.icon(
-                icon: const Icon(Icons.schedule),
-                onPressed: () => _selectTrackedTime(),
-                label: Text(
-                  TimeUtil.getTime(_foodTrackDate!, context),
+                const SizedBox(width: _fabPadding),
+                TextButton.icon(
+                  icon: const Icon(Icons.schedule),
+                  onPressed: () => _selectTrackedTime(),
+                  label: Text(
+                    TimeUtil.getTime(_foodTrackDate!, context),
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.endContained,
+      floatingActionButtonLocation: const MovingEndContainedFabLocation(),
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.save),
         onPressed: () => _addOrEditFood(args, trackedFood),
