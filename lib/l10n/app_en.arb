@@ -11,6 +11,7 @@
     "deleted": "deleted",
     "loading": "Loading",
     "notFound": "not found",
+    "unknownErrorText": "An unknown error has occured",
     "@_TRACKING": {
     },
     "tracking": "Tracking",
@@ -135,6 +136,43 @@
     "usdaFoodDataCentralGeneralInformationText": "FoodData Central is a database of food and nutritions from the US department of agriculture. The data is under the public domain and contains about 200 foundation foods and over 380.000 branded foods.",
     "backupAndRestore": "Backup & Restore",
     "backupAndRestoreHint": "Store your data locally or on a WebDAV compatible cloud storage like Nextcloud",
+    "missingBackupPartsHint": "Warning: Settings, personalizations and targets are not yet included!",
+    "successfullyCreatedBackup": "Successfully created backup",
+    "exportedNumberOfFoodsMessage": "Exported {customFoodsCount} custom foods and {trackedFoodsCount} tracked foods",
+    "@exportedNumberOfFoodsMessage": {
+        "placeholders": {
+            "customFoodsCount": {
+                "type": "int",
+                "format": "decimalPattern",
+                "example": "123"
+            },
+            "trackedFoodsCount": {
+                "type": "int",
+                "format": "decimalPattern",
+                "example": "123"
+            }
+        }
+    },
+    "successfullyRestoredBackup": "Successfully restored backup",
+    "importedNumberOfFoodsMessage": "Imported {customFoodsCount} custom foods and {trackedFoodsCount} tracked foods",
+    "@importedNumberOfFoodsMessage": {
+        "placeholders": {
+            "customFoodsCount": {
+                "type": "int",
+                "format": "decimalPattern",
+                "example": "123"
+            },
+            "trackedFoodsCount": {
+                "type": "int",
+                "format": "decimalPattern",
+                "example": "123"
+            }
+        }
+    },
+    "createWebDAVBackup": "Create WebDAV backup",
+    "restoreWebDAVBackup": "Restore WebDAV backup",
+    "createLocalBackup": "Create local backup",
+    "restoreLocalBackup": "Restore local backup",
     "aboutEnergize": "About Energize",
     "license": "license",
     "allLicenses": "All licenses",

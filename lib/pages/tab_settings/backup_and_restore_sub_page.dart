@@ -54,7 +54,7 @@ class BackupAndRestoreSubPageState extends State<BackupAndRestoreSubPage> {
 
   void _showError(BuildContext context, {String? text}) {
     // Default error text
-    text ??= 'An unknown error has occured';
+    text ??= AppLocalizations.of(context)!.unknownErrorText;
 
     // Show error
     ScaffoldMessenger.of(context).showSnackBar(
@@ -119,8 +119,11 @@ class BackupAndRestoreSubPageState extends State<BackupAndRestoreSubPage> {
           SnackBar(
             content: Text(
               '''
-Successfully created backup.
-Exported $numberOfCustomFoods custom foods and $numberOfTrackedFoods tracked foods''',
+${AppLocalizations.of(context)!.successfullyCreatedBackup}
+${AppLocalizations.of(context)!.exportedNumberOfFoodsMessage(
+                numberOfCustomFoods,
+                numberOfTrackedFoods,
+              )}''',
             ),
           ),
         );
@@ -174,8 +177,11 @@ Exported $numberOfCustomFoods custom foods and $numberOfTrackedFoods tracked foo
           SnackBar(
             content: Text(
               '''
-Successfully restored backup.
-Imported $numberOfCustomFoods custom foods and $numberOfTrackedFoods tracked foods''',
+${AppLocalizations.of(context)!.successfullyRestoredBackup}
+${AppLocalizations.of(context)!.importedNumberOfFoodsMessage(
+                numberOfCustomFoods,
+                numberOfTrackedFoods,
+              )}''',
             ),
           ),
         );
@@ -224,7 +230,9 @@ Imported $numberOfCustomFoods custom foods and $numberOfTrackedFoods tracked foo
           child: Scaffold(
             appBar: AppBar(
               title: Text(
-                isForBackup ? 'Create WebDAV Backup' : 'Restore from WebDAV',
+                isForBackup
+                    ? AppLocalizations.of(context)!.createWebDAVBackup
+                    : AppLocalizations.of(context)!.restoreWebDAVBackup,
               ),
               centerTitle: false,
               automaticallyImplyLeading: false,
@@ -403,7 +411,9 @@ Imported $numberOfCustomFoods custom foods and $numberOfTrackedFoods tracked foo
       builder: (BuildContext context) {
         return AlertDialog(
           title: Text(
-            forEncrypting ? 'Create local backup' : 'Restore local backup',
+            forEncrypting
+                ? AppLocalizations.of(context)!.createLocalBackup
+                : AppLocalizations.of(context)!.restoreLocalBackup,
           ),
           content: Column(
             mainAxisSize: MainAxisSize.min,
@@ -504,8 +514,11 @@ Imported $numberOfCustomFoods custom foods and $numberOfTrackedFoods tracked foo
         SnackBar(
           content: Text(
             '''
-Successfully created backup.
-Exported $numberOfCustomFoods custom foods and $numberOfTrackedFoods tracked foods''',
+${AppLocalizations.of(context)!.successfullyCreatedBackup}
+${AppLocalizations.of(context)!.exportedNumberOfFoodsMessage(
+              numberOfCustomFoods,
+              numberOfTrackedFoods,
+            )}''',
           ),
         ),
       );
@@ -567,8 +580,11 @@ Exported $numberOfCustomFoods custom foods and $numberOfTrackedFoods tracked foo
         SnackBar(
           content: Text(
             '''
-Successfully restored backup.
-Imported $numberOfCustomFoods custom foods and $numberOfTrackedFoods tracked foods''',
+${AppLocalizations.of(context)!.successfullyRestoredBackup}
+${AppLocalizations.of(context)!.importedNumberOfFoodsMessage(
+              numberOfCustomFoods,
+              numberOfTrackedFoods,
+            )}''',
           ),
         ),
       );
@@ -599,7 +615,7 @@ Imported $numberOfCustomFoods custom foods and $numberOfTrackedFoods tracked foo
                   padding: const EdgeInsets.fromLTRB(12.0, 12.0, 12.0, 0.0),
                   child: InfoCard(
                     message:
-                        'Warning: Settings, personalizations and targets are not yet included!',
+                        AppLocalizations.of(context)!.missingBackupPartsHint,
                     icon: Icon(
                       Icons.warning,
                       color: Theme.of(context).onWarningContainer,
@@ -615,23 +631,23 @@ Imported $numberOfCustomFoods custom foods and $numberOfTrackedFoods tracked foo
                   children: [
                     SelectActionCard(
                       icon: Icons.cloud_upload,
-                      title: 'Create WebDAV backup',
+                      title: AppLocalizations.of(context)!.createWebDAVBackup,
                       onTap: _isBusy ? null : () => _createWebDAVBackup(),
                     ),
                     SelectActionCard(
                       icon: Icons.cloud_download,
-                      title: 'Restore WebDAV backup',
+                      title: AppLocalizations.of(context)!.restoreWebDAVBackup,
                       onTap: _isBusy ? null : () => _restoreWebDAVBackup(),
                     ),
                     SelectActionCard(
                       icon: Icons.file_upload,
-                      title: 'Create local backup',
+                      title: AppLocalizations.of(context)!.createLocalBackup,
                       onTap:
                           _isBusy ? null : () => _createLocalEncryptedBackup(),
                     ),
                     SelectActionCard(
                       icon: Icons.file_download,
-                      title: 'Restore local backup',
+                      title: AppLocalizations.of(context)!.restoreLocalBackup,
                       onTap:
                           _isBusy ? null : () => _restoreLocalEncryptedBackup(),
                     ),

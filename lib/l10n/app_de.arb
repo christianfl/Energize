@@ -16,6 +16,7 @@
   "@deleted": {},
   "loading": "Laden",
   "notFound": "nicht gefunden",
+  "unknownErrorText": "Ein unbekannter Fehler ist aufgetreten",
   "tracking": "Tracking",
   "@tracking": {},
   "energy": "Energie",
@@ -241,6 +242,43 @@
   "@backupAndRestore": {},
   "backupAndRestoreHint": "Sichere deine Daten lokal oder auf einem WebDAV-kompatiblen Server, wie z.B. Nextcloud",
   "@backupAndRestoreHint": {},
+  "missingBackupPartsHint": "Warnung: Einstellungen, Personalisierungen, und Vorgaben für Nahrung fehlen beim Backup bisher!",
+  "successfullyCreatedBackup": "Backup erfolgreich erstellt",
+  "exportedNumberOfFoodsMessage": "{customFoodsCount} eigene Nahrung und {trackedFoodsCount} getrackte Nahrung exportiert",
+  "@exportedNumberOfFoodsMessage": {
+      "placeholders": {
+          "customFoodsCount": {
+              "type": "int",
+              "format": "decimalPattern",
+              "example": "123"
+          },
+          "trackedFoodsCount": {
+              "type": "int",
+              "format": "decimalPattern",
+              "example": "123"
+          }
+      }
+  },
+  "successfullyRestoredBackup": "Backup erfolgreich wiederhergestellt",
+  "importedNumberOfFoodsMessage": "{customFoodsCount} eigene Nahrung und {trackedFoodsCount} getrackte Nahrung importiert",
+  "@importedNumberOfFoodsMessage": {
+      "placeholders": {
+          "customFoodsCount": {
+              "type": "int",
+              "format": "decimalPattern",
+              "example": "123"
+          },
+          "trackedFoodsCount": {
+              "type": "int",
+              "format": "decimalPattern",
+              "example": "123"
+          }
+      }
+  },
+  "createWebDAVBackup": "WebDAV Backup erstellen",
+  "restoreWebDAVBackup": "WebDAV Backup wiederherstellen",
+  "createLocalBackup": "Lokales Backup erstellen",
+  "restoreLocalBackup": "Lokales Backup wiederherstellen",
   "aboutEnergize": "Über Energize",
   "@aboutEnergize": {},
   "license": "Lizenz",
