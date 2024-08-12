@@ -388,5 +388,51 @@
   "thanksToContributorsText": "Energize'a katkıda bulunan herkese teşekkürler. Yardımlarınız sayesinde Energize şu anki haline gelebildi.",
   "@thanksToContributorsText": {},
   "allTranslatorsOnWeblate": "Weblate'teki tüm çevirmenler",
-  "@allTranslatorsOnWeblate": {}
+  "@allTranslatorsOnWeblate": {},
+  "unknownErrorText": "Bilinmeyen bir hata oluştu",
+  "@unknownErrorText": {},
+  "successfullyCreatedBackup": "Yedekleme başarıyla oluşturuldu",
+  "@successfullyCreatedBackup": {},
+  "exportedNumberOfFoodsMessage": "{customFoodsCount} özel yiyecek ve {trackedFoodsCount} takip edilen yiyecek dışa aktarıldı",
+  "@exportedNumberOfFoodsMessage": {
+    "placeholders": {
+      "customFoodsCount": {
+        "type": "int",
+        "format": "decimalPattern",
+        "example": "123"
+      },
+      "trackedFoodsCount": {
+        "type": "int",
+        "format": "decimalPattern",
+        "example": "123"
+      }
+    }
+  },
+  "successfullyRestoredBackup": "Yedekleme başarıyla geri yüklendi",
+  "@successfullyRestoredBackup": {},
+  "importedNumberOfFoodsMessage": "{customFoodsCount} özel yiyecek ve {trackedFoodsCount} takip edilen yiyecek içe aktarıldı",
+  "@importedNumberOfFoodsMessage": {
+    "placeholders": {
+      "customFoodsCount": {
+        "type": "int",
+        "format": "decimalPattern",
+        "example": "123"
+      },
+      "trackedFoodsCount": {
+        "type": "int",
+        "format": "decimalPattern",
+        "example": "123"
+      }
+    }
+  },
+  "createWebDAVBackup": "WebDAV yedeklemesi oluştur",
+  "@createWebDAVBackup": {},
+  "restoreWebDAVBackup": "WebDAV yedeklemesini geri yükle",
+  "@restoreWebDAVBackup": {},
+  "createLocalBackup": "Yerel yedekleme oluştur",
+  "@createLocalBackup": {},
+  "missingBackupPartsHint": "Uyarı: Ayarlar, kişiselleştirmeler ve hedefler henüz dahil edilmedi!",
+  "@missingBackupPartsHint": {},
+  "restoreLocalBackup": "Yerel yedeklemeyi geri yükle",
+  "@restoreLocalBackup": {}
 }
