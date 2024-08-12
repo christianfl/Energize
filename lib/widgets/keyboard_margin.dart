@@ -8,7 +8,7 @@ class KeyboardMargin extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double bottomPadding = MediaQuery.of(context).viewInsets.bottom;
+    final double bottomPadding = MediaQuery.of(context).viewInsets.bottom;
     return Padding(
       padding: EdgeInsets.only(bottom: bottomPadding),
       child: child,

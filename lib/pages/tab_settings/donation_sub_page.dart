@@ -62,7 +62,7 @@ class _DonationSubPageState extends State<DonationSubPage> {
                 ),
               ),
               InkWell(
-                onTap: () async {
+                onTap: () {
                   try {
                     Clipboard.setData(
                       const ClipboardData(

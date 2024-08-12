@@ -228,7 +228,7 @@ class _AboutSubPageState extends State<AboutSubPage> {
                 ),
               ),
               InkWell(
-                onTap: () async {
+                onTap: () {
                   _showContributorsDialog();
                 },
                 child: ListTile(

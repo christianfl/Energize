@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -161,7 +163,7 @@ class AppSettings with ChangeNotifier {
     _loadFromSharedPreferences();
   }
 
-  _initPreferences() async {
+  Future<void> _initPreferences() async {
     _preferences ??= await SharedPreferences.getInstance();
   }
 
@@ -282,61 +284,64 @@ class AppSettings with ChangeNotifier {
 
   void resetMicros() async {
     await _initPreferences();
-    _preferences!.remove('vitaminATarget');
-    _preferences!.remove('vitaminB1Target');
-    _preferences!.remove('vitaminB2Target');
-    _preferences!.remove('vitaminB3Target');
-    _preferences!.remove('vitaminB5Target');
-    _preferences!.remove('vitaminB6Target');
-    _preferences!.remove('vitaminB7Target');
-    _preferences!.remove('vitaminB9Target');
-    _preferences!.remove('vitaminB12Target');
-    _preferences!.remove('vitaminCTarget');
-    _preferences!.remove('vitaminDTarget');
-    _preferences!.remove('vitaminETarget');
-    _preferences!.remove('vitaminKTarget');
-    _preferences!.remove('calciumTarget');
-    _preferences!.remove('calciumTarget');
-    _preferences!.remove('chlorideTarget');
-    _preferences!.remove('magnesiumTarget');
-    _preferences!.remove('phosphorusTarget');
-    _preferences!.remove('potassiumTarget');
-    _preferences!.remove('sodiumTarget');
-    _preferences!.remove('chromiumTarget');
-    _preferences!.remove('ironTarget');
-    _preferences!.remove('fluorineTarget');
-    _preferences!.remove('iodineTarget');
-    _preferences!.remove('copperTarget');
-    _preferences!.remove('manganeseTarget');
-    _preferences!.remove('molybdenumTarget');
-    _preferences!.remove('seleniumTarget');
-    _preferences!.remove('zincTarget');
-    _preferences!.remove('monounsaturatedFatTarget');
-    _preferences!.remove('polyunsaturatedFatTarget');
-    _preferences!.remove('omega3Target');
-    _preferences!.remove('omega6Target');
-    _preferences!.remove('saturatedFatTarget');
-    _preferences!.remove('transFatTarget');
-    _preferences!.remove('cholesterolTarget');
-    _preferences!.remove('fiberTarget');
-    _preferences!.remove('sugarTarget');
-    _preferences!.remove('sugarAlcoholTarget');
-    _preferences!.remove('starchTarget');
-    _preferences!.remove('waterTarget');
-    _preferences!.remove('caffeineTarget');
-    _preferences!.remove('alcoholTarget');
+
+    unawaited(_preferences!.remove('vitaminATarget'));
+    unawaited(_preferences!.remove('vitaminB1Target'));
+    unawaited(_preferences!.remove('vitaminB2Target'));
+    unawaited(_preferences!.remove('vitaminB3Target'));
+    unawaited(_preferences!.remove('vitaminB5Target'));
+    unawaited(_preferences!.remove('vitaminB6Target'));
+    unawaited(_preferences!.remove('vitaminB7Target'));
+    unawaited(_preferences!.remove('vitaminB9Target'));
+    unawaited(_preferences!.remove('vitaminB12Target'));
+    unawaited(_preferences!.remove('vitaminCTarget'));
+    unawaited(_preferences!.remove('vitaminDTarget'));
+    unawaited(_preferences!.remove('vitaminETarget'));
+    unawaited(_preferences!.remove('vitaminKTarget'));
+    unawaited(_preferences!.remove('calciumTarget'));
+    unawaited(_preferences!.remove('calciumTarget'));
+    unawaited(_preferences!.remove('chlorideTarget'));
+    unawaited(_preferences!.remove('magnesiumTarget'));
+    unawaited(_preferences!.remove('phosphorusTarget'));
+    unawaited(_preferences!.remove('potassiumTarget'));
+    unawaited(_preferences!.remove('sodiumTarget'));
+    unawaited(_preferences!.remove('chromiumTarget'));
+    unawaited(_preferences!.remove('ironTarget'));
+    unawaited(_preferences!.remove('fluorineTarget'));
+    unawaited(_preferences!.remove('iodineTarget'));
+    unawaited(_preferences!.remove('copperTarget'));
+    unawaited(_preferences!.remove('manganeseTarget'));
+    unawaited(_preferences!.remove('molybdenumTarget'));
+    unawaited(_preferences!.remove('seleniumTarget'));
+    unawaited(_preferences!.remove('zincTarget'));
+    unawaited(_preferences!.remove('monounsaturatedFatTarget'));
+    unawaited(_preferences!.remove('polyunsaturatedFatTarget'));
+    unawaited(_preferences!.remove('omega3Target'));
+    unawaited(_preferences!.remove('omega6Target'));
+    unawaited(_preferences!.remove('saturatedFatTarget'));
+    unawaited(_preferences!.remove('transFatTarget'));
+    unawaited(_preferences!.remove('cholesterolTarget'));
+    unawaited(_preferences!.remove('fiberTarget'));
+    unawaited(_preferences!.remove('sugarTarget'));
+    unawaited(_preferences!.remove('sugarAlcoholTarget'));
+    unawaited(_preferences!.remove('starchTarget'));
+    unawaited(_preferences!.remove('waterTarget'));
+    unawaited(_preferences!.remove('caffeineTarget'));
+    unawaited(_preferences!.remove('alcoholTarget'));
   }
 
   // Save int, double, String, or bool to shared preferences
   _saveToPreferences(String key, var value) async {
     await _initPreferences();
-    if (value is int) _preferences!.setInt(key, value);
-    if (value is double) {
-      _preferences!.setDouble(key, value);
+
+    if (value is int) {
+      unawaited(_preferences!.setInt(key, value));
+    } else if (value is double) {
+      unawaited(_preferences!.setDouble(key, value));
     } else if (value is String) {
-      _preferences!.setString(key, value);
+      unawaited(_preferences!.setString(key, value));
     } else if (value is bool) {
-      _preferences!.setBool(key, value);
+      unawaited(_preferences!.setBool(key, value));
     }
   }
 
@@ -708,21 +713,21 @@ class AppSettings with ChangeNotifier {
 
   void clearBackupServerUrl() async {
     await _initPreferences();
-    _preferences!.remove('backupServerUrl');
+    unawaited(_preferences!.remove('backupServerUrl'));
 
     _backupServerUrl = '';
   }
 
   void clearBackupUsername() async {
     await _initPreferences();
-    _preferences!.remove('backupUsername');
+    unawaited(_preferences!.remove('backupUsername'));
 
     _backupUsername = '';
   }
 
   void clearBackupPathAndFilename() async {
     await _initPreferences();
-    _preferences!.remove('backupPathAndFilename');
+    unawaited(_preferences!.remove('backupPathAndFilename'));
 
     _backupPathAndFilename = '/Energize/backup.json.aes';
   }

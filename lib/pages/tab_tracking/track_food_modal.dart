@@ -11,12 +11,12 @@ import '../../services/food_database_bindings/open_food_facts/open_food_facts_bi
 import '../../theme/energize_theme.dart';
 import '../../utils/date_util.dart';
 import '../../utils/time_util.dart';
-import '../../widgets/moving_end_contained_fab_location.dart';
 import '../../widgets/food_micro_count_pill.dart';
 import '../../widgets/food_origin_logo_pill.dart';
 import '../../widgets/keyboard_margin.dart';
 import '../../widgets/macro_chart.dart';
 import '../../widgets/micro_chart.dart';
+import '../../widgets/moving_end_contained_fab_location.dart';
 import '../../widgets/nutrition_facts_label_eu.dart';
 
 enum ModalMode { add, edit }
