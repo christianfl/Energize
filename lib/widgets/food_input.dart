@@ -411,27 +411,29 @@ class FoodInputState extends State<FoodInput>
     if (widget._sheetModalMode == SheetModalMode.search) {
       return Column(
         children: [
-          TextField(
-            controller: _searchInputController,
-            onChanged: (value) => populateSearchedFoodList(value, true),
-            onSubmitted: (value) => populateSearchedFoodList(value, false),
-            textAlignVertical: TextAlignVertical.center,
-            decoration: InputDecoration(
-              filled: true,
+          Padding(
+            padding: const EdgeInsets.all(12.0),
+            child: SearchBar(
+              controller: _searchInputController,
+              onChanged: (value) => populateSearchedFoodList(value, true),
+              onSubmitted: (value) => populateSearchedFoodList(value, false),
               hintText: AppLocalizations.of(context)!.productOrBrand,
-              prefixIcon: _awaitingApiResponse
+              leading: _awaitingApiResponse
                   ? Transform.scale(
                       scale: 0.5,
                       child: const CircularProgressIndicator(),
                     )
                   : const Icon(Icons.search),
-              suffixIcon: IconButton(
-                onPressed: () => {
-                  _searchInputController.clear(),
-                  populateSearchedFoodList('', false),
-                },
-                icon: const Icon(Icons.clear),
-              ),
+              trailing: [
+                IconButton(
+                  onPressed: () => {
+                    _searchInputController.clear(),
+                    populateSearchedFoodList('', false),
+                  },
+                  icon: const Icon(Icons.clear),
+                ),
+              ],
+              elevation: WidgetStateProperty.all(0.0),
             ),
           ),
           Expanded(
