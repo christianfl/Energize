@@ -13,7 +13,7 @@ import 'package:integration_test/integration_test.dart';
 import 'package:provider/provider.dart';
 
 void main() {
-  // Setup
+  // Main setup
   final binding = IntegrationTestWidgetsFlutterBinding();
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
@@ -21,18 +21,43 @@ void main() {
   ///
   /// Taking Screenshots within integration tests will be improved in the future
   /// See: https://github.com/flutter/flutter/pull/142166#issuecomment-2140837892
-  takeAndroidScreenshot(String pathAndFilename, WidgetTester tester) async {
+  takeAndroidScreenshot(
+    String pathAndFilename,
+    WidgetTester tester,
+    ThemeMode? currentThemeMode,
+  ) async {
     if (Platform.isAndroid) {
       // Only supported yet
 
-      await binding.takeScreenshot(pathAndFilename);
+      // Guard clause - ThemeMode should be dark or light
+      if (currentThemeMode == null || currentThemeMode == ThemeMode.system) {
+        return;
+      }
+
+      final String themeMode = currentThemeMode == ThemeMode.dark
+          ? '_dark'
+          : currentThemeMode == ThemeMode.light
+              ? '_light'
+              : '';
+
+      await binding.takeScreenshot('$pathAndFilename$themeMode');
     }
   }
 
+  // Setup variants for DarkMode and LightMode
+  final ValueVariant<ThemeMode> themeVariants =
+      ValueVariant<ThemeMode>({ThemeMode.dark, ThemeMode.light});
+
   group('Tracking Page Test', () {
-    testWidgets('Tracking Page Screenshots', (WidgetTester tester) async {
+    testWidgets('Tracking Page Screenshots', variant: themeVariants,
+        (WidgetTester tester) async {
       // Load MyApp widget
-      await tester.pumpWidget(const MyApp(debugShowCheckedModeBanner: false));
+      await tester.pumpWidget(
+        MyApp(
+          debugShowCheckedModeBanner: false,
+          themeMode: themeVariants.currentValue,
+        ),
+      );
 
       // Wait until all frames were drawn
       await tester.pumpAndSettle();
@@ -94,7 +119,7 @@ void main() {
       final trackedCoconutMilk = FoodTracked.fromFood(
         coconutMilk,
         FoodTracked.generatedId,
-        350,
+        150,
         now,
         now,
       );
@@ -115,6 +140,7 @@ void main() {
       await takeAndroidScreenshot(
         'en-US/images/phoneScreenshots/test_1',
         tester,
+        themeVariants.currentValue,
       );
 
       // Go to detailed view next...
@@ -143,14 +169,28 @@ void main() {
       await takeAndroidScreenshot(
         'en-US/images/phoneScreenshots/test_2',
         tester,
+        themeVariants.currentValue,
       );
+
+      // Remove tracked food
+      trackedFoodProvider.removeEatenFood(trackedAvocado.id);
+      trackedFoodProvider.removeEatenFood(trackedBanana.id);
+      trackedFoodProvider.removeEatenFood(trackedApple.id);
+      trackedFoodProvider.removeEatenFood(trackedOatMeal.id);
+      trackedFoodProvider.removeEatenFood(trackedCoconutMilk.id);
     });
   });
 
   group('Custom Food Page Test', () {
-    testWidgets('Custom Food Page Screenshot', (WidgetTester tester) async {
+    testWidgets('Custom Food Page Screenshot', variant: themeVariants,
+        (WidgetTester tester) async {
       // Load MyApp widget
-      await tester.pumpWidget(const MyApp(debugShowCheckedModeBanner: false));
+      await tester.pumpWidget(
+        MyApp(
+          debugShowCheckedModeBanner: false,
+          themeMode: themeVariants.currentValue,
+        ),
+      );
 
       // Wait until all frames were drawn
       await tester.pumpAndSettle();
@@ -176,14 +216,21 @@ void main() {
       await takeAndroidScreenshot(
         'en-US/images/phoneScreenshots/test_3',
         tester,
+        themeVariants.currentValue,
       );
     });
   });
 
   group('Settings Page Test', () {
-    testWidgets('Settings Page Screenshot', (WidgetTester tester) async {
+    testWidgets('Settings Page Screenshot', variant: themeVariants,
+        (WidgetTester tester) async {
       // Load MyApp widget
-      await tester.pumpWidget(const MyApp(debugShowCheckedModeBanner: false));
+      await tester.pumpWidget(
+        MyApp(
+          debugShowCheckedModeBanner: false,
+          themeMode: themeVariants.currentValue,
+        ),
+      );
 
       // Wait until all frames were drawn
       await tester.pumpAndSettle();
@@ -213,6 +260,7 @@ void main() {
       await takeAndroidScreenshot(
         'en-US/images/phoneScreenshots/test_4',
         tester,
+        themeVariants.currentValue,
       );
     });
   });

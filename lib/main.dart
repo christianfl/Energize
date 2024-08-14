@@ -41,9 +41,15 @@ class MyApp extends StatelessWidget {
   /// Used for screenshot creation within integration tests.
   final bool debugShowCheckedModeBanner;
 
+  /// Call MyApp with a forced ThemeMode.
+  ///
+  /// Used for screenshot creation within integration tests.
+  final ThemeMode? themeMode;
+
   const MyApp({
     super.key,
     this.debugShowCheckedModeBanner = true,
+    this.themeMode,
   });
 
   @override
@@ -66,6 +72,7 @@ class MyApp extends StatelessWidget {
         supportedLocales: AppLocalizations.supportedLocales,
         theme: EnergizeTheme.theme,
         darkTheme: EnergizeTheme.darkTheme,
+        themeMode: themeMode,
         home: const TabsPage(),
         routes: {
           TrackFood.routeName: (ctx) => const TrackFood(),
