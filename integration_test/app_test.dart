@@ -1,13 +1,19 @@
 import 'dart:io';
 
 import 'package:energize/main.dart';
+import 'package:energize/models/food/food.dart';
 import 'package:energize/models/food/food_tracked.dart';
+import 'package:energize/models/person/enums/sex.dart';
 import 'package:energize/pages/tab_food/food_page.dart';
 import 'package:energize/pages/tab_settings/settings_page.dart';
 import 'package:energize/pages/tab_tracking/tracking_page.dart';
+import 'package:energize/providers/app_settings.dart';
+import 'package:energize/providers/custom_food_provider.dart';
 import 'package:energize/providers/tracked_food_provider.dart';
 import 'package:energize/services/food_database_bindings/swiss_food_composition_database/swiss_food_composition_database_binding.dart';
+import 'package:energize/services/micronutrients_recommendations/micronutrients_recommendations.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
 import 'package:provider/provider.dart';
@@ -16,6 +22,9 @@ void main() {
   // Main setup
   final binding = IntegrationTestWidgetsFlutterBinding();
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
+
+  // Enter full screen for screenshots
+  SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
 
   /// Helper method for taking screenshots.
   ///
@@ -133,6 +142,22 @@ void main() {
       trackedFoodProvider.addEatenFood(trackedOatMeal);
       trackedFoodProvider.addEatenFood(trackedCoconutMilk);
 
+      final appSettingsProvider =
+          Provider.of<AppSettings>(context, listen: false);
+
+      // Set calories and macro targets
+      appSettingsProvider.caloriesTarget = 2000;
+      appSettingsProvider.proteinTarget = 120;
+      appSettingsProvider.carbsTarget = 220;
+      appSettingsProvider.fatTarget = 70;
+
+      // Set micro targets
+      MicronutrientsRecommendations.setRecommendedNutritionAsTargets(
+        appSettingsProvider,
+        20,
+        Sex.female,
+      );
+
       // Wait until all frames were drawn
       await tester.pumpAndSettle();
 
@@ -173,11 +198,9 @@ void main() {
       );
 
       // Remove tracked food
-      trackedFoodProvider.removeEatenFood(trackedAvocado.id);
-      trackedFoodProvider.removeEatenFood(trackedBanana.id);
-      trackedFoodProvider.removeEatenFood(trackedApple.id);
-      trackedFoodProvider.removeEatenFood(trackedOatMeal.id);
-      trackedFoodProvider.removeEatenFood(trackedCoconutMilk.id);
+      for (final food in trackedFoodProvider.foods) {
+        trackedFoodProvider.removeEatenFood(food.id);
+      }
     });
   });
 
@@ -212,12 +235,58 @@ void main() {
       // Check whether FoodPage is loaded (second navigation item)
       expect(find.byType(FoodPage), findsOneWidget);
 
+      // Get BuildContext
+      final BuildContext context = tester.element(find.byType(FoodPage));
+
+      final customFoodProvider =
+          Provider.of<CustomFoodProvider>(context, listen: false);
+
+      // Add custom food
+      final customFood1 = Food(
+        id: Food.generatedId,
+        title: 'Rosinenbrötchen',
+        origin: 'CUSTOM',
+        calories: 480,
+      );
+      final customFood2 = Food(
+        id: Food.generatedId,
+        title: 'Käsespätzle',
+        origin: 'CUSTOM',
+        calories: 300,
+        carbs: 40,
+        fat: 20,
+      );
+      final customFood3 = Food(
+        id: Food.generatedId,
+        title: 'Tiroler Kasnocken',
+        origin: 'CUSTOM',
+        calories: 290,
+      );
+      final customFood4 = Food(
+        id: Food.generatedId,
+        title: 'Custom Cola Zero',
+        origin: 'CUSTOM',
+        calories: 1,
+      );
+      customFoodProvider.addFood(customFood1);
+      customFoodProvider.addFood(customFood2);
+      customFoodProvider.addFood(customFood3);
+      customFoodProvider.addFood(customFood4);
+
+      // Wait until all frames were drawn
+      await tester.pumpAndSettle();
+
       // Create and save a screenshot
       await takeAndroidScreenshot(
         'en-US/images/phoneScreenshots/test_3',
         tester,
         themeVariants.currentValue,
       );
+
+      // Remove custom food
+      for (final food in customFoodProvider.foods) {
+        customFoodProvider.removeFood(food.id);
+      }
     });
   });
 
