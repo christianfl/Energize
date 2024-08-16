@@ -58,5 +58,21 @@
   "aboutEnergize": "Om",
   "@aboutEnergize": {},
   "reportIssue": "Innrapporter feil",
-  "@reportIssue": {}
+  "@reportIssue": {},
+  "unknownErrorText": "Ukjent feil",
+  "@unknownErrorText": {},
+  "ok": "OK",
+  "@ok": {},
+  "additionalInformation": "Ytterligere info",
+  "@additionalInformation": {},
+  "fieldMandatory": "Skriv inn en verdi",
+  "@fieldMandatory": {},
+  "general": "Generelt",
+  "@general": {},
+  "loading": "Laster inn …",
+  "@loading": {},
+  "undo": "Angre",
+  "@undo": {},
+  "deleted": "slettet",
+  "@deleted": {}
 }
