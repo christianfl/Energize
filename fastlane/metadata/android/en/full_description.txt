@@ -1,9 +1,9 @@
 <ul>
 <li>Track your meals including calories, macro- and micronutrients</li>
 <li>Use several databases (Open Food Facts, USDA, and Swiss Food Composition Database) or create custom food</li>
-<li>Search meals by product name or just scan the EAN code</li>
+<li>Search meals by product name or just scan the barcode</li>
 <li>Get meal suggestions based on your last tracked meals</li>
 <li>Set targets for macro- and micronutrients including calculating them based on your personal details</li>
 <li>See your daily nutrition details</li>
-<li>Create an encrypted backup with WebDAV and restore it</li>
+<li>Create and restore encrypted backups (Local or WebDAV)</li>
 </ul>
