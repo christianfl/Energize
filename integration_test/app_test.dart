@@ -14,9 +14,23 @@ import 'package:energize/services/food_database_bindings/swiss_food_composition_
 import 'package:energize/services/micronutrients_recommendations/micronutrients_recommendations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
 import 'package:provider/provider.dart';
+
+/// Setup test variants for screenshots.
+///
+/// For screenshotting each locale with each theme.
+class EnergizeTestVariant {
+  final ThemeMode themeMode;
+  final Locale locale;
+
+  EnergizeTestVariant({
+    required this.themeMode,
+    required this.locale,
+  });
+}
 
 void main() {
   // Main setup
@@ -31,40 +45,62 @@ void main() {
   /// Taking Screenshots within integration tests will be improved in the future
   /// See: https://github.com/flutter/flutter/pull/142166#issuecomment-2140837892
   takeAndroidScreenshot(
-    String pathAndFilename,
+    String fileName,
     WidgetTester tester,
-    ThemeMode? currentThemeMode,
+    EnergizeTestVariant? currentVariant,
   ) async {
     if (Platform.isAndroid) {
       // Only supported yet
 
+      final currentTheme = currentVariant?.themeMode;
+
       // Guard clause - ThemeMode should be dark or light
-      if (currentThemeMode == null || currentThemeMode == ThemeMode.system) {
+      if (currentTheme == null || currentTheme == ThemeMode.system) {
         return;
       }
 
-      final String themeMode = currentThemeMode == ThemeMode.dark
-          ? '_dark'
-          : currentThemeMode == ThemeMode.light
-              ? '_light'
+      final locale = currentVariant?.locale;
+
+      final String themeMode = currentTheme == ThemeMode.dark
+          ? 'dark'
+          : currentTheme == ThemeMode.light
+              ? 'light'
               : '';
 
-      await binding.takeScreenshot('$pathAndFilename$themeMode');
+      await binding.takeScreenshot(
+        '$locale/images/phoneScreenshots/${fileName}_$themeMode',
+      );
     }
   }
 
-  // Setup variants for DarkMode and LightMode
-  final ValueVariant<ThemeMode> themeVariants =
-      ValueVariant<ThemeMode>({ThemeMode.dark, ThemeMode.light});
+  // Setup Test Variants
+  // Create screenshots for each language and themeMode
+  final List<EnergizeTestVariant> testVariants = [];
+  const supportedLocales = AppLocalizations.supportedLocales;
+  const List<ThemeMode> supportedThemeModes = [ThemeMode.dark, ThemeMode.light];
+
+  for (final locale in supportedLocales) {
+    for (final themeMode in supportedThemeModes) {
+      testVariants.add(
+        EnergizeTestVariant(
+          themeMode: themeMode,
+          locale: locale,
+        ),
+      );
+    }
+  }
+
+  final valueVariants = ValueVariant<EnergizeTestVariant>({...testVariants});
 
   group('Tracking Page Test', () {
-    testWidgets('Tracking Page Screenshots', variant: themeVariants,
+    testWidgets('Tracking Page Screenshots', variant: valueVariants,
         (WidgetTester tester) async {
       // Load MyApp widget
       await tester.pumpWidget(
         MyApp(
           debugShowCheckedModeBanner: false,
-          themeMode: themeVariants.currentValue,
+          themeMode: valueVariants.currentValue?.themeMode,
+          locale: valueVariants.currentValue?.locale,
         ),
       );
 
@@ -162,10 +198,11 @@ void main() {
       await tester.pumpAndSettle();
 
       // Create and save a screenshot
+
       await takeAndroidScreenshot(
-        'en-US/images/phoneScreenshots/test_1',
+        '1',
         tester,
-        themeVariants.currentValue,
+        valueVariants.currentValue,
       );
 
       // Go to detailed view next...
@@ -192,9 +229,9 @@ void main() {
 
       // Create and save a screenshot
       await takeAndroidScreenshot(
-        'en-US/images/phoneScreenshots/test_2',
+        '2',
         tester,
-        themeVariants.currentValue,
+        valueVariants.currentValue,
       );
 
       // Remove tracked food
@@ -205,13 +242,14 @@ void main() {
   });
 
   group('Custom Food Page Test', () {
-    testWidgets('Custom Food Page Screenshot', variant: themeVariants,
+    testWidgets('Custom Food Page Screenshot', variant: valueVariants,
         (WidgetTester tester) async {
       // Load MyApp widget
       await tester.pumpWidget(
         MyApp(
           debugShowCheckedModeBanner: false,
-          themeMode: themeVariants.currentValue,
+          themeMode: valueVariants.currentValue?.themeMode,
+          locale: valueVariants.currentValue?.locale,
         ),
       );
 
@@ -278,9 +316,9 @@ void main() {
 
       // Create and save a screenshot
       await takeAndroidScreenshot(
-        'en-US/images/phoneScreenshots/test_3',
+        '3',
         tester,
-        themeVariants.currentValue,
+        valueVariants.currentValue,
       );
 
       // Remove custom food
@@ -291,13 +329,14 @@ void main() {
   });
 
   group('Settings Page Test', () {
-    testWidgets('Settings Page Screenshot', variant: themeVariants,
+    testWidgets('Settings Page Screenshot', variant: valueVariants,
         (WidgetTester tester) async {
       // Load MyApp widget
       await tester.pumpWidget(
         MyApp(
           debugShowCheckedModeBanner: false,
-          themeMode: themeVariants.currentValue,
+          themeMode: valueVariants.currentValue?.themeMode,
+          locale: valueVariants.currentValue?.locale,
         ),
       );
 
@@ -327,9 +366,9 @@ void main() {
 
       // Create and save a screenshot
       await takeAndroidScreenshot(
-        'en-US/images/phoneScreenshots/test_4',
+        '4',
         tester,
-        themeVariants.currentValue,
+        valueVariants.currentValue,
       );
     });
   });

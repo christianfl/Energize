@@ -46,10 +46,16 @@ class MyApp extends StatelessWidget {
   /// Used for screenshot creation within integration tests.
   final ThemeMode? themeMode;
 
+  /// Call MyApp with a forced Locale.
+  ///
+  /// Used for screenshot creation within integration tests.
+  final Locale? locale;
+
   const MyApp({
     super.key,
     this.debugShowCheckedModeBanner = true,
     this.themeMode,
+    this.locale,
   });
 
   @override
@@ -69,7 +75,8 @@ class MyApp extends StatelessWidget {
           GlobalWidgetsLocalizations.delegate,
           GlobalCupertinoLocalizations.delegate,
         ],
-        supportedLocales: AppLocalizations.supportedLocales,
+        supportedLocales:
+            locale != null ? [locale!] : AppLocalizations.supportedLocales,
         theme: EnergizeTheme.theme,
         darkTheme: EnergizeTheme.darkTheme,
         themeMode: themeMode,
