@@ -121,6 +121,7 @@ class FoodInputState extends State<FoodInput>
         _productNotFoundExceptionEan = null;
       });
       if (popAfterReturn) {
+        if (!context.mounted) return;
         Navigator.of(context).pop();
       }
     });
@@ -151,6 +152,7 @@ class FoodInputState extends State<FoodInput>
         .then(
       (createdFood) {
         if (createdFood is Food) {
+          if (!context.mounted) return;
           _navigateToAddFood(context, createdFood, popAfterReturn: true);
         } else {
           // In case the custom food has not been created and another code wants to be scanned
@@ -192,13 +194,18 @@ class FoodInputState extends State<FoodInput>
       if (customFoodIfFound != null) {
         // Custom food with this EAN was found
 
+        if (!mounted) return;
         _navigateToAddFood(context, customFoodIfFound, popAfterReturn: true);
       } else {
+        if (!mounted) return;
+
         // Look up on Open Food Facts if this is activated
         final appSettings = Provider.of<AppSettings>(context, listen: false);
 
         if (appSettings.isProviderOpenFoodFactsActivated) {
           OpenFoodFactsBinding().getFoodByEan(ean).then((food) {
+            if (!mounted) return;
+
             _navigateToAddFood(context, food, popAfterReturn: true);
           }).catchError((error) {
             // If there is also no match, show an error that no product could be found

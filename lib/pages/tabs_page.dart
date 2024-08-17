@@ -22,7 +22,7 @@ class TabsPageState extends State<TabsPage> {
   Widget build(BuildContext context) {
     return PopScope(
       canPop: _currentIndex == 0,
-      onPopInvoked: (didPop) => didPop ? null : _setIndex(0),
+      onPopInvokedWithResult: (didPop, result) => didPop ? null : _setIndex(0),
       child: Scaffold(
         body: IndexedStack(
           index: _currentIndex,
