@@ -36,13 +36,15 @@ Google Play is in closed beta at the moment. Feel free to drop me a message and 
   - Swiss Food Composition Database
   - USDA FoodData Central
 - Create custom meals
-- Search meals by product name, EAN, or just scan the EAN code
-  - the EAN code of the first matching custom food will be used or
+- Search meals by product name, barcode, or just scan the barcode
+  - the barcode of the first matching custom food will be used or
   - Open Food Facts will be searched if that database is activated and no matching custom food was found
+  - EAN, UPC, and custom barcodes for custom food are supported
 - Get meal suggestions based on your last tracked meals
 - Set targets for macro- and micronutrients including calculating them based on your personal details
 - See your daily nutrition details
-- Create an [encrypted backup](docs/backup-encryption/README.md) with WebDAV and restore it
+- Create an [encrypted backup](docs/backup-encryption/README.md) and restore it
+  - Local and WebDAV backup are supported
 
 ## Build
 
@@ -54,9 +56,9 @@ This app is built with Flutter. You can get the current used SDK version under [
 4. Run build runner to generate types: `dart run build_runner build --delete-conflicting-outputs`
 5. Build and install: `flutter run`
 
-## Test
+## Test / Automated screenshots
 
-Testing is at an initial stage right now. The goal is to create integration tests which automatically create different screenshots using all supported locales.
+The integration tests automatically create different screenshots using all supported locales with dark and light theme.
 
 Run integration tests:
 
@@ -64,10 +66,10 @@ Run integration tests:
 flutter drive --driver=test_driver/integration_test.dart --target=integration_test/app_test.dart
 ```
 
-This currently only saves one screenshot to:
+This saves the screenshots to:
 
 ```
-fastlane/metadata/android/en-US/images/phoneScreenshots/test.png
+fastlane/metadata/android/<locale>/images/phoneScreenshots/<number>_<theme>.png
 ```
 
 ## Contribute
