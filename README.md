@@ -22,10 +22,10 @@ Google Play is in closed beta at the moment. Feel free to drop me a message and 
 ## Screenshots
 
 <p align="center">
-  <img src="./fastlane/metadata/android/en-US/images/phoneScreenshots/1.png" width="24%"/>
-  <img src="./fastlane/metadata/android/en-US/images/phoneScreenshots/2.png" width="24%"/>
-  <img src="./fastlane/metadata/android/en-US/images/phoneScreenshots/3.png" width="24%"/>
-  <img src="./fastlane/metadata/android/en-US/images/phoneScreenshots/4.png" width="24%"/>
+  <img src="./fastlane/metadata/android/en/images/phoneScreenshots/1_dark.png" width="24%"/>
+  <img src="./fastlane/metadata/android/en/images/phoneScreenshots/2_dark.png" width="24%"/>
+  <img src="./fastlane/metadata/android/en/images/phoneScreenshots/3_dark.png" width="24%"/>
+  <img src="./fastlane/metadata/android/en/images/phoneScreenshots/4_dark.png" width="24%"/>
 </p>
 
 ## Features
