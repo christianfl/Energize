@@ -18,6 +18,8 @@ class Food {
   String id;
   String title;
   String origin;
+
+  /// Can be any barcode (UPC, EAN, custom)
   String? ean;
   String? imageUrl;
   String? imageThumbnailUrl;

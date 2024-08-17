@@ -23,7 +23,7 @@ import '../services/food_database_bindings/swiss_food_composition_database/swiss
 import '../services/food_database_bindings/usda/usda_binding.dart';
 import '../services/sqlite/custom_foods_database_service.dart';
 
-enum SheetModalMode { search, ean }
+enum SheetModalMode { search, barcode }
 
 class FoodInput extends StatefulWidget {
   final DateTime _foodAddingDate;
@@ -44,13 +44,13 @@ class FoodInput extends StatefulWidget {
 class FoodInputState extends State<FoodInput>
     with SingleTickerProviderStateMixin {
   final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
-  final _eanCodeFormKey = GlobalKey<FormState>();
+  final _barcodeFormKey = GlobalKey<FormState>();
   QRViewController? _qrController;
   final _searchInputController = TextEditingController();
-  final _searchEanController = TextEditingController();
+  final _searchBarcodeController = TextEditingController();
   Barcode? _scannedCode;
   var _awaitingApiResponse = false;
-  String? _productNotFoundExceptionEan;
+  String? _productNotFoundExceptionBarcode;
   final List<Food> foodsFromSndb = SwissFoodCompositionDatabaseBinding.allFoods;
   List<Food> searchResultFood = [];
   Timer? _searchFieldDebounceTimer;
@@ -65,12 +65,12 @@ class FoodInputState extends State<FoodInput>
   List<Food>? _offSearchResultFood;
   List<Food>? _usdaSearchResultFood;
 
-  /// Only when opening this widget with EAN mode, block landscape orientation to improve scanning experience
+  /// Only when opening this widget with barcode mode, block landscape orientation to improve scanning experience
   @override
   void initState() {
     super.initState();
 
-    if (widget._sheetModalMode == SheetModalMode.ean) {
+    if (widget._sheetModalMode == SheetModalMode.barcode) {
       SystemChrome.setPreferredOrientations([
         DeviceOrientation.portraitUp,
         DeviceOrientation.portraitDown,
@@ -90,12 +90,12 @@ class FoodInputState extends State<FoodInput>
     Food foodToBeAdded, {
     /// After popping TrackFood.routeName, should THIS route be popped or not?
     ///
-    /// When going back after scanning a product with EAN, it is desired behvior
-    /// that this input field gets popped because scanning should immediately
-    /// return to the desired product; if the user want to get back after
-    /// landing on the product page, it is assumed that the user does not want
-    /// to track this food anymore, resulting in popping the input field and
-    /// returning to the tracking page
+    /// When going back after scanning a product with barcode, it is desired
+    /// behavior that this input field gets popped because scanning should
+    /// immediately return to the desired product; if the user want to get back
+    /// after landing on the product page, it is assumed that the user does not
+    /// want to track this food anymore, resulting in popping the input field
+    /// and returning to the tracking page
     bool popAfterReturn = false,
   }) {
     _qrController?.pauseCamera();
@@ -118,7 +118,7 @@ class FoodInputState extends State<FoodInput>
         .then((result) {
       setState(() {
         _scannedCode = null;
-        _productNotFoundExceptionEan = null;
+        _productNotFoundExceptionBarcode = null;
       });
       if (popAfterReturn) {
         if (!context.mounted) return;
@@ -127,7 +127,7 @@ class FoodInputState extends State<FoodInput>
     });
   }
 
-  void _navigateToAddCustomFood(BuildContext context, {String? ean}) {
+  void _navigateToAddCustomFood(BuildContext context, {String? barcode}) {
     _qrController?.pauseCamera();
     try {
       // Turn of flash
@@ -145,7 +145,7 @@ class FoodInputState extends State<FoodInput>
           id: Food.generatedId,
           origin: FoodPage.originName,
           title: '',
-          ean: ean,
+          ean: barcode,
         ),
       ),
     )
@@ -173,7 +173,7 @@ class FoodInputState extends State<FoodInput>
     }
   }
 
-  /// Listen for the scanned stream until an EAN code is found
+  /// Listen for the scanned stream until a barcode code is found
   void _onQRViewCreated(QRViewController controller) {
     _qrController = controller;
     _qrController!.resumeCamera();
@@ -182,17 +182,18 @@ class FoodInputState extends State<FoodInput>
       if (_scannedCode == null) {
         _scannedCode = scanData;
 
-        searchEanAndRedirect(_scannedCode!.code!);
+        searchBarcodeAndRedirect(_scannedCode!.code!);
       }
     });
   }
 
-  /// Look up ean code and redirect accordingly
-  void searchEanAndRedirect(String ean) {
-    // Try first to look up the EAN in the custom foods
-    CustomFoodDatabaseService.getCustomFoodByEan(ean).then((customFoodIfFound) {
+  /// Look up barcode code and redirect accordingly
+  void searchBarcodeAndRedirect(String barcode) {
+    // Try first to look up the barcode in the custom foods
+    CustomFoodDatabaseService.getCustomFoodByEan(barcode)
+        .then((customFoodIfFound) {
       if (customFoodIfFound != null) {
-        // Custom food with this EAN was found
+        // Custom food with this barcode was found
 
         if (!mounted) return;
         _navigateToAddFood(context, customFoodIfFound, popAfterReturn: true);
@@ -203,19 +204,19 @@ class FoodInputState extends State<FoodInput>
         final appSettings = Provider.of<AppSettings>(context, listen: false);
 
         if (appSettings.isProviderOpenFoodFactsActivated) {
-          OpenFoodFactsBinding().getFoodByEan(ean).then((food) {
+          OpenFoodFactsBinding().getFoodByBarcode(barcode).then((food) {
             if (!mounted) return;
 
             _navigateToAddFood(context, food, popAfterReturn: true);
           }).catchError((error) {
             // If there is also no match, show an error that no product could be found
             setState(() {
-              _productNotFoundExceptionEan = '$error';
+              _productNotFoundExceptionBarcode = '$error';
             });
           });
         } else {
           setState(() {
-            _productNotFoundExceptionEan = ean;
+            _productNotFoundExceptionBarcode = barcode;
           });
         }
       }
@@ -400,7 +401,7 @@ class FoodInputState extends State<FoodInput>
     _qrController?.dispose();
     _searchFieldDebounceTimer?.cancel();
     _searchInputController.dispose();
-    _searchEanController.dispose();
+    _searchBarcodeController.dispose();
 
     // Re-enable all device screen orientations
     SystemChrome.setPreferredOrientations([
@@ -479,7 +480,7 @@ class FoodInputState extends State<FoodInput>
           ),
         ],
       );
-    } else if (widget._sheetModalMode == SheetModalMode.ean) {
+    } else if (widget._sheetModalMode == SheetModalMode.barcode) {
       return Container(
         margin: const EdgeInsets.all(12.0),
         child: Column(
@@ -488,9 +489,9 @@ class FoodInputState extends State<FoodInput>
               children: [
                 Expanded(
                   child: Form(
-                    key: _eanCodeFormKey,
+                    key: _barcodeFormKey,
                     child: TextFormField(
-                      controller: _searchEanController,
+                      controller: _searchBarcodeController,
                       validator: (text) {
                         if (text == null || text.isEmpty) {
                           return AppLocalizations.of(context)!.fieldMandatory;
@@ -498,9 +499,9 @@ class FoodInputState extends State<FoodInput>
                         return null;
                       },
                       onFieldSubmitted: (value) {
-                        if (_eanCodeFormKey.currentState!.validate()) {
-                          searchEanAndRedirect(
-                            _searchEanController.text,
+                        if (_barcodeFormKey.currentState!.validate()) {
+                          searchBarcodeAndRedirect(
+                            _searchBarcodeController.text,
                           );
                         }
                       },
@@ -512,9 +513,9 @@ class FoodInputState extends State<FoodInput>
                         prefixIcon: const Icon(Icons.search),
                         suffixIcon: IconButton(
                           onPressed: () {
-                            if (_eanCodeFormKey.currentState!.validate()) {
-                              searchEanAndRedirect(
-                                _searchEanController.text,
+                            if (_barcodeFormKey.currentState!.validate()) {
+                              searchBarcodeAndRedirect(
+                                _searchBarcodeController.text,
                               );
                             }
                           },
@@ -577,7 +578,7 @@ class FoodInputState extends State<FoodInput>
                     Container(
                       padding: const EdgeInsets.all(8.0),
                       alignment: Alignment.bottomCenter,
-                      child: _productNotFoundExceptionEan != null
+                      child: _productNotFoundExceptionBarcode != null
                           ? Container(
                               decoration: BoxDecoration(
                                 color: Theme.of(context)
@@ -594,7 +595,7 @@ class FoodInputState extends State<FoodInput>
                                 children: [
                                   Expanded(
                                     child: Text(
-                                      '$_productNotFoundExceptionEan ${AppLocalizations.of(context)!.notFound}',
+                                      '$_productNotFoundExceptionBarcode ${AppLocalizations.of(context)!.notFound}',
                                       style: TextStyle(
                                         color: Theme.of(context)
                                             .colorScheme
@@ -605,7 +606,8 @@ class FoodInputState extends State<FoodInput>
                                   ElevatedButton.icon(
                                     onPressed: () => _navigateToAddCustomFood(
                                       context,
-                                      ean: _productNotFoundExceptionEan!,
+                                      barcode:
+                                          _productNotFoundExceptionBarcode!,
                                     ),
                                     icon: const Icon(Icons.add),
                                     label: Text(

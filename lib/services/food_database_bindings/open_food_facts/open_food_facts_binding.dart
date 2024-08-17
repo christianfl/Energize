@@ -36,7 +36,10 @@ class OpenFoodFactsBinding {
     return _instance;
   }
 
-  Future<Food> getFoodByEan(String barcode) async {
+  /// Query OpenFoodFacts for food by barcode.
+  ///
+  /// Works with 12 digit (UPC) and 13 digit (EAN) codes
+  Future<Food> getFoodByBarcode(String barcode) async {
     final ProductQueryConfiguration configuration = ProductQueryConfiguration(
       barcode,
       language: _queryLanguage,
@@ -48,6 +51,26 @@ class OpenFoodFactsBinding {
 
     if (result.status == ProductResultV3.statusSuccess) {
       return Food.fromOpenFoodFactsProduct(result.product!);
+    } else if (barcode.length == 12) {
+      // Product uses UPC instead of EAN, try with leading '0'
+      final upgradedBarcode = '0$barcode';
+
+      final ProductQueryConfiguration upgradedConfiguration =
+          ProductQueryConfiguration(
+        upgradedBarcode,
+        language: _queryLanguage,
+        fields: [ProductField.ALL],
+        version: const ProductQueryVersion(3),
+      );
+
+      final ProductResultV3 newResult =
+          await OpenFoodAPIClient.getProductV3(upgradedConfiguration);
+
+      if (newResult.status == ProductResultV3.statusSuccess) {
+        return Food.fromOpenFoodFactsProduct(result.product!);
+      } else {
+        throw ProductNotFoundException(barcode);
+      }
     } else {
       throw ProductNotFoundException(barcode);
     }

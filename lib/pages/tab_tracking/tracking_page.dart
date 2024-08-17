@@ -408,7 +408,10 @@ class TrackingPageState extends State<TrackingPage> {
                   label: AppLocalizations.of(context)!.scanBarcode,
                   labelBackgroundColor:
                       Theme.of(context).colorScheme.primaryContainer,
-                  onTap: () => _startAddEatenFood(context, SheetModalMode.ean),
+                  onTap: () => _startAddEatenFood(
+                    context,
+                    SheetModalMode.barcode,
+                  ),
                   child: const Icon(Icons.qr_code),
                 ),
               ],
