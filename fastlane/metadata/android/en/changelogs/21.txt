@@ -1,0 +1,14 @@
+* [feat] Material Design 3 overhaul¹
+* [feat] Add local backup and restore
+* [feat] Add contributors page
+* [feat] Sort tracked food by consumation date
+* [feat] Support UPC barcodes
+* [fix] Several minor errors
+* [fix] Several code improvements
+* [test] Automatic localized screenshot creation
+* [l10n] Added Dutch, Hebrew, Slovenian¹
+* [l10n] Updated Danish, French, German, Norwegian Bokmål, Polish, Portuguese, Slovenian, Spanish, Turkish¹
+
+---
+
+¹Big thanks to all contributors!
