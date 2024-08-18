@@ -86,6 +86,7 @@ You are very welcome to:
   Please have a look whether similar issues already exist in advance.
 - Develop something
     - There is no written roadmap or code style guidelines yet
+    - Please use [Conventional Commits](https://www.conventionalcommits.org) for PRs
     - it's easier to reach out in advance if you want something to be merged later. :-)
 
 ## Donate
@@ -98,9 +99,11 @@ If you want to support the development by a donation, you are very welcome to do
 
 ## Release preparations
 
-1. Change the version number in: `pubspec.yaml`
-2. Compile with `flutter build apk`
-3. Don't forget changelogs!
+1. Create changelog: `./scripts/create_changelog.py` and modify it
+2. Generate screenshots: `flutter drive --driver=test_driver/integration_test.dart --target=integration_test/app_test.dart`
+3. Change version number in: `pubspec.yaml`
+4. Compile with `flutter build apk`
+5. Short test and release
 
 ---
 
