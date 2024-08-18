@@ -44,7 +44,6 @@ class FoodInput extends StatefulWidget {
 class FoodInputState extends State<FoodInput>
     with SingleTickerProviderStateMixin {
   final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
-  final _barcodeFormKey = GlobalKey<FormState>();
   QRViewController? _qrController;
   final _searchInputController = TextEditingController();
   final _searchBarcodeController = TextEditingController();
@@ -488,80 +487,40 @@ class FoodInputState extends State<FoodInput>
             Row(
               children: [
                 Expanded(
-                  child: Form(
-                    key: _barcodeFormKey,
-                    child: TextFormField(
-                      controller: _searchBarcodeController,
-                      validator: (text) {
-                        if (text == null || text.isEmpty) {
-                          return AppLocalizations.of(context)!.fieldMandatory;
-                        }
-                        return null;
-                      },
-                      onFieldSubmitted: (value) {
-                        if (_barcodeFormKey.currentState!.validate()) {
-                          searchBarcodeAndRedirect(
-                            _searchBarcodeController.text,
-                          );
-                        }
-                      },
-                      keyboardType: TextInputType.number,
-                      textAlignVertical: TextAlignVertical.center,
-                      decoration: InputDecoration(
-                        filled: true,
-                        hintText: AppLocalizations.of(context)!.barcode,
-                        prefixIcon: const Icon(Icons.search),
-                        suffixIcon: IconButton(
-                          onPressed: () {
-                            if (_barcodeFormKey.currentState!.validate()) {
-                              searchBarcodeAndRedirect(
-                                _searchBarcodeController.text,
-                              );
-                            }
-                          },
-                          icon: const Icon(Icons.send),
-                        ),
+                  child: SearchBar(
+                    elevation: WidgetStateProperty.all(0.0),
+                    controller: _searchBarcodeController,
+                    onSubmitted: (value) {
+                      if (value.isEmpty) {
+                        setState(() {
+                          _productNotFoundExceptionBarcode = null;
+                        });
+                      } else {
+                        searchBarcodeAndRedirect(
+                          _searchBarcodeController.text,
+                        );
+                      }
+                    },
+                    keyboardType: TextInputType.number,
+                    hintText: AppLocalizations.of(context)!.barcode,
+                    leading: const Icon(Icons.search),
+                    trailing: [
+                      IconButton(
+                        onPressed: () {
+                          if (_searchBarcodeController.text.isEmpty) {
+                            setState(() {
+                              _productNotFoundExceptionBarcode = null;
+                            });
+                          } else {
+                            searchBarcodeAndRedirect(
+                              _searchBarcodeController.text,
+                            );
+                          }
+                        },
+                        icon: const Icon(Icons.send),
                       ),
-                    ),
+                    ],
                   ),
-                ),
-                const SizedBox(width: 10),
-                Builder(
-                  builder: (BuildContext context) {
-                    switch (_flashStatus) {
-                      case null:
-                        // Flash unsupported
-
-                        return const IconButton(
-                          onPressed: null,
-                          icon: Icon(
-                            Icons.bolt,
-                          ),
-                        );
-
-                      case true:
-                        // Offer possibility to turn flash off
-
-                        return IconButton(
-                          isSelected: true,
-                          onPressed: () => _setFlash(false),
-                          icon: const Icon(
-                            Icons.bolt,
-                          ),
-                        );
-
-                      case false:
-                        // Offer possibility to turn flash on
-
-                        return IconButton(
-                          isSelected: false,
-                          onPressed: () => _setFlash(true),
-                          icon: const Icon(
-                            Icons.bolt,
-                          ),
-                        );
-                    }
-                  },
                 ),
               ],
             ),
@@ -574,6 +533,18 @@ class FoodInputState extends State<FoodInput>
                     QRView(
                       key: qrKey,
                       onQRViewCreated: _onQRViewCreated,
+                    ),
+                    Container(
+                      alignment: Alignment.topRight,
+                      padding: const EdgeInsets.all(2.0),
+                      child: IconButton.filled(
+                        isSelected: _flashStatus,
+                        onPressed: () =>
+                            _setFlash(_flashStatus == false ? true : false),
+                        icon: const Icon(
+                          Icons.bolt,
+                        ),
+                      ),
                     ),
                     Container(
                       padding: const EdgeInsets.all(8.0),
