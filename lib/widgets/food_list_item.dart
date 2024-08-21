@@ -63,8 +63,10 @@ class FoodListItem extends StatelessWidget {
                 fontWeight: FontWeight.w300,
                 fontSize: 10,
               ),
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
             )
-          : null,
+          : const Text(''),
       trailing: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
