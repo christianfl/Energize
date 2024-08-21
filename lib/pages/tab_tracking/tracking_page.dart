@@ -15,6 +15,8 @@ import '../../widgets/macro_chart.dart';
 import '../../widgets/tracked_food_list.dart';
 import './detailed_summary_sub_page.dart';
 
+const trackingFabTag = 'tracking_fab';
+
 class TrackingPage extends StatefulWidget {
   const TrackingPage({super.key});
 
@@ -370,6 +372,7 @@ class TrackingPageState extends State<TrackingPage> {
       floatingActionButton: _lastScrollDirection != ScrollDirection.reverse ||
               _isFabExplicitelyVisible
           ? SpeedDial(
+              heroTag: trackingFabTag,
               shape: const RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(Radius.circular(16)),
               ),

@@ -18,6 +18,7 @@ import '../../widgets/macro_chart.dart';
 import '../../widgets/micro_chart.dart';
 import '../../widgets/moving_end_contained_fab_location.dart';
 import '../../widgets/nutrition_facts_label_eu.dart';
+import 'tracking_page.dart';
 
 enum ModalMode { add, edit }
 
@@ -501,6 +502,7 @@ class TrackFoodState extends State<TrackFood>
       ),
       floatingActionButtonLocation: const MovingEndContainedFabLocation(),
       floatingActionButton: FloatingActionButton(
+        heroTag: trackingFabTag,
         child: const Icon(Icons.save),
         onPressed: () => _addOrEditFood(args, trackedFood),
       ),
