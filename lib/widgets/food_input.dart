@@ -13,6 +13,7 @@ import '../../providers/app_settings.dart';
 import '../../providers/custom_food_provider.dart';
 import '../../providers/tracked_food_provider.dart';
 import '../../services/sqlite/tracked_foods_database_service.dart';
+import '../../theme/energize_theme.dart';
 import '../../widgets/food_list_item.dart';
 import '../models/food/food.dart';
 import '../models/food/food_tracked.dart';
@@ -22,6 +23,7 @@ import '../services/food_database_bindings/open_food_facts/open_food_facts_bindi
 import '../services/food_database_bindings/swiss_food_composition_database/swiss_food_composition_database_binding.dart';
 import '../services/food_database_bindings/usda/usda_binding.dart';
 import '../services/sqlite/custom_foods_database_service.dart';
+import 'food_origin_logo_pill.dart';
 
 enum SheetModalMode { search, barcode }
 
@@ -63,6 +65,20 @@ class FoodInputState extends State<FoodInput>
 
   List<Food>? _offSearchResultFood;
   List<Food>? _usdaSearchResultFood;
+
+  /// Whether the last food search threw an error with OFF binding.
+  ///
+  /// For indicating the user which binding(s) had errors.
+  ///
+  /// Cleared when clearing SearchBar or on widget dispose.
+  bool _hasOffBindingError = false;
+
+  /// Whether the last food search threw an error with USDA binding.
+  ///
+  /// For indicating the user which binding(s) had errors.
+  ///
+  /// Cleared when clearing SearchBar or on widget dispose.
+  bool _hasUsdaBindingError = false;
 
   /// Only when opening this widget with barcode mode, block landscape orientation to improve scanning experience
   @override
@@ -260,8 +276,14 @@ class FoodInputState extends State<FoodInput>
     final appSettings = Provider.of<AppSettings>(context, listen: false);
 
     if (appSettings.isProviderOpenFoodFactsActivated) {
-      _offSearchResultFood =
-          await OpenFoodFactsBinding().searchFood(searchText);
+      try {
+        _offSearchResultFood =
+            await OpenFoodFactsBinding().searchFood(searchText);
+      } catch (e) {
+        setState(() {
+          _hasOffBindingError = true;
+        });
+      }
     } else {
       return;
     }
@@ -271,7 +293,13 @@ class FoodInputState extends State<FoodInput>
     final appSettings = Provider.of<AppSettings>(context, listen: false);
 
     if (appSettings.isProviderUsdaActivated) {
-      _usdaSearchResultFood = await USDABinding.searchFood(searchText);
+      try {
+        _usdaSearchResultFood = await USDABinding.searchFood(searchText);
+      } catch (e) {
+        setState(() {
+          _hasUsdaBindingError = true;
+        });
+      }
     } else {
       return;
     }
@@ -395,6 +423,74 @@ class FoodInputState extends State<FoodInput>
     return flashStatus;
   }
 
+  /// Resets the SearchBar which searches for food to track.
+  ///
+  /// Clears the controller, the searched food list and binding errors.
+  void _resetFoodSearch() {
+    _searchInputController.clear();
+    populateSearchedFoodList('', false);
+
+    // Clear binding errors
+    setState(() {
+      _hasOffBindingError = false;
+      _hasUsdaBindingError = false;
+    });
+  }
+
+  /// Returns whether any of the food database bindings raised errors when searching for food.
+  bool get _hasAnyBindingError {
+    return _hasOffBindingError || _hasUsdaBindingError;
+  }
+
+  /// Shows a dialog which lists the food database binding(s) which raised an error during food search
+  Future<void> _showErrorRaisingFoodDatabaseBindingsDialog() async {
+    return showDialog<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(AppLocalizations.of(context)!.searchError),
+          content: SizedBox(
+            width: MediaQuery.of(context).size.width,
+            child: ListView(
+              shrinkWrap: true,
+              children: [
+                Text(AppLocalizations.of(context)!.searchErrorHint),
+                const SizedBox(height: 12),
+                Text('${AppLocalizations.of(context)!.affectedDatabases}:'),
+                const SizedBox(height: 12),
+                if (_hasOffBindingError)
+                  const ListTile(
+                    title: Text('Open Food Facts'),
+                    trailing: SizedBox(
+                      width: 72,
+                      height: 46,
+                      child:
+                          FoodOriginLogoPill(OpenFoodFactsBinding.originName),
+                    ),
+                  ),
+                if (_hasUsdaBindingError)
+                  const ListTile(
+                    title: Text('USDA Food Data Central'),
+                    trailing: SizedBox(
+                      width: 72,
+                      height: 46,
+                      child: FoodOriginLogoPill(USDABinding.originName),
+                    ),
+                  ),
+              ],
+            ),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(),
+              child: Text(MaterialLocalizations.of(context).okButtonLabel),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   void dispose() {
     _qrController?.dispose();
@@ -432,10 +528,19 @@ class FoodInputState extends State<FoodInput>
                     )
                   : const Icon(Icons.search),
               trailing: [
+                if (_hasAnyBindingError)
+                  IconButton(
+                    onPressed: () {
+                      _showErrorRaisingFoodDatabaseBindingsDialog();
+                    },
+                    icon: Icon(
+                      Icons.error,
+                      color: Theme.of(context).warningContainer,
+                    ),
+                  ),
                 IconButton(
-                  onPressed: () => {
-                    _searchInputController.clear(),
-                    populateSearchedFoodList('', false),
+                  onPressed: () {
+                    _resetFoodSearch();
                   },
                   icon: const Icon(Icons.clear),
                 ),

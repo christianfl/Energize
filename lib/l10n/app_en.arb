@@ -41,6 +41,9 @@
     "scanBarcode": "Scan barcode",
     "searchFood": "Search food",
     "productOrBrand": "Product or brand",
+    "searchError": "Error during search",
+    "searchErrorHint": "At least one food composition database could not be reached. Please try again later or temporarily disable non-functional databases in the settings.",
+    "affectedDatabases": "Affected databases",
     "@_CUSTOM_FOOD": {
     },
     "customFood": "Custom Food",
