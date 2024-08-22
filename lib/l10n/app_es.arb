@@ -434,5 +434,11 @@
   "createWebDAVBackup": "Crear copia de seguridad de WebDAV",
   "@createWebDAVBackup": {},
   "createLocalBackup": "Crear copia de seguridad local",
-  "@createLocalBackup": {}
+  "@createLocalBackup": {},
+  "searchError": "Error al buscar",
+  "@searchError": {},
+  "searchErrorHint": "No se pudo acceder al menos a una base de datos de alimentos. Inténtalo de nuevo más tarde o deshabilita temporalmente las bases de datos que no funcionan en la configuración.",
+  "@searchErrorHint": {},
+  "affectedDatabases": "Bases de datos afectadas",
+  "@affectedDatabases": {}
 }
