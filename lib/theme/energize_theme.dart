@@ -19,7 +19,9 @@ class EnergizeTheme {
 }
 
 extension EnergizeThemeData on ThemeData {
-  Color get extraHighlightColor => Colors.amber;
+  bool get isDarkMode => brightness == Brightness.dark;
+
+  // Static colors
   Color get donateContainer => const Color(0xFFF6C915);
   Color get onDonateContainer => Colors.black;
   Color get usdaColor => const Color(0xFF004785);
@@ -42,4 +44,8 @@ extension EnergizeThemeData on ThemeData {
   Color get onNoPictureBackground => Colors.white;
   Color get progressBar => const Color(0xFFDCDCDC);
   Color get onProgressBar => Colors.black;
+
+  // Dynamic colors
+  Color get extraHighlightColor =>
+      isDarkMode ? Colors.orange : Colors.redAccent;
 }
