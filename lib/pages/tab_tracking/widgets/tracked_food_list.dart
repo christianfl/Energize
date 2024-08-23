@@ -35,45 +35,60 @@ class TrackedFoodList extends StatelessWidget {
               ],
             )
           : ListView.builder(
-              padding: const EdgeInsets.all(8.0),
+              itemCount: foods.length + 2,
               controller: _scrollController,
               itemBuilder: (ctx, index) {
-                final food = foods[index];
-                return Dismissible(
-                  key: Key(food.id),
-                  background: Container(
-                    color: Theme.of(context).dangerContainer,
-                    child: Icon(
-                      Icons.delete,
-                      color: Theme.of(context).onDangerContainer,
-                    ),
-                  ),
-                  onDismissed: (direction) {
-                    final swipedFood = food;
-                    trackedFood.removeEatenFood(food.id);
-                    _setIsFabExplicitelyVisible(true);
+                // Padding on top of the list
+                if (index == 0) {
+                  return const Padding(
+                    padding: EdgeInsets.only(top: 8.0),
+                  );
+                } else if (index <= foods.length) {
+                  final food = foods[index - 1];
 
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: Text(
-                          '${food.title} ${AppLocalizations.of(context)!.deleted}',
-                        ),
-                        action: SnackBarAction(
-                          label: AppLocalizations.of(context)!.undo,
-                          onPressed: () {
-                            trackedFood.addEatenFood(swipedFood);
-                          },
-                        ),
+                  return Dismissible(
+                    key: Key(food.id),
+                    background: Container(
+                      color: Theme.of(context).dangerContainer,
+                      child: Icon(
+                        Icons.delete,
+                        color: Theme.of(context).onDangerContainer,
                       ),
-                    );
-                  },
-                  child: TrackedFoodListItem(
-                    food,
-                    onTapCallback: _navigateToEditFood,
-                  ),
-                );
+                    ),
+                    onDismissed: (direction) {
+                      final swipedFood = food;
+                      trackedFood.removeEatenFood(food.id);
+                      _setIsFabExplicitelyVisible(true);
+
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text(
+                            '${food.title} ${AppLocalizations.of(context)!.deleted}',
+                          ),
+                          action: SnackBarAction(
+                            label: AppLocalizations.of(context)!.undo,
+                            onPressed: () {
+                              trackedFood.addEatenFood(swipedFood);
+                            },
+                          ),
+                        ),
+                      );
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                      child: TrackedFoodListItem(
+                        food,
+                        onTapCallback: _navigateToEditFood,
+                      ),
+                    ),
+                  );
+                } else {
+                  // Padding on bottom of the list
+                  return const Padding(
+                    padding: EdgeInsets.only(bottom: 8.0),
+                  );
+                }
               },
-              itemCount: foods.length,
             ),
     );
   }
