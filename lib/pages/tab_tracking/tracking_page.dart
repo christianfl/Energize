@@ -10,10 +10,10 @@ import '../../services/sqlite/complete_days_database_service.dart';
 import '../../theme/energize_theme.dart';
 import '../../utils/date_util.dart';
 import '../../utils/time_util.dart';
-import '../../widgets/food_input.dart';
 import '../../widgets/macro_chart.dart';
-import '../../widgets/tracked_food_list.dart';
 import './detailed_summary_sub_page.dart';
+import 'widgets/food_input.dart';
+import 'widgets/tracked_food_list.dart';
 
 const trackingFabTag = 'tracking_fab';
 
@@ -31,245 +31,6 @@ class TrackingPageState extends State<TrackingPage> {
   ScrollDirection? _lastScrollDirection;
   bool _isFabExplicitelyVisible = false;
   final double _datePickerHighlightRadius = 16;
-
-  @override
-  void initState() {
-    _scrollController.addListener(() {
-      if (_lastScrollDirection !=
-          _scrollController.position.userScrollDirection) {
-        setState(() {
-          _lastScrollDirection = _scrollController.position.userScrollDirection;
-          _setIsFabExplicitelyVisible(false);
-        });
-      }
-    });
-
-    _selectDate(DateTime.now());
-
-    super.initState();
-  }
-
-  void _setIsFabExplicitelyVisible(bool value) {
-    setState(() {
-      _isFabExplicitelyVisible = value;
-    });
-  }
-
-  void _startAddEatenFood(BuildContext ctx, SheetModalMode mode) {
-    showModalBottomSheet(
-      context: ctx,
-      showDragHandle: true,
-      builder: (_) {
-        return FoodInput(_selectedDate, mode);
-      },
-    );
-  }
-
-  Future<void> _pickDateDialog(BuildContext ctx) async {
-    final List<DateTime> completedDays =
-        await CompleteDaysDatabaseService.completedDays;
-
-    if (!ctx.mounted) return;
-
-    return showDialog<void>(
-      context: ctx,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text(
-            MaterialLocalizations.of(context).datePickerHelpText.toUpperCase(),
-            style: Theme.of(context).textTheme.labelSmall,
-          ),
-          backgroundColor: Theme.of(context).colorScheme.surface,
-          content: SingleChildScrollView(
-            child: SizedBox(
-              width: MediaQuery.of(context).size.width,
-              child: TableCalendar(
-                locale: Localizations.localeOf(context).toString(),
-                availableCalendarFormats: const {CalendarFormat.month: ''},
-                weekendDays: const [],
-                headerStyle: const HeaderStyle(
-                  titleCentered: true,
-                ),
-                daysOfWeekStyle: DaysOfWeekStyle(
-                  weekdayStyle: TextStyle(
-                    color: Theme.of(context).microNutrientsContainer,
-                  ),
-                ),
-                daysOfWeekHeight: 32.0,
-                startingDayOfWeek: StartingDayOfWeek.monday,
-                firstDay: DateTime(2000),
-                lastDay: DateTime.now().add(const Duration(days: 365)),
-                focusedDay: _selectedDate,
-                onDaySelected: (selectedDay, focusedDay) {
-                  final DateTime selectedDateWithPreviousTime =
-                      _selectedDate.copyWith(
-                    year: selectedDay.year,
-                    month: selectedDay.month,
-                    day: selectedDay.day,
-                  );
-                  _selectDate(selectedDateWithPreviousTime);
-                  Navigator.of(context).pop();
-                },
-                // Mark current selected date
-                selectedDayPredicate: (day) => isSameDay(_selectedDate, day),
-                // Holidays == Days which are marked as done
-                holidayPredicate: (day) {
-                  return completedDays
-                      .any((completedDay) => isSameDay(completedDay, day));
-                },
-                calendarBuilders: CalendarBuilders(
-                  todayBuilder: (context, day, focusedDay) {
-                    return Center(
-                      child: CircleAvatar(
-                        radius: _datePickerHighlightRadius,
-                        backgroundColor:
-                            Theme.of(context).colorScheme.inverseSurface,
-                        child: CircleAvatar(
-                          radius: _datePickerHighlightRadius - 1,
-                          backgroundColor:
-                              Theme.of(context).dialogBackgroundColor,
-                          child: Text(
-                            '${day.day}',
-                            style: TextStyle(
-                              color: Theme.of(context).colorScheme.onSurface,
-                            ),
-                          ),
-                        ),
-                      ),
-                    );
-                  },
-                  selectedBuilder: (context, day, focusedDay) {
-                    return Center(
-                      child: CircleAvatar(
-                        radius: _datePickerHighlightRadius,
-                        backgroundColor:
-                            Theme.of(context).colorScheme.inverseSurface,
-                        child: Text(
-                          '${day.day}',
-                          style: TextStyle(
-                            color:
-                                Theme.of(context).colorScheme.onInverseSurface,
-                          ),
-                        ),
-                      ),
-                    );
-                  },
-                  holidayBuilder: (context, day, focusedDay) {
-                    return Center(
-                      child: Stack(
-                        alignment: Alignment.bottomRight,
-                        children: [
-                          CircleAvatar(
-                            radius: _datePickerHighlightRadius,
-                            backgroundColor: Theme.of(context).successContainer,
-                            child: Text(
-                              '${day.day}',
-                              style: TextStyle(
-                                color: Theme.of(context).onSuccessContainer,
-                              ),
-                            ),
-                          ),
-                          Icon(
-                            Icons.check,
-                            size: 16,
-                            color: Theme.of(context).onSuccessContainer,
-                          ),
-                        ],
-                      ),
-                    );
-                  },
-                ),
-              ),
-            ),
-          ),
-          actions: <Widget>[
-            TextButton(
-              child: Text(
-                MaterialLocalizations.of(context)
-                    .cancelButtonLabel
-                    .toUpperCase(),
-              ),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
-        );
-      },
-    );
-  }
-
-  /// Sets the current in-app time which acts as standard value for newly added food items
-  void _selectTime(BuildContext context) async {
-    final TimeOfDay? selectedTime = await showTimePicker(
-      initialEntryMode: TimePickerEntryMode.dialOnly,
-      initialTime: TimeOfDay.now(),
-      context: context,
-      helpText:
-          '${MaterialLocalizations.of(context).timePickerDialHelpText}\n\n${AppLocalizations.of(context)!.timeSetHelpText}',
-    );
-
-    if (selectedTime != null) {
-      setState(() {
-        _selectedDate = _selectedDate.copyWith(
-          hour: selectedTime.hour,
-          minute: selectedTime.minute,
-        );
-      });
-    }
-  }
-
-  void _selectDate(DateTime date) {
-    final provider = Provider.of<TrackedFoodProvider>(context, listen: false);
-
-    setState(() {
-      _selectedDate = date;
-      provider.selectDate(_selectedDate);
-      CompleteDaysDatabaseService.isDateCompleted(_selectedDate)
-          .then((value) => _isSelectedDateCompleted = value);
-    });
-  }
-
-  void _switchDayCompletionStatus() {
-    if (_isSelectedDateCompleted!) {
-      CompleteDaysDatabaseService.remove(_selectedDate);
-
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(AppLocalizations.of(context)!.unmarkedDayAsComplete),
-        ),
-      );
-    } else {
-      CompleteDaysDatabaseService.insert(_selectedDate);
-
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(AppLocalizations.of(context)!.markedDayAsComplete),
-        ),
-      );
-    }
-    _isSelectedDateCompleted = !_isSelectedDateCompleted!;
-  }
-
-  Widget _dayCompletionStatusMenuEntry() {
-    if (_isSelectedDateCompleted!) {
-      return Row(
-        children: [
-          const Icon(Icons.clear),
-          const SizedBox(width: 10),
-          Text(AppLocalizations.of(context)!.dayIncomplete),
-        ],
-      );
-    } else {
-      return Row(
-        children: [
-          const Icon(Icons.done),
-          const SizedBox(width: 10),
-          Text(AppLocalizations.of(context)!.dayComplete),
-        ],
-      );
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -421,5 +182,244 @@ class TrackingPageState extends State<TrackingPage> {
             )
           : null,
     );
+  }
+
+  @override
+  void initState() {
+    _scrollController.addListener(() {
+      if (_lastScrollDirection !=
+          _scrollController.position.userScrollDirection) {
+        setState(() {
+          _lastScrollDirection = _scrollController.position.userScrollDirection;
+          _setIsFabExplicitelyVisible(false);
+        });
+      }
+    });
+
+    _selectDate(DateTime.now());
+
+    super.initState();
+  }
+
+  Widget _dayCompletionStatusMenuEntry() {
+    if (_isSelectedDateCompleted!) {
+      return Row(
+        children: [
+          const Icon(Icons.clear),
+          const SizedBox(width: 10),
+          Text(AppLocalizations.of(context)!.dayIncomplete),
+        ],
+      );
+    } else {
+      return Row(
+        children: [
+          const Icon(Icons.done),
+          const SizedBox(width: 10),
+          Text(AppLocalizations.of(context)!.dayComplete),
+        ],
+      );
+    }
+  }
+
+  Future<void> _pickDateDialog(BuildContext ctx) async {
+    final List<DateTime> completedDays =
+        await CompleteDaysDatabaseService.completedDays;
+
+    if (!ctx.mounted) return;
+
+    return showDialog<void>(
+      context: ctx,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(
+            MaterialLocalizations.of(context).datePickerHelpText.toUpperCase(),
+            style: Theme.of(context).textTheme.labelSmall,
+          ),
+          backgroundColor: Theme.of(context).colorScheme.surface,
+          content: SingleChildScrollView(
+            child: SizedBox(
+              width: MediaQuery.of(context).size.width,
+              child: TableCalendar(
+                locale: Localizations.localeOf(context).toString(),
+                availableCalendarFormats: const {CalendarFormat.month: ''},
+                weekendDays: const [],
+                headerStyle: const HeaderStyle(
+                  titleCentered: true,
+                ),
+                daysOfWeekStyle: DaysOfWeekStyle(
+                  weekdayStyle: TextStyle(
+                    color: Theme.of(context).microNutrientsContainer,
+                  ),
+                ),
+                daysOfWeekHeight: 32.0,
+                startingDayOfWeek: StartingDayOfWeek.monday,
+                firstDay: DateTime(2000),
+                lastDay: DateTime.now().add(const Duration(days: 365)),
+                focusedDay: _selectedDate,
+                onDaySelected: (selectedDay, focusedDay) {
+                  final DateTime selectedDateWithPreviousTime =
+                      _selectedDate.copyWith(
+                    year: selectedDay.year,
+                    month: selectedDay.month,
+                    day: selectedDay.day,
+                  );
+                  _selectDate(selectedDateWithPreviousTime);
+                  Navigator.of(context).pop();
+                },
+                // Mark current selected date
+                selectedDayPredicate: (day) => isSameDay(_selectedDate, day),
+                // Holidays == Days which are marked as done
+                holidayPredicate: (day) {
+                  return completedDays
+                      .any((completedDay) => isSameDay(completedDay, day));
+                },
+                calendarBuilders: CalendarBuilders(
+                  todayBuilder: (context, day, focusedDay) {
+                    return Center(
+                      child: CircleAvatar(
+                        radius: _datePickerHighlightRadius,
+                        backgroundColor:
+                            Theme.of(context).colorScheme.inverseSurface,
+                        child: CircleAvatar(
+                          radius: _datePickerHighlightRadius - 1,
+                          backgroundColor:
+                              Theme.of(context).dialogBackgroundColor,
+                          child: Text(
+                            '${day.day}',
+                            style: TextStyle(
+                              color: Theme.of(context).colorScheme.onSurface,
+                            ),
+                          ),
+                        ),
+                      ),
+                    );
+                  },
+                  selectedBuilder: (context, day, focusedDay) {
+                    return Center(
+                      child: CircleAvatar(
+                        radius: _datePickerHighlightRadius,
+                        backgroundColor:
+                            Theme.of(context).colorScheme.inverseSurface,
+                        child: Text(
+                          '${day.day}',
+                          style: TextStyle(
+                            color:
+                                Theme.of(context).colorScheme.onInverseSurface,
+                          ),
+                        ),
+                      ),
+                    );
+                  },
+                  holidayBuilder: (context, day, focusedDay) {
+                    return Center(
+                      child: Stack(
+                        alignment: Alignment.bottomRight,
+                        children: [
+                          CircleAvatar(
+                            radius: _datePickerHighlightRadius,
+                            backgroundColor: Theme.of(context).successContainer,
+                            child: Text(
+                              '${day.day}',
+                              style: TextStyle(
+                                color: Theme.of(context).onSuccessContainer,
+                              ),
+                            ),
+                          ),
+                          Icon(
+                            Icons.check,
+                            size: 16,
+                            color: Theme.of(context).onSuccessContainer,
+                          ),
+                        ],
+                      ),
+                    );
+                  },
+                ),
+              ),
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: Text(
+                MaterialLocalizations.of(context)
+                    .cancelButtonLabel
+                    .toUpperCase(),
+              ),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  void _selectDate(DateTime date) {
+    final provider = Provider.of<TrackedFoodProvider>(context, listen: false);
+
+    setState(() {
+      _selectedDate = date;
+      provider.selectDate(_selectedDate);
+      CompleteDaysDatabaseService.isDateCompleted(_selectedDate)
+          .then((value) => _isSelectedDateCompleted = value);
+    });
+  }
+
+  /// Sets the current in-app time which acts as standard value for newly added food items
+  void _selectTime(BuildContext context) async {
+    final TimeOfDay? selectedTime = await showTimePicker(
+      initialEntryMode: TimePickerEntryMode.dialOnly,
+      initialTime: TimeOfDay.now(),
+      context: context,
+      helpText:
+          '${MaterialLocalizations.of(context).timePickerDialHelpText}\n\n${AppLocalizations.of(context)!.timeSetHelpText}',
+    );
+
+    if (selectedTime != null) {
+      setState(() {
+        _selectedDate = _selectedDate.copyWith(
+          hour: selectedTime.hour,
+          minute: selectedTime.minute,
+        );
+      });
+    }
+  }
+
+  void _setIsFabExplicitelyVisible(bool value) {
+    setState(() {
+      _isFabExplicitelyVisible = value;
+    });
+  }
+
+  void _startAddEatenFood(BuildContext ctx, SheetModalMode mode) {
+    showModalBottomSheet(
+      context: ctx,
+      showDragHandle: true,
+      builder: (_) {
+        return FoodInput(_selectedDate, mode);
+      },
+    );
+  }
+
+  void _switchDayCompletionStatus() {
+    if (_isSelectedDateCompleted!) {
+      CompleteDaysDatabaseService.remove(_selectedDate);
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(AppLocalizations.of(context)!.unmarkedDayAsComplete),
+        ),
+      );
+    } else {
+      CompleteDaysDatabaseService.insert(_selectedDate);
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(AppLocalizations.of(context)!.markedDayAsComplete),
+        ),
+      );
+    }
+    _isSelectedDateCompleted = !_isSelectedDateCompleted!;
   }
 }

@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 
-import '../../providers/tracked_food_provider.dart';
-import '../models/food/food_tracked.dart';
-import '../pages/tab_tracking/track_food_modal.dart';
-import '../theme/energize_theme.dart';
+import '../../../../providers/tracked_food_provider.dart';
+import '../../../models/food/food_tracked.dart';
+import '../../../theme/energize_theme.dart';
+import '../track_food_modal.dart';
 
 class TrackedFoodList extends StatelessWidget {
   final ScrollController _scrollController;
@@ -17,21 +17,6 @@ class TrackedFoodList extends StatelessWidget {
     this._setIsFabExplicitelyVisible, {
     super.key,
   });
-
-  double _caloriesPerAmount(FoodTracked food) {
-    if (food.calories != null) {
-      return food.calories! / 100 * food.amount;
-    } else {
-      return 0;
-    }
-  }
-
-  void _navigateToEditFood(BuildContext context, FoodTracked foodToBeAdded) {
-    Navigator.of(context).pushNamed(
-      TrackFood.routeName,
-      arguments: ModalArguments(foodToBeAdded, ModalMode.edit),
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -173,6 +158,21 @@ class TrackedFoodList extends StatelessWidget {
               },
               itemCount: foods.length,
             ),
+    );
+  }
+
+  double _caloriesPerAmount(FoodTracked food) {
+    if (food.calories != null) {
+      return food.calories! / 100 * food.amount;
+    } else {
+      return 0;
+    }
+  }
+
+  void _navigateToEditFood(BuildContext context, FoodTracked foodToBeAdded) {
+    Navigator.of(context).pushNamed(
+      TrackFood.routeName,
+      arguments: ModalArguments(foodToBeAdded, ModalMode.edit),
     );
   }
 }
