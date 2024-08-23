@@ -363,7 +363,7 @@ class TrackFoodState extends State<TrackFood>
       body: Column(
         children: [
           Container(
-            color: Colors.black26,
+            color: Theme.of(context).colorScheme.surfaceContainer,
             child: Padding(
               padding: const EdgeInsets.fromLTRB(16.0, 16.0, 0.0, 16.0),
               child: Row(
