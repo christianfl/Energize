@@ -28,6 +28,7 @@ class TrackedFoodListItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
+      clipBehavior: Clip.antiAlias,
       child: InkWell(
         onTap: onTapCallback != null
             ? () => onTapCallback!(context, trackedFood)
