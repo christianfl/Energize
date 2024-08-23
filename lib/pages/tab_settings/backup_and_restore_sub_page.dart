@@ -543,13 +543,16 @@ ${AppLocalizations.of(context)!.exportedNumberOfFoodsMessage(
     }
 
     // Pick file destination
-    final FilePickerResult? pickerResult = await FilePicker.platform.pickFiles();
+    final FilePickerResult? pickerResult =
+        await FilePicker.platform.pickFiles();
     final pickedPath = pickerResult?.files.single.path;
 
     // Picking was cancelled, bye!
     if (pickedPath == null) {
       return;
     }
+
+    final encryptionPassword = _encryptionPasswordController.text;
 
     // Prepare file
     final File file = File(pickedPath);
@@ -559,13 +562,14 @@ ${AppLocalizations.of(context)!.exportedNumberOfFoodsMessage(
       _isBusy = true;
     });
 
-    final fileAsString = await file.readAsString(encoding: utf8);
-    final encryptionPassword = _encryptionPasswordController.text;
-
     if (!mounted) return;
 
     // Restore backup
     try {
+      final fileAsString = await file.readAsString(encoding: utf8);
+
+      if (!mounted) return;
+
       final backupData = BackupService.restoreBackup(
         fileAsString,
         encryptionPassword,
@@ -588,6 +592,8 @@ ${AppLocalizations.of(context)!.importedNumberOfFoodsMessage(
           ),
         ),
       );
+    } on FileSystemException {
+      _showError(context, text: 'The file could not be loaded');
     } catch (exception) {
       // In case something went wrong with decryption, etc.
       _showError(context, text: exception.toString());
