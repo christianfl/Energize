@@ -434,5 +434,11 @@
   "missingBackupPartsHint": "Uyarı: Ayarlar, kişiselleştirmeler ve hedefler henüz dahil edilmedi!",
   "@missingBackupPartsHint": {},
   "restoreLocalBackup": "Yerel yedeklemeyi geri yükle",
-  "@restoreLocalBackup": {}
+  "@restoreLocalBackup": {},
+  "affectedDatabases": "Etkilenen veri tabanları",
+  "@affectedDatabases": {},
+  "searchError": "Arama sırasında hata oluştu",
+  "@searchError": {},
+  "searchErrorHint": "En az bir gıda bileşimi veri tabanına ulaşılamadı. Lütfen daha sonra tekrar deneyin veya ayarlardan çalışmayan olmayan veri tabanlarını geçici olarak devre dışı bırakın.",
+  "@searchErrorHint": {}
 }
