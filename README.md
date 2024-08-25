@@ -99,7 +99,7 @@ If you want to support the development by a donation, you are very welcome to do
 
 ## Release preparations
 
-1. Create changelog: `./scripts/create_changelog.py` and modify it
+1. Create changelog: `./scripts/create_changelog/create_changelog.py` and modify it
 2. Generate screenshots: `flutter drive --driver=test_driver/integration_test.dart --target=integration_test/app_test.dart`
 3. Change version number in: `pubspec.yaml`
 4. Compile with `flutter build apk`
