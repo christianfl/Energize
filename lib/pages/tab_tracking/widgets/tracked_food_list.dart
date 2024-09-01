@@ -24,7 +24,18 @@ class TrackedFoodList extends StatelessWidget {
     final foods = trackedFood.foods;
 
     // Sort trackedFood in the UI, so it gets updated on each build
-    foods.sort((a, b) => b.dateEaten.compareTo(a.dateEaten));
+    foods.sort((a, b) {
+      // Sort by dateEaten descending
+      final sortByDateEaten = b.dateEaten.compareTo(a.dateEaten);
+
+      // If dateEaten are different, sort only by dateEaten
+      if (sortByDateEaten != 0) {
+        return sortByDateEaten;
+      }
+
+      // If dateEaten are the same, sort by dateAdded as next attribute
+      return b.dateAdded.compareTo(a.dateAdded);
+    });
 
     return Expanded(
       child: foods.isEmpty
