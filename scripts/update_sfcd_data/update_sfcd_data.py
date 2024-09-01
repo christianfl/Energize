@@ -55,4 +55,4 @@ df_all = df_all.drop(columns=['ID V 4.0', 'ID SwissFIR', 'Category', 'Density', 
 df_all = df_all.rename(columns={'Synonyms': 'Synonyms_EN', 'Synonyme': 'Synonyms_DE', 'Nome': 'Name_IT', 'Sinonimi': 'Synonyms_IT', 'Nom': 'Name_FR', 'Synonymes': 'Synonyms_FR'})
 
 ## Save merged into CSV
-df_all.to_csv('sfcd.csv', index=False)
+df_all.to_csv('sfcd.csv', index=False, sep='§')
