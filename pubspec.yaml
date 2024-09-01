@@ -49,6 +49,7 @@ dependencies:
   fl_chart: ^0.68.0
   file_picker: ^8.0.6
   package_info_plus: ^8.0.0
+  flutter_markdown: ^0.7.3+1
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -73,6 +74,7 @@ flutter:
     - assets/
     - assets/food_databases/
     - lib/services/food_database_bindings/swiss_food_composition_database/assets/
+    - lib/pages/tab_settings/about_sub_page/assets/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

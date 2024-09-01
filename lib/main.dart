@@ -9,7 +9,7 @@ import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 import 'package:sqflite_common_ffi_web/sqflite_ffi_web.dart';
 
 import 'pages/tab_food/add_edit_custom_food_modal.dart';
-import 'pages/tab_settings/about_sub_page.dart';
+import 'pages/tab_settings/about_sub_page/about_sub_page.dart';
 import 'pages/tab_settings/backup_and_restore_sub_page.dart';
 import 'pages/tab_settings/database_management_sub_page.dart';
 import 'pages/tab_settings/donation_sub_page.dart';

@@ -101,9 +101,10 @@ If you want to support the development by a donation, you are very welcome to do
 
 1. Create changelog: `./scripts/create_changelog/create_changelog.py` and modify it
 2. Generate screenshots: `flutter drive --driver=test_driver/integration_test.dart --target=integration_test/app_test.dart`
-3. Change version number in: `pubspec.yaml`
-4. Compile with `flutter build apk`
-5. Short test and release
+3. Copy privacy policy in the corresponding assets folder: `cp PRIVACY.md lib/pages/tab_settings/about_sub_page/assets/`
+4. Change version number in: `pubspec.yaml`
+5. Compile with `flutter build apk`
+6. Short test and release
 
 ---
 

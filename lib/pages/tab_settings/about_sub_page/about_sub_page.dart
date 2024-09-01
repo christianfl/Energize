@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -17,6 +19,8 @@ class AboutSubPage extends StatefulWidget {
   static const _contributors = [
     'Marijn Kok',
   ];
+  static const _privacyPolicyUrl =
+      'lib/pages/tab_settings/about_sub_page/assets/PRIVACY.md';
 
   const AboutSubPage({super.key});
 
@@ -26,63 +30,6 @@ class AboutSubPage extends StatefulWidget {
 
 class _AboutSubPageState extends State<AboutSubPage> {
   String _appVersion = '';
-
-  @override
-  void initState() {
-    _getAppVersion();
-
-    super.initState();
-  }
-
-  /// Fetch Energize app version
-  void _getAppVersion() async {
-    final packageInfo = await PackageInfo.fromPlatform();
-
-    setState(() {
-      _appVersion = packageInfo.version;
-    });
-  }
-
-  /// Shows dialog for listing the Energize contributors
-  Future<void> _showContributorsDialog() async {
-    final contributors = List.from(AboutSubPage._contributors);
-    contributors.add(AppLocalizations.of(context)!.allTranslatorsOnWeblate);
-
-    return showDialog<void>(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(AppLocalizations.of(context)!.contributors),
-              const SizedBox(height: 18),
-              Text(
-                AppLocalizations.of(context)!.thanksToContributorsText,
-                style: Theme.of(context).textTheme.bodyMedium,
-              ),
-            ],
-          ),
-          content: SizedBox(
-            width: MediaQuery.of(context).size.width,
-            child: ListView.builder(
-              itemCount: contributors.length,
-              shrinkWrap: true,
-              itemBuilder: (BuildContext context, int index) {
-                return ListTile(title: Text(contributors[index]));
-              },
-            ),
-          ),
-          actions: [
-            TextButton(
-              onPressed: () => Navigator.of(context).pop(),
-              child: Text(MaterialLocalizations.of(context).okButtonLabel),
-            ),
-          ],
-        );
-      },
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -150,6 +97,13 @@ class _AboutSubPageState extends State<AboutSubPage> {
               Padding(
                 padding: const EdgeInsets.all(36.0),
                 child: Text(AppLocalizations.of(context)!.appDescription),
+              ),
+              InkWell(
+                onTap: () => _showPrivacyPolicyDialog(),
+                child: ListTile(
+                  leading: const Icon(Icons.privacy_tip),
+                  title: Text(AppLocalizations.of(context)!.privacyPolicy),
+                ),
               ),
               InkWell(
                 onTap: () async {
@@ -273,6 +227,112 @@ class _AboutSubPageState extends State<AboutSubPage> {
           ),
         ),
       ),
+    );
+  }
+
+  @override
+  void initState() {
+    _getAppVersion();
+
+    super.initState();
+  }
+
+  /// Fetch Energize app version
+  void _getAppVersion() async {
+    final packageInfo = await PackageInfo.fromPlatform();
+
+    setState(() {
+      _appVersion = packageInfo.version;
+    });
+  }
+
+  /// Shows dialog for listing the Energize contributors
+  Future<void> _showContributorsDialog() async {
+    final contributors = List.from(AboutSubPage._contributors);
+    contributors.add(AppLocalizations.of(context)!.allTranslatorsOnWeblate);
+
+    return showDialog<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(AppLocalizations.of(context)!.contributors),
+              const SizedBox(height: 18),
+              Text(
+                AppLocalizations.of(context)!.thanksToContributorsText,
+                style: Theme.of(context).textTheme.bodyMedium,
+              ),
+            ],
+          ),
+          content: SizedBox(
+            width: MediaQuery.of(context).size.width,
+            child: ListView.builder(
+              itemCount: contributors.length,
+              shrinkWrap: true,
+              itemBuilder: (BuildContext context, int index) {
+                return ListTile(title: Text(contributors[index]));
+              },
+            ),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(),
+              child: Text(MaterialLocalizations.of(context).okButtonLabel),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  Future<void> _showPrivacyPolicyDialog() async {
+    // Load privacy policy from local markdown file
+    String privacyPolicyMarkdown =
+        await rootBundle.loadString(AboutSubPage._privacyPolicyUrl);
+
+    // Remove first line which contains the title
+    final endOfFirstLineIndex = privacyPolicyMarkdown.indexOf('\n');
+    privacyPolicyMarkdown =
+        privacyPolicyMarkdown.substring(endOfFirstLineIndex);
+
+    if (!mounted) {
+      return;
+    }
+
+    return showDialog<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return Dialog.fullscreen(
+          child: Scaffold(
+            appBar: AppBar(
+              title: Text(AppLocalizations.of(context)!.privacyPolicy),
+              leading: IconButton(
+                onPressed: () => Navigator.of(context).pop(),
+                icon: const Icon(Icons.close),
+              ),
+            ),
+            body: Markdown(
+              data: privacyPolicyMarkdown,
+              selectable: true,
+              onTapLink: (text, href, title) async {
+                if (href != null) {
+                  final uri = Uri.parse(href);
+                  if (await canLaunchUrl(uri)) {
+                    await launchUrl(
+                      uri,
+                      mode: LaunchMode.externalApplication,
+                    );
+                  } else {
+                    throw 'Could not launch url';
+                  }
+                }
+              },
+            ),
+          ),
+        );
+      },
     );
   }
 }

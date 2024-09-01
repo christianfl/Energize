@@ -4,7 +4,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import 'about_sub_page.dart';
+import 'about_sub_page/about_sub_page.dart';
 
 class DonationSubPage extends StatefulWidget {
   static const routeName = '/settings/donate';
