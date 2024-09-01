@@ -448,5 +448,7 @@
   "languages": "Idiomas",
   "@languages": {},
   "italian": "Italiano",
-  "@italian": {}
+  "@italian": {},
+  "privacyPolicy": "Política de privacidad",
+  "@privacyPolicy": {}
 }
