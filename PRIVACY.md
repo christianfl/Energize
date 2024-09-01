@@ -1,8 +1,8 @@
 # Privacy Policy
 
-[Last update: 01. September, 2024]
+_Last update: September 1, 2024_
 
-> Only available in English.
+> Currently only available in English.
 
 This app is designed to be privacy-friendly. It stores the processed data on the user's device. It uses the network connection in these cases:
 
@@ -38,6 +38,6 @@ In this case the following data is transmitted to the custom server:
 
 - the device's external IP-address (for technical reasons)
 - the authentication data for the custom server (username and password)
-- the [encrypted backup](docs/backup-encryption/README.md) file
+- the [encrypted backup](https://codeberg.org/epinez/Energize/src/branch/main/docs/backup-encryption/README.md) file
 
 Please note that there is no default WebDAV-server configured at the moment, which means that you or your configured provider is fully responsible for processing the data.
