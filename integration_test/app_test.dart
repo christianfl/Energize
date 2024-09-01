@@ -121,17 +121,38 @@ void main() {
       final now = DateTime.now();
 
       // Prepare food from Swiss Food Composition Database
-      final sfcdFoods = SwissFoodCompositionDatabaseBinding.allFoods;
-      final avocado =
-          sfcdFoods.firstWhere((elem) => elem.title.startsWith('Avocado'));
-      final banana =
-          sfcdFoods.firstWhere((elem) => elem.title.startsWith('Banane'));
-      final apple =
-          sfcdFoods.firstWhere((elem) => elem.title.startsWith('Apfel, roh'));
-      final oatmeal =
-          sfcdFoods.firstWhere((elem) => elem.title.startsWith('Haferflocken'));
-      final coconutMilk = sfcdFoods
-          .firstWhere((elem) => elem.title.startsWith('Kokosnussmilch'));
+      final avocadoSearch =
+          await SwissFoodCompositionDatabaseBinding.searchFood(
+        'Avocado',
+        const Locale('en'),
+      );
+      final avocado = avocadoSearch!.first;
+
+      final bananaSearch = await SwissFoodCompositionDatabaseBinding.searchFood(
+        'Banana, raw',
+        const Locale('en'),
+      );
+      final banana = bananaSearch!.first;
+
+      final appleSearch = await SwissFoodCompositionDatabaseBinding.searchFood(
+        'Apple, fresh',
+        const Locale('en'),
+      );
+      final apple = appleSearch!.first;
+
+      final oatmealSearch =
+          await SwissFoodCompositionDatabaseBinding.searchFood(
+        'Oat flakes',
+        const Locale('en'),
+      );
+      final oatmeal = oatmealSearch!.first;
+
+      final coconutMilkSearch =
+          await SwissFoodCompositionDatabaseBinding.searchFood(
+        'Coconut milk',
+        const Locale('en'),
+      );
+      final coconutMilk = coconutMilkSearch!.first;
 
       final trackedAvocado = FoodTracked.fromFood(
         avocado,

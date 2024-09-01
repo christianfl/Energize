@@ -53,7 +53,6 @@ class FoodInputState extends State<FoodInput>
   Barcode? _scannedCode;
   var _awaitingApiResponse = false;
   String? _productNotFoundExceptionBarcode;
-  final List<Food> foodsFromSndb = SwissFoodCompositionDatabaseBinding.allFoods;
 
   List<Food> searchResultFood = [];
 
@@ -62,8 +61,10 @@ class FoodInputState extends State<FoodInput>
   /// true = on, false = off, null = unsupported
   bool? _flashStatus = false;
 
+  // Search results for each Food Composition Database binding
   List<Food>? _offSearchResultFood;
   List<Food>? _usdaSearchResultFood;
+  List<Food>? _sfcdSearchResultFood;
 
   /// Whether the last food search threw an error with OFF binding.
   ///
@@ -340,6 +341,15 @@ class FoodInputState extends State<FoodInput>
     }
   }
 
+  /// Fill the list of possible food to track depending on the search string.
+  ///
+  /// If nothing was searched, pre-fill with on device-stored data:
+  /// - tracked food from last X days
+  /// - all custom food
+  ///
+  /// If something was searched, the pre-filled data is filtered by containing
+  /// the search string in the food title. Also, the API-based food composition
+  /// databases get queried and their results are appended to the list
   void populateSearchedFoodList(String searchText, bool debounce) {
     // Method wrapped in debounce so that API calls are triggered after
     // user has finished typing
@@ -379,38 +389,38 @@ class FoodInputState extends State<FoodInput>
         // Remove duplicates
         _removeDuplicateSuggestions();
 
+        // When searched for anything, filter the previously generated
+        // suggestion list so that it only shows matching entries
         if (searchText.isNotEmpty) {
-          // Fill with foods from (offline) swiss nutrition database
-          // only when searched for something
-          if (appSettings.isProviderSndbActivated) {
-            searchResultFood += foodsFromSndb;
-          }
-
           searchResultFood = searchResultFood
               .where(
                 (food) =>
                     food.title.toLowerCase().contains(searchText.toLowerCase()),
               )
               .toList();
-
-          // Remove duplicates again (with added food from SNDB)
-          _removeDuplicateSuggestions();
         }
       });
 
+      // If at least one of the API-based food composition databases is used...
       if ((appSettings.isProviderOpenFoodFactsActivated ||
-              appSettings.isProviderUsdaActivated) &&
+              appSettings.isProviderUsdaActivated ||
+              appSettings.isProviderSndbActivated) &&
           !kIsWeb) {
         setState(() {
           _awaitingApiResponse = true;
         });
 
+        // Search in food composition databases (in parallel)
         await Future.wait([
+          _getSFCDSearchResultIfActivated(searchText),
           _getOpenFoodFactsSearchResultIfActivated(searchText),
           _getUsdaSearchResultIfActivated(searchText),
         ]);
 
         setState(() {
+          if (_sfcdSearchResultFood != null) {
+            searchResultFood += _sfcdSearchResultFood!;
+          }
           if (_offSearchResultFood != null) {
             searchResultFood += _offSearchResultFood!;
           }
@@ -512,6 +522,25 @@ class FoodInputState extends State<FoodInput>
         setState(() {
           _hasUsdaBindingError = true;
         });
+      }
+    } else {
+      return;
+    }
+  }
+
+  /// Get food with matching title/synonym from Swiss Food Composition Database
+  Future<void> _getSFCDSearchResultIfActivated(String searchText) async {
+    final appSettings = Provider.of<AppSettings>(context, listen: false);
+
+    if (appSettings.isProviderSndbActivated) {
+      try {
+        _sfcdSearchResultFood =
+            await SwissFoodCompositionDatabaseBinding.searchFood(
+          searchText,
+          Localizations.localeOf(context),
+        );
+      } catch (e) {
+        // Data is saved offline, needless to catch exception
       }
     } else {
       return;
