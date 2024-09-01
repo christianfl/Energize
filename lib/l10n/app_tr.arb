@@ -440,5 +440,13 @@
   "searchError": "Arama sırasında hata oluştu",
   "@searchError": {},
   "searchErrorHint": "En az bir gıda bileşimi veri tabanına ulaşılamadı. Lütfen daha sonra tekrar deneyin veya ayarlardan çalışmayan olmayan veri tabanlarını geçici olarak devre dışı bırakın.",
-  "@searchErrorHint": {}
+  "@searchErrorHint": {},
+  "version": "Sürüm",
+  "@version": {},
+  "languages": "Diller",
+  "@languages": {},
+  "italian": "İtalyanca",
+  "@italian": {},
+  "french": "Fransızca",
+  "@french": {}
 }
