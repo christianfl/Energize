@@ -448,5 +448,7 @@
   "italian": "İtalyanca",
   "@italian": {},
   "french": "Fransızca",
-  "@french": {}
+  "@french": {},
+  "privacyPolicy": "Gizlilik politikası",
+  "@privacyPolicy": {}
 }
