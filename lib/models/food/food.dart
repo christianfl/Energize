@@ -50,7 +50,7 @@ class Food {
 
   // #################### Vitamins ####################
 
-  /// In mg/100 (g or ml)
+  /// In mg/100 (g or ml) RAE
   double? vitaminA;
 
   /// In mg/100 (g or ml)
