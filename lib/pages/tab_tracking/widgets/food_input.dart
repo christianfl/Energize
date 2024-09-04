@@ -160,10 +160,11 @@ class FoodInputState extends State<FoodInput>
                             children: [
                               const Icon(Icons.no_food, size: 100),
                               const SizedBox(height: 30),
-                              ElevatedButton(
+                              FilledButton.tonalIcon(
                                 onPressed: () =>
                                     _navigateToAddCustomFood(context),
-                                child: Text(
+                                icon: const Icon(Icons.add),
+                                label: Text(
                                   AppLocalizations.of(context)!.addCustomFood,
                                 ),
                               ),
