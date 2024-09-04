@@ -232,7 +232,7 @@ class TrackingPageState extends State<TrackingPage> {
       builder: (BuildContext context) {
         return AlertDialog(
           title: Text(
-            MaterialLocalizations.of(context).datePickerHelpText.toUpperCase(),
+            MaterialLocalizations.of(context).datePickerHelpText,
             style: Theme.of(context).textTheme.labelSmall,
           ),
           backgroundColor: Theme.of(context).colorScheme.surface,
@@ -341,9 +341,7 @@ class TrackingPageState extends State<TrackingPage> {
           actions: <Widget>[
             TextButton(
               child: Text(
-                MaterialLocalizations.of(context)
-                    .cancelButtonLabel
-                    .toUpperCase(),
+                MaterialLocalizations.of(context).cancelButtonLabel,
               ),
               onPressed: () {
                 Navigator.of(context).pop();

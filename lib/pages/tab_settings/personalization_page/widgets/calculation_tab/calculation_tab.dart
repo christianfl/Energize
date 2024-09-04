@@ -242,11 +242,10 @@ class CalculationTabState extends State<CalculationTab> {
                 ),
               ),
               actions: [
-                ElevatedButton.icon(
+                FilledButton.icon(
                   onPressed: () => _applyTargets(context, appSettings),
                   icon: const Icon(Icons.save),
-                  label:
-                      Text(AppLocalizations.of(context)!.apply.toUpperCase()),
+                  label: Text(AppLocalizations.of(context)!.apply),
                 ),
                 TextButton(
                   onPressed: () => {
@@ -403,7 +402,8 @@ class CalculationTabState extends State<CalculationTab> {
       return '';
     }
 
-    final String absolutePercent = (weightTarget.toValue() * 100).toStringAsFixed(0);
+    final String absolutePercent =
+        (weightTarget.toValue() * 100).toStringAsFixed(0);
     final int absolutePercentInt = int.parse(absolutePercent);
     final int relativePercentInt = absolutePercentInt - 100;
 
@@ -572,12 +572,10 @@ class CalculationTabState extends State<CalculationTab> {
           child: Row(
             children: [
               Expanded(
-                child: ElevatedButton(
+                child: FilledButton(
                   onPressed: () => _showApplyDialog(context, appSettings),
                   child: Text(
-                    AppLocalizations.of(context)!
-                        .calculateNutritionTargets
-                        .toUpperCase(),
+                    AppLocalizations.of(context)!.calculateNutritionTargets,
                   ),
                 ),
               ),
