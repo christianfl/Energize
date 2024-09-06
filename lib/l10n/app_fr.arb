@@ -1,5 +1,5 @@
 {
-  "appDescription": "Surveillez votre alimentation et votre nutrition facilement et rapidement. Scannez vos produits ou recherchez manuellement dans différentes bases de données.",
+  "appDescription": "Surveiller votre alimentation et votre nutrition facilement et rapidement. Scannez vos produits ou recherchez manuellement dans différentes bases de données.",
   "@appDescription": {},
   "energy": "Énergie",
   "@energy": {},
@@ -145,7 +145,7 @@
   "@iodine": {},
   "copper": "Cuivre",
   "@copper": {},
-  "appDescriptionShort": "Surveillez votre alimentation et votre nutrition facilement et rapidement.",
+  "appDescriptionShort": "Surveiller votre alimentation et votre nutrition facilement et rapidement.",
   "@appDescriptionShort": {},
   "protein": "Protéine",
   "@protein": {},
@@ -440,5 +440,11 @@
   "searchErrorHint": "Au moins une base de données de composition alimentaire n'a pas pu être atteinte. Veuillez réessayer ultérieurement ou désactiver temporairement les bases de données non fonctionnelles dans les paramètres.",
   "@searchErrorHint": {},
   "affectedDatabases": "Bases de données concernées",
-  "@affectedDatabases": {}
+  "@affectedDatabases": {},
+  "version": "Version",
+  "@version": {},
+  "languages": "Langues",
+  "@languages": {},
+  "french": "Français",
+  "@french": {}
 }
