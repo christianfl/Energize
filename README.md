@@ -100,6 +100,10 @@ If you want to support the development by a donation, you are very welcome to do
 
 **BTC: 35DcbAwi66LDyvxfpmvxVrM7nYrrZVC59k**
 
+## Documentation
+
+If there are any further questions, may have a look at the [docs](docs/README.md).
+
 ---
 
 © Christian Flaßkamp – energize@flasskamp.com
