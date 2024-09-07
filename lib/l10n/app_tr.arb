@@ -457,5 +457,13 @@
   "french": "Fransızca",
   "@french": {},
   "privacyPolicy": "Gizlilik politikası",
-  "@privacyPolicy": {}
+  "@privacyPolicy": {},
+  "notFoundInCustomFoodsOrOpenFoodFacts": "Özel yiyeceklerde veya Açık Gıda Bilgilerinde yer almıyor",
+  "@notFoundInCustomFoodsOrOpenFoodFacts": {},
+  "notFoundInCustomFoodsOpenFoodFactsNeedsInternet": "Özel yiyeceklerde bulunamadı, Açık Gıda Gerçekleri için internet erişimi gerekir",
+  "@notFoundInCustomFoodsOpenFoodFactsNeedsInternet": {},
+  "notFoundInCustomFoodsOpenFoodFactsHasError": "Özel yiyeceklerde bulunamadı, Açık Gıda Gerçekleri aramasında hata oluştu",
+  "@notFoundInCustomFoodsOpenFoodFactsHasError": {},
+  "notFoundInCustomFoodsOpenFoodFactsNotActivated": "Özel yiyeceklerde bulunamadı, Açık Gıda Gerçekleri etkinleştirilmedi",
+  "@notFoundInCustomFoodsOpenFoodFactsNotActivated": {}
 }
