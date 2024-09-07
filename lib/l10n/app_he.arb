@@ -315,8 +315,15 @@
   "@fieldMandatory": {},
   "onlyNumbersAllowed": "מותר רק מספרים",
   "@onlyNumbersAllowed": {},
-  "notFound": "לא נמצא",
-  "@notFound": {},
+  "somethingNotFound": "{something} לא נמצא",
+  "@somethingNotFound": {
+    "placeholders": {
+      "something": {
+        "type": "String",
+        "example": "123"
+      }
+    }
+  },
   "unmarkedDayAsComplete": "סימון היום כמושלם בוטל",
   "@unmarkedDayAsComplete": {},
   "loading": "בטעינה",

@@ -359,8 +359,15 @@
   "@contain": {},
   "loading": "Chargement",
   "@loading": {},
-  "notFound": "Introuvable",
-  "@notFound": {},
+  "somethingNotFound": "{something} introuvable",
+  "@somethingNotFound": {
+    "placeholders": {
+      "something": {
+        "type": "String",
+        "example": "123"
+      }
+    }
+  },
   "ok": "OK",
   "@ok": {},
   "additionalInformation": "Information additionnelle",

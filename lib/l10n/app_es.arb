@@ -351,8 +351,15 @@
   "@undo": {},
   "loading": "Cargando",
   "@loading": {},
-  "notFound": "no encontrado",
-  "@notFound": {},
+  "somethingNotFound": "{something} no encontrado",
+  "@somethingNotFound": {
+    "placeholders": {
+      "something": {
+        "type": "String",
+        "example": "123"
+      }
+    }
+  },
   "dailyTarget": "meta diaria",
   "@dailyTarget": {},
   "labelingEu": "Etiquetado (UE)",

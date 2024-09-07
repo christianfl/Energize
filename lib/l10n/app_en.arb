@@ -10,7 +10,15 @@
     "undo": "Undo",
     "deleted": "deleted",
     "loading": "Loading",
-    "notFound": "not found",
+    "somethingNotFound": "{something} not found",
+    "@somethingNotFound": {
+        "placeholders": {
+            "something": {
+                "type": "String",
+                "example": "123"
+            }
+        }
+    },
     "unknownErrorText": "An unknown error has occured",
     "@_TRACKING": {
     },
@@ -44,6 +52,10 @@
     "searchError": "Error during search",
     "searchErrorHint": "At least one food composition database could not be reached. Please try again later or temporarily disable non-functional databases in the settings.",
     "affectedDatabases": "Affected databases",
+    "notFoundInCustomFoodsOrOpenFoodFacts": "Neither in custom foods nor on Open Food Facts",
+    "notFoundInCustomFoodsOpenFoodFactsNeedsInternet": "Not found in custom foods, Open Food Facts needs internet access",
+    "notFoundInCustomFoodsOpenFoodFactsHasError": "Not found in custom foods, Open Food Facts search had an error",
+    "notFoundInCustomFoodsOpenFoodFactsNotActivated": "Not found in custom foods, Open Food Facts is not activated",
     "@_CUSTOM_FOOD": {
     },
     "customFood": "Custom Food",

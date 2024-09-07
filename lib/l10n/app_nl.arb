@@ -67,8 +67,15 @@
   "@deleted": {},
   "loading": "Laden",
   "@loading": {},
-  "notFound": "niet gevonden",
-  "@notFound": {},
+  "somethingNotFound": "{something} niet gevonden",
+  "@somethingNotFound": {
+    "placeholders": {
+      "something": {
+        "type": "String",
+        "example": "123"
+      }
+    }
+  },
   "unmarkedDayAsComplete": "Dag als onvoltooid gemarkeerd",
   "@unmarkedDayAsComplete": {},
   "editCustomFood": "Bewerk eigen eten",

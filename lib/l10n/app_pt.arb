@@ -55,8 +55,15 @@
   "@fieldMandatory": {},
   "loading": "A carregar",
   "@loading": {},
-  "notFound": "não encontrado",
-  "@notFound": {},
+  "somethingNotFound": "{something} não encontrado",
+  "@somethingNotFound": {
+    "placeholders": {
+      "something": {
+        "type": "String",
+        "example": "123"
+      }
+    }
+  },
   "energy": "Energia",
   "@energy": {},
   "protein": "Proteína",

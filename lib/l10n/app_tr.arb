@@ -353,8 +353,15 @@
   "@labelingEu": {},
   "loading": "Yükleniyor",
   "@loading": {},
-  "notFound": "bulunamadı",
-  "@notFound": {},
+  "somethingNotFound": "{something} bulunamadı",
+  "@somethingNotFound": {
+    "placeholders": {
+      "something": {
+        "type": "String",
+        "example": "123"
+      }
+    }
+  },
   "dailyTarget": "günlük hedef",
   "@dailyTarget": {},
   "salt": "Tuz",

@@ -73,8 +73,15 @@
   "@onlyNumbersAllowed": {},
   "loading": "Carregando",
   "@loading": {},
-  "notFound": "não encontrado",
-  "@notFound": {},
+  "somethingNotFound": "{something} não encontrado",
+  "@somethingNotFound": {
+    "placeholders": {
+      "something": {
+        "type": "String",
+        "example": "123"
+      }
+    }
+  },
   "detailedSummary": "Sumário detalhado",
   "@detailedSummary": {},
   "dayIncomplete": "Dia incompleto",

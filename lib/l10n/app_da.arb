@@ -315,8 +315,15 @@
   "@energyDistribution": {},
   "loading": "Indlæser",
   "@loading": {},
-  "notFound": "ikke fundet",
-  "@notFound": {},
+  "somethingNotFound": "{something} ikke fundet",
+  "@somethingNotFound": {
+    "placeholders": {
+      "something": {
+        "type": "String",
+        "example": "123"
+      }
+    }
+  },
   "salt": "Salt",
   "@salt": {},
   "german": "Tysk",

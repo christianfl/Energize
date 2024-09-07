@@ -68,12 +68,11 @@ class OpenFoodFactsBinding {
 
       if (newResult.status == ProductResultV3.statusSuccess) {
         return Food.fromOpenFoodFactsProduct(result.product!);
-      } else {
-        throw ProductNotFoundException(barcode);
       }
-    } else {
-      throw ProductNotFoundException(barcode);
     }
+
+    // If no product was found
+    throw ProductNotFoundException(barcode);
   }
 
   Future<List<Food>?> searchFood(String searchText) async {

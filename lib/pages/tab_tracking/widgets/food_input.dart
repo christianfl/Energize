@@ -5,6 +5,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:http/http.dart';
 import 'package:provider/provider.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 
@@ -18,6 +19,7 @@ import '../../../../widgets/food_list_item.dart';
 import '../../../models/food/food.dart';
 import '../../../models/food/food_tracked.dart';
 import '../../../services/food_database_bindings/open_food_facts/open_food_facts_binding.dart';
+import '../../../services/food_database_bindings/open_food_facts/product_not_found_exception.dart';
 import '../../../services/food_database_bindings/swiss_food_composition_database/swiss_food_composition_database_binding.dart';
 import '../../../services/food_database_bindings/usda/usda_binding.dart';
 import '../../../services/sqlite/custom_foods_database_service.dart';
@@ -53,6 +55,7 @@ class FoodInputState extends State<FoodInput>
   Barcode? _scannedCode;
   var _awaitingApiResponse = false;
   String? _productNotFoundExceptionBarcode;
+  String? _additionalProductNotFoundInfo;
 
   List<Food> searchResultFood = [];
 
@@ -255,31 +258,49 @@ class FoodInputState extends State<FoodInput>
                                   Radius.circular(10.0),
                                 ),
                               ),
-                              padding: const EdgeInsets.all(8.0),
+                              padding: const EdgeInsets.all(16.0),
                               width: double.infinity,
-                              child: Row(
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
                                 children: [
-                                  Expanded(
-                                    child: Text(
-                                      '$_productNotFoundExceptionBarcode ${AppLocalizations.of(context)!.notFound}',
-                                      style: TextStyle(
-                                        color: Theme.of(context)
-                                            .colorScheme
-                                            .onSurface,
-                                      ),
+                                  Text(
+                                    AppLocalizations.of(context)!
+                                        .somethingNotFound(
+                                      _productNotFoundExceptionBarcode!,
                                     ),
+                                    style: const TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                    maxLines: 2,
+                                    overflow: TextOverflow.ellipsis,
                                   ),
-                                  ElevatedButton.icon(
-                                    onPressed: () => _navigateToAddCustomFood(
-                                      context,
-                                      barcode:
-                                          _productNotFoundExceptionBarcode!,
+                                  if (_additionalProductNotFoundInfo != null)
+                                    Column(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        const Divider(),
+                                        Text(_additionalProductNotFoundInfo!),
+                                      ],
                                     ),
-                                    icon: const Icon(Icons.add),
-                                    label: Text(
-                                      AppLocalizations.of(context)!
-                                          .addCustomFood,
-                                    ),
+                                  const SizedBox(height: 8),
+                                  Row(
+                                    children: [
+                                      Expanded(
+                                        child: FilledButton.tonalIcon(
+                                          onPressed: () =>
+                                              _navigateToAddCustomFood(
+                                            context,
+                                            barcode:
+                                                _productNotFoundExceptionBarcode!,
+                                          ),
+                                          icon: const Icon(Icons.add),
+                                          label: Text(
+                                            AppLocalizations.of(context)!
+                                                .addCustomFood,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                 ],
                               ),
@@ -447,7 +468,15 @@ class FoodInputState extends State<FoodInput>
     }
   }
 
-  /// Look up barcode code and redirect accordingly
+  /// Query databases/API for food by barcode and navigate to track food modal.
+  ///
+  /// Queries (in this order):
+  /// 1. Custom foods
+  /// 2. Open Food Facts
+  ///
+  /// If no food was found, shows error based on whether
+  /// Open Food Facts database is activated or not
+  /// or if there were errors fetching the Open Food Facts API
   void searchBarcodeAndRedirect(String barcode) {
     // Try first to look up the barcode in the custom foods
     CustomFoodDatabaseService.getCustomFoodByEan(barcode)
@@ -460,23 +489,42 @@ class FoodInputState extends State<FoodInput>
       } else {
         if (!mounted) return;
 
-        // Look up on Open Food Facts if this is activated
         final appSettings = Provider.of<AppSettings>(context, listen: false);
 
+        // Look up on Open Food Facts if that is activated
         if (appSettings.isProviderOpenFoodFactsActivated) {
           OpenFoodFactsBinding().getFoodByBarcode(barcode).then((food) {
             if (!mounted) return;
 
             _navigateToAddFood(context, food, popAfterReturn: true);
           }).catchError((error) {
-            // If there is also no match, show an error that no product could be found
             setState(() {
-              _productNotFoundExceptionBarcode = '$error';
+              // Set barcode for which a product was not found on OFF
+              _productNotFoundExceptionBarcode = barcode;
+
+              // Set additional info
+              if (error is ProductNotFoundException) {
+                // Also not found in Open Food Facts Database
+                _additionalProductNotFoundInfo = AppLocalizations.of(context)!
+                    .notFoundInCustomFoodsOrOpenFoodFacts;
+              } else if (error is ClientException) {
+                // Probably no network connection
+                _additionalProductNotFoundInfo = AppLocalizations.of(context)!
+                    .notFoundInCustomFoodsOpenFoodFactsNeedsInternet;
+              } else {
+                // Another error while searching food on Open Food Facts
+                _additionalProductNotFoundInfo = AppLocalizations.of(context)!
+                    .notFoundInCustomFoodsOpenFoodFactsHasError;
+              }
             });
           });
         } else {
           setState(() {
+            // Open Food Facts is not activated, set data accordingly
+
             _productNotFoundExceptionBarcode = barcode;
+            _additionalProductNotFoundInfo = AppLocalizations.of(context)!
+                .notFoundInCustomFoodsOpenFoodFactsNotActivated;
           });
         }
       }

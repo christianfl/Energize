@@ -15,7 +15,15 @@
   "deleted": "gelöscht",
   "@deleted": {},
   "loading": "Laden",
-  "notFound": "nicht gefunden",
+  "somethingNotFound": "{something} nicht gefunden",
+  "@somethingNotFound": {
+      "placeholders": {
+          "something": {
+              "type": "String",
+              "example": "123"
+          }
+      }
+  },
   "unknownErrorText": "Ein unbekannter Fehler ist aufgetreten",
   "tracking": "Tracking",
   "@tracking": {},
@@ -68,6 +76,14 @@
   "@searchErrorHint": {},
   "affectedDatabases": "Betroffene Datenbanken",
   "@affectedDatabases": {},
+  "notFoundInCustomFoodsOrOpenFoodFacts": "Weder bei der eigenen Nahrung noch auf Open Food Facts",
+  "@notFoundInCustomFoodsOrOpenFoodFacts": {},
+  "notFoundInCustomFoodsOpenFoodFactsNeedsInternet": "Nicht bei der eigenen Nahrung gefunden, Open Food Facts benötigt Internetzugang",
+  "@notFoundInCustomFoodsOpenFoodFactsNeedsInternet": {},
+  "notFoundInCustomFoodsOpenFoodFactsHasError": "Nicht bei der eigenen Nahrung gefunden, Open Food Facts hatte einen Fehler bei der Suche",
+  "@notFoundInCustomFoodsOpenFoodFactsHasError": {},
+  "notFoundInCustomFoodsOpenFoodFactsNotActivated": "Nicht bei der eigenen Nahrung gefunden, Open Food Facts ist nicht aktiviert",
+  "@notFoundInCustomFoodsOpenFoodFactsNotActivated": {},
   "customFood": "Eigene Nahrung",
   "@customFood": {},
   "searchCustomFood": "Eigene Nahrung suchen",

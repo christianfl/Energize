@@ -359,8 +359,15 @@
   "@contain": {},
   "loading": "Ładowanie",
   "@loading": {},
-  "notFound": "nie znaleziono",
-  "@notFound": {},
+  "somethingNotFound": "{something} nie znaleziono",
+  "@somethingNotFound": {
+    "placeholders": {
+      "something": {
+        "type": "String",
+        "example": "123"
+      }
+    }
+  },
   "deleted": "usunięte",
   "@deleted": {},
   "undo": "Przywróć",
