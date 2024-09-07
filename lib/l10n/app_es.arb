@@ -457,5 +457,13 @@
   "italian": "Italiano",
   "@italian": {},
   "privacyPolicy": "Política de privacidad",
-  "@privacyPolicy": {}
+  "@privacyPolicy": {},
+  "notFoundInCustomFoodsOpenFoodFactsHasError": "No se ha encontrado en los alimentos personalizados, la búsqueda Open Food Facts tuvo un error",
+  "@notFoundInCustomFoodsOpenFoodFactsHasError": {},
+  "notFoundInCustomFoodsOrOpenFoodFacts": "Ni en los alimentos personalizados ni en Open Food Facts",
+  "@notFoundInCustomFoodsOrOpenFoodFacts": {},
+  "notFoundInCustomFoodsOpenFoodFactsNeedsInternet": "No se encuentran en alimentos personalizados, Open Food Facts necesita acceso a Internet",
+  "@notFoundInCustomFoodsOpenFoodFactsNeedsInternet": {},
+  "notFoundInCustomFoodsOpenFoodFactsNotActivated": "No se encuentra en alimentos personalizados, Open Food Facts no está activado",
+  "@notFoundInCustomFoodsOpenFoodFactsNotActivated": {}
 }
