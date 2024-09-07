@@ -2,9 +2,9 @@
 
 [![Translation status](https://hosted.weblate.org/widgets/energize/-/energize/svg-badge.svg)](https://hosted.weblate.org/engage/energize/) [![Delightful Humane Tech](https://codeberg.org/teaserbot-labs/delightful-humane-design/raw/branch/main/humane-tech-badge.svg)](https://codeberg.org/teaserbot-labs/delightful-humane-design) [![F-Droid Version](https://img.shields.io/f-droid/v/com.flasskamp.energize?label=F-Droid&color=b1eb0b)](https://f-droid.org/de/packages/com.flasskamp.energize/) [![Codeberg Release](https://img.shields.io/gitea/v/release/epinez/Energize?gitea_url=https%3A%2F%2Fcodeberg.org&label=Codeberg%20Release%20APK&color=4793cc)](https://codeberg.org/epinez/Energize/releases)
 
-Track your food and nutrition easily and fast. Still in early development.
+Track your food and nutrition easily and fast.
 
-  - 🔒 [Privacy Policy](PRIVACY.md)
+  - Energize is respecting the user's privacy. [🔒 Privacy policy](PRIVACY.md)
   - Community-moderated [[Matrix] room](https://matrix.to/#/%23energize:matrix.org)
 
 <p align="center">
@@ -74,7 +74,7 @@ fastlane/metadata/android/<locale>/images/phoneScreenshots/<number>_<theme>.png
 
 ## Contribute
 
-As this app is still in an early stage, a few things have still to be developed. The app is usable but sometimes has rough edges.
+Energize has already benefited incredibly from many contributors. It would be great if this could continue or even be expanded in the future.
 
 You are very welcome to:
 
@@ -85,26 +85,20 @@ You are very welcome to:
 
   Please have a look whether similar issues already exist in advance.
 - Develop something
-    - There is no written roadmap or code style guidelines yet
-    - Please use [Conventional Commits](https://www.conventionalcommits.org) for PRs
-    - it's easier to reach out in advance if you want something to be merged later. :-)
+    - There is no written roadmap yet
+      - [milestones](https://codeberg.org/epinez/Energize/milestones) are an indicator
+      - Open issues could also be used as a reference
+    - There are no code style guidelines in place, hopefully the [linter rules](https://codeberg.org/epinez/Energize/src/branch/main/analysis_options.yaml) can assist
+    - Using [Conventional Commits](https://www.conventionalcommits.org) for PRs would be wonderful
+    - it's easier to reach out in advance if you want something to be merged later 😊
 
 ## Donate
 
-If you want to support the development by a donation, you are very welcome to do so! Creating this app is a lot of fun but also a very time consuming task and sometimes leads to little frustration...
+If you want to support the development by a donation, you are very welcome to do so. Creating this app is a lot of fun but also a very time consuming task. Your donation helps to fill my coffee pot and makes sure my protein bars are filled up.
 
 [![Donate using Liberapay](https://liberapay.com/assets/widgets/donate.svg)](https://liberapay.com/epinez/donate)
 
 **BTC: 35DcbAwi66LDyvxfpmvxVrM7nYrrZVC59k**
-
-## Release preparations
-
-1. Create changelog: `./scripts/create_changelog/create_changelog.py` and modify it
-2. Generate screenshots: `flutter drive --driver=test_driver/integration_test.dart --target=integration_test/app_test.dart`
-3. Copy privacy policy in the corresponding assets folder: `cp PRIVACY.md lib/pages/tab_settings/about_sub_page/assets/`
-4. Change version number in: `pubspec.yaml`
-5. Compile with `flutter build apk`
-6. Short test and release
 
 ---
 
