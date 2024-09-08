@@ -64,11 +64,6 @@ class FoodInputState extends State<FoodInput>
   /// true = on, false = off, null = unsupported
   bool? _flashStatus = false;
 
-  // Search results for each Food Composition Database binding
-  List<Food>? _offSearchResultFood;
-  List<Food>? _usdaSearchResultFood;
-  List<Food>? _sfcdSearchResultFood;
-
   /// Whether the last food search threw an error with OFF binding.
   ///
   /// For indicating the user which binding(s) had errors.
@@ -440,16 +435,6 @@ class FoodInputState extends State<FoodInput>
         ]);
 
         setState(() {
-          if (_sfcdSearchResultFood != null) {
-            searchResultFood += _sfcdSearchResultFood!;
-          }
-          if (_offSearchResultFood != null) {
-            searchResultFood += _offSearchResultFood!;
-          }
-          if (_usdaSearchResultFood != null) {
-            searchResultFood += _usdaSearchResultFood!;
-          }
-
           _removeDuplicateSuggestions();
           _awaitingApiResponse = false;
         });
@@ -538,8 +523,15 @@ class FoodInputState extends State<FoodInput>
 
     if (appSettings.isProviderOpenFoodFactsActivated) {
       try {
-        _offSearchResultFood =
+        final offSearchResultFood =
             await OpenFoodFactsBinding().searchFood(searchText);
+
+        if (offSearchResultFood != null) {
+          setState(() {
+            searchResultFood += offSearchResultFood;
+            _removeDuplicateSuggestions();
+          });
+        }
       } catch (e) {
         setState(() {
           _hasOffBindingError = true;
@@ -566,7 +558,14 @@ class FoodInputState extends State<FoodInput>
 
     if (appSettings.isProviderUsdaActivated) {
       try {
-        _usdaSearchResultFood = await USDABinding.searchFood(searchText);
+        final usdaSearchResultFood = await USDABinding.searchFood(searchText);
+
+        if (usdaSearchResultFood != null) {
+          setState(() {
+            searchResultFood += usdaSearchResultFood;
+            _removeDuplicateSuggestions();
+          });
+        }
       } catch (e) {
         setState(() {
           _hasUsdaBindingError = true;
@@ -583,11 +582,18 @@ class FoodInputState extends State<FoodInput>
 
     if (appSettings.isProviderSndbActivated) {
       try {
-        _sfcdSearchResultFood =
+        final sfcdSearchResultFood =
             await SwissFoodCompositionDatabaseBinding.searchFood(
           searchText,
           Localizations.localeOf(context),
         );
+
+        if (sfcdSearchResultFood != null) {
+          setState(() {
+            searchResultFood += sfcdSearchResultFood;
+            _removeDuplicateSuggestions();
+          });
+        }
       } catch (e) {
         // Data is saved offline, needless to catch exception
       }
