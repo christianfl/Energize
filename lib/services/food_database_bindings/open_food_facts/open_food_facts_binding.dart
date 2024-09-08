@@ -67,7 +67,23 @@ class OpenFoodFactsBinding {
           await OpenFoodAPIClient.getProductV3(upgradedConfiguration);
 
       if (newResult.status == ProductResultV3.statusSuccess) {
-        return Food.fromOpenFoodFactsProduct(result.product!);
+        // Product was found with leading 0 for barcode (12 -> 13 digits)
+
+        // Save product with original scanned barcode (12 digits) for 2 reasons:
+        //
+        // 1) Creating custom food out of this OFF food: Scanning the 12 digit
+        //    barcode again should match with custom food that was created with
+        //    12 digit barcode
+        // 2) Matching between scanned barcode and previously tracked food can
+        //    be supported at some time in order to pre-fill with previously
+        //    tracked amount.
+        //
+        // It should be avoided to include this 12 / 13 digit logic in other
+        // parts of Energize than here to not produce unwanted behavior
+
+        final product = result.product!;
+        product.barcode = barcode;
+        return Food.fromOpenFoodFactsProduct(product);
       }
     }
 
