@@ -348,5 +348,11 @@
   "deleted": "eliminato",
   "@deleted": {},
   "undo": "Annulla",
-  "@undo": {}
+  "@undo": {},
+  "labelingEu": "Etichettatura (UE)",
+  "@labelingEu": {},
+  "italian": "Italiano",
+  "@italian": {},
+  "french": "Francese",
+  "@french": {}
 }
