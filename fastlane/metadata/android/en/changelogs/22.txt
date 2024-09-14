@@ -1,0 +1,11 @@
+- [feat] Show results for searched food immediately
+- [feat] Indicate why food with barcode could not be found
+- [feat] Sort tracked foods by consumption and then by adding time
+- [feat] Support multiple languages and synonyms for Swiss Food Composition Database
+- [fix] Rework USDA FoodData Central, fixing two nutrients, supporting several new nutrients
+- [fix] Various fixes and improvements¹
+- [l10n] Updated Chinese, French, Italian, Spanish, Turkish¹
+
+---
+
+¹Big thanks to all contributors!
