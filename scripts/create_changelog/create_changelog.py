@@ -5,6 +5,12 @@ import os
 from os import listdir
 from os.path import isfile, join
 
+# Capitalize only first letter of a string while not changing anything else
+def capitalize_first_letter(s):
+    if not s:
+        return s
+    return s[0].upper() + s[1:]
+
 # Fetch commits since last tag
 last_tag_cmd = 'git describe --tags `git rev-list --tags --max-count=1`'
 last_tag = os.popen(last_tag_cmd).read().strip('\n')
@@ -13,7 +19,7 @@ commit_messages_cmd= f'git --no-pager log --pretty=format:"%s" {last_tag}..HEAD 
 commit_messages = os.popen(commit_messages_cmd).read().split('\n')
 
 # Set ignored words
-ignored_words = {'readme', 'linting', ' lint', 'fastlane', ' test ', 'tests', '.yaml', '.vscode', 'flutter', 'gradle', 'dependencies', 'compileSdkVersion', 'targetSdkVersion', 'kotlin_version'}
+ignored_words = {'readme', 'linting', ' lint', 'fastlane', ' test ', 'tests', '.yaml', '.vscode', 'flutter', 'gradle', 'dependencies', 'compileSdkVersion', 'targetSdkVersion', 'kotlin_version', 'docs', 'chore', 'refactor'}
 
 # Feature list
 features = []
@@ -33,7 +39,9 @@ for commit_message in commit_messages:
 
     # Fixes
     if ('fix' in commit_message.lower()):
-        fixes.append(commit_message.replace('Fix: ', '').replace('Fix ', ''))
+        changed_message = commit_message.replace('Fix: ', '').replace('Fix ', '')
+        changed_message = commit_message.replace('fix: ', '').replace('Fix ', '')
+        fixes.append(capitalize_first_letter(changed_message))
         continue
 
     # Localizations
@@ -51,11 +59,15 @@ for commit_message in commit_messages:
         continue
 
     # Improvements: Everything else...
-    features.append(commit_message)
+    if ('feat' in commit_message.lower()):
+        commit_message = commit_message.replace('Feat: ', '').replace('Feat ', '')
+        commit_message = commit_message.replace('feat: ', '').replace('feat ', '')
+
+    features.append(capitalize_first_letter(commit_message))
     continue
 
 absolute_dir = os.path.dirname(__file__)
-relative_changelogs_dir = '../fastlane/metadata/android/en/changelogs'
+relative_changelogs_dir = '../../fastlane/metadata/android/en/changelogs'
 absolute_changelogs_dir = f'{absolute_dir}/{relative_changelogs_dir}'
 
 changelog_files = [f for f in listdir(absolute_changelogs_dir) if isfile(join(absolute_changelogs_dir, f))]
@@ -63,7 +75,7 @@ last_changelog = changelog_files[-1]
 last_changelog_nr = last_changelog.split('.')[0]
 
 # Check pubspec.yaml
-pubspec_path = f'{absolute_dir}/../pubspec.yaml'
+pubspec_path = f'{absolute_dir}/../../pubspec.yaml'
 pubspec_file = open(pubspec_path)
 pubspec_content = pubspec_file.readlines()
 version_identifier = 'version: '
