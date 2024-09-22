@@ -54,27 +54,41 @@ class Food {
   double? vitaminA;
 
   /// In mg/100 (g or ml)
+  ///
+  /// Alt name: Thiamine
   double? vitaminB1;
 
   /// In mg/100 (g or ml)
+  ///
+  /// Alt name: Riboflavin
   double? vitaminB2;
 
   /// In mg/100 (g or ml)
+  ///
+  /// Alt name: Niacin
   double? vitaminB3;
 
   /// In mg/100 (g or ml)
+  ///
+  /// Alt name: Pantothenic acid
   double? vitaminB5;
 
   /// In mg/100 (g or ml)
   double? vitaminB6;
 
   /// In μg/100 (g or ml)
+  ///
+  /// Alt name: Biotin
   double? vitaminB7;
 
   /// In μg/100 (g or ml)
+  ///
+  /// Alt name: Folate
   double? vitaminB9;
 
   /// In μg/100 (g or ml)
+  ///
+  /// Alt name: Cobalamin
   double? vitaminB12;
 
   /// In mg/100 (g or ml)
