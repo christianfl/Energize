@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../pages/tab_food/food_page.dart';
 import '../services/food_database_bindings/open_food_facts/open_food_facts_binding.dart';
@@ -11,6 +12,8 @@ class FoodOriginLogoPill extends StatelessWidget {
   final double? width;
   final double? height;
   final double? fontSize;
+  final Function()? onTapCallback;
+  final bool isConstrained;
 
   const FoodOriginLogoPill(
     this.foodOrigin, {
@@ -18,6 +21,8 @@ class FoodOriginLogoPill extends StatelessWidget {
     this.width,
     this.height,
     this.fontSize,
+    this.onTapCallback,
+    this.isConstrained = true,
   });
 
   String? get _assetUrl {
@@ -42,43 +47,45 @@ class FoodOriginLogoPill extends StatelessWidget {
         return Theme.of(context).colorScheme.secondary;
     }
 
-    return null;
+    return Theme.of(context).textTheme.bodyMedium?.color;
   }
 
   @override
   Widget build(BuildContext context) {
     return _assetUrl != null
-        ? ClipRRect(
-            borderRadius: BorderRadius.circular(10),
-            child: Container(
-              width: width,
-              height: height,
-              color: Colors.white,
-              child: Padding(
-                padding: const EdgeInsets.all(4.0),
-                child: Image.asset(_assetUrl!),
-              ),
+        ? IconButton(
+            padding: const EdgeInsets.fromLTRB(10.0, 5.0, 10.0, 5.0),
+            constraints: BoxConstraints(maxHeight: height ?? double.infinity),
+            onPressed: onTapCallback,
+            icon: Image.asset(
+              _assetUrl!,
+            ),
+            style: IconButton.styleFrom(
+              backgroundColor: Colors.white,
+              disabledBackgroundColor: Colors.white,
             ),
           )
-        : Container(
-            height: height,
-            decoration: BoxDecoration(
-              border: Border.all(
-                color: _getColor(context) ?? const Color(0xFF000000),
-                width: 2,
-              ),
-              borderRadius: BorderRadius.circular(10),
+        : TextButton(
+            onPressed: onTapCallback,
+            style: IconButton.styleFrom(
+              backgroundColor: Colors.white,
+              disabledBackgroundColor: Colors.white,
             ),
-            padding: const EdgeInsets.all(6),
-            child: Center(
+            child: ConstrainedBox(
+              constraints: BoxConstraints(
+                maxWidth: isConstrained ? 110 : double.infinity,
+              ),
               child: Text(
-                foodOrigin,
-                textAlign: TextAlign.center,
+                foodOrigin == FoodPage.originName
+                    ? AppLocalizations.of(context)!.customFood
+                    : foodOrigin,
                 style: TextStyle(
                   color: _getColor(context),
-                  fontSize: fontSize,
+                  fontSize: 12,
                   fontWeight: FontWeight.bold,
                 ),
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
               ),
             ),
           );

@@ -413,15 +413,14 @@ class TrackFoodState extends State<TrackFood>
                                 showText: true,
                               ),
                               const SizedBox(width: 10),
-                              InkWell(
-                                onTap: food.origin == 'OFF'
+                              FoodOriginLogoPill(
+                                food.origin,
+                                height: _pillHeight,
+                                isConstrained: false,
+                                onTapCallback: food.origin ==
+                                        OpenFoodFactsBinding.originName
                                     ? () => _launchOpenFoodFactsUrl(food.ean!)
                                     : null,
-                                child: FoodOriginLogoPill(
-                                  food.origin,
-                                  width: 100,
-                                  height: _pillHeight,
-                                ),
                               ),
                             ],
                           ),
