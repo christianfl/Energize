@@ -349,5 +349,15 @@
   "formulaForMales": "Formel for mænd",
   "@formulaForMales": {},
   "energyDistributionChartMissingHint": "Energifordelingsdiagrammet vises kun, hvis du har indstillet et kaloriemål og et mål for mindst et af makronæringsstofferne.",
-  "@energyDistributionChartMissingHint": {}
+  "@energyDistributionChartMissingHint": {},
+  "dailyTarget": "dagligt mål",
+  "@dailyTarget": {},
+  "searchError": "Fejl under søgning",
+  "@searchError": {},
+  "ok": "OK",
+  "@ok": {},
+  "unknownErrorText": "En ukendt fejl opstod",
+  "@unknownErrorText": {},
+  "productOrBrand": "Produkt eller mærke",
+  "@productOrBrand": {}
 }
