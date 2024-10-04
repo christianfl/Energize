@@ -315,6 +315,11 @@ class _AboutSubPageState extends State<AboutSubPage> {
             ),
             body: Markdown(
               data: privacyPolicyMarkdown,
+              styleSheet: MarkdownStyleSheet(
+                blockquoteDecoration: BoxDecoration(
+                  color: Theme.of(context).highlightColor,
+                ),
+              ),
               selectable: true,
               onTapLink: (text, href, title) async {
                 if (href != null) {
