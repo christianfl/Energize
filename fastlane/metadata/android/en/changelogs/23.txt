@@ -1,0 +1,9 @@
+- [feat] Improve food origin pill design
+- [feat] Default to english locale if no preferred locale is in supported locales
+- [l10n] Use names of B-vitamins
+- [l10n] Added Russian¹
+- [l10n] Updated Portuguese (Brazil)¹
+
+---
+
+¹Big thanks to all contributors!
