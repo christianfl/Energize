@@ -12,6 +12,8 @@ import '../../widgets/food_origin_logo_pill.dart';
 class DatabaseManagementSubPage extends StatefulWidget {
   static const routeName = '/settings/database-provider';
 
+  static const _foodOriginLogoPillHeight = 48.0;
+
   const DatabaseManagementSubPage({super.key});
 
   @override
@@ -68,10 +70,13 @@ class DatabaseManagementSubPageState extends State<DatabaseManagementSubPage> {
                     );
                   },
                   body: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       const Padding(
                         padding: EdgeInsets.symmetric(horizontal: 16.0),
                         child: FoodOriginLogoPill(
+                          height: DatabaseManagementSubPage
+                              ._foodOriginLogoPillHeight,
                           SwissFoodCompositionDatabaseBinding.originName,
                         ),
                       ),
@@ -160,10 +165,13 @@ class DatabaseManagementSubPageState extends State<DatabaseManagementSubPage> {
                     );
                   },
                   body: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       const Padding(
                         padding: EdgeInsets.symmetric(horizontal: 16.0),
                         child: FoodOriginLogoPill(
+                          height: DatabaseManagementSubPage
+                              ._foodOriginLogoPillHeight,
                           OpenFoodFactsBinding.originName,
                         ),
                       ),
@@ -250,12 +258,16 @@ class DatabaseManagementSubPageState extends State<DatabaseManagementSubPage> {
                     );
                   },
                   body: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       const Padding(
                         padding: EdgeInsets.symmetric(horizontal: 16.0),
-                        child: FoodOriginLogoPill(
-                          USDABinding.originName,
-                          fontSize: 20,
+                        child: SizedBox(
+                          height: DatabaseManagementSubPage
+                              ._foodOriginLogoPillHeight,
+                          child: FoodOriginLogoPill(
+                            USDABinding.originName,
+                          ),
                         ),
                       ),
                       ListTile(
