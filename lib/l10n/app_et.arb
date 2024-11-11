@@ -1,1 +1,12 @@
-{}
+{
+  "undo": "Pööra tegevus tagasi",
+  "@undo": {},
+  "ok": "Sobib",
+  "@ok": {},
+  "onlyNumbersAllowed": "Lubatud on vaid numbrid",
+  "@onlyNumbersAllowed": {},
+  "deleted": "kustutatud",
+  "@deleted": {},
+  "fieldMandatory": "Palun sisesta väärtus",
+  "@fieldMandatory": {}
+}
