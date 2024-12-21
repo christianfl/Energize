@@ -10,14 +10,14 @@ import './chart_bar.dart';
 class MacroChart extends StatelessWidget {
   final List<FoodTracked> foods;
   final bool? hideCard;
-  final int? decimalPlaces;
+  final int? fractionDigits;
   final double padding;
 
   const MacroChart(
     this.foods, {
     super.key,
     this.hideCard,
-    this.decimalPlaces = 0,
+    this.fractionDigits = 0,
     this.padding = 16.0,
   });
 
@@ -58,7 +58,7 @@ class MacroChart extends StatelessWidget {
           target: appSettings.caloriesTarget,
           unit: 'kcal',
           color: Theme.of(context).energyContainer,
-          decimalPlaces: decimalPlaces,
+          maxFractionDigits: fractionDigits,
         ),
         const SizedBox(height: 12.0),
         ChartBar(
@@ -67,7 +67,7 @@ class MacroChart extends StatelessWidget {
           target: appSettings.proteinTarget,
           unit: 'g',
           color: Theme.of(context).proteinContainer,
-          decimalPlaces: decimalPlaces,
+          maxFractionDigits: fractionDigits,
         ),
         ChartBar(
           title: AppLocalizations.of(context)!.carbs,
@@ -75,7 +75,7 @@ class MacroChart extends StatelessWidget {
           target: appSettings.carbsTarget,
           unit: 'g',
           color: Theme.of(context).carbsContainer,
-          decimalPlaces: decimalPlaces,
+          maxFractionDigits: fractionDigits,
         ),
         ChartBar(
           title: AppLocalizations.of(context)!.fat,
@@ -83,7 +83,7 @@ class MacroChart extends StatelessWidget {
           target: appSettings.fatTarget,
           unit: 'g',
           color: Theme.of(context).fatContainer,
-          decimalPlaces: decimalPlaces,
+          maxFractionDigits: fractionDigits,
         ),
       ],
     );

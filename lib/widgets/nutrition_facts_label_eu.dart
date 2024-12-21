@@ -92,7 +92,7 @@ class NutritionFactsLabelEU extends StatelessWidget {
           target: appSettings.caloriesTarget,
           unit: 'kcal',
           color: Theme.of(context).energyContainer,
-          decimalPlaces: 1,
+          maxFractionDigits: 1,
         ),
         const SizedBox(height: 12.0),
         ChartBar(
@@ -101,7 +101,7 @@ class NutritionFactsLabelEU extends StatelessWidget {
           target: appSettings.fatTarget,
           unit: 'g',
           color: Theme.of(context).fatContainer,
-          decimalPlaces: 1,
+          maxFractionDigits: 1,
         ),
         Padding(
           padding: const EdgeInsets.only(left: 20.0),
@@ -111,7 +111,7 @@ class NutritionFactsLabelEU extends StatelessWidget {
             target: appSettings.saturatedFatTarget,
             unit: 'g',
             color: Theme.of(context).fatContainer,
-            decimalPlaces: 1,
+            maxFractionDigits: 1,
           ),
         ),
         ChartBar(
@@ -120,7 +120,7 @@ class NutritionFactsLabelEU extends StatelessWidget {
           target: appSettings.carbsTarget,
           unit: 'g',
           color: Theme.of(context).carbsContainer,
-          decimalPlaces: 1,
+          maxFractionDigits: 1,
         ),
         Padding(
           padding: const EdgeInsets.only(left: 20.0),
@@ -130,7 +130,7 @@ class NutritionFactsLabelEU extends StatelessWidget {
             target: appSettings.sugarTarget,
             unit: 'g',
             color: Theme.of(context).carbsContainer,
-            decimalPlaces: 1,
+            maxFractionDigits: 1,
           ),
         ),
         ChartBar(
@@ -139,7 +139,7 @@ class NutritionFactsLabelEU extends StatelessWidget {
           target: appSettings.fiberTarget,
           unit: 'g',
           color: Theme.of(context).microNutrientsContainer,
-          decimalPlaces: 1,
+          maxFractionDigits: 1,
         ),
         ChartBar(
           title: AppLocalizations.of(context)!.protein,
@@ -147,7 +147,7 @@ class NutritionFactsLabelEU extends StatelessWidget {
           target: appSettings.proteinTarget,
           unit: 'g',
           color: Theme.of(context).proteinContainer,
-          decimalPlaces: 1,
+          maxFractionDigits: 1,
         ),
         ChartBar(
           title: '${AppLocalizations.of(context)!.salt}*',
@@ -157,7 +157,7 @@ class NutritionFactsLabelEU extends StatelessWidget {
               : 0,
           unit: 'g',
           color: Theme.of(context).microNutrientsContainer,
-          decimalPlaces: 1,
+          maxFractionDigits: 1,
         ),
         const SizedBox(height: 10),
         Text(

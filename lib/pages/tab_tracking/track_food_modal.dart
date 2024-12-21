@@ -459,7 +459,7 @@ class TrackFoodState extends State<TrackFood>
                 MacroChart(
                   [_getConvertedFoodForChart(food)],
                   hideCard: true,
-                  decimalPlaces: 1,
+                  fractionDigits: 1,
                 ),
                 SingleChildScrollView(
                   padding: const EdgeInsets.all(16.0),
