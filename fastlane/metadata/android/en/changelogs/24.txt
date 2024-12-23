@@ -1,0 +1,8 @@
+- [feat] Add ability to automatically group tracked foods to meals
+- [fix] Use dynamic fraction digits for nutrients values based on value
+- [l10n] Added Estonian, Tamil¹
+- [l10n] Updated Chinese (Simplified Han script), Danish, French¹
+
+---
+
+¹Big thanks to all contributors!

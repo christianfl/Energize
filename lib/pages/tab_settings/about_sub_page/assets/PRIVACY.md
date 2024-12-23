@@ -1,6 +1,7 @@
 # Privacy Policy
 
-_Last update: September 1, 2024_
+_Last update: December 23, 2024_
+_Reason: Corrected spelling mistakes._
 
 > Currently only available in English.
 
@@ -25,7 +26,7 @@ In case 1 and 2, the following data is transmitted to the Open Food Facts servic
 In this case the following data is transmitted to the USDA:
 
 - the device's external IP-address (for technical reasons)
-- an API key which itentifies the request came from the Energize app; it is the same key for all app users.
+- an API key which identifies the request came from the Energize app; it is the same key for all app users.
 - the search string (searched product name)
 
 ### Further information
