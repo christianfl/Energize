@@ -30,17 +30,18 @@ Google Play is in closed beta at the moment. Feel free to drop me a message and 
 
 ## Features
 
-- Track your meals including calories, macro- and micronutrients
+- Track your food including calories, macro- and micronutrients
+  - (optional) Automatically group tracked food into meals
 - Use several databases, including:
   - Open Food Facts
   - Swiss Food Composition Database
   - USDA FoodData Central
-- Create custom meals
-- Search meals by product name, barcode, or just scan the barcode
+- Create custom food
+- Search food by product name, barcode, or just scan the barcode
   - the barcode of the first matching custom food will be used or
   - Open Food Facts will be searched if that database is activated and no matching custom food was found
   - EAN, UPC, and custom barcodes for custom food are supported
-- Get meal suggestions based on your last tracked meals
+- Get food suggestions based on your last tracked food
 - Set targets for macro- and micronutrients including calculating them based on your personal details
 - See your daily nutrition details
 - Create an [encrypted backup](docs/backup-encryption/README.md) and restore it
