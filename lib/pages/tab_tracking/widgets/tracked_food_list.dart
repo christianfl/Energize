@@ -29,6 +29,7 @@ class TrackedFoodList extends StatelessWidget {
   ///
   /// onTapCallback: [_navigateToEditFood].
   Widget _foodItemDismissibleWrapper(
+    AppSettings appSettings,
     FoodTracked foodTracked,
     BuildContext context,
     TrackedFoodProvider trackedFood, {
@@ -64,7 +65,7 @@ class TrackedFoodList extends StatelessWidget {
       },
       child: Stack(
         children: [
-          if (partOfGroup == true)
+          if (partOfGroup == true && appSettings.isMealGroupingActivated)
             Container(
               color: Theme.of(context).decentHighlightColor,
               width: 4,
@@ -207,6 +208,7 @@ class TrackedFoodList extends StatelessWidget {
                   for (var food in foods) {
                     if (currentItemIndex == index) {
                       return _foodItemDismissibleWrapper(
+                        appSettings,
                         food,
                         context,
                         trackedFood,
