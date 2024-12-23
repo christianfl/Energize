@@ -121,83 +121,100 @@ void main() {
       final now = DateTime.now();
 
       // Prepare food from Swiss Food Composition Database
-      final avocadoSearch =
-          await SwissFoodCompositionDatabaseBinding.searchFood(
-        'Avocado',
+      final breadSearch = await SwissFoodCompositionDatabaseBinding.searchFood(
+        'Brown bread',
         const Locale('en'),
       );
-      final avocado = avocadoSearch!.first;
+      final bread = breadSearch!.first;
 
-      final bananaSearch = await SwissFoodCompositionDatabaseBinding.searchFood(
-        'Banana, raw',
+      final scrambledEggsSearch =
+          await SwissFoodCompositionDatabaseBinding.searchFood(
+        'scrambled eggs',
         const Locale('en'),
       );
-      final banana = bananaSearch!.first;
+      final scrambledEggs = scrambledEggsSearch!.first;
 
       final appleSearch = await SwissFoodCompositionDatabaseBinding.searchFood(
         'Apple, fresh',
         const Locale('en'),
       );
-      final apple = appleSearch!.first;
+      final apple = appleSearch![1];
 
-      final oatmealSearch =
-          await SwissFoodCompositionDatabaseBinding.searchFood(
-        'Oat flakes',
+      final pastaSearch = await SwissFoodCompositionDatabaseBinding.searchFood(
+        'Durum wheat semolina',
         const Locale('en'),
       );
-      final oatmeal = oatmealSearch!.first;
+      final pasta = pastaSearch!.first;
 
-      final coconutMilkSearch =
-          await SwissFoodCompositionDatabaseBinding.searchFood(
-        'Coconut milk',
+      final pestoSearch = await SwissFoodCompositionDatabaseBinding.searchFood(
+        'Pesto sauce',
         const Locale('en'),
       );
-      final coconutMilk = coconutMilkSearch!.first;
+      final pesto = pestoSearch!.first;
 
-      final trackedAvocado = FoodTracked.fromFood(
-        avocado,
+      final parmesanSearch =
+          await SwissFoodCompositionDatabaseBinding.searchFood(
+        'parmesan cheese',
+        const Locale('en'),
+      );
+      final parmesan = parmesanSearch!.first;
+
+      final trackedBread = FoodTracked.fromFood(
+        bread,
         FoodTracked.generatedId,
         120,
-        now,
+        DateTime.now().copyWith(hour: 8, minute: 30),
         now,
       );
-      final trackedBanana = FoodTracked.fromFood(
-        banana,
+      final trackedEggs = FoodTracked.fromFood(
+        scrambledEggs,
         FoodTracked.generatedId,
-        90,
-        now,
+        150,
+        DateTime.now().copyWith(hour: 8, minute: 30),
         now,
       );
       final trackedApple = FoodTracked.fromFood(
         apple,
         FoodTracked.generatedId,
-        180,
-        now,
-        now,
-      );
-      final trackedOatMeal = FoodTracked.fromFood(
-        oatmeal,
-        FoodTracked.generatedId,
-        100,
-        now,
+        120,
+        DateTime.now().copyWith(hour: 10, minute: 30),
         now,
       );
-      final trackedCoconutMilk = FoodTracked.fromFood(
-        coconutMilk,
+      final trackedPasta = FoodTracked.fromFood(
+        pasta,
         FoodTracked.generatedId,
         150,
-        now,
+        DateTime.now().copyWith(hour: 13, minute: 30),
         now,
       );
+      final trackedPesto = FoodTracked.fromFood(
+        pesto,
+        FoodTracked.generatedId,
+        50,
+        DateTime.now().copyWith(hour: 13, minute: 30),
+        now,
+      );
+      final trackedParmesan = FoodTracked.fromFood(
+        parmesan,
+        FoodTracked.generatedId,
+        20,
+        DateTime.now().copyWith(hour: 13, minute: 30),
+        now,
+      );
+
+      // Activate meal grouping
+      final appSettings = Provider.of<AppSettings>(context, listen: false);
+      appSettings.isMealGroupingActivated = true;
 
       // Add tracked food
       final trackedFoodProvider =
           Provider.of<TrackedFoodProvider>(context, listen: false);
-      trackedFoodProvider.addEatenFood(trackedAvocado);
-      trackedFoodProvider.addEatenFood(trackedBanana);
+      trackedFoodProvider.addEatenFood(trackedBread);
+      trackedFoodProvider.addEatenFood(trackedEggs);
       trackedFoodProvider.addEatenFood(trackedApple);
-      trackedFoodProvider.addEatenFood(trackedOatMeal);
-      trackedFoodProvider.addEatenFood(trackedCoconutMilk);
+      trackedFoodProvider.addEatenFood(trackedPasta);
+      trackedFoodProvider.addEatenFood(trackedPesto);
+      trackedFoodProvider.addEatenFood(trackedParmesan);
 
       final appSettingsProvider =
           Provider.of<AppSettings>(context, listen: false);
