@@ -7,6 +7,7 @@ import 'backup_and_restore_sub_page.dart';
 import 'database_management_sub_page.dart';
 import 'donation_sub_page.dart';
 import 'personalization_page/nutrition_targets_page.dart';
+import 'ui_settings_sub_page.dart';
 
 class SettingsPage extends StatelessWidget {
   const SettingsPage({super.key});
@@ -37,6 +38,20 @@ class SettingsPage extends StatelessWidget {
             ),
           ),
           const Divider(),
+          InkWell(
+            onTap: () {
+              Navigator.of(context).pushNamed(
+                UISettingsSubPage.routeName,
+              );
+            },
+            child: ListTile(
+              leading: const Icon(Icons.display_settings),
+              title: Text(AppLocalizations.of(context)!.display),
+              subtitle: Text(
+                AppLocalizations.of(context)!.displayHint,
+              ),
+            ),
+          ),
           InkWell(
             onTap: () {
               Navigator.of(context).pushNamed(

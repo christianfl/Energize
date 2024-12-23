@@ -4,10 +4,15 @@ import 'package:provider/provider.dart';
 
 import '../../../../providers/tracked_food_provider.dart';
 import '../../../models/food/food_tracked.dart';
+import '../../../providers/app_settings.dart';
 import '../../../theme/energize_theme.dart';
 import '../track_food_modal.dart';
 import 'tracked_food_list_item.dart';
+import 'tracked_food_list_item_grouper.dart';
 
+/// List which contains tracked food for the current selected day.
+///
+/// Can also contain [TrackedFoodListItemGrouper] if a user activated grouping.
 class TrackedFoodList extends StatelessWidget {
   final ScrollController _scrollController;
   final Function _setIsFabExplicitelyVisible;
@@ -18,13 +23,72 @@ class TrackedFoodList extends StatelessWidget {
     super.key,
   });
 
-  @override
-  Widget build(BuildContext context) {
-    final trackedFood = Provider.of<TrackedFoodProvider>(context);
-    final foods = trackedFood.foods;
+  /// Wraps a [TrackedFoodListItem] in a [Dismissible].
+  ///
+  /// Deletes the item on swipe.
+  ///
+  /// onTapCallback: [_navigateToEditFood].
+  Widget _foodItemDismissibleWrapper(
+    FoodTracked foodTracked,
+    BuildContext context,
+    TrackedFoodProvider trackedFood, {
+    bool? partOfGroup,
+  }) {
+    return Dismissible(
+      key: Key(foodTracked.id),
+      background: Container(
+        color: Theme.of(context).dangerContainer,
+        child: Icon(
+          Icons.delete,
+          color: Theme.of(context).onDangerContainer,
+        ),
+      ),
+      onDismissed: (direction) {
+        final swipedFood = foodTracked;
+        trackedFood.removeEatenFood(foodTracked.id);
+        _setIsFabExplicitelyVisible(true);
 
-    // Sort trackedFood in the UI, so it gets updated on each build
-    foods.sort((a, b) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(
+              '${foodTracked.title} ${AppLocalizations.of(context)!.deleted}',
+            ),
+            action: SnackBarAction(
+              label: AppLocalizations.of(context)!.undo,
+              onPressed: () {
+                trackedFood.addEatenFood(swipedFood);
+              },
+            ),
+          ),
+        );
+      },
+      child: Stack(
+        children: [
+          if (partOfGroup == true)
+            Container(
+              color: Theme.of(context).decentHighlightColor,
+              width: 4,
+              height: TrackedFoodListItem.height,
+            ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+            child: TrackedFoodListItem(
+              foodTracked,
+              onTapCallback: _navigateToEditFood,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  /// Groups tracked foods into sublists by dateEaten within the given [range].
+  List<List<FoodTracked>> _groupFoodTrackedByDateEaten(
+    List<FoodTracked> trackedFoods,
+    Duration range,
+  ) {
+    // Sort trackedFood by dateEaten and then dateAdded descending
+    trackedFoods.sort((a, b) {
       // Sort by dateEaten descending
       final sortByDateEaten = b.dateEaten.compareTo(a.dateEaten);
 
@@ -37,6 +101,78 @@ class TrackedFoodList extends StatelessWidget {
       return b.dateAdded.compareTo(a.dateAdded);
     });
 
+    // Prepare variables needed for grouping
+    final List<List<FoodTracked>> groupedItems = [];
+    List<FoodTracked> currentGroup = [];
+    DateTime? anchorTime;
+
+    for (final trackedFood in trackedFoods) {
+      if (currentGroup.isEmpty) {
+        // Start a new group
+        currentGroup.add(trackedFood);
+        anchorTime = trackedFood.dateEaten;
+      } else {
+        // Calculate the time difference between the item and the anchor
+        final timeDifference =
+            trackedFood.dateEaten.difference(anchorTime!).abs();
+
+        if (timeDifference <= range) {
+          // Add to the current group
+          currentGroup.add(trackedFood);
+
+          // Update the anchor to maintain the earliest time in the group
+          anchorTime = currentGroup
+              .map((e) => e.dateEaten)
+              .reduce((a, b) => a.isBefore(b) ? a : b);
+        } else {
+          // Save the current group
+          groupedItems.add(List.from(currentGroup));
+
+          // Start a new group
+          currentGroup = [trackedFood];
+          anchorTime = trackedFood.dateEaten;
+        }
+      }
+    }
+
+    // Add the last item
+    groupedItems.add(
+      currentGroup,
+    );
+
+    return groupedItems;
+  }
+
+  /// Returns the itemCount for the [ListView]
+  int _getListItemCount(
+    List<List<FoodTracked>> groupedFoodTracked,
+    bool isMealGroupingActivated,
+  ) {
+    int itemCount = 0;
+
+    for (final trackedFoodsInGroup in groupedFoodTracked) {
+      if (trackedFoodsInGroup.length == 1 || !isMealGroupingActivated) {
+        // Just the trackedFood item itself
+        itemCount++;
+      } else {
+        // The trackedFood item and the grouper item
+        itemCount = itemCount + 1 + trackedFoodsInGroup.length;
+      }
+    }
+
+    return itemCount;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final appSettings = Provider.of<AppSettings>(context);
+    final trackedFood = Provider.of<TrackedFoodProvider>(context);
+    final foods = trackedFood.foods;
+    final List<List<FoodTracked>> groupedFoods = _groupFoodTrackedByDateEaten(
+      foods,
+      const Duration(minutes: 2),
+    );
+
     return Expanded(
       child: foods.isEmpty
           ? const Column(
@@ -46,59 +182,42 @@ class TrackedFoodList extends StatelessWidget {
               ],
             )
           : ListView.builder(
-              itemCount: foods.length + 2,
+              padding: const EdgeInsets.only(top: 8, bottom: 8),
+              itemCount: _getListItemCount(
+                groupedFoods,
+                appSettings.isMealGroupingActivated,
+              ),
               controller: _scrollController,
               itemBuilder: (ctx, index) {
-                // Padding on top of the list
-                if (index == 0) {
-                  return const Padding(
-                    padding: EdgeInsets.only(top: 8.0),
-                  );
-                } else if (index <= foods.length) {
-                  final food = foods[index - 1];
+                int currentItemIndex = 0;
 
-                  return Dismissible(
-                    key: Key(food.id),
-                    background: Container(
-                      color: Theme.of(context).dangerContainer,
-                      child: Icon(
-                        Icons.delete,
-                        color: Theme.of(context).onDangerContainer,
-                      ),
-                    ),
-                    onDismissed: (direction) {
-                      final swipedFood = food;
-                      trackedFood.removeEatenFood(food.id);
-                      _setIsFabExplicitelyVisible(true);
+                for (var foods in groupedFoods) {
+                  // Apply grouping only if user activated it in settings
+                  if (appSettings.isMealGroupingActivated) {
+                    if (foods.length > 1) {
+                      // Show grouper only if group contains more than one item
+                      if (currentItemIndex == index) {
+                        return TrackedFoodListItemGrouper(foods);
+                      }
+                      currentItemIndex++;
+                    }
+                  }
 
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text(
-                            '${food.title} ${AppLocalizations.of(context)!.deleted}',
-                          ),
-                          action: SnackBarAction(
-                            label: AppLocalizations.of(context)!.undo,
-                            onPressed: () {
-                              trackedFood.addEatenFood(swipedFood);
-                            },
-                          ),
-                        ),
-                      );
-                    },
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                      child: TrackedFoodListItem(
+                  // Single food entry
+                  for (var food in foods) {
+                    if (currentItemIndex == index) {
+                      return _foodItemDismissibleWrapper(
                         food,
-                        onTapCallback: _navigateToEditFood,
-                      ),
-                    ),
-                  );
-                } else {
-                  // Padding on bottom of the list
-                  return const Padding(
-                    padding: EdgeInsets.only(bottom: 8.0),
-                  );
+                        context,
+                        trackedFood,
+                        partOfGroup: foods.length > 1 ? true : false,
+                      );
+                    }
+                    currentItemIndex++;
+                  }
                 }
+
+                return null;
               },
             ),
     );

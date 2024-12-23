@@ -126,6 +126,19 @@
     "percentOfTotalEnergy": "Percent of total energy",
     "selectedMacronutrient": "Selected macronutrient",
     "energyAndMacronutrientsTargetsHint": "Calories, protein, carbs, fat",
+    "display": "Display",
+    "displayHint": "Customize the user interface to your needs",
+    "groupFoodsToMeals": "Group foods to meals",
+    "groupFoodsToMealsHint": "Automatically groups together foods consumed in very short intervals as a meal",
+    "mealAt": "Meal at {time}",
+    "@mealAt": {
+        "placeholders": {
+            "time": {
+                "type": "String",
+                "example": "12:34"
+            }
+        }
+    },
     "databaseManagement": "Database management",
     "databaseManagementHint": "Select which food databases to query",
     "storedOnDevice": "Stored on device",

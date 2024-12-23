@@ -214,6 +214,23 @@
   "@selectedMacronutrient": {},
   "energyAndMacronutrientsTargetsHint": "Kilokalorien, Protein, Kohlenhydrate, Fett",
   "@energyAndMacronutrientsTargetsHint": {},
+  "display": "Darstellung",
+  "@display": {},
+  "displayHint": "Passe die Benutzeroberfläche deinen Bedürfnissen an",
+  "@displayHint": {},
+  "groupFoodsToMeals": "Nahrung zu Mahlzeiten gruppieren",
+  "@groupFoodsToMeals": {},
+  "groupFoodsToMealsHint": "Fasst Nahrung, die in sehr kurzem Abstand konsumiert wurde, automatisch als Mahlzeit zusammen",
+  "@groupFoodsToMealsHint": {},
+  "mealAt": "Mahlzeit um {time}",
+  "@mealAt": {
+    "placeholders": {
+      "time": {
+        "type": "String",
+        "example": "12:34"
+      }
+    }
+  },
   "databaseManagement": "Datenbankverwaltung",
   "@databaseManagement": {},
   "databaseManagementHint": "Entscheide, welche Nahrungsmitteldatenbanken verwendet werden sollen",

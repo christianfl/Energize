@@ -15,6 +15,7 @@ import 'pages/tab_settings/backup_and_restore_sub_page.dart';
 import 'pages/tab_settings/database_management_sub_page.dart';
 import 'pages/tab_settings/donation_sub_page.dart';
 import 'pages/tab_settings/personalization_page/nutrition_targets_page.dart';
+import 'pages/tab_settings/ui_settings_sub_page.dart';
 import 'pages/tab_tracking/detailed_summary_sub_page.dart';
 import 'pages/tab_tracking/track_food_modal.dart';
 import 'pages/tabs_page.dart';
@@ -90,6 +91,7 @@ class MyApp extends StatelessWidget {
           AddEditCustomFoodModal.routeName: (ctx) =>
               const AddEditCustomFoodModal(),
           NutritionTargetsPage.routeName: (ctx) => const NutritionTargetsPage(),
+          UISettingsSubPage.routeName: (ctx) => const UISettingsSubPage(),
           DatabaseManagementSubPage.routeName: (ctx) =>
               const DatabaseManagementSubPage(),
           BackupAndRestoreSubPage.routeName: (ctx) =>

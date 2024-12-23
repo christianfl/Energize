@@ -48,4 +48,7 @@ extension EnergizeThemeData on ThemeData {
   // Dynamic colors
   Color get extraHighlightColor =>
       isDarkMode ? Colors.orange : Colors.redAccent;
+
+  Color get decentHighlightColor =>
+      isDarkMode ? const Color(0xFF342110) : const Color(0xFFFFDEDD);
 }

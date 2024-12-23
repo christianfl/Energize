@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../models/food/food_tracked.dart';
 import '../../../theme/energize_theme.dart';
+import 'macro_nutrients_breakdown.dart';
 
 /// Card-formed item which represents a single tracked food on the TrackingPage
 class TrackedFoodListItem extends StatelessWidget {
-  static const double _height = 50;
+  static const double height = 58;
+  static const double _cardMargin = 4.0;
 
   final FoodTracked trackedFood;
   final Function? onTapCallback;
@@ -17,27 +18,20 @@ class TrackedFoodListItem extends StatelessWidget {
     this.onTapCallback,
   });
 
-  double _caloriesPerAmount(FoodTracked food) {
-    if (food.calories != null) {
-      return food.calories! / 100 * food.amount;
-    } else {
-      return 0;
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return Card(
+      margin: const EdgeInsets.all(_cardMargin),
       clipBehavior: Clip.antiAlias,
       child: InkWell(
         onTap: onTapCallback != null
             ? () => onTapCallback!(context, trackedFood)
             : null,
         child: Container(
-          height: _height,
+          height: height - 2 * _cardMargin,
           margin: const EdgeInsets.only(left: 10, right: 10),
           child: Row(
-            children: <Widget>[
+            children: [
               Expanded(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -58,32 +52,7 @@ class TrackedFoodListItem extends StatelessWidget {
                           ),
                         ),
                         const SizedBox(width: 10),
-                        Text(
-                          '[${AppLocalizations.of(context)!.protein.substring(0, 1)} ${trackedFood.proteinPerAmount.toStringAsFixed(0)}]',
-                          style: TextStyle(
-                            color: Theme.of(context).proteinContainer,
-                            fontWeight: FontWeight.w300,
-                            fontSize: 10,
-                          ),
-                        ),
-                        const SizedBox(width: 10),
-                        Text(
-                          '[${AppLocalizations.of(context)!.carbs.substring(0, 1)} ${trackedFood.carbsPerAmount.toStringAsFixed(0)}]',
-                          style: TextStyle(
-                            color: Theme.of(context).carbsContainer,
-                            fontWeight: FontWeight.w300,
-                            fontSize: 10,
-                          ),
-                        ),
-                        const SizedBox(width: 10),
-                        Text(
-                          '[${AppLocalizations.of(context)!.fat.substring(0, 1)} ${trackedFood.fatPerAmount.toStringAsFixed(0)}]',
-                          style: TextStyle(
-                            color: Theme.of(context).fatContainer,
-                            fontWeight: FontWeight.w300,
-                            fontSize: 10,
-                          ),
-                        ),
+                        MacroNutrientsBreakdown([trackedFood]),
                       ],
                     ),
                   ],
@@ -100,7 +69,7 @@ class TrackedFoodListItem extends StatelessWidget {
                 ),
                 padding: const EdgeInsets.all(4),
                 child: Text(
-                  '${_caloriesPerAmount(trackedFood).toStringAsFixed(0)} kcal',
+                  '${trackedFood.caloriesPerAmount.toStringAsFixed(0)} kcal',
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 14,

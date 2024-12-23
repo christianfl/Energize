@@ -32,6 +32,10 @@ class AppSettings with ChangeNotifier {
   /// in %
   double _fatRatio = 30;
 
+  // ########################## UI Settings ##########################
+
+  bool _isMealGroupingActivated = false;
+
   // ########################## Backup & Restore ##########################
 
   String _backupServerUrl = '';
@@ -102,6 +106,8 @@ class AppSettings with ChangeNotifier {
   double get proteinRatio => _proteinRatio;
   double get carbsRatio => _carbsRatio;
   double get fatRatio => _fatRatio;
+
+  bool get isMealGroupingActivated => _isMealGroupingActivated;
 
   String get backupServerUrl => _backupServerUrl;
   String get backupUsername => _backupUsername;
@@ -185,6 +191,9 @@ class AppSettings with ChangeNotifier {
     _proteinRatio = _preferences!.getDouble('proteinRatio') ?? _proteinRatio;
     _carbsRatio = _preferences!.getDouble('carbsRatio') ?? _carbsRatio;
     _fatRatio = _preferences!.getDouble('fatRatio') ?? _fatRatio;
+
+    _isMealGroupingActivated =
+        _preferences!.getBool('isMealGroupingActivated') ?? false;
 
     _backupServerUrl =
         _preferences!.getString('backupServerUrl') ?? _backupServerUrl;
@@ -619,6 +628,12 @@ class AppSettings with ChangeNotifier {
     _alcoholTarget = value;
     notifyListeners();
     _saveToPreferences('alcoholTarget', value);
+  }
+
+  set isMealGroupingActivated(bool value) {
+    _isMealGroupingActivated = value;
+    notifyListeners();
+    _saveToPreferences('isMealGroupingActivated', value);
   }
 
   set isProviderOpenFoodFactsActivated(bool value) {
