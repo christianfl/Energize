@@ -123,12 +123,13 @@ class OpenFoodFactsBinding {
     return transformedProducts;
   }
 
+  /// Returns the [OpenFoodFactsLanguage] based on the system locale.
   static get _queryLanguage {
     final String locale = Platform.localeName.split('_')[0];
     return LanguageHelper.fromJson(locale);
   }
 
-  /// Returns the [OpenFoodFactsCountry] based on the system language.
+  /// Returns the [OpenFoodFactsCountry] based on the system locale.
   static OpenFoodFactsCountry? get _queryCountry {
     final String locale = Platform.localeName.split('_')[1];
     return OpenFoodFactsCountry.fromOffTag(locale);
