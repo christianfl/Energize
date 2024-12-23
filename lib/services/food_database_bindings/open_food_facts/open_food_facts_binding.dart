@@ -59,6 +59,7 @@ class OpenFoodFactsBinding {
           ProductQueryConfiguration(
         upgradedBarcode,
         language: _queryLanguage,
+        country: _queryCountry,
         fields: [ProductField.ALL],
         version: const ProductQueryVersion(3),
       );
@@ -104,6 +105,7 @@ class OpenFoodFactsBinding {
         ProductSearchQueryConfiguration(
       parametersList: parameters,
       language: _queryLanguage,
+      country: _queryCountry,
       version: const ProductQueryVersion(3),
     );
 
@@ -124,5 +126,11 @@ class OpenFoodFactsBinding {
   static get _queryLanguage {
     final String locale = Platform.localeName.split('_')[0];
     return LanguageHelper.fromJson(locale);
+  }
+
+  /// Returns the [OpenFoodFactsCountry] based on the system language.
+  static OpenFoodFactsCountry? get _queryCountry {
+    final String locale = Platform.localeName.split('_')[1];
+    return OpenFoodFactsCountry.fromOffTag(locale);
   }
 }
