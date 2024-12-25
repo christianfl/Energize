@@ -465,5 +465,22 @@
   "alcohol": "மதுசாரம்",
   "@alcohol": {},
   "salt": "உப்பு",
-  "@salt": {}
+  "@salt": {},
+  "displayHint": "உங்கள் தேவைகளுக்கு பயனர் இடைமுகத்தைத் தனிப்பயனாக்கவும்",
+  "@displayHint": {},
+  "groupFoodsToMeals": "உணவுக்கு குழு உணவுகள்",
+  "@groupFoodsToMeals": {},
+  "groupFoodsToMealsHint": "தானாகவே ஒரு குறுகிய இடைவெளியில் உட்கொள்ளும் உணவுகளை ஒரு உணவாக ஒன்றாகக் குழுக்கள்",
+  "@groupFoodsToMealsHint": {},
+  "display": "காட்சி",
+  "@display": {},
+  "mealAt": "{time} இல் உணவு",
+  "@mealAt": {
+    "placeholders": {
+      "time": {
+        "type": "String",
+        "example": "12:34"
+      }
+    }
+  }
 }
