@@ -143,7 +143,7 @@
   "@alcohol": {},
   "minerals": "Składniki mineralne",
   "@minerals": {},
-  "majorMinerals": "Główne minerały",
+  "majorMinerals": "Główne składniki mineralne",
   "@majorMinerals": {},
   "traceElements": "Pierwiastki śladowe",
   "@traceElements": {},
@@ -225,7 +225,7 @@
   "@usdaFoodDataCentralGeneralInformationText": {},
   "energyAndMacronutrients": "Wartość energetyczna i makroskładniki",
   "@energyAndMacronutrients": {},
-  "chloride": "Chlorki",
+  "chloride": "Chlor",
   "@chloride": {},
   "language": "Język",
   "@language": {},
@@ -237,11 +237,11 @@
   "@german": {},
   "donate": "Przekaż darowiznę",
   "@donate": {},
-  "bitcoinAddressCopiedToClipboard": "Adres Bitcoin skopiowany do schowka",
+  "bitcoinAddressCopiedToClipboard": "Skopiowano adres Bitcoin do schowka",
   "@bitcoinAddressCopiedToClipboard": {},
-  "bankAccountOrCreditCard": "Konto bankowe albo karta kredytowa",
+  "bankAccountOrCreditCard": "Płatność przelewem lub kartą kredytową",
   "@bankAccountOrCreditCard": {},
-  "writeMeAnEmailForFurtherDonationOptions": "Prosimy o skontaktowanie się z nami drogą mailową w przypadku chęci skorzystania z innych metod przekazywania darowizn",
+  "writeMeAnEmailForFurtherDonationOptions": "Proszę o kontakt drogą mailową w kwestii korzystania z innych metod przekazywania darowizn",
   "@writeMeAnEmailForFurtherDonationOptions": {},
   "openFoodFactsVariousLanguagesText": "Różne",
   "@openFoodFactsVariousLanguagesText": {},
@@ -343,7 +343,7 @@
   "@totalEnergy": {},
   "percentOfTotalEnergy": "Procent kalorii",
   "@percentOfTotalEnergy": {},
-  "emailHint": "Proszę o wysyłanie na maila tylko wiadomości osobistych. W celu zgłoszenia problemów, zasugerowania ulepszeń lub uzyskania dalszej pomocy skorzystaj z powyższych linków.",
+  "emailHint": "Proszę o nie wysyłanie wiadomości dotyczących kwestii wymienionych powyżej",
   "@emailHint": {},
   "ok": "OK",
   "@ok": {},
@@ -431,6 +431,63 @@
   "@createWebDAVBackup": {},
   "notFoundInCustomFoodsOpenFoodFactsNeedsInternet": "Nie znaleziono na liście własnych produktów. Połącz się z internetem, aby wyszukać w bazie Open Food Facts",
   "@notFoundInCustomFoodsOpenFoodFactsNeedsInternet": {},
-  "notFoundInCustomFoodsOpenFoodFactsNotActivated": "Nie znaleziono na liście własnych produktów. Baza Open Food Facts nie jest włączona",
-  "@notFoundInCustomFoodsOpenFoodFactsNotActivated": {}
+  "notFoundInCustomFoodsOpenFoodFactsNotActivated": "Nie znaleziono na liście własnych produktów. Baza Open Food Facts nie jest aktywna",
+  "@notFoundInCustomFoodsOpenFoodFactsNotActivated": {},
+  "display": "Wygląd",
+  "@display": {},
+  "displayHint": "Dostosuj interfejs do swoich potrzeb",
+  "@displayHint": {},
+  "groupFoodsToMeals": "Pogrupuj produkty w posiłki",
+  "@groupFoodsToMeals": {},
+  "groupFoodsToMealsHint": "Automatycznie pogrupuj produkty spożyte w krótkich odstępach czasu w posiłki",
+  "@groupFoodsToMealsHint": {},
+  "mealAt": "Posiłek o {time}",
+  "@mealAt": {
+    "placeholders": {
+      "time": {
+        "type": "String",
+        "example": "12:34"
+      }
+    }
+  },
+  "exportedNumberOfFoodsMessage": "Pomyślnie wyeksportowano! Własne produkty: {customFoodsCount}. Monitorowane produkty: {trackedFoodsCount}",
+  "@exportedNumberOfFoodsMessage": {
+    "placeholders": {
+      "customFoodsCount": {
+        "type": "int",
+        "format": "decimalPattern",
+        "example": "123"
+      },
+      "trackedFoodsCount": {
+        "type": "int",
+        "format": "decimalPattern",
+        "example": "123"
+      }
+    }
+  },
+  "contributors": "Kontrybutorzy",
+  "@contributors": {},
+  "thanksToContributorsText": "Dziękuję wszystkim osobom, które włożyły swój wkład w tworzenie Energize. To dzięki wam aplikacja stała się tym, czym jest dzisiaj.",
+  "@thanksToContributorsText": {},
+  "allTranslatorsOnWeblate": "Wszystkim tłumaczom na Weblate",
+  "@allTranslatorsOnWeblate": {},
+  "missingBackupPartsHint": "Uwaga: nie uwzględnia ustawień, treści aplikacji dostosowanych do użytkownika oraz celów!",
+  "@missingBackupPartsHint": {},
+  "salt": "Sól",
+  "@salt": {},
+  "importedNumberOfFoodsMessage": "Pomyślnie zaimportowano! Własne produkty: {customFoodsCount}. Monitorowane produkty: {trackedFoodsCount}",
+  "@importedNumberOfFoodsMessage": {
+    "placeholders": {
+      "customFoodsCount": {
+        "type": "int",
+        "format": "decimalPattern",
+        "example": "123"
+      },
+      "trackedFoodsCount": {
+        "type": "int",
+        "format": "decimalPattern",
+        "example": "123"
+      }
+    }
+  }
 }
