@@ -355,8 +355,15 @@
   "@labelingEu": {},
   "salt": "Sel",
   "@salt": {},
-  "contain": "Contenant",
-  "@contain": {},
+  "amountContain": "{amountWithUnit} contiennent",
+  "@amountContain": {
+      "placeholders": {
+          "amountWithUnit": {
+              "type": "String",
+              "example": "100 g"
+          }
+      }
+  },
   "loading": "Chargement",
   "@loading": {},
   "somethingNotFound": "{something} introuvable",

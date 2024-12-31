@@ -171,8 +171,15 @@
   "@carbs": {},
   "labelingEu": "תוויות אריזה (אירופה)",
   "@labelingEu": {},
-  "contain": "תכולה",
-  "@contain": {},
+  "amountContain": "{amountWithUnit} תכולה",
+  "@amountContain": {
+      "placeholders": {
+          "amountWithUnit": {
+              "type": "String",
+              "example": "100 g"
+          }
+      }
+  },
   "micronutrients": "מזיני קורט",
   "@micronutrients": {},
   "addCustomFood": "הוספת מזון מותאם אישית",

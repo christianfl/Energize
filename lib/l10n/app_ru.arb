@@ -96,8 +96,15 @@
   "@notFoundInCustomFoodsOrOpenFoodFacts": {},
   "notFoundInCustomFoodsOpenFoodFactsNeedsInternet": "Не найдено в пользовательских продуктах, Open Food Facts требует доступ к интернету",
   "@notFoundInCustomFoodsOpenFoodFactsNeedsInternet": {},
-  "contain": "содержать",
-  "@contain": {},
+  "amountContain": "{amountWithUnit} содержать",
+  "@amountContain": {
+      "placeholders": {
+          "amountWithUnit": {
+              "type": "String",
+              "example": "100 g"
+          }
+      }
+  },
   "general": "Общие",
   "@general": {},
   "customFood": "Пользовательские продукты",

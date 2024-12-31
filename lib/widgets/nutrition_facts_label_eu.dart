@@ -82,7 +82,7 @@ class NutritionFactsLabelEU extends StatelessWidget {
       shrinkWrap: true,
       children: [
         Text(
-          '${_amount.toStringAsFixed(0)} g ${AppLocalizations.of(context)!.contain} / ${AppLocalizations.of(context)!.dailyTarget}',
+          '${AppLocalizations.of(context)!.amountContain('${_amount.toStringAsFixed(0)} g')} / ${AppLocalizations.of(context)!.dailyTarget}',
           textAlign: TextAlign.end,
         ),
         const SizedBox(height: 20),

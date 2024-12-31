@@ -366,8 +366,15 @@
   "@labelingEu": {},
   "salt": "Sal",
   "@salt": {},
-  "contain": "contener",
-  "@contain": {},
+  "amountContain": "{amountWithUnit} contener",
+  "@amountContain": {
+      "placeholders": {
+          "amountWithUnit": {
+              "type": "String",
+              "example": "100 g"
+          }
+      }
+  },
   "nutrients": "Nutrientes",
   "@nutrients": {},
   "additionalInformation": "Información adicional",

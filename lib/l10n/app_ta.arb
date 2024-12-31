@@ -86,8 +86,15 @@
   "@nutrients": {},
   "labelingEu": "லேபிளிங் (ஐரோப்பிய ஒன்றியம்)",
   "@labelingEu": {},
-  "contain": "கட்டுப்படுத்தவும்",
-  "@contain": {},
+  "amountContain": "{amountWithUnit} கட்டுப்படுத்தவும்",
+  "@amountContain": {
+      "placeholders": {
+          "amountWithUnit": {
+              "type": "String",
+              "example": "100 g"
+          }
+      }
+  },
   "dailyTarget": "நாள்தோறும் இலக்கு",
   "@dailyTarget": {},
   "general": "பொது",

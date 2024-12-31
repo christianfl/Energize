@@ -41,7 +41,15 @@
     "consumedDate": "Consumed",
     "nutrients": "Nutrients",
     "labelingEu": "Labeling (EU)",
-    "contain": "contain",
+    "amountContain": "{amountWithUnit} contain",
+    "@amountContain": {
+        "placeholders": {
+            "amountWithUnit": {
+                "type": "String",
+                "example": "100 g"
+            }
+        }
+    },
     "dailyTarget": "daily target",
     "general": "General",
     "micronutrients": "Micronutrients",

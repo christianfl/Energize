@@ -86,8 +86,15 @@
   "@nutrients": {},
   "labelingEu": "标签(欧盟)",
   "@labelingEu": {},
-  "contain": "包含",
-  "@contain": {},
+  "amountContain": "{amountWithUnit} 包含",
+  "@amountContain": {
+      "placeholders": {
+          "amountWithUnit": {
+              "type": "String",
+              "example": "100 g"
+          }
+      }
+  },
   "consumedDate": "摄入",
   "@consumedDate": {},
   "dailyTarget": "每日目标",

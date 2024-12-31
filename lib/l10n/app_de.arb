@@ -56,7 +56,15 @@
   "consumedDate": "Konsumiert",
   "nutrients": "Nährstoffe",
   "labelingEu": "Kennzeichnung (EU)",
-  "contain": "enthalten",
+  "amountContain": "{amountWithUnit} enthalten",
+  "@amountContain": {
+      "placeholders": {
+          "amountWithUnit": {
+              "type": "String",
+              "example": "100 g"
+          }
+      }
+  },
   "dailyTarget": "Tagesziel",
   "general": "Allgemein",
   "@general": {},

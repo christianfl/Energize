@@ -29,8 +29,15 @@
   "@consumedDate": {},
   "labelingEu": "Rotulagem (EU)",
   "@labelingEu": {},
-  "contain": "inclui",
-  "@contain": {},
+  "amountContain": "{amountWithUnit} inclui",
+  "@amountContain": {
+      "placeholders": {
+          "amountWithUnit": {
+              "type": "String",
+              "example": "100 g"
+          }
+      }
+  },
   "dailyTarget": "meta diária",
   "@dailyTarget": {},
   "editTrackedFood": "Editar meta de alimentação",

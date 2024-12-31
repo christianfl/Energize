@@ -39,8 +39,15 @@
   "@additionalInformation": {},
   "labelingEu": "Etikettering (EU)",
   "@labelingEu": {},
-  "contain": "bevat",
-  "@contain": {},
+  "amountContain": "{amountWithUnit} bevat",
+  "@amountContain": {
+      "placeholders": {
+          "amountWithUnit": {
+              "type": "String",
+              "example": "100 g"
+          }
+      }
+  },
   "dailyTarget": "dagelijks doel",
   "@dailyTarget": {},
   "general": "Algemeen",
