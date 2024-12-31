@@ -13,9 +13,8 @@ Track your food and nutrition easily and fast.
   <a href="https://play.google.com/store/apps/details?id=com.flasskamp.energize"><img src="./docs/google-play-badge.png" alt="Get it on Google Play" height="75"></a>
 </p>
 
-<small>
-Google Play is in closed beta at the moment. Feel free to drop me a message and include your Gmail address to participate. Google Play and Codeberg Pages may have outdated versions as there is no automation in place yet.
-</small>
+- Google Play is currently unavailable. I'm working on resolving the issue.
+- Codeberg Pages may has an outdated version as there is no automation in place yet. See [#115](https://codeberg.org/epinez/Energize/issues/115).
 
 <br>
 
@@ -79,7 +78,12 @@ Energize has already benefited incredibly from many contributors. It would be gr
 
 You are very welcome to:
 
-- Help translating via Weblate: [![Translation status](https://hosted.weblate.org/widgets/energize/-/energize/svg-badge.svg)](https://hosted.weblate.org/engage/energize/)
+- Help translating via Weblate
+
+<a href="https://hosted.weblate.org/engage/energize/">
+<img src="https://hosted.weblate.org/widget/energize/energize/multi-auto.svg" alt="Übersetzungsstatus" />
+</a>
+
 - Create issues for
   - things not working as intended
   - feature requests
@@ -93,6 +97,8 @@ You are very welcome to:
     - Using [Conventional Commits](https://www.conventionalcommits.org) for PRs would be wonderful
     - it's easier to reach out in advance if you want something to be merged later 😊
 
+- If you have other ideas about how you'd like to contribute, just reach out on Matrix or via mail
+
 ## Donate
 
 If you want to support the development by a donation, you are very welcome to do so. Creating this app is a lot of fun but also a very time consuming task. Your donation helps to fill my coffee pot and makes sure my protein bars are filled up.
@@ -103,7 +109,7 @@ If you want to support the development by a donation, you are very welcome to do
 
 ## Documentation
 
-If there are any further questions, may have a look at the [docs](docs/README.md).
+If there are any further questions, you may have a look at the [docs](docs/README.md).
 
 ---
 
