@@ -2,7 +2,7 @@
 
 [![Translation status](https://hosted.weblate.org/widgets/energize/-/energize/svg-badge.svg)](https://hosted.weblate.org/engage/energize/) [![Delightful Humane Tech](https://codeberg.org/teaserbot-labs/delightful-humane-design/raw/branch/main/humane-tech-badge.svg)](https://codeberg.org/teaserbot-labs/delightful-humane-design) [![F-Droid Version](https://img.shields.io/f-droid/v/com.flasskamp.energize?label=F-Droid&color=b1eb0b)](https://f-droid.org/de/packages/com.flasskamp.energize/) [![Codeberg Release](https://img.shields.io/gitea/v/release/epinez/Energize?gitea_url=https%3A%2F%2Fcodeberg.org&label=Codeberg%20Release%20APK&color=4793cc)](https://codeberg.org/epinez/Energize/releases)
 
-Track your food and nutrition easily and fast.
+<img src="./fastlane/metadata/android/en/images/featureGraphic.png" alt="Energize. Track your nutrition easily and fast.">
 
   - Energize is respecting the user's privacy. [🔒 Privacy policy](PRIVACY.md)
   - Community-moderated [[Matrix] room](https://matrix.to/#/%23energize:matrix.org)
@@ -26,6 +26,8 @@ Track your food and nutrition easily and fast.
   <img src="./fastlane/metadata/android/en/images/phoneScreenshots/3_dark.png" width="24%"/>
   <img src="./fastlane/metadata/android/en/images/phoneScreenshots/4_dark.png" width="24%"/>
 </p>
+
+Screenshots are available in all supported languages [here](fastlane/metadata/android).
 
 ## Features
 
