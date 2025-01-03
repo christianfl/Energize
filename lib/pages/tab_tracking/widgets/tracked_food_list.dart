@@ -144,26 +144,6 @@ class TrackedFoodList extends StatelessWidget {
     return groupedItems;
   }
 
-  /// Returns the itemCount for the [ListView]
-  int _getListItemCount(
-    List<List<FoodTracked>> groupedFoodTracked,
-    bool isMealGroupingActivated,
-  ) {
-    int itemCount = 0;
-
-    for (final trackedFoodsInGroup in groupedFoodTracked) {
-      if (trackedFoodsInGroup.length == 1 || !isMealGroupingActivated) {
-        // Just the trackedFood item itself
-        itemCount++;
-      } else {
-        // The trackedFood item and the grouper item
-        itemCount = itemCount + 1 + trackedFoodsInGroup.length;
-      }
-    }
-
-    return itemCount;
-  }
-
   @override
   Widget build(BuildContext context) {
     final appSettings = Provider.of<AppSettings>(context);
@@ -184,10 +164,6 @@ class TrackedFoodList extends StatelessWidget {
             )
           : ListView.builder(
               padding: const EdgeInsets.only(top: 8, bottom: 8),
-              itemCount: _getListItemCount(
-                groupedFoods,
-                appSettings.isMealGroupingActivated,
-              ),
               controller: _scrollController,
               itemBuilder: (ctx, index) {
                 int currentItemIndex = 0;
