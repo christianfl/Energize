@@ -1,0 +1,9 @@
+- [feat] Use OpenFoodFacts query country based on system locale/country
+- [fix] Not showing all tracked foods when grouping is disabled
+- [fix] Use proper adaptive icon
+- [fix] Use placeholder for new amountContain localized string
+- [l10n] Updated Polish, Tamil¹
+
+---
+
+¹Big thanks to all contributors!
