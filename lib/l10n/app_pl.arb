@@ -357,12 +357,12 @@
   "@nutrients": {},
   "amountContain": "Zawartość w {amountWithUnit}",
   "@amountContain": {
-      "placeholders": {
-          "amountWithUnit": {
-              "type": "String",
-              "example": "100 g"
-          }
+    "placeholders": {
+      "amountWithUnit": {
+        "type": "String",
+        "example": "100 g"
       }
+    }
   },
   "loading": "Ładowanie",
   "@loading": {},
@@ -489,5 +489,7 @@
         "example": "123"
       }
     }
-  }
+  },
+  "barcodeScanningUnsupported": "Skanowanie kodów kreskowych za pomocą aparatu urządzenia jest obecnie obsługiwane tylko w systemie Android.",
+  "@barcodeScanningUnsupported": {}
 }
