@@ -357,12 +357,12 @@
   "@salt": {},
   "amountContain": "{amountWithUnit} contiennent",
   "@amountContain": {
-      "placeholders": {
-          "amountWithUnit": {
-              "type": "String",
-              "example": "100 g"
-          }
+    "placeholders": {
+      "amountWithUnit": {
+        "type": "String",
+        "example": "100 g"
       }
+    }
   },
   "loading": "Chargement",
   "@loading": {},
@@ -472,5 +472,24 @@
   "notFoundInCustomFoodsOpenFoodFactsNotActivated": "Non trouvé dans les aliments personnalisés, Open Food Facts n'est pas activé",
   "@notFoundInCustomFoodsOpenFoodFactsNotActivated": {},
   "italian": "Italien",
-  "@italian": {}
+  "@italian": {},
+  "display": "Affichage",
+  "@display": {},
+  "displayHint": "Adapter l'interface utilisateur à vos besoins",
+  "@displayHint": {},
+  "groupFoodsToMeals": "Regrouper les aliments en repas",
+  "@groupFoodsToMeals": {},
+  "groupFoodsToMealsHint": "Regroupe automatiquement les aliments consommés à très court terme en tant que repas",
+  "@groupFoodsToMealsHint": {},
+  "mealAt": "Repas à {time}",
+  "@mealAt": {
+    "placeholders": {
+      "time": {
+        "type": "String",
+        "example": "12:34"
+      }
+    }
+  },
+  "barcodeScanningUnsupported": "La lecture de codes-barres à l'aide de l'appareil photo de l'appareil n'est actuellement possible que sur Android.",
+  "@barcodeScanningUnsupported": {}
 }
