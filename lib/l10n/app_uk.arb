@@ -344,5 +344,45 @@
   "vitaminB12": "В12 (Кобаламін)",
   "@vitaminB12": {},
   "majorMinerals": "Основні мінерали",
-  "@majorMinerals": {}
+  "@majorMinerals": {},
+  "unknownErrorText": "Виникла невідома помилка",
+  "@unknownErrorText": {},
+  "addedDate": "Додано",
+  "@addedDate": {},
+  "ok": "ГАРАЗД",
+  "@ok": {},
+  "additionalInformation": "Додаткова інформація",
+  "@additionalInformation": {},
+  "consumedDate": "Спожито",
+  "@consumedDate": {},
+  "nutrients": "Поживні речовини",
+  "@nutrients": {},
+  "somethingNotFound": "{something} не знайдено",
+  "@somethingNotFound": {
+    "placeholders": {
+      "something": {
+        "type": "String",
+        "example": "123"
+      }
+    }
+  },
+  "loading": "Завантаження",
+  "@loading": {},
+  "undo": "Відмінити",
+  "@undo": {},
+  "deleted": "видалено",
+  "@deleted": {},
+  "completeProductName": "Повна назва продукту",
+  "@completeProductName": {},
+  "amountContain": "{amountWithUnit} містять",
+  "@amountContain": {
+    "placeholders": {
+      "amountWithUnit": {
+        "type": "String",
+        "example": "100 g"
+      }
+    }
+  },
+  "timeSetHelpText": "При відстеженні їжі цей час буде використовуватися як шаблон для часу споживання.",
+  "@timeSetHelpText": {}
 }
