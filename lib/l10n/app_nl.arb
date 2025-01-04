@@ -41,12 +41,12 @@
   "@labelingEu": {},
   "amountContain": "{amountWithUnit} bevat",
   "@amountContain": {
-      "placeholders": {
-          "amountWithUnit": {
-              "type": "String",
-              "example": "100 g"
-          }
+    "placeholders": {
+      "amountWithUnit": {
+        "type": "String",
+        "example": "100 g"
       }
+    }
   },
   "dailyTarget": "dagelijks doel",
   "@dailyTarget": {},
@@ -392,5 +392,19 @@
   "swissFoodCompositionDatabaseGeneralInformationText": "Deze databank biedt ongeveer 1100 algemene producten en veel microvoedingsstoffen. Omdat het op je apparaat wordt opgeslagen, werkt het ook offline.",
   "@swissFoodCompositionDatabaseGeneralInformationText": {},
   "tapHereForFurtherInformation": "Tik hier voor meer informatie.",
-  "@tapHereForFurtherInformation": {}
+  "@tapHereForFurtherInformation": {},
+  "unknownErrorText": "Een onbekende fout is opgetreden",
+  "@unknownErrorText": {},
+  "productOrBrand": "Product of merk",
+  "@productOrBrand": {},
+  "notFoundInCustomFoodsOpenFoodFactsNeedsInternet": "Niet gevonden in eigen eten, Open Food Facts vereist internettoegang",
+  "@notFoundInCustomFoodsOpenFoodFactsNeedsInternet": {},
+  "notFoundInCustomFoodsOrOpenFoodFacts": "Niet in eigen eten, noch op Open Food Facts",
+  "@notFoundInCustomFoodsOrOpenFoodFacts": {},
+  "scanBarcode": "Scan barcode",
+  "@scanBarcode": {},
+  "searchError": "Fout tijdens zoeken",
+  "@searchError": {},
+  "affectedDatabases": "Betrokken databases",
+  "@affectedDatabases": {}
 }
