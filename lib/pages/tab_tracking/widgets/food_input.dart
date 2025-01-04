@@ -96,6 +96,20 @@ class FoodInputState extends State<FoodInput>
     return _hasOffBindingError || _hasUsdaBindingError;
   }
 
+  /// Returns a centered message.
+  ///
+  /// Shown if systems do not support barcode scanning with device camera.
+  Widget get _barcodeScanningUnsupportedFrame {
+    return Expanded(
+      child: Center(
+        child: Text(
+          AppLocalizations.of(context)!.barcodeScanningUnsupported,
+          textAlign: TextAlign.center,
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     if (widget._sheetModalMode == SheetModalMode.search) {
@@ -218,100 +232,108 @@ class FoodInputState extends State<FoodInput>
               ],
             ),
             const SizedBox(height: 12),
-            Expanded(
-              child: ClipRRect(
-                borderRadius: const BorderRadius.all(Radius.circular(10.0)),
-                child: Stack(
-                  children: [
-                    QRView(
-                      key: qrKey,
-                      onQRViewCreated: _onQRViewCreated,
-                    ),
-                    Container(
-                      alignment: Alignment.topRight,
-                      padding: const EdgeInsets.all(2.0),
-                      child: IconButton.filled(
-                        isSelected: _flashStatus,
-                        onPressed: () =>
-                            _setFlash(_flashStatus == false ? true : false),
-                        icon: const Icon(
-                          Icons.bolt,
+            if (!kIsWeb)
+              if (!Platform.isAndroid)
+                _barcodeScanningUnsupportedFrame
+              else
+                Expanded(
+                  child: ClipRRect(
+                    borderRadius: const BorderRadius.all(Radius.circular(10.0)),
+                    child: Stack(
+                      children: [
+                        QRView(
+                          key: qrKey,
+                          onQRViewCreated: _onQRViewCreated,
                         ),
-                      ),
-                    ),
-                    Container(
-                      padding: const EdgeInsets.all(8.0),
-                      alignment: Alignment.bottomCenter,
-                      child: _productNotFoundExceptionBarcode != null
-                          ? Container(
-                              decoration: BoxDecoration(
-                                color: Theme.of(context)
-                                    .colorScheme
-                                    .surface
-                                    .withAlpha(150),
-                                borderRadius: const BorderRadius.all(
-                                  Radius.circular(10.0),
-                                ),
-                              ),
-                              padding: const EdgeInsets.all(16.0),
-                              width: double.infinity,
-                              child: Column(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  Text(
-                                    AppLocalizations.of(context)!
-                                        .somethingNotFound(
-                                      _productNotFoundExceptionBarcode!,
+                        Container(
+                          alignment: Alignment.topRight,
+                          padding: const EdgeInsets.all(2.0),
+                          child: IconButton.filled(
+                            isSelected: _flashStatus,
+                            onPressed: () =>
+                                _setFlash(_flashStatus == false ? true : false),
+                            icon: const Icon(
+                              Icons.bolt,
+                            ),
+                          ),
+                        ),
+                        Container(
+                          padding: const EdgeInsets.all(8.0),
+                          alignment: Alignment.bottomCenter,
+                          child: _productNotFoundExceptionBarcode != null
+                              ? Container(
+                                  decoration: BoxDecoration(
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .surface
+                                        .withAlpha(150),
+                                    borderRadius: const BorderRadius.all(
+                                      Radius.circular(10.0),
                                     ),
-                                    style: const TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                    maxLines: 2,
-                                    overflow: TextOverflow.ellipsis,
                                   ),
-                                  if (_additionalProductNotFoundInfo != null)
-                                    Column(
-                                      mainAxisSize: MainAxisSize.min,
-                                      children: [
-                                        const Divider(),
-                                        Text(_additionalProductNotFoundInfo!),
-                                      ],
-                                    ),
-                                  const SizedBox(height: 8),
-                                  Row(
+                                  padding: const EdgeInsets.all(16.0),
+                                  width: double.infinity,
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.min,
                                     children: [
-                                      Expanded(
-                                        child: FilledButton.tonalIcon(
-                                          onPressed: () =>
-                                              _navigateToAddCustomFood(
-                                            context,
-                                            barcode:
-                                                _productNotFoundExceptionBarcode!,
-                                          ),
-                                          icon: const Icon(Icons.add),
-                                          label: Text(
-                                            AppLocalizations.of(context)!
-                                                .addCustomFood,
-                                          ),
+                                      Text(
+                                        AppLocalizations.of(context)!
+                                            .somethingNotFound(
+                                          _productNotFoundExceptionBarcode!,
                                         ),
+                                        style: const TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                        maxLines: 2,
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
+                                      if (_additionalProductNotFoundInfo !=
+                                          null)
+                                        Column(
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            const Divider(),
+                                            Text(
+                                                _additionalProductNotFoundInfo!),
+                                          ],
+                                        ),
+                                      const SizedBox(height: 8),
+                                      Row(
+                                        children: [
+                                          Expanded(
+                                            child: FilledButton.tonalIcon(
+                                              onPressed: () =>
+                                                  _navigateToAddCustomFood(
+                                                context,
+                                                barcode:
+                                                    _productNotFoundExceptionBarcode!,
+                                              ),
+                                              icon: const Icon(Icons.add),
+                                              label: Text(
+                                                AppLocalizations.of(context)!
+                                                    .addCustomFood,
+                                              ),
+                                            ),
+                                          ),
+                                        ],
                                       ),
                                     ],
                                   ),
-                                ],
-                              ),
-                            )
-                          : SizedBox(
-                              width: double.infinity,
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(5),
-                                child: const LinearProgressIndicator(),
-                              ),
-                            ),
+                                )
+                              : SizedBox(
+                                  width: double.infinity,
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(5),
+                                    child: const LinearProgressIndicator(),
+                                  ),
+                                ),
+                        ),
+                      ],
                     ),
-                  ],
-                ),
-              ),
-            ),
+                  ),
+                )
+            else
+              _barcodeScanningUnsupportedFrame
           ],
         ),
       );
@@ -418,11 +440,11 @@ class FoodInputState extends State<FoodInput>
         }
       });
 
-      // If at least one of the API-based food composition databases is used...
+      // If at least one of the food composition databases is activated
+      // Doesn't matter whether it's stored offline or API-based
       if ((appSettings.isProviderOpenFoodFactsActivated ||
-              appSettings.isProviderUsdaActivated ||
-              appSettings.isProviderSndbActivated) &&
-          !kIsWeb) {
+          appSettings.isProviderUsdaActivated ||
+          appSettings.isProviderSndbActivated)) {
         setState(() {
           _awaitingApiResponse = true;
         });

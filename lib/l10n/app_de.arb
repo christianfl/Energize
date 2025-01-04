@@ -92,6 +92,8 @@
   "@notFoundInCustomFoodsOpenFoodFactsHasError": {},
   "notFoundInCustomFoodsOpenFoodFactsNotActivated": "Nicht bei der eigenen Nahrung gefunden, Open Food Facts ist nicht aktiviert",
   "@notFoundInCustomFoodsOpenFoodFactsNotActivated": {},
+  "barcodeScanningUnsupported": "Das Scannen von Barcodes mit der Kamera wird bisher nur unter Android unterstützt.",
+  "@barcodeScanningUnsupported": {},
   "customFood": "Eigene Nahrung",
   "@customFood": {},
   "searchCustomFood": "Eigene Nahrung suchen",
