@@ -98,12 +98,12 @@
   "@notFoundInCustomFoodsOpenFoodFactsNeedsInternet": {},
   "amountContain": "{amountWithUnit} содержать",
   "@amountContain": {
-      "placeholders": {
-          "amountWithUnit": {
-              "type": "String",
-              "example": "100 g"
-          }
+    "placeholders": {
+      "amountWithUnit": {
+        "type": "String",
+        "example": "100 g"
       }
+    }
   },
   "general": "Общие",
   "@general": {},
@@ -472,5 +472,24 @@
   "searchErrorHint": "По крайней мере одна база данных о составе продуктов питания недоступна. Пожалуйста, попробуйте позже или временно отключите неработающие базы данных в настройках.",
   "@searchErrorHint": {},
   "backupAndRestoreHint": "Храните ваши данные локально или в облачном хранилище, совместимом с WebDAV, например, в Nextcloud",
-  "@backupAndRestoreHint": {}
+  "@backupAndRestoreHint": {},
+  "mealAt": "Еда в {time}",
+  "@mealAt": {
+    "placeholders": {
+      "time": {
+        "type": "String",
+        "example": "12:34"
+      }
+    }
+  },
+  "groupFoodsToMeals": "Группируйте продукты по блюдам",
+  "@groupFoodsToMeals": {},
+  "barcodeScanningUnsupported": "Сканирование штрих-кодов с помощью камеры устройства в настоящее время поддерживается только на Android.",
+  "@barcodeScanningUnsupported": {},
+  "groupFoodsToMealsHint": "Автоматически объединяет продукты, потребляемые через очень короткие промежутки времени, в один прием пищ",
+  "@groupFoodsToMealsHint": {},
+  "display": "Дисплей",
+  "@display": {},
+  "displayHint": "Настройте пользовательский интерфейс в соответствии с вашими потребностями",
+  "@displayHint": {}
 }
