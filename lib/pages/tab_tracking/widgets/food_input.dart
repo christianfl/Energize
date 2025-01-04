@@ -294,7 +294,8 @@ class FoodInputState extends State<FoodInput>
                                           children: [
                                             const Divider(),
                                             Text(
-                                                _additionalProductNotFoundInfo!),
+                                              _additionalProductNotFoundInfo!,
+                                            ),
                                           ],
                                         ),
                                       const SizedBox(height: 8),
@@ -333,7 +334,7 @@ class FoodInputState extends State<FoodInput>
                   ),
                 )
             else
-              _barcodeScanningUnsupportedFrame
+              _barcodeScanningUnsupportedFrame,
           ],
         ),
       );
