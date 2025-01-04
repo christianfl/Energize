@@ -15,12 +15,12 @@
   "@labelingEu": {},
   "amountContain": "{amountWithUnit} inclui",
   "@amountContain": {
-      "placeholders": {
-          "amountWithUnit": {
-              "type": "String",
-              "example": "100 g"
-          }
+    "placeholders": {
+      "amountWithUnit": {
+        "type": "String",
+        "example": "100 g"
       }
+    }
   },
   "dailyTarget": "meta diária",
   "@dailyTarget": {},
@@ -472,5 +472,24 @@
   "polyunsaturatedFat": "Gordura poli-insaturada",
   "@polyunsaturatedFat": {},
   "privacyPolicy": "Política de privacidade",
-  "@privacyPolicy": {}
+  "@privacyPolicy": {},
+  "groupFoodsToMeals": "Agrupar alimentos em refeições",
+  "@groupFoodsToMeals": {},
+  "display": "Tela",
+  "@display": {},
+  "displayHint": "Personalize a interface do usuário de acordo com suas necessidades",
+  "@displayHint": {},
+  "mealAt": "Refeição em {time}",
+  "@mealAt": {
+    "placeholders": {
+      "time": {
+        "type": "String",
+        "example": "12:34"
+      }
+    }
+  },
+  "groupFoodsToMealsHint": "Agrupa automaticamente os alimentos consumidos em intervalos muito curtos como uma refeição",
+  "@groupFoodsToMealsHint": {},
+  "barcodeScanningUnsupported": "Atualmente, a leitura de códigos de barras com a câmera do dispositivo é compatível apenas com o Android.",
+  "@barcodeScanningUnsupported": {}
 }
