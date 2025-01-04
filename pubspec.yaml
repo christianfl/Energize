@@ -76,6 +76,7 @@ flutter:
   assets:
     - assets/
     - assets/food_databases/
+    - assets/mondstern/
     - lib/services/food_database_bindings/swiss_food_composition_database/assets/
     - lib/pages/tab_settings/about_sub_page/assets/
 

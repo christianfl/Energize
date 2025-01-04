@@ -5,6 +5,8 @@ import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../../../models/contributor.dart';
+
 class AboutSubPage extends StatefulWidget {
   static const routeName = '/settings/about';
 
@@ -16,9 +18,6 @@ class AboutSubPage extends StatefulWidget {
       'https://hosted.weblate.org/projects/energize/energize';
   static const _copyrightNotice = '© Christian Flaßkamp';
   static const _license = 'GPLv3';
-  static const _contributors = [
-    'Marijn Kok',
-  ];
   static const _privacyPolicyUrl =
       'lib/pages/tab_settings/about_sub_page/assets/PRIVACY.md';
 
@@ -30,6 +29,25 @@ class AboutSubPage extends StatefulWidget {
 
 class _AboutSubPageState extends State<AboutSubPage> {
   String _appVersion = '';
+
+  /// Returns contributors of Energize.
+  List<Contributor> _getContributors(BuildContext context) {
+    return [
+      Contributor(
+        name: 'Marijn Kok',
+        contributionLine1:
+            AppLocalizations.of(context)!.contributionTypeCodeAndConversations,
+      ),
+      Contributor(
+        name: 'mondstern',
+        contributionLine1:
+            AppLocalizations.of(context)!.contributionTypeAcrylicPicture,
+        contributionLine2: 'CC BY-SA 4.0',
+        assetUrl: 'assets/mondstern/mondstern_acryl_energize.jpg',
+      ),
+      Contributor(name: AppLocalizations.of(context)!.allTranslatorsOnWeblate),
+    ];
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -248,9 +266,6 @@ class _AboutSubPageState extends State<AboutSubPage> {
 
   /// Shows dialog for listing the Energize contributors
   Future<void> _showContributorsDialog() async {
-    final contributors = List.from(AboutSubPage._contributors);
-    contributors.add(AppLocalizations.of(context)!.allTranslatorsOnWeblate);
-
     return showDialog<void>(
       context: context,
       builder: (BuildContext context) {
@@ -269,10 +284,38 @@ class _AboutSubPageState extends State<AboutSubPage> {
           content: SizedBox(
             width: MediaQuery.of(context).size.width,
             child: ListView.builder(
-              itemCount: contributors.length,
+              itemCount: _getContributors(context).length,
               shrinkWrap: true,
               itemBuilder: (BuildContext context, int index) {
-                return ListTile(title: Text(contributors[index]));
+                return ListTile(
+                  title: Text(_getContributors(context)[index].name),
+                  subtitle:
+                      _getContributors(context)[index].contributionLine1 != null
+                          ? Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  _getContributors(context)[index]
+                                      .contributionLine1!,
+                                ),
+                                if (_getContributors(context)[index]
+                                        .contributionLine2 !=
+                                    null)
+                                  Text(
+                                    _getContributors(context)[index]
+                                        .contributionLine2!,
+                                  ),
+                              ],
+                            )
+                          : null,
+                  trailing: _getContributors(context)[index].assetUrl != null
+                      ? CircleAvatar(
+                          foregroundImage: AssetImage(
+                            _getContributors(context)[index].assetUrl!,
+                          ),
+                        )
+                      : null,
+                );
               },
             ),
           ),

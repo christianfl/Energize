@@ -99,6 +99,13 @@ You are very welcome to:
     - Using [Conventional Commits](https://www.conventionalcommits.org) for PRs would be wonderful
     - it's easier to reach out in advance if you want something to be merged later 😊
 
+- Create art: It's both beautiful and motivational
+
+  <img src="assets/mondstern/mondstern_acryl_energize.jpg" width="20%" alt="acrylic picture of Energize by mondstern">
+
+  [Acrylic picture by mondstern](https://codeberg.org/AcrylicIcons/pictures) (CC BY-SA 4.0)
+
+
 - If you have other ideas about how you'd like to contribute, just reach out on Matrix or via mail
 
 ## Donate
