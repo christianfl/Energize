@@ -17,7 +17,7 @@ class AboutSubPage extends StatefulWidget {
   static const _translationUrl =
       'https://hosted.weblate.org/projects/energize/energize';
   static const _copyrightNotice = '© Christian Flaßkamp';
-  static const _license = 'GPLv3';
+  static const _license = 'AGPLv3';
   static const _privacyPolicyUrl =
       'lib/pages/tab_settings/about_sub_page/assets/PRIVACY.md';
 
