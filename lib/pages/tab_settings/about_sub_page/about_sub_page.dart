@@ -63,11 +63,10 @@ class _AboutSubPageState extends State<AboutSubPage> {
               Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(10),
+                  ConstrainedBox(
+                    constraints: const BoxConstraints(maxWidth: 140),
                     child: Image.asset(
-                      'assets/about_logo.png',
-                      width: 140,
+                      'assets/about_logo.webp',
                     ),
                   ),
                   const SizedBox(width: 24),
@@ -88,18 +87,18 @@ class _AboutSubPageState extends State<AboutSubPage> {
                         '${AppLocalizations.of(context)!.license}: ${AboutSubPage._license}',
                         style: Theme.of(context).textTheme.bodySmall,
                       ),
+                      const SizedBox(height: 8),
                       OutlinedButton(
                         onPressed: () => showLicensePage(
                           context: context,
                           applicationVersion: _appVersion,
                           applicationLegalese:
                               '${AboutSubPage._copyrightNotice}\n${AboutSubPage._license}',
-                          applicationIcon: const Padding(
-                            padding: EdgeInsets.all(8.0),
-                            child: CircleAvatar(
-                              backgroundImage:
-                                  AssetImage('assets/about_logo.png'),
-                              radius: 50,
+                          applicationIcon: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Image.asset(
+                              'assets/about_logo.webp',
+                              width: 140,
                             ),
                           ),
                         ),
