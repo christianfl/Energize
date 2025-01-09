@@ -396,5 +396,104 @@
   "italian": "Італійська",
   "@italian": {},
   "french": "Французька",
-  "@french": {}
+  "@french": {},
+  "createWebDAVBackup": "Створення резервної копії WebDAV",
+  "@createWebDAVBackup": {},
+  "restoreLocalBackup": "Відновити локальну резервну копію",
+  "@restoreLocalBackup": {},
+  "contributors": "Укладач",
+  "@contributors": {},
+  "scanBarcode": "Сканувати штрих-код",
+  "@scanBarcode": {},
+  "productOrBrand": "Продукт або торгова марка",
+  "@productOrBrand": {},
+  "dailyTarget": "щоденна мета",
+  "@dailyTarget": {},
+  "labelingEu": "Маркування (ЄС)",
+  "@labelingEu": {},
+  "notFoundInCustomFoodsOpenFoodFactsNotActivated": "Не виявлено в нестандартних продуктах харчування, функція Open Food Facts не активована",
+  "@notFoundInCustomFoodsOpenFoodFactsNotActivated": {},
+  "notFoundInCustomFoodsOpenFoodFactsHasError": "Не знайдено в нестандартних продуктах харчування, у пошуку Open Food Facts виникла помилка",
+  "@notFoundInCustomFoodsOpenFoodFactsHasError": {},
+  "notFoundInCustomFoodsOpenFoodFactsNeedsInternet": "Не міститься в індивідуальних продуктах харчування, Open Food Facts потребує доступу до Інтернету",
+  "@notFoundInCustomFoodsOpenFoodFactsNeedsInternet": {},
+  "notFoundInCustomFoodsOrOpenFoodFacts": "Ні в спеціальних продуктах харчування, ні на Open Food Facts",
+  "@notFoundInCustomFoodsOrOpenFoodFacts": {},
+  "barcodeScanningUnsupported": "Сканування штрих-кодів за допомогою камери пристрою наразі підтримується лише на Android.",
+  "@barcodeScanningUnsupported": {},
+  "display": "Дисплей",
+  "@display": {},
+  "displayHint": "Налаштуйте інтерфейс користувача відповідно до ваших потреб",
+  "@displayHint": {},
+  "groupFoodsToMealsHint": "Автоматично групує продукти, що вживаються в їжу через дуже короткі проміжки часу",
+  "@groupFoodsToMealsHint": {},
+  "groupFoodsToMeals": "Групуйте продукти в окремі страви",
+  "@groupFoodsToMeals": {},
+  "proposeImprovement": "Пропонуйте покращення",
+  "@proposeImprovement": {},
+  "privacyPolicy": "Політика конфіденційності",
+  "@privacyPolicy": {},
+  "searchError": "Помилка під час пошуку",
+  "@searchError": {},
+  "searchErrorHint": "Не вдалося отримати доступ принаймні до однієї бази даних про склад харчових продуктів. Будь ласка, повторіть спробу пізніше або тимчасово вимкніть неробочі бази даних у налаштуваннях.",
+  "@searchErrorHint": {},
+  "affectedDatabases": "Постраждалі бази даних",
+  "@affectedDatabases": {},
+  "successfullyRestoredBackup": "Успішно відновлена резервна копія",
+  "@successfullyRestoredBackup": {},
+  "version": "Версія",
+  "@version": {},
+  "thanksToContributorsText": "Дякуємо всім, хто зробив свій внесок у Energize. Завдяки вашій допомозі Energize зміг стати тим, чим він є зараз.",
+  "@thanksToContributorsText": {},
+  "createLocalBackup": "Створіть локальну резервну копію",
+  "@createLocalBackup": {},
+  "restoreWebDAVBackup": "Відновити резервну копію WebDAV",
+  "@restoreWebDAVBackup": {},
+  "exportedNumberOfFoodsMessage": "Експортовані {customFoodsCount} спеціальні продукти та {trackedFoodsCount} відстежувані продукти",
+  "@exportedNumberOfFoodsMessage": {
+    "placeholders": {
+      "customFoodsCount": {
+        "type": "int",
+        "format": "decimalPattern",
+        "example": "123"
+      },
+      "trackedFoodsCount": {
+        "type": "int",
+        "format": "decimalPattern",
+        "example": "123"
+      }
+    }
+  },
+  "importedNumberOfFoodsMessage": "Імпортовані {customFoodsCount} спеціальні продукти та {trackedFoodsCount} відстежувані продукти",
+  "@importedNumberOfFoodsMessage": {
+    "placeholders": {
+      "customFoodsCount": {
+        "type": "int",
+        "format": "decimalPattern",
+        "example": "123"
+      },
+      "trackedFoodsCount": {
+        "type": "int",
+        "format": "decimalPattern",
+        "example": "123"
+      }
+    }
+  },
+  "mealAt": "Прийом їжі в {time}",
+  "@mealAt": {
+    "placeholders": {
+      "time": {
+        "type": "String",
+        "example": "12:34"
+      }
+    }
+  },
+  "energyDistributionChartMissingHint": "Таблиця розподілу енергії відображається лише в тому випадку, якщо ви встановили ціль споживання калорій і принаймні одного з макроелементів.",
+  "@energyDistributionChartMissingHint": {},
+  "allTranslatorsOnWeblate": "Всі перекладачі на Weblate",
+  "@allTranslatorsOnWeblate": {},
+  "contributionTypeAcrylicPicture": "Акрилова картина",
+  "@contributionTypeAcrylicPicture": {},
+  "contributionTypeCodeAndConversations": "Код і розмови",
+  "@contributionTypeCodeAndConversations": {}
 }
