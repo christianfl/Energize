@@ -15,7 +15,7 @@
   "@protein": {},
   "carbs": "Carbohidratos",
   "@carbs": {},
-  "fat": "Lípidos",
+  "fat": "Grasa",
   "@fat": {},
   "detailedSummary": "Resumen detallado",
   "@detailedSummary": {},
@@ -25,7 +25,7 @@
   "@markedDayAsComplete": {},
   "dayIncomplete": "Día incompleto",
   "@dayIncomplete": {},
-  "unmarkedDayAsComplete": "Desmarcado día como completo",
+  "unmarkedDayAsComplete": "Día desmarcado como completo",
   "@unmarkedDayAsComplete": {},
   "trackFood": "Registrar comida",
   "@trackFood": {},
@@ -93,7 +93,7 @@
   "@activityLevel1_7": {},
   "activityLevel1_9": "Es muy activo, hace ejercicio y no tiene un trabajo de oficina",
   "@activityLevel1_9": {},
-  "activityLevel2_0": "Realiza un trabajo físico y hace ejercicio intensivo con regularidad",
+  "activityLevel2_0": "Realiza un trabajo físico y hace ejercicio intenso con regularidad",
   "@activityLevel2_0": {},
   "noActivityLevelDescription": "No hay descripción de nivel de actividad",
   "@noActivityLevelDescription": {},
@@ -163,7 +163,7 @@
   "@switzerland": {},
   "generalInformation": "Información general",
   "@generalInformation": {},
-  "activityLevel1_8": "Hace ejercicio regularmente",
+  "activityLevel1_8": "Hace ejercicio intenso regularmente",
   "@activityLevel1_8": {},
   "activityLevel1_1": "Está acostado en la cama todo el día",
   "@activityLevel1_1": {},
@@ -175,7 +175,7 @@
   "@weightTargetModerateLoss": {},
   "weightTargetStrongLoss": "Pérdida fuerte",
   "@weightTargetStrongLoss": {},
-  "calculationInfoText1": "Los cálculos de ingesta de calorías está basada en la fórmula Mifflin-St.Jeor. Tenga en cuenta que los valores son una aproximación del mundo real. Estos pueden diferir más o menos entre diferentes personas debido a sus condiciones físicas.",
+  "calculationInfoText1": "Los cálculos de ingesta de calorías están basados en la fórmula Mifflin-St.Jeor. Tenga en cuenta que los valores son una aproximación del mundo real. Estos pueden diferir más o menos entre diferentes personas debido a sus condiciones físicas.",
   "@calculationInfoText1": {},
   "formulaForFemales": "Fórmula para mujeres",
   "@formulaForFemales": {},
@@ -309,7 +309,7 @@
   "@zinc": {},
   "fats": "Grasas",
   "@fats": {},
-  "monounsaturatedFat": "Grasa monosaturadas",
+  "monounsaturatedFat": "Grasas monosaturadas",
   "@monounsaturatedFat": {},
   "polyunsaturatedFat": "Grasas polisaturadas",
   "@polyunsaturatedFat": {},
@@ -368,12 +368,12 @@
   "@salt": {},
   "amountContain": "{amountWithUnit} contener",
   "@amountContain": {
-      "placeholders": {
-          "amountWithUnit": {
-              "type": "String",
-              "example": "100 g"
-          }
+    "placeholders": {
+      "amountWithUnit": {
+        "type": "String",
+        "example": "100 g"
       }
+    }
   },
   "nutrients": "Nutrientes",
   "@nutrients": {},
@@ -472,5 +472,28 @@
   "notFoundInCustomFoodsOpenFoodFactsNeedsInternet": "No se encuentran en alimentos personalizados, Open Food Facts necesita acceso a Internet",
   "@notFoundInCustomFoodsOpenFoodFactsNeedsInternet": {},
   "notFoundInCustomFoodsOpenFoodFactsNotActivated": "No se encuentra en alimentos personalizados, Open Food Facts no está activado",
-  "@notFoundInCustomFoodsOpenFoodFactsNotActivated": {}
+  "@notFoundInCustomFoodsOpenFoodFactsNotActivated": {},
+  "contributionTypeAcrylicPicture": "Imagen acrílica",
+  "@contributionTypeAcrylicPicture": {},
+  "contributionTypeCodeAndConversations": "Código y discusiones",
+  "@contributionTypeCodeAndConversations": {},
+  "displayHint": "Personalizar la interfaz de usuario a sus necesidades",
+  "@displayHint": {},
+  "groupFoodsToMeals": "Agrupar alimentos en comidas",
+  "@groupFoodsToMeals": {},
+  "groupFoodsToMealsHint": "Agrupa automáticamente alimentos consumidos en intervalos muy cortos como comida",
+  "@groupFoodsToMealsHint": {},
+  "mealAt": "Comida a las {time}",
+  "@mealAt": {
+    "placeholders": {
+      "time": {
+        "type": "String",
+        "example": "12:34"
+      }
+    }
+  },
+  "display": "Mostrar",
+  "@display": {},
+  "barcodeScanningUnsupported": "El escaneo de códigos de barras con la cámara del dispositivo es actualmente sólo compatible en Android.",
+  "@barcodeScanningUnsupported": {}
 }
