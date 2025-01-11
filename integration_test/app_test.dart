@@ -59,7 +59,20 @@ void main() {
         return;
       }
 
+      // Prepare correct subfolder name to match fastlane language names
       final locale = currentVariant?.locale;
+      String localeSubfolder = locale.toString().replaceAll('_', '-');
+
+      if (localeSubfolder == 'en') {
+        // Save the 'en' locale to the 'fastlane/en_US/' folder
+        //
+        // The file 'app_en.arb' is in fact en_US.
+        // But a fallback language without language code is mandatory.
+        // So this workaround is used to avoid having two separate language
+        // files with the same content.
+
+        localeSubfolder = 'en-US';
+      }
 
       final String themeMode = currentTheme == ThemeMode.dark
           ? 'dark'
@@ -68,7 +81,7 @@ void main() {
               : '';
 
       await binding.takeScreenshot(
-        '$locale/images/phoneScreenshots/${fileName}_$themeMode',
+        '$localeSubfolder/images/phoneScreenshots/${fileName}_$themeMode',
       );
     }
   }
