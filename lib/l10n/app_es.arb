@@ -492,7 +492,7 @@
       }
     }
   },
-  "display": "Mostrar",
+  "display": "Apariencia",
   "@display": {},
   "barcodeScanningUnsupported": "El escaneo de códigos de barras con la cámara del dispositivo es actualmente sólo compatible en Android.",
   "@barcodeScanningUnsupported": {}
