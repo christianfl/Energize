@@ -475,5 +475,7 @@
   "transfat": "Transvat",
   "@transfat": {},
   "salt": "Saltet",
-  "@salt": {}
+  "@salt": {},
+  "saturatedFat": "Mättat fett",
+  "@saturatedFat": {}
 }
