@@ -477,5 +477,7 @@
   "salt": "Saltet",
   "@salt": {},
   "saturatedFat": "Mättat fett",
-  "@saturatedFat": {}
+  "@saturatedFat": {},
+  "polyunsaturatedFat": "Fleromättat fett",
+  "@polyunsaturatedFat": {}
 }
