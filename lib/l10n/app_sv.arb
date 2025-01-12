@@ -479,5 +479,21 @@
   "saturatedFat": "Mättat fett",
   "@saturatedFat": {},
   "polyunsaturatedFat": "Fleromättat fett",
-  "@polyunsaturatedFat": {}
+  "@polyunsaturatedFat": {},
+  "vitaminB12": "B12 (kobalamin)",
+  "@vitaminB12": {},
+  "magnesium": "Magnesium och",
+  "@magnesium": {},
+  "manganese": "Mangan",
+  "@manganese": {},
+  "molybdenum": "Molybden",
+  "@molybdenum": {},
+  "selenium": "Selen",
+  "@selenium": {},
+  "zinc": "Zink",
+  "@zinc": {},
+  "fats": "Fette",
+  "@fats": {},
+  "monounsaturatedFat": "Enkelomättat fett",
+  "@monounsaturatedFat": {}
 }
