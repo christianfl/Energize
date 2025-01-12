@@ -1,0 +1,5 @@
+* Győződjön meg róla, hogy az Open Food Facts termékek címében nincsenek vezető vagy követő szóközök.
+* Új fordítás: Norvég Bokmål (köszönöm!)
+* Több fordítható karakterlánc hozzáadása
+* Kisebb hibajavítások és átdolgozás
+* Fastlane javítások

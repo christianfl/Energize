@@ -1,0 +1,9 @@
+- [feat] OpenFoodFacts lekérdezés ország használata a rendszer hely/országa alapján
+- [javítás] Nem jelenik meg az összes nyomon követett élelmiszer, ha a csoportosítás le van tiltva
+- [fix] Megfelelő adaptív ikon használata
+- [fix] Helytartó használata az új amountContain lokalizált karakterlánc számára
+- [l10n] Frissített lengyel, tamil¹
+
+---
+
+¹Nagy köszönet minden közreműködőnek!

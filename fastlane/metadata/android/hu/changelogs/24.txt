@@ -1,0 +1,8 @@
+- [feat] Adja hozzá a nyomon követett élelmiszerek automatikus csoportosítását az ételekhez
+- [fix] Használjon dinamikus tört számjegyeket a tápanyagértékekhez érték alapján
+- [l10n] Hozzáadva észt, tamil¹
+- [l10n] Frissített kínai (egyszerűsített Han-szkript), dán, francia¹
+
+---
+
+¹ Nagy köszönet minden közreműködőnek!

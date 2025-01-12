@@ -1,0 +1,9 @@
+- [feat] Élelmiszer eredetű tabletták tervezésének javítása
+- [feat] Alapértelmezett angol nyelvterület, ha nincs preferált nyelvterület a támogatott nyelvterületek között
+- [l10n] A B-vitaminok nevének használata
+- [l10n] Orosz¹ hozzáadása
+- [l10n] Portugál (Brazília) frissítve¹
+
+---
+
+¹Nagy köszönet minden közreműködőnek!
