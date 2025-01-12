@@ -469,5 +469,11 @@
   "vitamins": "Vitaminer",
   "@vitamins": {},
   "vitaminA": "Vitaminer A",
-  "@vitaminA": {}
+  "@vitaminA": {},
+  "fiber": "Fibrer",
+  "@fiber": {},
+  "transfat": "Transvat",
+  "@transfat": {},
+  "salt": "Saltet",
+  "@salt": {}
 }
