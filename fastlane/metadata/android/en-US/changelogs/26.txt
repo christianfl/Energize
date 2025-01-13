@@ -1,0 +1,10 @@
+- [feat] Support themed (monochrome) app icon
+- [feat] New about page app icon look
+- [fix] Disable Impeller for now to fix graphical bugs on some devices
+- [fix] Several web and linux improvements
+- [l10n] Added Swedish¹
+- [l10n] Updated Dutch, Estonian, French, Hungarian, Polish, Portuguese (Brazil), Russian, Spanish, Ukrainian¹
+
+---
+
+¹Big thanks to all contributors (especially mondstern)!
