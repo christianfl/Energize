@@ -67,7 +67,7 @@ for commit_message in commit_messages:
     continue
 
 absolute_dir = os.path.dirname(__file__)
-relative_changelogs_dir = '../../fastlane/metadata/android/en/changelogs'
+relative_changelogs_dir = '../../fastlane/metadata/android/en-US/changelogs'
 absolute_changelogs_dir = f'{absolute_dir}/{relative_changelogs_dir}'
 
 changelog_files = [f for f in listdir(absolute_changelogs_dir) if isfile(join(absolute_changelogs_dir, f))]
