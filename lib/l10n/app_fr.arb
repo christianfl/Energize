@@ -491,5 +491,9 @@
     }
   },
   "barcodeScanningUnsupported": "La lecture de codes-barres à l'aide de l'appareil photo de l'appareil n'est actuellement possible que sur Android.",
-  "@barcodeScanningUnsupported": {}
+  "@barcodeScanningUnsupported": {},
+  "contributionTypeCodeAndConversations": "Code et conversations",
+  "@contributionTypeCodeAndConversations": {},
+  "contributionTypeAcrylicPicture": "Tableau acrylique",
+  "@contributionTypeAcrylicPicture": {}
 }
