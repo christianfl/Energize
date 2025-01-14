@@ -18,7 +18,6 @@ Update from 6. January, 2025:
 </p>
 
 - Google Play is currently unavailable. I'm working on resolving the issue.
-- Codeberg Pages may has an outdated version as there is no automation in place yet. See [#115](https://codeberg.org/epinez/Energize/issues/115).
 
 <br>
 
