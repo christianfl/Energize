@@ -1,0 +1,45 @@
+on:
+  push:
+    tags:
+      - 'v*'
+jobs:
+  energize-build-web:
+    runs-on: codeberg-small-lazy
+    steps:
+      - name: Checkout App to 'epinez/Energize/Energize'
+        uses: https://code.forgejo.org/actions/checkout@v4
+        with:
+          path: Energize
+          submodules: recursive
+          fetch-depth: 0
+      - name: Flutter Setup
+        run: |
+          cd Energize
+          sed -i "/'tar', '-xzf'/s/'-xzf'/'--no-same-owner', '-xzf'/" submodules/flutter/packages/flutter_tools/lib/src/base/os.dart
+          submodules/flutter/bin/flutter config --no-analytics
+      - name: Flutter Prebuild
+        run: |
+          cd Energize
+          submodules/flutter/bin/flutter pub get
+          submodules/flutter/bin/dart run build_runner build --delete-conflicting-outputs
+      - name: Flutter Build Web
+        run: |
+          cd Energize
+          submodules/flutter/bin/flutter build web --release --base-href "/projects/energize/"
+      - name: Checkout Pages to 'epinez/Energize/pages'
+        uses: https://code.forgejo.org/actions/checkout@v4
+        with:
+          repository: epinez/pages
+          ref: main
+          path: pages
+          ssh-key: ${{ secrets.SSH_PUSH_KEY }}
+          ssh-known-hosts: ${{ secrets.CI_KNOWN_HOSTS }}
+      - name: Deploy Energize to Codeberg Pages
+        run: |
+          rm -r pages/projects/energize/*
+          cp -r Energize/build/web/* pages/projects/energize/
+          git -C pages config user.name "forgejo-actions[bot]"
+          git -C pages config user.email "epinez@noreply.codeberg.org"
+          git -C pages add projects/energize
+          git -C pages commit -m "Deploy current Energize version"
+          git -C pages push
