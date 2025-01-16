@@ -491,5 +491,9 @@
   "groupFoodsToMealsHint": "Agrupa automaticamente os alimentos consumidos em intervalos muito curtos como uma refeição",
   "@groupFoodsToMealsHint": {},
   "barcodeScanningUnsupported": "Atualmente, a leitura de códigos de barras com a câmera do dispositivo é compatível apenas com o Android.",
-  "@barcodeScanningUnsupported": {}
+  "@barcodeScanningUnsupported": {},
+  "contributionTypeAcrylicPicture": "Quadro em acrílico",
+  "@contributionTypeAcrylicPicture": {},
+  "contributionTypeCodeAndConversations": "Código e conversas",
+  "@contributionTypeCodeAndConversations": {}
 }
