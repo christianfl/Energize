@@ -31,12 +31,12 @@
   "@labelingEu": {},
   "amountContain": "{amountWithUnit} inclui",
   "@amountContain": {
-      "placeholders": {
-          "amountWithUnit": {
-              "type": "String",
-              "example": "100 g"
-          }
+    "placeholders": {
+      "amountWithUnit": {
+        "type": "String",
+        "example": "100 g"
       }
+    }
   },
   "dailyTarget": "meta diária",
   "@dailyTarget": {},
@@ -124,5 +124,7 @@
   "deleted": "apagado",
   "@deleted": {},
   "detailedSummary": "Sumário detalhado",
-  "@detailedSummary": {}
+  "@detailedSummary": {},
+  "productOrBrand": "Produto ou marca",
+  "@productOrBrand": {}
 }
