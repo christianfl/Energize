@@ -88,12 +88,12 @@
   "@labelingEu": {},
   "amountContain": "{amountWithUnit} 包含",
   "@amountContain": {
-      "placeholders": {
-          "amountWithUnit": {
-              "type": "String",
-              "example": "100 g"
-          }
+    "placeholders": {
+      "amountWithUnit": {
+        "type": "String",
+        "example": "100 g"
       }
+    }
   },
   "consumedDate": "摄入",
   "@consumedDate": {},
@@ -472,5 +472,28 @@
   "iodine": "碘",
   "@iodine": {},
   "manganese": "锰",
-  "@manganese": {}
+  "@manganese": {},
+  "contributionTypeAcrylicPicture": "亚克力图片",
+  "@contributionTypeAcrylicPicture": {},
+  "contributionTypeCodeAndConversations": "代码和对话",
+  "@contributionTypeCodeAndConversations": {},
+  "display": "展览及展览",
+  "@display": {},
+  "displayHint": "根据您的需要自定义用户界面",
+  "@displayHint": {},
+  "groupFoodsToMeals": "团体食物到膳食",
+  "@groupFoodsToMeals": {},
+  "groupFoodsToMealsHint": "自动将在很短的时间内消耗的食物作为一顿饭组合在一起",
+  "@groupFoodsToMealsHint": {},
+  "mealAt": "在 {time}",
+  "@mealAt": {
+    "placeholders": {
+      "time": {
+        "type": "String",
+        "example": "12:34"
+      }
+    }
+  },
+  "barcodeScanningUnsupported": "使用设备摄像头扫描条形码目前仅在Android上支持。",
+  "@barcodeScanningUnsupported": {}
 }
