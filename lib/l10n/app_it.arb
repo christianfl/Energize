@@ -343,7 +343,7 @@
   "@formulaForMales": {},
   "fatRatio": "Livello di grasso",
   "@fatRatio": {},
-  "emailHint": "Da usare solo per messaggi personali. Per segnalare problemi, suggerire miglioramenti o ottenere ulteriore assistenza, utilizzare i collegamenti riportati sopra.",
+  "emailHint": "Usa solo per argomenti diversi da quelli riportati sopra",
   "@emailHint": {},
   "deleted": "eliminato",
   "@deleted": {},
@@ -354,5 +354,146 @@
   "italian": "Italiano",
   "@italian": {},
   "french": "Francese",
-  "@french": {}
+  "@french": {},
+  "unknownErrorText": "Si è verificato un errore sconosciuto",
+  "@unknownErrorText": {},
+  "missingBackupPartsHint": "Attenzione: Impostazioni, personalizzazioni e obiettivi non sono ancora inclusi!",
+  "@missingBackupPartsHint": {},
+  "successfullyCreatedBackup": "Backup creato con successo",
+  "@successfullyCreatedBackup": {},
+  "ok": "OK",
+  "@ok": {},
+  "completeProductName": "Nome prodotto completo",
+  "@completeProductName": {},
+  "addedDate": "Aggiunto",
+  "@addedDate": {},
+  "consumedDate": "Consumato",
+  "@consumedDate": {},
+  "nutrients": "Nutrienti",
+  "@nutrients": {},
+  "additionalInformation": "Informazioni aggiuntive",
+  "@additionalInformation": {},
+  "dailyTarget": "obiettivo giornaliero",
+  "@dailyTarget": {},
+  "timeSetHelpText": "Questo orario sarà utilizzato come modello per l'ora di consumo quando si tiene traccia degli alimenti.",
+  "@timeSetHelpText": {},
+  "salt": "Sale",
+  "@salt": {},
+  "contributionTypeCodeAndConversations": "Codice e conversazioni",
+  "@contributionTypeCodeAndConversations": {},
+  "contributionTypeAcrylicPicture": "Immagine acrilica",
+  "@contributionTypeAcrylicPicture": {},
+  "somethingNotFound": "{something} non trovato",
+  "@somethingNotFound": {
+    "placeholders": {
+      "something": {
+        "type": "String",
+        "example": "123"
+      }
+    }
+  },
+  "notFoundInCustomFoodsOrOpenFoodFacts": "Né negli alimenti personalizzati né su Open Food Facts",
+  "@notFoundInCustomFoodsOrOpenFoodFacts": {},
+  "notFoundInCustomFoodsOpenFoodFactsNeedsInternet": "Non trovato negli alimenti personalizzati, Open Food Facts richiede l'accesso a Internet",
+  "@notFoundInCustomFoodsOpenFoodFactsNeedsInternet": {},
+  "notFoundInCustomFoodsOpenFoodFactsNotActivated": "Non trovato negli alimenti personalizzati, Open Food Facts non è attivo",
+  "@notFoundInCustomFoodsOpenFoodFactsNotActivated": {},
+  "thanksToContributorsText": "Grazie a tutte le persone che hanno contribuito a Energize. Grazie al vostro aiuto, Energize ha potuto diventare ciò che è ora.",
+  "@thanksToContributorsText": {},
+  "contributors": "Contributori",
+  "@contributors": {},
+  "privacyPolicy": "Informativa sulla privacy",
+  "@privacyPolicy": {},
+  "barcodeScanningUnsupported": "La scansione dei codici a barre con la fotocamera è attualmente supportata solo su Android.",
+  "@barcodeScanningUnsupported": {},
+  "displayHint": "Personalizza l'interfaccia utente in base alle tue esigenze",
+  "@displayHint": {},
+  "groupFoodsToMealsHint": "Raggruppa automaticamente per pasto gli alimenti consumati a intervalli molto brevi",
+  "@groupFoodsToMealsHint": {},
+  "version": "Versione",
+  "@version": {},
+  "languages": "Lingue",
+  "@languages": {},
+  "loading": "Caricamento",
+  "@loading": {},
+  "mealAt": "Pasto alle {time}",
+  "@mealAt": {
+    "placeholders": {
+      "time": {
+        "type": "String",
+        "example": "12:34"
+      }
+    }
+  },
+  "groupFoodsToMeals": "Raggruppa alimenti per pasto",
+  "@groupFoodsToMeals": {},
+  "restoreWebDAVBackup": "Ripristina backup WebDAV",
+  "@restoreWebDAVBackup": {},
+  "createLocalBackup": "Crea backup locale",
+  "@createLocalBackup": {},
+  "restoreLocalBackup": "Ripristina backup locale",
+  "@restoreLocalBackup": {},
+  "allTranslatorsOnWeblate": "Tutti i traduttori su Weblate",
+  "@allTranslatorsOnWeblate": {},
+  "searchError": "Errore nella ricerca",
+  "@searchError": {},
+  "searchErrorHint": "Non è stato possibile raggiungere almeno un database di composizione degli alimenti. Riprova più tardi o disattiva temporaneamente i database non funzionanti nelle impostazioni.",
+  "@searchErrorHint": {},
+  "affectedDatabases": "Database interessati",
+  "@affectedDatabases": {},
+  "exportedNumberOfFoodsMessage": "{customFoodsCount} alimenti personalizzati e {trackedFoodsCount} alimenti tracciati esportati",
+  "@exportedNumberOfFoodsMessage": {
+    "placeholders": {
+      "customFoodsCount": {
+        "type": "int",
+        "format": "decimalPattern",
+        "example": "123"
+      },
+      "trackedFoodsCount": {
+        "type": "int",
+        "format": "decimalPattern",
+        "example": "123"
+      }
+    }
+  },
+  "successfullyRestoredBackup": "Backup ripristinato con successo",
+  "@successfullyRestoredBackup": {},
+  "importedNumberOfFoodsMessage": "{customFoodsCount} alimenti personalizzati e {trackedFoodsCount} alimenti tracciati importati",
+  "@importedNumberOfFoodsMessage": {
+    "placeholders": {
+      "customFoodsCount": {
+        "type": "int",
+        "format": "decimalPattern",
+        "example": "123"
+      },
+      "trackedFoodsCount": {
+        "type": "int",
+        "format": "decimalPattern",
+        "example": "123"
+      }
+    }
+  },
+  "createWebDAVBackup": "Crea backup WebDAV",
+  "@createWebDAVBackup": {},
+  "proposeImprovement": "Suggerisci miglioramento",
+  "@proposeImprovement": {},
+  "productOrBrand": "Prodotto o marca",
+  "@productOrBrand": {},
+  "scanBarcode": "Scansione codice a barre",
+  "@scanBarcode": {},
+  "energyDistributionChartMissingHint": "Il grafico della distribuzione energetica è visualizzato solo se si è impostato un obiettivo calorico e un obiettivo per almeno uno dei macronutrienti.",
+  "@energyDistributionChartMissingHint": {},
+  "notFoundInCustomFoodsOpenFoodFactsHasError": "Non trovato negli alimenti personalizzati, la ricerca di Open Food Facts è fallita",
+  "@notFoundInCustomFoodsOpenFoodFactsHasError": {},
+  "amountContain": "{amountWithUnit} contengono",
+  "@amountContain": {
+    "placeholders": {
+      "amountWithUnit": {
+        "type": "String",
+        "example": "100 g"
+      }
+    }
+  },
+  "display": "Schermo",
+  "@display": {}
 }
