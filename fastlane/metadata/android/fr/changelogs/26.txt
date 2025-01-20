@@ -1,0 +1,10 @@
+- [feat] Support de l'icône d'application thématique (monochrome)
+- [feat] Nouveau look de l'icône de la page "À propos"
+- [fix] Désactivation d'Impeller pour l'instant afin de corriger des bugs graphiques sur certains appareils
+- [fix] Plusieurs améliorations pour le web et Linux
+- [l10n] Ajout du suédois¹
+- [l10n] Mise à jour du néerlandais, estonien, français, hongrois, polonais, portugais (Brésil), russe, espagnol, ukrainien¹
+
+---
+
+¹Un grand merci à tous les contributeurs (en particulier mondstern) !

@@ -1,0 +1,9 @@
+- [feat] Utiliser la requête OpenFoodFacts en fonction de la localisation du système
+- [fix] Ne pas afficher tous les aliments suivis lorsque le regroupement est désactivé
+- [fix] Utiliser une icône adaptative appropriée
+- [fix] Utiliser un espace réservé pour le nouveau montant contenant une traduction
+- [l10n] Mise à jour du polonais, du tamoul¹
+
+---
+
+¹Un grand merci à tous les contributeurs !

@@ -1,0 +1,5 @@
+* Assurez-vous qu'il n'y a pas d'espaces blancs au début ou à la fin du titre des produits Open Food Facts
+* Nouvelle traduction : norvégien bokmål (merci !)
+* Ajout de plus de traductions
+* Corrections de bugs mineurs et refactoring
+* Corrections Fastlane
