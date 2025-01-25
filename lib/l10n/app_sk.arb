@@ -34,5 +34,17 @@
   "markedDayAsComplete": "Označený deň ako úplný",
   "@markedDayAsComplete": {},
   "dayIncomplete": "Deň neúplný",
-  "@dayIncomplete": {}
+  "@dayIncomplete": {},
+  "notFoundInCustomFoodsOpenFoodFactsNotActivated": "Nenachádza sa vo vlastných potravinách, Open Food Facts nie je aktivovaný",
+  "@notFoundInCustomFoodsOpenFoodFactsNotActivated": {},
+  "searchError": "Chyba pri vyhľadávaní",
+  "@searchError": {},
+  "searchErrorHint": "Nepodarilo sa získať aspoň jednu databázu zloženia potravín. Skúste to znova neskôr alebo dočasne vypnite nefunkčné databázy v nastaveniach.",
+  "@searchErrorHint": {},
+  "affectedDatabases": "Dotknuté databázy",
+  "@affectedDatabases": {},
+  "notFoundInCustomFoodsOrOpenFoodFacts": "Ani vo vlastných potravinách, ani na Open Food Facts",
+  "@notFoundInCustomFoodsOrOpenFoodFacts": {},
+  "barcodeScanningUnsupported": "Skenovanie čiarových kódov pomocou fotoaparátu zariadenia je momentálne podporované iba v systéme Android.",
+  "@barcodeScanningUnsupported": {}
 }
