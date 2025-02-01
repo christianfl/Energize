@@ -267,12 +267,12 @@ ${AppLocalizations.of(context)!.importedNumberOfFoodsMessage(
                     child: Wrap(
                       runSpacing: 16,
                       children: [
-                        const Text('WebDAV settings'),
+                        Text(AppLocalizations.of(context)!.webDAVSettings),
                         TextFormField(
                           decoration: InputDecoration(
                             filled: true,
                             icon: const Icon(Icons.cloud),
-                            labelText: 'Server URL',
+                            labelText: AppLocalizations.of(context)!.serverURL,
                             hintText: 'https://',
                             suffixIcon: IconButton(
                               onPressed: () => {
@@ -285,16 +285,17 @@ ${AppLocalizations.of(context)!.importedNumberOfFoodsMessage(
                           controller: _serverUrlController,
                           validator: (value) {
                             if (value!.isEmpty) {
-                              return 'Please enter a server address';
+                              return AppLocalizations.of(context)!
+                                  .fieldMandatory;
                               // Simple check for URI
                             } else if (Uri.tryParse(value) == null) {
-                              return 'The server address is not a valid URL';
+                              return AppLocalizations.of(context)!.invalidURL;
                             } else {
                               // More deep host check
                               if (!(value.startsWith('http://') ||
                                       value.startsWith('https://')) ||
                                   Uri.parse(value).host.isEmpty) {
-                                return 'The server address is not a valid host';
+                                return AppLocalizations.of(context)!.invalidURL;
                               }
                             }
                             return null;
@@ -305,7 +306,7 @@ ${AppLocalizations.of(context)!.importedNumberOfFoodsMessage(
                           decoration: InputDecoration(
                             filled: true,
                             icon: const Icon(Icons.person),
-                            labelText: 'Username',
+                            labelText: AppLocalizations.of(context)!.username,
                             suffixIcon: IconButton(
                               onPressed: () => {
                                 _usernameController.text = '',
@@ -317,7 +318,8 @@ ${AppLocalizations.of(context)!.importedNumberOfFoodsMessage(
                           controller: _usernameController,
                           validator: (value) {
                             if (value!.isEmpty) {
-                              return 'Please enter a username';
+                              return AppLocalizations.of(context)!
+                                  .fieldMandatory;
                             }
                             return null;
                           },
@@ -326,17 +328,18 @@ ${AppLocalizations.of(context)!.importedNumberOfFoodsMessage(
                           keyboardType: TextInputType.visiblePassword,
                           autofillHints: const [AutofillHints.password],
                           obscureText: true,
-                          decoration: const InputDecoration(
+                          decoration: InputDecoration(
                             filled: true,
-                            icon: Padding(
+                            icon: const Padding(
                               padding: EdgeInsets.symmetric(horizontal: 12),
                             ),
-                            labelText: 'Password',
+                            labelText: AppLocalizations.of(context)!.password,
                           ),
                           controller: _passwordController,
                           validator: (value) {
                             if (value!.isEmpty) {
-                              return 'Please enter the password';
+                              return AppLocalizations.of(context)!
+                                  .fieldMandatory;
                             }
                             return null;
                           },
@@ -345,7 +348,8 @@ ${AppLocalizations.of(context)!.importedNumberOfFoodsMessage(
                           decoration: InputDecoration(
                             filled: true,
                             icon: const Icon(Icons.folder),
-                            labelText: 'Path and filename',
+                            labelText:
+                                AppLocalizations.of(context)!.pathAndFilename,
                             hintText:
                                 '/${BackupAndRestoreSubPage.defaultBackupPath}/${BackupAndRestoreSubPage.defaultBackupFileName}',
                             suffixIcon: IconButton(
@@ -360,31 +364,37 @@ ${AppLocalizations.of(context)!.importedNumberOfFoodsMessage(
                           controller: _pathAndFilenameController,
                           validator: (value) {
                             if (value!.isEmpty) {
-                              return 'Please enter a path/filename';
+                              return AppLocalizations.of(context)!
+                                  .fieldMandatory;
                             }
                             return null;
                           },
                         ),
-                        const Text('Energize database'),
+                        Text(
+                          AppLocalizations.of(context)!.energizeBackup(
+                            AppLocalizations.of(context)!.appName,
+                          ),
+                        ),
                         TextFormField(
                           obscureText: true,
                           keyboardType: TextInputType.visiblePassword,
-                          decoration: const InputDecoration(
-                            icon: Icon(Icons.lock),
+                          decoration: InputDecoration(
+                            icon: const Icon(Icons.lock),
                             filled: true,
-                            labelText: 'Encryption password',
+                            labelText: AppLocalizations.of(context)!.password,
                           ),
                           controller: _encryptionPasswordController,
                           validator: (value) {
                             if (value!.isEmpty) {
-                              return 'Please enter the encryption password';
+                              return AppLocalizations.of(context)!
+                                  .fieldMandatory;
                             }
                             return null;
                           },
                         ),
                         const SizedBox(height: 20),
                         Text(
-                          'Without the encryption password, it is impossible to restore a backup.',
+                          AppLocalizations.of(context)!.backupPasswordNotice,
                           style: Theme.of(context).textTheme.bodySmall,
                         ),
                       ],
@@ -422,15 +432,15 @@ ${AppLocalizations.of(context)!.importedNumberOfFoodsMessage(
                 key: _encryptionPasswordOnlyFormKey,
                 child: TextFormField(
                   obscureText: true,
-                  decoration: const InputDecoration(
+                  decoration: InputDecoration(
                     filled: true,
-                    icon: Icon(Icons.lock),
-                    labelText: 'Encryption password',
+                    icon: const Icon(Icons.lock),
+                    labelText: AppLocalizations.of(context)!.password,
                   ),
                   controller: _encryptionPasswordController,
                   validator: (value) {
                     if (value!.isEmpty) {
-                      return 'Please enter the encryption password';
+                      return AppLocalizations.of(context)!.fieldMandatory;
                     }
                     return null;
                   },
@@ -438,7 +448,7 @@ ${AppLocalizations.of(context)!.importedNumberOfFoodsMessage(
               ),
               const SizedBox(height: 20),
               Text(
-                'Without the encryption password, it is impossible to restore a backup.',
+                AppLocalizations.of(context)!.backupPasswordNotice,
                 style: Theme.of(context).textTheme.bodySmall,
               ),
             ],

@@ -333,6 +333,22 @@
       }
   },
   "createWebDAVBackup": "WebDAV Backup erstellen",
+  "webDAVSettings": "WebDAV Einstellungen",
+  "serverURL": "Server URL",
+  "invalidURL": "Die URL ist nicht gültig",
+  "username": "Benutzername",
+  "password": "Passwort",
+  "pathAndFilename": "Pfad und Dateiname",
+  "energizeBackup": "{appName} Backup",
+  "@energizeBackup": {
+    "placeholders": {
+      "appName": {
+        "type": "String",
+        "example": "Energize"
+      }
+    }
+  },
+  "backupPasswordNotice": "Ohne das Backup-Passwort ist es unmöglich, ein Backup wiederherzustellen.",
   "restoreWebDAVBackup": "WebDAV Backup wiederherstellen",
   "createLocalBackup": "Lokales Backup erstellen",
   "restoreLocalBackup": "Lokales Backup wiederherstellen",
