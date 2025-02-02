@@ -69,7 +69,9 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: debugShowCheckedModeBanner,
-        title: 'Energize',
+        onGenerateTitle: (context) {
+          return AppLocalizations.of(context)!.appName;
+        },
         localizationsDelegates: const [
           AppLocalizations.delegate,
           GlobalMaterialLocalizations.delegate,
