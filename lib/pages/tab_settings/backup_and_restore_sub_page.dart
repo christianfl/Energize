@@ -542,6 +542,16 @@ ${AppLocalizations.of(context)!.exportedNumberOfFoodsMessage(
 
   /// Restores a local encrypted backup picked via native file picker
   _restoreLocalEncryptedBackup() async {
+    // Pick backup file to restore
+    final FilePickerResult? pickerResult =
+        await FilePicker.platform.pickFiles();
+    final pickedPath = pickerResult?.files.single.path;
+
+    // Picking was cancelled, bye!
+    if (pickedPath == null) {
+      return;
+    }
+
     // Ask for decryption password
     final dialogConfirmed = await _showEncryptionPasswordInputDialog(
       forEncrypting: false,
@@ -549,16 +559,6 @@ ${AppLocalizations.of(context)!.exportedNumberOfFoodsMessage(
 
     // Check whether dialog was cancelled
     if (dialogConfirmed != true) {
-      return;
-    }
-
-    // Pick file destination
-    final FilePickerResult? pickerResult =
-        await FilePicker.platform.pickFiles();
-    final pickedPath = pickerResult?.files.single.path;
-
-    // Picking was cancelled, bye!
-    if (pickedPath == null) {
       return;
     }
 
