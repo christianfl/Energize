@@ -1,0 +1,9 @@
+<ul>
+<li>Pea arvet söödud toitude üle, sh kalorite ja erinevate toitainete osas</li>
+<li>Andmeallikaks saad kasutada mitmeid andmebaasie (Open Food Facts, USDA ja Swiss Food Composition Database) või lisa omakoostatud toit</li>
+<li>Otsi toite nime alusel või skaneeri triipkoodi</li>
+<li>Viimaste söögikordade alusel koostatud soovitused</li>
+<li>Sea endale toitainete tarbimise eesmärke, mis põhinevad sinu andmetel</li>
+<li>Päevased toitumise aruanded</li>
+<li>Loo krüptitud varukoopiaid ja taasta neid (nutiseadmes või WebDAVi-põhises pilveteenuses)</li>
+</ul>
