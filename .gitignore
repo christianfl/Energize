@@ -40,10 +40,11 @@ app.*.symbols
 # Obfuscation related
 app.*.map.json
 
-# Android Studio will place build artifacts here
+# Android build related
 /android/app/debug
 /android/app/profile
 /android/app/release
+/android/app/.cxx
 
 # Fastlane related
 /fastlane/metadata/android/en-US/images/phoneScreenshots/test*.png
