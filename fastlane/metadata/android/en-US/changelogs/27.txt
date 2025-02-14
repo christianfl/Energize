@@ -1,0 +1,10 @@
+- [feat] Add CI for building Energize and deploy to Codeberg Pages
+- [fix] Pick file first and then ask for password when restoring local backup
+- [fix] Update web assets
+- [l10n] Add translatable strings for backup and restore
+- [l10n] Added Slovak¹
+- [l10n] Updated Chinese (Simplified Han script), Estonian, French, Italian, Portuguese, Portuguese (Brazil), Russian¹
+
+---
+
+¹Big thanks to all contributors!
