@@ -283,7 +283,7 @@ class TrackingPageState extends State<TrackingPage> {
                         child: CircleAvatar(
                           radius: _datePickerHighlightRadius - 1,
                           backgroundColor:
-                              Theme.of(context).dialogBackgroundColor,
+                              Theme.of(context).dialogTheme.backgroundColor,
                           child: Text(
                             '${day.day}',
                             style: TextStyle(
