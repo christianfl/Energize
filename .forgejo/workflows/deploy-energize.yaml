@@ -15,7 +15,7 @@ jobs:
       - name: Flutter Setup
         run: |
           cd Energize
-          sed -i "/'tar', '-xzf'/s/'-xzf'/'--no-same-owner', '-xzf'/" submodules/flutter/packages/flutter_tools/lib/src/base/os.dart
+          sed -i "/'tar',/N; /'tar',\n\s*'-xzf'/s/'-xzf'/'--no-same-owner','-xzf'/" submodules/flutter/packages/flutter_tools/lib/src/base/os.dart
           submodules/flutter/bin/flutter config --no-analytics
       - name: Flutter Prebuild
         run: |
