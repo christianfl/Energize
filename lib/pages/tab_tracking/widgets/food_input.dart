@@ -117,7 +117,7 @@ class FoodInputState extends State<FoodInput>
             padding: const EdgeInsets.all(12.0),
             child: SearchBar(
               controller: _searchInputController,
-              onSubmitted: (value) => _populateSearchedFoodList(value, false),
+              onSubmitted: (value) => _populateSearchedFoodList(value),
               hintText: AppLocalizations.of(context)!.productOrBrand,
               leading: _awaitingApiResponse
                   ? Transform.scale(
@@ -344,7 +344,7 @@ class FoodInputState extends State<FoodInput>
   void didChangeDependencies() {
     super.didChangeDependencies();
 
-    _populateSearchedFoodList('', false);
+    _populateSearchedFoodList('');
   }
 
   @override
@@ -387,7 +387,7 @@ class FoodInputState extends State<FoodInput>
   /// If something was searched, the pre-filled data is filtered by containing
   /// the search string in the food title. Also, the API-based food composition
   /// databases get queried and their results are appended to the list
-  void _populateSearchedFoodList(String searchText, bool debounce) async {
+  void _populateSearchedFoodList(String searchText) async {
     final appSettings = Provider.of<AppSettings>(context, listen: false);
     final customFoodProvider =
         Provider.of<CustomFoodProvider>(context, listen: false);
@@ -725,7 +725,7 @@ class FoodInputState extends State<FoodInput>
   /// Clears the controller, the searched food list and binding errors.
   void _resetFoodSearch() {
     _searchInputController.clear();
-    _populateSearchedFoodList('', false);
+    _populateSearchedFoodList('');
 
     // Clear binding errors
     setState(() {
