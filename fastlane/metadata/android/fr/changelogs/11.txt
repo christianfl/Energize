@@ -1,0 +1,9 @@
+* Nouveau thème qui correspond désormais à l'apparence générale du concept
+* Nouveau sélecteur de date : les jours marqués comme terminés sont maintenant mis en évidence
+* Les jours terminés sont désormais inclus dans la sauvegarde / restauration
+* Page "À propos" repensée
+* Ajout d'une tuile de don dans la page des paramètres
+* Nouvelles traductions
+* Traduction turque mise à jour (merci !)
+* Correction du calcul du nombre de nutriments
+* Plusieurs corrections mineures

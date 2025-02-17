@@ -1,0 +1,9 @@
+<ul>
+<li>Suivez vos repas, y compris les calories, les macronutriments et les micronutriments</li>
+<li>Utilisez plusieurs bases de données (Open Food Facts, USDA et Base de données sur la composition des aliments suisse) ou créez des aliments personnalisés</li>
+<li>Recherchez des repas par nom de produit ou scannez simplement le code-barres</li>
+<li>Obtenez des suggestions de repas basées sur vos derniers repas suivis</li>
+<li>Fixez des objectifs pour les macronutriments et les micronutriments, y compris leur calcul en fonction de vos données personnelles</li>
+<li>Consultez les détails de votre nutrition quotidienne</li>
+<li>Créez et restaurez des sauvegardes chiffrées (Local ou WebDAV)</li>
+</ul>

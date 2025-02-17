@@ -1,0 +1,4 @@
+* Ajout des traductions pour le français, l'italien et le polonais (merci pour votre contribution !)
+* Amélioration de la visibilité de la barre pour les calories et les macronutriments
+* Formatage du jour de suivi sélectionné en fonction de la localisation de l'utilisateur
+* Correction : Suppression de l'entrée en double pour le molybdène dans les aliments personnalisés

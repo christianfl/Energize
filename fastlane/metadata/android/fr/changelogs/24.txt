@@ -1,0 +1,8 @@
+- [feat] Ajout de la capacité à regrouper automatiquement les aliments suivis par repas
+- [fix] Utilisation de chiffres fractionnaires dynamiques pour les valeurs des nutriments en fonction de la valeur
+- [l10n] Ajout de l'estonien, du tamoul¹
+- [l10n] Mise à jour du chinois (script simplifié), du danois, du français¹
+
+---
+
+¹Un grand merci à tous les contributeurs !

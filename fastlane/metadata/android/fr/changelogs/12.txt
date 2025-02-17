@@ -1,0 +1,5 @@
+* Ajout d'une nouvelle base de données : USDA FoodData Central
+* Amélioration de l'apparence de la fenêtre modale de suivi des aliments
+* Correction : Certains codes-barres pouvaient entraîner l'ouverture multiple de la fenêtre modale de suivi des aliments
+* Ajout d'une image et du code EAN aux aliments personnalisés
+* Améliorations mineures

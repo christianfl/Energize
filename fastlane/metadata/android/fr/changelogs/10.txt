@@ -1,0 +1,3 @@
+* Appuyer sur retour sur tous les onglets sauf l'onglet de suivi naviguant vers l'onglet principal au lieu de fermer l'application
+* Nouvelle traduction : Turc (merci !)
+* Ne pas exporter de valeurs nulles dans la sauvegarde, économisant ainsi beaucoup d'espace fichier

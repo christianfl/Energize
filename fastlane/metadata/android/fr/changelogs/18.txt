@@ -1,0 +1,6 @@
+* La vue d'ensemble des aliments suivis affiche désormais les macronutriments pour chaque entrée
+* Lors de l'ajout d'un nouvel aliment, les macronutriments sont affichés avec une décimale  
+* Ajout de traductions pour : serbe, ukrainien, catalan et espagnol (merci aux contributeurs de Weblate !)  
+* Mises à jour des traductions pour plusieurs langues (merci également !)  
+* Nouveau graphiques pour la répartition des objectifs de macronutriments  
+* Modifications mineures et améliorations

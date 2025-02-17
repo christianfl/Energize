@@ -1,0 +1,9 @@
+- [feat] Amélioration du design de la pastille d'origine des aliments
+- [feat] Par défaut, utiliser la langue anglaise si aucune langue préférée n'est dans les langues prises en charge
+- [l10n] Utiliser les noms des vitamines B
+- [l10n] Ajout du Russe¹
+- [l10n] Mise à jour du portugais (Brésil)¹
+
+---
+
+¹Un grand merci à tous les contributeurs !

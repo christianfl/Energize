@@ -1,0 +1,10 @@
+- [feat] Ajouter CI pour construire Energize et déployer sur Codeberg Pages
+- [fix] Choisir le fichier d'abord puis demander le mot de passe lors de la restauration de la sauvegarde locale
+- [fix] Mise à jour les ressources web
+- [l10n] Ajout des traductions pour la sauvegarde et la restauration
+- [l10n] Ajout du slovaque¹
+- [l10n] Mise à jour du chinois (script han simplifié), estonien, français, italien, portugais, portugais (Brésil), russe¹
+
+---
+
+¹Un grand merci à tous les contributeurs !
