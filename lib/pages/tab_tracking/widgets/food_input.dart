@@ -45,8 +45,6 @@ class FoodInput extends StatefulWidget {
 
 class FoodInputState extends State<FoodInput>
     with SingleTickerProviderStateMixin {
-  static const Duration _defaultInputDebounceDuration =
-      Duration(milliseconds: 500);
   static const _foodInputSuggestionsFromLastXDays = 21;
   final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
   QRViewController? _qrController;
@@ -119,8 +117,9 @@ class FoodInputState extends State<FoodInput>
             padding: const EdgeInsets.all(12.0),
             child: SearchBar(
               controller: _searchInputController,
-              onChanged: (value) => populateSearchedFoodList(value, true),
-              onSubmitted: (value) => populateSearchedFoodList(value, false),
+              onSubmitted: (_) => _submitFoodSearch(
+                _searchInputController.text,
+              ),
               hintText: AppLocalizations.of(context)!.productOrBrand,
               leading: _awaitingApiResponse
                   ? Transform.scale(
@@ -140,10 +139,14 @@ class FoodInputState extends State<FoodInput>
                     ),
                   ),
                 IconButton(
-                  onPressed: () {
-                    _resetFoodSearch();
-                  },
+                  onPressed: () => _resetFoodSearch(),
                   icon: const Icon(Icons.clear),
+                ),
+                IconButton(
+                  onPressed: () => _submitFoodSearch(
+                    _searchInputController.text,
+                  ),
+                  icon: const Icon(Icons.send),
                 ),
               ],
               elevation: WidgetStateProperty.all(0.0),
@@ -197,33 +200,17 @@ class FoodInputState extends State<FoodInput>
                   child: SearchBar(
                     elevation: WidgetStateProperty.all(0.0),
                     controller: _searchBarcodeController,
-                    onSubmitted: (value) {
-                      if (value.isEmpty) {
-                        setState(() {
-                          _productNotFoundExceptionBarcode = null;
-                        });
-                      } else {
-                        searchBarcodeAndRedirect(
-                          _searchBarcodeController.text,
-                        );
-                      }
-                    },
+                    onSubmitted: (_) => _submitBarcodeSearch(
+                      _searchBarcodeController.text,
+                    ),
                     keyboardType: TextInputType.number,
                     hintText: AppLocalizations.of(context)!.barcode,
                     leading: const Icon(Icons.search),
                     trailing: [
                       IconButton(
-                        onPressed: () {
-                          if (_searchBarcodeController.text.isEmpty) {
-                            setState(() {
-                              _productNotFoundExceptionBarcode = null;
-                            });
-                          } else {
-                            searchBarcodeAndRedirect(
-                              _searchBarcodeController.text,
-                            );
-                          }
-                        },
+                        onPressed: () => _submitBarcodeSearch(
+                          _searchBarcodeController.text,
+                        ),
                         icon: const Icon(Icons.send),
                       ),
                     ],
@@ -347,7 +334,7 @@ class FoodInputState extends State<FoodInput>
   void didChangeDependencies() {
     super.didChangeDependencies();
 
-    populateSearchedFoodList('', false);
+    _populateSearchedFoodList('');
   }
 
   @override
@@ -381,6 +368,30 @@ class FoodInputState extends State<FoodInput>
     }
   }
 
+  /// Calls [searchBarcodeAndRedirect] and closes keyboard (if opened).
+  ///
+  /// Resets [_productNotFoundExceptionBarcode] if [searchBarcode] is empty.
+  void _submitBarcodeSearch(String searchBarcode) {
+    if (searchBarcode.isEmpty) {
+      setState(() {
+        _productNotFoundExceptionBarcode = null;
+      });
+    } else {
+      searchBarcodeAndRedirect(searchBarcode);
+    }
+
+    // Close keyboard if opened
+    FocusManager.instance.primaryFocus?.unfocus();
+  }
+
+  /// Calls [_populateSearchedFoodList] and closes keyboard (if opened).
+  void _submitFoodSearch(String searchText) {
+    _populateSearchedFoodList(searchText);
+
+    // Close keyboard if opened
+    FocusManager.instance.primaryFocus?.unfocus();
+  }
+
   /// Fill the list of possible food to track depending on the search string.
   ///
   /// If nothing was searched, pre-fill with on device-stored data:
@@ -390,79 +401,65 @@ class FoodInputState extends State<FoodInput>
   /// If something was searched, the pre-filled data is filtered by containing
   /// the search string in the food title. Also, the API-based food composition
   /// databases get queried and their results are appended to the list
-  void populateSearchedFoodList(String searchText, bool debounce) {
-    // Method wrapped in debounce so that API calls are triggered after
-    // user has finished typing
-    if (_searchFieldDebounceTimer?.isActive ?? false) {
-      _searchFieldDebounceTimer!.cancel();
-    }
+  void _populateSearchedFoodList(String searchText) async {
+    final appSettings = Provider.of<AppSettings>(context, listen: false);
+    final customFoodProvider =
+        Provider.of<CustomFoodProvider>(context, listen: false);
 
-    Duration debounceDuration = _defaultInputDebounceDuration;
-
-    if (!debounce) {
-      debounceDuration = const Duration(milliseconds: 0);
-    }
-
-    _searchFieldDebounceTimer = Timer(debounceDuration, () async {
-      final appSettings = Provider.of<AppSettings>(context, listen: false);
-      final customFoodProvider =
-          Provider.of<CustomFoodProvider>(context, listen: false);
-
-      // Non duplicate list of the food tracked the last X days
-      final foodFromLastXDays = List<Food>.of(
-        await TrackedFoodDatabaseService.trackedFoodByDateRange(
-          startDate: DateTime.now().subtract(
-            const Duration(days: _foodInputSuggestionsFromLastXDays),
-          ),
-          endDate: DateTime.now(),
+    // Non duplicate list of the food tracked the last X days
+    final foodFromLastXDays = List<Food>.of(
+      await TrackedFoodDatabaseService.trackedFoodByDateRange(
+        startDate: DateTime.now().subtract(
+          const Duration(days: _foodInputSuggestionsFromLastXDays),
         ),
-      );
+        endDate: DateTime.now(),
+      ),
+    );
 
-      // Initial fill of the suggestions list (and when searched for empty string)
-      setState(() {
-        // Fill with previously tracked foods, newest first
-        searchResultFood = foodFromLastXDays.reversed.toList();
+    // Initial fill of the suggestions list (and when searched for empty string)
+    setState(() {
+      // Fill with previously tracked foods, newest first
+      searchResultFood = foodFromLastXDays.reversed.toList();
 
-        // Fill with custom foods
-        searchResultFood += customFoodProvider.foods;
+      // Fill with custom foods
+      searchResultFood += customFoodProvider.foods;
 
-        // Remove duplicates
-        _removeDuplicateSuggestions();
+      // Remove duplicates
+      _removeDuplicateSuggestions();
 
-        // When searched for anything, filter the previously generated
-        // suggestion list so that it only shows matching entries
-        if (searchText.isNotEmpty) {
-          searchResultFood = searchResultFood
-              .where(
-                (food) =>
-                    food.title.toLowerCase().contains(searchText.toLowerCase()),
-              )
-              .toList();
-        }
-      });
-
-      // If at least one of the food composition databases is activated
-      // Doesn't matter whether it's stored offline or API-based
-      if ((appSettings.isProviderOpenFoodFactsActivated ||
-          appSettings.isProviderUsdaActivated ||
-          appSettings.isProviderSndbActivated)) {
-        setState(() {
-          _awaitingApiResponse = true;
-        });
-
-        // Search in food composition databases (in parallel)
-        await Future.wait([
-          _getSFCDSearchResultIfActivated(searchText),
-          _getOpenFoodFactsSearchResultIfActivated(searchText),
-          _getUsdaSearchResultIfActivated(searchText),
-        ]);
-
-        setState(() {
-          _removeDuplicateSuggestions();
-          _awaitingApiResponse = false;
-        });
+      // When searched for anything, filter the previously generated
+      // suggestion list so that it only shows matching entries
+      if (searchText.isNotEmpty) {
+        searchResultFood = searchResultFood
+            .where(
+              (food) =>
+                  food.title.toLowerCase().contains(searchText.toLowerCase()),
+            )
+            .toList();
       }
     });
+
+    // If at least one of the food composition databases is activated
+    // Doesn't matter whether it is stored offline or API-based
+    if ((appSettings.isProviderOpenFoodFactsActivated ||
+        appSettings.isProviderUsdaActivated ||
+        appSettings.isProviderSndbActivated)) {
+      setState(() {
+        _awaitingApiResponse = true;
+      });
+
+      // Search in food composition databases (in parallel)
+      await Future.wait([
+        _getSFCDSearchResultIfActivated(searchText),
+        _getOpenFoodFactsSearchResultIfActivated(searchText),
+        _getUsdaSearchResultIfActivated(searchText),
+      ]);
+
+      setState(() {
+        _removeDuplicateSuggestions();
+        _awaitingApiResponse = false;
+      });
+    }
   }
 
   // This method is just for hot reloading to work
@@ -742,7 +739,7 @@ class FoodInputState extends State<FoodInput>
   /// Clears the controller, the searched food list and binding errors.
   void _resetFoodSearch() {
     _searchInputController.clear();
-    populateSearchedFoodList('', false);
+    _populateSearchedFoodList('');
 
     // Clear binding errors
     setState(() {
