@@ -1,4 +1,7 @@
 on:
+  push:
+    branches:
+      - ci_add_debug_apk_build
   workflow_dispatch:
 jobs:
   energize-build-debug-apk:
