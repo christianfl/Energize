@@ -13,14 +13,15 @@ jobs:
         with:
           submodules: recursive
           fetch-depth: 0
-      - name: apt update
+      - name: Update package lists
         run: |
           apt update
       - name: Android SDK Setup
         run: |
           apt install -y android-sdk sdkmanager
           export ANDROID_HOME=/usr/lib/android-sdk
-          sdkmanager "build-tools;latest"
+          sdkmanager --update
+          # sdkmanager "build-tools;latest"
       - name: Java Setup
         run: |
           apt install -y openjdk-21-jdk-headless
