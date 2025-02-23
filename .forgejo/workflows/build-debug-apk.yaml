@@ -16,12 +16,11 @@ jobs:
       - name: Android SDK Setup
         run: |
           apt update
-          apt install -y android-sdk
+          apt install -y android-sdk sdkmanager
           export ANDROID_HOME=/usr/lib/android-sdk
           export PATH=$PATH:$ANDROID_HOME/tools/bin
-          ls -l $ANDROID_HOME
-          ls -l $ANDROID_HOME/tools
-          ls -l $ANDROID_HOME/tools/bin
+          yes | sdkmanager --licenses
+          sdkmanager "build-tools:latest"
       - name: Flutter Setup
         if: false
         run: |
