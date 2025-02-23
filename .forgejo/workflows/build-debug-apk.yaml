@@ -12,6 +12,13 @@ jobs:
         with:
           submodules: recursive
           fetch-depth: 0
+      - name: Android SDK Setup
+        run: |
+          apt update
+          apt install -y android-sdk
+          export ANDROID_HOME=~/Android/sdk
+          export PATH=$PATH:$ANDROID_HOME/tools/bin
+          yes | sdkmanager --licenses
       - name: Flutter Setup
         run: |
           sed -i "/'tar',/N; /'tar',\n\s*'-xzf'/s/'-xzf'/'--no-same-owner','-xzf'/" submodules/flutter/packages/flutter_tools/lib/src/base/os.dart
