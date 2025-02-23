@@ -20,7 +20,7 @@ jobs:
         run: |
           apt install -y android-sdk sdkmanager
           export ANDROID_HOME=/usr/lib/android-sdk
-          sdkmanager --update
+          # sdkmanager --update
           # sdkmanager "build-tools;latest"
       - name: Java Setup
         run: |
