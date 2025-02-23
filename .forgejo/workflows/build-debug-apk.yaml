@@ -8,6 +8,7 @@ jobs:
     runs-on: codeberg-small-lazy
     steps:
       - name: Checkout App to 'epinez/Energize'
+        if: false
         uses: https://code.forgejo.org/actions/checkout@v4
         with:
           submodules: recursive
@@ -16,21 +17,25 @@ jobs:
         run: |
           apt update
           apt install -y android-sdk
-          export ANDROID_HOME=~/Android/sdk
+          export ANDROID_HOME=$HOME/Android/sdk
           export PATH=$PATH:$ANDROID_HOME/tools/bin
-          yes | sdkmanager --licenses
+          ls -l $ANDROID_HOME/tools/bin
       - name: Flutter Setup
+        if: false
         run: |
           sed -i "/'tar',/N; /'tar',\n\s*'-xzf'/s/'-xzf'/'--no-same-owner','-xzf'/" submodules/flutter/packages/flutter_tools/lib/src/base/os.dart
           submodules/flutter/bin/flutter config --no-analytics
       - name: Flutter Prebuild
+        if: false
         run: |
           submodules/flutter/bin/flutter pub get
           submodules/flutter/bin/dart run build_runner build --delete-conflicting-outputs
       - name: Flutter Build Debug APK
+        if: false
         run: |
           submodules/flutter/bin/flutter build apk --debug
       - name: Upload Debug APK artifact
+        if: false
         uses: https://code.forgejo.org/actions/upload-artifact@v4
         with:
           name: Energize Debug APK
