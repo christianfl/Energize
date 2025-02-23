@@ -495,5 +495,28 @@
     }
   },
   "barcodeScanningUnsupported": "扫描条形码功能目前仅在Android上支持。",
-  "@barcodeScanningUnsupported": {}
+  "@barcodeScanningUnsupported": {},
+  "webDAVSettings": "WebDAV设置",
+  "@webDAVSettings": {},
+  "serverURL": "服务URL",
+  "@serverURL": {},
+  "invalidURL": "该URL无效",
+  "@invalidURL": {},
+  "username": "用户名称",
+  "@username": {},
+  "password": "密码",
+  "@password": {},
+  "pathAndFilename": "路径和文件名",
+  "@pathAndFilename": {},
+  "energizeBackup": "{appName}备份",
+  "@energizeBackup": {
+    "placeholders": {
+      "appName": {
+        "type": "String",
+        "example": "Energize"
+      }
+    }
+  },
+  "backupPasswordNotice": "如果备份密码忘记，就无法恢复备份。",
+  "@backupPasswordNotice": {}
 }
