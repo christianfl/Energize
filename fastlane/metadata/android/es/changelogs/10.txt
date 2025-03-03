@@ -1,0 +1,3 @@
+* Al presionar hacia atrás en todas las pestañas excepto la pestaña de seguimiento, se redirige a la pestaña principal en lugar de cerrar la aplicación
+* Nueva traducción: Turco (gracias!)
+* No exportar valores nulos a la copia de seguridad, lo que ahorra un gran espacio de archivo

@@ -1,0 +1,9 @@
+<ul>
+<li>Registra tus comidas, incluyendo calorías, macronutrientes y micronutrientes.</li>
+<li>Utiliza diversas bases de datos (Open Food Facts, USDA, y Swiss Food Composition Database) o crea alimentos personalizados.</li>
+<li>Busca comidas por nombre del producto o simplemente escanea el código de barras.</li>
+<li>Reciba sugerencias de alimentos en base a sus ultimas comidas registradas. </li>
+<li>Establezca objetivos para macro y micronutrientes .</li>
+<li>Observe los detalles diarios de su nutrición</li>
+<li>Crea y restaura copias de seguridad encriptadas (Local o WebDAV)</li>
+</ul>

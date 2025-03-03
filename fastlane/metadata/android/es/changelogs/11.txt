@@ -1,0 +1,9 @@
+* Nuevo tema que ahora se ajusta a la apariencia general del concepto
+* Nuevo calendario de fechas: Los días completados ahora están resaltados
+* Los días completados ahora se incluyen en la copia de seguridad y restauración
+* Página de información rediseñada
+* Se agregó una pestaña de donación en la página de ajustes
+* Nuevas cadenas traducibles
+* Traducción turca actualizada (gracias!)
+* Corregido el cálculo del conteo de nutrientes
+* Varias correcciones menores
