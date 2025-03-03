@@ -495,5 +495,28 @@
   "display": "Apariencia",
   "@display": {},
   "barcodeScanningUnsupported": "El escaneo de códigos de barras con la cámara del dispositivo es actualmente sólo compatible en Android.",
-  "@barcodeScanningUnsupported": {}
+  "@barcodeScanningUnsupported": {},
+  "webDAVSettings": "Configuración de WebDAV",
+  "@webDAVSettings": {},
+  "username": "Nombre de usuario",
+  "@username": {},
+  "serverURL": "URL del Servidor",
+  "@serverURL": {},
+  "invalidURL": "La URL no es válida",
+  "@invalidURL": {},
+  "password": "Contraseña",
+  "@password": {},
+  "pathAndFilename": "Ruta y nombre del archivo",
+  "@pathAndFilename": {},
+  "backupPasswordNotice": "Sin la contraseña de la copia de seguridad, no es posible restaurarla.",
+  "@backupPasswordNotice": {},
+  "energizeBackup": "{appName} Copia de seguridad",
+  "@energizeBackup": {
+    "placeholders": {
+      "appName": {
+        "type": "String",
+        "example": "Energize"
+      }
+    }
+  }
 }
