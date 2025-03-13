@@ -494,5 +494,47 @@
   "@caffeine": {},
   "alcohol": "Alkohol",
   "@alcohol": {},
-  "salt": "Salz"
+  "salt": "Salz",
+  "@_TEST_DATA": {
+  },
+  "testCustomFood1Name": "Käsespätzle",
+  "@testCustomFood1Name": {
+    "description": "Only used for translated screenshots, not within the app itself. Name of custom food 1/5 which can be anything which makes sense in the current language. E.g. a local food."
+  },
+  "testCustomFood1Calories": "157",
+  "@testCustomFood1Calories": {
+    "description": "Only used for translated screenshots, not within the app itself. Calories in kcal per 100 g of custom food 1/5 as a double value (e.g.: 120.0)"
+  },
+  "testCustomFood2Name": "Tiroler Kasnocken",
+  "@testCustomFood2Name": {
+    "description": "Only used for translated screenshots, not within the app itself. Name of custom food 2/5 which can be anything which makes sense in the current language. E.g. a local food."
+  },
+  "testCustomFood2Calories": "232",
+  "@testCustomFood2Calories": {
+    "description": "Only used for translated screenshots, not within the app itself. Calories in kcal per 100 g of custom food 2/5 as a double value (e.g.: 120.0)"
+  },
+  "testCustomFood3Name": "Semmelknödel",
+  "@testCustomFood3Name": {
+    "description": "Only used for translated screenshots, not within the app itself. Name of custom food 3/5 which can be anything which makes sense in the current language. E.g. a local food."
+  },
+  "testCustomFood3Calories": "181",
+  "@testCustomFood3Calories": {
+    "description": "Only used for translated screenshots, not within the app itself. Calories in kcal per 100 g of custom food 3/5 as a double value (e.g.: 120.0)"
+  },
+  "testCustomFood4Name": "Kaiserschmarrn",
+  "@testCustomFood4Name": {
+    "description": "Only used for translated screenshots, not within the app itself. Name of custom food 4/5 which can be anything which makes sense in the current language. E.g. a local food."
+  },
+  "testCustomFood4Calories": "202",
+  "@testCustomFood4Calories": {
+    "description": "Only used for translated screenshots, not within the app itself. Calories in kcal per 100 g of custom food 4/5 as a double value (e.g.: 120.0)"
+  },
+  "testCustomFood5Name": "Kartoffelbrei",
+  "@testCustomFood5Name": {
+    "description": "Only used for translated screenshots, not within the app itself. Name of custom food 5/5 which can be anything which makes sense in the current language. E.g. a local food."
+  },
+  "testCustomFood5Calories": "87",
+  "@testCustomFood5Calories": {
+    "description": "Only used for translated screenshots, not within the app itself. Calories in kcal per 100 g of custom food 5/5 as a double value (e.g.: 120.0)"
+  }
 }

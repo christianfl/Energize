@@ -333,34 +333,49 @@ void main() {
       // Add custom food
       final customFood1 = Food(
         id: Food.generatedId,
-        title: 'Rosinenbrötchen',
+        title: AppLocalizations.of(context)!.testCustomFood1Name,
         origin: 'CUSTOM',
-        calories: 480,
+        calories: double.tryParse(
+          AppLocalizations.of(context)!.testCustomFood1Calories,
+        ),
       );
       final customFood2 = Food(
         id: Food.generatedId,
-        title: 'Käsespätzle',
+        title: AppLocalizations.of(context)!.testCustomFood2Name,
         origin: 'CUSTOM',
-        calories: 300,
-        carbs: 40,
-        fat: 20,
+        calories: double.tryParse(
+          AppLocalizations.of(context)!.testCustomFood2Calories,
+        ),
       );
       final customFood3 = Food(
         id: Food.generatedId,
-        title: 'Tiroler Kasnocken',
+        title: AppLocalizations.of(context)!.testCustomFood3Name,
         origin: 'CUSTOM',
-        calories: 290,
+        calories: double.tryParse(
+          AppLocalizations.of(context)!.testCustomFood3Calories,
+        ),
       );
       final customFood4 = Food(
         id: Food.generatedId,
-        title: 'Custom Cola Zero',
+        title: AppLocalizations.of(context)!.testCustomFood4Name,
         origin: 'CUSTOM',
-        calories: 1,
+        calories: double.tryParse(
+          AppLocalizations.of(context)!.testCustomFood4Calories,
+        ),
+      );
+      final customFood5 = Food(
+        id: Food.generatedId,
+        title: AppLocalizations.of(context)!.testCustomFood5Name,
+        origin: 'CUSTOM',
+        calories: double.tryParse(
+          AppLocalizations.of(context)!.testCustomFood5Calories,
+        ),
       );
       customFoodProvider.addFood(customFood1);
       customFoodProvider.addFood(customFood2);
       customFoodProvider.addFood(customFood3);
       customFoodProvider.addFood(customFood4);
+      customFoodProvider.addFood(customFood5);
 
       // Wait until all frames were drawn
       await tester.pumpAndSettle();
