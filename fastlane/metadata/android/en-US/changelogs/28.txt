@@ -1,0 +1,7 @@
+- [feat] Behavior change: Trigger food search only after search is submitted
+- [l10n] Updated Chinese (Simplified Han script), French, Russian, Spanish, Ukrainian¹
+- [l10n] Add translatable custom foods with calories for automated screenshot creation, allowing e.g. showcasing traditional foods
+
+---
+
+¹Big thanks to all contributors!
