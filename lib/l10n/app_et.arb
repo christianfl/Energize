@@ -518,5 +518,45 @@
   "backupPasswordNotice": "Ilma varukoopia loomisel kasutatud salasõnata pole seda võimalik taastada.",
   "@backupPasswordNotice": {},
   "password": "Salasõna",
-  "@password": {}
+  "@password": {},
+  "testCustomFood3Name": "Praetud sibulad",
+  "@testCustomFood3Name": {
+    "description": "Only used for translated screenshots, not within the app itself. Name of custom food 3/5 which can be anything which makes sense in the current language. E.g. a local food."
+  },
+  "testCustomFood3Calories": "260",
+  "@testCustomFood3Calories": {
+    "description": "Only used for translated screenshots, not within the app itself. Calories in kcal per 100 g of custom food 3/5 as a double value (e.g.: 120.0)"
+  },
+  "testCustomFood4Name": "Munapuder",
+  "@testCustomFood4Name": {
+    "description": "Only used for translated screenshots, not within the app itself. Name of custom food 4/5 which can be anything which makes sense in the current language. E.g. a local food."
+  },
+  "testCustomFood4Calories": "228",
+  "@testCustomFood4Calories": {
+    "description": "Only used for translated screenshots, not within the app itself. Calories in kcal per 100 g of custom food 4/5 as a double value (e.g.: 120.0)"
+  },
+  "testCustomFood5Name": "Kapsapirukad",
+  "@testCustomFood5Name": {
+    "description": "Only used for translated screenshots, not within the app itself. Name of custom food 5/5 which can be anything which makes sense in the current language. E.g. a local food."
+  },
+  "testCustomFood5Calories": "259",
+  "@testCustomFood5Calories": {
+    "description": "Only used for translated screenshots, not within the app itself. Calories in kcal per 100 g of custom food 5/5 as a double value (e.g.: 120.0)"
+  },
+  "testCustomFood2Calories": "326",
+  "@testCustomFood2Calories": {
+    "description": "Only used for translated screenshots, not within the app itself. Calories in kcal per 100 g of custom food 2/5 as a double value (e.g.: 120.0)"
+  },
+  "testCustomFood2Name": "Praetud kartulid",
+  "@testCustomFood2Name": {
+    "description": "Only used for translated screenshots, not within the app itself. Name of custom food 2/5 which can be anything which makes sense in the current language. E.g. a local food."
+  },
+  "testCustomFood1Calories": "227",
+  "@testCustomFood1Calories": {
+    "description": "Only used for translated screenshots, not within the app itself. Calories in kcal per 100 g of custom food 1/5 as a double value (e.g.: 120.0)"
+  },
+  "testCustomFood1Name": "Pannkoogid",
+  "@testCustomFood1Name": {
+    "description": "Only used for translated screenshots, not within the app itself. Name of custom food 1/5 which can be anything which makes sense in the current language. E.g. a local food."
+  }
 }
