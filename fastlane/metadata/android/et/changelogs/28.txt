@@ -1,0 +1,7 @@
+- [funktsionaalsus] Muutus tööpõhimõttes: toidu otsing käivitub pärast otsingunupu vajutamist
+- [l10n] Uuendatud tõlked: hiina keel (lihtsustatud), prantsuse keel, vene keel, hispaania keel, ukraina keel¹
+- [l10n] Lisasime tõlgitavad kohalikud toidud koos kaloritega reklaampiltide loomiseks kohalike toitude kontekstis
+
+---
+
+¹Suur tänu kaasautoritele!

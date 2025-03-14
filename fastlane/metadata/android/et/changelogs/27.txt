@@ -1,0 +1,10 @@
+- [funktsionaalsus] Lisasime CI-konveieri Energize'i kompileerimiseks ja lisamiseks Codeberg Pages lehele
+- [fiks] Kohalikust varundusest taastamisel on salasõnapäring nüüd õiges järjekorras
+- [fiks] Uuendasime veebiteeke
+- [l10n] Lisasime tõlked varundusele ja taastamisele
+- [l10n] Lisasime slovaki keele¹
+- [l10n] Uuendatud tõlked: hiina keel (lihtsustatud), eesti keel, prantsuse keel, itaalia keel, portugali keel, Brasiilia portugali keel, vene keel¹
+
+---
+
+¹Suur tänu kõikidele kaasautoritele!
