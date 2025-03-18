@@ -518,5 +518,9 @@
     }
   },
   "backupPasswordNotice": "如果备份密码忘记，就无法恢复备份。",
-  "@backupPasswordNotice": {}
+  "@backupPasswordNotice": {},
+  "testCustomFood1Name": "",
+  "@testCustomFood1Name": {
+    "description": "Only used for translated screenshots, not within the app itself. Name of custom food 1/5 which can be anything which makes sense in the current language. E.g. a local food."
+  }
 }
