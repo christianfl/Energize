@@ -11,6 +11,7 @@ import '../../widgets/food_list_item.dart';
 
 class FoodPage extends StatefulWidget {
   static const originName = 'CUSTOM';
+  static const imageUrl = 'assets/food_databases/custom-foods.png';
 
   static const double _entryPillHeight = 35;
   static const double _entryHeight = 50;

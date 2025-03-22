@@ -34,6 +34,10 @@ class FoodOriginLogoPill extends StatelessWidget {
       case 'SNDB':
         // SNDB was renamed but it's kept here because of old tracked food...
         return SwissFoodCompositionDatabaseBinding.imageUrl;
+      case USDABinding.originName:
+        return USDABinding.imageUrl;
+      case FoodPage.originName:
+        return FoodPage.imageUrl;
     }
 
     return null;

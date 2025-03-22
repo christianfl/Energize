@@ -7,12 +7,9 @@ import '../../providers/app_settings.dart';
 import '../../services/food_database_bindings/open_food_facts/open_food_facts_binding.dart';
 import '../../services/food_database_bindings/swiss_food_composition_database/swiss_food_composition_database_binding.dart';
 import '../../services/food_database_bindings/usda/usda_binding.dart';
-import '../../widgets/food_origin_logo_pill.dart';
 
 class DatabaseManagementSubPage extends StatefulWidget {
   static const routeName = '/settings/database-provider';
-
-  static const _foodOriginLogoPillHeight = 48.0;
 
   const DatabaseManagementSubPage({super.key});
 
@@ -24,6 +21,19 @@ class DatabaseManagementSubPage extends StatefulWidget {
 class DatabaseManagementSubPageState extends State<DatabaseManagementSubPage> {
   var _activeOfflinePanelIndex = -1;
   var _activeOnlinePanelIndex = -1;
+
+  /// Returns an [Image.asset] with the given [imageUrl] on white background.
+  Widget _foodDatabaseLogoContainer(String imageUrl) {
+    return Container(
+      padding: const EdgeInsets.all(16.0),
+      color: Colors.white,
+      height: 160,
+      width: double.infinity,
+      child: Image.asset(
+        imageUrl,
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -72,13 +82,8 @@ class DatabaseManagementSubPageState extends State<DatabaseManagementSubPage> {
                   body: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 16.0),
-                        child: FoodOriginLogoPill(
-                          height: DatabaseManagementSubPage
-                              ._foodOriginLogoPillHeight,
-                          SwissFoodCompositionDatabaseBinding.originName,
-                        ),
+                      _foodDatabaseLogoContainer(
+                        SwissFoodCompositionDatabaseBinding.imageUrl,
                       ),
                       ListTile(
                         title: Text(AppLocalizations.of(context)!.version),
@@ -93,7 +98,7 @@ class DatabaseManagementSubPageState extends State<DatabaseManagementSubPage> {
                       ListTile(
                         title: Text(AppLocalizations.of(context)!.publisher),
                         subtitle: Text(
-                          'Bundesamt für Lebensmittelsicherheit und Veterinärwesen, ${AppLocalizations.of(context)!.switzerland}',
+                          '${AppLocalizations.of(context)!.federalFoodSafetyAndVeterinaryOffice}, ${AppLocalizations.of(context)!.switzerland}',
                         ),
                         isThreeLine: true,
                       ),
@@ -167,14 +172,7 @@ class DatabaseManagementSubPageState extends State<DatabaseManagementSubPage> {
                   body: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 16.0),
-                        child: FoodOriginLogoPill(
-                          height: DatabaseManagementSubPage
-                              ._foodOriginLogoPillHeight,
-                          OpenFoodFactsBinding.originName,
-                        ),
-                      ),
+                      _foodDatabaseLogoContainer(OpenFoodFactsBinding.imageUrl),
                       ListTile(
                         title: Text(AppLocalizations.of(context)!.language),
                         subtitle: Text(
@@ -185,7 +183,7 @@ class DatabaseManagementSubPageState extends State<DatabaseManagementSubPage> {
                       ListTile(
                         title: Text(AppLocalizations.of(context)!.publisher),
                         subtitle: Text(
-                          '${AppLocalizations.of(context)!.nonProfitInstitution} Open Food Facts ("OFF"), ${AppLocalizations.of(context)!.france}',
+                          '${AppLocalizations.of(context)!.nonProfitInstitution} Open Food Facts, ${AppLocalizations.of(context)!.france}',
                         ),
                         isThreeLine: true,
                       ),
@@ -260,15 +258,8 @@ class DatabaseManagementSubPageState extends State<DatabaseManagementSubPage> {
                   body: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 16.0),
-                        child: SizedBox(
-                          height: DatabaseManagementSubPage
-                              ._foodOriginLogoPillHeight,
-                          child: FoodOriginLogoPill(
-                            USDABinding.originName,
-                          ),
-                        ),
+                      _foodDatabaseLogoContainer(
+                        USDABinding.imageUrl,
                       ),
                       ListTile(
                         title: Text(AppLocalizations.of(context)!.language),

@@ -6,7 +6,8 @@ import '../../../models/food/food.dart';
 class SwissFoodCompositionDatabaseBinding {
   static const originName = 'SFCDB';
 
-  static const imageUrl = 'assets/food_databases/sfcdb.png';
+  static const imageUrl =
+      'assets/food_databases/swiss-food-composition-database.png';
   static const sourceUrl = 'https://naehrwertdaten.ch/de/';
   static const databaseCsvUrl =
       'lib/services/food_database_bindings/swiss_food_composition_database/assets/sfcd.csv';

@@ -9,7 +9,7 @@ import 'product_not_found_exception.dart';
 class OpenFoodFactsBinding {
   static const originName = 'OFF';
 
-  static const imageUrl = 'assets/food_databases/off.png';
+  static const imageUrl = 'assets/food_databases/open-food-facts.png';
   static const termsUrl = 'https://world.openfoodfacts.org/terms-of-use';
   static const contributeUrl = 'https://world.openfoodfacts.org/contribute';
   static const productUrl = 'https://openfoodfacts.org/product/';

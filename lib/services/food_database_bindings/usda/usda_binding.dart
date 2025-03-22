@@ -8,6 +8,8 @@ import 'models/usda_food.dart';
 class USDABinding {
   static const originName = 'USDA';
 
+  static const imageUrl =
+      'assets/food_databases/us-department-of-agriculture.png';
   static const _apiKey = 'gGCnzW8jNmCQc4ava9cGFgpMINNHnGL2q2Fbh51v';
   static const sourceUrl = 'https://fdc.nal.usda.gov/index.html';
 
