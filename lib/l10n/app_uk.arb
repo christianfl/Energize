@@ -518,5 +518,47 @@
   "serverURL": "URL сервера",
   "@serverURL": {},
   "backupPasswordNotice": "Без пароля резервної копії неможливо відновити резервну копію.",
-  "@backupPasswordNotice": {}
+  "@backupPasswordNotice": {},
+  "testCustomFood4Calories": "228",
+  "@testCustomFood4Calories": {
+    "description": "Only used for translated screenshots, not within the app itself. Calories in kcal per 100 g of custom food 4/5 as a double value (e.g.: 120.0)"
+  },
+  "testCustomFood3Name": "Смажена бамія",
+  "@testCustomFood3Name": {
+    "description": "Only used for translated screenshots, not within the app itself. Name of custom food 3/5 which can be anything which makes sense in the current language. E.g. a local food."
+  },
+  "federalFoodSafetyAndVeterinaryOffice": "Федеральне управління з безпеки харчових продуктів та ветеринарії",
+  "@federalFoodSafetyAndVeterinaryOffice": {},
+  "testCustomFood2Calories": "326",
+  "@testCustomFood2Calories": {
+    "description": "Only used for translated screenshots, not within the app itself. Calories in kcal per 100 g of custom food 2/5 as a double value (e.g.: 120.0)"
+  },
+  "testCustomFood1Name": "Млинець",
+  "@testCustomFood1Name": {
+    "description": "Only used for translated screenshots, not within the app itself. Name of custom food 1/5 which can be anything which makes sense in the current language. E.g. a local food."
+  },
+  "testCustomFood1Calories": "227",
+  "@testCustomFood1Calories": {
+    "description": "Only used for translated screenshots, not within the app itself. Calories in kcal per 100 g of custom food 1/5 as a double value (e.g.: 120.0)"
+  },
+  "testCustomFood2Name": "Картопляні оладки",
+  "@testCustomFood2Name": {
+    "description": "Only used for translated screenshots, not within the app itself. Name of custom food 2/5 which can be anything which makes sense in the current language. E.g. a local food."
+  },
+  "testCustomFood3Calories": "260",
+  "@testCustomFood3Calories": {
+    "description": "Only used for translated screenshots, not within the app itself. Calories in kcal per 100 g of custom food 3/5 as a double value (e.g.: 120.0)"
+  },
+  "testCustomFood4Name": "Яйце по-шотландськи",
+  "@testCustomFood4Name": {
+    "description": "Only used for translated screenshots, not within the app itself. Name of custom food 4/5 which can be anything which makes sense in the current language. E.g. a local food."
+  },
+  "testCustomFood5Name": "Йоркширський пудинг",
+  "@testCustomFood5Name": {
+    "description": "Only used for translated screenshots, not within the app itself. Name of custom food 5/5 which can be anything which makes sense in the current language. E.g. a local food."
+  },
+  "testCustomFood5Calories": "259",
+  "@testCustomFood5Calories": {
+    "description": "Only used for translated screenshots, not within the app itself. Calories in kcal per 100 g of custom food 5/5 as a double value (e.g.: 120.0)"
+  }
 }
