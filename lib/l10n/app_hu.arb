@@ -495,5 +495,70 @@
   "manganese": "Mangán",
   "@manganese": {},
   "copper": "Réz",
-  "@copper": {}
+  "@copper": {},
+  "webDAVSettings": "WebDAV beállítások",
+  "@webDAVSettings": {},
+  "serverURL": "Szerver URL",
+  "@serverURL": {},
+  "testCustomFood4Name": "Skót Tojás",
+  "@testCustomFood4Name": {
+    "description": "Only used for translated screenshots, not within the app itself. Name of custom food 4/5 which can be anything which makes sense in the current language. E.g. a local food."
+  },
+  "username": "Felhasználónév",
+  "@username": {},
+  "password": "Jelszó",
+  "@password": {},
+  "pathAndFilename": "Elérési út és fájlnév",
+  "@pathAndFilename": {},
+  "backupPasswordNotice": "A biztonsági jelszó nélkül lehetetlen visszaállítani a biztonsági másolatot.",
+  "@backupPasswordNotice": {},
+  "testCustomFood1Calories": "227",
+  "@testCustomFood1Calories": {
+    "description": "Only used for translated screenshots, not within the app itself. Calories in kcal per 100 g of custom food 1/5 as a double value (e.g.: 120.0)"
+  },
+  "energizeBackup": "{appName} biztonsági mentés",
+  "@energizeBackup": {
+    "placeholders": {
+      "appName": {
+        "type": "String",
+        "example": "Energize"
+      }
+    }
+  },
+  "federalFoodSafetyAndVeterinaryOffice": "Szövetségi Élelmiszerbiztonsági és állatorvosi Hivatal",
+  "@federalFoodSafetyAndVeterinaryOffice": {},
+  "invalidURL": "Az URL érvénytelen",
+  "@invalidURL": {},
+  "testCustomFood4Calories": "228",
+  "@testCustomFood4Calories": {
+    "description": "Only used for translated screenshots, not within the app itself. Calories in kcal per 100 g of custom food 4/5 as a double value (e.g.: 120.0)"
+  },
+  "testCustomFood1Name": "Palacsinta",
+  "@testCustomFood1Name": {
+    "description": "Only used for translated screenshots, not within the app itself. Name of custom food 1/5 which can be anything which makes sense in the current language. E.g. a local food."
+  },
+  "testCustomFood2Name": "Hasábburgonya",
+  "@testCustomFood2Name": {
+    "description": "Only used for translated screenshots, not within the app itself. Name of custom food 2/5 which can be anything which makes sense in the current language. E.g. a local food."
+  },
+  "testCustomFood3Name": "Sült okra",
+  "@testCustomFood3Name": {
+    "description": "Only used for translated screenshots, not within the app itself. Name of custom food 3/5 which can be anything which makes sense in the current language. E.g. a local food."
+  },
+  "testCustomFood2Calories": "326",
+  "@testCustomFood2Calories": {
+    "description": "Only used for translated screenshots, not within the app itself. Calories in kcal per 100 g of custom food 2/5 as a double value (e.g.: 120.0)"
+  },
+  "testCustomFood3Calories": "260",
+  "@testCustomFood3Calories": {
+    "description": "Only used for translated screenshots, not within the app itself. Calories in kcal per 100 g of custom food 3/5 as a double value (e.g.: 120.0)"
+  },
+  "testCustomFood5Calories": "259",
+  "@testCustomFood5Calories": {
+    "description": "Only used for translated screenshots, not within the app itself. Calories in kcal per 100 g of custom food 5/5 as a double value (e.g.: 120.0)"
+  },
+  "testCustomFood5Name": "Yorkshire Puding",
+  "@testCustomFood5Name": {
+    "description": "Only used for translated screenshots, not within the app itself. Name of custom food 5/5 which can be anything which makes sense in the current language. E.g. a local food."
+  }
 }
