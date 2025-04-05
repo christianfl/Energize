@@ -305,6 +305,23 @@
     "caffeine": "Caffeine",
     "alcohol": "Alcohol",
     "salt": "Salt",
+    "servingSizes": "Serving sizes",
+    "add": "Add",
+    "noServingSizesText": "There are no serving sizes present.",
+    "addServingSize": "Add serving size",
+    "typicalServingSizes": "Typical serving sizes",
+    "or": "or",
+    "servingSizeName": "Serving size name",
+    "size": "Size",
+    "translatableServingSizeNames": "{name, select, l10nServing{Srv.} l10nPackage{Pck.} other{}}",
+    "@translatableServingSizeNames": {
+        "description": "Translatable (system-defined) serving size names",
+        "placeholders": {
+            "name": {
+                "type": "String"
+            }
+        }
+    },
     "@_TEST_DATA": {
     },
     "testCustomFood1Name": "Pancakes",

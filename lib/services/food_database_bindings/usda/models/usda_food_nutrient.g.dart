@@ -14,20 +14,13 @@ USDAFoodNutrient _$USDAFoodNutrientFromJson(Map<String, dynamic> json) =>
           $enumDecodeNullable(_$USDAFoodNutrientUnitEnumMap, json['unitName']),
     );
 
-Map<String, dynamic> _$USDAFoodNutrientToJson(USDAFoodNutrient instance) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('nutrientName', instance.nutrientName);
-  writeNotNull('value', instance.value);
-  writeNotNull('unitName', _$USDAFoodNutrientUnitEnumMap[instance.unitName]);
-  return val;
-}
+Map<String, dynamic> _$USDAFoodNutrientToJson(USDAFoodNutrient instance) =>
+    <String, dynamic>{
+      if (instance.nutrientName case final value?) 'nutrientName': value,
+      if (instance.value case final value?) 'value': value,
+      if (_$USDAFoodNutrientUnitEnumMap[instance.unitName] case final value?)
+        'unitName': value,
+    };
 
 const _$USDAFoodNutrientUnitEnumMap = {
   USDAFoodNutrientUnit.G: 'G',

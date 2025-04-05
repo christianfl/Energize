@@ -17,7 +17,8 @@ class MacroNutrientsBreakdown extends StatelessWidget {
   double get _totalProteinPerAmount {
     return trackedFood.fold(
       0,
-      (previousValue, element) => previousValue + element.proteinPerAmount,
+      (previousValue, element) =>
+          previousValue + element.proteinPerTrackedAmount,
     );
   }
 
@@ -25,7 +26,7 @@ class MacroNutrientsBreakdown extends StatelessWidget {
   double get _totalCarbsPerAmount {
     return trackedFood.fold(
       0,
-      (previousValue, element) => previousValue + element.carbsPerAmount,
+      (previousValue, element) => previousValue + element.carbsPerTrackedAmount,
     );
   }
 
@@ -33,7 +34,7 @@ class MacroNutrientsBreakdown extends StatelessWidget {
   double get _totalFatPerAmount {
     return trackedFood.fold(
       0,
-      (previousValue, element) => previousValue + element.fatPerAmount,
+      (previousValue, element) => previousValue + element.fatPerTrackedAmount,
     );
   }
 

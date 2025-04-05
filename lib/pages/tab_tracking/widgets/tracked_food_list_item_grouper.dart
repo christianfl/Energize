@@ -36,7 +36,8 @@ class TrackedFoodListItemGrouper extends StatelessWidget {
   double get _caloriesTotal {
     return trackedFoodGroup.fold(
       0,
-      (previousValue, element) => previousValue + element.caloriesPerAmount,
+      (previousValue, element) =>
+          previousValue + element.caloriesPerTrackedAmount,
     );
   }
 

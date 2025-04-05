@@ -562,15 +562,45 @@ class FoodInputState extends State<FoodInput>
     }
   }
 
-  double _getQuickFoodAmount(Food food) {
-    var amount = 100.0;
-    // TODO: Issue #1: After serving sizes have been implemented, default to serving size
+  /// Returns the amount and serving size for quickly adding a new Food.
+  ///
+  /// Uses these values:
+  ///
+  /// - if previously tracked, use the same values
+  /// - else if food has serving sizes, set amount = 1
+  ///   - if "Srv." (en) is present as serving size name, use this
+  ///   - else use the first available serving size name
+  /// - else default to 100 g
+  ({
+    double amount,
+    String? selectedServingSize,
+  }) _getQuickFoodAmount(Food food) {
+    double amount = 100.0; // Default: 100 g
+    String? selectedServingSize;
 
     if (food is FoodTracked) {
+      // Set amount and serving size as previously tracked
       amount = food.amount;
+      selectedServingSize = food.selectedServingSize;
+    } else {
+      // Food was not tracked before
+      if (food.servingSizes != null) {
+        // Default to 1 serving
+        amount = 1;
+
+        // "Serving" has the highest priority, default to that.
+        // If that is not present, use the first key
+        selectedServingSize = food.servingSizes!.keys.firstWhere(
+          (keyName) => keyName == 'l10nServing',
+          orElse: () => food.servingSizes!.keys.first,
+        );
+      }
     }
 
-    return amount;
+    return (
+      amount: amount,
+      selectedServingSize: selectedServingSize,
+    );
   }
 
   Future<void> _getUsdaSearchResultIfActivated(String searchText) async {
@@ -713,13 +743,20 @@ class FoodInputState extends State<FoodInput>
     });
   }
 
-  void _quickAddFood(Food food, TrackedFoodProvider trackedFoodProvider) {
+  /// Directly track a Food with the same amount and serving size as previously.
+  ///
+  /// Closes the Food suggestions modal.
+  void _quickAddFood(
+    Food food,
+    TrackedFoodProvider trackedFoodProvider,
+  ) {
     final foodToBeTracked = FoodTracked.fromFood(
       food,
       FoodTracked.generatedId,
-      _getQuickFoodAmount(food),
+      _getQuickFoodAmount(food).amount,
       widget._foodAddingDate,
       DateTime.now(),
+      selectedServingSize: _getQuickFoodAmount(food).selectedServingSize,
     );
 
     trackedFoodProvider.addEatenFood(foodToBeTracked);
@@ -727,6 +764,10 @@ class FoodInputState extends State<FoodInput>
     Navigator.pop(context);
   }
 
+  /// This removes duplicate items in the food suggestions list.
+  ///
+  /// Using [Food.customHashCode], a [Food] is defined as a duplicate
+  /// of another one, if the nutrition values and serving sizes match.
   void _removeDuplicateSuggestions() {
     final customHashCodes =
         searchResultFood.map((f) => f.customHashCode).toSet();

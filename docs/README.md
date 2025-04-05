@@ -21,8 +21,9 @@ Some data in Energize is stored on the device. These can partly be updated using
 Some things to keep in mind when creating releases.
 
 1. Create changelog: `./scripts/create_changelog/create_changelog.py` and modify it
-2. Generate screenshots: `flutter drive --driver=test_driver/integration_test.dart --target=integration_test/app_test.dart`
-3. Copy current privacy policy in the corresponding assets folder: `cp PRIVACY.md lib/pages/tab_settings/about_sub_page/assets/`
-4. Change version number in: `pubspec.yaml`
-5. Compile with `flutter build apk`
-6. Short test and release
+2. Ensure all tests pass: `flutter test`
+3. Generate screenshots: `flutter drive --driver=test_driver/integration_test.dart --target=integration_test/app_test.dart`
+4. Copy current privacy policy in the corresponding assets folder: `cp PRIVACY.md lib/pages/tab_settings/about_sub_page/assets/`
+5. Change version number in: `pubspec.yaml`
+6. Compile with `flutter build apk`
+7. Short manual test and release

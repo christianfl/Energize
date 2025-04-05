@@ -1,4 +1,8 @@
+import 'dart:convert';
+
 import 'package:collection/collection.dart';
+import 'package:flutter/widgets.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:openfoodfacts/openfoodfacts.dart';
 import 'package:uuid/uuid.dart';
@@ -11,10 +15,21 @@ import '../../services/food_database_bindings/usda/usda_binding.dart';
 
 part 'food.g.dart';
 
-@JsonSerializable(
-  includeIfNull: false,
-)
+@JsonSerializable()
 class Food {
+  /// Must contain all system-defined (translatable) serving size keys.
+  ///
+  /// Needs matching entries in the .arb files, e.g.:
+  ///
+  /// "servingSize": "{name, select, l10nServing{Srv.} l10nPackage{Pck.} other{}}",
+  ///
+  /// l10nServing will be translated to "Srv." with en locale.
+  /// l10nPackage will be translated to "Pck." with en locale.
+  static const _systemServingSizes = {
+    'l10nServing',
+    'l10nPackage',
+  };
+
   // #################### Metadata ####################
   String id;
   String title;
@@ -25,12 +40,43 @@ class Food {
   String? imageUrl;
   String? imageThumbnailUrl;
 
-  /// String: servingName, double: Amount in g per servingName
+  /// Serving size such as "portion" and amount in g per serving size.
+  ///
+  /// String: Serving name
+  /// double: Amount in g per serving name
+  ///
+  /// Serving name can either be system-defined (translatable) or user input.
+  /// See [_systemServingSizes] for all system-defined serving size names.
   @JsonKey(
-    includeFromJson: false,
-    includeToJson: false,
+    name: 'servingSizes',
+    fromJson: nullableMapFromJson,
+    toJson: nullableMapToJson,
   )
-  Map<String, double>? servingSizes;
+  Map<String, double>? _servingSizes;
+
+  /// Get _servingSizes with custom validation.
+  Map<String, double>? get servingSizes {
+    if (_servingSizes != null) {
+      if (_servingSizes!.isNotEmpty) {
+        return _servingSizes;
+      }
+    }
+
+    return null;
+  }
+
+  /// Set [_servingSizes] with custom validation.
+  set servingSizes(Map<String, double>? value) {
+    if (value != null) {
+      if (value.isEmpty) {
+        throw ArgumentError(
+          'servingSizes must not be empty.',
+        );
+      }
+    }
+
+    _servingSizes = value;
+  }
 
   // #################### Calories ####################
 
@@ -207,7 +253,7 @@ class Food {
     this.ean,
     this.imageUrl,
     this.imageThumbnailUrl,
-    this.servingSizes,
+    Map<String, double>? servingSizes,
     this.calories,
     this.protein,
     this.carbs,
@@ -254,7 +300,9 @@ class Food {
     this.water,
     this.caffeine,
     this.alcohol,
-  });
+  }) {
+    this.servingSizes = servingSizes;
+  }
 
   factory Food.fromOpenFoodFactsProduct(Product product) {
     // Returns the value of the given nutrient in the desired unit per 100g or null
@@ -325,23 +373,62 @@ class Food {
     food.fat = getValInUnit(Nutrient.fat, unit: Unit.G);
 
     // Fill serving size with serving and package size
-    if (product.servingQuantity != null || product.quantity != null) {
-      food.servingSizes = {};
-    }
+    if (product.quantity != null || product.servingSize != null) {
+      final Map<String, double> servingSizes = {};
 
-    if (product.servingQuantity != null) {
-      // MapEntry<String, double> test =
-      //     MapEntry<String, double>('serving', product.servingQuantity!);
-      // TODO: Fix!
-      // food.servingSizes!.putIfAbsent(key, () => null)(test);
-    }
-    if (product.quantity != null) {
-      //food.servingSizes = {'serving': product.servingQuantity!};
-    }
+      /// Basic parsing of Serving sizes from Open Food Facts
+      ///
+      /// [servingStringOFF] can be e.g.: "30 g", "10 ml", "20 x 30 bottles"
+      /// Ignores multipliers and only supports: g, mg, l, ml
+      ///
+      /// Returns the parsed double in g
+      double? parseOFFServingSize(String servingStringOFF) {
+        // Normalize input (remove spaces and convert to lowercase)
+        final String normalizedServing =
+            servingStringOFF.replaceAll(' ', '').toLowerCase();
 
-    // print(product.servingQuantity);
-    // print(product.quantity);
-    // Package size / quantity is not supported by OFF server yet
+        double? parseVal(String str, String unit, double factor) {
+          if (str.contains(unit)) {
+            // Remove the unit
+            final String numPart = str.replaceAll(unit, '');
+            final double? value = double.tryParse(numPart);
+
+            return value != null ? value * factor : null;
+          }
+
+          return null;
+        }
+
+        return parseVal(normalizedServing, 'mg', 1 / 1000) ?? // 1000 mg = 1 g
+            parseVal(normalizedServing, 'g', 1) ?? // g
+            parseVal(normalizedServing, 'ml', 1) ?? // ml assumed ≈ g
+            parseVal(normalizedServing, 'l', 1000); // l assumed ≈ 1000 g
+      }
+
+      if (product.quantity != null) {
+        // Whole package
+        try {
+          final packageInG = parseOFFServingSize(product.quantity!);
+          servingSizes['l10nPackage'] = packageInG!;
+        } catch (e) {
+          // Not parseable
+        }
+      }
+      if (product.servingSize != null) {
+        // 1 Serving
+        try {
+          final servingInG = parseOFFServingSize(product.servingSize!);
+          servingSizes['l10nServing'] = servingInG!;
+        } catch (e) {
+          // Not parseable
+        }
+      }
+
+      // food.servingSizes should never be empty if not null
+      if (servingSizes.isNotEmpty) {
+        food.servingSizes = servingSizes;
+      }
+    }
 
     // Vitamins
     food.vitaminA = getValInUnit(Nutrient.vitaminA, unit: Unit.MILLI_G);
@@ -753,7 +840,8 @@ class Food {
       protein,
       carbs,
       fat,
-      servingSizes,
+      // servingSizes should produce the same hash for same key/value pairs.
+      jsonEncode(servingSizes),
       vitaminA,
       vitaminB1,
       vitaminB2,
@@ -806,4 +894,70 @@ class Food {
 
   /// Connect the generated toJson function to the `toJson` method.
   Map<String, dynamic> toJson() => _$FoodToJson(this);
+
+  /// Returns a localized serving size name if system-defined.
+  ///
+  /// Else returns original [servingSizeName].
+  static String getLocalizedServingSizeName(
+    BuildContext context,
+    String servingSizeName,
+  ) {
+    if (_systemServingSizes.contains(servingSizeName)) {
+      // The key is translatable
+      return AppLocalizations.of(context)!
+          .translatableServingSizeNames(servingSizeName);
+    } else {
+      return servingSizeName;
+    }
+  }
+
+  /// Returns a Map of all [_systemServingSizes] and their localized names.
+  ///
+  /// E.g.: {'l10nPackage': 'Pck.', ...}
+  static Map<String, String> getLocalizedSystemServingSizes(
+    BuildContext context,
+  ) {
+    return {
+      for (final sizeKey in _systemServingSizes)
+        sizeKey: getLocalizedServingSizeName(context, sizeKey),
+    };
+  }
+
+  /// Returns [_systemServingSizes]
+  static Set<String> get systemServingSizes {
+    return _systemServingSizes;
+  }
+
+  /// FromJson helper to deserialize the [servingSizes] Map.
+  ///
+  /// Needed for e. g. sqlite persistence and Backup creation.
+  ///
+  /// Empty map is threated as null value.
+  static Map<String, double>? nullableMapFromJson(String? jsonString) {
+    if (jsonString == null) return null;
+
+    final Map<String, dynamic> decoded = jsonDecode(jsonString);
+
+    if (decoded.isEmpty) {
+      return null;
+    }
+
+    return decoded
+        .map((key, value) => MapEntry(key, (value as num).toDouble()));
+  }
+
+  /// ToJson helper to serialize the [servingSizes] Map.
+  ///
+  /// Needed for e. g. sqlite persistence and Backup creation.
+  ///
+  /// Empty map is threated as null value.
+  static String? nullableMapToJson(Map<String, double>? map) {
+    if (map != null) {
+      if (map.isNotEmpty) {
+        return jsonEncode(map);
+      }
+    }
+
+    return null;
+  }
 }

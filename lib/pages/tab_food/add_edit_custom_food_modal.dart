@@ -94,6 +94,12 @@ class AddEditCustomFoodModalState extends State<AddEditCustomFoodModal> {
   final _foodSaltFocusNode = FocusNode();
   final _foodSodiumFocusNode = FocusNode();
 
+  // Serving size related
+  final Map<String, double> _foodServingSizes = {};
+  final _foodNewServingSizeFormKey = GlobalKey<FormState>();
+  final _foodNewServingSizeKeyController = TextEditingController();
+  final _foodNewServingSizeValueController = TextEditingController();
+
   @override
   void initState() {
     // Conversion between sodium and salt
@@ -133,12 +139,29 @@ class AddEditCustomFoodModalState extends State<AddEditCustomFoodModal> {
       }
     });
 
+    // When adding a new serving size and its name is typed in,
+    // set the size value if there was already a serving size with the same name
+    _foodNewServingSizeKeyController.addListener(() {
+      if (_foodServingSizes.keys
+          .contains(_foodNewServingSizeKeyController.text)) {
+        final currentValue =
+            _foodServingSizes[_foodNewServingSizeKeyController.text];
+        _foodNewServingSizeValueController.text =
+            '${currentValue?.toStringAsFixed(0)}';
+      } else {
+        // Clear the TextEditingController for the size value
+        // after changing the serving size name if there is no current size
+        // value for the same serving size name
+        _foodNewServingSizeValueController.clear();
+      }
+    });
+
     Future.delayed(Duration.zero, () {
       setState(() {
-        final args = ModalRoute.of(context)!.settings.arguments
-            as AddEditCustomFoodModalArguments;
-        if (args.food != null) {
-          foodToEditOrCreate = args.food!;
+        final args = ModalRoute.of(context)?.settings.arguments
+            as AddEditCustomFoodModalArguments?;
+        if (args?.food != null) {
+          foodToEditOrCreate = args!.food!;
         }
       });
 
@@ -224,9 +247,170 @@ class AddEditCustomFoodModalState extends State<AddEditCustomFoodModal> {
           (foodToEditOrCreate.caffeine ?? '').toString();
       _foodAlcoholController.text =
           (foodToEditOrCreate.alcohol ?? '').toString();
+
+      if (foodToEditOrCreate.servingSizes != null) {
+        // Add serving sizes to temporary Map
+
+        _foodServingSizes.addAll(foodToEditOrCreate.servingSizes!);
+      }
     });
 
     super.initState();
+  }
+
+  @override
+  dispose() {
+    _foodNewServingSizeKeyController.dispose();
+    _foodNewServingSizeValueController.dispose();
+
+    super.dispose();
+  }
+
+  /// Shows the dialog for adding new serving sizes.
+  Future<void> _showAddServingSizeDialog(BuildContext context) async {
+    return showDialog<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return StatefulBuilder(
+          builder: (context, setDialogState) {
+            return AlertDialog(
+              title: Text(AppLocalizations.of(context)!.addServingSize),
+              content: SingleChildScrollView(
+                child: Form(
+                  key: _foodNewServingSizeFormKey,
+                  child: ListBody(
+                    children: [
+                      Text(
+                        AppLocalizations.of(context)!.typicalServingSizes,
+                        style: Theme.of(context).textTheme.bodyLarge,
+                      ),
+                      SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Row(
+                          spacing: 6.0,
+                          children: [
+                            for (final entry
+                                in Food.getLocalizedSystemServingSizes(
+                              context,
+                            ).entries)
+                              ChoiceChip(
+                                label: Text(
+                                  entry.value,
+                                ),
+                                selected:
+                                    _foodNewServingSizeKeyController.text ==
+                                        entry.key,
+                                onSelected: (_) {
+                                  setDialogState(() {
+                                    if (_foodNewServingSizeKeyController.text ==
+                                        entry.key) {
+                                      _foodNewServingSizeKeyController.clear();
+                                    } else {
+                                      _foodNewServingSizeKeyController.text =
+                                          entry.key;
+                                    }
+                                  });
+                                },
+                              ),
+                          ],
+                        ),
+                      ),
+                      if (!Food.systemServingSizes
+                          .contains(_foodNewServingSizeKeyController.text))
+                        // Do not show TextFormField if the user selected a system serving size
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            const SizedBox(height: 10),
+                            Text(AppLocalizations.of(context)!.or),
+                            const SizedBox(height: 10),
+                            TextFormField(
+                              controller: _foodNewServingSizeKeyController,
+                              keyboardType: TextInputType.text,
+                              decoration: InputDecoration(
+                                filled: true,
+                                labelText: AppLocalizations.of(context)!
+                                    .servingSizeName,
+                              ),
+                              validator: (value) {
+                                if (value!.isEmpty) {
+                                  return AppLocalizations.of(context)!
+                                      .fieldMandatory;
+                                }
+                                return null;
+                              },
+                            ),
+                          ],
+                        ),
+                      const SizedBox(height: 20),
+                      TextFormField(
+                        controller: _foodNewServingSizeValueController,
+                        keyboardType: TextInputType.number,
+                        decoration: InputDecoration(
+                          filled: true,
+                          labelText: AppLocalizations.of(context)!.size,
+                          suffixText: 'g',
+                        ),
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return AppLocalizations.of(context)!.fieldMandatory;
+                          }
+                          if (!isNumeric(value)) {
+                            return AppLocalizations.of(context)!
+                                .onlyNumbersAllowed;
+                          }
+                          return null;
+                        },
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              actions: [
+                TextButton(
+                  child:
+                      Text(MaterialLocalizations.of(context).cancelButtonLabel),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
+                TextButton(
+                  child: Text(MaterialLocalizations.of(context).okButtonLabel),
+                  onPressed: () {
+                    if (_foodNewServingSizeFormKey.currentState!.validate()) {
+                      _putServingSize(
+                        _foodNewServingSizeKeyController.text,
+                        double.parse(_foodNewServingSizeValueController.text),
+                      );
+                      _foodNewServingSizeKeyController.clear();
+                      _foodNewServingSizeValueController.clear();
+                      Navigator.of(context).pop();
+                    }
+                  },
+                ),
+              ],
+            );
+          },
+        );
+      },
+    );
+  }
+
+  /// Adds a new serving size or edits an existing one.
+  _putServingSize(
+    String keyName,
+    double servingSizeValue,
+  ) {
+    setState(() {
+      _foodServingSizes[keyName] = servingSizeValue;
+    });
+  }
+
+  /// Removes the serving size with the given [key].
+  _removeServingSize(String key) {
+    setState(() {
+      _foodServingSizes.removeWhere((keyName, value) => keyName == key);
+    });
   }
 
   void _addOrEditFood(Food? food, AddEditCustomFoodModalMode mode) {
@@ -240,6 +424,8 @@ class AddEditCustomFoodModalState extends State<AddEditCustomFoodModal> {
     foodToEditOrCreate.title = _foodTitleController.text;
     foodToEditOrCreate.ean = _foodEanController.text;
     foodToEditOrCreate.origin = FoodPage.originName;
+    foodToEditOrCreate.servingSizes =
+        _foodServingSizes.isNotEmpty ? _foodServingSizes : null;
     foodToEditOrCreate.calories = _foodCaloriesController.text != ''
         ? double.parse(_foodCaloriesController.text)
         : null;
@@ -431,10 +617,11 @@ class AddEditCustomFoodModalState extends State<AddEditCustomFoodModal> {
 
   @override
   Widget build(BuildContext context) {
-    final args = ModalRoute.of(context)!.settings.arguments
-        as AddEditCustomFoodModalArguments;
-    final modalMode = args.mode;
-    final food = args.food;
+    final args = ModalRoute.of(context)?.settings.arguments
+        as AddEditCustomFoodModalArguments?;
+    // If no modalMode is passed, the mode is: Add new
+    final modalMode = args?.mode ?? AddEditCustomFoodModalMode.addNew;
+    final food = args?.food;
 
     return Scaffold(
       appBar: AppBar(
@@ -503,8 +690,44 @@ class AddEditCustomFoodModalState extends State<AddEditCustomFoodModal> {
                   ),
                 ],
               ),
-
+              const SizedBox(height: 20),
+              // Serving sizes section
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    AppLocalizations.of(context)!.servingSizes,
+                    style: Theme.of(context).textTheme.titleLarge,
+                  ),
+                  FilledButton.tonalIcon(
+                    onPressed: () => _showAddServingSizeDialog(context),
+                    icon: const Icon(Icons.add),
+                    label: Text(AppLocalizations.of(context)!.add),
+                  ),
+                ],
+              ),
               const SizedBox(height: 10),
+              if (_foodServingSizes.isNotEmpty)
+                SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                    spacing: 6.0,
+                    children: [
+                      for (final f in _foodServingSizes.entries)
+                        Chip(
+                          label: Text(
+                            '${Food.getLocalizedServingSizeName(context, f.key)} (${f.value.toStringAsFixed(0)} g)',
+                          ),
+                          onDeleted: () => _removeServingSize(f.key),
+                        ),
+                    ],
+                  ),
+                )
+              else
+                Text(
+                  AppLocalizations.of(context)!.noServingSizesText,
+                ),
+              const SizedBox(height: 20),
               // Start Micronutrients Expansion Panel
               ExpansionPanelList(
                 expansionCallback: (panelIndex, isExpanded) {

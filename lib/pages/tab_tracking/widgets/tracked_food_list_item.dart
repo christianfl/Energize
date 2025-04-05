@@ -45,7 +45,7 @@ class TrackedFoodListItem extends StatelessWidget {
                     Row(
                       children: [
                         Text(
-                          '${trackedFood.amount.toStringAsFixed(0)} g',
+                          '${trackedFood.calculatedAmount.toStringAsFixed(0)} g',
                           style: const TextStyle(
                             fontWeight: FontWeight.w300,
                             fontSize: 10,
@@ -69,7 +69,7 @@ class TrackedFoodListItem extends StatelessWidget {
                 ),
                 padding: const EdgeInsets.all(4),
                 child: Text(
-                  '${trackedFood.caloriesPerAmount.toStringAsFixed(0)} kcal',
+                  '${trackedFood.caloriesPerTrackedAmount.toStringAsFixed(0)} kcal',
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 14,

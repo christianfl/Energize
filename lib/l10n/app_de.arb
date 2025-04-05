@@ -497,6 +497,31 @@
   "alcohol": "Alkohol",
   "@alcohol": {},
   "salt": "Salz",
+  "servingSizes": "Portionsgrößen",
+  "@servingSizes": {},
+  "add": "Hinzufügen",
+  "@add": {},
+  "noServingSizesText": "Es sind keine Portionsgrößen vorhanden.",
+  "@noServingSizesText": {},
+  "addServingSize": "Portionsgröße hinzufügen",
+  "@addServingSize": {},
+  "typicalServingSizes": "Typische Portionsgrößen",
+  "@typicalServingSizes": {},
+  "or": "oder",
+  "@or": {},
+  "servingSizeName": "Name der Portionsgröße",
+  "@servingSizeName": {},
+  "size": "Größe",
+  "@size": {},
+  "translatableServingSizeNames": "{name, select, l10nServing{Por.} l10nPackage{Pck.} other{}}",
+  "@translatableServingSizeNames": {
+    "description": "Translatable (system-defined) serving size names",
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "@_TEST_DATA": {
   },
   "testCustomFood1Name": "Käsespätzle",

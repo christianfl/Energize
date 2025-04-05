@@ -20,8 +20,13 @@ BackupData _$BackupDataFromJson(Map<String, dynamic> json) => BackupData(
 
 Map<String, dynamic> _$BackupDataToJson(BackupData instance) =>
     <String, dynamic>{
-      'customFood': instance.customFood?.map((e) => e.toJson()).toList(),
-      'trackedFood': instance.trackedFood?.map((e) => e.toJson()).toList(),
-      'completedDays':
-          instance.completedDays?.map((e) => e.toIso8601String()).toList(),
+      if (instance.customFood?.map((e) => e.toJson()).toList()
+          case final value?)
+        'customFood': value,
+      if (instance.trackedFood?.map((e) => e.toJson()).toList()
+          case final value?)
+        'trackedFood': value,
+      if (instance.completedDays?.map((e) => e.toIso8601String()).toList()
+          case final value?)
+        'completedDays': value,
     };

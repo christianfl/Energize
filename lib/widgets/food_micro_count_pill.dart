@@ -5,14 +5,20 @@ import '../theme/energize_theme.dart';
 
 class FoodMicroCountPill extends StatelessWidget {
   final int count;
-  final double height;
+  final double? height;
   final bool showText;
+  final bool hideBorder;
+  final double? fontSize;
+  final double? iconSize;
 
   const FoodMicroCountPill(
     this.count, {
     super.key,
-    required this.height,
+    this.height,
     required this.showText,
+    this.hideBorder = false,
+    this.fontSize,
+    this.iconSize,
   });
 
   String _getPillText(BuildContext context) {
@@ -26,25 +32,28 @@ class FoodMicroCountPill extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: height,
-      decoration: BoxDecoration(
-        border: Border.all(
-          color: Theme.of(context).extraHighlightColor,
-          width: 2,
-        ),
-        borderRadius: BorderRadius.circular(20),
-      ),
+      decoration: !hideBorder
+          ? BoxDecoration(
+              border: Border.all(
+                color: Theme.of(context).extraHighlightColor,
+                width: 2,
+              ),
+              borderRadius: BorderRadius.circular(20),
+            )
+          : null,
       padding: const EdgeInsets.all(4),
       child: Row(
         children: [
           Icon(
             Icons.biotech,
             color: Theme.of(context).extraHighlightColor,
+            size: iconSize,
           ),
           Text(
             _getPillText(context),
             style: TextStyle(
               fontWeight: FontWeight.bold,
-              fontSize: 14,
+              fontSize: fontSize,
               color: Theme.of(context).extraHighlightColor,
             ),
           ),

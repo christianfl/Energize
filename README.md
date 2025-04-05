@@ -61,21 +61,27 @@ This app is built with Flutter. You can get the current used SDK version under [
 4. Run build runner to generate types: `dart run build_runner build --delete-conflicting-outputs`
 5. Build and install: `flutter run`
 
-## Test / Automated screenshots
+## Test
 
-The integration tests automatically create different screenshots using all supported locales with dark and light theme.
+### Unit and Widget tests
 
-Run integration tests:
+Run those with:
 
+```bash
+flutter test
 ```
+
+### Integration tests
+
+Currently there are only integration tests for automated screenshot creation. The integration tests automatically create different screenshots using all supported locales with dark and light theme.
+
+Run those with:
+
+```bash
 flutter drive --driver=test_driver/integration_test.dart --target=integration_test/app_test.dart
 ```
 
-This saves the screenshots to:
-
-```
-fastlane/metadata/android/<locale>/images/phoneScreenshots/<number>_<theme>.png
-```
+This saves the screenshots to: `fastlane/metadata/android/<locale>/images/phoneScreenshots/<number>_<theme>.png`
 
 ## Contribute
 
@@ -94,13 +100,21 @@ You are very welcome to:
   - feature requests
 
   Please have a look whether similar issues already exist in advance.
+
 - Develop something
-    - There is no written roadmap yet
-      - [milestones](https://codeberg.org/epinez/Energize/milestones) are an indicator
-      - Open issues could also be used as a reference
-    - There are no code style guidelines in place, hopefully the [linter rules](https://codeberg.org/epinez/Energize/src/branch/main/analysis_options.yaml) can assist
-    - Using [Conventional Commits](https://www.conventionalcommits.org) for PRs would be wonderful
-    - it's easier to reach out in advance if you want something to be merged later 😊
+  - There is no written roadmap yet
+    - [milestones](https://codeberg.org/epinez/Energize/milestones) are an indicator
+    - Open issues could also be used as a reference
+  - There are no code style guidelines in place, hopefully the [linter rules](https://codeberg.org/epinez/Energize/src/branch/main/analysis_options.yaml) can assist
+  - Using [Conventional Commits](https://www.conventionalcommits.org) for PRs would be wonderful
+  - it's easier to reach out in advance if you want something to be merged later 😊
+
+- Write tests
+  - [Unit Tests](./test/unit_tests/)
+  - [Widget Tests](./test/widget_tests/)
+  - [Integration Tests](./integration_test/)
+
+  Writing tests is a very important task to ensure we all get a (mostly) bug-free experience!
 
 - Create art: It's both beautiful and motivational
 

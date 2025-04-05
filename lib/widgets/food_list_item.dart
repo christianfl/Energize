@@ -27,6 +27,45 @@ class FoodListItem extends StatelessWidget {
     this.hideOrigin,
   });
 
+  /// Returns the String shown in the TextButton for quickly adding Food.
+  ///
+  /// In case the amount is very small, fractions are used which saves space.
+  /// The fractions use approximate ranges.
+  ///
+  /// Returns e.g. "½ Por." or "300 g".
+  String _getQuickAddFoodAmountString(BuildContext context) {
+    final double amount = getQuickAddFoodAmountCallback!(food).amount;
+    String amountString = amount.toStringAsFixed(0);
+
+    if (amount == 0) {
+      amountString = '0';
+    } else if (amount <= 0.15) {
+      amountString = '⅒';
+    } else if (amount <= 0.23) {
+      amountString = '⅕';
+    } else if (amount <= 0.29) {
+      amountString = '¼';
+    } else if (amount <= 0.41) {
+      amountString = '⅓';
+    } else if (amount <= 0.58) {
+      amountString = '½';
+    } else if (amount <= 0.70) {
+      amountString = '⅔';
+    } else if (amount <= 0.77) {
+      amountString = '¾';
+    } else if (amount <= 0.9) {
+      amountString = '⅘';
+    }
+
+    final String? selectedServingSize =
+        getQuickAddFoodAmountCallback!(food).selectedServingSize;
+    final String gOrLocalizedServingSize = selectedServingSize != null
+        ? Food.getLocalizedServingSizeName(context, selectedServingSize)
+        : 'g';
+
+    return '$amountString $gOrLocalizedServingSize';
+  }
+
   @override
   Widget build(BuildContext context) {
     final trackedFoodProvider = Provider.of<TrackedFoodProvider>(context);
@@ -56,54 +95,59 @@ class FoodListItem extends StatelessWidget {
         maxLines: 1,
         overflow: TextOverflow.ellipsis,
       ),
-      subtitle: (food.calories != null)
-          ? Text(
-              '${food.calories?.toStringAsFixed(0)} kcal / 100 g',
-              style: const TextStyle(
-                fontWeight: FontWeight.w300,
-                fontSize: 10,
-              ),
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-            )
-          : const Text(''),
+      subtitle: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            '${(food.calories ?? 0).toStringAsFixed(0)} kcal / 100 g',
+            style: const TextStyle(
+              fontSize: 11,
+            ),
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+          ),
+          FoodMicroCountPill(
+            food.nutrientCount,
+            showText: false,
+            hideBorder: hideOrigin == null || hideOrigin == false,
+            fontSize: hideOrigin == null || hideOrigin == false ? 12 : 14,
+            iconSize: hideOrigin == null || hideOrigin == false ? 16 : null,
+          ),
+        ],
+      ),
       trailing: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          FoodMicroCountPill(
-            food.nutrientCount,
-            height: pillHeight,
-            showText: false,
-          ),
-          const SizedBox(width: 8),
-          hideOrigin == null || hideOrigin == false
-              ? FoodOriginLogoPill(
-                  food.origin,
-                  width: 50,
-                  height: pillHeight,
-                )
-              : Container(),
-          quickAddFoodCallback != null
-              ? GestureDetector(
-                  onTap: () => quickAddFoodCallback!(food, trackedFoodProvider),
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: 8.0, right: 8.0),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        const Icon(Icons.add),
-                        Text(
-                          '${((getQuickAddFoodAmountCallback!(food) as double).toStringAsFixed(0))} g',
-                          style: const TextStyle(
-                            fontWeight: FontWeight.w300,
-                            fontSize: 8,
-                          ),
-                        ),
-                      ],
-                    ),
+          if (hideOrigin == null || hideOrigin == false)
+            FoodOriginLogoPill(
+              food.origin,
+              width: 50,
+              height: pillHeight,
+            ),
+          if (quickAddFoodCallback != null)
+            Padding(
+              padding: const EdgeInsets.only(left: 4.0, right: 4.0),
+              child: TextButton(
+                onPressed: () =>
+                    quickAddFoodCallback!(food, trackedFoodProvider),
+                style: const ButtonStyle(
+                  padding: WidgetStatePropertyAll(
+                    EdgeInsets.only(left: 2.0, right: 6.0),
                   ),
-                )
-              : Container(),
+                ),
+                child: Row(
+                  children: [
+                    const Icon(Icons.add),
+                    Text(
+                      _getQuickAddFoodAmountString(context),
+                      style: const TextStyle(
+                        fontSize: 12,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
         ],
       ),
     );

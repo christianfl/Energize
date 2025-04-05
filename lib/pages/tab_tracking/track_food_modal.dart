@@ -49,6 +49,7 @@ class TrackFoodState extends State<TrackFood>
     with SingleTickerProviderStateMixin {
   final _amountCtrl = TextEditingController();
   final double _pillHeight = 35;
+  String? _selectedServingSize;
 
   late TabController _tabController;
 
@@ -71,6 +72,34 @@ class TrackFoodState extends State<TrackFood>
     final args = ModalRoute.of(context)!.settings.arguments as ModalArguments;
     final food = args.food;
 
+    if (_foodTrackDate == null) {
+      // _foodTrackDate is initialized only once, so this can be used
+      // to also initialize the _selectedServingSize so that is does not
+      // change during every new build
+
+      if (food is FoodTracked) {
+        if (food.selectedServingSize != null) {
+          _selectedServingSize = food.selectedServingSize;
+        }
+
+        // Initialize _amountCtrl.text with food.amount value
+        _amountCtrl.text = _doubleToCleanString(food.amount);
+      } else {
+        if (_selectedServingSize == null &&
+            food.servingSizes?.isNotEmpty == true) {
+          // Serving has the highest priority, default to that.
+          // If that is not present, use the first key
+          _selectedServingSize = food.servingSizes!.keys.firstWhere(
+            (keyName) => keyName == 'l10nServing',
+            orElse: () => food.servingSizes!.keys.first,
+          );
+
+          // Set amount to 1 as this should be the desired behavior for serving sizes
+          _amountCtrl.text = '1';
+        }
+      }
+    }
+
     if (args.mode == ModalMode.edit) {
       // Editing previous tracked food
 
@@ -83,9 +112,18 @@ class TrackFoodState extends State<TrackFood>
       // Fallback, should not be reached
       _foodTrackDate ??= DateTime.now();
     }
+
     super.didChangeDependencies();
   }
 
+  /// Returns a String from a double without fractional ".0".
+  String _doubleToCleanString(double double) {
+    return (double % 1 == 0) ? double.toInt().toString() : double.toString();
+  }
+
+  /// Returns [_amountCtrl] text parsed as double.
+  ///
+  /// Supports substraction calculations.
   double _getParsedAmount(Food food) {
     final String amount = _amountCtrl.text.replaceAll(',', '.');
 
@@ -107,13 +145,19 @@ class TrackFoodState extends State<TrackFood>
         }
       }
 
+      // Ensure no negative values are allowed
+      returnValue = returnValue > 0 ? returnValue : 0;
+
       return returnValue;
     } else {
       final parsedAmount = double.tryParse(amount);
-      return parsedAmount ?? 0.0;
+      return parsedAmount ?? 0;
     }
   }
 
+  /// Persists the new Food or the changes on the existing Food.
+  ///
+  /// Also closes the current page.
   void _addOrEditFood(
     ModalArguments args,
     TrackedFoodProvider trackedFoodProvider,
@@ -135,29 +179,70 @@ class TrackFoodState extends State<TrackFood>
         amount,
         _foodTrackDate!,
         dateAdded,
+        selectedServingSize: _selectedServingSize,
       );
 
       trackedFoodProvider.addEatenFood(foodToAdd);
     } else if (args.mode == ModalMode.edit) {
       // We are in edit mode, so we can safely assume args.food is a FoodTracked
+
       trackedFoodProvider.editEatenFood(
-        food: args.food as FoodTracked,
+        food: (args.food as FoodTracked),
         amount: amount,
         dateEaten: _foodTrackDate,
+        selectedServingSize: _selectedServingSize,
       );
     }
     // Pop page and tell that the previous page should stay open
     Navigator.pop(context, true);
   }
 
+  /// Returns the suggested amount for the Food to track.
+  ///
+  /// Used e.g. if the amount input is empty.
+  ///
+  /// For previously tracked Food:
+  /// - if selected serving size matches with tracked food: previous amount
+  /// - if a new serving size was selected: 1 (serving)
+  ///
+  /// For new Food:
+  /// - if serving size selected: 1 (serving)
+  /// - if no serving size selected: 100 (g)
   double _getAmount(Food food) {
     if (food is FoodTracked) {
-      return food.amount;
+      if (_selectedServingSize == null) {
+        // g is now selected
+
+        if (food.selectedServingSize != null) {
+          // Food was previously tracked with a serving size
+          return 100; // (g)
+        } else {
+          // Food was previously tracked with g
+          // Use the same amount (in g as previously tracked
+          return food.amount;
+        }
+      } else {
+        // A serving size was selected
+
+        if (_selectedServingSize == food.selectedServingSize) {
+          // Use the same amount as previously tracked for serving sizes
+          // only if the selected serving size matches with the tracked one
+          return food.amount;
+        } else {
+          // A new serving size was selected. Return default amount: 1 (serving)
+          return 1;
+        }
+      }
     }
-    // TODO: Issue #1: After serving sizes have been implemented, default to serving size
-    return 100.0;
+
+    // Food was not tracked previously
+    // Default to: 1 serving or 100 g
+    return _selectedServingSize != null ? 1 : 100;
   }
 
+  /// Returns a temporary [FoodTracked] which is just used to be passed to the chart.
+  ///
+  /// This ensures the chart shows values for the current Food amount.
   FoodTracked _getConvertedFoodForChart(Food food) {
     double amount;
 
@@ -174,6 +259,7 @@ class TrackFoodState extends State<TrackFood>
       amount,
       tempDate,
       tempDate,
+      selectedServingSize: _selectedServingSize,
     );
   }
 
@@ -323,27 +409,101 @@ class TrackFoodState extends State<TrackFood>
     }
   }
 
-  TextField _getAmountInput({
+  /// Manipulates the amount TextField when the serving size is changed.
+  void _onServingSizeChanged(
+    String? newKey,
+    Map<String, double>? servingSizes,
+  ) {
+    if (!((newKey == _selectedServingSize) ||
+        (_selectedServingSize == null && newKey == 'g'))) {
+      // Only for changes of the current value
+      setState(() {
+        if (newKey == 'g') {
+          _selectedServingSize = null;
+          _amountCtrl.text = '100'; // Reset input for g
+        } else if (servingSizes?.containsKey(newKey) == true) {
+          _selectedServingSize = newKey;
+          _amountCtrl.text = '1'; // Default to 1 serving
+        }
+      });
+    }
+  }
+
+  /// Returns the amount TextField and serving size Dropdown.
+  Widget _getAmountInput({
     VoidCallback? onEditingComplete,
     required Food food,
   }) {
+    final servingSizes = food.servingSizes;
+
+    // Serving sizes
+    final servingSizeKeys = servingSizes?.keys.toList() ?? [];
+
+    // Combine both lists but keep them conceptually separate
+    final dropdownOptions = [
+      'g',
+      ...servingSizeKeys,
+    ];
+
+    return Row(
+      children: [
+        Expanded(
+          child: _amountTextField(onEditingComplete, food),
+        ),
+        const SizedBox(width: 6.0),
+        Container(
+          constraints: const BoxConstraints(maxWidth: 130, minWidth: 100),
+          child: DropdownMenu<String>(
+            enabled: servingSizeKeys.isNotEmpty,
+            initialSelection: _selectedServingSize ?? 'g',
+            onSelected: (newKey) => _onServingSizeChanged(newKey, servingSizes),
+            inputDecorationTheme: const InputDecorationTheme(
+              filled: true,
+              isDense: true,
+              suffixIconConstraints: BoxConstraints(maxWidth: 0),
+            ),
+            trailingIcon: Container(),
+            selectedTrailingIcon: Container(),
+            dropdownMenuEntries: dropdownOptions.map((key) {
+              final amountInGPerServingSize = key == 'g'
+                  ? '' // Don't show "(x g)" for units
+                  : ' (${servingSizes![key]!.toStringAsFixed(0)} g)';
+
+              return DropdownMenuEntry(
+                value: key,
+                label:
+                    '${Food.getLocalizedServingSizeName(context, key)}$amountInGPerServingSize',
+              );
+            }).toList(),
+          ),
+        ),
+      ],
+    );
+  }
+
+  /// TextField which lets the user view and update the food amount.
+  TextField _amountTextField(VoidCallback? onEditingComplete, Food food) {
     return TextField(
       onEditingComplete: onEditingComplete,
       expands: true,
       maxLines: null,
       onChanged: (_) {
-        // Set state to immediately show chart changes
-        setState(() {});
+        setState(() {}); // Update UI when user types
+      },
+      onTap: () {
+        // Select whole input
+        _amountCtrl.selection = TextSelection(
+          baseOffset: 0,
+          extentOffset: _amountCtrl.value.text.length,
+        );
       },
       textAlignVertical: TextAlignVertical.center,
       controller: _amountCtrl,
       focusNode: _amountCtrlFocusNode,
       keyboardType: TextInputType.number,
       decoration: InputDecoration(
-        prefixIcon: const Icon(Icons.edit),
-        hintText: _getAmount(food).toString(),
+        hintText: _doubleToCleanString(_getAmount(food)),
         filled: true,
-        suffixText: 'g',
       ),
     );
   }
@@ -486,7 +646,7 @@ class TrackFoodState extends State<TrackFood>
                     food: food,
                   ),
                 ),
-                const SizedBox(width: _fabPadding),
+                const SizedBox(width: 4.0),
                 TextButton.icon(
                   icon: const Icon(Icons.schedule),
                   onPressed: () => _selectTrackedTime(),

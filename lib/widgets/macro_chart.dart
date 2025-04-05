@@ -22,19 +22,31 @@ class MacroChart extends StatelessWidget {
   });
 
   double get _totalCalories {
-    return foods.fold(0, (sum, f) => sum + _calcAmount(f.calories, f.amount));
+    return foods.fold(
+      0,
+      (sum, f) => sum + _calcAmount(f.calories, f.calculatedAmount),
+    );
   }
 
   double get _totalProtein {
-    return foods.fold(0, (sum, f) => sum + _calcAmount(f.protein, f.amount));
+    return foods.fold(
+      0,
+      (sum, f) => sum + _calcAmount(f.protein, f.calculatedAmount),
+    );
   }
 
   double get _totalCarbs {
-    return foods.fold(0, (sum, f) => sum + _calcAmount(f.carbs, f.amount));
+    return foods.fold(
+      0,
+      (sum, f) => sum + _calcAmount(f.carbs, f.calculatedAmount),
+    );
   }
 
   double get _totalFat {
-    return foods.fold(0, (sum, f) => sum + _calcAmount(f.fat, f.amount));
+    return foods.fold(
+      0,
+      (sum, f) => sum + _calcAmount(f.fat, f.calculatedAmount),
+    );
   }
 
   double _calcAmount(double? property, double foodAmount) {

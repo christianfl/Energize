@@ -19,43 +19,63 @@ class NutritionFactsLabelEU extends StatelessWidget {
   });
 
   double get _totalCalories {
-    return foods.fold(0, (sum, f) => sum + _calcAmount(f.calories, f.amount));
+    return foods.fold(
+      0,
+      (sum, f) => sum + _calcAmount(f.calories, f.calculatedAmount),
+    );
   }
 
   double get _amount {
-    return foods.fold(0, (sum, f) => sum + f.amount);
+    return foods.fold(0, (sum, f) => sum + f.calculatedAmount);
   }
 
   double get _totalFat {
-    return foods.fold(0, (sum, f) => sum + _calcAmount(f.fat, f.amount));
+    return foods.fold(
+      0,
+      (sum, f) => sum + _calcAmount(f.fat, f.calculatedAmount),
+    );
   }
 
   double get _totalSaturatedFat {
     return foods.fold(
       0,
-      (sum, f) => sum + _calcAmount(f.saturatedFat, f.amount),
+      (sum, f) => sum + _calcAmount(f.saturatedFat, f.calculatedAmount),
     );
   }
 
   double get _totalCarbs {
-    return foods.fold(0, (sum, f) => sum + _calcAmount(f.carbs, f.amount));
+    return foods.fold(
+      0,
+      (sum, f) => sum + _calcAmount(f.carbs, f.calculatedAmount),
+    );
   }
 
   double get _totalSugar {
-    return foods.fold(0, (sum, f) => sum + _calcAmount(f.sugar, f.amount));
+    return foods.fold(
+      0,
+      (sum, f) => sum + _calcAmount(f.sugar, f.calculatedAmount),
+    );
   }
 
   double get _totalFiber {
-    return foods.fold(0, (sum, f) => sum + _calcAmount(f.fiber, f.amount));
+    return foods.fold(
+      0,
+      (sum, f) => sum + _calcAmount(f.fiber, f.calculatedAmount),
+    );
   }
 
   double get _totalProtein {
-    return foods.fold(0, (sum, f) => sum + _calcAmount(f.protein, f.amount));
+    return foods.fold(
+      0,
+      (sum, f) => sum + _calcAmount(f.protein, f.calculatedAmount),
+    );
   }
 
   double get _totalSalt {
-    final double sodium =
-        foods.fold(0, (sum, f) => sum + _calcAmount(f.sodium, f.amount));
+    final double sodium = foods.fold(
+      0,
+      (sum, f) => sum + _calcAmount(f.sodium, f.calculatedAmount),
+    );
 
     if (sodium == 0) {
       return 0;

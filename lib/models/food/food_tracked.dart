@@ -5,16 +5,18 @@ import 'food.dart';
 
 part 'food_tracked.g.dart';
 
-@JsonSerializable(
-  includeIfNull: false,
-)
+@JsonSerializable()
 class FoodTracked extends Food {
   @override
   // ignore: overridden_fields
   final String id;
 
-  /// In g ()
+  /// Either:
+  ///
+  /// - Amount of servings per [selectedServingSize].
+  /// - Or amount in g if [selectedServingSize] is null.
   double amount;
+
   @JsonKey(
     fromJson: _millisecondsSinceEpochToDate,
     toJson: _dateToMillisecondsSinceEpoch,
@@ -26,18 +28,47 @@ class FoodTracked extends Food {
   )
   DateTime dateEaten;
 
-  /// Refers to index of servingSizes Map, if serving size was selected
-  @JsonKey(
-    includeFromJson: false,
-    includeToJson: false,
-  )
-  int? selectedServingSizeIndex;
+  /// If set, this is the serving size the user chose when tracking the food.
+  ///
+  /// `amount * servingSizes[selectedServingSize]` = calories per tracked food.
+  ///
+  /// If set, a key with the same name must exist in [servingSizes].
+  @JsonKey(name: 'selectedServingSize')
+  String? _selectedServingSize;
+
+  /// Get _selectedServingSize with custom validation.
+  String? get selectedServingSize {
+    if (servingSizes != null) {
+      if (_selectedServingSize != null) {
+        if (servingSizes!.containsKey(_selectedServingSize)) {
+          return _selectedServingSize;
+        }
+      }
+    }
+    return null;
+  }
+
+  /// Set [_selectedServingSize] with custom validation.
+  set selectedServingSize(String? value) {
+    if (value != null) {
+      if (servingSizes == null ||
+          !servingSizes!.containsKey(value) ||
+          value.isEmpty) {
+        throw ArgumentError(
+          'selectedServingSize "$value" is not a valid key in servingSizes.',
+        );
+      }
+    }
+
+    _selectedServingSize = value;
+  }
 
   FoodTracked({
     required this.id,
     required this.amount,
     required this.dateAdded,
     required this.dateEaten,
+    String? selectedServingSize,
     required super.title,
     required super.origin,
     super.ean,
@@ -90,17 +121,21 @@ class FoodTracked extends Food {
     super.water,
     super.caffeine,
     super.alcohol,
-  }) : super(
-          id: id,
-        );
+  }) : super(id: id) {
+    {
+      // Call here to ensure the setter with custom logic is used
+      _selectedServingSize = selectedServingSize;
+    }
+  }
 
   FoodTracked.fromFood(
     Food food,
     this.id,
     this.amount,
     this.dateEaten,
-    this.dateAdded,
-  ) : super(
+    this.dateAdded, {
+    String? selectedServingSize,
+  }) : super(
           id: id,
           title: food.title,
           origin: food.origin,
@@ -154,7 +189,10 @@ class FoodTracked extends Food {
           water: food.water,
           caffeine: food.caffeine,
           alcohol: food.alcohol,
-        );
+        ) {
+    // Call here to ensure the setter with custom logic is used
+    _selectedServingSize = selectedServingSize;
+  }
 
   // UUID creation as a static method so that sqflite db can create
   // foodTracked items from parsed Maps and set UUIDs, could also be
@@ -163,40 +201,46 @@ class FoodTracked extends Food {
     return const Uuid().v4();
   }
 
-  /// When no servingSize has been selected (index), it just returns the amount
-  /// value (g), otherwise it calculates the amount with help of
-  /// food.servingSizes, food.selectedServingSizeIndex and food.amount
+  /// Returns the amount of the tracked food in g.
+  ///
+  /// This is either just [amount] or [amount] * g per [selectedServingSize].
   double get calculatedAmount {
-    if (selectedServingSizeIndex == null) {
-      return amount;
-    } else {
-      return servingSizes!.values.elementAt(selectedServingSizeIndex!) * amount;
+    if (selectedServingSize != null && servingSizes != null) {
+      return servingSizes![selectedServingSize!]! * amount;
     }
+
+    return amount;
   }
 
   /// Returns the total protein of the tracked food in g
-  double get proteinPerAmount {
-    return (protein ?? 0) / 100 * amount;
+  double get proteinPerTrackedAmount {
+    return (protein ?? 0) / 100 * calculatedAmount;
   }
 
   /// Returns the total carbs of the tracked food in g
-  double get carbsPerAmount {
-    return (carbs ?? 0) / 100 * amount;
+  double get carbsPerTrackedAmount {
+    return (carbs ?? 0) / 100 * calculatedAmount;
   }
 
   /// Returns the total fat of the tracked food in g
-  double get fatPerAmount {
-    return (fat ?? 0) / 100 * amount;
+  double get fatPerTrackedAmount {
+    return (fat ?? 0) / 100 * calculatedAmount;
   }
 
   /// Returns the total calories of the tracked food in kcal
-  double get caloriesPerAmount {
-    return (calories ?? 0) / 100 * amount;
+  double get caloriesPerTrackedAmount {
+    return (calories ?? 0) / 100 * calculatedAmount;
   }
 
   /// Connect the generated fromJson function to the `fromJson` factory.
-  factory FoodTracked.fromJson(Map<String, dynamic> json) =>
-      _$FoodTrackedFromJson(json);
+  factory FoodTracked.fromJson(Map<String, dynamic> json) {
+    final foodTracked = _$FoodTrackedFromJson(json);
+
+    // Ensure validation by using the setter
+    foodTracked.selectedServingSize = foodTracked.selectedServingSize;
+
+    return foodTracked;
+  }
 
   /// Connect the generated toJson function to the `toJson` method.
   @override

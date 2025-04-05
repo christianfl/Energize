@@ -50,6 +50,7 @@ class TrackedFoodProvider with ChangeNotifier {
     required FoodTracked food,
     double? amount,
     DateTime? dateEaten,
+    required String? selectedServingSize,
   }) {
     final index = foods.indexWhere((element) => element.id == food.id);
 
@@ -59,6 +60,8 @@ class TrackedFoodProvider with ChangeNotifier {
     if (dateEaten != null) {
       _foods[index].dateEaten = dateEaten;
     }
+
+    _foods[index].selectedServingSize = selectedServingSize;
 
     notifyListeners();
 

@@ -20,186 +20,297 @@ class MicroChart extends StatelessWidget {
   });
 
   double _totalVitaminA(List<FoodTracked> foods) {
-    return foods.fold(0, (sum, f) => sum + _calcAmount(f.vitaminA, f.amount));
+    return foods.fold(
+      0,
+      (sum, f) => sum + _calcAmount(f.vitaminA, f.calculatedAmount),
+    );
   }
 
   double _totalVitaminB1(List<FoodTracked> foods) {
-    return foods.fold(0, (sum, f) => sum + _calcAmount(f.vitaminB1, f.amount));
+    return foods.fold(
+      0,
+      (sum, f) => sum + _calcAmount(f.vitaminB1, f.calculatedAmount),
+    );
   }
 
   double _totalVitaminB2(List<FoodTracked> foods) {
-    return foods.fold(0, (sum, f) => sum + _calcAmount(f.vitaminB2, f.amount));
+    return foods.fold(
+      0,
+      (sum, f) => sum + _calcAmount(f.vitaminB2, f.calculatedAmount),
+    );
   }
 
   double _totalVitaminB3(List<FoodTracked> foods) {
-    return foods.fold(0, (sum, f) => sum + _calcAmount(f.vitaminB3, f.amount));
+    return foods.fold(
+      0,
+      (sum, f) => sum + _calcAmount(f.vitaminB3, f.calculatedAmount),
+    );
   }
 
   double _totalVitaminB5(List<FoodTracked> foods) {
-    return foods.fold(0, (sum, f) => sum + _calcAmount(f.vitaminB5, f.amount));
+    return foods.fold(
+      0,
+      (sum, f) => sum + _calcAmount(f.vitaminB5, f.calculatedAmount),
+    );
   }
 
   double _totalVitaminB6(List<FoodTracked> foods) {
-    return foods.fold(0, (sum, f) => sum + _calcAmount(f.vitaminB6, f.amount));
+    return foods.fold(
+      0,
+      (sum, f) => sum + _calcAmount(f.vitaminB6, f.calculatedAmount),
+    );
   }
 
   double _totalVitaminB7(List<FoodTracked> foods) {
-    return foods.fold(0, (sum, f) => sum + _calcAmount(f.vitaminB7, f.amount));
+    return foods.fold(
+      0,
+      (sum, f) => sum + _calcAmount(f.vitaminB7, f.calculatedAmount),
+    );
   }
 
   double _totalVitaminB9(List<FoodTracked> foods) {
-    return foods.fold(0, (sum, f) => sum + _calcAmount(f.vitaminB9, f.amount));
+    return foods.fold(
+      0,
+      (sum, f) => sum + _calcAmount(f.vitaminB9, f.calculatedAmount),
+    );
   }
 
   double _totalVitaminB12(List<FoodTracked> foods) {
-    return foods.fold(0, (sum, f) => sum + _calcAmount(f.vitaminB12, f.amount));
+    return foods.fold(
+      0,
+      (sum, f) => sum + _calcAmount(f.vitaminB12, f.calculatedAmount),
+    );
   }
 
   double _totalVitaminC(List<FoodTracked> foods) {
-    return foods.fold(0, (sum, f) => sum + _calcAmount(f.vitaminC, f.amount));
+    return foods.fold(
+      0,
+      (sum, f) => sum + _calcAmount(f.vitaminC, f.calculatedAmount),
+    );
   }
 
   double _totalVitaminD(List<FoodTracked> foods) {
-    return foods.fold(0, (sum, f) => sum + _calcAmount(f.vitaminD, f.amount));
+    return foods.fold(
+      0,
+      (sum, f) => sum + _calcAmount(f.vitaminD, f.calculatedAmount),
+    );
   }
 
   double _totalVitaminE(List<FoodTracked> foods) {
-    return foods.fold(0, (sum, f) => sum + _calcAmount(f.vitaminE, f.amount));
+    return foods.fold(
+      0,
+      (sum, f) => sum + _calcAmount(f.vitaminE, f.calculatedAmount),
+    );
   }
 
   double _totalVitaminK(List<FoodTracked> foods) {
-    return foods.fold(0, (sum, f) => sum + _calcAmount(f.vitaminK, f.amount));
+    return foods.fold(
+      0,
+      (sum, f) => sum + _calcAmount(f.vitaminK, f.calculatedAmount),
+    );
   }
 
   double _totalCalcium(List<FoodTracked> foods) {
-    return foods.fold(0, (sum, f) => sum + _calcAmount(f.calcium, f.amount));
+    return foods.fold(
+      0,
+      (sum, f) => sum + _calcAmount(f.calcium, f.calculatedAmount),
+    );
   }
 
   double _totalChloride(List<FoodTracked> foods) {
-    return foods.fold(0, (sum, f) => sum + _calcAmount(f.chloride, f.amount));
+    return foods.fold(
+      0,
+      (sum, f) => sum + _calcAmount(f.chloride, f.calculatedAmount),
+    );
   }
 
   double _totalMagnesium(List<FoodTracked> foods) {
-    return foods.fold(0, (sum, f) => sum + _calcAmount(f.magnesium, f.amount));
+    return foods.fold(
+      0,
+      (sum, f) => sum + _calcAmount(f.magnesium, f.calculatedAmount),
+    );
   }
 
   double _totalPhosphorus(List<FoodTracked> foods) {
-    return foods.fold(0, (sum, f) => sum + _calcAmount(f.phosphorus, f.amount));
+    return foods.fold(
+      0,
+      (sum, f) => sum + _calcAmount(f.phosphorus, f.calculatedAmount),
+    );
   }
 
   double _totalPotassium(List<FoodTracked> foods) {
-    return foods.fold(0, (sum, f) => sum + _calcAmount(f.potassium, f.amount));
+    return foods.fold(
+      0,
+      (sum, f) => sum + _calcAmount(f.potassium, f.calculatedAmount),
+    );
   }
 
   double _totalSodium(List<FoodTracked> foods) {
-    return foods.fold(0, (sum, f) => sum + _calcAmount(f.sodium, f.amount));
+    return foods.fold(
+      0,
+      (sum, f) => sum + _calcAmount(f.sodium, f.calculatedAmount),
+    );
   }
 
   double _totalChromium(List<FoodTracked> foods) {
-    return foods.fold(0, (sum, f) => sum + _calcAmount(f.chromium, f.amount));
+    return foods.fold(
+      0,
+      (sum, f) => sum + _calcAmount(f.chromium, f.calculatedAmount),
+    );
   }
 
   double _totalIron(List<FoodTracked> foods) {
-    return foods.fold(0, (sum, f) => sum + _calcAmount(f.iron, f.amount));
+    return foods.fold(
+      0,
+      (sum, f) => sum + _calcAmount(f.iron, f.calculatedAmount),
+    );
   }
 
   double _totalFluorine(List<FoodTracked> foods) {
-    return foods.fold(0, (sum, f) => sum + _calcAmount(f.fluorine, f.amount));
+    return foods.fold(
+      0,
+      (sum, f) => sum + _calcAmount(f.fluorine, f.calculatedAmount),
+    );
   }
 
   double _totalIodine(List<FoodTracked> foods) {
-    return foods.fold(0, (sum, f) => sum + _calcAmount(f.iodine, f.amount));
+    return foods.fold(
+      0,
+      (sum, f) => sum + _calcAmount(f.iodine, f.calculatedAmount),
+    );
   }
 
   double _totalCopper(List<FoodTracked> foods) {
-    return foods.fold(0, (sum, f) => sum + _calcAmount(f.copper, f.amount));
+    return foods.fold(
+      0,
+      (sum, f) => sum + _calcAmount(f.copper, f.calculatedAmount),
+    );
   }
 
   double _totalManganese(List<FoodTracked> foods) {
-    return foods.fold(0, (sum, f) => sum + _calcAmount(f.manganese, f.amount));
+    return foods.fold(
+      0,
+      (sum, f) => sum + _calcAmount(f.manganese, f.calculatedAmount),
+    );
   }
 
   double _totalMolybdenum(List<FoodTracked> foods) {
-    return foods.fold(0, (sum, f) => sum + _calcAmount(f.molybdenum, f.amount));
+    return foods.fold(
+      0,
+      (sum, f) => sum + _calcAmount(f.molybdenum, f.calculatedAmount),
+    );
   }
 
   double _totalSelenium(List<FoodTracked> foods) {
-    return foods.fold(0, (sum, f) => sum + _calcAmount(f.selenium, f.amount));
+    return foods.fold(
+      0,
+      (sum, f) => sum + _calcAmount(f.selenium, f.calculatedAmount),
+    );
   }
 
   double _totalZinc(List<FoodTracked> foods) {
-    return foods.fold(0, (sum, f) => sum + _calcAmount(f.zinc, f.amount));
+    return foods.fold(
+      0,
+      (sum, f) => sum + _calcAmount(f.zinc, f.calculatedAmount),
+    );
   }
 
   double _totalMonounsaturatedFat(List<FoodTracked> foods) {
     return foods.fold(
       0,
-      (sum, f) => sum + _calcAmount(f.monounsaturatedFat, f.amount),
+      (sum, f) => sum + _calcAmount(f.monounsaturatedFat, f.calculatedAmount),
     );
   }
 
   double _totalPolyunsaturatedFat(List<FoodTracked> foods) {
     return foods.fold(
       0,
-      (sum, f) => sum + _calcAmount(f.polyunsaturatedFat, f.amount),
+      (sum, f) => sum + _calcAmount(f.polyunsaturatedFat, f.calculatedAmount),
     );
   }
 
   double _totalOmega3(List<FoodTracked> foods) {
-    return foods.fold(0, (sum, f) => sum + _calcAmount(f.omega3, f.amount));
+    return foods.fold(
+      0,
+      (sum, f) => sum + _calcAmount(f.omega3, f.calculatedAmount),
+    );
   }
 
   double _totalOmega6(List<FoodTracked> foods) {
-    return foods.fold(0, (sum, f) => sum + _calcAmount(f.omega6, f.amount));
+    return foods.fold(
+      0,
+      (sum, f) => sum + _calcAmount(f.omega6, f.calculatedAmount),
+    );
   }
 
   double _totalSaturatedFat(List<FoodTracked> foods) {
     return foods.fold(
       0,
-      (sum, f) => sum + _calcAmount(f.saturatedFat, f.amount),
+      (sum, f) => sum + _calcAmount(f.saturatedFat, f.calculatedAmount),
     );
   }
 
   double _totalTransFat(List<FoodTracked> foods) {
-    return foods.fold(0, (sum, f) => sum + _calcAmount(f.transFat, f.amount));
+    return foods.fold(
+      0,
+      (sum, f) => sum + _calcAmount(f.transFat, f.calculatedAmount),
+    );
   }
 
   double _totalCholesterol(List<FoodTracked> foods) {
     return foods.fold(
       0,
-      (sum, f) => sum + _calcAmount(f.cholesterol, f.amount),
+      (sum, f) => sum + _calcAmount(f.cholesterol, f.calculatedAmount),
     );
   }
 
   double _totalFiber(List<FoodTracked> foods) {
-    return foods.fold(0, (sum, f) => sum + _calcAmount(f.fiber, f.amount));
+    return foods.fold(
+      0,
+      (sum, f) => sum + _calcAmount(f.fiber, f.calculatedAmount),
+    );
   }
 
   double _totalSugar(List<FoodTracked> foods) {
-    return foods.fold(0, (sum, f) => sum + _calcAmount(f.sugar, f.amount));
+    return foods.fold(
+      0,
+      (sum, f) => sum + _calcAmount(f.sugar, f.calculatedAmount),
+    );
   }
 
   double _totalSugarAlcohol(List<FoodTracked> foods) {
     return foods.fold(
       0,
-      (sum, f) => sum + _calcAmount(f.sugarAlcohol, f.amount),
+      (sum, f) => sum + _calcAmount(f.sugarAlcohol, f.calculatedAmount),
     );
   }
 
   double _totalStarch(List<FoodTracked> foods) {
-    return foods.fold(0, (sum, f) => sum + _calcAmount(f.starch, f.amount));
+    return foods.fold(
+      0,
+      (sum, f) => sum + _calcAmount(f.starch, f.calculatedAmount),
+    );
   }
 
   double _totalWater(List<FoodTracked> foods) {
-    return foods.fold(0, (sum, f) => sum + _calcAmount(f.water, f.amount));
+    return foods.fold(
+      0,
+      (sum, f) => sum + _calcAmount(f.water, f.calculatedAmount),
+    );
   }
 
   double _totalCaffeine(List<FoodTracked> foods) {
-    return foods.fold(0, (sum, f) => sum + _calcAmount(f.caffeine, f.amount));
+    return foods.fold(
+      0,
+      (sum, f) => sum + _calcAmount(f.caffeine, f.calculatedAmount),
+    );
   }
 
   double _totalAlcohol(List<FoodTracked> foods) {
-    return foods.fold(0, (sum, f) => sum + _calcAmount(f.alcohol, f.amount));
+    return foods.fold(
+      0,
+      (sum, f) => sum + _calcAmount(f.alcohol, f.calculatedAmount),
+    );
   }
 
   double _calcAmount(double? property, double foodAmount) {

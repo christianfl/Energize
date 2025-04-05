@@ -17,14 +17,16 @@ mixin DatabaseService {
   _initDatabase() async {
     return await openDatabase(
       join(await getDatabasesPath(), db),
-      version: 2,
+      version: 3,
       onCreate: _onCreate,
       onUpgrade: _onUpgrade,
     );
   }
 
+  /// Performs database migrations for newer db versions.
   Future _onUpgrade(Database db, int oldVersion, int newVersion) async {
-    if (oldVersion == 1) {
+    if (oldVersion < 2) {
+      // Migration from version 1 -> 2
       await db
           .execute('ALTER TABLE $customFoodstable ADD COLUMN cholesterol REAL');
       await db.execute('ALTER TABLE $customFoodstable ADD COLUMN starch REAL');
@@ -37,8 +39,26 @@ mixin DatabaseService {
       await db
           .execute('ALTER TABLE $trackedFoodsTable ADD COLUMN alcohol REAL');
     }
+
+    if (oldVersion < 3) {
+      // Migration from version 2 -> 3
+
+      // customFoodstable
+      await db.execute(
+        'ALTER TABLE $customFoodstable ADD COLUMN servingSizes TEXT',
+      );
+
+      // trackedFoodsTable
+      await db.execute(
+        'ALTER TABLE $trackedFoodsTable ADD COLUMN servingSizes TEXT',
+      );
+      await db.execute(
+        'ALTER TABLE $trackedFoodsTable ADD COLUMN selectedServingSize TEXT',
+      );
+    }
   }
 
+  /// Performs database creation if no prior db exists.
   Future _onCreate(Database db, int version) async {
     const createCustomFoodstable = '''CREATE TABLE $customFoodstable(
       id TEXT PRIMARY KEY,
@@ -92,7 +112,8 @@ mixin DatabaseService {
       starch REAL,
       water REAL,
       caffeine REAL,
-      alcohol REAL
+      alcohol REAL,
+      servingSizes TEXT
     )''';
     await db.execute(createCustomFoodstable);
 
@@ -151,7 +172,9 @@ mixin DatabaseService {
       starch REAL,
       water REAL,
       caffeine REAL,
-      alcohol REAL
+      alcohol REAL,
+      servingSizes TEXT,
+      selectedServingSize TEXT
     )''';
     await db.execute(createTrackedFoodsTable);
 
