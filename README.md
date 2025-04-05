@@ -15,6 +15,7 @@ Update from 6. January, 2025:
   <a href="https://epinez.codeberg.page/projects/energize/index.html"><img src="https://codeberg.org/epinez/pages/raw/branch/main/try_on_codeberg_pages.png" alt="Try it on Codeberg Pages" height="75"></a>
   <a href="https://f-droid.org/packages/com.flasskamp.energize"><img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png" alt="Get it on F-Droid" height="75"></a>
   <a href="https://play.google.com/store/apps/details?id=com.flasskamp.energize"><img src="./docs/google-play-badge.png" alt="Get it on Google Play" height="75"></a>
+  <a href="http://apps.obtainium.imranr.dev/redirect.html?r=obtainium://add/https://codeberg.org/epinez/Energize"><img src="./docs/badge_obtanium.png" alt="Get it on Obtanium" height="75"></a>
 </p>
 
 - Google Play is currently unavailable. I'm working on resolving the issue.
