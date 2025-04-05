@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 
 import '../../../models/food/food.dart';
@@ -10,8 +11,9 @@ class USDABinding {
 
   static const imageUrl =
       'assets/food_databases/us-department-of-agriculture.png';
-  static const _apiKey = 'gGCnzW8jNmCQc4ava9cGFgpMINNHnGL2q2Fbh51v';
   static const sourceUrl = 'https://fdc.nal.usda.gov/index.html';
+
+  static final _apiKey = dotenv.env['API_KEY_USDA'];
 
   static Future<List<Food>?> searchFood(String searchText) async {
     if (searchText.isEmpty) return null;

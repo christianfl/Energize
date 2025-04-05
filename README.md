@@ -58,9 +58,10 @@ This app is built with Flutter. You can get the current used SDK version under [
 
 1. Download and setup flutter: https://flutter.dev/docs/get-started/install
 2. Clone repository: `git clone https://codeberg.org/epinez/Energize.git && cd Energize`
-3. Install dependencies: `flutter pub get`
-4. Run build runner to generate types: `dart run build_runner build --delete-conflicting-outputs`
-5. Build and install: `flutter run`
+3. Create environment file: `cp .env.example .env` and adapt name, URLs, API-Key
+4. Install dependencies: `flutter pub get`
+5. Run build runner to generate types: `dart run build_runner build --delete-conflicting-outputs`
+6. Build and install: `flutter run`
 
 ## Test
 

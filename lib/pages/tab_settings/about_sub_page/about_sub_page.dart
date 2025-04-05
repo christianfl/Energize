@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:package_info_plus/package_info_plus.dart';
@@ -10,16 +11,15 @@ import '../../../models/contributor.dart';
 class AboutSubPage extends StatefulWidget {
   static const routeName = '/settings/about';
 
-  static const email = 'energize@flasskamp.com';
-
-  static const _repoUrl = 'https://codeberg.org/epinez/Energize';
-  static const _issueUrl = 'https://codeberg.org/epinez/Energize/issues';
-  static const _translationUrl =
-      'https://hosted.weblate.org/projects/energize/energize';
-  static const _copyrightNotice = '© Christian Flaßkamp';
   static const _license = 'AGPLv3';
   static const _privacyPolicyUrl =
       'lib/pages/tab_settings/about_sub_page/assets/PRIVACY.md';
+
+  static final email = dotenv.get('CONTACT_MAIL');
+  static final _repoUrl = dotenv.get('REPO_URL');
+  static final _issueUrl = dotenv.get('ISSUE_URL');
+  static final _translationUrl = dotenv.get('TRANSLATION_URL');
+  static final _copyrightNotice = '© ${dotenv.get('COPYRIGHT_NAME')}';
 
   const AboutSubPage({super.key});
 
@@ -137,7 +137,9 @@ class _AboutSubPageState extends State<AboutSubPage> {
                 child: ListTile(
                   leading: const Icon(Icons.bug_report),
                   title: Text(AppLocalizations.of(context)!.reportIssue),
-                  subtitle: const Text('Codeberg.org'),
+                  subtitle: Text(
+                    '${Uri.tryParse(AboutSubPage._issueUrl)?.host.toCapitalize()}',
+                  ),
                   trailing: const Icon(Icons.link),
                 ),
               ),
@@ -156,7 +158,9 @@ class _AboutSubPageState extends State<AboutSubPage> {
                 child: ListTile(
                   leading: const Icon(Icons.extension),
                   title: Text(AppLocalizations.of(context)!.proposeImprovement),
-                  subtitle: const Text('Codeberg.org'),
+                  subtitle: Text(
+                    '${Uri.tryParse(AboutSubPage._issueUrl)?.host.toCapitalize()}',
+                  ),
                   trailing: const Icon(Icons.link),
                 ),
               ),
@@ -175,7 +179,9 @@ class _AboutSubPageState extends State<AboutSubPage> {
                 child: ListTile(
                   leading: const Icon(Icons.code),
                   title: Text(AppLocalizations.of(context)!.sourceCode),
-                  subtitle: const Text('Codeberg.org'),
+                  subtitle: Text(
+                    '${Uri.tryParse(AboutSubPage._repoUrl)?.host.toCapitalize()}',
+                  ),
                   trailing: const Icon(Icons.link),
                 ),
               ),
@@ -194,7 +200,9 @@ class _AboutSubPageState extends State<AboutSubPage> {
                 child: ListTile(
                   leading: const Icon(Icons.translate),
                   title: Text(AppLocalizations.of(context)!.translation),
-                  subtitle: const Text('Weblate.org'),
+                  subtitle: Text(
+                    '${Uri.tryParse(AboutSubPage._translationUrl)?.host.toCapitalize()}',
+                  ),
                   trailing: const Icon(Icons.link),
                 ),
               ),
@@ -382,4 +390,9 @@ class _AboutSubPageState extends State<AboutSubPage> {
       },
     );
   }
+}
+
+extension StringCasingExtension on String {
+  String toCapitalize() =>
+      isNotEmpty ? '${this[0].toUpperCase()}${substring(1).toLowerCase()}' : '';
 }

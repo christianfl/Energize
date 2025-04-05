@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
@@ -31,6 +32,21 @@ Future main() async {
     sqfliteFfiInit();
     // Change the default factory
     databaseFactory = databaseFactoryFfi;
+  }
+
+  // Make environment variables available
+  await dotenv.load(fileName: '.env');
+  const requiredEnvVars = [
+    'API_KEY_USDA',
+    'COPYRIGHT_NAME',
+    'CONTACT_MAIL',
+    'ISSUE_URL',
+    'REPO_URL',
+    'TRANSLATION_URL',
+  ];
+
+  if (!dotenv.isEveryDefined(requiredEnvVars)) {
+    throw Exception('There are .env variables missing.');
   }
 
   runApp(const MyApp());
