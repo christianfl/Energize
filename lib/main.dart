@@ -9,6 +9,7 @@ import 'package:provider/provider.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 import 'package:sqflite_common_ffi_web/sqflite_ffi_web.dart';
 
+import 'config/env_config.dart';
 import 'pages/tab_food/add_edit_custom_food_modal.dart';
 import 'pages/tab_settings/about_sub_page/about_sub_page.dart';
 import 'pages/tab_settings/backup_and_restore_sub_page.dart';
@@ -36,14 +37,6 @@ Future main() async {
 
   // Make environment variables available
   await dotenv.load(fileName: '.env');
-  const requiredEnvVars = [
-    'API_KEY_USDA',
-    'COPYRIGHT_NAME',
-    'CONTACT_MAIL',
-    'ISSUE_URL',
-    'REPO_URL',
-    'TRANSLATION_URL',
-  ];
 
   if (!dotenv.isEveryDefined(requiredEnvVars)) {
     throw Exception('There are .env variables missing.');
