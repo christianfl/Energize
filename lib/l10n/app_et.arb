@@ -560,5 +560,30 @@
     "description": "Only used for translated screenshots, not within the app itself. Name of custom food 1/5 which can be anything which makes sense in the current language. E.g. a local food."
   },
   "federalFoodSafetyAndVeterinaryOffice": "Föderaalne toiduohutuse ja Veterinaaramet",
-  "@federalFoodSafetyAndVeterinaryOffice": {}
+  "@federalFoodSafetyAndVeterinaryOffice": {},
+  "servingSizes": "Portsjonite suurused",
+  "@servingSizes": {},
+  "add": "Lisa",
+  "@add": {},
+  "noServingSizesText": "Portsjonite suurusi ei leidu.",
+  "@noServingSizesText": {},
+  "addServingSize": "Lisa portsjoni suurus",
+  "@addServingSize": {},
+  "typicalServingSizes": "Tüüpilised portsjonite suurused",
+  "@typicalServingSizes": {},
+  "or": "või",
+  "@or": {},
+  "servingSizeName": "Portsjoni suuruse nimi",
+  "@servingSizeName": {},
+  "size": "Suurus",
+  "@size": {},
+  "translatableServingSizeNames": "{name, select, l10nServing{Srv.} l10nPackage{Pck.} other{}}",
+  "@translatableServingSizeNames": {
+    "description": "Translatable (system-defined) serving size names",
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  }
 }
