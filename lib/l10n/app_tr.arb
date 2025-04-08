@@ -368,12 +368,12 @@
   "@salt": {},
   "amountContain": "{amountWithUnit} içerir",
   "@amountContain": {
-      "placeholders": {
-          "amountWithUnit": {
-              "type": "String",
-              "example": "100 g"
-          }
+    "placeholders": {
+      "amountWithUnit": {
+        "type": "String",
+        "example": "100 g"
       }
+    }
   },
   "ok": "Tamam",
   "@ok": {},
@@ -472,5 +472,87 @@
   "notFoundInCustomFoodsOpenFoodFactsHasError": "Özel yiyeceklerde bulunamadı, Açık Gıda Gerçekleri aramasında hata oluştu",
   "@notFoundInCustomFoodsOpenFoodFactsHasError": {},
   "notFoundInCustomFoodsOpenFoodFactsNotActivated": "Özel yiyeceklerde bulunamadı, Açık Gıda Gerçekleri etkinleştirilmedi",
-  "@notFoundInCustomFoodsOpenFoodFactsNotActivated": {}
+  "@notFoundInCustomFoodsOpenFoodFactsNotActivated": {},
+  "servingSizes": "Porsiyon",
+  "@servingSizes": {},
+  "add": "Ekle",
+  "@add": {},
+  "noServingSizesText": "Mevcut porsiyon yok.",
+  "@noServingSizesText": {},
+  "addServingSize": "Porsiyon ekle",
+  "@addServingSize": {},
+  "typicalServingSizes": "Klasik porsiyonlar",
+  "@typicalServingSizes": {},
+  "or": "ya da",
+  "@or": {},
+  "servingSizeName": "Porsiyon ismi",
+  "@servingSizeName": {},
+  "federalFoodSafetyAndVeterinaryOffice": "Federal Gıda Güvenliği ve Veterinerlik Ofisi",
+  "@federalFoodSafetyAndVeterinaryOffice": {},
+  "invalidURL": "URL geçersiz",
+  "@invalidURL": {},
+  "username": "Kullanıcı adı",
+  "@username": {},
+  "pathAndFilename": "Yol ve dosya ismi",
+  "@pathAndFilename": {},
+  "energizeBackup": "{appName} Yedek",
+  "@energizeBackup": {
+    "placeholders": {
+      "appName": {
+        "type": "String",
+        "example": "Energize"
+      }
+    }
+  },
+  "backupPasswordNotice": "Yedek şifresi olmadan bir yedeği geri getirmek imkansızdır.",
+  "@backupPasswordNotice": {},
+  "contributionTypeCodeAndConversations": "Kod ve sohbetler",
+  "@contributionTypeCodeAndConversations": {},
+  "display": "Görüntü",
+  "@display": {},
+  "mealAt": "{time}da öğün",
+  "@mealAt": {
+    "placeholders": {
+      "time": {
+        "type": "String",
+        "example": "12:34"
+      }
+    }
+  },
+  "groupFoodsToMeals": "Yemekleri öğünlere grupla",
+  "@groupFoodsToMeals": {},
+  "groupFoodsToMealsHint": "Çok kısa aralıklarla tüketilen yemekleri bir öğün olarak beraber gruplar",
+  "@groupFoodsToMealsHint": {},
+  "size": "Boyut",
+  "@size": {},
+  "testCustomFood3Name": "Bamya",
+  "@testCustomFood3Name": {
+    "description": "Only used for translated screenshots, not within the app itself. Name of custom food 3/5 which can be anything which makes sense in the current language. E.g. a local food."
+  },
+  "serverURL": "Sunucu URLsi",
+  "@serverURL": {},
+  "password": "Şifre",
+  "@password": {},
+  "webDAVSettings": "WebDAV ayarları",
+  "@webDAVSettings": {},
+  "testCustomFood1Name": "Pankek",
+  "@testCustomFood1Name": {
+    "description": "Only used for translated screenshots, not within the app itself. Name of custom food 1/5 which can be anything which makes sense in the current language. E.g. a local food."
+  },
+  "testCustomFood2Name": "Yağlama",
+  "@testCustomFood2Name": {
+    "description": "Only used for translated screenshots, not within the app itself. Name of custom food 2/5 which can be anything which makes sense in the current language. E.g. a local food."
+  },
+  "testCustomFood4Name": "Revani",
+  "@testCustomFood4Name": {
+    "description": "Only used for translated screenshots, not within the app itself. Name of custom food 4/5 which can be anything which makes sense in the current language. E.g. a local food."
+  },
+  "testCustomFood5Name": "Baklava",
+  "@testCustomFood5Name": {
+    "description": "Only used for translated screenshots, not within the app itself. Name of custom food 5/5 which can be anything which makes sense in the current language. E.g. a local food."
+  },
+  "barcodeScanningUnsupported": "Cihaz kamerasıyla barkod taramak an itibariyle sadece Android'de destekli.",
+  "@barcodeScanningUnsupported": {},
+  "displayHint": "İhtiyaçlarınıza göre kullanıcı arayüzünü kişileştirin",
+  "@displayHint": {}
 }
