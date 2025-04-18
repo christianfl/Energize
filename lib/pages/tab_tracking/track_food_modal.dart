@@ -447,12 +447,12 @@ class TrackFoodState extends State<TrackFood>
 
     return Row(
       children: [
-        Expanded(
+        SizedBox(
+          width: 65,
           child: _amountTextField(onEditingComplete, food),
         ),
         const SizedBox(width: 6.0),
-        Container(
-          constraints: const BoxConstraints(maxWidth: 130, minWidth: 100),
+        Expanded(
           child: DropdownMenu<String>(
             enabled: servingSizeKeys.isNotEmpty,
             initialSelection: _selectedServingSize ?? 'g',
