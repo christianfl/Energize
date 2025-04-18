@@ -33,7 +33,6 @@ jobs:
           submodules/flutter/bin/dart run build_runner build --delete-conflicting-outputs
       - name: Generate .env file
         run: |
-          cd Energize
           echo "API_KEY_USDA='${{ secrets.ENV_API_KEY_USDA }}'" > .env
           echo "COPYRIGHT_NAME='${{ secrets.ENV_COPYRIGHT_NAME }}'" >> .env
           echo "CONTACT_MAIL='${{ secrets.ENV_CONTACT_MAIL }}'" >> .env
@@ -42,7 +41,6 @@ jobs:
           echo "TRANSLATION_URL='${{ secrets.ENV_TRANSLATION_URL }}'" >> .env
       - name: Run tests
         run: |
-          cd Energize
           submodules/flutter/bin/flutter test
       - name: Flutter Build Debug APK
         run: |
