@@ -1,0 +1,9 @@
+- [feat] Add serving sizes. Thanks to the work of Open Food Facts and their community, the serving size data is quite well maintained. If some data is missing, you're very welcome do directly contribute to Open Food Facts. Custom Food does also support serving sizes.
+
+- [feat] Overhaul and update food database logos
+- [test] Refactorings and improved testing
+- [l10n] Updated Chinese, Estonian, Hungarian, Portuguese, Spanish, Swedish, Turkish, Ukrainian¹
+
+---
+
+¹Big thanks to all contributors!
