@@ -222,12 +222,12 @@ void main() {
       // Add tracked food
       final trackedFoodProvider =
           Provider.of<TrackedFoodProvider>(context, listen: false);
-      trackedFoodProvider.addEatenFood(trackedBread);
-      trackedFoodProvider.addEatenFood(trackedEggs);
-      trackedFoodProvider.addEatenFood(trackedApple);
-      trackedFoodProvider.addEatenFood(trackedPasta);
-      trackedFoodProvider.addEatenFood(trackedPesto);
-      trackedFoodProvider.addEatenFood(trackedParmesan);
+      trackedFoodProvider.addTrackedFood(trackedBread);
+      trackedFoodProvider.addTrackedFood(trackedEggs);
+      trackedFoodProvider.addTrackedFood(trackedApple);
+      trackedFoodProvider.addTrackedFood(trackedPasta);
+      trackedFoodProvider.addTrackedFood(trackedPesto);
+      trackedFoodProvider.addTrackedFood(trackedParmesan);
 
       final appSettingsProvider =
           Provider.of<AppSettings>(context, listen: false);
@@ -287,7 +287,7 @@ void main() {
 
       // Remove tracked food
       for (final food in trackedFoodProvider.foods) {
-        trackedFoodProvider.removeEatenFood(food.id);
+        trackedFoodProvider.removeTrackedFood(food.id);
       }
     });
   });

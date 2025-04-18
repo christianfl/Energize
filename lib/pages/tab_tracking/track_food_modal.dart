@@ -182,11 +182,11 @@ class TrackFoodState extends State<TrackFood>
         selectedServingSize: _selectedServingSize,
       );
 
-      trackedFoodProvider.addEatenFood(foodToAdd);
+      trackedFoodProvider.addTrackedFood(foodToAdd);
     } else if (args.mode == ModalMode.edit) {
       // We are in edit mode, so we can safely assume args.food is a FoodTracked
 
-      trackedFoodProvider.editEatenFood(
+      trackedFoodProvider.editTrackedFood(
         food: (args.food as FoodTracked),
         amount: amount,
         dateEaten: _foodTrackDate,

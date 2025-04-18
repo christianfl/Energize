@@ -4,12 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../models/backup_data.dart';
+import '../providers/complete_days_provider.dart';
 import '../providers/custom_food_provider.dart';
 import '../providers/tracked_food_provider.dart';
 import 'encryption_service.dart';
 import 'sqlite/complete_days_database_service.dart';
-import 'sqlite/custom_foods_database_service.dart';
-import 'sqlite/tracked_foods_database_service.dart';
+import 'sqlite/custom_food_database_service.dart';
+import 'sqlite/tracked_food_database_service.dart';
 
 /// Offers methods for creating backups and restoring them
 class BackupService {
@@ -23,10 +24,14 @@ class BackupService {
   static Future<CreateBackupReturnData> createBackup(
     String encryptionPassword,
   ) async {
+    final customFoodDatabaseInstance = CustomFoodDatabaseService.instance;
+    final trackedFoodsDatabaseInstance = TrackedFoodDatabaseService.instance;
+    final completeDaysDatabaseInstance = CompleteDaysDatabaseService.instance;
+
     final backupData = BackupData(
-      customFood: await CustomFoodDatabaseService.customFoods,
-      trackedFood: await TrackedFoodDatabaseService.trackedFoods,
-      completedDays: await CompleteDaysDatabaseService.completedDays,
+      customFood: await customFoodDatabaseInstance.customFoods,
+      trackedFood: await trackedFoodsDatabaseInstance.trackedFoods,
+      completedDays: await completeDaysDatabaseInstance.completedDays,
     );
 
     final encodedBackupData = json.encode(backupData.toJson());
@@ -62,8 +67,10 @@ class BackupService {
           Provider.of<CustomFoodProvider>(context, listen: false);
       final trackedFoodProvider =
           Provider.of<TrackedFoodProvider>(context, listen: false);
+      final completeDaysProvider =
+          Provider.of<CompleteDaysProvider>(context, listen: false);
 
-      // Custum food
+      // Custom food
       if (backupData.customFood != null) {
         for (var customFood in backupData.customFood!) {
           customFoodProvider.addFood(customFood);
@@ -73,12 +80,14 @@ class BackupService {
       // Tracked food
       if (backupData.trackedFood != null) {
         for (var trackedFood in backupData.trackedFood!) {
-          trackedFoodProvider.addEatenFood(trackedFood);
+          trackedFoodProvider.addTrackedFood(trackedFood);
         }
       }
+
+      // Complete days
       if (backupData.completedDays != null) {
         for (var completedDay in backupData.completedDays!) {
-          CompleteDaysDatabaseService.insert(completedDay);
+          completeDaysProvider.markCompleted(completedDay);
         }
       }
 

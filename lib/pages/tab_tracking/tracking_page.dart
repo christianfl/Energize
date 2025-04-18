@@ -5,8 +5,8 @@ import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
 
+import '../../providers/complete_days_provider.dart';
 import '../../providers/tracked_food_provider.dart';
-import '../../services/sqlite/complete_days_database_service.dart';
 import '../../theme/energize_theme.dart';
 import '../../utils/date_util.dart';
 import '../../utils/time_util.dart';
@@ -82,7 +82,7 @@ class TrackingPageState extends State<TrackingPage> {
               icon: const Icon(Icons.arrow_left),
             ),
             TextButton(
-              onPressed: () => _pickDateDialog(context),
+              onPressed: () => _showPickDateDialog(context),
               style: TextButton.styleFrom(
                 foregroundColor:
                     Theme.of(context).colorScheme.onPrimaryContainer,
@@ -221,9 +221,13 @@ class TrackingPageState extends State<TrackingPage> {
     }
   }
 
-  Future<void> _pickDateDialog(BuildContext ctx) async {
+  /// Shows the dialog for picking [_selectedDate].
+  Future<void> _showPickDateDialog(BuildContext ctx) async {
+    final completeDaysProvider =
+        Provider.of<CompleteDaysProvider>(context, listen: false);
+
     final List<DateTime> completedDays =
-        await CompleteDaysDatabaseService.completedDays;
+        await completeDaysProvider.completedDays;
 
     if (!ctx.mounted) return;
 
@@ -353,15 +357,28 @@ class TrackingPageState extends State<TrackingPage> {
     );
   }
 
-  void _selectDate(DateTime date) {
-    final provider = Provider.of<TrackedFoodProvider>(context, listen: false);
+  /// Sets [_selectedDate] and [TrackedFoodProvider.selectedDate].
+  ///
+  /// Setting the latter automatically triggers loading corresponding
+  /// tracked foods from the database into [TrackedFoodProvider.foods].
+  Future<void> _selectDate(DateTime date) async {
+    final trackedFoodProvider =
+        Provider.of<TrackedFoodProvider>(context, listen: false);
+    final completeDaysProvider =
+        Provider.of<CompleteDaysProvider>(context, listen: false);
 
-    setState(() {
-      _selectedDate = date;
-      provider.selectDate(_selectedDate);
-      CompleteDaysDatabaseService.isDateCompleted(_selectedDate)
-          .then((value) => _isSelectedDateCompleted = value);
-    });
+    // Set selected date
+    _selectedDate = date;
+
+    // Triggers loading tracked foods from this date into provider
+    await trackedFoodProvider.selectDate(_selectedDate);
+
+    // _isSelectedDateCompleted according to the selected date
+    _isSelectedDateCompleted =
+        await completeDaysProvider.isDateCompleted(_selectedDate);
+
+    // Trigger UI rebuilding
+    setState(() {});
   }
 
   /// Sets the current in-app time which acts as standard value for newly added food items
@@ -401,8 +418,11 @@ class TrackingPageState extends State<TrackingPage> {
   }
 
   void _switchDayCompletionStatus() {
+    final completeDaysProvider =
+        Provider.of<CompleteDaysProvider>(context, listen: false);
+
     if (_isSelectedDateCompleted!) {
-      CompleteDaysDatabaseService.remove(_selectedDate);
+      completeDaysProvider.remove(_selectedDate);
 
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
@@ -410,7 +430,7 @@ class TrackingPageState extends State<TrackingPage> {
         ),
       );
     } else {
-      CompleteDaysDatabaseService.insert(_selectedDate);
+      completeDaysProvider.markCompleted(_selectedDate);
 
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(

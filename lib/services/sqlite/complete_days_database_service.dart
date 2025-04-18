@@ -1,12 +1,17 @@
+import 'complete_days_database_service_interface.dart';
 import 'database_service.dart';
 
-class CompleteDaysDatabaseService with DatabaseService {
+class CompleteDaysDatabaseService
+    with DatabaseService
+    implements CompleteDaysDatabaseServiceInterface {
   CompleteDaysDatabaseService._privateConstructor();
+
   static final CompleteDaysDatabaseService instance =
       CompleteDaysDatabaseService._privateConstructor();
 
-  static Future<bool> isDateCompleted(DateTime date) async {
-    final db = await instance.database;
+  @override
+  Future<bool> isDateCompleted(DateTime date) async {
+    final db = await database;
 
     final String day = '${date.year}-${date.month}-${date.day}';
 
@@ -24,8 +29,9 @@ class CompleteDaysDatabaseService with DatabaseService {
     return false;
   }
 
-  static Future<void> insert(DateTime date) async {
-    final db = await instance.database;
+  @override
+  Future<void> insert(DateTime date) async {
+    final db = await database;
 
     final Map<String, String> value = {
       'date': '${date.year}-${date.month}-${date.day}',
@@ -37,8 +43,9 @@ class CompleteDaysDatabaseService with DatabaseService {
     );
   }
 
-  static Future<void> remove(DateTime date) async {
-    final db = await instance.database;
+  @override
+  Future<void> remove(DateTime date) async {
+    final db = await database;
 
     final String day = '${date.year}-${date.month}-${date.day}';
 
@@ -49,8 +56,9 @@ class CompleteDaysDatabaseService with DatabaseService {
     );
   }
 
-  static Future<List<DateTime>> get completedDays async {
-    final db = await instance.database;
+  @override
+  Future<List<DateTime>> get completedDays async {
+    final db = await database;
 
     final List<Map<String, dynamic>> completeDays = await db.query(
       DatabaseService.completeDaysTable,

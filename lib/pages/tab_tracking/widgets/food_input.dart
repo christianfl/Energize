@@ -13,7 +13,6 @@ import '../../../../pages/tab_food/add_edit_custom_food_modal.dart';
 import '../../../../providers/app_settings.dart';
 import '../../../../providers/custom_food_provider.dart';
 import '../../../../providers/tracked_food_provider.dart';
-import '../../../../services/sqlite/tracked_foods_database_service.dart';
 import '../../../../theme/energize_theme.dart';
 import '../../../../widgets/food_list_item.dart';
 import '../../../models/food/food.dart';
@@ -22,7 +21,6 @@ import '../../../services/food_database_bindings/open_food_facts/open_food_facts
 import '../../../services/food_database_bindings/open_food_facts/product_not_found_exception.dart';
 import '../../../services/food_database_bindings/swiss_food_composition_database/swiss_food_composition_database_binding.dart';
 import '../../../services/food_database_bindings/usda/usda_binding.dart';
-import '../../../services/sqlite/custom_foods_database_service.dart';
 import '../../../widgets/food_origin_logo_pill.dart';
 import '../../tab_food/food_page.dart';
 import '../track_food_modal.dart';
@@ -405,15 +403,12 @@ class FoodInputState extends State<FoodInput>
     final appSettings = Provider.of<AppSettings>(context, listen: false);
     final customFoodProvider =
         Provider.of<CustomFoodProvider>(context, listen: false);
+    final trackedFoodProvider =
+        Provider.of<TrackedFoodProvider>(context, listen: false);
 
-    // Non duplicate list of the food tracked the last X days
     final foodFromLastXDays = List<Food>.of(
-      await TrackedFoodDatabaseService.trackedFoodByDateRange(
-        startDate: DateTime.now().subtract(
-          const Duration(days: _foodInputSuggestionsFromLastXDays),
-        ),
-        endDate: DateTime.now(),
-      ),
+      await trackedFoodProvider
+          .getTrackedFoodFromUntilNow(_foodInputSuggestionsFromLastXDays),
     );
 
     // Initial fill of the suggestions list (and when searched for empty string)
@@ -483,8 +478,12 @@ class FoodInputState extends State<FoodInput>
   /// Open Food Facts database is activated or not
   /// or if there were errors fetching the Open Food Facts API
   void searchBarcodeAndRedirect(String barcode) {
-    // Try first to look up the barcode in the custom foods
-    CustomFoodDatabaseService.getCustomFoodByEan(barcode)
+    // Try to look up the barcode in the custom foods at first
+    final customFoodProvider =
+        Provider.of<CustomFoodProvider>(context, listen: false);
+
+    customFoodProvider
+        .getCustomFoodByBarcode(barcode)
         .then((customFoodIfFound) {
       if (customFoodIfFound != null) {
         // Custom food with this barcode was found
@@ -759,7 +758,7 @@ class FoodInputState extends State<FoodInput>
       selectedServingSize: _getQuickFoodAmount(food).selectedServingSize,
     );
 
-    trackedFoodProvider.addEatenFood(foodToBeTracked);
+    trackedFoodProvider.addTrackedFood(foodToBeTracked);
     // Close current ModalBottomSheet
     Navigator.pop(context);
   }

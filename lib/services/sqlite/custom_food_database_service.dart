@@ -1,15 +1,19 @@
 import 'package:sqflite/sqlite_api.dart';
 
 import '../../models/food/food.dart';
+import 'custom_food_database_service_interface.dart';
 import 'database_service.dart';
 
-class CustomFoodDatabaseService with DatabaseService {
+class CustomFoodDatabaseService
+    with DatabaseService
+    implements CustomFoodDatabaseServiceInterface {
   CustomFoodDatabaseService._privateConstructor();
   static final CustomFoodDatabaseService instance =
       CustomFoodDatabaseService._privateConstructor();
 
-  static Future<List<Food>> get customFoods async {
-    final db = await instance.database;
+  @override
+  Future<List<Food>> get customFoods async {
+    final db = await database;
 
     final List<Map<String, dynamic>> customFoodMap =
         await db.query(DatabaseService.customFoodstable);
@@ -17,8 +21,9 @@ class CustomFoodDatabaseService with DatabaseService {
     return _generateFoodList(customFoodMap);
   }
 
-  static Future<void> insert(Food food) async {
-    final db = await instance.database;
+  @override
+  Future<void> insert(Food food) async {
+    final db = await database;
 
     await db.insert(
       DatabaseService.customFoodstable,
@@ -27,8 +32,9 @@ class CustomFoodDatabaseService with DatabaseService {
     );
   }
 
-  static Future<void> update(Food food) async {
-    final db = await instance.database;
+  @override
+  Future<void> update(Food food) async {
+    final db = await database;
 
     await db.update(
       DatabaseService.customFoodstable,
@@ -38,8 +44,9 @@ class CustomFoodDatabaseService with DatabaseService {
     );
   }
 
-  static Future<void> remove(String id) async {
-    final db = await instance.database;
+  @override
+  Future<void> remove(String id) async {
+    final db = await database;
 
     await db.delete(
       DatabaseService.customFoodstable,
@@ -48,20 +55,21 @@ class CustomFoodDatabaseService with DatabaseService {
     );
   }
 
-  static List<Food> _generateFoodList(List<Map<String, dynamic>> maps) {
+  List<Food> _generateFoodList(List<Map<String, dynamic>> maps) {
     return List.generate(maps.length, (i) {
       return Food.fromJson(maps[i]);
     });
   }
 
-  /// Gets the first custom food with the specified EAN code (ordered by name)
-  static Future<Food?> getCustomFoodByEan(String ean) async {
-    final db = await instance.database;
+  /// Gets the first custom food with the specified barcode (ordered by name)
+  @override
+  Future<Food?> getByBarcode(String barcode) async {
+    final db = await database;
 
     final foodJsonList = await db.query(
       DatabaseService.customFoodstable,
       where: 'ean = ?',
-      whereArgs: [ean],
+      whereArgs: [barcode],
       orderBy: 'title asc',
       limit: 1,
     );

@@ -2,17 +2,22 @@ import 'package:sqflite/sqlite_api.dart';
 
 import '../../models/food/food_tracked.dart';
 import 'database_service.dart';
+import 'tracked_food_database_service_interface.dart';
 
-class TrackedFoodDatabaseService with DatabaseService {
+class TrackedFoodDatabaseService
+    with DatabaseService
+    implements TrackedFoodDatabaseServiceInterface {
   TrackedFoodDatabaseService._privateConstructor();
+
   static final TrackedFoodDatabaseService instance =
       TrackedFoodDatabaseService._privateConstructor();
 
-  static Future<List<FoodTracked>> trackedFoodByDateRange({
+  @override
+  Future<List<FoodTracked>> trackedFoodByDateRange({
     required DateTime startDate,
     required DateTime endDate,
   }) async {
-    final db = await instance.database;
+    final db = await database;
 
     final DateTime dayStart =
         DateTime(startDate.year, startDate.month, startDate.day);
@@ -33,8 +38,9 @@ class TrackedFoodDatabaseService with DatabaseService {
     return _generateFoodList(trackedFoodMap);
   }
 
-  static Future<List<FoodTracked>> get trackedFoods async {
-    final db = await instance.database;
+  @override
+  Future<List<FoodTracked>> get trackedFoods async {
+    final db = await database;
 
     final List<Map<String, dynamic>> trackedFoodMap =
         await db.query(DatabaseService.trackedFoodsTable);
@@ -42,8 +48,9 @@ class TrackedFoodDatabaseService with DatabaseService {
     return _generateFoodList(trackedFoodMap);
   }
 
-  static Future<void> insert(FoodTracked food) async {
-    final db = await instance.database;
+  @override
+  Future<void> insert(FoodTracked food) async {
+    final db = await database;
 
     await db.insert(
       DatabaseService.trackedFoodsTable,
@@ -52,8 +59,9 @@ class TrackedFoodDatabaseService with DatabaseService {
     );
   }
 
-  static Future<void> update(FoodTracked food) async {
-    final db = await instance.database;
+  @override
+  Future<void> update(FoodTracked food) async {
+    final db = await database;
 
     await db.update(
       DatabaseService.trackedFoodsTable,
@@ -63,8 +71,9 @@ class TrackedFoodDatabaseService with DatabaseService {
     );
   }
 
-  static Future<void> remove(String id) async {
-    final db = await instance.database;
+  @override
+  Future<void> remove(String id) async {
+    final db = await database;
 
     await db.delete(
       DatabaseService.trackedFoodsTable,

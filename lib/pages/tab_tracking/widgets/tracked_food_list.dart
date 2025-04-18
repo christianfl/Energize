@@ -46,7 +46,7 @@ class TrackedFoodList extends StatelessWidget {
       ),
       onDismissed: (direction) {
         final swipedFood = foodTracked;
-        trackedFood.removeEatenFood(foodTracked.id);
+        trackedFood.removeTrackedFood(foodTracked.id);
         _setIsFabExplicitelyVisible(true);
 
         ScaffoldMessenger.of(context).showSnackBar(
@@ -57,7 +57,7 @@ class TrackedFoodList extends StatelessWidget {
             action: SnackBarAction(
               label: AppLocalizations.of(context)!.undo,
               onPressed: () {
-                trackedFood.addEatenFood(swipedFood);
+                trackedFood.addTrackedFood(swipedFood);
               },
             ),
           ),

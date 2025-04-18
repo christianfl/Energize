@@ -1,52 +1,56 @@
 import 'package:flutter/material.dart';
 
-import '../../services/sqlite/tracked_foods_database_service.dart';
 import '../models/food/food_tracked.dart';
+import '../services/sqlite/tracked_food_database_service_interface.dart';
 
-/// Gets food only from the selected date
+/// Provider for everything related to tracked food.
+///
+/// [selectedDate] determines from which day the provider holds the
+/// corresponding tracked food items.
 class TrackedFoodProvider with ChangeNotifier {
+  final TrackedFoodDatabaseServiceInterface _db;
+
   List<FoodTracked> _foods = [];
   List<FoodTracked> get foods => [..._foods];
+
+  /// Determines from when the provider holds corresponding tracked food items.
   DateTime selectedDate = DateTime.now();
 
-  TrackedFoodProvider() {
+  TrackedFoodProvider({required TrackedFoodDatabaseServiceInterface db})
+      : _db = db {
     _getFromDatabase();
   }
 
-  bool _isSameDay(DateTime day1, DateTime day2) {
-    if (day1.year == day2.year &&
-        day1.month == day2.month &&
-        day1.day == day2.day) {
-      return true;
-    }
-
-    return false;
-  }
-
-  void selectDate(DateTime date) {
+  /// Sets [selectedDate] as [date] and fetches tracked food from this date.
+  Future<void> selectDate(DateTime date) async {
     selectedDate = date;
-    _getFromDatabase();
+
+    await _getFromDatabase();
   }
 
-  void _getFromDatabase() async {
-    _foods = await TrackedFoodDatabaseService.trackedFoodByDateRange(
+  /// Loads all tracked food from [selectedDate] into [_foods].
+  Future<void> _getFromDatabase() async {
+    _foods = await _db.trackedFoodByDateRange(
       startDate: selectedDate,
       endDate: selectedDate,
     );
+
     notifyListeners();
   }
 
-  void addEatenFood(FoodTracked foodTracked) {
+  /// Tracks a new food.
+  void addTrackedFood(FoodTracked foodTracked) {
     if (!_foods.any((f) => f.id == foodTracked.id) &&
-        _isSameDay(foodTracked.dateEaten, selectedDate)) {
+        DateUtils.isSameDay(foodTracked.dateEaten, selectedDate)) {
       _foods.add(foodTracked);
       notifyListeners();
     }
 
-    TrackedFoodDatabaseService.insert(foodTracked);
+    _db.insert(foodTracked);
   }
 
-  void editEatenFood({
+  /// Edits a tracked food.
+  void editTrackedFood({
     required FoodTracked food,
     double? amount,
     DateTime? dateEaten,
@@ -65,13 +69,24 @@ class TrackedFoodProvider with ChangeNotifier {
 
     notifyListeners();
 
-    TrackedFoodDatabaseService.update(_foods[index]);
+    _db.update(_foods[index]);
   }
 
-  void removeEatenFood(String id) {
+  /// Removes a tracked food.
+  void removeTrackedFood(String id) {
     _foods.removeWhere((element) => element.id == id);
     notifyListeners();
 
-    TrackedFoodDatabaseService.remove(id);
+    _db.remove(id);
+  }
+
+  /// Returns a list of all tracked food between now and [daysAgo].
+  Future<List<FoodTracked>> getTrackedFoodFromUntilNow(int daysAgo) async {
+    return _db.trackedFoodByDateRange(
+      startDate: DateTime.now().subtract(
+        Duration(days: daysAgo),
+      ),
+      endDate: DateTime.now(),
+    );
   }
 }

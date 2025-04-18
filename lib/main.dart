@@ -21,8 +21,12 @@ import 'pages/tab_tracking/detailed_summary_sub_page.dart';
 import 'pages/tab_tracking/track_food_modal.dart';
 import 'pages/tabs_page.dart';
 import 'providers/app_settings.dart';
+import 'providers/complete_days_provider.dart';
 import 'providers/custom_food_provider.dart';
 import 'providers/tracked_food_provider.dart';
+import 'services/sqlite/complete_days_database_service.dart';
+import 'services/sqlite/custom_food_database_service.dart';
+import 'services/sqlite/tracked_food_database_service.dart';
 import 'theme/energize_theme.dart';
 
 Future main() async {
@@ -73,8 +77,18 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (ctx) => AppSettings()),
-        ChangeNotifierProvider(create: (ctx) => TrackedFoodProvider()),
-        ChangeNotifierProvider(create: (ctx) => CustomFoodProvider()),
+        ChangeNotifierProvider(
+          create: (ctx) =>
+              TrackedFoodProvider(db: TrackedFoodDatabaseService.instance),
+        ),
+        ChangeNotifierProvider(
+          create: (ctx) =>
+              CustomFoodProvider(db: CustomFoodDatabaseService.instance),
+        ),
+        Provider(
+          create: (ctx) =>
+              CompleteDaysProvider(db: CompleteDaysDatabaseService.instance),
+        ),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: debugShowCheckedModeBanner,

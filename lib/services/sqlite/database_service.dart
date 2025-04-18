@@ -3,20 +3,25 @@ import 'package:sqflite/sqflite.dart';
 
 mixin DatabaseService {
   static Database? _database;
-  static const db = 'foods_database.db';
+  static const _databaseName = 'foods_database.db';
   static const customFoodstable = 'customfoods';
   static const trackedFoodsTable = 'trackedfoods';
   static const completeDaysTable = 'completedays';
 
+  /// Returns the cached db.
   Future<Database> get database async {
-    if (_database != null) return _database!;
+    if (_database != null) {
+      return _database!;
+    }
+
     _database = await _initDatabase();
     return _database!;
   }
 
-  _initDatabase() async {
+  /// Opens the db and triggers schema creation or upgrade on version change.
+  Future<Database> _initDatabase() async {
     return await openDatabase(
-      join(await getDatabasesPath(), db),
+      join(await getDatabasesPath(), _databaseName),
       version: 3,
       onCreate: _onCreate,
       onUpgrade: _onUpgrade,
