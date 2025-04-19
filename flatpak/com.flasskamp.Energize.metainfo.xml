@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop-application">
+    <id>com.flasskamp.Energize</id>
+
+    <name>Energize</name>
+    <summary>Track your nutrition easily and fast.</summary>
+
+    <metadata_license>CC0-1.0</metadata_license>
+    <project_license>AGPL-3.0-only</project_license>
+
+    <supports>
+        <control>pointing</control>
+        <control>keyboard</control>
+        <control>touch</control>
+    </supports>
+
+    <requires>
+        <display_length compare="ge">360</display_length>
+    </requires>
+
+    <description>
+        <p>Energize is an easy to use food and nutrition tracking app. It's Open Source, ad-free,
+            nag-free, and adheres to privacy by design.</p>
+
+        <p>Features:</p>
+
+        <ul>
+            <li>Track your meals including calories, macro- and micronutrients</li>
+            <li>Use several databases (Open Food Facts, USDA, and Swiss Food Composition Database)
+                or create custom food</li>
+            <li>Search meals by product name or just scan the barcode</li>
+            <li>Get meal suggestions based on your last tracked meals</li>
+            <li>Set targets for macro- and micronutrients including calculating them based on your
+                personal details</li>
+            <li>See your daily nutrition details</li>
+            <li>Create and restore encrypted backups (Local or WebDAV)</li>
+        </ul>
+    </description>
+
+    <launchable type="desktop-id">com.flasskamp.Energize.desktop</launchable>
+    <screenshots>
+        <screenshot type="default">
+            <image>
+                https://codeberg.org/epinez/Energize/media/branch/main/fastlane/metadata/android/en-US/images/phoneScreenshots/1_dark.png</image>
+        </screenshot>
+        <screenshot>
+            <image>
+                https://codeberg.org/epinez/Energize/media/branch/main/fastlane/metadata/android/en-US/images/phoneScreenshots/2_dark.png</image>
+        </screenshot>
+        <screenshot>
+            <image>
+                https://codeberg.org/epinez/Energize/media/branch/main/fastlane/metadata/android/en-US/images/phoneScreenshots/3_dark.png</image>
+        </screenshot>
+        <screenshot>
+            <image>
+                https://codeberg.org/epinez/Energize/media/branch/main/fastlane/metadata/android/en-US/images/phoneScreenshots/4_dark.png</image>
+        </screenshot>
+    </screenshots>
+</component>

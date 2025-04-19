@@ -1,0 +1,7 @@
+[Desktop Entry]
+Name=Energize
+Comment=Track your nutrition easily and fast.
+Exec=energize
+Type=Application
+Icon=com.flasskamp.Energize
+Categories=Utility;Education;MedicalSoftware;

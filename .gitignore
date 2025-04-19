@@ -52,3 +52,6 @@ app.*.map.json
 
 # Python related
 .venv/
+
+# Flatpak related
+.flatpak-builder/
