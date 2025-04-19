@@ -95,13 +95,86 @@ class FoodInputState extends State<FoodInput>
   /// Returns a centered message.
   ///
   /// Shown if systems do not support barcode scanning with device camera.
+  ///
+  /// If [_productNotFoundExceptionBarcode] != null, shows [_noProductForBarcodeFoundFrame].
   Widget get _barcodeScanningUnsupportedFrame {
     return Expanded(
-      child: Center(
-        child: Text(
-          AppLocalizations.of(context)!.barcodeScanningUnsupported,
-          textAlign: TextAlign.center,
+      child: Column(
+        children: [
+          Expanded(
+            child: Container(
+              alignment: Alignment.center,
+              child: Text(
+                AppLocalizations.of(context)!.barcodeScanningUnsupported,
+                textAlign: TextAlign.center,
+              ),
+            ),
+          ),
+          if (_productNotFoundExceptionBarcode != null)
+            Container(
+              padding: const EdgeInsets.all(8.0),
+              alignment: Alignment.center,
+              child: _noProductForBarcodeFoundFrame,
+            ),
+        ],
+      ),
+    );
+  }
+
+  /// Returns a frame which shows that the searched barcode could not be found.
+  ///
+  /// Gives a possibility to add a new custom food.
+  Widget get _noProductForBarcodeFoundFrame {
+    return Container(
+      decoration: BoxDecoration(
+        color: Theme.of(context).colorScheme.surface.withAlpha(150),
+        borderRadius: const BorderRadius.all(
+          Radius.circular(10.0),
         ),
+      ),
+      padding: const EdgeInsets.all(16.0),
+      width: double.infinity,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text(
+            AppLocalizations.of(context)!.somethingNotFound(
+              _productNotFoundExceptionBarcode!,
+            ),
+            style: const TextStyle(
+              fontWeight: FontWeight.bold,
+            ),
+            maxLines: 2,
+            overflow: TextOverflow.ellipsis,
+          ),
+          if (_additionalProductNotFoundInfo != null)
+            Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const Divider(),
+                Text(
+                  _additionalProductNotFoundInfo!,
+                ),
+              ],
+            ),
+          const SizedBox(height: 8),
+          Row(
+            children: [
+              Expanded(
+                child: FilledButton.tonalIcon(
+                  onPressed: () => _navigateToAddCustomFood(
+                    context,
+                    barcode: _productNotFoundExceptionBarcode!,
+                  ),
+                  icon: const Icon(Icons.add),
+                  label: Text(
+                    AppLocalizations.of(context)!.addCustomFood,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }
@@ -246,66 +319,7 @@ class FoodInputState extends State<FoodInput>
                           padding: const EdgeInsets.all(8.0),
                           alignment: Alignment.bottomCenter,
                           child: _productNotFoundExceptionBarcode != null
-                              ? Container(
-                                  decoration: BoxDecoration(
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .surface
-                                        .withAlpha(150),
-                                    borderRadius: const BorderRadius.all(
-                                      Radius.circular(10.0),
-                                    ),
-                                  ),
-                                  padding: const EdgeInsets.all(16.0),
-                                  width: double.infinity,
-                                  child: Column(
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: [
-                                      Text(
-                                        AppLocalizations.of(context)!
-                                            .somethingNotFound(
-                                          _productNotFoundExceptionBarcode!,
-                                        ),
-                                        style: const TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                        maxLines: 2,
-                                        overflow: TextOverflow.ellipsis,
-                                      ),
-                                      if (_additionalProductNotFoundInfo !=
-                                          null)
-                                        Column(
-                                          mainAxisSize: MainAxisSize.min,
-                                          children: [
-                                            const Divider(),
-                                            Text(
-                                              _additionalProductNotFoundInfo!,
-                                            ),
-                                          ],
-                                        ),
-                                      const SizedBox(height: 8),
-                                      Row(
-                                        children: [
-                                          Expanded(
-                                            child: FilledButton.tonalIcon(
-                                              onPressed: () =>
-                                                  _navigateToAddCustomFood(
-                                                context,
-                                                barcode:
-                                                    _productNotFoundExceptionBarcode!,
-                                              ),
-                                              icon: const Icon(Icons.add),
-                                              label: Text(
-                                                AppLocalizations.of(context)!
-                                                    .addCustomFood,
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                )
+                              ? _noProductForBarcodeFoundFrame
                               : SizedBox(
                                   width: double.infinity,
                                   child: ClipRRect(
@@ -319,6 +333,7 @@ class FoodInputState extends State<FoodInput>
                   ),
                 )
             else
+              // We are on Web
               _barcodeScanningUnsupportedFrame,
           ],
         ),
