@@ -1,4 +1,9 @@
+import 'dart:io';
+
+import 'package:flutter/foundation.dart';
 import 'package:path/path.dart';
+import 'package:path_provider/path_provider.dart';
+
 import 'package:sqflite/sqflite.dart';
 
 mixin DatabaseService {
@@ -18,10 +23,23 @@ mixin DatabaseService {
     return _database!;
   }
 
+  /// Returns the database path including filename.
+  Future<String> get _customDatabasePath async {
+    if (!kIsWeb) {
+      if (Platform.isLinux) {
+        final directory = await getApplicationSupportDirectory();
+        return join(directory.path, _databaseName);
+      }
+    }
+
+    // Use default db path
+    return join(await getDatabasesPath(), _databaseName);
+  }
+
   /// Opens the db and triggers schema creation or upgrade on version change.
   Future<Database> _initDatabase() async {
     return await openDatabase(
-      join(await getDatabasesPath(), _databaseName),
+      await _customDatabasePath,
       version: 3,
       onCreate: _onCreate,
       onUpgrade: _onUpgrade,

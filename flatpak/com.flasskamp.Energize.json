@@ -9,7 +9,7 @@
     "--device=dri",
     "--socket=wayland",
     "--socket=fallback-x11",
-    "--filesystem=home"
+    "--filesystem=xdg-download"
   ],
   "modules": [
     {
@@ -24,8 +24,9 @@
         "cp -r energize/* /app/energize/",
         "mkdir -p /app/bin /app/lib",
         "ln -s /app/energize/energize /app/bin/energize",
-        "if [ -e /usr/lib/x86_64-linux-gnu/libsqlite3.so.0 ]; then ln -s /usr/lib/x86_64-linux-gnu/libsqlite3.so.0 /app/lib/libsqlite3.so; fi",
-        "if [ -e /usr/lib/aarch64-linux-gnu/libsqlite3.so.0 ]; then ln -s /usr/lib/aarch64-linux-gnu/libsqlite3.so.0 /app/lib/libsqlite3.so; fi",
+        "ln -s /usr/lib/x86_64-linux-gnu/libsqlite3.so.0 /app/lib/libsqlite3.so",
+        "if [ ! -e '/app/lib/libsqlite3.so' ]; then ln -s -f /usr/lib/aarch64-linux-gnu/libsqlite3.so.0 /app/lib/libsqlite3.so; fi",
+        "if [ $(arch) == \"aarch64\" ]; then sed -si \"/Exec=/cExec=env GDK_GL=gles energize\" com.flasskamp.Energize.desktop; fi",
         "install -Dm644 com.flasskamp.Energize.desktop /app/share/applications/com.flasskamp.Energize.desktop",
         "install -Dm644 com.flasskamp.Energize.metainfo.xml /app/share/appdata/com.flasskamp.Energize.metainfo.xml",
         "install -Dm644 com.flasskamp.Energize.png /app/share/icons/hicolor/128x128/apps/com.flasskamp.Energize.png"

@@ -5,3 +5,4 @@ Exec=energize
 Type=Application
 Icon=com.flasskamp.Energize
 Categories=Utility;Education;MedicalSoftware;
+X-Purism-FormFactor=Workstation;Mobile;
