@@ -50,7 +50,7 @@ dependencies:
   sqflite_common_ffi: ^2.3.4+4
   sqflite_common_ffi_web: ^0.4.5+4
   fl_chart: ^0.69.2
-  file_picker: ^8.1.6
+  file_picker: ^10.1.2
   package_info_plus: ^8.1.2
   flutter_markdown: ^0.7.4+3
   flutter_dotenv: ^5.2.1
