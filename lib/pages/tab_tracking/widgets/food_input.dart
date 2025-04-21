@@ -10,13 +10,13 @@ import 'package:provider/provider.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 
 import '../../../../pages/tab_food/add_edit_custom_food_modal.dart';
-import '../../../../providers/app_settings.dart';
 import '../../../../providers/custom_food_provider.dart';
 import '../../../../providers/tracked_food_provider.dart';
 import '../../../../theme/energize_theme.dart';
 import '../../../../widgets/food_list_item.dart';
 import '../../../models/food/food.dart';
 import '../../../models/food/food_tracked.dart';
+import '../../../providers/app_settings_provider.dart';
 import '../../../services/food_database_bindings/open_food_facts/open_food_facts_binding.dart';
 import '../../../services/food_database_bindings/open_food_facts/product_not_found_exception.dart';
 import '../../../services/food_database_bindings/swiss_food_composition_database/swiss_food_composition_database_binding.dart';
@@ -415,7 +415,8 @@ class FoodInputState extends State<FoodInput>
   /// the search string in the food title. Also, the API-based food composition
   /// databases get queried and their results are appended to the list
   void _populateSearchedFoodList(String searchText) async {
-    final appSettings = Provider.of<AppSettings>(context, listen: false);
+    final appSettings =
+        Provider.of<AppSettingsProvider>(context, listen: false);
     final customFoodProvider =
         Provider.of<CustomFoodProvider>(context, listen: false);
     final trackedFoodProvider =
@@ -508,7 +509,8 @@ class FoodInputState extends State<FoodInput>
       } else {
         if (!mounted) return;
 
-        final appSettings = Provider.of<AppSettings>(context, listen: false);
+        final appSettings =
+            Provider.of<AppSettingsProvider>(context, listen: false);
 
         // Look up on Open Food Facts if that is activated
         if (appSettings.isProviderOpenFoodFactsActivated) {
@@ -553,7 +555,8 @@ class FoodInputState extends State<FoodInput>
   Future<void> _getOpenFoodFactsSearchResultIfActivated(
     String searchText,
   ) async {
-    final appSettings = Provider.of<AppSettings>(context, listen: false);
+    final appSettings =
+        Provider.of<AppSettingsProvider>(context, listen: false);
 
     if (appSettings.isProviderOpenFoodFactsActivated) {
       try {
@@ -618,7 +621,8 @@ class FoodInputState extends State<FoodInput>
   }
 
   Future<void> _getUsdaSearchResultIfActivated(String searchText) async {
-    final appSettings = Provider.of<AppSettings>(context, listen: false);
+    final appSettings =
+        Provider.of<AppSettingsProvider>(context, listen: false);
 
     if (appSettings.isProviderUsdaActivated) {
       try {
@@ -642,7 +646,8 @@ class FoodInputState extends State<FoodInput>
 
   /// Get food with matching title/synonym from Swiss Food Composition Database
   Future<void> _getSFCDSearchResultIfActivated(String searchText) async {
-    final appSettings = Provider.of<AppSettings>(context, listen: false);
+    final appSettings =
+        Provider.of<AppSettingsProvider>(context, listen: false);
 
     if (appSettings.isProviderSndbActivated) {
       try {

@@ -2,7 +2,7 @@ import 'package:collection/collection.dart';
 
 import '../../../models/food/food.dart';
 import '../../models/person/enums/sex.dart';
-import '../../providers/app_settings.dart';
+import '../../providers/body_targets_provider.dart';
 import 'dge_data.dart';
 import 'micronutrients_model.dart';
 
@@ -86,43 +86,43 @@ class MicronutrientsRecommendations {
 
   /// Sets the user's micronutrients targets based on their age and sex
   static void setRecommendedNutritionAsTargets(
-    AppSettings appSettings,
+    BodyTargetsProvider bodyTargets,
     int age,
     Sex sex,
   ) {
     final microRecommendations = _getNutritionData(age, sex);
 
     // Set nutrient recommendations
-    appSettings.alcoholTarget = microRecommendations.alcohol ?? 0;
-    appSettings.fiberTarget = microRecommendations.fiber ?? 0;
-    appSettings.calciumTarget = microRecommendations.calcium ?? 0;
-    appSettings.chlorideTarget = microRecommendations.chloride ?? 0;
-    appSettings.chromiumTarget = microRecommendations.chromium ?? 0;
-    appSettings.ironTarget = microRecommendations.iron ?? 0;
-    appSettings.fluorineTarget = microRecommendations.fluorine ?? 0;
-    appSettings.iodineTarget = microRecommendations.iodine ?? 0;
-    appSettings.potassiumTarget = microRecommendations.potassium ?? 0;
-    appSettings.copperTarget = microRecommendations.copper ?? 0;
-    appSettings.magnesiumTarget = microRecommendations.magnesium ?? 0;
-    appSettings.manganeseTarget = microRecommendations.manganese ?? 0;
-    appSettings.molybdenumTarget = microRecommendations.molybdenum ?? 0;
-    appSettings.sodiumTarget = microRecommendations.sodium ?? 0;
-    appSettings.phosphorusTarget = microRecommendations.phosphorus ?? 0;
-    appSettings.seleniumTarget = microRecommendations.selenium ?? 0;
-    appSettings.vitaminATarget = microRecommendations.vitaminA ?? 0;
-    appSettings.vitaminB1Target = microRecommendations.vitaminB1 ?? 0;
-    appSettings.vitaminB12Target = microRecommendations.vitaminB12 ?? 0;
-    appSettings.vitaminB2Target = microRecommendations.vitaminB2 ?? 0;
-    appSettings.vitaminB3Target = microRecommendations.vitaminB3 ?? 0;
-    appSettings.vitaminB5Target = microRecommendations.vitaminB5 ?? 0;
-    appSettings.vitaminB6Target = microRecommendations.vitaminB6 ?? 0;
-    appSettings.vitaminB7Target = microRecommendations.vitaminB7 ?? 0;
-    appSettings.vitaminB9Target = microRecommendations.vitaminB9 ?? 0;
-    appSettings.vitaminCTarget = microRecommendations.vitaminC ?? 0;
-    appSettings.vitaminDTarget = microRecommendations.vitaminD ?? 0;
-    appSettings.vitaminETarget = microRecommendations.vitaminE ?? 0;
-    appSettings.vitaminKTarget = microRecommendations.vitaminK ?? 0;
-    appSettings.waterTarget = microRecommendations.water ?? 0;
-    appSettings.zincTarget = microRecommendations.zinc ?? 0;
+    bodyTargets.alcoholTarget = microRecommendations.alcohol ?? 0;
+    bodyTargets.fiberTarget = microRecommendations.fiber ?? 0;
+    bodyTargets.calciumTarget = microRecommendations.calcium ?? 0;
+    bodyTargets.chlorideTarget = microRecommendations.chloride ?? 0;
+    bodyTargets.chromiumTarget = microRecommendations.chromium ?? 0;
+    bodyTargets.ironTarget = microRecommendations.iron ?? 0;
+    bodyTargets.fluorineTarget = microRecommendations.fluorine ?? 0;
+    bodyTargets.iodineTarget = microRecommendations.iodine ?? 0;
+    bodyTargets.potassiumTarget = microRecommendations.potassium ?? 0;
+    bodyTargets.copperTarget = microRecommendations.copper ?? 0;
+    bodyTargets.magnesiumTarget = microRecommendations.magnesium ?? 0;
+    bodyTargets.manganeseTarget = microRecommendations.manganese ?? 0;
+    bodyTargets.molybdenumTarget = microRecommendations.molybdenum ?? 0;
+    bodyTargets.sodiumTarget = microRecommendations.sodium ?? 0;
+    bodyTargets.phosphorusTarget = microRecommendations.phosphorus ?? 0;
+    bodyTargets.seleniumTarget = microRecommendations.selenium ?? 0;
+    bodyTargets.vitaminATarget = microRecommendations.vitaminA ?? 0;
+    bodyTargets.vitaminB1Target = microRecommendations.vitaminB1 ?? 0;
+    bodyTargets.vitaminB12Target = microRecommendations.vitaminB12 ?? 0;
+    bodyTargets.vitaminB2Target = microRecommendations.vitaminB2 ?? 0;
+    bodyTargets.vitaminB3Target = microRecommendations.vitaminB3 ?? 0;
+    bodyTargets.vitaminB5Target = microRecommendations.vitaminB5 ?? 0;
+    bodyTargets.vitaminB6Target = microRecommendations.vitaminB6 ?? 0;
+    bodyTargets.vitaminB7Target = microRecommendations.vitaminB7 ?? 0;
+    bodyTargets.vitaminB9Target = microRecommendations.vitaminB9 ?? 0;
+    bodyTargets.vitaminCTarget = microRecommendations.vitaminC ?? 0;
+    bodyTargets.vitaminDTarget = microRecommendations.vitaminD ?? 0;
+    bodyTargets.vitaminETarget = microRecommendations.vitaminE ?? 0;
+    bodyTargets.vitaminKTarget = microRecommendations.vitaminK ?? 0;
+    bodyTargets.waterTarget = microRecommendations.water ?? 0;
+    bodyTargets.zincTarget = microRecommendations.zinc ?? 0;
   }
 }

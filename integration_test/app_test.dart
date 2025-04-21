@@ -7,7 +7,8 @@ import 'package:energize/models/person/enums/sex.dart';
 import 'package:energize/pages/tab_food/food_page.dart';
 import 'package:energize/pages/tab_settings/settings_page.dart';
 import 'package:energize/pages/tab_tracking/tracking_page.dart';
-import 'package:energize/providers/app_settings.dart';
+import 'package:energize/providers/app_settings_provider.dart';
+import 'package:energize/providers/body_targets_provider.dart';
 import 'package:energize/providers/custom_food_provider.dart';
 import 'package:energize/providers/tracked_food_provider.dart';
 import 'package:energize/services/food_database_bindings/swiss_food_composition_database/swiss_food_composition_database_binding.dart';
@@ -216,7 +217,8 @@ void main() {
       );
 
       // Activate meal grouping
-      final appSettings = Provider.of<AppSettings>(context, listen: false);
+      final appSettings =
+          Provider.of<AppSettingsProvider>(context, listen: false);
       appSettings.isMealGroupingActivated = true;
 
       // Add tracked food
@@ -229,18 +231,18 @@ void main() {
       trackedFoodProvider.addTrackedFood(trackedPesto);
       trackedFoodProvider.addTrackedFood(trackedParmesan);
 
-      final appSettingsProvider =
-          Provider.of<AppSettings>(context, listen: false);
+      final bodyTargets =
+          Provider.of<BodyTargetsProvider>(context, listen: false);
 
       // Set calories and macro targets
-      appSettingsProvider.caloriesTarget = 2000;
-      appSettingsProvider.proteinTarget = 120;
-      appSettingsProvider.carbsTarget = 220;
-      appSettingsProvider.fatTarget = 70;
+      bodyTargets.caloriesTarget = 2000;
+      bodyTargets.proteinTarget = 120;
+      bodyTargets.carbsTarget = 220;
+      bodyTargets.fatTarget = 70;
 
       // Set micro targets
       MicronutrientsRecommendations.setRecommendedNutritionAsTargets(
-        appSettingsProvider,
+        bodyTargets,
         20,
         Sex.female,
       );

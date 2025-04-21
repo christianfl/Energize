@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 
 import '../../../../../models/person/enums/sex.dart';
 import '../../../../../models/person/enums/weight_target.dart';
-import '../../../../../providers/app_settings.dart';
+import '../../../../../providers/body_targets_provider.dart';
 import '../../../../../services/micronutrients_recommendations/micronutrients_recommendations.dart';
 
 class CalculationTab extends StatefulWidget {
@@ -71,19 +71,19 @@ class CalculationTabState extends State<CalculationTab> {
     );
   }
 
-  void _showApplyDialog(BuildContext context, AppSettings appSettings) {
+  void _showApplyDialog(BuildContext context, BodyTargetsProvider bodyTargets) {
     void updateData({String? except}) {
       if (except != 'calories') {
         _caloriesTargetController.text =
-            _calculateCalories(appSettings).toString();
+            _calculateCalories(bodyTargets).toString();
       }
 
       _proteinTargetController.text =
-          _calculateMacros('protein', appSettings).toString();
+          _calculateMacros('protein', bodyTargets).toString();
       _carbsTargetController.text =
-          _calculateMacros('carbs', appSettings).toString();
+          _calculateMacros('carbs', bodyTargets).toString();
       _fatTargetController.text =
-          _calculateMacros('fat', appSettings).toString();
+          _calculateMacros('fat', bodyTargets).toString();
     }
 
     _caloriesTargetController.text = '';
@@ -125,9 +125,9 @@ class CalculationTabState extends State<CalculationTab> {
                       children: [
                         Expanded(
                           child: TextFormField(
-                            initialValue: appSettings.proteinRatio.toString(),
+                            initialValue: bodyTargets.proteinRatio.toString(),
                             onChanged: (val) => {
-                              appSettings.proteinRatio =
+                              bodyTargets.proteinRatio =
                                   val == '' ? 20 : double.parse(val),
                               updateData(),
                             },
@@ -160,9 +160,9 @@ class CalculationTabState extends State<CalculationTab> {
                       children: [
                         Expanded(
                           child: TextFormField(
-                            initialValue: appSettings.carbsRatio.toString(),
+                            initialValue: bodyTargets.carbsRatio.toString(),
                             onChanged: (val) => {
-                              appSettings.carbsRatio =
+                              bodyTargets.carbsRatio =
                                   val == '' ? 50 : double.parse(val),
                               updateData(),
                             },
@@ -195,9 +195,9 @@ class CalculationTabState extends State<CalculationTab> {
                       children: [
                         Expanded(
                           child: TextFormField(
-                            initialValue: appSettings.fatRatio.toString(),
+                            initialValue: bodyTargets.fatRatio.toString(),
                             onChanged: (val) => {
-                              appSettings.fatRatio =
+                              bodyTargets.fatRatio =
                                   val == '' ? 30 : double.parse(val),
                               updateData(),
                             },
@@ -243,7 +243,7 @@ class CalculationTabState extends State<CalculationTab> {
               ),
               actions: [
                 FilledButton.icon(
-                  onPressed: () => _applyTargets(context, appSettings),
+                  onPressed: () => _applyTargets(context, bodyTargets),
                   icon: const Icon(Icons.save),
                   label: Text(AppLocalizations.of(context)!.apply),
                 ),
@@ -262,35 +262,35 @@ class CalculationTabState extends State<CalculationTab> {
     );
   }
 
-  double _calculateCalories(AppSettings appSettings) {
+  double _calculateCalories(BodyTargetsProvider bodyTargets) {
     if (_caloriesTargetController.text != '') {
       return double.parse(_caloriesTargetController.text);
     }
 
     // Standard value: females
     var sexFactor = -161;
-    if (appSettings.sex == 'Male') sexFactor = 5;
+    if (bodyTargets.sex == 'Male') sexFactor = 5;
 
     // Basal metabolic rate
-    final bmr = ((10 * appSettings.weight) +
-        (6.25 * appSettings.height) -
-        (5 * appSettings.age) +
+    final bmr = ((10 * bodyTargets.weight) +
+        (6.25 * bodyTargets.height) -
+        (5 * bodyTargets.age) +
         sexFactor);
 
     // Power conversion
-    final pc = bmr * appSettings.activityLevel;
+    final pc = bmr * bodyTargets.activityLevel;
 
-    final weightTargetFactor = appSettings.weightTarget.toValue();
+    final weightTargetFactor = bodyTargets.weightTarget.toValue();
     final targetCalories = pc * weightTargetFactor;
 
     return double.parse((targetCalories).toStringAsFixed(1));
   }
 
-  double _calculateMacros(String targetMacro, AppSettings appSettings) {
+  double _calculateMacros(String targetMacro, BodyTargetsProvider bodyTargets) {
     double caloriesToDistribute;
 
     if (_caloriesTargetController.text == '') {
-      caloriesToDistribute = _calculateCalories(appSettings);
+      caloriesToDistribute = _calculateCalories(bodyTargets);
     } else {
       caloriesToDistribute = double.parse(_caloriesTargetController.text);
     }
@@ -305,40 +305,40 @@ class CalculationTabState extends State<CalculationTab> {
       case 'protein':
         target = caloriesToDistribute /
             proteinKcalPerG *
-            (appSettings.proteinRatio / 100);
+            (bodyTargets.proteinRatio / 100);
         break;
       case 'carbs':
         target = caloriesToDistribute /
             carbsKcalPerG *
-            (appSettings.carbsRatio / 100);
+            (bodyTargets.carbsRatio / 100);
         break;
       case 'fat':
         target =
-            caloriesToDistribute / fatKcalPerG * (appSettings.fatRatio / 100);
+            caloriesToDistribute / fatKcalPerG * (bodyTargets.fatRatio / 100);
         break;
     }
 
     return double.parse((target).toStringAsFixed(1));
   }
 
-  void _applyTargets(BuildContext context, AppSettings appSettings) {
+  void _applyTargets(BuildContext context, BodyTargetsProvider bodyTargets) {
     String snackbarText = AppLocalizations.of(context)!.targetsApplied;
 
     try {
       // Calories and macros
-      appSettings.caloriesTarget = double.parse(_caloriesTargetController.text);
-      appSettings.proteinTarget = double.parse(_proteinTargetController.text);
-      appSettings.carbsTarget = double.parse(_carbsTargetController.text);
-      appSettings.fatTarget = double.parse(_fatTargetController.text);
+      bodyTargets.caloriesTarget = double.parse(_caloriesTargetController.text);
+      bodyTargets.proteinTarget = double.parse(_proteinTargetController.text);
+      bodyTargets.carbsTarget = double.parse(_carbsTargetController.text);
+      bodyTargets.fatTarget = double.parse(_fatTargetController.text);
 
       // Micros if checkbox is true
       if (_setMicronutrientsBasedOnAgeAndSex) {
         // Get nutrient recommendations
-        final int age = appSettings.age;
-        final Sex sex = appSettings.sex == 'Male' ? Sex.male : Sex.female;
+        final int age = bodyTargets.age;
+        final Sex sex = bodyTargets.sex == 'Male' ? Sex.male : Sex.female;
 
         MicronutrientsRecommendations.setRecommendedNutritionAsTargets(
-          appSettings,
+          bodyTargets,
           age,
           sex,
         );
@@ -419,7 +419,7 @@ class CalculationTabState extends State<CalculationTab> {
 
   @override
   Widget build(BuildContext context) {
-    final appSettings = Provider.of<AppSettings>(context);
+    final bodyTargets = Provider.of<BodyTargetsProvider>(context);
 
     return Column(
       children: [
@@ -441,9 +441,9 @@ class CalculationTabState extends State<CalculationTab> {
                     children: [
                       Expanded(
                         child: TextFormField(
-                          initialValue: appSettings.age.toString(),
+                          initialValue: bodyTargets.age.toString(),
                           onChanged: (val) =>
-                              appSettings.age = val == '' ? 20 : int.parse(val),
+                              bodyTargets.age = val == '' ? 20 : int.parse(val),
                           keyboardType: TextInputType.number,
                           decoration: InputDecoration(
                             filled: true,
@@ -455,10 +455,10 @@ class CalculationTabState extends State<CalculationTab> {
                       const SizedBox(width: 12),
                       Expanded(
                         child: DropdownButtonFormField<String>(
-                          value: appSettings.sex,
+                          value: bodyTargets.sex,
                           isExpanded: true,
                           onChanged: (String? newValue) {
-                            appSettings.sex = newValue!;
+                            bodyTargets.sex = newValue!;
                           },
                           decoration: InputDecoration(
                             filled: true,
@@ -480,8 +480,8 @@ class CalculationTabState extends State<CalculationTab> {
                     children: [
                       Expanded(
                         child: TextFormField(
-                          initialValue: appSettings.weight.toString(),
-                          onChanged: (val) => appSettings.weight =
+                          initialValue: bodyTargets.weight.toString(),
+                          onChanged: (val) => bodyTargets.weight =
                               val == '' ? 80 : int.parse(val),
                           keyboardType: TextInputType.number,
                           decoration: InputDecoration(
@@ -494,8 +494,8 @@ class CalculationTabState extends State<CalculationTab> {
                       const SizedBox(width: 12),
                       Expanded(
                         child: TextFormField(
-                          initialValue: appSettings.height.toString(),
-                          onChanged: (val) => appSettings.height =
+                          initialValue: bodyTargets.height.toString(),
+                          onChanged: (val) => bodyTargets.height =
                               val == '' ? 180 : int.parse(val),
                           keyboardType: TextInputType.number,
                           decoration: InputDecoration(
@@ -520,24 +520,24 @@ class CalculationTabState extends State<CalculationTab> {
                     children: [
                       Text(AppLocalizations.of(context)!.activityLevel),
                       Slider(
-                        value: appSettings.activityLevel,
+                        value: bodyTargets.activityLevel,
                         min: 1.0,
                         max: 2.0,
                         divisions: 10,
-                        label: appSettings.activityLevel.toString(),
+                        label: bodyTargets.activityLevel.toString(),
                         onChanged: (double value) {
-                          appSettings.activityLevel = value;
+                          bodyTargets.activityLevel = value;
                         },
                       ),
-                      _getActivityDescription(appSettings.activityLevel),
+                      _getActivityDescription(bodyTargets.activityLevel),
                     ],
                   ),
                   const SizedBox(height: 24),
                   DropdownButtonFormField<WeightTarget>(
-                    value: appSettings.weightTarget,
+                    value: bodyTargets.weightTarget,
                     isExpanded: true,
                     onChanged: (WeightTarget? newValue) {
-                      appSettings.weightTarget = newValue!;
+                      bodyTargets.weightTarget = newValue!;
                     },
                     decoration: InputDecoration(
                       icon: const Icon(Icons.adjust),
@@ -573,7 +573,7 @@ class CalculationTabState extends State<CalculationTab> {
             children: [
               Expanded(
                 child: FilledButton(
-                  onPressed: () => _showApplyDialog(context, appSettings),
+                  onPressed: () => _showApplyDialog(context, bodyTargets),
                   child: Text(
                     AppLocalizations.of(context)!.calculateNutritionTargets,
                   ),

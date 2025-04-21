@@ -3,7 +3,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 
 import '../models/food/food_tracked.dart';
-import '../providers/app_settings.dart';
+import '../providers/body_targets_provider.dart';
 import '../theme/energize_theme.dart';
 import './chart_bar.dart';
 
@@ -59,7 +59,7 @@ class MacroChart extends StatelessWidget {
     return 0;
   }
 
-  _getChart(BuildContext context, AppSettings appSettings) {
+  _getChart(BuildContext context, BodyTargetsProvider bodyTargets) {
     return ListView(
       padding: EdgeInsets.all(padding),
       shrinkWrap: true,
@@ -67,7 +67,7 @@ class MacroChart extends StatelessWidget {
         ChartBar(
           title: AppLocalizations.of(context)!.energy,
           value: _totalCalories,
-          target: appSettings.caloriesTarget,
+          target: bodyTargets.caloriesTarget,
           unit: 'kcal',
           color: Theme.of(context).energyContainer,
           maxFractionDigits: fractionDigits,
@@ -76,7 +76,7 @@ class MacroChart extends StatelessWidget {
         ChartBar(
           title: AppLocalizations.of(context)!.protein,
           value: _totalProtein,
-          target: appSettings.proteinTarget,
+          target: bodyTargets.proteinTarget,
           unit: 'g',
           color: Theme.of(context).proteinContainer,
           maxFractionDigits: fractionDigits,
@@ -84,7 +84,7 @@ class MacroChart extends StatelessWidget {
         ChartBar(
           title: AppLocalizations.of(context)!.carbs,
           value: _totalCarbs,
-          target: appSettings.carbsTarget,
+          target: bodyTargets.carbsTarget,
           unit: 'g',
           color: Theme.of(context).carbsContainer,
           maxFractionDigits: fractionDigits,
@@ -92,7 +92,7 @@ class MacroChart extends StatelessWidget {
         ChartBar(
           title: AppLocalizations.of(context)!.fat,
           value: _totalFat,
-          target: appSettings.fatTarget,
+          target: bodyTargets.fatTarget,
           unit: 'g',
           color: Theme.of(context).fatContainer,
           maxFractionDigits: fractionDigits,
@@ -103,13 +103,13 @@ class MacroChart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final appSettings = Provider.of<AppSettings>(context);
+    final bodyTargets = Provider.of<BodyTargetsProvider>(context);
 
     if (hideCard == true) {
-      return _getChart(context, appSettings);
+      return _getChart(context, bodyTargets);
     } else {
       return Card(
-        child: _getChart(context, appSettings),
+        child: _getChart(context, bodyTargets),
       );
     }
   }

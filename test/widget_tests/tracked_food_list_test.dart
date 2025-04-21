@@ -4,7 +4,7 @@ import 'package:energize/pages/tab_food/food_page.dart';
 import 'package:energize/pages/tab_tracking/widgets/tracked_food_list.dart';
 import 'package:energize/pages/tab_tracking/widgets/tracked_food_list_item.dart';
 import 'package:energize/pages/tab_tracking/widgets/tracked_food_list_item_grouper.dart';
-import 'package:energize/providers/app_settings.dart';
+import 'package:energize/providers/app_settings_provider.dart';
 import 'package:energize/providers/tracked_food_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -21,7 +21,7 @@ void main() {
     await tester.pumpWidget(
       MultiProvider(
         providers: [
-          ChangeNotifierProvider(create: (_) => AppSettings()),
+          ChangeNotifierProvider(create: (_) => AppSettingsProvider()),
           ChangeNotifierProvider(
             create: (_) => TrackedFoodProvider(db: mockTrackedFoodDb),
           ),
@@ -47,7 +47,8 @@ void main() {
     final BuildContext context = tester.element(find.byType(TrackedFoodList));
 
     // Deactivate meal grouping
-    final appSettings = Provider.of<AppSettings>(context, listen: false);
+    final appSettings =
+        Provider.of<AppSettingsProvider>(context, listen: false);
     appSettings.isMealGroupingActivated = false;
 
     // Set dates

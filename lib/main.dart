@@ -20,7 +20,8 @@ import 'pages/tab_settings/ui_settings_sub_page.dart';
 import 'pages/tab_tracking/detailed_summary_sub_page.dart';
 import 'pages/tab_tracking/track_food_modal.dart';
 import 'pages/tabs_page.dart';
-import 'providers/app_settings.dart';
+import 'providers/app_settings_provider.dart';
+import 'providers/body_targets_provider.dart';
 import 'providers/complete_days_provider.dart';
 import 'providers/custom_food_provider.dart';
 import 'providers/tracked_food_provider.dart';
@@ -76,7 +77,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (ctx) => AppSettings()),
+        ChangeNotifierProvider(create: (ctx) => AppSettingsProvider()),
+        ChangeNotifierProvider(create: (ctx) => BodyTargetsProvider()),
         ChangeNotifierProvider(
           create: (ctx) =>
               TrackedFoodProvider(db: TrackedFoodDatabaseService.instance),

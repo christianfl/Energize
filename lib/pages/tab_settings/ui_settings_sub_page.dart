@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 
-import '../../providers/app_settings.dart';
+import '../../providers/app_settings_provider.dart';
 
 class UISettingsSubPage extends StatelessWidget {
   static const routeName = '/settings/ui';
@@ -11,7 +11,7 @@ class UISettingsSubPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final appSettings = Provider.of<AppSettings>(context);
+    final appSettings = Provider.of<AppSettingsProvider>(context);
 
     return Scaffold(
       appBar: AppBar(

@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 
 import '../../../../providers/tracked_food_provider.dart';
 import '../../../models/food/food_tracked.dart';
-import '../../../providers/app_settings.dart';
+import '../../../providers/app_settings_provider.dart';
 import '../../../theme/energize_theme.dart';
 import '../track_food_modal.dart';
 import 'tracked_food_list_item.dart';
@@ -29,7 +29,7 @@ class TrackedFoodList extends StatelessWidget {
   ///
   /// onTapCallback: [_navigateToEditFood].
   Widget _foodItemDismissibleWrapper(
-    AppSettings appSettings,
+    AppSettingsProvider appSettings,
     FoodTracked foodTracked,
     BuildContext context,
     TrackedFoodProvider trackedFood, {
@@ -146,7 +146,7 @@ class TrackedFoodList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final appSettings = Provider.of<AppSettings>(context);
+    final appSettings = Provider.of<AppSettingsProvider>(context);
     final trackedFood = Provider.of<TrackedFoodProvider>(context);
     final foods = trackedFood.foods;
     final List<List<FoodTracked>> groupedFoods = _groupFoodTrackedByDateEaten(

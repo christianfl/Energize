@@ -3,7 +3,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 
 import '../models/food/food_tracked.dart';
-import '../providers/app_settings.dart';
+import '../providers/body_targets_provider.dart';
 import '../theme/energize_theme.dart';
 import './chart_bar.dart';
 
@@ -325,7 +325,7 @@ class MicroChart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final appSettings = Provider.of<AppSettings>(context);
+    final bodyTargets = Provider.of<BodyTargetsProvider>(context);
     final microNutrientsContainerColor =
         Theme.of(context).microNutrientsContainer;
 
@@ -344,7 +344,7 @@ class MicroChart extends StatelessWidget {
           ChartBar(
             title: AppLocalizations.of(context)!.vitaminA,
             value: _totalVitaminA(foods),
-            target: appSettings.vitaminATarget,
+            target: bodyTargets.vitaminATarget,
             color: microNutrientsContainerColor,
             unit: 'mg',
           ),
@@ -352,7 +352,7 @@ class MicroChart extends StatelessWidget {
           ChartBar(
             title: AppLocalizations.of(context)!.vitaminB1,
             value: _totalVitaminB1(foods),
-            target: appSettings.vitaminB1Target,
+            target: bodyTargets.vitaminB1Target,
             color: microNutrientsContainerColor,
             unit: 'mg',
           ),
@@ -360,7 +360,7 @@ class MicroChart extends StatelessWidget {
           ChartBar(
             title: AppLocalizations.of(context)!.vitaminB2,
             value: _totalVitaminB2(foods),
-            target: appSettings.vitaminB2Target,
+            target: bodyTargets.vitaminB2Target,
             color: microNutrientsContainerColor,
             unit: 'mg',
           ),
@@ -368,7 +368,7 @@ class MicroChart extends StatelessWidget {
           ChartBar(
             title: AppLocalizations.of(context)!.vitaminB3,
             value: _totalVitaminB3(foods),
-            target: appSettings.vitaminB3Target,
+            target: bodyTargets.vitaminB3Target,
             color: microNutrientsContainerColor,
             unit: 'mg',
           ),
@@ -376,7 +376,7 @@ class MicroChart extends StatelessWidget {
           ChartBar(
             title: AppLocalizations.of(context)!.vitaminB5,
             value: _totalVitaminB5(foods),
-            target: appSettings.vitaminB5Target,
+            target: bodyTargets.vitaminB5Target,
             color: microNutrientsContainerColor,
             unit: 'mg',
           ),
@@ -384,7 +384,7 @@ class MicroChart extends StatelessWidget {
           ChartBar(
             title: AppLocalizations.of(context)!.vitaminB6,
             value: _totalVitaminB6(foods),
-            target: appSettings.vitaminB6Target,
+            target: bodyTargets.vitaminB6Target,
             color: microNutrientsContainerColor,
             unit: 'mg',
           ),
@@ -392,7 +392,7 @@ class MicroChart extends StatelessWidget {
           ChartBar(
             title: AppLocalizations.of(context)!.vitaminB7,
             value: _totalVitaminB7(foods),
-            target: appSettings.vitaminB7Target,
+            target: bodyTargets.vitaminB7Target,
             color: microNutrientsContainerColor,
             unit: 'μg',
           ),
@@ -400,7 +400,7 @@ class MicroChart extends StatelessWidget {
           ChartBar(
             title: AppLocalizations.of(context)!.vitaminB9,
             value: _totalVitaminB9(foods),
-            target: appSettings.vitaminB9Target,
+            target: bodyTargets.vitaminB9Target,
             color: microNutrientsContainerColor,
             unit: 'μg',
           ),
@@ -408,7 +408,7 @@ class MicroChart extends StatelessWidget {
           ChartBar(
             title: AppLocalizations.of(context)!.vitaminB12,
             value: _totalVitaminB12(foods),
-            target: appSettings.vitaminB12Target,
+            target: bodyTargets.vitaminB12Target,
             color: microNutrientsContainerColor,
             unit: 'μg',
           ),
@@ -416,7 +416,7 @@ class MicroChart extends StatelessWidget {
           ChartBar(
             title: AppLocalizations.of(context)!.vitaminC,
             value: _totalVitaminC(foods),
-            target: appSettings.vitaminCTarget,
+            target: bodyTargets.vitaminCTarget,
             color: microNutrientsContainerColor,
             unit: 'mg',
           ),
@@ -424,7 +424,7 @@ class MicroChart extends StatelessWidget {
           ChartBar(
             title: AppLocalizations.of(context)!.vitaminD,
             value: _totalVitaminD(foods),
-            target: appSettings.vitaminDTarget,
+            target: bodyTargets.vitaminDTarget,
             color: microNutrientsContainerColor,
             unit: 'μg',
           ),
@@ -432,7 +432,7 @@ class MicroChart extends StatelessWidget {
           ChartBar(
             title: AppLocalizations.of(context)!.vitaminE,
             value: _totalVitaminE(foods),
-            target: appSettings.vitaminETarget,
+            target: bodyTargets.vitaminETarget,
             color: microNutrientsContainerColor,
             unit: 'mg',
           ),
@@ -440,7 +440,7 @@ class MicroChart extends StatelessWidget {
           ChartBar(
             title: AppLocalizations.of(context)!.vitaminK,
             value: _totalVitaminK(foods),
-            target: appSettings.vitaminKTarget,
+            target: bodyTargets.vitaminKTarget,
             color: microNutrientsContainerColor,
             unit: 'μg',
           ),
@@ -464,7 +464,7 @@ class MicroChart extends StatelessWidget {
           ChartBar(
             title: AppLocalizations.of(context)!.calcium,
             value: _totalCalcium(foods),
-            target: appSettings.calciumTarget,
+            target: bodyTargets.calciumTarget,
             color: microNutrientsContainerColor,
             unit: 'mg',
           ),
@@ -472,7 +472,7 @@ class MicroChart extends StatelessWidget {
           ChartBar(
             title: AppLocalizations.of(context)!.chloride,
             value: _totalChloride(foods),
-            target: appSettings.chlorideTarget,
+            target: bodyTargets.chlorideTarget,
             color: microNutrientsContainerColor,
             unit: 'mg',
           ),
@@ -480,7 +480,7 @@ class MicroChart extends StatelessWidget {
           ChartBar(
             title: AppLocalizations.of(context)!.magnesium,
             value: _totalMagnesium(foods),
-            target: appSettings.magnesiumTarget,
+            target: bodyTargets.magnesiumTarget,
             color: microNutrientsContainerColor,
             unit: 'mg',
           ),
@@ -488,7 +488,7 @@ class MicroChart extends StatelessWidget {
           ChartBar(
             title: AppLocalizations.of(context)!.phosphorous,
             value: _totalPhosphorus(foods),
-            target: appSettings.phosphorusTarget,
+            target: bodyTargets.phosphorusTarget,
             color: microNutrientsContainerColor,
             unit: 'mg',
           ),
@@ -496,7 +496,7 @@ class MicroChart extends StatelessWidget {
           ChartBar(
             title: AppLocalizations.of(context)!.potassium,
             value: _totalPotassium(foods),
-            target: appSettings.potassiumTarget,
+            target: bodyTargets.potassiumTarget,
             color: microNutrientsContainerColor,
             unit: 'mg',
           ),
@@ -504,7 +504,7 @@ class MicroChart extends StatelessWidget {
           ChartBar(
             title: AppLocalizations.of(context)!.sodium,
             value: _totalSodium(foods),
-            target: appSettings.sodiumTarget,
+            target: bodyTargets.sodiumTarget,
             color: microNutrientsContainerColor,
             unit: 'mg',
           ),
@@ -520,7 +520,7 @@ class MicroChart extends StatelessWidget {
           ChartBar(
             title: AppLocalizations.of(context)!.chromium,
             value: _totalChromium(foods),
-            target: appSettings.chromiumTarget,
+            target: bodyTargets.chromiumTarget,
             color: microNutrientsContainerColor,
             unit: 'μg',
           ),
@@ -528,7 +528,7 @@ class MicroChart extends StatelessWidget {
           ChartBar(
             title: AppLocalizations.of(context)!.iron,
             value: _totalIron(foods),
-            target: appSettings.ironTarget,
+            target: bodyTargets.ironTarget,
             color: microNutrientsContainerColor,
             unit: 'mg',
           ),
@@ -536,7 +536,7 @@ class MicroChart extends StatelessWidget {
           ChartBar(
             title: AppLocalizations.of(context)!.fluorine,
             value: _totalFluorine(foods),
-            target: appSettings.fluorineTarget,
+            target: bodyTargets.fluorineTarget,
             color: microNutrientsContainerColor,
             unit: 'mg',
           ),
@@ -544,7 +544,7 @@ class MicroChart extends StatelessWidget {
           ChartBar(
             title: AppLocalizations.of(context)!.iodine,
             value: _totalIodine(foods),
-            target: appSettings.iodineTarget,
+            target: bodyTargets.iodineTarget,
             color: microNutrientsContainerColor,
             unit: 'μg',
           ),
@@ -552,7 +552,7 @@ class MicroChart extends StatelessWidget {
           ChartBar(
             title: AppLocalizations.of(context)!.copper,
             value: _totalCopper(foods),
-            target: appSettings.copperTarget,
+            target: bodyTargets.copperTarget,
             color: microNutrientsContainerColor,
             unit: 'mg',
           ),
@@ -560,7 +560,7 @@ class MicroChart extends StatelessWidget {
           ChartBar(
             title: AppLocalizations.of(context)!.manganese,
             value: _totalManganese(foods),
-            target: appSettings.manganeseTarget,
+            target: bodyTargets.manganeseTarget,
             color: microNutrientsContainerColor,
             unit: 'mg',
           ),
@@ -568,7 +568,7 @@ class MicroChart extends StatelessWidget {
           ChartBar(
             title: AppLocalizations.of(context)!.molybdenum,
             value: _totalMolybdenum(foods),
-            target: appSettings.molybdenumTarget,
+            target: bodyTargets.molybdenumTarget,
             color: microNutrientsContainerColor,
             unit: 'μg',
           ),
@@ -576,7 +576,7 @@ class MicroChart extends StatelessWidget {
           ChartBar(
             title: AppLocalizations.of(context)!.selenium,
             value: _totalSelenium(foods),
-            target: appSettings.seleniumTarget,
+            target: bodyTargets.seleniumTarget,
             color: microNutrientsContainerColor,
             unit: 'μg',
           ),
@@ -584,7 +584,7 @@ class MicroChart extends StatelessWidget {
           ChartBar(
             title: AppLocalizations.of(context)!.zinc,
             value: _totalZinc(foods),
-            target: appSettings.zincTarget,
+            target: bodyTargets.zincTarget,
             color: microNutrientsContainerColor,
             unit: 'mg',
           ),
@@ -600,7 +600,7 @@ class MicroChart extends StatelessWidget {
           ChartBar(
             title: AppLocalizations.of(context)!.monounsaturatedFat,
             value: _totalMonounsaturatedFat(foods),
-            target: appSettings.monounsaturatedFatTarget,
+            target: bodyTargets.monounsaturatedFatTarget,
             color: microNutrientsContainerColor,
             unit: 'g',
           ),
@@ -608,7 +608,7 @@ class MicroChart extends StatelessWidget {
           ChartBar(
             title: AppLocalizations.of(context)!.polyunsaturatedFat,
             value: _totalPolyunsaturatedFat(foods),
-            target: appSettings.polyunsaturatedFatTarget,
+            target: bodyTargets.polyunsaturatedFatTarget,
             color: microNutrientsContainerColor,
             unit: 'g',
           ),
@@ -618,7 +618,7 @@ class MicroChart extends StatelessWidget {
             child: ChartBar(
               title: AppLocalizations.of(context)!.omega3,
               value: _totalOmega3(foods),
-              target: appSettings.omega3Target,
+              target: bodyTargets.omega3Target,
               color: microNutrientsContainerColor,
               unit: 'g',
             ),
@@ -629,7 +629,7 @@ class MicroChart extends StatelessWidget {
             child: ChartBar(
               title: AppLocalizations.of(context)!.omega6,
               value: _totalOmega6(foods),
-              target: appSettings.omega6Target,
+              target: bodyTargets.omega6Target,
               color: microNutrientsContainerColor,
               unit: 'g',
             ),
@@ -638,7 +638,7 @@ class MicroChart extends StatelessWidget {
           ChartBar(
             title: AppLocalizations.of(context)!.saturatedFat,
             value: _totalSaturatedFat(foods),
-            target: appSettings.saturatedFatTarget,
+            target: bodyTargets.saturatedFatTarget,
             color: microNutrientsContainerColor,
             unit: 'g',
           ),
@@ -646,7 +646,7 @@ class MicroChart extends StatelessWidget {
           ChartBar(
             title: AppLocalizations.of(context)!.transfat,
             value: _totalTransFat(foods),
-            target: appSettings.transFatTarget,
+            target: bodyTargets.transFatTarget,
             color: microNutrientsContainerColor,
             unit: 'g',
           ),
@@ -654,7 +654,7 @@ class MicroChart extends StatelessWidget {
           ChartBar(
             title: AppLocalizations.of(context)!.cholesterol,
             value: _totalCholesterol(foods),
-            target: appSettings.cholesterolTarget,
+            target: bodyTargets.cholesterolTarget,
             color: microNutrientsContainerColor,
             unit: 'mg',
           ),
@@ -670,7 +670,7 @@ class MicroChart extends StatelessWidget {
           ChartBar(
             title: AppLocalizations.of(context)!.fiber,
             value: _totalFiber(foods),
-            target: appSettings.fiberTarget,
+            target: bodyTargets.fiberTarget,
             color: microNutrientsContainerColor,
             unit: 'g',
           ),
@@ -678,7 +678,7 @@ class MicroChart extends StatelessWidget {
           ChartBar(
             title: AppLocalizations.of(context)!.sugar,
             value: _totalSugar(foods),
-            target: appSettings.sugarTarget,
+            target: bodyTargets.sugarTarget,
             color: microNutrientsContainerColor,
             unit: 'g',
           ),
@@ -686,7 +686,7 @@ class MicroChart extends StatelessWidget {
           ChartBar(
             title: AppLocalizations.of(context)!.sugarAlcohol,
             value: _totalSugarAlcohol(foods),
-            target: appSettings.sugarAlcoholTarget,
+            target: bodyTargets.sugarAlcoholTarget,
             color: microNutrientsContainerColor,
             unit: 'g',
           ),
@@ -694,7 +694,7 @@ class MicroChart extends StatelessWidget {
           ChartBar(
             title: AppLocalizations.of(context)!.starch,
             value: _totalStarch(foods),
-            target: appSettings.starchTarget,
+            target: bodyTargets.starchTarget,
             color: microNutrientsContainerColor,
             unit: 'g',
           ),
@@ -710,7 +710,7 @@ class MicroChart extends StatelessWidget {
           ChartBar(
             title: AppLocalizations.of(context)!.water,
             value: _totalWater(foods),
-            target: appSettings.waterTarget,
+            target: bodyTargets.waterTarget,
             color: microNutrientsContainerColor,
             unit: 'ml',
           ),
@@ -718,7 +718,7 @@ class MicroChart extends StatelessWidget {
           ChartBar(
             title: AppLocalizations.of(context)!.caffeine,
             value: _totalCaffeine(foods),
-            target: appSettings.caffeineTarget,
+            target: bodyTargets.caffeineTarget,
             color: microNutrientsContainerColor,
             unit: 'mg',
           ),
@@ -726,7 +726,7 @@ class MicroChart extends StatelessWidget {
           ChartBar(
             title: AppLocalizations.of(context)!.alcohol,
             value: _totalAlcohol(foods),
-            target: appSettings.alcoholTarget,
+            target: bodyTargets.alcoholTarget,
             color: microNutrientsContainerColor,
             unit: 'g',
           ),

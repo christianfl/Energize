@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 
-import '../../providers/app_settings.dart';
+import '../../providers/app_settings_provider.dart';
 import '../../services/backup_service.dart';
 import '../../services/webdav_service.dart';
 import '../../theme/energize_theme.dart';
@@ -43,7 +43,8 @@ class BackupAndRestoreSubPageState extends State<BackupAndRestoreSubPage> {
 
   @override
   didChangeDependencies() {
-    final appSettings = Provider.of<AppSettings>(context, listen: false);
+    final appSettings =
+        Provider.of<AppSettingsProvider>(context, listen: false);
 
     _serverUrlController.text = appSettings.backupServerUrl;
     _usernameController.text = appSettings.backupUsername;
@@ -197,7 +198,8 @@ ${AppLocalizations.of(context)!.importedNumberOfFoodsMessage(
   /// Passwords could in future be saved to Keystore
   /// or better handling with Password managers could be evaluated
   _saveWebDAVServerSettings() {
-    final appSettings = Provider.of<AppSettings>(context, listen: false);
+    final appSettings =
+        Provider.of<AppSettingsProvider>(context, listen: false);
 
     appSettings.backupServerUrl = _serverUrlController.text;
     appSettings.backupUsername = _usernameController.text;
@@ -205,17 +207,20 @@ ${AppLocalizations.of(context)!.importedNumberOfFoodsMessage(
   }
 
   _clearBackupServerUrl() {
-    final appSettings = Provider.of<AppSettings>(context, listen: false);
+    final appSettings =
+        Provider.of<AppSettingsProvider>(context, listen: false);
     appSettings.clearBackupServerUrl();
   }
 
   _clearBackupUsername() {
-    final appSettings = Provider.of<AppSettings>(context, listen: false);
+    final appSettings =
+        Provider.of<AppSettingsProvider>(context, listen: false);
     appSettings.clearBackupUsername();
   }
 
   _resetBackupPathAndFilename() {
-    final appSettings = Provider.of<AppSettings>(context, listen: false);
+    final appSettings =
+        Provider.of<AppSettingsProvider>(context, listen: false);
     appSettings.clearBackupPathAndFilename();
   }
 

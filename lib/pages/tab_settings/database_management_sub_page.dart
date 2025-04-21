@@ -3,7 +3,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../../providers/app_settings.dart';
+import '../../providers/app_settings_provider.dart';
 import '../../services/food_database_bindings/open_food_facts/open_food_facts_binding.dart';
 import '../../services/food_database_bindings/swiss_food_composition_database/swiss_food_composition_database_binding.dart';
 import '../../services/food_database_bindings/usda/usda_binding.dart';
@@ -37,7 +37,7 @@ class DatabaseManagementSubPageState extends State<DatabaseManagementSubPage> {
 
   @override
   Widget build(BuildContext context) {
-    final appSettings = Provider.of<AppSettings>(context);
+    final appSettings = Provider.of<AppSettingsProvider>(context);
 
     return Scaffold(
       appBar: AppBar(

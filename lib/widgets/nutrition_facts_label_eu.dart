@@ -4,7 +4,7 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 import '../models/food/food_tracked.dart';
-import '../providers/app_settings.dart';
+import '../providers/body_targets_provider.dart';
 import '../theme/energize_theme.dart';
 import './chart_bar.dart';
 
@@ -96,7 +96,7 @@ class NutritionFactsLabelEU extends StatelessWidget {
     return 0;
   }
 
-  _getChart(BuildContext context, AppSettings appSettings) {
+  _getChart(BuildContext context, BodyTargetsProvider bodyTargets) {
     return ListView(
       padding: const EdgeInsets.all(16.0),
       shrinkWrap: true,
@@ -109,7 +109,7 @@ class NutritionFactsLabelEU extends StatelessWidget {
         ChartBar(
           title: AppLocalizations.of(context)!.energy,
           value: _totalCalories,
-          target: appSettings.caloriesTarget,
+          target: bodyTargets.caloriesTarget,
           unit: 'kcal',
           color: Theme.of(context).energyContainer,
           maxFractionDigits: 1,
@@ -118,7 +118,7 @@ class NutritionFactsLabelEU extends StatelessWidget {
         ChartBar(
           title: AppLocalizations.of(context)!.fat,
           value: _totalFat,
-          target: appSettings.fatTarget,
+          target: bodyTargets.fatTarget,
           unit: 'g',
           color: Theme.of(context).fatContainer,
           maxFractionDigits: 1,
@@ -128,7 +128,7 @@ class NutritionFactsLabelEU extends StatelessWidget {
           child: ChartBar(
             title: AppLocalizations.of(context)!.saturatedFat,
             value: _totalSaturatedFat,
-            target: appSettings.saturatedFatTarget,
+            target: bodyTargets.saturatedFatTarget,
             unit: 'g',
             color: Theme.of(context).fatContainer,
             maxFractionDigits: 1,
@@ -137,7 +137,7 @@ class NutritionFactsLabelEU extends StatelessWidget {
         ChartBar(
           title: AppLocalizations.of(context)!.carbs,
           value: _totalCarbs,
-          target: appSettings.carbsTarget,
+          target: bodyTargets.carbsTarget,
           unit: 'g',
           color: Theme.of(context).carbsContainer,
           maxFractionDigits: 1,
@@ -147,7 +147,7 @@ class NutritionFactsLabelEU extends StatelessWidget {
           child: ChartBar(
             title: AppLocalizations.of(context)!.sugar,
             value: _totalSugar,
-            target: appSettings.sugarTarget,
+            target: bodyTargets.sugarTarget,
             unit: 'g',
             color: Theme.of(context).carbsContainer,
             maxFractionDigits: 1,
@@ -156,7 +156,7 @@ class NutritionFactsLabelEU extends StatelessWidget {
         ChartBar(
           title: AppLocalizations.of(context)!.fiber,
           value: _totalFiber,
-          target: appSettings.fiberTarget,
+          target: bodyTargets.fiberTarget,
           unit: 'g',
           color: Theme.of(context).microNutrientsContainer,
           maxFractionDigits: 1,
@@ -164,7 +164,7 @@ class NutritionFactsLabelEU extends StatelessWidget {
         ChartBar(
           title: AppLocalizations.of(context)!.protein,
           value: _totalProtein,
-          target: appSettings.proteinTarget,
+          target: bodyTargets.proteinTarget,
           unit: 'g',
           color: Theme.of(context).proteinContainer,
           maxFractionDigits: 1,
@@ -172,8 +172,8 @@ class NutritionFactsLabelEU extends StatelessWidget {
         ChartBar(
           title: '${AppLocalizations.of(context)!.salt}*',
           value: _totalSalt,
-          target: appSettings.sodiumTarget != 0
-              ? appSettings.sodiumTarget / 1000 * sodiumToSaltFacor
+          target: bodyTargets.sodiumTarget != 0
+              ? bodyTargets.sodiumTarget / 1000 * sodiumToSaltFacor
               : 0,
           unit: 'g',
           color: Theme.of(context).microNutrientsContainer,
@@ -190,8 +190,8 @@ class NutritionFactsLabelEU extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final appSettings = Provider.of<AppSettings>(context);
+    final bodyTargets = Provider.of<BodyTargetsProvider>(context);
 
-    return _getChart(context, appSettings);
+    return _getChart(context, bodyTargets);
   }
 }

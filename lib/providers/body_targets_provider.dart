@@ -5,10 +5,17 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../models/person/enums/weight_target.dart';
 
-class AppSettings with ChangeNotifier {
+/// Provider for everything related to the body and targets.
+///
+/// Includes e.g.:
+/// - Weight, height, activity
+/// - Target calories and macros
+/// - Target micros
+class BodyTargetsProvider with ChangeNotifier {
   SharedPreferences? _preferences;
 
-  // ########################## Personalization ##########################
+  // ##################### Personalization #####################
+
   int _age = 20;
   String _sex = 'Male';
 
@@ -32,23 +39,7 @@ class AppSettings with ChangeNotifier {
   /// in %
   double _fatRatio = 30;
 
-  // ########################## UI Settings ##########################
-
-  bool _isMealGroupingActivated = false;
-
-  // ########################## Backup & Restore ##########################
-
-  String _backupServerUrl = '';
-  String _backupUsername = '';
-  String _backupPathAndFilename = '/Energize/backup.json.aes';
-
-  // ########################## DB management ##########################
-
-  bool _isProviderOpenFoodFactsActivated = true;
-  bool _isProviderSndbActivated = true;
-  bool _isProviderUsdaActivated = true;
-
-  // ########################## Targets ##########################
+  // ##################### Calories, macro, micro targets #####################
 
   double _caloriesTarget = 0.0;
   double _proteinTarget = 0.0;
@@ -97,6 +88,8 @@ class AppSettings with ChangeNotifier {
   double _caffeineTarget = 0.0;
   double _alcoholTarget = 0.0;
 
+  // Getter
+
   int get age => _age;
   String get sex => _sex;
   int get weight => _weight;
@@ -106,17 +99,6 @@ class AppSettings with ChangeNotifier {
   double get proteinRatio => _proteinRatio;
   double get carbsRatio => _carbsRatio;
   double get fatRatio => _fatRatio;
-
-  bool get isMealGroupingActivated => _isMealGroupingActivated;
-
-  String get backupServerUrl => _backupServerUrl;
-  String get backupUsername => _backupUsername;
-  String get backupPathAndFilename => _backupPathAndFilename;
-
-  bool get isProviderOpenFoodFactsActivated =>
-      _isProviderOpenFoodFactsActivated;
-  bool get isProviderSndbActivated => _isProviderSndbActivated;
-  bool get isProviderUsdaActivated => _isProviderUsdaActivated;
 
   double get caloriesTarget => _caloriesTarget;
   double get proteinTarget => _proteinTarget;
@@ -165,7 +147,7 @@ class AppSettings with ChangeNotifier {
   double get caffeineTarget => _caffeineTarget;
   double get alcoholTarget => _alcoholTarget;
 
-  AppSettings() {
+  BodyTargetsProvider() {
     _loadFromSharedPreferences();
   }
 
@@ -173,8 +155,8 @@ class AppSettings with ChangeNotifier {
     _preferences ??= await SharedPreferences.getInstance();
   }
 
-  // Loads all key value pairs from shared preferences into local variables
-  _loadFromSharedPreferences() async {
+  /// Loads all key value pairs from shared preferences into local variables
+  Future<void> _loadFromSharedPreferences() async {
     await _initPreferences();
 
     _age = _preferences!.getInt('age') ?? _age;
@@ -191,23 +173,6 @@ class AppSettings with ChangeNotifier {
     _proteinRatio = _preferences!.getDouble('proteinRatio') ?? _proteinRatio;
     _carbsRatio = _preferences!.getDouble('carbsRatio') ?? _carbsRatio;
     _fatRatio = _preferences!.getDouble('fatRatio') ?? _fatRatio;
-
-    _isMealGroupingActivated =
-        _preferences!.getBool('isMealGroupingActivated') ?? false;
-
-    _backupServerUrl =
-        _preferences!.getString('backupServerUrl') ?? _backupServerUrl;
-    _backupUsername =
-        _preferences!.getString('backupUsername') ?? _backupUsername;
-    _backupPathAndFilename = _preferences!.getString('backupPathAndFilename') ??
-        _backupPathAndFilename;
-
-    _isProviderOpenFoodFactsActivated =
-        _preferences!.getBool('isProviderOpenFoodFactsActivated') ?? true;
-    _isProviderSndbActivated =
-        _preferences!.getBool('isProviderSndbActivated') ?? true;
-    _isProviderUsdaActivated =
-        _preferences!.getBool('isProviderUsdaActivated') ?? true;
 
     _caloriesTarget =
         _preferences!.getDouble('caloriesTarget') ?? _caloriesTarget;
@@ -291,7 +256,8 @@ class AppSettings with ChangeNotifier {
     notifyListeners();
   }
 
-  void resetMicros() async {
+  /// Resets all micro targets
+  Future<void> resetMicros() async {
     await _initPreferences();
 
     unawaited(_preferences!.remove('vitaminATarget'));
@@ -339,7 +305,7 @@ class AppSettings with ChangeNotifier {
     unawaited(_preferences!.remove('alcoholTarget'));
   }
 
-  // Save int, double, String, or bool to shared preferences
+  /// Save int, double, String, or bool to shared preferences
   _saveToPreferences(String key, var value) async {
     await _initPreferences();
 
@@ -630,30 +596,6 @@ class AppSettings with ChangeNotifier {
     _saveToPreferences('alcoholTarget', value);
   }
 
-  set isMealGroupingActivated(bool value) {
-    _isMealGroupingActivated = value;
-    notifyListeners();
-    _saveToPreferences('isMealGroupingActivated', value);
-  }
-
-  set isProviderOpenFoodFactsActivated(bool value) {
-    _isProviderOpenFoodFactsActivated = value;
-    notifyListeners();
-    _saveToPreferences('isProviderOpenFoodFactsActivated', value);
-  }
-
-  set isProviderSndbActivated(bool value) {
-    _isProviderSndbActivated = value;
-    notifyListeners();
-    _saveToPreferences('isProviderSndbActivated', value);
-  }
-
-  set isProviderUsdaActivated(bool value) {
-    _isProviderUsdaActivated = value;
-    notifyListeners();
-    _saveToPreferences('isProviderUsdaActivated', value);
-  }
-
   set age(int value) {
     _age = value;
     notifyListeners();
@@ -706,44 +648,5 @@ class AppSettings with ChangeNotifier {
     _fatRatio = value;
     notifyListeners();
     _saveToPreferences('fatRatio', value);
-  }
-
-  set backupServerUrl(String value) {
-    _backupServerUrl = value;
-    notifyListeners();
-    _saveToPreferences('backupServerUrl', value);
-  }
-
-  set backupUsername(String value) {
-    _backupUsername = value;
-    notifyListeners();
-    _saveToPreferences('backupUsername', value);
-  }
-
-  set backupPathAndFilename(String value) {
-    _backupPathAndFilename = value;
-    notifyListeners();
-    _saveToPreferences('backupPathAndFilename', value);
-  }
-
-  void clearBackupServerUrl() async {
-    await _initPreferences();
-    unawaited(_preferences!.remove('backupServerUrl'));
-
-    _backupServerUrl = '';
-  }
-
-  void clearBackupUsername() async {
-    await _initPreferences();
-    unawaited(_preferences!.remove('backupUsername'));
-
-    _backupUsername = '';
-  }
-
-  void clearBackupPathAndFilename() async {
-    await _initPreferences();
-    unawaited(_preferences!.remove('backupPathAndFilename'));
-
-    _backupPathAndFilename = '/Energize/backup.json.aes';
   }
 }

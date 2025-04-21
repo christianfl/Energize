@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 
-import '../../../../../providers/app_settings.dart';
+import '../../../../../providers/body_targets_provider.dart';
 import '../../../../../theme/energize_theme.dart';
 import '../../../../../widgets/info_card.dart';
 
@@ -18,56 +18,56 @@ class _EnergyDistributionTabState extends State<EnergyDistributionTab> {
   /// 0 = protein, 1 = carbs, 2 = fat
   int _selectedMacroIndex = 0;
 
-  double _getTotalCalories(AppSettings appSettings) {
-    return appSettings.caloriesTarget;
+  double _getTotalCalories(BodyTargetsProvider bodyTargets) {
+    return bodyTargets.caloriesTarget;
   }
 
   /// Hint: Calorie factor: 4
-  double _getProteinPercentageOfCalories(AppSettings appSettings) {
+  double _getProteinPercentageOfCalories(BodyTargetsProvider bodyTargets) {
     return double.parse(
-      (appSettings.proteinTarget * 4 / _getTotalCalories(appSettings) * 100)
+      (bodyTargets.proteinTarget * 4 / _getTotalCalories(bodyTargets) * 100)
           .toStringAsFixed(1),
     );
   }
 
   /// Hint: Calorie factor: 4
-  double _getCarbsPercentageOfCalories(AppSettings appSettings) {
+  double _getCarbsPercentageOfCalories(BodyTargetsProvider bodyTargets) {
     return double.parse(
-      (appSettings.carbsTarget * 4 / _getTotalCalories(appSettings) * 100)
+      (bodyTargets.carbsTarget * 4 / _getTotalCalories(bodyTargets) * 100)
           .toStringAsFixed(1),
     );
   }
 
   /// Hint: Calorie factor: 9
-  double _getFatPercentageOfCalories(AppSettings appSettings) {
+  double _getFatPercentageOfCalories(BodyTargetsProvider bodyTargets) {
     return double.parse(
-      (appSettings.fatTarget * 9 / _getTotalCalories(appSettings) * 100)
+      (bodyTargets.fatTarget * 9 / _getTotalCalories(bodyTargets) * 100)
           .toStringAsFixed(1),
     );
   }
 
   /// Returns the sum of percentages of each macronutrient from the total calories, can be more than 100%
-  double _getTotalCaloriesPercentage(AppSettings appSettings) {
-    return _getProteinPercentageOfCalories(appSettings) +
-        _getCarbsPercentageOfCalories(appSettings) +
-        _getFatPercentageOfCalories(appSettings);
+  double _getTotalCaloriesPercentage(BodyTargetsProvider bodyTargets) {
+    return _getProteinPercentageOfCalories(bodyTargets) +
+        _getCarbsPercentageOfCalories(bodyTargets) +
+        _getFatPercentageOfCalories(bodyTargets);
   }
 
   /// Hide the pie chart if not at least _getTotalCalories > 0 and one of the macros > 0
-  bool _isPieChartHidden(AppSettings appSettings) {
-    if (_getTotalCalories(appSettings) <= 0) {
+  bool _isPieChartHidden(BodyTargetsProvider bodyTargets) {
+    if (_getTotalCalories(bodyTargets) <= 0) {
       return true;
     }
 
     // Now _getTotalCalories > 0, need just one macro
 
-    if (appSettings.proteinTarget > 0) {
+    if (bodyTargets.proteinTarget > 0) {
       return false;
     }
-    if (appSettings.carbsTarget > 0) {
+    if (bodyTargets.carbsTarget > 0) {
       return false;
     }
-    if (appSettings.fatTarget > 0) {
+    if (bodyTargets.fatTarget > 0) {
       return false;
     }
 
@@ -76,7 +76,7 @@ class _EnergyDistributionTabState extends State<EnergyDistributionTab> {
 
   @override
   Widget build(BuildContext context) {
-    final appSettings = Provider.of<AppSettings>(context);
+    final bodyTargets = Provider.of<BodyTargetsProvider>(context);
 
     return ListView(
       padding: const EdgeInsets.all(16.0),
@@ -87,9 +87,9 @@ class _EnergyDistributionTabState extends State<EnergyDistributionTab> {
         ),
         const SizedBox(height: 12),
         TextFormField(
-          initialValue: appSettings.caloriesTarget.toString(),
+          initialValue: bodyTargets.caloriesTarget.toString(),
           onChanged: (val) =>
-              appSettings.caloriesTarget = val == '' ? 0 : double.parse(val),
+              bodyTargets.caloriesTarget = val == '' ? 0 : double.parse(val),
           keyboardType: TextInputType.number,
           decoration: InputDecoration(
             icon: const Icon(Icons.bolt),
@@ -98,7 +98,7 @@ class _EnergyDistributionTabState extends State<EnergyDistributionTab> {
             labelText: AppLocalizations.of(context)!.energy,
           ),
         ),
-        _isPieChartHidden(appSettings)
+        _isPieChartHidden(bodyTargets)
             ? Padding(
                 padding: const EdgeInsets.fromLTRB(0.0, 32.0, 0.0, 16.0),
                 child: InfoCard(
@@ -112,7 +112,7 @@ class _EnergyDistributionTabState extends State<EnergyDistributionTab> {
                   alignment: Alignment.center,
                   children: [
                     Text(
-                      '= ${_getTotalCaloriesPercentage(appSettings).toStringAsFixed(0)} %',
+                      '= ${_getTotalCaloriesPercentage(bodyTargets).toStringAsFixed(0)} %',
                     ),
                     PieChart(
                       PieChartData(
@@ -147,7 +147,7 @@ class _EnergyDistributionTabState extends State<EnergyDistributionTab> {
                   ],
                 ),
               ),
-        if (!_isPieChartHidden(appSettings))
+        if (!_isPieChartHidden(bodyTargets))
           Text(
             '* ${AppLocalizations.of(context)!.percentOfTotalEnergy} (kcal)',
             style: Theme.of(context).textTheme.bodySmall,
@@ -201,10 +201,10 @@ class _EnergyDistributionTabState extends State<EnergyDistributionTab> {
               Expanded(
                 child: TextFormField(
                   key: const Key('protein'),
-                  initialValue: appSettings.proteinTarget.toString(),
+                  initialValue: bodyTargets.proteinTarget.toString(),
                   onChanged: (val) {
                     setState(() {
-                      appSettings.proteinTarget =
+                      bodyTargets.proteinTarget =
                           val == '' ? 0 : double.parse(val);
                     });
                   },
@@ -220,10 +220,10 @@ class _EnergyDistributionTabState extends State<EnergyDistributionTab> {
               Expanded(
                 child: TextFormField(
                   key: const Key('carbs'),
-                  initialValue: appSettings.carbsTarget.toString(),
+                  initialValue: bodyTargets.carbsTarget.toString(),
                   onChanged: (val) {
                     setState(() {
-                      appSettings.carbsTarget =
+                      bodyTargets.carbsTarget =
                           val == '' ? 0 : double.parse(val);
                     });
                   },
@@ -239,10 +239,10 @@ class _EnergyDistributionTabState extends State<EnergyDistributionTab> {
               Expanded(
                 child: TextFormField(
                   key: const Key('fat'),
-                  initialValue: appSettings.fatTarget.toString(),
+                  initialValue: bodyTargets.fatTarget.toString(),
                   onChanged: (val) {
                     setState(() {
-                      appSettings.fatTarget = val == '' ? 0 : double.parse(val);
+                      bodyTargets.fatTarget = val == '' ? 0 : double.parse(val);
                     });
                   },
                   keyboardType: TextInputType.number,
@@ -292,7 +292,8 @@ class _EnergyDistributionTabState extends State<EnergyDistributionTab> {
   }
 
   List<PieChartSectionData> showingSections() {
-    final appSettings = Provider.of<AppSettings>(context, listen: false);
+    final bodyTargets =
+        Provider.of<BodyTargetsProvider>(context, listen: false);
 
     return List.generate(3, (i) {
       final isTouched = i == _selectedMacroIndex;
@@ -304,7 +305,7 @@ class _EnergyDistributionTabState extends State<EnergyDistributionTab> {
         case 0:
           return _getPieChartSectionData(
             Theme.of(context).proteinContainer,
-            _getProteinPercentageOfCalories(appSettings),
+            _getProteinPercentageOfCalories(bodyTargets),
             AppLocalizations.of(context)!.protein,
             radius,
             fontSize,
@@ -314,7 +315,7 @@ class _EnergyDistributionTabState extends State<EnergyDistributionTab> {
         case 1:
           return _getPieChartSectionData(
             Theme.of(context).carbsContainer,
-            _getCarbsPercentageOfCalories(appSettings),
+            _getCarbsPercentageOfCalories(bodyTargets),
             AppLocalizations.of(context)!.carbs,
             radius,
             fontSize,
@@ -324,7 +325,7 @@ class _EnergyDistributionTabState extends State<EnergyDistributionTab> {
         case 2:
           return _getPieChartSectionData(
             Theme.of(context).fatContainer,
-            _getFatPercentageOfCalories(appSettings),
+            _getFatPercentageOfCalories(bodyTargets),
             AppLocalizations.of(context)!.fat,
             radius,
             fontSize,
