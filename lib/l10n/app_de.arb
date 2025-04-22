@@ -6,6 +6,7 @@
   "appDescription": "Beobachte einfach und schnell, was du isst. Scanne deine Zutaten oder suche manuell in verschiedenen Datenbanken.",
   "@appDescription": {},
   "ok": "OK",
+  "@ok": {},
   "fieldMandatory": "Bitte einen Wert ausfüllen",
   "@fieldMandatory": {},
   "onlyNumbersAllowed": "Nur Zahlen sind erlaubt",
@@ -15,16 +16,18 @@
   "deleted": "gelöscht",
   "@deleted": {},
   "loading": "Laden",
+  "@loading": {},
   "somethingNotFound": "{something} nicht gefunden",
   "@somethingNotFound": {
-      "placeholders": {
-          "something": {
-              "type": "String",
-              "example": "123"
-          }
+    "placeholders": {
+      "something": {
+        "type": "String",
+        "example": "123"
       }
+    }
   },
   "unknownErrorText": "Ein unbekannter Fehler ist aufgetreten",
+  "@unknownErrorText": {},
   "tracking": "Tracking",
   "@tracking": {},
   "energy": "Energie",
@@ -48,24 +51,32 @@
   "trackFood": "Nahrung tracken",
   "@trackFood": {},
   "timeSetHelpText": "Diese Uhrzeit dient beim Tracken als Vorlage für die Zeit des Verzehrs.",
+  "@timeSetHelpText": {},
   "useAsTemplateForCustomFood": "Als Vorlage für eigene Nahrung benutzen",
   "@useAsTemplateForCustomFood": {},
   "additionalInformation": "Weitere Informationen",
+  "@additionalInformation": {},
   "completeProductName": "Vollständiger Produktname",
+  "@completeProductName": {},
   "addedDate": "Hinzugefügt",
+  "@addedDate": {},
   "consumedDate": "Konsumiert",
+  "@consumedDate": {},
   "nutrients": "Nährstoffe",
+  "@nutrients": {},
   "labelingEu": "Kennzeichnung (EU)",
+  "@labelingEu": {},
   "amountContain": "{amountWithUnit} enthalten",
   "@amountContain": {
-      "placeholders": {
-          "amountWithUnit": {
-              "type": "String",
-              "example": "100 g"
-          }
+    "placeholders": {
+      "amountWithUnit": {
+        "type": "String",
+        "example": "100 g"
       }
+    }
   },
   "dailyTarget": "Tagesziel",
+  "@dailyTarget": {},
   "general": "Allgemein",
   "@general": {},
   "micronutrients": "Mikronährstoffe",
@@ -77,7 +88,7 @@
   "searchFood": "Nahrung suchen",
   "@searchFood": {},
   "productOrBrand": "Produkt oder Marke",
-  "@ProductOrBrand": {},
+  "@productOrBrand": {},
   "searchError": "Fehler beim Suchen",
   "@searchError": {},
   "searchErrorHint": "Mindestens eine Lebensmitteldatenbank konnte nicht erreicht werden. Bitte probiere es später erneut oder deaktiviere temporär nicht funktionierende Datenbanken in den Einstellungen.",
@@ -130,7 +141,7 @@
   "@male": {},
   "weight": "Gewicht",
   "@weight": {},
-  "height": "Größe",
+  "height": "Körpergröße",
   "@height": {},
   "behaviourAndTarget": "Verhalten und Ziel",
   "@behaviourAndTarget": {},
@@ -302,45 +313,55 @@
   "backupAndRestoreHint": "Sichere deine Daten lokal oder auf einem WebDAV-kompatiblen Server, wie z.B. Nextcloud",
   "@backupAndRestoreHint": {},
   "missingBackupPartsHint": "Warnung: Einstellungen, Personalisierungen, und Vorgaben für Nahrung fehlen beim Backup bisher!",
+  "@missingBackupPartsHint": {},
   "successfullyCreatedBackup": "Backup erfolgreich erstellt",
+  "@successfullyCreatedBackup": {},
   "exportedNumberOfFoodsMessage": "{customFoodsCount} eigene Nahrung und {trackedFoodsCount} getrackte Nahrung exportiert",
   "@exportedNumberOfFoodsMessage": {
-      "placeholders": {
-          "customFoodsCount": {
-              "type": "int",
-              "format": "decimalPattern",
-              "example": "123"
-          },
-          "trackedFoodsCount": {
-              "type": "int",
-              "format": "decimalPattern",
-              "example": "123"
-          }
+    "placeholders": {
+      "customFoodsCount": {
+        "type": "int",
+        "format": "decimalPattern",
+        "example": "123"
+      },
+      "trackedFoodsCount": {
+        "type": "int",
+        "format": "decimalPattern",
+        "example": "123"
       }
+    }
   },
   "successfullyRestoredBackup": "Backup erfolgreich wiederhergestellt",
+  "@successfullyRestoredBackup": {},
   "importedNumberOfFoodsMessage": "{customFoodsCount} eigene Nahrung und {trackedFoodsCount} getrackte Nahrung importiert",
   "@importedNumberOfFoodsMessage": {
-      "placeholders": {
-          "customFoodsCount": {
-              "type": "int",
-              "format": "decimalPattern",
-              "example": "123"
-          },
-          "trackedFoodsCount": {
-              "type": "int",
-              "format": "decimalPattern",
-              "example": "123"
-          }
+    "placeholders": {
+      "customFoodsCount": {
+        "type": "int",
+        "format": "decimalPattern",
+        "example": "123"
+      },
+      "trackedFoodsCount": {
+        "type": "int",
+        "format": "decimalPattern",
+        "example": "123"
       }
+    }
   },
   "createWebDAVBackup": "WebDAV Backup erstellen",
+  "@createWebDAVBackup": {},
   "webDAVSettings": "WebDAV Einstellungen",
+  "@webDAVSettings": {},
   "serverURL": "Server URL",
+  "@serverURL": {},
   "invalidURL": "Die URL ist nicht gültig",
+  "@invalidURL": {},
   "username": "Benutzername",
+  "@username": {},
   "password": "Passwort",
+  "@password": {},
   "pathAndFilename": "Pfad und Dateiname",
+  "@pathAndFilename": {},
   "energizeBackup": "{appName} Backup",
   "@energizeBackup": {
     "placeholders": {
@@ -351,9 +372,13 @@
     }
   },
   "backupPasswordNotice": "Ohne das Backup-Passwort ist es unmöglich, ein Backup wiederherzustellen.",
+  "@backupPasswordNotice": {},
   "restoreWebDAVBackup": "WebDAV Backup wiederherstellen",
+  "@restoreWebDAVBackup": {},
   "createLocalBackup": "Lokales Backup erstellen",
+  "@createLocalBackup": {},
   "restoreLocalBackup": "Lokales Backup wiederherstellen",
+  "@restoreLocalBackup": {},
   "aboutEnergize": "Über Energize",
   "@aboutEnergize": {},
   "license": "Lizenz",
@@ -365,7 +390,7 @@
   "reportIssue": "Fehler melden",
   "@reportIssue": {},
   "proposeImprovement": "Verbesserung vorschlagen",
-  "@reportIssue": {},
+  "@proposeImprovement": {},
   "sourceCode": "Quellcode",
   "@sourceCode": {},
   "translation": "Übersetzung",
@@ -497,6 +522,7 @@
   "alcohol": "Alkohol",
   "@alcohol": {},
   "salt": "Salz",
+  "@salt": {},
   "servingSizes": "Portionsgrößen",
   "@servingSizes": {},
   "add": "Hinzufügen",
@@ -511,7 +537,7 @@
   "@or": {},
   "servingSizeName": "Name der Portionsgröße",
   "@servingSizeName": {},
-  "size": "Größe",
+  "size": "Grösse",
   "@size": {},
   "translatableServingSizeNames": "{name, select, l10nServing{Por.} l10nPackage{Pck.} other{}}",
   "@translatableServingSizeNames": {
@@ -521,8 +547,6 @@
         "type": "String"
       }
     }
-  },
-  "@_TEST_DATA": {
   },
   "testCustomFood1Name": "Käsespätzle",
   "@testCustomFood1Name": {
