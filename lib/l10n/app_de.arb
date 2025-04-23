@@ -537,7 +537,7 @@
   "@or": {},
   "servingSizeName": "Name der Portionsgröße",
   "@servingSizeName": {},
-  "size": "Grösse",
+  "size": "Größe",
   "@size": {},
   "translatableServingSizeNames": "{name, select, l10nServing{Por.} l10nPackage{Pck.} other{}}",
   "@translatableServingSizeNames": {
