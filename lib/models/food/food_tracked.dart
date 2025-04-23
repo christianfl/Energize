@@ -33,7 +33,6 @@ class FoodTracked extends Food {
   /// `amount * servingSizes[selectedServingSize]` = calories per tracked food.
   ///
   /// If set, a key with the same name must exist in [servingSizes].
-  @JsonKey(name: 'selectedServingSize')
   String? _selectedServingSize;
 
   /// Get _selectedServingSize with custom validation.

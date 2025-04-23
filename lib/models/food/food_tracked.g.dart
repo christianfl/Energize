@@ -13,6 +13,7 @@ FoodTracked _$FoodTrackedFromJson(Map<String, dynamic> json) => FoodTracked(
           (json['dateAdded'] as num).toInt()),
       dateEaten: FoodTracked._millisecondsSinceEpochToDate(
           (json['dateEaten'] as num).toInt()),
+      selectedServingSize: json['selectedServingSize'] as String?,
       title: json['title'] as String,
       origin: json['origin'] as String,
       ean: json['ean'] as String?,
@@ -65,7 +66,7 @@ FoodTracked _$FoodTrackedFromJson(Map<String, dynamic> json) => FoodTracked(
       water: (json['water'] as num?)?.toDouble(),
       caffeine: (json['caffeine'] as num?)?.toDouble(),
       alcohol: (json['alcohol'] as num?)?.toDouble(),
-    )..selectedServingSize = json['selectedServingSize'] as String?;
+    );
 
 Map<String, dynamic> _$FoodTrackedToJson(FoodTracked instance) =>
     <String, dynamic>{

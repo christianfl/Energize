@@ -47,14 +47,13 @@ class Food {
   ///
   /// Serving name can either be system-defined (translatable) or user input.
   /// See [_systemServingSizes] for all system-defined serving size names.
+  Map<String, double>? _servingSizes;
+
+  /// Get [_servingSizes] with custom validation.
   @JsonKey(
-    name: 'servingSizes',
     fromJson: nullableMapFromJson,
     toJson: nullableMapToJson,
   )
-  Map<String, double>? _servingSizes;
-
-  /// Get _servingSizes with custom validation.
   Map<String, double>? get servingSizes {
     if (_servingSizes != null) {
       if (_servingSizes!.isNotEmpty) {
