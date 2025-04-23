@@ -1,0 +1,11 @@
+- [fix] Serialization issue which caused severe problems with the new serving sizes feature
+
+- [feat] Support Android 13 per-app language preferences
+- [fix] Local file backup now working on Linux
+- [fix] Show barcode-not-found frame if searched on devices without camera support
+- [fix] Amount input size on devices with smaller displays
+- [l10n] Updated German¹
+
+---
+
+¹Big thanks to all contributors!
