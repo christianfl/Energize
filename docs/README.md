@@ -21,7 +21,7 @@ Some data in Energize is stored on the device. These can partly be updated using
 Some things to keep in mind when creating releases.
 
 1. Create changelog: `./scripts/create_changelog/create_changelog.py` and modify it
-2. Update per-app locales: `./scripts/create_changelog/update_locales_config.py`
+2. Update per-app locales: `./scripts/update_locales_config/update_locales_config.py`
 3. Copy current privacy policy in the corresponding assets folder: `cp PRIVACY.md lib/pages/tab_settings/about_sub_page/assets/`
 4. Change version number in: `pubspec.yaml`
 5. Run build runner to generate types: `dart run build_runner build --delete-conflicting-outputs`
