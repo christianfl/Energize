@@ -1,0 +1,1 @@
+- [fix] Ignore single Food or FoodTracked items which cannot be parsed from database
