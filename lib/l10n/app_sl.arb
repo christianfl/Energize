@@ -28,5 +28,7 @@
   "years": "leta",
   "@years": {},
   "sex": "Spol",
-  "@sex": {}
+  "@sex": {},
+  "calculate": "Izračunajte",
+  "@calculate": {}
 }
