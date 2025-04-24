@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:sqflite/sqlite_api.dart';
 
 import '../../models/food/food_tracked.dart';
@@ -82,9 +83,19 @@ class TrackedFoodDatabaseService
     );
   }
 
-  static List<FoodTracked> _generateFoodList(List<Map<String, dynamic>> maps) {
-    return List.generate(maps.length, (i) {
-      return FoodTracked.fromJson(maps[i]);
+  List<FoodTracked> _generateFoodList(List<Map<String, dynamic>> maps) {
+    final List<FoodTracked?> tempList = List.generate(maps.length, (i) {
+      try {
+        return FoodTracked.fromJson(maps[i]);
+      } catch (e) {
+        if (kDebugMode) {
+          debugPrint('Error parsing tracked food from db: $e');
+        }
+        return null;
+      }
     });
+
+    // Remove null entries
+    return tempList.whereType<FoodTracked>().toList();
   }
 }

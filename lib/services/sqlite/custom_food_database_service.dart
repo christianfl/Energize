@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:sqflite/sqlite_api.dart';
 
 import '../../models/food/food.dart';
@@ -56,9 +57,19 @@ class CustomFoodDatabaseService
   }
 
   List<Food> _generateFoodList(List<Map<String, dynamic>> maps) {
-    return List.generate(maps.length, (i) {
-      return Food.fromJson(maps[i]);
+    final List<Food?> tempList = List.generate(maps.length, (i) {
+      try {
+        return Food.fromJson(maps[i]);
+      } catch (e) {
+        if (kDebugMode) {
+          debugPrint('Error parsing custom food from db: $e');
+        }
+        return null;
+      }
     });
+
+    // Remove null entries
+    return tempList.whereType<Food>().toList();
   }
 
   /// Gets the first custom food with the specified barcode (ordered by name)
