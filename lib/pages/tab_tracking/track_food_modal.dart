@@ -460,7 +460,7 @@ class TrackFoodState extends State<TrackFood>
             inputDecorationTheme: const InputDecorationTheme(
               filled: true,
               isDense: true,
-              suffixIconConstraints: BoxConstraints(maxWidth: 0),
+              suffixIconConstraints: BoxConstraints(maxWidth: 0, minHeight: 48),
             ),
             trailingIcon: Container(),
             selectedTrailingIcon: Container(),
