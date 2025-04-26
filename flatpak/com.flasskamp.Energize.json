@@ -37,18 +37,18 @@
           "only-arches": [
             "x86_64"
           ],
-          "url": "https://codeberg.org/epinez/Energize/releases/download/v0.13.2/energize-linux-aarch64.tar.gz",
+          "url": "https://codeberg.org/epinez/Energize/releases/download/v0.13.2/energize-linux-x86-64.tar.gz",
           "dest": "energize",
-          "sha256": "7c71c08e9ede69f4cd5571863965cf1f640eb0ca3ea81edad20f4a1b5ee80455"
+          "sha256": "24dd7ad6d658b58b8d053b9c5e9943ac36e743683d849e2a616534ff32c5b68c"
         },
         {
           "type": "archive",
           "only-arches": [
             "aarch64"
           ],
-          "url": "https://codeberg.org/epinez/Energize/releases/download/v0.13.2/energize-linux-x86-64.tar.gz",
+          "url": "https://codeberg.org/epinez/Energize/releases/download/v0.13.2/energize-linux-aarch64.tar.gz",
           "dest": "energize",
-          "sha256": "24dd7ad6d658b58b8d053b9c5e9943ac36e743683d849e2a616534ff32c5b68c"
+          "sha256": "7c71c08e9ede69f4cd5571863965cf1f640eb0ca3ea81edad20f4a1b5ee80455"
         },
         {
           "type": "file",
