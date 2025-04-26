@@ -54,14 +54,7 @@ Screenshots are available in all supported languages [here](fastlane/metadata/an
 
 ## Build
 
-This app is built with Flutter. You can get the current used SDK version under [submodules/flutter](submodules/flutter); this is also used to pin the correct Flutter dependency for automated F-Droid builds on new versions (tags).
-
-1. Download and setup flutter: https://flutter.dev/docs/get-started/install
-2. Clone repository: `git clone https://codeberg.org/epinez/Energize.git && cd Energize`
-3. Create environment file: `cp .env.example .env` and adapt name, URLs, API-Key
-4. Install dependencies: `flutter pub get`
-5. Run build runner to generate types: `dart run build_runner build --delete-conflicting-outputs`
-6. Build and install: `flutter run`
+See [BUILD.md](BUILD.md)
 
 ## Test
 
