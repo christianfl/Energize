@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 
+import '../../../../../models/person/body_targets.dart';
 import '../../../../../models/person/enums/sex.dart';
 import '../../../../../models/person/enums/weight_target.dart';
 import '../../../../../providers/body_targets_provider.dart';
@@ -269,7 +270,7 @@ class CalculationTabState extends State<CalculationTab> {
 
     // Standard value: females
     var sexFactor = -161;
-    if (bodyTargets.sex == 'Male') sexFactor = 5;
+    if (bodyTargets.sex == Sex.male) sexFactor = 5;
 
     // Basal metabolic rate
     final bmr = ((10 * bodyTargets.weight) +
@@ -333,14 +334,10 @@ class CalculationTabState extends State<CalculationTab> {
 
       // Micros if checkbox is true
       if (_setMicronutrientsBasedOnAgeAndSex) {
-        // Get nutrient recommendations
-        final int age = bodyTargets.age;
-        final Sex sex = bodyTargets.sex == 'Male' ? Sex.male : Sex.female;
-
         MicronutrientsRecommendations.setRecommendedNutritionAsTargets(
           bodyTargets,
-          age,
-          sex,
+          bodyTargets.age,
+          bodyTargets.sex,
         );
       }
     } catch (e) {
@@ -442,8 +439,8 @@ class CalculationTabState extends State<CalculationTab> {
                       Expanded(
                         child: TextFormField(
                           initialValue: bodyTargets.age.toString(),
-                          onChanged: (val) =>
-                              bodyTargets.age = val == '' ? 20 : int.parse(val),
+                          onChanged: (val) => bodyTargets.age =
+                              val == '' ? BodyTargets().age : int.parse(val),
                           keyboardType: TextInputType.number,
                           decoration: InputDecoration(
                             filled: true,
@@ -454,20 +451,22 @@ class CalculationTabState extends State<CalculationTab> {
                       ),
                       const SizedBox(width: 12),
                       Expanded(
-                        child: DropdownButtonFormField<String>(
+                        child: DropdownButtonFormField<Sex>(
                           value: bodyTargets.sex,
                           isExpanded: true,
-                          onChanged: (String? newValue) {
-                            bodyTargets.sex = newValue!;
+                          onChanged: (Sex? newValue) {
+                            if (newValue != null) {
+                              bodyTargets.sex = newValue;
+                            }
                           },
                           decoration: InputDecoration(
                             filled: true,
                             labelText: AppLocalizations.of(context)!.sex,
                           ),
-                          items: Sex.values
-                              .map<DropdownMenuItem<String>>((Sex sex) {
-                            return DropdownMenuItem<String>(
-                              value: sex.fromValue(),
+                          items:
+                              Sex.values.map<DropdownMenuItem<Sex>>((Sex sex) {
+                            return DropdownMenuItem<Sex>(
+                              value: sex,
                               child: Text(sex.toLocalizedString(context)),
                             );
                           }).toList(),
@@ -482,7 +481,7 @@ class CalculationTabState extends State<CalculationTab> {
                         child: TextFormField(
                           initialValue: bodyTargets.weight.toString(),
                           onChanged: (val) => bodyTargets.weight =
-                              val == '' ? 80 : int.parse(val),
+                              val == '' ? BodyTargets().weight : int.parse(val),
                           keyboardType: TextInputType.number,
                           decoration: InputDecoration(
                             filled: true,
@@ -496,7 +495,7 @@ class CalculationTabState extends State<CalculationTab> {
                         child: TextFormField(
                           initialValue: bodyTargets.height.toString(),
                           onChanged: (val) => bodyTargets.height =
-                              val == '' ? 180 : int.parse(val),
+                              val == '' ? BodyTargets().height : int.parse(val),
                           keyboardType: TextInputType.number,
                           decoration: InputDecoration(
                             filled: true,

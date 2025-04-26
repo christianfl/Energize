@@ -25,6 +25,7 @@ import 'providers/body_targets_provider.dart';
 import 'providers/complete_days_provider.dart';
 import 'providers/custom_food_provider.dart';
 import 'providers/tracked_food_provider.dart';
+import 'services/shared_preferences/shared_preferences_service.dart';
 import 'services/sqlite/complete_days_database_service.dart';
 import 'services/sqlite/custom_food_database_service.dart';
 import 'services/sqlite/tracked_food_database_service.dart';
@@ -77,8 +78,16 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (ctx) => AppSettingsProvider()),
-        ChangeNotifierProvider(create: (ctx) => BodyTargetsProvider()),
+        ChangeNotifierProvider(
+          create: (ctx) => AppSettingsProvider(
+            sharedPrefs: SharedPreferencesService.instance,
+          ),
+        ),
+        ChangeNotifierProvider(
+          create: (ctx) => BodyTargetsProvider(
+            sharedPrefs: SharedPreferencesService.instance,
+          ),
+        ),
         ChangeNotifierProvider(
           create: (ctx) =>
               TrackedFoodProvider(db: TrackedFoodDatabaseService.instance),

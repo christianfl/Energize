@@ -18,7 +18,7 @@ extension ParseToString on Sex {
     }
   }
 
-  String fromValue() {
+  String toSharedPreferencesValue() {
     switch (this) {
       case Sex.male:
         return 'Male';

@@ -1,7 +1,7 @@
-import 'dart:async';
+import 'package:flutter/foundation.dart';
+import '../models/app_settings.dart';
 
-import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import '../services/shared_preferences/shared_preferences_service_interface.dart';
 
 /// Provider for app-wide settings.
 ///
@@ -10,144 +10,169 @@ import 'package:shared_preferences/shared_preferences.dart';
 /// - Backup / Restore targets
 /// - Activated food composition databases
 class AppSettingsProvider with ChangeNotifier {
-  SharedPreferences? _preferences;
+  AppSettings _settings = AppSettings();
 
-  // ##################### UI Settings #####################
+  AppSettings get settings => _settings;
 
-  bool _isMealGroupingActivated = false;
+  final SharedPreferencesServiceInterface _sharedPrefs;
 
-  // ##################### Backup & Restore #####################
-
-  String _backupServerUrl = '';
-  String _backupUsername = '';
-  String _backupPathAndFilename = '/Energize/backup.json.aes';
-
-  // ##################### DB management #####################
-
-  bool _isProviderOpenFoodFactsActivated = true;
-  bool _isProviderSndbActivated = true;
-  bool _isProviderUsdaActivated = true;
-
-  // Getter
-
-  bool get isMealGroupingActivated => _isMealGroupingActivated;
-
-  String get backupServerUrl => _backupServerUrl;
-  String get backupUsername => _backupUsername;
-  String get backupPathAndFilename => _backupPathAndFilename;
-
-  bool get isProviderOpenFoodFactsActivated =>
-      _isProviderOpenFoodFactsActivated;
-  bool get isProviderSndbActivated => _isProviderSndbActivated;
-  bool get isProviderUsdaActivated => _isProviderUsdaActivated;
-
-  AppSettingsProvider() {
-    _loadFromSharedPreferences();
+  AppSettingsProvider({
+    required SharedPreferencesServiceInterface sharedPrefs,
+  }) : _sharedPrefs = sharedPrefs {
+    _loadSettings();
   }
 
-  Future<void> _initPreferences() async {
-    _preferences ??= await SharedPreferences.getInstance();
-  }
-
-  /// Loads all key value pairs from shared preferences into local variables
-  Future<void> _loadFromSharedPreferences() async {
-    await _initPreferences();
-
-    _isMealGroupingActivated =
-        _preferences!.getBool('isMealGroupingActivated') ?? false;
-
-    _backupServerUrl =
-        _preferences!.getString('backupServerUrl') ?? _backupServerUrl;
-    _backupUsername =
-        _preferences!.getString('backupUsername') ?? _backupUsername;
-    _backupPathAndFilename = _preferences!.getString('backupPathAndFilename') ??
-        _backupPathAndFilename;
-
-    _isProviderOpenFoodFactsActivated =
-        _preferences!.getBool('isProviderOpenFoodFactsActivated') ?? true;
-    _isProviderSndbActivated =
-        _preferences!.getBool('isProviderSndbActivated') ?? true;
-    _isProviderUsdaActivated =
-        _preferences!.getBool('isProviderUsdaActivated') ?? true;
+  /// Loads settings from SharedPreferences into [_settings].
+  Future<void> _loadSettings() async {
+    _settings = AppSettings(
+      isMealGroupingActivated: await _sharedPrefs.getValue<bool>(
+        AppSettings.isMealGroupingActivatedKey,
+        isMealGroupingActivated,
+      ),
+      backupServerUrl: await _sharedPrefs.getValue<String>(
+        AppSettings.backupServerUrlKey,
+        backupServerUrl,
+      ),
+      backupUsername: await _sharedPrefs.getValue<String>(
+        AppSettings.backupUsernameKey,
+        backupUsername,
+      ),
+      backupPathAndFilename: await _sharedPrefs.getValue<String>(
+        AppSettings.backupPathAndFilenameKey,
+        backupPathAndFilename,
+      ),
+      isProviderOpenFoodFactsActivated: await _sharedPrefs.getValue<bool>(
+        AppSettings.isProviderOpenFoodFactsActivatedKey,
+        isProviderOpenFoodFactsActivated,
+      ),
+      isProviderSndbActivated: await _sharedPrefs.getValue<bool>(
+        AppSettings.isProviderSndbActivatedKey,
+        isProviderSndbActivated,
+      ),
+      isProviderUsdaActivated: await _sharedPrefs.getValue<bool>(
+        AppSettings.isProviderUsdaActivatedKey,
+        isProviderUsdaActivated,
+      ),
+    );
 
     notifyListeners();
   }
 
-  /// Save int, double, String, or bool to shared preferences
-  _saveToPreferences(String key, var value) async {
-    await _initPreferences();
+  // Getters
 
-    if (value is int) {
-      unawaited(_preferences!.setInt(key, value));
-    } else if (value is double) {
-      unawaited(_preferences!.setDouble(key, value));
-    } else if (value is String) {
-      unawaited(_preferences!.setString(key, value));
-    } else if (value is bool) {
-      unawaited(_preferences!.setBool(key, value));
-    }
-  }
+  bool get isMealGroupingActivated => _settings.isMealGroupingActivated;
+  String get backupServerUrl => _settings.backupServerUrl;
+  String get backupUsername => _settings.backupUsername;
+  String get backupPathAndFilename => _settings.backupPathAndFilename;
+  bool get isProviderOpenFoodFactsActivated =>
+      _settings.isProviderOpenFoodFactsActivated;
+  bool get isProviderSndbActivated => _settings.isProviderSndbActivated;
+  bool get isProviderUsdaActivated => _settings.isProviderUsdaActivated;
+
+  // Setters
 
   set isMealGroupingActivated(bool value) {
-    _isMealGroupingActivated = value;
-    notifyListeners();
-    _saveToPreferences('isMealGroupingActivated', value);
-  }
+    _settings.isMealGroupingActivated = value;
+    _sharedPrefs.setValue(
+      AppSettings.isMealGroupingActivatedKey,
+      value,
+    );
 
-  set isProviderOpenFoodFactsActivated(bool value) {
-    _isProviderOpenFoodFactsActivated = value;
     notifyListeners();
-    _saveToPreferences('isProviderOpenFoodFactsActivated', value);
-  }
-
-  set isProviderSndbActivated(bool value) {
-    _isProviderSndbActivated = value;
-    notifyListeners();
-    _saveToPreferences('isProviderSndbActivated', value);
-  }
-
-  set isProviderUsdaActivated(bool value) {
-    _isProviderUsdaActivated = value;
-    notifyListeners();
-    _saveToPreferences('isProviderUsdaActivated', value);
   }
 
   set backupServerUrl(String value) {
-    _backupServerUrl = value;
+    _settings.backupServerUrl = value;
+    _sharedPrefs.setValue(
+      AppSettings.backupServerUrlKey,
+      value,
+    );
+
     notifyListeners();
-    _saveToPreferences('backupServerUrl', value);
   }
 
   set backupUsername(String value) {
-    _backupUsername = value;
+    _settings.backupUsername = value;
+    _sharedPrefs.setValue(
+      AppSettings.backupUsernameKey,
+      value,
+    );
+
     notifyListeners();
-    _saveToPreferences('backupUsername', value);
   }
 
   set backupPathAndFilename(String value) {
-    _backupPathAndFilename = value;
+    _settings.backupPathAndFilename = value;
+    _sharedPrefs.setValue(
+      AppSettings.backupPathAndFilenameKey,
+      value,
+    );
+
     notifyListeners();
-    _saveToPreferences('backupPathAndFilename', value);
   }
 
-  void clearBackupServerUrl() async {
-    await _initPreferences();
-    unawaited(_preferences!.remove('backupServerUrl'));
+  set isProviderOpenFoodFactsActivated(bool value) {
+    _settings.isProviderOpenFoodFactsActivated = value;
+    _sharedPrefs.setValue(
+      AppSettings.isProviderOpenFoodFactsActivatedKey,
+      value,
+    );
 
-    _backupServerUrl = '';
+    notifyListeners();
   }
 
-  void clearBackupUsername() async {
-    await _initPreferences();
-    unawaited(_preferences!.remove('backupUsername'));
+  set isProviderSndbActivated(bool value) {
+    _settings.isProviderSndbActivated = value;
+    _sharedPrefs.setValue(
+      AppSettings.isProviderSndbActivatedKey,
+      value,
+    );
 
-    _backupUsername = '';
+    notifyListeners();
   }
 
-  void clearBackupPathAndFilename() async {
-    await _initPreferences();
-    unawaited(_preferences!.remove('backupPathAndFilename'));
+  set isProviderUsdaActivated(bool value) {
+    _settings.isProviderUsdaActivated = value;
+    _sharedPrefs.setValue(
+      AppSettings.isProviderUsdaActivatedKey,
+      value,
+    );
 
-    _backupPathAndFilename = '/Energize/backup.json.aes';
+    notifyListeners();
+  }
+
+  void clearBackupServerUrl() {
+    _settings.backupServerUrl = '';
+    _sharedPrefs.remove(
+      AppSettings.backupServerUrlKey,
+    );
+
+    notifyListeners();
+  }
+
+  void clearBackupUsername() {
+    _settings.backupUsername = '';
+    _sharedPrefs.remove(
+      AppSettings.backupUsernameKey,
+    );
+
+    notifyListeners();
+  }
+
+  void clearBackupPathAndFilename() {
+    _settings.backupPathAndFilename = '';
+    _sharedPrefs.remove(
+      AppSettings.backupPathAndFilenameKey,
+    );
+
+    notifyListeners();
+  }
+
+  Future<void> saveAll(AppSettings newSettings) async {
+    final settingsMap = newSettings.toJson();
+    await _sharedPrefs.setAll(settingsMap);
+    _settings = newSettings;
+
+    notifyListeners();
   }
 }

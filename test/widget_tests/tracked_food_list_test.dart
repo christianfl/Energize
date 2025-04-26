@@ -11,6 +11,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
 
+import '../test_utils/shared_preferences_service_mock.dart';
 import '../test_utils/tracked_food_database_service_mock.dart';
 
 void main() {
@@ -21,7 +22,11 @@ void main() {
     await tester.pumpWidget(
       MultiProvider(
         providers: [
-          ChangeNotifierProvider(create: (_) => AppSettingsProvider()),
+          ChangeNotifierProvider(
+            create: (_) => AppSettingsProvider(
+              sharedPrefs: SharedPreferencesServiceMock(),
+            ),
+          ),
           ChangeNotifierProvider(
             create: (_) => TrackedFoodProvider(db: mockTrackedFoodDb),
           ),

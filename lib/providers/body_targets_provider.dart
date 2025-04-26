@@ -1,9 +1,11 @@
 import 'dart:async';
 
-import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter/foundation.dart';
 
+import '../models/person/body_targets.dart';
+import '../models/person/enums/sex.dart';
 import '../models/person/enums/weight_target.dart';
+import '../services/shared_preferences/shared_preferences_service_interface.dart';
 
 /// Provider for everything related to the body and targets.
 ///
@@ -12,641 +14,767 @@ import '../models/person/enums/weight_target.dart';
 /// - Target calories and macros
 /// - Target micros
 class BodyTargetsProvider with ChangeNotifier {
-  SharedPreferences? _preferences;
+  BodyTargets _bodyTargets = BodyTargets();
 
-  // ##################### Personalization #####################
+  BodyTargets get settings => _bodyTargets;
 
-  int _age = 20;
-  String _sex = 'Male';
+  final SharedPreferencesServiceInterface _sharedPrefs;
 
-  /// in kg
-  int _weight = 80;
-
-  /// in cm
-  int _height = 180;
-
-  /// Could be anything but about between 1 and 2
-  double _activityLevel = 1.4;
-
-  WeightTarget _weightTarget = WeightTarget.maintaining;
-
-  /// in %
-  double _proteinRatio = 20;
-
-  /// in %
-  double _carbsRatio = 50;
-
-  /// in %
-  double _fatRatio = 30;
-
-  // ##################### Calories, macro, micro targets #####################
-
-  double _caloriesTarget = 0.0;
-  double _proteinTarget = 0.0;
-  double _carbsTarget = 0.0;
-  double _fatTarget = 0.0;
-  double _vitaminATarget = 0.0;
-  double _vitaminB1Target = 0.0;
-  double _vitaminB2Target = 0.0;
-  double _vitaminB3Target = 0.0;
-  double _vitaminB5Target = 0.0;
-  double _vitaminB6Target = 0.0;
-  double _vitaminB7Target = 0.0;
-  double _vitaminB9Target = 0.0;
-  double _vitaminB12Target = 0.0;
-  double _vitaminCTarget = 0.0;
-  double _vitaminDTarget = 0.0;
-  double _vitaminETarget = 0.0;
-  double _vitaminKTarget = 80.0;
-  double _calciumTarget = 0.0;
-  double _chlorideTarget = 0.0;
-  double _magnesiumTarget = 0.0;
-  double _phosphorusTarget = 0.0;
-  double _potassiumTarget = 0.0;
-  double _sodiumTarget = 0.0;
-  double _chromiumTarget = 0.0;
-  double _ironTarget = 0.0;
-  double _fluorineTarget = 0.0;
-  double _iodineTarget = 0.0;
-  double _copperTarget = 0.0;
-  double _manganeseTarget = 0.0;
-  double _molybdenumTarget = 0.0;
-  double _seleniumTarget = 0.0;
-  double _zincTarget = 0.0;
-  double _monounsaturatedFatTarget = 0.0;
-  double _polyunsaturatedFatTarget = 0.0;
-  double _omega3Target = 0.0;
-  double _omega6Target = 0.0;
-  double _saturatedFatTarget = 0.0;
-  double _transFatTarget = 0.0;
-  double _cholesterolTarget = 0.0;
-  double _fiberTarget = 0.0;
-  double _sugarTarget = 0.0;
-  double _sugarAlcoholTarget = 0.0;
-  double _starchTarget = 0.0;
-  double _waterTarget = 0.0;
-  double _caffeineTarget = 0.0;
-  double _alcoholTarget = 0.0;
-
-  // Getter
-
-  int get age => _age;
-  String get sex => _sex;
-  int get weight => _weight;
-  int get height => _height;
-  double get activityLevel => _activityLevel;
-  WeightTarget get weightTarget => _weightTarget;
-  double get proteinRatio => _proteinRatio;
-  double get carbsRatio => _carbsRatio;
-  double get fatRatio => _fatRatio;
-
-  double get caloriesTarget => _caloriesTarget;
-  double get proteinTarget => _proteinTarget;
-  double get carbsTarget => _carbsTarget;
-  double get fatTarget => _fatTarget;
-  double get vitaminATarget => _vitaminATarget;
-  double get vitaminB1Target => _vitaminB1Target;
-  double get vitaminB2Target => _vitaminB2Target;
-  double get vitaminB3Target => _vitaminB3Target;
-  double get vitaminB5Target => _vitaminB5Target;
-  double get vitaminB6Target => _vitaminB6Target;
-  double get vitaminB7Target => _vitaminB7Target;
-  double get vitaminB9Target => _vitaminB9Target;
-  double get vitaminB12Target => _vitaminB12Target;
-  double get vitaminCTarget => _vitaminCTarget;
-  double get vitaminDTarget => _vitaminDTarget;
-  double get vitaminETarget => _vitaminETarget;
-  double get vitaminKTarget => _vitaminKTarget;
-  double get calciumTarget => _calciumTarget;
-  double get chlorideTarget => _chlorideTarget;
-  double get magnesiumTarget => _magnesiumTarget;
-  double get phosphorusTarget => _phosphorusTarget;
-  double get potassiumTarget => _potassiumTarget;
-  double get sodiumTarget => _sodiumTarget;
-  double get chromiumTarget => _chromiumTarget;
-  double get ironTarget => _ironTarget;
-  double get fluorineTarget => _fluorineTarget;
-  double get iodineTarget => _iodineTarget;
-  double get copperTarget => _copperTarget;
-  double get manganeseTarget => _manganeseTarget;
-  double get molybdenumTarget => _molybdenumTarget;
-  double get seleniumTarget => _seleniumTarget;
-  double get zincTarget => _zincTarget;
-  double get monounsaturatedFatTarget => _monounsaturatedFatTarget;
-  double get polyunsaturatedFatTarget => _polyunsaturatedFatTarget;
-  double get omega3Target => _omega3Target;
-  double get omega6Target => _omega6Target;
-  double get saturatedFatTarget => _saturatedFatTarget;
-  double get transFatTarget => _transFatTarget;
-  double get cholesterolTarget => _cholesterolTarget;
-  double get fiberTarget => _fiberTarget;
-  double get sugarTarget => _sugarTarget;
-  double get sugarAlcoholTarget => _sugarAlcoholTarget;
-  double get starchTarget => _starchTarget;
-  double get waterTarget => _waterTarget;
-  double get caffeineTarget => _caffeineTarget;
-  double get alcoholTarget => _alcoholTarget;
-
-  BodyTargetsProvider() {
-    _loadFromSharedPreferences();
+  BodyTargetsProvider({
+    required SharedPreferencesServiceInterface sharedPrefs,
+  }) : _sharedPrefs = sharedPrefs {
+    _loadBodyAndTargets();
   }
 
-  Future<void> _initPreferences() async {
-    _preferences ??= await SharedPreferences.getInstance();
-  }
-
-  /// Loads all key value pairs from shared preferences into local variables
-  Future<void> _loadFromSharedPreferences() async {
-    await _initPreferences();
-
-    _age = _preferences!.getInt('age') ?? _age;
-    _sex = _preferences!.getString('sex') ?? _sex;
-    _weight = _preferences!.getInt('weight') ?? _weight;
-    _height = _preferences!.getInt('height') ?? _height;
-    _activityLevel = _preferences!.getDouble('activityLevel') ?? _activityLevel;
-    _weightTarget = WeightTarget.values.firstWhere(
-      (target) {
-        return target.toString() == _preferences!.getString('weightTarget');
-      },
-      orElse: () => _weightTarget,
+  /// Loads data from SharedPreferences into [_bodyTargets].
+  Future<void> _loadBodyAndTargets() async {
+    // Prepare parse objects
+    final sexString = await _sharedPrefs.getValue<String>(
+      BodyTargets.sexKey,
+      _bodyTargets.sex.toSharedPreferencesValue(),
     );
-    _proteinRatio = _preferences!.getDouble('proteinRatio') ?? _proteinRatio;
-    _carbsRatio = _preferences!.getDouble('carbsRatio') ?? _carbsRatio;
-    _fatRatio = _preferences!.getDouble('fatRatio') ?? _fatRatio;
+    final weightTargetString = await _sharedPrefs.getValue<String>(
+      BodyTargets.weightTargetKey,
+      _bodyTargets.weightTarget.toString(),
+    );
 
-    _caloriesTarget =
-        _preferences!.getDouble('caloriesTarget') ?? _caloriesTarget;
-    _proteinTarget = _preferences!.getDouble('proteinTarget') ?? _proteinTarget;
-    _carbsTarget = _preferences!.getDouble('carbsTarget') ?? _carbsTarget;
-    _fatTarget = _preferences!.getDouble('fatTarget') ?? _fatTarget;
-    _vitaminATarget =
-        _preferences!.getDouble('vitaminATarget') ?? _vitaminATarget;
-    _vitaminB1Target =
-        _preferences!.getDouble('vitaminB1Target') ?? _vitaminB1Target;
-    _vitaminB2Target =
-        _preferences!.getDouble('vitaminB2Target') ?? _vitaminB2Target;
-    _vitaminB3Target =
-        _preferences!.getDouble('vitaminB3Target') ?? _vitaminB3Target;
-    _vitaminB5Target =
-        _preferences!.getDouble('vitaminB5Target') ?? _vitaminB5Target;
-    _vitaminB6Target =
-        _preferences!.getDouble('vitaminB6Target') ?? _vitaminB6Target;
-    _vitaminB7Target =
-        _preferences!.getDouble('vitaminB7Target') ?? _vitaminB7Target;
-    _vitaminB9Target =
-        _preferences!.getDouble('vitaminB9Target') ?? _vitaminB9Target;
-    _vitaminB12Target =
-        _preferences!.getDouble('vitaminB12Target') ?? _vitaminB12Target;
-    _vitaminCTarget =
-        _preferences!.getDouble('vitaminCTarget') ?? _vitaminCTarget;
-    _vitaminDTarget =
-        _preferences!.getDouble('vitaminDTarget') ?? _vitaminDTarget;
-    _vitaminETarget =
-        _preferences!.getDouble('vitaminETarget') ?? _vitaminETarget;
-    _vitaminKTarget =
-        _preferences!.getDouble('vitaminKTarget') ?? _vitaminKTarget;
-    _calciumTarget = _preferences!.getDouble('calciumTarget') ?? _calciumTarget;
-    _chlorideTarget =
-        _preferences!.getDouble('chlorideTarget') ?? _chlorideTarget;
-    _magnesiumTarget =
-        _preferences!.getDouble('magnesiumTarget') ?? _magnesiumTarget;
-    _phosphorusTarget =
-        _preferences!.getDouble('phosphorusTarget') ?? _phosphorusTarget;
-    _potassiumTarget =
-        _preferences!.getDouble('potassiumTarget') ?? _potassiumTarget;
-    _sodiumTarget = _preferences!.getDouble('sodiumTarget') ?? _sodiumTarget;
-    _chromiumTarget =
-        _preferences!.getDouble('chromiumTarget') ?? _chromiumTarget;
-    _ironTarget = _preferences!.getDouble('ironTarget') ?? _ironTarget;
-    _fluorineTarget =
-        _preferences!.getDouble('fluorineTarget') ?? _fluorineTarget;
-    _iodineTarget = _preferences!.getDouble('iodineTarget') ?? _iodineTarget;
-    _copperTarget = _preferences!.getDouble('copperTarget') ?? _copperTarget;
-    _manganeseTarget =
-        _preferences!.getDouble('manganeseTarget') ?? _manganeseTarget;
-    _molybdenumTarget =
-        _preferences!.getDouble('molybdenumTarget') ?? _molybdenumTarget;
-    _seleniumTarget =
-        _preferences!.getDouble('seleniumTarget') ?? _seleniumTarget;
-    _zincTarget = _preferences!.getDouble('zincTarget') ?? _zincTarget;
-    _monounsaturatedFatTarget =
-        _preferences!.getDouble('monounsaturatedFatTarget') ??
-            _monounsaturatedFatTarget;
-    _polyunsaturatedFatTarget =
-        _preferences!.getDouble('polyunsaturatedFatTarget') ??
-            _polyunsaturatedFatTarget;
-    _omega3Target = _preferences!.getDouble('omega3Target') ?? _omega3Target;
-    _omega6Target = _preferences!.getDouble('omega6Target') ?? _omega6Target;
-    _saturatedFatTarget =
-        _preferences!.getDouble('saturatedFatTarget') ?? _saturatedFatTarget;
-    _transFatTarget =
-        _preferences!.getDouble('transFatTarget') ?? _transFatTarget;
-    _cholesterolTarget =
-        _preferences!.getDouble('cholesterolTarget') ?? _cholesterolTarget;
-    _fiberTarget = _preferences!.getDouble('fiberTarget') ?? _fiberTarget;
-    _sugarTarget = _preferences!.getDouble('sugarTarget') ?? _sugarTarget;
-    _sugarAlcoholTarget =
-        _preferences!.getDouble('sugarAlcoholTarget') ?? _sugarAlcoholTarget;
-    _starchTarget = _preferences!.getDouble('starchTarget') ?? _starchTarget;
-    _waterTarget = _preferences!.getDouble('waterTarget') ?? _waterTarget;
-    _caffeineTarget =
-        _preferences!.getDouble('caffeineTarget') ?? _caffeineTarget;
-    _alcoholTarget = _preferences!.getDouble('alcoholTarget') ?? _alcoholTarget;
+    // Load each SharedPreferences value into BodyTargets
+    _bodyTargets = BodyTargets(
+      age: await _sharedPrefs.getValue<int>(
+        BodyTargets.ageKey,
+        age,
+      ),
+      sex: Sex.values.firstWhere(
+        (e) => e.toSharedPreferencesValue() == sexString,
+        orElse: () => _bodyTargets.sex,
+      ),
+      weight: await _sharedPrefs.getValue<int>(
+        BodyTargets.weightKey,
+        weight,
+      ),
+      height: await _sharedPrefs.getValue<int>(
+        BodyTargets.heightKey,
+        height,
+      ),
+      activityLevel: await _sharedPrefs.getValue<double>(
+        BodyTargets.activityLevelKey,
+        activityLevel,
+      ),
+      weightTarget: WeightTarget.values.firstWhere(
+        (e) => e.toString() == weightTargetString,
+        orElse: () => _bodyTargets.weightTarget,
+      ),
+      proteinRatio: await _sharedPrefs.getValue<double>(
+        BodyTargets.proteinRatioKey,
+        proteinRatio,
+      ),
+      carbsRatio: await _sharedPrefs.getValue<double>(
+        BodyTargets.carbsRatioKey,
+        carbsRatio,
+      ),
+      fatRatio: await _sharedPrefs.getValue<double>(
+        BodyTargets.fatRatioKey,
+        fatRatio,
+      ),
+      caloriesTarget: await _sharedPrefs.getValue<double>(
+        BodyTargets.caloriesTargetKey,
+        caloriesTarget,
+      ),
+      proteinTarget: await _sharedPrefs.getValue<double>(
+        BodyTargets.proteinTargetKey,
+        proteinTarget,
+      ),
+      carbsTarget: await _sharedPrefs.getValue<double>(
+        BodyTargets.carbsTargetKey,
+        carbsTarget,
+      ),
+      fatTarget: await _sharedPrefs.getValue<double>(
+        BodyTargets.fatTargetKey,
+        fatTarget,
+      ),
+      vitaminATarget: await _sharedPrefs.getValue<double>(
+        BodyTargets.vitaminATargetKey,
+        vitaminATarget,
+      ),
+      vitaminB1Target: await _sharedPrefs.getValue<double>(
+        BodyTargets.vitaminB1TargetKey,
+        vitaminB1Target,
+      ),
+      vitaminB2Target: await _sharedPrefs.getValue<double>(
+        BodyTargets.vitaminB2TargetKey,
+        vitaminB2Target,
+      ),
+      vitaminB3Target: await _sharedPrefs.getValue<double>(
+        BodyTargets.vitaminB3TargetKey,
+        vitaminB3Target,
+      ),
+      vitaminB5Target: await _sharedPrefs.getValue<double>(
+        BodyTargets.vitaminB5TargetKey,
+        vitaminB5Target,
+      ),
+      vitaminB6Target: await _sharedPrefs.getValue<double>(
+        BodyTargets.vitaminB6TargetKey,
+        vitaminB6Target,
+      ),
+      vitaminB7Target: await _sharedPrefs.getValue<double>(
+        BodyTargets.vitaminB7TargetKey,
+        vitaminB7Target,
+      ),
+      vitaminB9Target: await _sharedPrefs.getValue<double>(
+        BodyTargets.vitaminB9TargetKey,
+        vitaminB9Target,
+      ),
+      vitaminB12Target: await _sharedPrefs.getValue<double>(
+        BodyTargets.vitaminB12TargetKey,
+        vitaminB12Target,
+      ),
+      vitaminCTarget: await _sharedPrefs.getValue<double>(
+        BodyTargets.vitaminCTargetKey,
+        vitaminCTarget,
+      ),
+      vitaminDTarget: await _sharedPrefs.getValue<double>(
+        BodyTargets.vitaminDTargetKey,
+        vitaminDTarget,
+      ),
+      vitaminETarget: await _sharedPrefs.getValue<double>(
+        BodyTargets.vitaminETargetKey,
+        vitaminETarget,
+      ),
+      vitaminKTarget: await _sharedPrefs.getValue<double>(
+        BodyTargets.vitaminKTargetKey,
+        vitaminKTarget,
+      ),
+      calciumTarget: await _sharedPrefs.getValue<double>(
+        BodyTargets.calciumTargetKey,
+        calciumTarget,
+      ),
+      chlorideTarget: await _sharedPrefs.getValue<double>(
+        BodyTargets.chlorideTargetKey,
+        chlorideTarget,
+      ),
+      magnesiumTarget: await _sharedPrefs.getValue<double>(
+        BodyTargets.magnesiumTargetKey,
+        magnesiumTarget,
+      ),
+      phosphorusTarget: await _sharedPrefs.getValue<double>(
+        BodyTargets.phosphorusTargetKey,
+        phosphorusTarget,
+      ),
+      potassiumTarget: await _sharedPrefs.getValue<double>(
+        BodyTargets.potassiumTargetKey,
+        potassiumTarget,
+      ),
+      sodiumTarget: await _sharedPrefs.getValue<double>(
+        BodyTargets.sodiumTargetKey,
+        sodiumTarget,
+      ),
+      chromiumTarget: await _sharedPrefs.getValue<double>(
+        BodyTargets.chromiumTargetKey,
+        chromiumTarget,
+      ),
+      ironTarget: await _sharedPrefs.getValue<double>(
+        BodyTargets.ironTargetKey,
+        ironTarget,
+      ),
+      fluorineTarget: await _sharedPrefs.getValue<double>(
+        BodyTargets.fluorineTargetKey,
+        fluorineTarget,
+      ),
+      iodineTarget: await _sharedPrefs.getValue<double>(
+        BodyTargets.iodineTargetKey,
+        iodineTarget,
+      ),
+      copperTarget: await _sharedPrefs.getValue<double>(
+        BodyTargets.copperTargetKey,
+        copperTarget,
+      ),
+      manganeseTarget: await _sharedPrefs.getValue<double>(
+        BodyTargets.manganeseTargetKey,
+        manganeseTarget,
+      ),
+      molybdenumTarget: await _sharedPrefs.getValue<double>(
+        BodyTargets.molybdenumTargetKey,
+        molybdenumTarget,
+      ),
+      seleniumTarget: await _sharedPrefs.getValue<double>(
+        BodyTargets.seleniumTargetKey,
+        seleniumTarget,
+      ),
+      zincTarget: await _sharedPrefs.getValue<double>(
+        BodyTargets.zincTargetKey,
+        zincTarget,
+      ),
+      monounsaturatedFatTarget: await _sharedPrefs.getValue<double>(
+        BodyTargets.monounsaturatedFatTargetKey,
+        monounsaturatedFatTarget,
+      ),
+      polyunsaturatedFatTarget: await _sharedPrefs.getValue<double>(
+        BodyTargets.polyunsaturatedFatTargetKey,
+        polyunsaturatedFatTarget,
+      ),
+      omega3Target: await _sharedPrefs.getValue<double>(
+        BodyTargets.omega3TargetKey,
+        omega3Target,
+      ),
+      omega6Target: await _sharedPrefs.getValue<double>(
+        BodyTargets.omega6TargetKey,
+        omega6Target,
+      ),
+      saturatedFatTarget: await _sharedPrefs.getValue<double>(
+        BodyTargets.saturatedFatTargetKey,
+        saturatedFatTarget,
+      ),
+      transFatTarget: await _sharedPrefs.getValue<double>(
+        BodyTargets.transFatTargetKey,
+        transFatTarget,
+      ),
+      cholesterolTarget: await _sharedPrefs.getValue<double>(
+        BodyTargets.cholesterolTargetKey,
+        cholesterolTarget,
+      ),
+      fiberTarget: await _sharedPrefs.getValue<double>(
+        BodyTargets.fiberTargetKey,
+        fiberTarget,
+      ),
+      sugarTarget: await _sharedPrefs.getValue<double>(
+        BodyTargets.sugarTargetKey,
+        sugarTarget,
+      ),
+      sugarAlcoholTarget: await _sharedPrefs.getValue<double>(
+        BodyTargets.sugarAlcoholTargetKey,
+        sugarAlcoholTarget,
+      ),
+      starchTarget: await _sharedPrefs.getValue<double>(
+        BodyTargets.starchTargetKey,
+        starchTarget,
+      ),
+      waterTarget: await _sharedPrefs.getValue<double>(
+        BodyTargets.waterTargetKey,
+        waterTarget,
+      ),
+      caffeineTarget: await _sharedPrefs.getValue<double>(
+        BodyTargets.caffeineTargetKey,
+        caffeineTarget,
+      ),
+      alcoholTarget: await _sharedPrefs.getValue<double>(
+        BodyTargets.alcoholTargetKey,
+        alcoholTarget,
+      ),
+    );
+
+    notifyListeners();
+  }
+
+  // Getters
+
+  int get age => _bodyTargets.age;
+  Sex get sex => _bodyTargets.sex;
+  int get weight => _bodyTargets.weight;
+  int get height => _bodyTargets.height;
+  double get activityLevel => _bodyTargets.activityLevel;
+  WeightTarget get weightTarget => _bodyTargets.weightTarget;
+  double get proteinRatio => _bodyTargets.proteinRatio;
+  double get carbsRatio => _bodyTargets.carbsRatio;
+  double get fatRatio => _bodyTargets.fatRatio;
+  double get caloriesTarget => _bodyTargets.caloriesTarget;
+  double get proteinTarget => _bodyTargets.proteinTarget;
+  double get carbsTarget => _bodyTargets.carbsTarget;
+  double get fatTarget => _bodyTargets.fatTarget;
+  double get vitaminATarget => _bodyTargets.vitaminATarget;
+  double get vitaminB1Target => _bodyTargets.vitaminB1Target;
+  double get vitaminB2Target => _bodyTargets.vitaminB2Target;
+  double get vitaminB3Target => _bodyTargets.vitaminB3Target;
+  double get vitaminB5Target => _bodyTargets.vitaminB5Target;
+  double get vitaminB6Target => _bodyTargets.vitaminB6Target;
+  double get vitaminB7Target => _bodyTargets.vitaminB7Target;
+  double get vitaminB9Target => _bodyTargets.vitaminB9Target;
+  double get vitaminB12Target => _bodyTargets.vitaminB12Target;
+  double get vitaminCTarget => _bodyTargets.vitaminCTarget;
+  double get vitaminDTarget => _bodyTargets.vitaminDTarget;
+  double get vitaminETarget => _bodyTargets.vitaminETarget;
+  double get vitaminKTarget => _bodyTargets.vitaminKTarget;
+  double get calciumTarget => _bodyTargets.calciumTarget;
+  double get chlorideTarget => _bodyTargets.chlorideTarget;
+  double get magnesiumTarget => _bodyTargets.magnesiumTarget;
+  double get phosphorusTarget => _bodyTargets.phosphorusTarget;
+  double get potassiumTarget => _bodyTargets.potassiumTarget;
+  double get sodiumTarget => _bodyTargets.sodiumTarget;
+  double get chromiumTarget => _bodyTargets.chromiumTarget;
+  double get ironTarget => _bodyTargets.ironTarget;
+  double get fluorineTarget => _bodyTargets.fluorineTarget;
+  double get iodineTarget => _bodyTargets.iodineTarget;
+  double get copperTarget => _bodyTargets.copperTarget;
+  double get manganeseTarget => _bodyTargets.manganeseTarget;
+  double get molybdenumTarget => _bodyTargets.molybdenumTarget;
+  double get seleniumTarget => _bodyTargets.seleniumTarget;
+  double get zincTarget => _bodyTargets.zincTarget;
+  double get monounsaturatedFatTarget => _bodyTargets.monounsaturatedFatTarget;
+  double get polyunsaturatedFatTarget => _bodyTargets.polyunsaturatedFatTarget;
+  double get omega3Target => _bodyTargets.omega3Target;
+  double get omega6Target => _bodyTargets.omega6Target;
+  double get saturatedFatTarget => _bodyTargets.saturatedFatTarget;
+  double get transFatTarget => _bodyTargets.transFatTarget;
+  double get cholesterolTarget => _bodyTargets.cholesterolTarget;
+  double get fiberTarget => _bodyTargets.fiberTarget;
+  double get sugarTarget => _bodyTargets.sugarTarget;
+  double get sugarAlcoholTarget => _bodyTargets.sugarAlcoholTarget;
+  double get starchTarget => _bodyTargets.starchTarget;
+  double get waterTarget => _bodyTargets.waterTarget;
+  double get caffeineTarget => _bodyTargets.caffeineTarget;
+  double get alcoholTarget => _bodyTargets.alcoholTarget;
+
+  // Setters
+
+  set caloriesTarget(double value) {
+    _bodyTargets.caloriesTarget = value;
+    _sharedPrefs.setValue(
+      BodyTargets.caloriesTargetKey,
+      value,
+    );
+
+    notifyListeners();
+  }
+
+  set proteinTarget(double value) {
+    _bodyTargets.proteinTarget = value;
+    _sharedPrefs.setValue(BodyTargets.proteinTargetKey, value);
+
+    notifyListeners();
+  }
+
+  set carbsTarget(double value) {
+    _bodyTargets.carbsTarget = value;
+    _sharedPrefs.setValue(BodyTargets.carbsTargetKey, value);
+
+    notifyListeners();
+  }
+
+  set fatTarget(double value) {
+    _bodyTargets.fatTarget = value;
+    _sharedPrefs.setValue(BodyTargets.fatTargetKey, value);
+
+    notifyListeners();
+  }
+
+  set vitaminATarget(double value) {
+    _bodyTargets.vitaminATarget = value;
+    _sharedPrefs.setValue(BodyTargets.vitaminATargetKey, value);
+
+    notifyListeners();
+  }
+
+  set vitaminB1Target(double value) {
+    _bodyTargets.vitaminB1Target = value;
+    _sharedPrefs.setValue(BodyTargets.vitaminB1TargetKey, value);
+
+    notifyListeners();
+  }
+
+  set vitaminB2Target(double value) {
+    _bodyTargets.vitaminB2Target = value;
+    _sharedPrefs.setValue(BodyTargets.vitaminB2TargetKey, value);
+
+    notifyListeners();
+  }
+
+  set vitaminB3Target(double value) {
+    _bodyTargets.vitaminB3Target = value;
+    _sharedPrefs.setValue(BodyTargets.vitaminB3TargetKey, value);
+
+    notifyListeners();
+  }
+
+  set vitaminB5Target(double value) {
+    _bodyTargets.vitaminB5Target = value;
+    _sharedPrefs.setValue(BodyTargets.vitaminB5TargetKey, value);
+
+    notifyListeners();
+  }
+
+  set vitaminB6Target(double value) {
+    _bodyTargets.vitaminB6Target = value;
+    _sharedPrefs.setValue(BodyTargets.vitaminB6TargetKey, value);
+
+    notifyListeners();
+  }
+
+  set vitaminB7Target(double value) {
+    _bodyTargets.vitaminB7Target = value;
+    _sharedPrefs.setValue(BodyTargets.vitaminB7TargetKey, value);
+
+    notifyListeners();
+  }
+
+  set vitaminB9Target(double value) {
+    _bodyTargets.vitaminB9Target = value;
+    _sharedPrefs.setValue(BodyTargets.vitaminB9TargetKey, value);
+
+    notifyListeners();
+  }
+
+  set vitaminB12Target(double value) {
+    _bodyTargets.vitaminB12Target = value;
+    _sharedPrefs.setValue(BodyTargets.vitaminB12TargetKey, value);
+
+    notifyListeners();
+  }
+
+  set vitaminCTarget(double value) {
+    _bodyTargets.vitaminCTarget = value;
+    _sharedPrefs.setValue(BodyTargets.vitaminCTargetKey, value);
+
+    notifyListeners();
+  }
+
+  set vitaminDTarget(double value) {
+    _bodyTargets.vitaminDTarget = value;
+    _sharedPrefs.setValue(BodyTargets.vitaminDTargetKey, value);
+
+    notifyListeners();
+  }
+
+  set vitaminETarget(double value) {
+    _bodyTargets.vitaminETarget = value;
+    _sharedPrefs.setValue(BodyTargets.vitaminETargetKey, value);
+
+    notifyListeners();
+  }
+
+  set vitaminKTarget(double value) {
+    _bodyTargets.vitaminKTarget = value;
+    _sharedPrefs.setValue(BodyTargets.vitaminKTargetKey, value);
+
+    notifyListeners();
+  }
+
+  set calciumTarget(double value) {
+    _bodyTargets.calciumTarget = value;
+    _sharedPrefs.setValue(BodyTargets.calciumTargetKey, value);
+
+    notifyListeners();
+  }
+
+  set chlorideTarget(double value) {
+    _bodyTargets.chlorideTarget = value;
+    _sharedPrefs.setValue(BodyTargets.chlorideTargetKey, value);
+
+    notifyListeners();
+  }
+
+  set magnesiumTarget(double value) {
+    _bodyTargets.magnesiumTarget = value;
+    _sharedPrefs.setValue(BodyTargets.magnesiumTargetKey, value);
+
+    notifyListeners();
+  }
+
+  set phosphorusTarget(double value) {
+    _bodyTargets.phosphorusTarget = value;
+    _sharedPrefs.setValue(BodyTargets.phosphorusTargetKey, value);
+
+    notifyListeners();
+  }
+
+  set potassiumTarget(double value) {
+    _bodyTargets.potassiumTarget = value;
+    _sharedPrefs.setValue(BodyTargets.potassiumTargetKey, value);
+
+    notifyListeners();
+  }
+
+  set sodiumTarget(double value) {
+    _bodyTargets.sodiumTarget = value;
+    _sharedPrefs.setValue(BodyTargets.sodiumTargetKey, value);
+
+    notifyListeners();
+  }
+
+  set chromiumTarget(double value) {
+    _bodyTargets.chromiumTarget = value;
+    _sharedPrefs.setValue(BodyTargets.chromiumTargetKey, value);
+
+    notifyListeners();
+  }
+
+  set ironTarget(double value) {
+    _bodyTargets.ironTarget = value;
+    _sharedPrefs.setValue(BodyTargets.ironTargetKey, value);
+
+    notifyListeners();
+  }
+
+  set fluorineTarget(double value) {
+    _bodyTargets.fluorineTarget = value;
+    _sharedPrefs.setValue(BodyTargets.fluorineTargetKey, value);
+
+    notifyListeners();
+  }
+
+  set iodineTarget(double value) {
+    _bodyTargets.iodineTarget = value;
+    _sharedPrefs.setValue(BodyTargets.iodineTargetKey, value);
+
+    notifyListeners();
+  }
+
+  set copperTarget(double value) {
+    _bodyTargets.copperTarget = value;
+    _sharedPrefs.setValue(BodyTargets.copperTargetKey, value);
+
+    notifyListeners();
+  }
+
+  set manganeseTarget(double value) {
+    _bodyTargets.manganeseTarget = value;
+    _sharedPrefs.setValue(BodyTargets.manganeseTargetKey, value);
+
+    notifyListeners();
+  }
+
+  set molybdenumTarget(double value) {
+    _bodyTargets.molybdenumTarget = value;
+    _sharedPrefs.setValue(BodyTargets.molybdenumTargetKey, value);
+
+    notifyListeners();
+  }
+
+  set seleniumTarget(double value) {
+    _bodyTargets.seleniumTarget = value;
+    _sharedPrefs.setValue(BodyTargets.seleniumTargetKey, value);
+
+    notifyListeners();
+  }
+
+  set zincTarget(double value) {
+    _bodyTargets.zincTarget = value;
+    _sharedPrefs.setValue(BodyTargets.zincTargetKey, value);
+
+    notifyListeners();
+  }
+
+  set monounsaturatedFatTarget(double value) {
+    _bodyTargets.monounsaturatedFatTarget = value;
+    _sharedPrefs.setValue(BodyTargets.monounsaturatedFatTargetKey, value);
+
+    notifyListeners();
+  }
+
+  set polyunsaturatedFatTarget(double value) {
+    _bodyTargets.polyunsaturatedFatTarget = value;
+    _sharedPrefs.setValue(BodyTargets.polyunsaturatedFatTargetKey, value);
+
+    notifyListeners();
+  }
+
+  set omega3Target(double value) {
+    _bodyTargets.omega3Target = value;
+    _sharedPrefs.setValue(BodyTargets.omega3TargetKey, value);
+
+    notifyListeners();
+  }
+
+  set omega6Target(double value) {
+    _bodyTargets.omega6Target = value;
+    _sharedPrefs.setValue(BodyTargets.omega6TargetKey, value);
+
+    notifyListeners();
+  }
+
+  set saturatedFatTarget(double value) {
+    _bodyTargets.saturatedFatTarget = value;
+    _sharedPrefs.setValue(BodyTargets.saturatedFatTargetKey, value);
+
+    notifyListeners();
+  }
+
+  set transFatTarget(double value) {
+    _bodyTargets.transFatTarget = value;
+    _sharedPrefs.setValue(BodyTargets.transFatTargetKey, value);
+
+    notifyListeners();
+  }
+
+  set cholesterolTarget(double value) {
+    _bodyTargets.cholesterolTarget = value;
+    _sharedPrefs.setValue(BodyTargets.cholesterolTargetKey, value);
+
+    notifyListeners();
+  }
+
+  set fiberTarget(double value) {
+    _bodyTargets.fiberTarget = value;
+    _sharedPrefs.setValue(BodyTargets.fiberTargetKey, value);
+
+    notifyListeners();
+  }
+
+  set sugarTarget(double value) {
+    _bodyTargets.sugarTarget = value;
+    _sharedPrefs.setValue(BodyTargets.sugarTargetKey, value);
+
+    notifyListeners();
+  }
+
+  set sugarAlcoholTarget(double value) {
+    _bodyTargets.sugarAlcoholTarget = value;
+    _sharedPrefs.setValue(BodyTargets.sugarAlcoholTargetKey, value);
+
+    notifyListeners();
+  }
+
+  set starchTarget(double value) {
+    _bodyTargets.starchTarget = value;
+    _sharedPrefs.setValue(BodyTargets.starchTargetKey, value);
+
+    notifyListeners();
+  }
+
+  set waterTarget(double value) {
+    _bodyTargets.waterTarget = value;
+    _sharedPrefs.setValue(BodyTargets.waterTargetKey, value);
+
+    notifyListeners();
+  }
+
+  set caffeineTarget(double value) {
+    _bodyTargets.caffeineTarget = value;
+    _sharedPrefs.setValue(BodyTargets.caffeineTargetKey, value);
+
+    notifyListeners();
+  }
+
+  set alcoholTarget(double value) {
+    _bodyTargets.alcoholTarget = value;
+    _sharedPrefs.setValue(BodyTargets.alcoholTargetKey, value);
+
+    notifyListeners();
+  }
+
+  set age(int value) {
+    _bodyTargets.age = value;
+    _sharedPrefs.setValue(BodyTargets.ageKey, value);
+
+    notifyListeners();
+  }
+
+  set sex(Sex value) {
+    _bodyTargets.sex = value;
+    // Use Sex.toSharedPreferencesValue() method For backwards compatibility.
+    // Looks e.g. like this in persisted SharedPreferences:
+    // sex: Male
+    _sharedPrefs.setValue(BodyTargets.sexKey, value.toSharedPreferencesValue());
+
+    notifyListeners();
+  }
+
+  set weight(int value) {
+    _bodyTargets.weight = value;
+    _sharedPrefs.setValue(BodyTargets.weightKey, value);
+
+    notifyListeners();
+  }
+
+  set height(int value) {
+    _bodyTargets.height = value;
+    _sharedPrefs.setValue(BodyTargets.heightKey, value);
+
+    notifyListeners();
+  }
+
+  set activityLevel(double value) {
+    _bodyTargets.activityLevel = value;
+    _sharedPrefs.setValue(BodyTargets.activityLevelKey, value);
+
+    notifyListeners();
+  }
+
+  set weightTarget(WeightTarget value) {
+    _bodyTargets.weightTarget = value;
+    // Use Enum.toString() method For backwards compatibility.
+    // Looks e.g. like this in persisted SharedPreferences:
+    // weightTarget: WeightTarget.maintaining
+    _sharedPrefs.setValue(BodyTargets.weightTargetKey, value.toString());
+
+    notifyListeners();
+  }
+
+  set proteinRatio(double value) {
+    _bodyTargets.proteinRatio = value;
+    _sharedPrefs.setValue(BodyTargets.proteinRatioKey, value);
+
+    notifyListeners();
+  }
+
+  set carbsRatio(double value) {
+    _bodyTargets.carbsRatio = value;
+    _sharedPrefs.setValue(BodyTargets.carbsRatioKey, value);
+
+    notifyListeners();
+  }
+
+  set fatRatio(double value) {
+    _bodyTargets.fatRatio = value;
+    _sharedPrefs.setValue(BodyTargets.fatRatioKey, value);
 
     notifyListeners();
   }
 
   /// Resets all micro targets
   Future<void> resetMicros() async {
-    await _initPreferences();
+    final keysToDelete = [
+      BodyTargets.vitaminATargetKey,
+      BodyTargets.vitaminB1TargetKey,
+      BodyTargets.vitaminB2TargetKey,
+      BodyTargets.vitaminB3TargetKey,
+      BodyTargets.vitaminB5TargetKey,
+      BodyTargets.vitaminB6TargetKey,
+      BodyTargets.vitaminB7TargetKey,
+      BodyTargets.vitaminB9TargetKey,
+      BodyTargets.vitaminB12TargetKey,
+      BodyTargets.vitaminCTargetKey,
+      BodyTargets.vitaminDTargetKey,
+      BodyTargets.vitaminETargetKey,
+      BodyTargets.vitaminKTargetKey,
+      BodyTargets.calciumTargetKey,
+      BodyTargets.calciumTargetKey,
+      BodyTargets.chlorideTargetKey,
+      BodyTargets.magnesiumTargetKey,
+      BodyTargets.phosphorusTargetKey,
+      BodyTargets.potassiumTargetKey,
+      BodyTargets.sodiumTargetKey,
+      BodyTargets.chromiumTargetKey,
+      BodyTargets.ironTargetKey,
+      BodyTargets.fluorineTargetKey,
+      BodyTargets.iodineTargetKey,
+      BodyTargets.copperTargetKey,
+      BodyTargets.manganeseTargetKey,
+      BodyTargets.molybdenumTargetKey,
+      BodyTargets.seleniumTargetKey,
+      BodyTargets.zincTargetKey,
+      BodyTargets.monounsaturatedFatTargetKey,
+      BodyTargets.polyunsaturatedFatTargetKey,
+      BodyTargets.omega3TargetKey,
+      BodyTargets.omega6TargetKey,
+      BodyTargets.saturatedFatTargetKey,
+      BodyTargets.transFatTargetKey,
+      BodyTargets.cholesterolTargetKey,
+      BodyTargets.fiberTargetKey,
+      BodyTargets.sugarTargetKey,
+      BodyTargets.sugarAlcoholTargetKey,
+      BodyTargets.starchTargetKey,
+      BodyTargets.waterTargetKey,
+      BodyTargets.caffeineTargetKey,
+      BodyTargets.alcoholTargetKey,
+    ];
 
-    unawaited(_preferences!.remove('vitaminATarget'));
-    unawaited(_preferences!.remove('vitaminB1Target'));
-    unawaited(_preferences!.remove('vitaminB2Target'));
-    unawaited(_preferences!.remove('vitaminB3Target'));
-    unawaited(_preferences!.remove('vitaminB5Target'));
-    unawaited(_preferences!.remove('vitaminB6Target'));
-    unawaited(_preferences!.remove('vitaminB7Target'));
-    unawaited(_preferences!.remove('vitaminB9Target'));
-    unawaited(_preferences!.remove('vitaminB12Target'));
-    unawaited(_preferences!.remove('vitaminCTarget'));
-    unawaited(_preferences!.remove('vitaminDTarget'));
-    unawaited(_preferences!.remove('vitaminETarget'));
-    unawaited(_preferences!.remove('vitaminKTarget'));
-    unawaited(_preferences!.remove('calciumTarget'));
-    unawaited(_preferences!.remove('calciumTarget'));
-    unawaited(_preferences!.remove('chlorideTarget'));
-    unawaited(_preferences!.remove('magnesiumTarget'));
-    unawaited(_preferences!.remove('phosphorusTarget'));
-    unawaited(_preferences!.remove('potassiumTarget'));
-    unawaited(_preferences!.remove('sodiumTarget'));
-    unawaited(_preferences!.remove('chromiumTarget'));
-    unawaited(_preferences!.remove('ironTarget'));
-    unawaited(_preferences!.remove('fluorineTarget'));
-    unawaited(_preferences!.remove('iodineTarget'));
-    unawaited(_preferences!.remove('copperTarget'));
-    unawaited(_preferences!.remove('manganeseTarget'));
-    unawaited(_preferences!.remove('molybdenumTarget'));
-    unawaited(_preferences!.remove('seleniumTarget'));
-    unawaited(_preferences!.remove('zincTarget'));
-    unawaited(_preferences!.remove('monounsaturatedFatTarget'));
-    unawaited(_preferences!.remove('polyunsaturatedFatTarget'));
-    unawaited(_preferences!.remove('omega3Target'));
-    unawaited(_preferences!.remove('omega6Target'));
-    unawaited(_preferences!.remove('saturatedFatTarget'));
-    unawaited(_preferences!.remove('transFatTarget'));
-    unawaited(_preferences!.remove('cholesterolTarget'));
-    unawaited(_preferences!.remove('fiberTarget'));
-    unawaited(_preferences!.remove('sugarTarget'));
-    unawaited(_preferences!.remove('sugarAlcoholTarget'));
-    unawaited(_preferences!.remove('starchTarget'));
-    unawaited(_preferences!.remove('waterTarget'));
-    unawaited(_preferences!.remove('caffeineTarget'));
-    unawaited(_preferences!.remove('alcoholTarget'));
-  }
-
-  /// Save int, double, String, or bool to shared preferences
-  _saveToPreferences(String key, var value) async {
-    await _initPreferences();
-
-    if (value is int) {
-      unawaited(_preferences!.setInt(key, value));
-    } else if (value is double) {
-      unawaited(_preferences!.setDouble(key, value));
-    } else if (value is String) {
-      unawaited(_preferences!.setString(key, value));
-    } else if (value is bool) {
-      unawaited(_preferences!.setBool(key, value));
+    for (final key in keysToDelete) {
+      try {
+        await _sharedPrefs.remove(key);
+      } catch (e) {
+        if (kDebugMode) {
+          debugPrint('Could not remove micro target value: $e');
+        }
+      }
     }
-  }
-
-  set caloriesTarget(double value) {
-    _caloriesTarget = value;
-    notifyListeners();
-    _saveToPreferences('caloriesTarget', value);
-  }
-
-  set proteinTarget(double value) {
-    _proteinTarget = value;
-    notifyListeners();
-    _saveToPreferences('proteinTarget', value);
-  }
-
-  set carbsTarget(double value) {
-    _carbsTarget = value;
-    notifyListeners();
-    _saveToPreferences('carbsTarget', value);
-  }
-
-  set fatTarget(double value) {
-    _fatTarget = value;
-    notifyListeners();
-    _saveToPreferences('fatTarget', value);
-  }
-
-  set vitaminATarget(double value) {
-    _vitaminATarget = value;
-    notifyListeners();
-    _saveToPreferences('vitaminATarget', value);
-  }
-
-  set vitaminB1Target(double value) {
-    _vitaminB1Target = value;
-    notifyListeners();
-    _saveToPreferences('vitaminB1Target', value);
-  }
-
-  set vitaminB2Target(double value) {
-    _vitaminB2Target = value;
-    notifyListeners();
-    _saveToPreferences('vitaminB2Target', value);
-  }
-
-  set vitaminB3Target(double value) {
-    _vitaminB3Target = value;
-    notifyListeners();
-    _saveToPreferences('vitaminB3Target', value);
-  }
-
-  set vitaminB5Target(double value) {
-    _vitaminB5Target = value;
-    notifyListeners();
-    _saveToPreferences('vitaminB5Target', value);
-  }
-
-  set vitaminB6Target(double value) {
-    _vitaminB6Target = value;
-    notifyListeners();
-    _saveToPreferences('vitaminB6Target', value);
-  }
-
-  set vitaminB7Target(double value) {
-    _vitaminB7Target = value;
-    notifyListeners();
-    _saveToPreferences('vitaminB7Target', value);
-  }
-
-  set vitaminB9Target(double value) {
-    _vitaminB9Target = value;
-    notifyListeners();
-    _saveToPreferences('vitaminB9Target', value);
-  }
-
-  set vitaminB12Target(double value) {
-    _vitaminB12Target = value;
-    notifyListeners();
-    _saveToPreferences('vitaminB12Target', value);
-  }
-
-  set vitaminCTarget(double value) {
-    _vitaminCTarget = value;
-    notifyListeners();
-    _saveToPreferences('vitaminCTarget', value);
-  }
-
-  set vitaminDTarget(double value) {
-    _vitaminDTarget = value;
-    notifyListeners();
-    _saveToPreferences('vitaminDTarget', value);
-  }
-
-  set vitaminETarget(double value) {
-    _vitaminETarget = value;
-    notifyListeners();
-    _saveToPreferences('vitaminETarget', value);
-  }
-
-  set vitaminKTarget(double value) {
-    _vitaminKTarget = value;
-    notifyListeners();
-    _saveToPreferences('vitaminKTarget', value);
-  }
-
-  set calciumTarget(double value) {
-    _calciumTarget = value;
-    notifyListeners();
-    _saveToPreferences('calciumTarget', value);
-  }
-
-  set chlorideTarget(double value) {
-    _chlorideTarget = value;
-    notifyListeners();
-    _saveToPreferences('chlorideTarget', value);
-  }
-
-  set magnesiumTarget(double value) {
-    _magnesiumTarget = value;
-    notifyListeners();
-    _saveToPreferences('magnesiumTarget', value);
-  }
-
-  set phosphorusTarget(double value) {
-    _phosphorusTarget = value;
-    notifyListeners();
-    _saveToPreferences('phosphorusTarget', value);
-  }
-
-  set potassiumTarget(double value) {
-    _potassiumTarget = value;
-    notifyListeners();
-    _saveToPreferences('potassiumTarget', value);
-  }
-
-  set sodiumTarget(double value) {
-    _sodiumTarget = value;
-    notifyListeners();
-    _saveToPreferences('sodiumTarget', value);
-  }
-
-  set chromiumTarget(double value) {
-    _chromiumTarget = value;
-    notifyListeners();
-    _saveToPreferences('chromiumTarget', value);
-  }
-
-  set ironTarget(double value) {
-    _ironTarget = value;
-    notifyListeners();
-    _saveToPreferences('ironTarget', value);
-  }
-
-  set fluorineTarget(double value) {
-    _fluorineTarget = value;
-    notifyListeners();
-    _saveToPreferences('fluorineTarget', value);
-  }
-
-  set iodineTarget(double value) {
-    _iodineTarget = value;
-    notifyListeners();
-    _saveToPreferences('iodineTarget', value);
-  }
-
-  set copperTarget(double value) {
-    _copperTarget = value;
-    notifyListeners();
-    _saveToPreferences('copperTarget', value);
-  }
-
-  set manganeseTarget(double value) {
-    _manganeseTarget = value;
-    notifyListeners();
-    _saveToPreferences('manganeseTarget', value);
-  }
-
-  set molybdenumTarget(double value) {
-    _molybdenumTarget = value;
-    notifyListeners();
-    _saveToPreferences('molybdenumTarget', value);
-  }
-
-  set seleniumTarget(double value) {
-    _seleniumTarget = value;
-    notifyListeners();
-    _saveToPreferences('seleniumTarget', value);
-  }
-
-  set zincTarget(double value) {
-    _zincTarget = value;
-    notifyListeners();
-    _saveToPreferences('zincTarget', value);
-  }
-
-  set monounsaturatedFatTarget(double value) {
-    _monounsaturatedFatTarget = value;
-    notifyListeners();
-    _saveToPreferences('monounsaturatedFatTarget', value);
-  }
-
-  set polyunsaturatedFatTarget(double value) {
-    _polyunsaturatedFatTarget = value;
-    notifyListeners();
-    _saveToPreferences('polyunsaturatedFatTarget', value);
-  }
-
-  set omega3Target(double value) {
-    _omega3Target = value;
-    notifyListeners();
-    _saveToPreferences('omega3Target', value);
-  }
-
-  set omega6Target(double value) {
-    _omega6Target = value;
-    notifyListeners();
-    _saveToPreferences('omega6Target', value);
-  }
-
-  set saturatedFatTarget(double value) {
-    _saturatedFatTarget = value;
-    notifyListeners();
-    _saveToPreferences('saturatedFatTarget', value);
-  }
-
-  set transFatTarget(double value) {
-    _transFatTarget = value;
-    notifyListeners();
-    _saveToPreferences('transFatTarget', value);
-  }
-
-  set cholesterolTarget(double value) {
-    _cholesterolTarget = value;
-    notifyListeners();
-    _saveToPreferences('cholesterolTarget', value);
-  }
-
-  set fiberTarget(double value) {
-    _fiberTarget = value;
-    notifyListeners();
-    _saveToPreferences('fiberTarget', value);
-  }
-
-  set sugarTarget(double value) {
-    _sugarTarget = value;
-    notifyListeners();
-    _saveToPreferences('sugarTarget', value);
-  }
-
-  set sugarAlcoholTarget(double value) {
-    _sugarAlcoholTarget = value;
-    notifyListeners();
-    _saveToPreferences('sugarAlcoholTarget', value);
-  }
-
-  set starchTarget(double value) {
-    _starchTarget = value;
-    notifyListeners();
-    _saveToPreferences('starchTarget', value);
-  }
-
-  set waterTarget(double value) {
-    _waterTarget = value;
-    notifyListeners();
-    _saveToPreferences('waterTarget', value);
-  }
-
-  set caffeineTarget(double value) {
-    _caffeineTarget = value;
-    notifyListeners();
-    _saveToPreferences('caffeineTarget', value);
-  }
-
-  set alcoholTarget(double value) {
-    _alcoholTarget = value;
-    notifyListeners();
-    _saveToPreferences('alcoholTarget', value);
-  }
-
-  set age(int value) {
-    _age = value;
-    notifyListeners();
-    _saveToPreferences('age', value);
-  }
-
-  set sex(String value) {
-    _sex = value;
-    notifyListeners();
-    _saveToPreferences('sex', value);
-  }
-
-  set weight(int value) {
-    _weight = value;
-    notifyListeners();
-    _saveToPreferences('weight', value);
-  }
-
-  set height(int value) {
-    _height = value;
-    notifyListeners();
-    _saveToPreferences('height', value);
-  }
-
-  set activityLevel(double value) {
-    _activityLevel = value;
-    notifyListeners();
-    _saveToPreferences('activityLevel', value);
-  }
-
-  set weightTarget(WeightTarget value) {
-    _weightTarget = value;
-    notifyListeners();
-    _saveToPreferences('weightTarget', value.toString());
-  }
-
-  set proteinRatio(double value) {
-    _proteinRatio = value;
-    notifyListeners();
-    _saveToPreferences('proteinRatio', value);
-  }
-
-  set carbsRatio(double value) {
-    _carbsRatio = value;
-    notifyListeners();
-    _saveToPreferences('carbsRatio', value);
-  }
-
-  set fatRatio(double value) {
-    _fatRatio = value;
-    notifyListeners();
-    _saveToPreferences('fatRatio', value);
   }
 }
