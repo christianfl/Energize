@@ -1,7 +1,7 @@
 {
   "fat": "脂肪",
   "@fat": {},
-  "appDescriptionShort": "轻松快速地记录您的饮食和了解营养摄入情况。",
+  "appDescriptionShort": "轻松快速地记录您的饮食和帮助您了解营养摄入情况。",
   "@appDescriptionShort": {},
   "france": "法国",
   "@france": {},
@@ -64,7 +64,7 @@
   "@activityLevel1_4": {},
   "ageInYears": "年龄(岁)",
   "@ageInYears": {},
-  "heightInCm": "身高(厘米)",
+  "heightInCm": "身高(cm)",
   "@heightInCm": {},
   "databaseManagementHint": "选择要查询的食品数据库",
   "@databaseManagementHint": {},
@@ -143,7 +143,7 @@
   "@weightTargetModerateGain": {},
   "formulaForFemales": "女性公式",
   "@formulaForFemales": {},
-  "weightInKg": "体重(千克)",
+  "weightInKg": "体重(kg)",
   "@weightInKg": {},
   "calculationInfoText2": "该计算结果称为基础代谢率(BMR)。将它与你的活动系数相乘，就能得出你的总能量消耗。这就是您所需的能量摄入量，单位是kcal(千卡)。",
   "@calculationInfoText2": {},
@@ -163,9 +163,9 @@
   "@nonProfitInstitution": {},
   "vitaminE": "维生素E",
   "@vitaminE": {},
-  "notFoundInCustomFoodsOrOpenFoodFacts": "无论是在 自定义食物 还是在 Open Food Facts 食品数据库中都没有",
+  "notFoundInCustomFoodsOrOpenFoodFacts": "无论是在 自定义食物 还是在 Open Food Facts 食品数据库中都没有找到相关信息",
   "@notFoundInCustomFoodsOrOpenFoodFacts": {},
-  "notFoundInCustomFoodsOpenFoodFactsNotActivated": "在自定义食物中未找到，Open Food Facts 食品数据库未开启",
+  "notFoundInCustomFoodsOpenFoodFactsNotActivated": "在 自定义食物 中未找到相关信息，Open Food Facts 食品数据库未开启",
   "@notFoundInCustomFoodsOpenFoodFactsNotActivated": {},
   "formulaForMales": "男性公式",
   "@formulaForMales": {},
@@ -237,7 +237,7 @@
       }
     }
   },
-  "appDescription": "轻松快速地记录您的饮食和了解营养摄入情况。扫描您的食品条形码或者在不同的数据库中手动搜索记录。",
+  "appDescription": "轻松快速地记录您的饮食和帮助您了解营养摄入情况。扫描食品条形码或者在不同的数据库中手动搜索进行记录。",
   "@appDescription": {},
   "fieldMandatory": "请输入一个值",
   "@fieldMandatory": {},
@@ -253,7 +253,7 @@
   "@noActivityLevelDescription": {},
   "weightTarget": "重量目标",
   "@weightTarget": {},
-  "weightTargetStrongGain": "大量增长",
+  "weightTargetStrongGain": "大幅增长",
   "@weightTargetStrongGain": {},
   "calculateNutritionTargets": "计算营养目标",
   "@calculateNutritionTargets": {},
@@ -283,9 +283,9 @@
   "@activityLevel1_9": {},
   "weightTargetSlightGain": "少量增长",
   "@weightTargetSlightGain": {},
-  "notFoundInCustomFoodsOpenFoodFactsNeedsInternet": "在自定义食物中未找到，Open Food Facts 食品数据库需要联网才能使用",
+  "notFoundInCustomFoodsOpenFoodFactsNeedsInternet": "在 自定义食物 中未找到相关信息，Open Food Facts 食品数据库需要联网才能使用",
   "@notFoundInCustomFoodsOpenFoodFactsNeedsInternet": {},
-  "notFoundInCustomFoodsOpenFoodFactsHasError": "在自定义食物中未找到，Open Food Facts 食品数据库搜索出错",
+  "notFoundInCustomFoodsOpenFoodFactsHasError": "在 自定义食物 中未找到相关信息，Open Food Facts 食品数据库搜索出错",
   "@notFoundInCustomFoodsOpenFoodFactsHasError": {},
   "activityLevel1_6": "有点活跃，有时做运动",
   "@activityLevel1_6": {},
@@ -293,7 +293,7 @@
   "@weightTargetMaintaining": {},
   "calculatedNutritionTargetsHint": "请根据自身情况修改各项指标。",
   "@calculatedNutritionTargetsHint": {},
-  "calculationInfoText1": "卡路里摄入量的计算是基于Mifflin - St Jeor公式。该计算结果只能作为实际摄入量的近似值，因为每个人的身体状况或多或少存在差异，所需的卡路里摄入量也不同。",
+  "calculationInfoText1": "卡路里摄入量的计算是基于 Mifflin-St.Jeor公式。该计算结果只能作为实际摄入量的近似值，因为每个人的身体状况或多或少存在差异，所需的卡路里摄入量也不同。",
   "@calculationInfoText1": {},
   "loading": "加载中",
   "@loading": {},
@@ -359,7 +359,7 @@
   "@allTranslatorsOnWeblate": {},
   "email": "电子邮件",
   "@email": {},
-  "contact": "联系",
+  "contact": "通过电子邮件联系我",
   "@contact": {},
   "monounsaturatedFat": "单不饱和脂肪酸",
   "@monounsaturatedFat": {},
@@ -419,7 +419,7 @@
   "@swissFoodCompositionDatabase": {},
   "scanBarcode": "扫描条形码",
   "@scanBarcode": {},
-  "productOrBrand": "食品或品牌",
+  "productOrBrand": "搜索食物或品牌",
   "@productOrBrand": {},
   "activityLevel2_0": "从事体力活动，并定期努力锻炼",
   "@activityLevel2_0": {},
@@ -518,5 +518,72 @@
     }
   },
   "backupPasswordNotice": "如果备份密码忘记，就无法恢复备份。",
-  "@backupPasswordNotice": {}
+  "@backupPasswordNotice": {},
+  "add": "添加",
+  "@add": {},
+  "noServingSizesText": "缺少份量说明。",
+  "@noServingSizesText": {},
+  "servingSizes": "份量说明",
+  "@servingSizes": {},
+  "addServingSize": "添加份量说明",
+  "@addServingSize": {},
+  "typicalServingSizes": "标准份量",
+  "@typicalServingSizes": {},
+  "or": "或者",
+  "@or": {},
+  "servingSizeName": "份量名称",
+  "@servingSizeName": {},
+  "size": "份量值",
+  "@size": {},
+  "translatableServingSizeNames": "{name, select, l10nServing{一份(Srv.)} l10nPackage{一包(Pck.)} other{}}",
+  "@translatableServingSizeNames": {
+    "description": "Translatable (system-defined) serving size names",
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "testCustomFood3Name": "油炸秋葵",
+  "@testCustomFood3Name": {
+    "description": "Only used for translated screenshots, not within the app itself. Name of custom food 3/5 which can be anything which makes sense in the current language. E.g. a local food."
+  },
+  "federalFoodSafetyAndVeterinaryOffice": "联邦食品安全和兽医办公室",
+  "@federalFoodSafetyAndVeterinaryOffice": {},
+  "testCustomFood2Calories": "326",
+  "@testCustomFood2Calories": {
+    "description": "Only used for translated screenshots, not within the app itself. Calories in kcal per 100 g of custom food 2/5 as a double value (e.g.: 120.0)"
+  },
+  "testCustomFood5Calories": "259",
+  "@testCustomFood5Calories": {
+    "description": "Only used for translated screenshots, not within the app itself. Calories in kcal per 100 g of custom food 5/5 as a double value (e.g.: 120.0)"
+  },
+  "testCustomFood1Name": "薄煎饼",
+  "@testCustomFood1Name": {
+    "description": "Only used for translated screenshots, not within the app itself. Name of custom food 1/5 which can be anything which makes sense in the current language. E.g. a local food."
+  },
+  "testCustomFood1Calories": "227",
+  "@testCustomFood1Calories": {
+    "description": "Only used for translated screenshots, not within the app itself. Calories in kcal per 100 g of custom food 1/5 as a double value (e.g.: 120.0)"
+  },
+  "testCustomFood2Name": "薯饼",
+  "@testCustomFood2Name": {
+    "description": "Only used for translated screenshots, not within the app itself. Name of custom food 2/5 which can be anything which makes sense in the current language. E.g. a local food."
+  },
+  "testCustomFood4Calories": "228",
+  "@testCustomFood4Calories": {
+    "description": "Only used for translated screenshots, not within the app itself. Calories in kcal per 100 g of custom food 4/5 as a double value (e.g.: 120.0)"
+  },
+  "testCustomFood3Calories": "260",
+  "@testCustomFood3Calories": {
+    "description": "Only used for translated screenshots, not within the app itself. Calories in kcal per 100 g of custom food 3/5 as a double value (e.g.: 120.0)"
+  },
+  "testCustomFood4Name": "苏格兰鸡蛋",
+  "@testCustomFood4Name": {
+    "description": "Only used for translated screenshots, not within the app itself. Name of custom food 4/5 which can be anything which makes sense in the current language. E.g. a local food."
+  },
+  "testCustomFood5Name": "约克郡布丁",
+  "@testCustomFood5Name": {
+    "description": "Only used for translated screenshots, not within the app itself. Name of custom food 5/5 which can be anything which makes sense in the current language. E.g. a local food."
+  }
 }
