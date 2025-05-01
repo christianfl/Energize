@@ -1,0 +1,3 @@
+* Painamalla takaisin kaikki välilehdet, mutta seuranta-välilehti navigoi main välilehti sulkemisen sijaan app
+* Uusi käännös: Turkki (kiitos!)
+* Älä vie null-arvoja varmuuskopioon, mikä säästää paljon tiedostotilaa

@@ -1,0 +1,5 @@
+* Lisätty uusi tietokanta: USDA FoodData Central
+* Parannettu track food modalin ulkonäkö
+* Kiinteä: jotkut viivakoodit voivat johtaa track food modalin avautumiseen useita kertoja
+* Lisätty kuva ja EAN-koodi mukautettuun ruokaan
+* Pieniä parannuksia

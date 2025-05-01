@@ -1,0 +1,4 @@
+* Lisätty käännökset ranskaksi, italiaksi ja puolaksi (kiitos osallistumisesta!)
+* Parempi näkyvyys Baari kaloreita ja makroravinteita
+* Muotoile valittu seurantapäivä, joka vastaa käyttäjän sijaintia
+* Fix: poistettu päällekkäisiä molybdeeni syöttö mukautetun ruokaa

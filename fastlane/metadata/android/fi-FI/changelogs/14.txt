@@ -1,0 +1,4 @@
+* Uusi Sovellus-Kuvake!
+* Tšekin ja Tanskan kielet lisätty (kiitos osallistumisesta!)
+* Elintarviketietokannat näyttävät nyt, millä kielellä niiden tuotteet ovat
+* Tietoja sivusta parannettu ja lahjoitussivu lisätty

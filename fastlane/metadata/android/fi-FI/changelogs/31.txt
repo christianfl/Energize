@@ -1,0 +1,1 @@
+- [fix] Ohita yksittäinen ruoka tai ruoka seurata kohteita, joita ei voida jäsentää tietokannasta

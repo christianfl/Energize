@@ -1,0 +1,5 @@
+* Varmista, että Open Food Facts-tuotteiden otsikossa ei ole johtavia tai perässä olevia tyhjiä välilyöntejä
+* Uusi käännös: Norjalainen Bokmål (kiitos!)
+* Lisätty käännettäviä merkkijonoja
+* Pienet Bugikorjaukset ja uudelleenaktorointi
+* Fastlane korjaukset
