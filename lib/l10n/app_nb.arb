@@ -19,7 +19,7 @@
   "@detailedSummary": {},
   "dayComplete": "Dag fullført",
   "@dayComplete": {},
-  "markedDayAsComplete": "Dag markert som fullført",
+  "markedDayAsComplete": "Dag fullført",
   "@markedDayAsComplete": {},
   "trackFood": "Spor mat",
   "@trackFood": {},
@@ -69,10 +69,21 @@
   "@fieldMandatory": {},
   "general": "Generelt",
   "@general": {},
-  "loading": "Laster inn …",
+  "loading": "Laster inn…",
   "@loading": {},
   "undo": "Angre",
   "@undo": {},
   "deleted": "slettet",
-  "@deleted": {}
+  "@deleted": {},
+  "somethingNotFound": "{something} ikke funnet",
+  "@somethingNotFound": {
+    "placeholders": {
+      "something": {
+        "type": "String",
+        "example": "123"
+      }
+    }
+  },
+  "onlyNumbersAllowed": "Kun tall er tillatt",
+  "@onlyNumbersAllowed": {}
 }
