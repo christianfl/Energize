@@ -62,7 +62,14 @@ class _DonationSubPageState extends State<DonationSubPage> {
                   AppLocalizations.of(context)!.donationText,
                 ),
               ),
-              InkWell(
+              ListTile(
+                leading: const Icon(Icons.currency_bitcoin),
+                title: const Text('Bitcoin'),
+                subtitle: const SelectableText(
+                  DonationSubPage._bitcoinAddress,
+                  style: TextStyle(fontSize: 12),
+                ),
+                trailing: const Icon(Icons.copy),
                 onTap: () {
                   try {
                     Clipboard.setData(
@@ -83,17 +90,17 @@ class _DonationSubPageState extends State<DonationSubPage> {
                     //
                   }
                 },
-                child: const ListTile(
-                  leading: Icon(Icons.currency_bitcoin),
-                  title: Text('Bitcoin'),
-                  subtitle: SelectableText(
-                    DonationSubPage._bitcoinAddress,
-                    style: TextStyle(fontSize: 12),
-                  ),
-                  trailing: Icon(Icons.copy),
-                ),
               ),
-              InkWell(
+              ListTile(
+                leading: Image.asset(
+                  'assets/liberapay_logo.png',
+                  width: 28,
+                ),
+                title: Text(
+                  AppLocalizations.of(context)!.bankAccountOrCreditCard,
+                ),
+                subtitle: const Text('liberapay.com'),
+                trailing: const Icon(Icons.link),
                 onTap: () {
                   final uri = Uri.parse(DonationSubPage._donationUrl);
 
@@ -108,19 +115,14 @@ class _DonationSubPageState extends State<DonationSubPage> {
                     }
                   }
                 },
-                child: ListTile(
-                  leading: Image.asset(
-                    'assets/liberapay_logo.png',
-                    width: 28,
-                  ),
-                  title: Text(
-                    AppLocalizations.of(context)!.bankAccountOrCreditCard,
-                  ),
-                  subtitle: const Text('liberapay.com'),
-                  trailing: const Icon(Icons.link),
-                ),
               ),
-              InkWell(
+              ListTile(
+                title: Text(AppLocalizations.of(context)!.contact),
+                subtitle: Text(
+                  AppLocalizations.of(context)!
+                      .writeMeAnEmailForFurtherDonationOptions,
+                ),
+                trailing: const Icon(Icons.mail),
                 onTap: () {
                   final uri = Uri(
                     scheme: 'mailto',
@@ -140,14 +142,6 @@ class _DonationSubPageState extends State<DonationSubPage> {
                     }
                   }
                 },
-                child: ListTile(
-                  title: Text(AppLocalizations.of(context)!.contact),
-                  subtitle: Text(
-                    AppLocalizations.of(context)!
-                        .writeMeAnEmailForFurtherDonationOptions,
-                  ),
-                  trailing: const Icon(Icons.mail),
-                ),
               ),
             ],
           ),

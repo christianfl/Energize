@@ -116,14 +116,20 @@ class _AboutSubPageState extends State<AboutSubPage> {
                 padding: const EdgeInsets.all(36.0),
                 child: Text(AppLocalizations.of(context)!.appDescription),
               ),
-              InkWell(
-                onTap: () => _showPrivacyPolicyDialog(),
-                child: ListTile(
-                  leading: const Icon(Icons.privacy_tip),
-                  title: Text(AppLocalizations.of(context)!.privacyPolicy),
-                ),
+              ListTile(
+                leading: const Icon(Icons.privacy_tip),
+                title: Text(AppLocalizations.of(context)!.privacyPolicy),
+                onTap: () {
+                  _showPrivacyPolicyDialog();
+                },
               ),
-              InkWell(
+              ListTile(
+                leading: const Icon(Icons.bug_report),
+                title: Text(AppLocalizations.of(context)!.reportIssue),
+                subtitle: Text(
+                  '${Uri.tryParse(AboutSubPage._issueUrl)?.host.toCapitalize()}',
+                ),
+                trailing: const Icon(Icons.link),
                 onTap: () {
                   final uri = Uri.parse(AboutSubPage._issueUrl);
 
@@ -138,16 +144,14 @@ class _AboutSubPageState extends State<AboutSubPage> {
                     }
                   }
                 },
-                child: ListTile(
-                  leading: const Icon(Icons.bug_report),
-                  title: Text(AppLocalizations.of(context)!.reportIssue),
-                  subtitle: Text(
-                    '${Uri.tryParse(AboutSubPage._issueUrl)?.host.toCapitalize()}',
-                  ),
-                  trailing: const Icon(Icons.link),
-                ),
               ),
-              InkWell(
+              ListTile(
+                leading: const Icon(Icons.extension),
+                title: Text(AppLocalizations.of(context)!.proposeImprovement),
+                subtitle: Text(
+                  '${Uri.tryParse(AboutSubPage._issueUrl)?.host.toCapitalize()}',
+                ),
+                trailing: const Icon(Icons.link),
                 onTap: () {
                   final uri = Uri.parse(AboutSubPage._issueUrl);
 
@@ -162,16 +166,14 @@ class _AboutSubPageState extends State<AboutSubPage> {
                     }
                   }
                 },
-                child: ListTile(
-                  leading: const Icon(Icons.extension),
-                  title: Text(AppLocalizations.of(context)!.proposeImprovement),
-                  subtitle: Text(
-                    '${Uri.tryParse(AboutSubPage._issueUrl)?.host.toCapitalize()}',
-                  ),
-                  trailing: const Icon(Icons.link),
-                ),
               ),
-              InkWell(
+              ListTile(
+                leading: const Icon(Icons.code),
+                title: Text(AppLocalizations.of(context)!.sourceCode),
+                subtitle: Text(
+                  '${Uri.tryParse(AboutSubPage._repoUrl)?.host.toCapitalize()}',
+                ),
+                trailing: const Icon(Icons.link),
                 onTap: () {
                   final uri = Uri.parse(AboutSubPage._repoUrl);
 
@@ -186,16 +188,14 @@ class _AboutSubPageState extends State<AboutSubPage> {
                     }
                   }
                 },
-                child: ListTile(
-                  leading: const Icon(Icons.code),
-                  title: Text(AppLocalizations.of(context)!.sourceCode),
-                  subtitle: Text(
-                    '${Uri.tryParse(AboutSubPage._repoUrl)?.host.toCapitalize()}',
-                  ),
-                  trailing: const Icon(Icons.link),
-                ),
               ),
-              InkWell(
+              ListTile(
+                leading: const Icon(Icons.translate),
+                title: Text(AppLocalizations.of(context)!.translation),
+                subtitle: Text(
+                  '${Uri.tryParse(AboutSubPage._translationUrl)?.host.toCapitalize()}',
+                ),
+                trailing: const Icon(Icons.link),
                 onTap: () {
                   final uri = Uri.parse(AboutSubPage._translationUrl);
 
@@ -210,25 +210,27 @@ class _AboutSubPageState extends State<AboutSubPage> {
                     }
                   }
                 },
-                child: ListTile(
-                  leading: const Icon(Icons.translate),
-                  title: Text(AppLocalizations.of(context)!.translation),
-                  subtitle: Text(
-                    '${Uri.tryParse(AboutSubPage._translationUrl)?.host.toCapitalize()}',
-                  ),
-                  trailing: const Icon(Icons.link),
-                ),
               ),
-              InkWell(
+              ListTile(
+                leading: const Icon(Icons.people),
+                title: Text(AppLocalizations.of(context)!.contributors),
                 onTap: () {
                   _showContributorsDialog();
                 },
-                child: ListTile(
-                  leading: const Icon(Icons.people),
-                  title: Text(AppLocalizations.of(context)!.contributors),
-                ),
               ),
-              InkWell(
+              ListTile(
+                isThreeLine: true,
+                title: Padding(
+                  padding: const EdgeInsets.only(bottom: 4.0),
+                  child: Text(AppLocalizations.of(context)!.contact),
+                ),
+                subtitle: Text(AppLocalizations.of(context)!.emailHint),
+                trailing: const Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(Icons.mail),
+                  ],
+                ),
                 onTap: () {
                   final uri = Uri(
                     scheme: 'mailto',
@@ -248,20 +250,6 @@ class _AboutSubPageState extends State<AboutSubPage> {
                     }
                   }
                 },
-                child: ListTile(
-                  isThreeLine: true,
-                  title: Padding(
-                    padding: const EdgeInsets.only(bottom: 4.0),
-                    child: Text(AppLocalizations.of(context)!.contact),
-                  ),
-                  subtitle: Text(AppLocalizations.of(context)!.emailHint),
-                  trailing: const Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(Icons.mail),
-                    ],
-                  ),
-                ),
               ),
             ],
           ),
