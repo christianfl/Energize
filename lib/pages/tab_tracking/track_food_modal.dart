@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
@@ -341,15 +342,18 @@ class TrackFoodState extends State<TrackFood>
     );
   }
 
-  void _launchOpenFoodFactsUrl(String ean) async {
+  void _launchOpenFoodFactsUrl(String ean) {
     final uri = Uri.parse('${OpenFoodFactsBinding.productUrl}$ean');
-    if (await canLaunchUrl(uri)) {
-      await launchUrl(
+
+    try {
+      launchUrl(
         uri,
         mode: LaunchMode.externalApplication,
       );
-    } else {
-      throw 'Could not launch url';
+    } catch (e) {
+      if (kDebugMode) {
+        debugPrint('Could not launch url: $e');
+      }
     }
   }
 

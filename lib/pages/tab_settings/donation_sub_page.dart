@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -93,15 +94,18 @@ class _DonationSubPageState extends State<DonationSubPage> {
                 ),
               ),
               InkWell(
-                onTap: () async {
+                onTap: () {
                   final uri = Uri.parse(DonationSubPage._donationUrl);
-                  if (await canLaunchUrl(uri)) {
-                    await launchUrl(
+
+                  try {
+                    launchUrl(
                       uri,
                       mode: LaunchMode.externalApplication,
                     );
-                  } else {
-                    throw 'Could not launch url';
+                  } catch (e) {
+                    if (kDebugMode) {
+                      debugPrint('Could not launch url: $e');
+                    }
                   }
                 },
                 child: ListTile(
@@ -117,7 +121,7 @@ class _DonationSubPageState extends State<DonationSubPage> {
                 ),
               ),
               InkWell(
-                onTap: () async {
+                onTap: () {
                   final uri = Uri(
                     scheme: 'mailto',
                     path: AboutSubPage.email,
@@ -125,13 +129,15 @@ class _DonationSubPageState extends State<DonationSubPage> {
                         'subject=Energize App Feedback&body=App Version $_appVersion',
                   );
 
-                  if (await canLaunchUrl(uri)) {
-                    await launchUrl(
+                  try {
+                    launchUrl(
                       uri,
                       mode: LaunchMode.externalApplication,
                     );
-                  } else {
-                    throw 'Could not launch url';
+                  } catch (e) {
+                    if (kDebugMode) {
+                      debugPrint('Could not launch url: $e');
+                    }
                   }
                 },
                 child: ListTile(

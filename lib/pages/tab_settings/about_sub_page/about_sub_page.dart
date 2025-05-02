@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -123,15 +124,18 @@ class _AboutSubPageState extends State<AboutSubPage> {
                 ),
               ),
               InkWell(
-                onTap: () async {
+                onTap: () {
                   final uri = Uri.parse(AboutSubPage._issueUrl);
-                  if (await canLaunchUrl(uri)) {
-                    await launchUrl(
+
+                  try {
+                    launchUrl(
                       uri,
                       mode: LaunchMode.externalApplication,
                     );
-                  } else {
-                    throw 'Could not launch url';
+                  } catch (e) {
+                    if (kDebugMode) {
+                      debugPrint('Could not launch url: $e');
+                    }
                   }
                 },
                 child: ListTile(
@@ -144,15 +148,18 @@ class _AboutSubPageState extends State<AboutSubPage> {
                 ),
               ),
               InkWell(
-                onTap: () async {
+                onTap: () {
                   final uri = Uri.parse(AboutSubPage._issueUrl);
-                  if (await canLaunchUrl(uri)) {
-                    await launchUrl(
+
+                  try {
+                    launchUrl(
                       uri,
                       mode: LaunchMode.externalApplication,
                     );
-                  } else {
-                    throw 'Could not launch url';
+                  } catch (e) {
+                    if (kDebugMode) {
+                      debugPrint('Could not launch url: $e');
+                    }
                   }
                 },
                 child: ListTile(
@@ -165,15 +172,18 @@ class _AboutSubPageState extends State<AboutSubPage> {
                 ),
               ),
               InkWell(
-                onTap: () async {
+                onTap: () {
                   final uri = Uri.parse(AboutSubPage._repoUrl);
-                  if (await canLaunchUrl(uri)) {
-                    await launchUrl(
+
+                  try {
+                    launchUrl(
                       uri,
                       mode: LaunchMode.externalApplication,
                     );
-                  } else {
-                    throw 'Could not launch url';
+                  } catch (e) {
+                    if (kDebugMode) {
+                      debugPrint('Could not launch url: $e');
+                    }
                   }
                 },
                 child: ListTile(
@@ -186,15 +196,18 @@ class _AboutSubPageState extends State<AboutSubPage> {
                 ),
               ),
               InkWell(
-                onTap: () async {
+                onTap: () {
                   final uri = Uri.parse(AboutSubPage._translationUrl);
-                  if (await canLaunchUrl(uri)) {
-                    await launchUrl(
+
+                  try {
+                    launchUrl(
                       uri,
                       mode: LaunchMode.externalApplication,
                     );
-                  } else {
-                    throw 'Could not launch url';
+                  } catch (e) {
+                    if (kDebugMode) {
+                      debugPrint('Could not launch url: $e');
+                    }
                   }
                 },
                 child: ListTile(
@@ -216,7 +229,7 @@ class _AboutSubPageState extends State<AboutSubPage> {
                 ),
               ),
               InkWell(
-                onTap: () async {
+                onTap: () {
                   final uri = Uri(
                     scheme: 'mailto',
                     path: AboutSubPage.email,
@@ -224,13 +237,15 @@ class _AboutSubPageState extends State<AboutSubPage> {
                         'subject=Energize App Feedback&body=App Version $_appVersion',
                   );
 
-                  if (await canLaunchUrl(uri)) {
-                    await launchUrl(
+                  try {
+                    launchUrl(
                       uri,
                       mode: LaunchMode.externalApplication,
                     );
-                  } else {
-                    throw 'Could not launch url';
+                  } catch (e) {
+                    if (kDebugMode) {
+                      debugPrint('Could not launch url: $e');
+                    }
                   }
                 },
                 child: ListTile(
@@ -371,16 +386,19 @@ class _AboutSubPageState extends State<AboutSubPage> {
                 ),
               ),
               selectable: true,
-              onTapLink: (text, href, title) async {
+              onTapLink: (text, href, title) {
                 if (href != null) {
                   final uri = Uri.parse(href);
-                  if (await canLaunchUrl(uri)) {
-                    await launchUrl(
+
+                  try {
+                    launchUrl(
                       uri,
                       mode: LaunchMode.externalApplication,
                     );
-                  } else {
-                    throw 'Could not launch url';
+                  } catch (e) {
+                    if (kDebugMode) {
+                      debugPrint('Could not launch url: $e');
+                    }
                   }
                 }
               },

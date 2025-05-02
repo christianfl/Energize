@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
@@ -113,17 +114,20 @@ class DatabaseManagementSubPageState extends State<DatabaseManagementSubPage> {
                         isThreeLine: true,
                       ),
                       InkWell(
-                        onTap: () async {
+                        onTap: () {
                           final uri = Uri.parse(
                             SwissFoodCompositionDatabaseBinding.sourceUrl,
                           );
-                          if (await canLaunchUrl(uri)) {
-                            await launchUrl(
+
+                          try {
+                            launchUrl(
                               uri,
                               mode: LaunchMode.externalApplication,
                             );
-                          } else {
-                            throw 'Could not launch url';
+                          } catch (e) {
+                            if (kDebugMode) {
+                              debugPrint('Could not launch url: $e');
+                            }
                           }
                         },
                         child: ListTile(
@@ -197,15 +201,18 @@ class DatabaseManagementSubPageState extends State<DatabaseManagementSubPage> {
                         ),
                       ),
                       InkWell(
-                        onTap: () async {
+                        onTap: () {
                           final uri = Uri.parse(OpenFoodFactsBinding.termsUrl);
-                          if (await canLaunchUrl(uri)) {
-                            await launchUrl(
+
+                          try {
+                            launchUrl(
                               uri,
                               mode: LaunchMode.externalApplication,
                             );
-                          } else {
-                            throw 'Could not launch url';
+                          } catch (e) {
+                            if (kDebugMode) {
+                              debugPrint('Could not launch url: $e');
+                            }
                           }
                         },
                         child: ListTile(
@@ -219,16 +226,19 @@ class DatabaseManagementSubPageState extends State<DatabaseManagementSubPage> {
                         ),
                       ),
                       InkWell(
-                        onTap: () async {
+                        onTap: () {
                           final uri =
                               Uri.parse(OpenFoodFactsBinding.contributeUrl);
-                          if (await canLaunchUrl(uri)) {
-                            await launchUrl(
+
+                          try {
+                            launchUrl(
                               uri,
                               mode: LaunchMode.externalApplication,
                             );
-                          } else {
-                            throw 'Could not launch url';
+                          } catch (e) {
+                            if (kDebugMode) {
+                              debugPrint('Could not launch url: $e');
+                            }
                           }
                         },
                         child: ListTile(
@@ -282,15 +292,18 @@ class DatabaseManagementSubPageState extends State<DatabaseManagementSubPage> {
                         ),
                       ),
                       InkWell(
-                        onTap: () async {
+                        onTap: () {
                           final uri = Uri.parse(USDABinding.sourceUrl);
-                          if (await canLaunchUrl(uri)) {
-                            await launchUrl(
+
+                          try {
+                            launchUrl(
                               uri,
                               mode: LaunchMode.externalApplication,
                             );
-                          } else {
-                            throw 'Could not launch url';
+                          } catch (e) {
+                            if (kDebugMode) {
+                              debugPrint('Could not launch url: $e');
+                            }
                           }
                         },
                         child: ListTile(
