@@ -17,6 +17,7 @@ import '../../../../widgets/food_list_item.dart';
 import '../../../models/food/food.dart';
 import '../../../models/food/food_tracked.dart';
 import '../../../providers/app_settings_provider.dart';
+import '../../../providers/log_provider.dart';
 import '../../../services/food_database_bindings/open_food_facts/open_food_facts_binding.dart';
 import '../../../services/food_database_bindings/open_food_facts/product_not_found_exception.dart';
 import '../../../services/food_database_bindings/swiss_food_composition_database/swiss_food_composition_database_binding.dart';
@@ -621,12 +622,13 @@ class FoodInputState extends State<FoodInput>
           } else {
             // User does not want to use serving sizes, don't change anything
           }
-        } catch (e) {
-          if (kDebugMode) {
-            debugPrint(
-              'Error processing serving size selection for quick add food: $e',
-            );
-          }
+        } catch (e, st) {
+          final logger = Provider.of<LogProvider>(context, listen: false);
+          logger.error(
+            'Error processing serving size selection for quick add food',
+            e,
+            st,
+          );
         }
       }
     }
@@ -694,7 +696,8 @@ class FoodInputState extends State<FoodInput>
       // Turn of flash
       _setFlash(false);
     } catch (e) {
-      // Do nothing if that fails
+      final logger = Provider.of<LogProvider>(context, listen: false);
+      logger.warning('Could not turn off flash', e);
     }
 
     Navigator.of(context)
@@ -741,7 +744,8 @@ class FoodInputState extends State<FoodInput>
       // Turn of flash
       _setFlash(false);
     } catch (e) {
-      // Do nothing if that fails
+      final logger = Provider.of<LogProvider>(context, listen: false);
+      logger.warning('Could not turn off flash', e);
     }
 
     Navigator.of(context)

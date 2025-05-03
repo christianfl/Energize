@@ -8,6 +8,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 import 'package:sqflite_common_ffi_web/sqflite_ffi_web.dart';
+import 'package:talker_flutter/talker_flutter.dart';
 
 import 'config/env_config.dart';
 import 'pages/tab_food/add_edit_custom_food_modal.dart';
@@ -24,6 +25,7 @@ import 'providers/app_settings_provider.dart';
 import 'providers/body_targets_provider.dart';
 import 'providers/complete_days_provider.dart';
 import 'providers/custom_food_provider.dart';
+import 'providers/log_provider.dart';
 import 'providers/tracked_food_provider.dart';
 import 'services/shared_preferences/shared_preferences_service.dart';
 import 'services/sqlite/complete_days_database_service.dart';
@@ -78,6 +80,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
+        Provider(
+          create: (ctx) => LogProvider(talker: TalkerFlutter.init()),
+        ),
         ChangeNotifierProvider(
           create: (ctx) => AppSettingsProvider(
             sharedPrefs: SharedPreferencesService.instance,
@@ -89,16 +94,34 @@ class MyApp extends StatelessWidget {
           ),
         ),
         ChangeNotifierProvider(
-          create: (ctx) =>
-              TrackedFoodProvider(db: TrackedFoodDatabaseService.instance),
+          create: (ctx) {
+            final logProvider = ctx.read<LogProvider>();
+
+            return TrackedFoodProvider(
+              db: TrackedFoodDatabaseService.instance,
+              logger: logProvider,
+            );
+          },
         ),
         ChangeNotifierProvider(
-          create: (ctx) =>
-              CustomFoodProvider(db: CustomFoodDatabaseService.instance),
+          create: (ctx) {
+            final logProvider = ctx.read<LogProvider>();
+
+            return CustomFoodProvider(
+              db: CustomFoodDatabaseService.instance,
+              logger: logProvider,
+            );
+          },
         ),
         Provider(
-          create: (ctx) =>
-              CompleteDaysProvider(db: CompleteDaysDatabaseService.instance),
+          create: (ctx) {
+            final logProvider = ctx.read<LogProvider>();
+
+            return CompleteDaysProvider(
+              db: CompleteDaysDatabaseService.instance,
+              logger: logProvider,
+            );
+          },
         ),
       ],
       child: MaterialApp(

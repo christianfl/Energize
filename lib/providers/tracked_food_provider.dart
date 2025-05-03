@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../models/food/food_tracked.dart';
 import '../services/sqlite/tracked_food_database_service_interface.dart';
+import 'log_provider.dart';
 
 /// Provider for everything related to tracked food.
 ///
@@ -9,6 +10,7 @@ import '../services/sqlite/tracked_food_database_service_interface.dart';
 /// corresponding tracked food items.
 class TrackedFoodProvider with ChangeNotifier {
   final TrackedFoodDatabaseServiceInterface _db;
+  final LogProvider _logger;
 
   List<FoodTracked> _foods = [];
   List<FoodTracked> get foods => [..._foods];
@@ -16,8 +18,11 @@ class TrackedFoodProvider with ChangeNotifier {
   /// Determines from when the provider holds corresponding tracked food items.
   DateTime selectedDate = DateTime.now();
 
-  TrackedFoodProvider({required TrackedFoodDatabaseServiceInterface db})
-      : _db = db {
+  TrackedFoodProvider({
+    required TrackedFoodDatabaseServiceInterface db,
+    required LogProvider logger,
+  })  : _db = db,
+        _logger = logger {
     _getFromDatabase();
   }
 
@@ -52,6 +57,8 @@ class TrackedFoodProvider with ChangeNotifier {
     }
 
     _db.insert(foodTracked);
+
+    _logger.info('Tracked new food: ${foodTracked.title}');
   }
 
   /// Edits a tracked food.
@@ -75,6 +82,8 @@ class TrackedFoodProvider with ChangeNotifier {
     notifyListeners();
 
     _db.update(_foods[index]);
+
+    _logger.info('Edited tracked food: ${food.title}');
   }
 
   /// Removes a tracked food.
@@ -83,6 +92,8 @@ class TrackedFoodProvider with ChangeNotifier {
     notifyListeners();
 
     _db.remove(id);
+
+    _logger.info('Removed tracked food with id: $id');
   }
 
   /// Returns a list of all tracked food between now and [daysAgo].

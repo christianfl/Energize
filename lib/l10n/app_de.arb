@@ -391,6 +391,8 @@
   "@allLicenses": {},
   "privacyPolicy": "Datenschutzerklärung",
   "@privacyPolicy": {},
+  "logs": "Protokolle",
+  "@logs": {},
   "reportIssue": "Fehler melden",
   "@reportIssue": {},
   "proposeImprovement": "Verbesserung vorschlagen",

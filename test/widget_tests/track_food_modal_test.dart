@@ -4,6 +4,7 @@ import 'package:energize/pages/tab_tracking/track_food_modal.dart';
 import 'package:energize/providers/app_settings_provider.dart';
 import 'package:energize/providers/body_targets_provider.dart';
 import 'package:energize/providers/custom_food_provider.dart';
+import 'package:energize/providers/log_provider.dart';
 import 'package:energize/providers/tracked_food_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -42,14 +43,31 @@ void main() {
     await tester.pumpWidget(
       MultiProvider(
         providers: [
+          Provider(
+            create: (_) => LogProvider(),
+          ),
           ChangeNotifierProvider(
             create: (_) => appSettingsProvider,
           ),
           ChangeNotifierProvider(
-            create: (_) => TrackedFoodProvider(db: mockTrackedFoodDb),
+            create: (ctx) {
+              final logProvider = ctx.read<LogProvider>();
+
+              return TrackedFoodProvider(
+                db: mockTrackedFoodDb,
+                logger: logProvider,
+              );
+            },
           ),
           ChangeNotifierProvider(
-            create: (_) => CustomFoodProvider(db: mockCustomFoodDb),
+            create: (ctx) {
+              final logProvider = ctx.read<LogProvider>();
+
+              return CustomFoodProvider(
+                db: mockCustomFoodDb,
+                logger: logProvider,
+              );
+            },
           ),
           ChangeNotifierProvider(
             create: (_) => BodyTargetsProvider(sharedPrefs: mockSharedPrefs),

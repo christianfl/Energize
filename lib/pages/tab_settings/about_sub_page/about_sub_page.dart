@@ -1,13 +1,16 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:package_info_plus/package_info_plus.dart';
+import 'package:provider/provider.dart';
+import 'package:talker_flutter/talker_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../models/contributor.dart';
+import '../../../providers/log_provider.dart';
+import '../../../theme/energize_theme.dart';
 
 class AboutSubPage extends StatefulWidget {
   static const routeName = '/settings/about';
@@ -52,6 +55,8 @@ class _AboutSubPageState extends State<AboutSubPage> {
 
   @override
   Widget build(BuildContext context) {
+    final logger = Provider.of<LogProvider>(context, listen: false);
+
     return Scaffold(
       appBar: AppBar(
         title: Text(AppLocalizations.of(context)!.aboutEnergize),
@@ -123,6 +128,28 @@ class _AboutSubPageState extends State<AboutSubPage> {
                   _showPrivacyPolicyDialog();
                 },
               ),
+              if (logger.talker != null)
+                ListTile(
+                  leading: const Icon(Icons.receipt_long),
+                  title: Text(AppLocalizations.of(context)!.logs),
+                  onTap: () {
+                    final brightness = Theme.of(context).brightness;
+
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => TalkerScreen(
+                          talker: logger.talker!,
+                          appBarTitle: AppLocalizations.of(context)!.logs,
+                          theme: TalkerScreenTheme.fromTheme(
+                            brightness == Brightness.light
+                                ? EnergizeTheme.theme
+                                : EnergizeTheme.darkTheme,
+                          ),
+                        ),
+                      ),
+                    );
+                  },
+                ),
               ListTile(
                 leading: const Icon(Icons.bug_report),
                 title: Text(AppLocalizations.of(context)!.reportIssue),
@@ -139,9 +166,9 @@ class _AboutSubPageState extends State<AboutSubPage> {
                       mode: LaunchMode.externalApplication,
                     );
                   } catch (e) {
-                    if (kDebugMode) {
-                      debugPrint('Could not launch url: $e');
-                    }
+                    final logger =
+                        Provider.of<LogProvider>(context, listen: false);
+                    logger.error('Could not launch url', e);
                   }
                 },
               ),
@@ -161,9 +188,9 @@ class _AboutSubPageState extends State<AboutSubPage> {
                       mode: LaunchMode.externalApplication,
                     );
                   } catch (e) {
-                    if (kDebugMode) {
-                      debugPrint('Could not launch url: $e');
-                    }
+                    final logger =
+                        Provider.of<LogProvider>(context, listen: false);
+                    logger.error('Could not launch url', e);
                   }
                 },
               ),
@@ -183,9 +210,9 @@ class _AboutSubPageState extends State<AboutSubPage> {
                       mode: LaunchMode.externalApplication,
                     );
                   } catch (e) {
-                    if (kDebugMode) {
-                      debugPrint('Could not launch url: $e');
-                    }
+                    final logger =
+                        Provider.of<LogProvider>(context, listen: false);
+                    logger.error('Could not launch url', e);
                   }
                 },
               ),
@@ -205,9 +232,9 @@ class _AboutSubPageState extends State<AboutSubPage> {
                       mode: LaunchMode.externalApplication,
                     );
                   } catch (e) {
-                    if (kDebugMode) {
-                      debugPrint('Could not launch url: $e');
-                    }
+                    final logger =
+                        Provider.of<LogProvider>(context, listen: false);
+                    logger.error('Could not launch url', e);
                   }
                 },
               ),
@@ -245,9 +272,9 @@ class _AboutSubPageState extends State<AboutSubPage> {
                       mode: LaunchMode.externalApplication,
                     );
                   } catch (e) {
-                    if (kDebugMode) {
-                      debugPrint('Could not launch url: $e');
-                    }
+                    final logger =
+                        Provider.of<LogProvider>(context, listen: false);
+                    logger.error('Could not launch url', e);
                   }
                 },
               ),
@@ -384,9 +411,9 @@ class _AboutSubPageState extends State<AboutSubPage> {
                       mode: LaunchMode.externalApplication,
                     );
                   } catch (e) {
-                    if (kDebugMode) {
-                      debugPrint('Could not launch url: $e');
-                    }
+                    final logger =
+                        Provider.of<LogProvider>(context, listen: false);
+                    logger.error('Could not launch url', e);
                   }
                 }
               },

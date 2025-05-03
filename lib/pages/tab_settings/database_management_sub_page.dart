@@ -1,10 +1,10 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../providers/app_settings_provider.dart';
+import '../../providers/log_provider.dart';
 import '../../services/food_database_bindings/open_food_facts/open_food_facts_binding.dart';
 import '../../services/food_database_bindings/swiss_food_composition_database/swiss_food_composition_database_binding.dart';
 import '../../services/food_database_bindings/usda/usda_binding.dart';
@@ -125,9 +125,11 @@ class DatabaseManagementSubPageState extends State<DatabaseManagementSubPage> {
                               mode: LaunchMode.externalApplication,
                             );
                           } catch (e) {
-                            if (kDebugMode) {
-                              debugPrint('Could not launch url: $e');
-                            }
+                            final logger = Provider.of<LogProvider>(
+                              context,
+                              listen: false,
+                            );
+                            logger.error('Could not launch url', e);
                           }
                         },
                         child: ListTile(
@@ -210,9 +212,11 @@ class DatabaseManagementSubPageState extends State<DatabaseManagementSubPage> {
                               mode: LaunchMode.externalApplication,
                             );
                           } catch (e) {
-                            if (kDebugMode) {
-                              debugPrint('Could not launch url: $e');
-                            }
+                            final logger = Provider.of<LogProvider>(
+                              context,
+                              listen: false,
+                            );
+                            logger.error('Could not launch url', e);
                           }
                         },
                         child: ListTile(
@@ -236,9 +240,11 @@ class DatabaseManagementSubPageState extends State<DatabaseManagementSubPage> {
                               mode: LaunchMode.externalApplication,
                             );
                           } catch (e) {
-                            if (kDebugMode) {
-                              debugPrint('Could not launch url: $e');
-                            }
+                            final logger = Provider.of<LogProvider>(
+                              context,
+                              listen: false,
+                            );
+                            logger.error('Could not launch url', e);
                           }
                         },
                         child: ListTile(
@@ -301,9 +307,11 @@ class DatabaseManagementSubPageState extends State<DatabaseManagementSubPage> {
                               mode: LaunchMode.externalApplication,
                             );
                           } catch (e) {
-                            if (kDebugMode) {
-                              debugPrint('Could not launch url: $e');
-                            }
+                            final logger = Provider.of<LogProvider>(
+                              context,
+                              listen: false,
+                            );
+                            logger.error('Could not launch url', e);
                           }
                         },
                         child: ListTile(

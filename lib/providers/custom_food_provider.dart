@@ -2,16 +2,21 @@ import 'package:flutter/material.dart';
 
 import '../models/food/food.dart';
 import '../services/sqlite/custom_food_database_service_interface.dart';
+import 'log_provider.dart';
 
 /// Provider for everything related to custom food.
 class CustomFoodProvider with ChangeNotifier {
+  final CustomFoodDatabaseServiceInterface _db;
+  final LogProvider _logger;
+
   List<Food> _foods = [];
   List<Food> get foods => [..._foods];
 
-  final CustomFoodDatabaseServiceInterface _db;
-
-  CustomFoodProvider({required CustomFoodDatabaseServiceInterface db})
-      : _db = db {
+  CustomFoodProvider({
+    required CustomFoodDatabaseServiceInterface db,
+    required LogProvider logger,
+  })  : _db = db,
+        _logger = logger {
     _getFromDatabase();
   }
 
@@ -34,6 +39,8 @@ class CustomFoodProvider with ChangeNotifier {
     }
 
     _db.insert(food);
+
+    _logger.info('Added new custom food: ${food.title}');
   }
 
   /// Updates a custom food.
@@ -43,6 +50,8 @@ class CustomFoodProvider with ChangeNotifier {
     notifyListeners();
 
     _db.update(food);
+
+    _logger.info('Edited custom food: ${food.title}');
   }
 
   /// Removes a custom food.
@@ -51,6 +60,8 @@ class CustomFoodProvider with ChangeNotifier {
     notifyListeners();
 
     _db.remove(id);
+
+    _logger.info('Removed custom food with id: $id');
   }
 
   /// Returns a single custom food by [Food.ean].

@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
@@ -8,6 +7,7 @@ import '../../models/food/food.dart';
 import '../../models/food/food_tracked.dart';
 import '../../pages/tab_food/add_edit_custom_food_modal.dart';
 import '../../providers/app_settings_provider.dart';
+import '../../providers/log_provider.dart';
 import '../../providers/tracked_food_provider.dart';
 import '../../services/food_database_bindings/open_food_facts/open_food_facts_binding.dart';
 import '../../theme/energize_theme.dart';
@@ -109,10 +109,9 @@ class TrackFoodState extends State<TrackFood>
             } else {
               // User does not want to use serving sizes, don't change anything
             }
-          } catch (e) {
-            if (kDebugMode) {
-              debugPrint('Error processing serving size selection: $e');
-            }
+          } catch (err, st) {
+            final logger = Provider.of<LogProvider>(context, listen: false);
+            logger.error('Error processing serving size selection', err, st);
           }
         }
       }
@@ -368,9 +367,8 @@ class TrackFoodState extends State<TrackFood>
         mode: LaunchMode.externalApplication,
       );
     } catch (e) {
-      if (kDebugMode) {
-        debugPrint('Could not launch url: $e');
-      }
+      final logger = Provider.of<LogProvider>(context, listen: false);
+      logger.error('Could not launch url', e);
     }
   }
 
