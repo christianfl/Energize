@@ -1,7 +1,9 @@
 import 'package:json_annotation/json_annotation.dart';
 
+import 'app_settings.dart';
 import 'food/food.dart';
 import 'food/food_tracked.dart';
+import 'person/body_targets.dart';
 
 part 'backup_data.g.dart';
 
@@ -13,11 +15,15 @@ class BackupData {
   final List<Food>? customFood; // Don't rename without adapting toJson
   final List<FoodTracked>? trackedFood; // Don't rename without adapting toJson
   final List<DateTime>? completedDays;
+  final AppSettings? appSettings;
+  final BodyTargets? bodyTargets;
 
   BackupData({
     this.customFood,
     this.trackedFood,
     this.completedDays,
+    this.appSettings,
+    this.bodyTargets,
   });
 
   /// Connect the generated fromJson function to the `fromJson` factory.

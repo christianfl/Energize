@@ -17,8 +17,13 @@ class CustomFoodProvider with ChangeNotifier {
 
   /// Loads all custom foods into [_foods].
   void _getFromDatabase() async {
-    _foods = await _db.customFoods;
+    _foods = await getAll();
     notifyListeners();
+  }
+
+  /// Returns all custom foods from the database.
+  Future<List<Food>> getAll() async {
+    return _db.customFoods;
   }
 
   /// Adds a new custom food.

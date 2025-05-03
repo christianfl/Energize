@@ -4,34 +4,42 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../models/backup_data.dart';
+import '../providers/app_settings_provider.dart';
+import '../providers/body_targets_provider.dart';
 import '../providers/complete_days_provider.dart';
 import '../providers/custom_food_provider.dart';
 import '../providers/tracked_food_provider.dart';
 import 'encryption_service.dart';
-import 'sqlite/complete_days_database_service.dart';
-import 'sqlite/custom_food_database_service.dart';
-import 'sqlite/tracked_food_database_service.dart';
 
 /// Offers methods for creating backups and restoring them
 class BackupService {
   /// Creates a backup of the database.
-  ///
-  /// Currently WIP: Does only backup custumFood, trackedFood, completedDays
   ///
   /// Returns object with:
   /// - backupData: Object which contains plaintext backup as Objects
   /// - encryptedData: encrypted data as JSON encoded encrypted String and
   static Future<CreateBackupReturnData> createBackup(
     String encryptionPassword,
+    BuildContext context,
   ) async {
-    final customFoodDatabaseInstance = CustomFoodDatabaseService.instance;
-    final trackedFoodsDatabaseInstance = TrackedFoodDatabaseService.instance;
-    final completeDaysDatabaseInstance = CompleteDaysDatabaseService.instance;
+    // Initialize providers
+    final customFoodProvider =
+        Provider.of<CustomFoodProvider>(context, listen: false);
+    final trackedFoodProvider =
+        Provider.of<TrackedFoodProvider>(context, listen: false);
+    final completeDaysProvider =
+        Provider.of<CompleteDaysProvider>(context, listen: false);
+    final appSettingsProvider =
+        Provider.of<AppSettingsProvider>(context, listen: false);
+    final bodyTargetsProvider =
+        Provider.of<BodyTargetsProvider>(context, listen: false);
 
     final backupData = BackupData(
-      customFood: await customFoodDatabaseInstance.customFoods,
-      trackedFood: await trackedFoodsDatabaseInstance.trackedFoods,
-      completedDays: await completeDaysDatabaseInstance.completedDays,
+      customFood: await customFoodProvider.getAll(),
+      trackedFood: await trackedFoodProvider.getAll(),
+      completedDays: await completeDaysProvider.completedDays,
+      appSettings: appSettingsProvider.settings,
+      bodyTargets: bodyTargetsProvider.bodyTargets,
     );
 
     final encodedBackupData = json.encode(backupData.toJson());
@@ -44,16 +52,16 @@ class BackupService {
     );
   }
 
-  /// Restores a previously created backup and reflects changes in UI with provider
+  /// Restores a previously created backup.
   ///
-  /// Currently WIP: Does only restore custumFood, trackedFood, completedDays
+  /// Changes are directly reflected in the UI.
   ///
   /// Returns backupData (Object which contains plaintext backup as Objects)
-  static BackupData restoreBackup(
+  static Future<BackupData> restoreBackup(
     String encryptedData,
     String encryptionPassword,
     BuildContext context,
-  ) {
+  ) async {
     try {
       final decryptedBackup = EncryptionService.decrypt(
         encryptedData,
@@ -69,6 +77,10 @@ class BackupService {
           Provider.of<TrackedFoodProvider>(context, listen: false);
       final completeDaysProvider =
           Provider.of<CompleteDaysProvider>(context, listen: false);
+      final appSettingsProvider =
+          Provider.of<AppSettingsProvider>(context, listen: false);
+      final bodyTargetsProvider =
+          Provider.of<BodyTargetsProvider>(context, listen: false);
 
       // Custom food
       if (backupData.customFood != null) {
@@ -87,8 +99,18 @@ class BackupService {
       // Complete days
       if (backupData.completedDays != null) {
         for (var completedDay in backupData.completedDays!) {
-          completeDaysProvider.markCompleted(completedDay);
+          await completeDaysProvider.markCompleted(completedDay);
         }
+      }
+
+      // App settings
+      if (backupData.appSettings != null) {
+        await appSettingsProvider.saveAll(backupData.appSettings!);
+      }
+
+      // Body and targets
+      if (backupData.bodyTargets != null) {
+        await bodyTargetsProvider.saveAll(backupData.bodyTargets!);
       }
 
       // Return backupData so that the UI can show how many objects where restored

@@ -10,8 +10,6 @@ import 'package:provider/provider.dart';
 import '../../providers/app_settings_provider.dart';
 import '../../services/backup_service.dart';
 import '../../services/webdav_service.dart';
-import '../../theme/energize_theme.dart';
-import '../../widgets/info_card.dart';
 import '../../widgets/select_action_card.dart';
 
 class BackupAndRestoreSubPage extends StatefulWidget {
@@ -69,9 +67,13 @@ class BackupAndRestoreSubPageState extends State<BackupAndRestoreSubPage> {
   }
 
   /// Create an encrypted WebDAV backup
-  _createWebDAVBackup() async {
+  _createWebDAVBackup(BuildContext context) async {
     // Ask for WebDAV server data and encryption password
     final wantsBackup = await _showWebDAVBackupOrRestoreDialog();
+
+    if (!context.mounted) {
+      return;
+    }
 
     // Do backup only if confirmed
     if (wantsBackup == true) {
@@ -82,7 +84,7 @@ class BackupAndRestoreSubPageState extends State<BackupAndRestoreSubPage> {
 
       final encryptionPassword = _encryptionPasswordController.text;
       final createBackupReturnData =
-          await BackupService.createBackup(encryptionPassword);
+          await BackupService.createBackup(encryptionPassword, context);
       final encryptedData = createBackupReturnData.encryptedData;
       final backupData = createBackupReturnData.backupData;
 
@@ -100,7 +102,7 @@ class BackupAndRestoreSubPageState extends State<BackupAndRestoreSubPage> {
         );
       } catch (exception) {
         backupSucceeded = false;
-        if (!mounted) return;
+        if (!context.mounted) return;
         _showError(context, text: exception.toString());
       } finally {
         // Backup done or failed, hide progress bar
@@ -110,7 +112,7 @@ class BackupAndRestoreSubPageState extends State<BackupAndRestoreSubPage> {
       }
 
       if (backupSucceeded) {
-        if (!mounted) return;
+        if (!context.mounted) return;
 
         // Show successful backup message
         final numberOfCustomFoods = backupData.customFood?.length ?? 0;
@@ -133,7 +135,7 @@ ${AppLocalizations.of(context)!.exportedNumberOfFoodsMessage(
   }
 
   /// Restore an encrypted WebDAV backup
-  _restoreWebDAVBackup() async {
+  _restoreWebDAVBackup(BuildContext context) async {
     // Ask for WebDAV server data and encryption password
     final wantsRestore = await _showWebDAVBackupOrRestoreDialog(
       isForBackup: false,
@@ -152,19 +154,19 @@ ${AppLocalizations.of(context)!.exportedNumberOfFoodsMessage(
           pathAndFilename: _pathAndFilenameController.text,
         );
       } catch (webDAVRestoreError) {
-        if (!mounted) return;
+        if (!context.mounted) return;
         _showError(context, text: webDAVRestoreError.toString());
 
         // End function
         return;
       }
 
-      if (!mounted) return;
+      if (!context.mounted) return;
 
       // Restore downloaded backup
       try {
         final encryptedBackupString = readBackup.toString();
-        final backupData = BackupService.restoreBackup(
+        final backupData = await BackupService.restoreBackup(
           encryptedBackupString,
           _encryptionPasswordController.text,
           context,
@@ -173,6 +175,8 @@ ${AppLocalizations.of(context)!.exportedNumberOfFoodsMessage(
         // Show successful backup message
         final numberOfCustomFoods = backupData.customFood?.length ?? 0;
         final numberOfTrackedFoods = backupData.trackedFood?.length ?? 0;
+
+        if (!context.mounted) return;
 
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
@@ -483,7 +487,7 @@ ${AppLocalizations.of(context)!.importedNumberOfFoodsMessage(
   }
 
   /// Creates a local encrypted backup and saves it via native file picker
-  _createLocalEncryptedBackup() async {
+  _createLocalEncryptedBackup(BuildContext context) async {
     try {
       // Ask for encryption password
       final dialogConfirmed = await _showEncryptionPasswordInputDialog();
@@ -493,13 +497,18 @@ ${AppLocalizations.of(context)!.importedNumberOfFoodsMessage(
         return;
       }
 
+      if (!context.mounted) return;
+
       // Show progress bar
       setState(() {
         _isBusy = true;
       });
 
       final encryptionPassword = _encryptionPasswordController.text;
-      final backup = await BackupService.createBackup(encryptionPassword);
+      final backup = await BackupService.createBackup(
+        encryptionPassword,
+        context,
+      );
       final encryptedBackupDataAsBytes =
           Uint8List.fromList(backup.encryptedData.codeUnits);
 
@@ -519,7 +528,7 @@ ${AppLocalizations.of(context)!.importedNumberOfFoodsMessage(
         return;
       }
 
-      if (!mounted) return;
+      if (!context.mounted) return;
 
       // Show successful backup message
       final numberOfCustomFoods = backup.backupData.customFood?.length ?? 0;
@@ -546,7 +555,7 @@ ${AppLocalizations.of(context)!.exportedNumberOfFoodsMessage(
   }
 
   /// Restores a local encrypted backup picked via native file picker
-  _restoreLocalEncryptedBackup() async {
+  _restoreLocalEncryptedBackup(BuildContext context) async {
     // Pick backup file to restore
     final FilePickerResult? pickerResult =
         await FilePicker.platform.pickFiles();
@@ -583,9 +592,9 @@ ${AppLocalizations.of(context)!.exportedNumberOfFoodsMessage(
     try {
       final fileAsString = await file.readAsString(encoding: utf8);
 
-      if (!mounted) return;
+      if (!context.mounted) return;
 
-      final backupData = BackupService.restoreBackup(
+      final backupData = await BackupService.restoreBackup(
         fileAsString,
         encryptionPassword,
         context,
@@ -594,6 +603,8 @@ ${AppLocalizations.of(context)!.exportedNumberOfFoodsMessage(
       // Show successful backup message
       final numberOfCustomFoods = backupData.customFood?.length ?? 0;
       final numberOfTrackedFoods = backupData.trackedFood?.length ?? 0;
+
+      if (!context.mounted) return;
 
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
@@ -608,9 +619,13 @@ ${AppLocalizations.of(context)!.importedNumberOfFoodsMessage(
         ),
       );
     } on FileSystemException {
+      if (!context.mounted) return;
+
       _showError(context, text: 'The file could not be loaded');
     } catch (exception) {
       // In case something went wrong with decryption, etc.
+      if (!context.mounted) return;
+
       _showError(context, text: exception.toString());
     } finally {
       // Restore probably done, hide progress bar
@@ -632,18 +647,6 @@ ${AppLocalizations.of(context)!.importedNumberOfFoodsMessage(
             if (_isBusy) const LinearProgressIndicator(),
             Column(
               children: [
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(12.0, 12.0, 12.0, 0.0),
-                  child: InfoCard(
-                    message:
-                        AppLocalizations.of(context)!.missingBackupPartsHint,
-                    icon: Icon(
-                      Icons.warning,
-                      color: Theme.of(context).onWarningContainer,
-                    ),
-                    color: Theme.of(context).warningContainer,
-                  ),
-                ),
                 GridView.count(
                   padding: const EdgeInsets.all(12.0),
                   shrinkWrap: true,
@@ -653,24 +656,28 @@ ${AppLocalizations.of(context)!.importedNumberOfFoodsMessage(
                     SelectActionCard(
                       icon: Icons.cloud_upload,
                       title: AppLocalizations.of(context)!.createWebDAVBackup,
-                      onTap: _isBusy ? null : () => _createWebDAVBackup(),
+                      onTap:
+                          _isBusy ? null : () => _createWebDAVBackup(context),
                     ),
                     SelectActionCard(
                       icon: Icons.cloud_download,
                       title: AppLocalizations.of(context)!.restoreWebDAVBackup,
-                      onTap: _isBusy ? null : () => _restoreWebDAVBackup(),
+                      onTap:
+                          _isBusy ? null : () => _restoreWebDAVBackup(context),
                     ),
                     SelectActionCard(
                       icon: Icons.file_upload,
                       title: AppLocalizations.of(context)!.createLocalBackup,
-                      onTap:
-                          _isBusy ? null : () => _createLocalEncryptedBackup(),
+                      onTap: _isBusy
+                          ? null
+                          : () => _createLocalEncryptedBackup(context),
                     ),
                     SelectActionCard(
                       icon: Icons.file_download,
                       title: AppLocalizations.of(context)!.restoreLocalBackup,
-                      onTap:
-                          _isBusy ? null : () => _restoreLocalEncryptedBackup(),
+                      onTap: _isBusy
+                          ? null
+                          : () => _restoreLocalEncryptedBackup(context),
                     ),
                   ],
                 ),

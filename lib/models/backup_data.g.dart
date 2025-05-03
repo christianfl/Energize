@@ -16,6 +16,12 @@ BackupData _$BackupDataFromJson(Map<String, dynamic> json) => BackupData(
       completedDays: (json['completedDays'] as List<dynamic>?)
           ?.map((e) => DateTime.parse(e as String))
           .toList(),
+      appSettings: json['appSettings'] == null
+          ? null
+          : AppSettings.fromJson(json['appSettings'] as Map<String, dynamic>),
+      bodyTargets: json['bodyTargets'] == null
+          ? null
+          : BodyTargets.fromJson(json['bodyTargets'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$BackupDataToJson(BackupData instance) =>
@@ -29,4 +35,8 @@ Map<String, dynamic> _$BackupDataToJson(BackupData instance) =>
       if (instance.completedDays?.map((e) => e.toIso8601String()).toList()
           case final value?)
         'completedDays': value,
+      if (instance.appSettings?.toJson() case final value?)
+        'appSettings': value,
+      if (instance.bodyTargets?.toJson() case final value?)
+        'bodyTargets': value,
     };

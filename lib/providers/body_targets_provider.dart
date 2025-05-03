@@ -16,7 +16,7 @@ import '../services/shared_preferences/shared_preferences_service_interface.dart
 class BodyTargetsProvider with ChangeNotifier {
   BodyTargets _bodyTargets = BodyTargets();
 
-  BodyTargets get settings => _bodyTargets;
+  BodyTargets get bodyTargets => _bodyTargets;
 
   final SharedPreferencesServiceInterface _sharedPrefs;
 
@@ -774,6 +774,21 @@ class BodyTargetsProvider with ChangeNotifier {
         if (kDebugMode) {
           debugPrint('Could not remove micro target value: $e');
         }
+      }
+    }
+  }
+
+  /// Sets [_bodyTargets] to [newBodyTargets] and persists the new values.
+  Future<void> saveAll(BodyTargets newBodyTargets) async {
+    try {
+      final bodyTargetsMap = newBodyTargets.toJson();
+      await _sharedPrefs.setAll(bodyTargetsMap);
+      _bodyTargets = newBodyTargets;
+
+      notifyListeners();
+    } catch (e) {
+      if (kDebugMode) {
+        debugPrint('Could not save all body targets: $e');
       }
     }
   }

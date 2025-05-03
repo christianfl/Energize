@@ -168,11 +168,18 @@ class AppSettingsProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  /// Sets all settings values according to [newSettings].
   Future<void> saveAll(AppSettings newSettings) async {
-    final settingsMap = newSettings.toJson();
-    await _sharedPrefs.setAll(settingsMap);
-    _settings = newSettings;
+    try {
+      final settingsMap = newSettings.toJson();
+      await _sharedPrefs.setAll(settingsMap);
+      _settings = newSettings;
 
-    notifyListeners();
+      notifyListeners();
+    } catch (e) {
+      if (kDebugMode) {
+        debugPrint('Could not save all settings: $e');
+      }
+    }
   }
 }

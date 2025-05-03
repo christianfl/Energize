@@ -38,6 +38,11 @@ class TrackedFoodProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  /// Returns all tracked food from the database.
+  Future<List<FoodTracked>> getAll() async {
+    return _db.trackedFoods;
+  }
+
   /// Tracks a new food.
   void addTrackedFood(FoodTracked foodTracked) {
     if (!_foods.any((f) => f.id == foodTracked.id) &&
