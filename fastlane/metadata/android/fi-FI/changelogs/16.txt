@@ -1,0 +1,3 @@
+* Lisätty Käännös Punjabi (Pakistan) ja Kiina (Kiitos!)
+* Päivitetty käännös turkiksi, puolaksi, saksaksi, ranskaksi, italiaksi ja tšekiksi (Kiitos!)
+* Pienet muutokset ja parannukset konepellin alla

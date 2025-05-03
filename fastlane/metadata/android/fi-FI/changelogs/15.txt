@@ -1,0 +1,7 @@
+* Lisätty mikroravinnetavoitteiden asettaminen iän ja sukupuolen perusteella
+* Ravitsemustavoitteet-sivun täydellinen uudistus
+* Korjattu: Väärät natriumyksiköt
+* Lisätty EAN-koodilla varustettujen ruokien skannaus (niillä on etusija Open Food Factsiin verrattuna)
+* Skannaa Open Food Facts -ruokaa EAN-koodilla vain, jos tietokanta on poistettu käytöstä asetuksissa
+* Useita reititysparannuksia: Skannaamalla, mutta ilman tuotteen löytymistä, voi suoraan luoda mukautetun ruoan ja lisätä sen myöhemmin.
+* Päivitetyt käännöstiedostot (Kiitos!)
