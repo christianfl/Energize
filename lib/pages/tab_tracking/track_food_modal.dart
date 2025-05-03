@@ -7,6 +7,7 @@ import 'package:url_launcher/url_launcher.dart';
 import '../../models/food/food.dart';
 import '../../models/food/food_tracked.dart';
 import '../../pages/tab_food/add_edit_custom_food_modal.dart';
+import '../../providers/app_settings_provider.dart';
 import '../../providers/tracked_food_provider.dart';
 import '../../services/food_database_bindings/open_food_facts/open_food_facts_binding.dart';
 import '../../theme/energize_theme.dart';
@@ -88,15 +89,31 @@ class TrackFoodState extends State<TrackFood>
       } else {
         if (_selectedServingSize == null &&
             food.servingSizes?.isNotEmpty == true) {
-          // Serving has the highest priority, default to that.
-          // If that is not present, use the first key
-          _selectedServingSize = food.servingSizes!.keys.firstWhere(
-            (keyName) => keyName == 'l10nServing',
-            orElse: () => food.servingSizes!.keys.first,
-          );
+          // The food has at least one serving size
 
-          // Set amount to 1 as this should be the desired behavior for serving sizes
-          _amountCtrl.text = '1';
+          try {
+            final appSettings =
+                Provider.of<AppSettingsProvider>(context, listen: false);
+            final isServingSizePreferred = appSettings.isServingSizePreferred;
+
+            if (isServingSizePreferred) {
+              // Serving has the highest priority, default to that.
+              // If that is not present, use the first key
+              _selectedServingSize = food.servingSizes!.keys.firstWhere(
+                (keyName) => keyName == 'l10nServing',
+                orElse: () => food.servingSizes!.keys.first,
+              );
+
+              // Set amount to 1 as this should be the desired behavior for serving sizes
+              _amountCtrl.text = '1';
+            } else {
+              // User does not want to use serving sizes, don't change anything
+            }
+          } catch (e) {
+            if (kDebugMode) {
+              debugPrint('Error processing serving size selection: $e');
+            }
+          }
         }
       }
     }
@@ -488,6 +505,7 @@ class TrackFoodState extends State<TrackFood>
   /// TextField which lets the user view and update the food amount.
   TextField _amountTextField(VoidCallback? onEditingComplete, Food food) {
     return TextField(
+      key: const Key('amountInputTextField'),
       onEditingComplete: onEditingComplete,
       expands: true,
       maxLines: null,

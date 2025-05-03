@@ -243,6 +243,10 @@
   "@groupFoodsToMeals": {},
   "groupFoodsToMealsHint": "Fasst Nahrung, die in sehr kurzem Abstand konsumiert wurde, automatisch als Mahlzeit zusammen",
   "@groupFoodsToMealsHint": {},
+  "preferServingSizes": "Portionsgrößen haben Vorrang",
+  "@preferServingSizes": {},
+  "preferServingSizesHint": "Beim Tracken neuer Nahrung wird, sofern vorhanden, eine Portionsgröße vorausgewählt",
+  "@preferServingSizesHint": {},
   "mealAt": "Mahlzeit um {time}",
   "@mealAt": {
     "placeholders": {

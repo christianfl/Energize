@@ -139,6 +139,8 @@
     "displayHint": "Customize the user interface to your needs",
     "groupFoodsToMeals": "Group foods to meals",
     "groupFoodsToMealsHint": "Automatically groups together foods consumed in very short intervals as a meal",
+    "preferServingSizes": "Prefer serving sizes",
+    "preferServingSizesHint": "When tracking new food, a serving size will be preselected, if any",
     "mealAt": "Meal at {time}",
     "@mealAt": {
         "placeholders": {

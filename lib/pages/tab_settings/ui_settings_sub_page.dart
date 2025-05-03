@@ -30,6 +30,16 @@ class UISettingsSubPage extends StatelessWidget {
               value: appSettings.isMealGroupingActivated,
               onChanged: (val) => appSettings.isMealGroupingActivated = val,
             ),
+            SwitchListTile(
+              title: Text(
+                AppLocalizations.of(context)!.preferServingSizes,
+              ),
+              subtitle: Text(
+                AppLocalizations.of(context)!.preferServingSizesHint,
+              ),
+              value: appSettings.isServingSizePreferred,
+              onChanged: (val) => appSettings.isServingSizePreferred = val,
+            ),
           ],
         ),
       ),

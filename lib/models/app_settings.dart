@@ -7,6 +7,7 @@ part 'app_settings.g.dart';
 class AppSettings {
   // Keys for shared preferences
   static const isMealGroupingActivatedKey = 'isMealGroupingActivated';
+  static const isServingSizePreferredKey = 'isServingSizePreferred';
   static const backupServerUrlKey = 'backupServerUrl';
   static const backupUsernameKey = 'backupUsername';
   static const backupPathAndFilenameKey = 'backupPathAndFilename';
@@ -16,6 +17,7 @@ class AppSettings {
   static const isProviderUsdaActivatedKey = 'isProviderUsdaActivated';
 
   bool isMealGroupingActivated;
+  bool isServingSizePreferred;
   String backupServerUrl;
   String backupUsername;
   String backupPathAndFilename;
@@ -25,6 +27,7 @@ class AppSettings {
 
   AppSettings({
     this.isMealGroupingActivated = false,
+    this.isServingSizePreferred = true,
     this.backupServerUrl = '',
     this.backupUsername = '',
     this.backupPathAndFilename = '/Energize/backup.json.aes',

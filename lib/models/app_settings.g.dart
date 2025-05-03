@@ -9,6 +9,7 @@ part of 'app_settings.dart';
 AppSettings _$AppSettingsFromJson(Map<String, dynamic> json) => AppSettings(
       isMealGroupingActivated:
           json['isMealGroupingActivated'] as bool? ?? false,
+      isServingSizePreferred: json['isServingSizePreferred'] as bool? ?? true,
       backupServerUrl: json['backupServerUrl'] as String? ?? '',
       backupUsername: json['backupUsername'] as String? ?? '',
       backupPathAndFilename: json['backupPathAndFilename'] as String? ??
@@ -22,6 +23,7 @@ AppSettings _$AppSettingsFromJson(Map<String, dynamic> json) => AppSettings(
 Map<String, dynamic> _$AppSettingsToJson(AppSettings instance) =>
     <String, dynamic>{
       'isMealGroupingActivated': instance.isMealGroupingActivated,
+      'isServingSizePreferred': instance.isServingSizePreferred,
       'backupServerUrl': instance.backupServerUrl,
       'backupUsername': instance.backupUsername,
       'backupPathAndFilename': instance.backupPathAndFilename,

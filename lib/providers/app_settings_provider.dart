@@ -29,6 +29,10 @@ class AppSettingsProvider with ChangeNotifier {
         AppSettings.isMealGroupingActivatedKey,
         isMealGroupingActivated,
       ),
+      isServingSizePreferred: await _sharedPrefs.getValue<bool>(
+        AppSettings.isServingSizePreferredKey,
+        isServingSizePreferred,
+      ),
       backupServerUrl: await _sharedPrefs.getValue<String>(
         AppSettings.backupServerUrlKey,
         backupServerUrl,
@@ -61,6 +65,7 @@ class AppSettingsProvider with ChangeNotifier {
   // Getters
 
   bool get isMealGroupingActivated => _settings.isMealGroupingActivated;
+  bool get isServingSizePreferred => _settings.isServingSizePreferred;
   String get backupServerUrl => _settings.backupServerUrl;
   String get backupUsername => _settings.backupUsername;
   String get backupPathAndFilename => _settings.backupPathAndFilename;
@@ -75,6 +80,16 @@ class AppSettingsProvider with ChangeNotifier {
     _settings.isMealGroupingActivated = value;
     _sharedPrefs.setValue(
       AppSettings.isMealGroupingActivatedKey,
+      value,
+    );
+
+    notifyListeners();
+  }
+
+  set isServingSizePreferred(bool value) {
+    _settings.isServingSizePreferred = value;
+    _sharedPrefs.setValue(
+      AppSettings.isServingSizePreferredKey,
       value,
     );
 

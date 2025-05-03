@@ -584,7 +584,8 @@ class FoodInputState extends State<FoodInput>
   /// Uses these values:
   ///
   /// - if previously tracked, use the same values
-  /// - else if food has serving sizes, set amount = 1
+  /// - else if food has serving sizes, and appSettings.isServingSizePreferred
+  ///   - set amount = 1
   ///   - if "Srv." (en) is present as serving size name, use this
   ///   - else use the first available serving size name
   /// - else default to 100 g
@@ -602,15 +603,31 @@ class FoodInputState extends State<FoodInput>
     } else {
       // Food was not tracked before
       if (food.servingSizes != null) {
-        // Default to 1 serving
-        amount = 1;
+        try {
+          final appSettings =
+              Provider.of<AppSettingsProvider>(context, listen: false);
+          final isServingSizePreferred = appSettings.isServingSizePreferred;
 
-        // "Serving" has the highest priority, default to that.
-        // If that is not present, use the first key
-        selectedServingSize = food.servingSizes!.keys.firstWhere(
-          (keyName) => keyName == 'l10nServing',
-          orElse: () => food.servingSizes!.keys.first,
-        );
+          if (isServingSizePreferred) {
+            // Serving has the highest priority, default to that.
+            // If that is not present, use the first key
+            selectedServingSize = food.servingSizes!.keys.firstWhere(
+              (keyName) => keyName == 'l10nServing',
+              orElse: () => food.servingSizes!.keys.first,
+            );
+
+            // Default to 1 serving
+            amount = 1;
+          } else {
+            // User does not want to use serving sizes, don't change anything
+          }
+        } catch (e) {
+          if (kDebugMode) {
+            debugPrint(
+              'Error processing serving size selection for quick add food: $e',
+            );
+          }
+        }
       }
     }
 
