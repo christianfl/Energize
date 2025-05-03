@@ -1,3 +1,6 @@
+import 'package:flutter/foundation.dart';
+import 'package:sqflite/sqlite_api.dart';
+
 import 'complete_days_database_service_interface.dart';
 import 'database_service.dart';
 
@@ -40,6 +43,7 @@ class CompleteDaysDatabaseService
     await db.insert(
       DatabaseService.completeDaysTable,
       value,
+      conflictAlgorithm: ConflictAlgorithm.ignore,
     );
   }
 
@@ -77,7 +81,9 @@ class CompleteDaysDatabaseService
 
         allCompletedDays.add(DateTime(year, month, day));
       } catch (e) {
-        //
+        if (kDebugMode) {
+          debugPrint('Could not parse completed day from db: $e');
+        }
       }
     }
 
