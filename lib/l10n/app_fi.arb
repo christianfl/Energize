@@ -50,5 +50,15 @@
   "addedDate": "Lisätä",
   "@addedDate": {},
   "nutrients": "Ravintoaine",
-  "@nutrients": {}
+  "@nutrients": {},
+  "appDescription": "Seuraa ruokaa ja ravitsemusta helposti ja nopeasti. Skannaa tuotteesi tai etsi manuaalisesti eri tietokannoista.",
+  "@appDescription": {},
+  "dailyTarget": "päivittäinen tavoite",
+  "@dailyTarget": {},
+  "general": "Yleinen",
+  "@general": {},
+  "micronutrients": "Hivenaineet",
+  "@micronutrients": {},
+  "editTrackedFood": "Muokkaa seurattua ruokaa",
+  "@editTrackedFood": {}
 }
