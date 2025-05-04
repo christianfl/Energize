@@ -173,12 +173,12 @@
   "@labelingEu": {},
   "amountContain": "{amountWithUnit} תכולה",
   "@amountContain": {
-      "placeholders": {
-          "amountWithUnit": {
-              "type": "String",
-              "example": "100 g"
-          }
+    "placeholders": {
+      "amountWithUnit": {
+        "type": "String",
+        "example": "100 g"
       }
+    }
   },
   "micronutrients": "מזיני קורט",
   "@micronutrients": {},
@@ -392,5 +392,21 @@
   "activityLevel1_4": "רמת הפעילות שלך יחסית נמוכה",
   "@activityLevel1_4": {},
   "female": "אישה",
-  "@female": {}
+  "@female": {},
+  "unknownErrorText": "אירעה שגיאה בלתי ידועה",
+  "@unknownErrorText": {},
+  "notFoundInCustomFoodsOrOpenFoodFacts": "לא במאכלים מותאמים או ב־Open Food Facts",
+  "@notFoundInCustomFoodsOrOpenFoodFacts": {},
+  "searchError": "שגיאה במהלך החיפוש",
+  "@searchError": {},
+  "searchErrorHint": "לפחות אחד ממסדי הנתונים להרכב מזון לא זמין. נא לנסות שוב מאוחר יותר או להשבית זמנית את מסדי הנתונים שאינם מגיבים בהגדרות.",
+  "@searchErrorHint": {},
+  "affectedDatabases": "מסדי נתונים שהושפעו",
+  "@affectedDatabases": {},
+  "productOrBrand": "מוצר או מותג",
+  "@productOrBrand": {},
+  "scanBarcode": "סריקת ברקוד",
+  "@scanBarcode": {},
+  "logs": "יומנים",
+  "@logs": {}
 }
