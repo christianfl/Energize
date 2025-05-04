@@ -585,5 +585,11 @@
         "type": "String"
       }
     }
-  }
+  },
+  "preferServingSizes": "Eelista portsjonite suurusi",
+  "@preferServingSizes": {},
+  "preferServingSizesHint": "Uute toitude üle arvepidamisel on portsjonite suurused eelvalitud, kui nad olemas on",
+  "@preferServingSizesHint": {},
+  "logs": "Logid",
+  "@logs": {}
 }
