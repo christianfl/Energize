@@ -391,15 +391,6 @@
   "@donationText": {},
   "size": "Koko",
   "@size": {},
-  "translatableServingSizeNames": "",
-  "@translatableServingSizeNames": {
-    "description": "Translatable (system-defined) serving size names",
-    "placeholders": {
-      "name": {
-        "type": "String"
-      }
-    }
-  },
   "importedNumberOfFoodsMessage": "Maahantuotu {customFoodsCount} räätälöidyt elintarvikkeet ja {trackedFoodsCount} seuratut elintarvikkeet",
   "@importedNumberOfFoodsMessage": {
     "placeholders": {
