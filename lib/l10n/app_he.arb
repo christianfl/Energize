@@ -408,5 +408,11 @@
   "scanBarcode": "סריקת ברקוד",
   "@scanBarcode": {},
   "logs": "יומנים",
-  "@logs": {}
+  "@logs": {},
+  "notFoundInCustomFoodsOpenFoodFactsNeedsInternet": "לא נמצא במאכלים שהתאמת, ל־Open Food Facts דרושה גישה לאינטרנט",
+  "@notFoundInCustomFoodsOpenFoodFactsNeedsInternet": {},
+  "preferServingSizes": "העדפת גודלי הגשה",
+  "@preferServingSizes": {},
+  "groupFoodsToMealsHint": "קיבוץ אוטומטי של מאכלים שנצרכים בהפרשים קצרים כארוחות",
+  "@groupFoodsToMealsHint": {}
 }
