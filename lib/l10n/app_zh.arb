@@ -485,7 +485,7 @@
   "@groupFoodsToMeals": {},
   "groupFoodsToMealsHint": "自动将短时间内多次食用归为一餐",
   "@groupFoodsToMealsHint": {},
-  "mealAt": "在 {time}用餐",
+  "mealAt": "在 {time} 用餐",
   "@mealAt": {
     "placeholders": {
       "time": {
@@ -585,5 +585,11 @@
   "testCustomFood5Name": "约克郡布丁",
   "@testCustomFood5Name": {
     "description": "Only used for translated screenshots, not within the app itself. Name of custom food 5/5 which can be anything which makes sense in the current language. E.g. a local food."
-  }
+  },
+  "preferServingSizes": "首选份量",
+  "@preferServingSizes": {},
+  "preferServingSizesHint": "当添加新的摄入食物时，如果有的话，一份食物的量将被预先选定",
+  "@preferServingSizesHint": {},
+  "logs": "日志",
+  "@logs": {}
 }
