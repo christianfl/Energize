@@ -543,7 +543,7 @@
   "@addServingSize": {},
   "noServingSizesText": "Annoskokoja ei ole esitetty.",
   "@noServingSizesText": {},
-  "translatableServingSizeNames": "{nimi, select, l10nServing{Srv.} l10nPackage{Pck.} muut{}}",
+  "translatableServingSizeNames": "{name, select, l10nServing{Srv.} l10nPackage{Pck.} other{}}",
   "@translatableServingSizeNames": {
     "description": "Translatable (system-defined) serving size names",
     "placeholders": {

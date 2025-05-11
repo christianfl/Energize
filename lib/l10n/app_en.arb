@@ -318,7 +318,7 @@
     "size": "Size",
     "translatableServingSizeNames": "{name, select, l10nServing{Srv.} l10nPackage{Pck.} other{}}",
     "@translatableServingSizeNames": {
-        "description": "Translatable (system-defined) serving size names",
+        "description": "Translatable (system-defined) serving size names. Please translate only the part in between the curly brackets for l10nServing and l10nPackage. Example: l10nServing{Srv.} (en) --> l10nServing{Por.} (de). Those values should be shortened translations for 'Package' and 'Serving', ideally about 3 letters long",
         "placeholders": {
             "name": {
                 "type": "String"
