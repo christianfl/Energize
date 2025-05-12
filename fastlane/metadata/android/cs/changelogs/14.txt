@@ -1,0 +1,4 @@
+* Nová ikona aplikace!
+* Přidána čeština a dánština (díky za přispění!)
+* V databázích potravin se nyní zobrazuje, v jakém jazyce jsou jejich produkty dostupné.
+* Vylepšena stránka o projektu a přidána stránka pro dárce

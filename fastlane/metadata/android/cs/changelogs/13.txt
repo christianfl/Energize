@@ -1,0 +1,4 @@
+* Přidány překlady pro francouzštinu, italštinu a polštinu (díky za přispění!)
+* Vylepšená viditelnost lišty pro kalorie a makroživiny
+* Formát vybraného dne sledování odpovídající lokalitě uživatele
+* Oprava: Odstraněno duplicitní zadávání molybdenu pro vlastní potraviny

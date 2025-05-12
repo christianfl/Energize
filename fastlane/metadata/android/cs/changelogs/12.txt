@@ -1,0 +1,5 @@
+* Přidána nová databáze: USDA FoodData Central
+* Vylepšený vzhled modalu sledování potravin
+* Opraveno: Některé čárové kódy mohly vést k vícenásobnému otevření modálního okna sledování potravin.
+* Přidán obrázek a EAN kód k vlastní potravině
+* Drobná vylepšení

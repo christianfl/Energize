@@ -1,0 +1,3 @@
+* Stisknutím tlačítka zpět na všech kartách kromě karty sledování přejdete na hlavní kartu, místo abyste aplikaci zavřeli.
+* Nový překlad: Nový překlad: turečtina (díky!)
+* Neexportujte nulové hodnoty do zálohy, ušetříte tím spoustu místa v souboru

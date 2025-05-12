@@ -1,0 +1,3 @@
+* Přidán překlad pro paňdžábštinu (Pákistán) a čínštinu (Díky!)
+* Aktualizován překlad pro turečtinu, polštinu, němčinu, francouzštinu, italštinu a češtinu (díky!)
+* Drobné změny a vylepšení pod kapotou

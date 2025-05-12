@@ -1,0 +1,9 @@
+* Nový motiv, který nyní odpovídá celkovému vzhledu konceptu
+* Nový výběr data: Dny označené jako dokončené jsou nyní zvýrazněny
+* Dokončené dny jsou nyní zahrnuty do zálohování / obnovení
+* Přepracovaná stránka s informacemi
+* Přidána dlaždice pro dárcovství na stránce nastavení
+* Nové překládatelné řetězce
+* Aktualizovaný turecký překlad (díky!)
+* Opraven výpočet počtu živin
+* Několik drobných oprav
