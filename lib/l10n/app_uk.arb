@@ -560,5 +560,36 @@
   "testCustomFood5Calories": "259",
   "@testCustomFood5Calories": {
     "description": "Only used for translated screenshots, not within the app itself. Calories in kcal per 100 g of custom food 5/5 as a double value (e.g.: 120.0)"
+  },
+  "add": "Додати",
+  "@add": {},
+  "or": "або",
+  "@or": {},
+  "servingSizeName": "Назва розміру порції",
+  "@servingSizeName": {},
+  "size": "Розмір",
+  "@size": {},
+  "logs": "Журнали",
+  "@logs": {},
+  "servingSizes": "Розміри порцій",
+  "@servingSizes": {},
+  "noServingSizesText": "Розміри порцій не вказані.",
+  "@noServingSizesText": {},
+  "addServingSize": "Додати розмір порції",
+  "@addServingSize": {},
+  "typicalServingSizes": "Типові розміри порцій",
+  "@typicalServingSizes": {},
+  "preferServingSizes": "Бажані розміри порцій",
+  "@preferServingSizes": {},
+  "preferServingSizesHint": "Під час відстеження нових страв буде попередньо вибрано розмір порції, якщо такий є",
+  "@preferServingSizesHint": {},
+  "translatableServingSizeNames": "{name, select, l10nServing{Пор.} l10nPackage{Упа.} other{}}",
+  "@translatableServingSizeNames": {
+    "description": "Translatable (system-defined) serving size names. Please translate only the part in between the curly brackets for l10nServing and l10nPackage. Example: l10nServing{Srv.} (en) --> l10nServing{Por.} (de). Those values should be shortened translations for 'Package' and 'Serving', ideally about 3 letters long",
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
   }
 }
