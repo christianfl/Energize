@@ -7,7 +7,7 @@
   "@energy": {},
   "appDescriptionShort": "Yiyeceklerinizi ve beslenmenizi kolay ve hızlı bir şekilde takip edin.",
   "@appDescriptionShort": {},
-  "protein": "Protein",
+  "protein": "Proteinler",
   "@protein": {},
   "carbs": "Karbonhidrat",
   "@carbs": {},
@@ -99,7 +99,7 @@
   "@vitaminA": {},
   "vitaminB5": "B5 (Pantotenik asit)",
   "@vitaminB5": {},
-  "vitaminB7": "B7 (Biotin)",
+  "vitaminB7": "B7 (Biyotin)",
   "@vitaminB7": {},
   "vitaminB9": "B9 (Folat)",
   "@vitaminB9": {},
@@ -173,7 +173,7 @@
   "@iron": {},
   "vitaminB1": "B1 (Tiamin)",
   "@vitaminB1": {},
-  "vitaminB2": "B2 (Riboflavin)",
+  "vitaminB2": "B2 (Riboflavinler)",
   "@vitaminB2": {},
   "vitaminB3": "B3 (Niasin)",
   "@vitaminB3": {},
@@ -554,5 +554,42 @@
   "barcodeScanningUnsupported": "Cihaz kamerasıyla barkod taramak an itibariyle sadece Android'de destekli.",
   "@barcodeScanningUnsupported": {},
   "displayHint": "İhtiyaçlarınıza göre kullanıcı arayüzünü kişileştirin",
-  "@displayHint": {}
+  "@displayHint": {},
+  "logs": "Günlükler",
+  "@logs": {},
+  "contributionTypeAcrylicPicture": "Akrilik resim",
+  "@contributionTypeAcrylicPicture": {},
+  "translatableServingSizeNames": "{name, select, l10nServing{Ser.} l10nPackage{Pak.} other{}}",
+  "@translatableServingSizeNames": {
+    "description": "Translatable (system-defined) serving size names. Please translate only the part in between the curly brackets for l10nServing and l10nPackage. Example: l10nServing{Srv.} (en) --> l10nServing{Por.} (de). Those values should be shortened translations for 'Package' and 'Serving', ideally about 3 letters long",
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "testCustomFood1Calories": "227",
+  "@testCustomFood1Calories": {
+    "description": "Only used for translated screenshots, not within the app itself. Calories in kcal per 100 g of custom food 1/5 as a double value (e.g.: 120.0)"
+  },
+  "testCustomFood2Calories": "326",
+  "@testCustomFood2Calories": {
+    "description": "Only used for translated screenshots, not within the app itself. Calories in kcal per 100 g of custom food 2/5 as a double value (e.g.: 120.0)"
+  },
+  "testCustomFood3Calories": "260",
+  "@testCustomFood3Calories": {
+    "description": "Only used for translated screenshots, not within the app itself. Calories in kcal per 100 g of custom food 3/5 as a double value (e.g.: 120.0)"
+  },
+  "preferServingSizesHint": "Yeni gıdayı takip ederken, varsa bir porsiyon boyutu önceden seçilecektir",
+  "@preferServingSizesHint": {},
+  "preferServingSizes": "Porsiyon boyutlarını tercih edin",
+  "@preferServingSizes": {},
+  "testCustomFood5Calories": "259",
+  "@testCustomFood5Calories": {
+    "description": "Only used for translated screenshots, not within the app itself. Calories in kcal per 100 g of custom food 5/5 as a double value (e.g.: 120.0)"
+  },
+  "testCustomFood4Calories": "228",
+  "@testCustomFood4Calories": {
+    "description": "Only used for translated screenshots, not within the app itself. Calories in kcal per 100 g of custom food 4/5 as a double value (e.g.: 120.0)"
+  }
 }
