@@ -560,5 +560,36 @@
   "testCustomFood3Name": "Stekt okra",
   "@testCustomFood3Name": {
     "description": "Only used for translated screenshots, not within the app itself. Name of custom food 3/5 which can be anything which makes sense in the current language. E.g. a local food."
+  },
+  "noServingSizesText": "Det finns inga portionsstorlekar angivna.",
+  "@noServingSizesText": {},
+  "servingSizeName": "Namn på portionsstorlek",
+  "@servingSizeName": {},
+  "preferServingSizes": "Föredra portionsstorlekar",
+  "@preferServingSizes": {},
+  "preferServingSizesHint": "Vid spårning av ny mat kommer en portionsstorlek att väljas i förväg, om någon",
+  "@preferServingSizesHint": {},
+  "servingSizes": "Portionsstorlekar",
+  "@servingSizes": {},
+  "logs": "Loggar",
+  "@logs": {},
+  "add": "Tillägg",
+  "@add": {},
+  "addServingSize": "Lägg till portionsstorlek",
+  "@addServingSize": {},
+  "typicalServingSizes": "Typiska portionsstorlekar",
+  "@typicalServingSizes": {},
+  "or": "eller",
+  "@or": {},
+  "size": "Storlek",
+  "@size": {},
+  "translatableServingSizeNames": "{name, select, l10nServing{Ser.} l10nPackage{Pak.} other{}}",
+  "@translatableServingSizeNames": {
+    "description": "Translatable (system-defined) serving size names. Please translate only the part in between the curly brackets for l10nServing and l10nPackage. Example: l10nServing{Srv.} (en) --> l10nServing{Por.} (de). Those values should be shortened translations for 'Package' and 'Serving', ideally about 3 letters long",
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
   }
 }
