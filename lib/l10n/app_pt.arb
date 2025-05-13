@@ -547,5 +547,49 @@
   "iodine": "Iodo",
   "@iodine": {},
   "barcodeScanningUnsupported": "Atualmente, a leitura de códigos de barras com a câmara do dispositivo é compatível apenas com o Android.",
-  "@barcodeScanningUnsupported": {}
+  "@barcodeScanningUnsupported": {},
+  "energizeBackup": "{appName} Apoio",
+  "@energizeBackup": {
+    "placeholders": {
+      "appName": {
+        "type": "String",
+        "example": "Energize"
+      }
+    }
+  },
+  "preferServingSizesHint": "Ao rastrear um novo alimento, será pré-selecionado um tamanho de porção, se existir",
+  "@preferServingSizesHint": {},
+  "preferServingSizes": "Preferir as doses",
+  "@preferServingSizes": {},
+  "federalFoodSafetyAndVeterinaryOffice": "Serviço Federal de Segurança Alimentar e Veterinária",
+  "@federalFoodSafetyAndVeterinaryOffice": {},
+  "logs": "Registos",
+  "@logs": {},
+  "servingSizes": "Tamanhos das doses",
+  "@servingSizes": {},
+  "noServingSizesText": "Não estão presentes tamanhos de porções.",
+  "@noServingSizesText": {},
+  "addServingSize": "Adicionar tamanho da dose",
+  "@addServingSize": {},
+  "typicalServingSizes": "Tamanhos típicos das doses",
+  "@typicalServingSizes": {},
+  "servingSizeName": "Nome da dose",
+  "@servingSizeName": {},
+  "testCustomFood3Name": "Quiabo frito",
+  "@testCustomFood3Name": {
+    "description": "Only used for translated screenshots, not within the app itself. Name of custom food 3/5 which can be anything which makes sense in the current language. E.g. a local food."
+  },
+  "testCustomFood4Name": "Ovo escocês",
+  "@testCustomFood4Name": {
+    "description": "Only used for translated screenshots, not within the app itself. Name of custom food 4/5 which can be anything which makes sense in the current language. E.g. a local food."
+  },
+  "translatableServingSizeNames": "{name, select, l10nServing{Por.} l10nPackage{Emb.} other{}}",
+  "@translatableServingSizeNames": {
+    "description": "Translatable (system-defined) serving size names. Please translate only the part in between the curly brackets for l10nServing and l10nPackage. Example: l10nServing{Srv.} (en) --> l10nServing{Por.} (de). Those values should be shortened translations for 'Package' and 'Serving', ideally about 3 letters long",
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  }
 }
