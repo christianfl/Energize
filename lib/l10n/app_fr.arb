@@ -66,6 +66,7 @@
   "publisher": "Éditeur",
   "@publisher": {},
   "federalFoodSafetyAndVeterinaryOffice": "Office fédéral de la securité alimentaire et des affaires vétérinaires",
+  "@federalFoodSafetyAndVeterinaryOffice": {},
   "switzerland": "Suisse",
   "@switzerland": {},
   "dayIncomplete": "Journée incomplète",
@@ -496,5 +497,99 @@
   "contributionTypeCodeAndConversations": "Code et conversations",
   "@contributionTypeCodeAndConversations": {},
   "contributionTypeAcrylicPicture": "Tableau acrylique",
-  "@contributionTypeAcrylicPicture": {}
+  "@contributionTypeAcrylicPicture": {},
+  "add": "Ajouter",
+  "@add": {},
+  "or": "ou",
+  "@or": {},
+  "servingSizeName": "Nom de la taille de portion",
+  "@servingSizeName": {},
+  "testCustomFood3Calories": "260",
+  "@testCustomFood3Calories": {
+    "description": "Only used for translated screenshots, not within the app itself. Calories in kcal per 100 g of custom food 3/5 as a double value (e.g.: 120.0)"
+  },
+  "webDAVSettings": "Paramètres WebDAV",
+  "@webDAVSettings": {},
+  "energizeBackup": "Sauvegarde {appName}",
+  "@energizeBackup": {
+    "placeholders": {
+      "appName": {
+        "type": "String",
+        "example": "Energize"
+      }
+    }
+  },
+  "backupPasswordNotice": "Sans le mot de passe de sauvegarde, il est impossible de restaurer une sauvegarde.",
+  "@backupPasswordNotice": {},
+  "serverURL": "URL du serveur",
+  "@serverURL": {},
+  "invalidURL": "L'URL est invalide",
+  "@invalidURL": {},
+  "username": "Nom d'utilisateur",
+  "@username": {},
+  "password": "Mot de passe",
+  "@password": {},
+  "pathAndFilename": "Emplacement et nom du fichier",
+  "@pathAndFilename": {},
+  "preferServingSizes": "Privilégier les tailles de portion",
+  "@preferServingSizes": {},
+  "preferServingSizesHint": "Quand vous suivez un nouvel aliment, une taille de portion sera présélectionnée si disponible",
+  "@preferServingSizesHint": {},
+  "logs": "Logs",
+  "@logs": {},
+  "servingSizes": "Tailles de portion",
+  "@servingSizes": {},
+  "noServingSizesText": "Aucune taille de portion n'est indiquée.",
+  "@noServingSizesText": {},
+  "size": "Taille",
+  "@size": {},
+  "translatableServingSizeNames": "{name, select, l10nServing{Port.} l10nPackage{Emb.} other{}}",
+  "@translatableServingSizeNames": {
+    "description": "Translatable (system-defined) serving size names. Please translate only the part in between the curly brackets for l10nServing and l10nPackage. Example: l10nServing{Srv.} (en) --> l10nServing{Por.} (de). Those values should be shortened translations for 'Package' and 'Serving', ideally about 3 letters long",
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "testCustomFood1Calories": "227",
+  "@testCustomFood1Calories": {
+    "description": "Only used for translated screenshots, not within the app itself. Calories in kcal per 100 g of custom food 1/5 as a double value (e.g.: 120.0)"
+  },
+  "testCustomFood2Name": "Röstis",
+  "@testCustomFood2Name": {
+    "description": "Only used for translated screenshots, not within the app itself. Name of custom food 2/5 which can be anything which makes sense in the current language. E.g. a local food."
+  },
+  "testCustomFood2Calories": "326",
+  "@testCustomFood2Calories": {
+    "description": "Only used for translated screenshots, not within the app itself. Calories in kcal per 100 g of custom food 2/5 as a double value (e.g.: 120.0)"
+  },
+  "testCustomFood3Name": "Gombo frit",
+  "@testCustomFood3Name": {
+    "description": "Only used for translated screenshots, not within the app itself. Name of custom food 3/5 which can be anything which makes sense in the current language. E.g. a local food."
+  },
+  "testCustomFood4Calories": "228",
+  "@testCustomFood4Calories": {
+    "description": "Only used for translated screenshots, not within the app itself. Calories in kcal per 100 g of custom food 4/5 as a double value (e.g.: 120.0)"
+  },
+  "testCustomFood4Name": "Œuf en croûte",
+  "@testCustomFood4Name": {
+    "description": "Only used for translated screenshots, not within the app itself. Name of custom food 4/5 which can be anything which makes sense in the current language. E.g. a local food."
+  },
+  "testCustomFood5Calories": "259",
+  "@testCustomFood5Calories": {
+    "description": "Only used for translated screenshots, not within the app itself. Calories in kcal per 100 g of custom food 5/5 as a double value (e.g.: 120.0)"
+  },
+  "testCustomFood5Name": "Yorkshire pudding",
+  "@testCustomFood5Name": {
+    "description": "Only used for translated screenshots, not within the app itself. Name of custom food 5/5 which can be anything which makes sense in the current language. E.g. a local food."
+  },
+  "testCustomFood1Name": "Pancakes",
+  "@testCustomFood1Name": {
+    "description": "Only used for translated screenshots, not within the app itself. Name of custom food 1/5 which can be anything which makes sense in the current language. E.g. a local food."
+  },
+  "addServingSize": "Ajouter une taille de portion",
+  "@addServingSize": {},
+  "typicalServingSizes": "Tailles de portion habituelles",
+  "@typicalServingSizes": {}
 }
