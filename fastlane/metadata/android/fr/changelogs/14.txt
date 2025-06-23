@@ -1,0 +1,4 @@
+* Nouvelle icône de l'application ! 
+* Langues tchèque et danoise ajoutées (Merci de contribuer !) 
+* Les bases de données alimentaires indiquent désormais dans quelle langue leurs produits sont 
+* La page À propos a été améliorée et la page de don a été ajoutée

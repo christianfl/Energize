@@ -1,0 +1,3 @@
+* Ajout d'une traduction pour le pendjabi (Pakistan) et le chinois (merci !)
+* Mise à jour de la traduction pour le turc, le polonais, l'allemand, le français, l'italien et le tchèque (merci !)
+* Changements et améliorations mineurs sous le capot

@@ -1,8 +1,8 @@
 * Lors du suivi de nouveaux aliments et de l'ajout/de l'édition d'aliments personnalisés, afficher les informations nutritionnelles basées sur l'étiquette d'emballage de l'UE
 * Ajout de la recherche EAN
-* Ouverture des liens dans un navigateur séparé 
-* Rendu la sauvegarde et la restauration WebDAV plus fiables 
-* Corrections pour les écrans de petite taille  
+* Ouverture des liens dans un navigateur séparé
+* Rendu la sauvegarde et la restauration WebDAV plus fiables
+* Corrections pour les écrans de petite taille
 * Amélioration de l'apparence de la barre des aliments
 * Ajout de traductions
 * Mises à jour des traductions (merci !)

@@ -1,0 +1,7 @@
+* Ajout de temps de consommation pour les aliments
+* Ajout de la possibilité de définir le temps de consommation des aliments à l'échelle de l'application comme référence lors du suivi des aliments
+* Ajout de la traduction portugaise Brésil (merci pour cette contribution  !)
+* Mise à jour des traductions turque, espagnole et française (merci aux contributeurs, encore ! )
+* Correction: L'utilisation du widget de calendrier pour définir un autre jour permet désormais de suivre les aliments dans cette journée, peu importe l'heure et le fuseau horaire définis
+* Correction: Verrouillage de l'orientation de l'écran de l'appareil lors de la lecture des codes EAN
+* Quelques petites corrections et améliorations

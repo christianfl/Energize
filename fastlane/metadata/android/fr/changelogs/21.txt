@@ -1,0 +1,11 @@
+* [feat] Refonte de Material Design 3
+* [feat] Ajouter une sauvegarde et une restauration locales
+* [feat] Ajouter une page de contributeurs
+* [feat] Tri des aliments suivis par date de consommation
+* [feat] Prise en charge des codes-barres UPC
+* [correction] Plusieurs erreurs mineures * [correction] Plusieurs améliorations de code
+* [test] Création automatique de captures d'écran localisées
+* [l10n] Ajout du néerlandais, de l'hébreu, du slovène
+* [l10n] Mise à jour du Danois, Français, Allemand, Norvégien, Polonais, Portugais, Slovène, Espagnol, Turc
+---
+Un grand merci à tous les contributeurs !

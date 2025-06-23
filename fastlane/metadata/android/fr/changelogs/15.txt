@@ -1,0 +1,7 @@
+* Ajout de la définition d'objectifs de micronutriments en fonction de l'âge et du sexe
+* Refonte complète de la page des objectifs nutritionnels
+* Correction : Mauvaises unités de sodium
+* Ajout de la numérisation des aliments personnalisés avec le code EAN (ils ont la priorité sur Open Food Facts)
+* Scannez Open Food Facts food avec EAN uniquement si la base de données OFF est activée dans les paramètres
+* Plusieurs améliorations de routage : Scanner et ne pas trouver un produit peut directement créer un aliment personnalisé et l'ajouter par la suite
+* Mise à jour des fichiers de traduction (Merci !)
