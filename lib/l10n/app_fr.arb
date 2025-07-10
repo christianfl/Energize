@@ -255,7 +255,7 @@
   "@personalNutritionNeedsHint": {},
   "energyDistribution": "Distribution d'énergie",
   "@energyDistribution": {},
-  "sex": "Genre",
+  "sex": "Sexe",
   "@sex": {},
   "female": "Féminin",
   "@female": {},
@@ -535,7 +535,7 @@
   "@preferServingSizes": {},
   "preferServingSizesHint": "Quand vous suivez un nouvel aliment, une taille de portion sera présélectionnée si disponible",
   "@preferServingSizesHint": {},
-  "logs": "Logs",
+  "logs": "Journaux",
   "@logs": {},
   "servingSizes": "Tailles de portion",
   "@servingSizes": {},
@@ -584,7 +584,7 @@
   "@testCustomFood5Name": {
     "description": "Only used for translated screenshots, not within the app itself. Name of custom food 5/5 which can be anything which makes sense in the current language. E.g. a local food."
   },
-  "testCustomFood1Name": "Pancakes",
+  "testCustomFood1Name": "Crêpes",
   "@testCustomFood1Name": {
     "description": "Only used for translated screenshots, not within the app itself. Name of custom food 1/5 which can be anything which makes sense in the current language. E.g. a local food."
   },
