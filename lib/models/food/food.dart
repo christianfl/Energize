@@ -2,11 +2,11 @@ import 'dart:convert';
 
 import 'package:collection/collection.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:openfoodfacts/openfoodfacts.dart';
 import 'package:uuid/uuid.dart';
 
+import '../../l10n/app_localizations.dart';
 import '../../services/food_database_bindings/open_food_facts/open_food_facts_binding.dart';
 import '../../services/food_database_bindings/usda/models/usda_food.dart';
 import '../../services/food_database_bindings/usda/models/usda_food_nutrient.dart';

@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:energize/l10n/app_localizations.dart';
 import 'package:energize/main.dart';
 import 'package:energize/models/food/food.dart';
 import 'package:energize/models/food/food_tracked.dart';
@@ -15,7 +16,6 @@ import 'package:energize/services/food_database_bindings/swiss_food_composition_
 import 'package:energize/services/micronutrients_recommendations/micronutrients_recommendations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
 import 'package:provider/provider.dart';

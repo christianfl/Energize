@@ -1,3 +1,4 @@
+import 'package:energize/l10n/app_localizations.dart';
 import 'package:energize/models/food/food.dart';
 import 'package:energize/models/food/food_tracked.dart';
 import 'package:energize/pages/tab_food/food_page.dart';
@@ -8,7 +9,6 @@ import 'package:energize/providers/app_settings_provider.dart';
 import 'package:energize/providers/log_provider.dart';
 import 'package:energize/providers/tracked_food_provider.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
 

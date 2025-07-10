@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+import '../l10n/app_localizations.dart';
 import '../pages/tab_food/food_page.dart';
 import '../services/food_database_bindings/open_food_facts/open_food_facts_binding.dart';
 import '../services/food_database_bindings/swiss_food_composition_database/swiss_food_composition_database_binding.dart';

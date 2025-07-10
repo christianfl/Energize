@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
@@ -11,6 +10,7 @@ import 'package:sqflite_common_ffi_web/sqflite_ffi_web.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 
 import 'config/env_config.dart';
+import 'l10n/app_localizations.dart';
 import 'pages/tab_food/add_edit_custom_food_modal.dart';
 import 'pages/tab_settings/about_sub_page/about_sub_page.dart';
 import 'pages/tab_settings/backup_and_restore_sub_page.dart';

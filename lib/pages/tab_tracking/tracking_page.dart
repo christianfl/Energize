@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
 
+import '../../l10n/app_localizations.dart';
 import '../../providers/complete_days_provider.dart';
 import '../../providers/tracked_food_provider.dart';
 import '../../theme/energize_theme.dart';

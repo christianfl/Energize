@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:json_annotation/json_annotation.dart';
+
+import '../../../l10n/app_localizations.dart';
 
 @JsonEnum(fieldRename: FieldRename.snake)
 enum WeightTarget {
