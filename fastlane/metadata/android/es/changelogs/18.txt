@@ -1,0 +1,6 @@
+* La vista general de los alimentos registrados ahora muestra los macronutrientes de cada entrada
+* Al agregar un nuevo alimento, los macronutrientes se muestran con un decimal
+* Se añadieron traducciones para: serbio, ucraniano, catalán y español (¡gracias a los colaboradores de Weblate!)
+* Traducciones actualizadas para varios idiomas (¡gracias también!)
+* Nuevo gráfico circular para la distribución de los objetivos de macronutrientes
+* Cambios menores y mejoras internas

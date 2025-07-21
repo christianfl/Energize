@@ -1,0 +1,3 @@
+* Se añadió traducción para punyabí (Pakistán) y chino (¡gracias!)
+* Traducciones actualizadas para turco, polaco, alemán, francés, italiano y checo (¡gracias!)
+* Cambios menores y mejoras internas

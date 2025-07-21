@@ -1,0 +1,4 @@
+* Se añadieron traducciones para francés, italiano y polaco (¡gracias por contribuir!)
+* Mejora en la visibilidad de la barra para calorías y macronutrientes
+* Formato del día de seguimiento seleccionado acorde a la configuración regional del usuario
+* Corrección: Se eliminó la entrada duplicada de molibdeno en alimentos personalizados

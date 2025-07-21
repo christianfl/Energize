@@ -1,0 +1,7 @@
+* Se añadió la configuración de objetivos de micronutrientes según edad y sexo
+* Renovación completa de la página de objetivos nutricionales
+* Corrección: Unidades incorrectas de sodio
+* Se añadió la posibilidad de escanear alimentos personalizados con código EAN (tienen prioridad sobre Open Food Facts)
+* Escanear productos de Open Food Facts con código EAN solo si la base de datos de OFF está activada en la configuración
+* Varias mejoras en el enrutamiento: al escanear y no encontrar un producto, se puede crear directamente un alimento personalizado y añadirlo después
+* Archivos de traducción actualizados (¡gracias!)

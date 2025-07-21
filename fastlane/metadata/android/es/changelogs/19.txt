@@ -1,0 +1,8 @@
+* Al registrar un nuevo alimento y al agregar/editar alimentos personalizados, se muestran los datos nutricionales según el etiquetado de la UE
+* Se añadió la búsqueda por código EAN escribiendo el código
+* Los enlaces se abren en un navegador externo en lugar de dentro de la app
+* Se mejoró la confiabilidad de las copias de seguridad y restauraciones mediante WebDAV
+* Correcciones para pantallas de tamaño reducido
+* Mejora en el aspecto de la barra de porcentaje de alimentos registrados
+* Se hicieron traducibles algunas cadenas de texto
+* Traducciones actualizadas para varios idiomas (¡gracias!)

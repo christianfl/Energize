@@ -1,0 +1,5 @@
+* Nueva base de datos añadida: USDA FoodData Central
+* Modal de seguimiento de comida mejorada
+* Arreglo: Algunos códigos de barras podrían hacer que el modal de seguimiento de comida se abra multiples veces
+* Añade imagen y código EAN para comidas personalizadas
+* Mejoras menores

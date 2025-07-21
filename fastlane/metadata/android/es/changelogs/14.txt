@@ -1,0 +1,4 @@
+* ¡Nuevo ícono de la app!
+* Se añadieron los idiomas checo y danés (¡gracias por contribuir!)
+* Las bases de datos de alimentos ahora muestran en qué idioma están sus productos
+* Se mejoró la página "Acerca de" y se añadió una página de donaciones
