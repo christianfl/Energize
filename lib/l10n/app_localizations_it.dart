@@ -588,7 +588,7 @@ class AppLocalizationsIt extends AppLocalizations {
   String get privacyPolicy => 'Informativa sulla privacy';
 
   @override
-  String get logs => 'Logs';
+  String get logs => 'Registri';
 
   @override
   String get reportIssue => 'Segnala un problema';

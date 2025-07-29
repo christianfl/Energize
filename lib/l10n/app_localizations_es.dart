@@ -339,7 +339,7 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get alsoSetMicronutrientsSwitch =>
-      'Establecer también los objetivos de micronutrientes basados en la edad y el género';
+      'Establecer también los objetivos de micronutrientes basados en la edad y sexo';
 
   @override
   String get apply => 'Aplicar';
@@ -799,36 +799,36 @@ class AppLocalizationsEs extends AppLocalizations {
   String get salt => 'Sal';
 
   @override
-  String get servingSizes => 'Serving sizes';
+  String get servingSizes => 'Tamaños de porción';
 
   @override
-  String get add => 'Add';
+  String get add => 'Añadir';
 
   @override
-  String get noServingSizesText => 'There are no serving sizes present.';
+  String get noServingSizesText => 'No hay tamaños de porción disponibles.';
 
   @override
-  String get addServingSize => 'Add serving size';
+  String get addServingSize => 'Añadir tamaño de porción';
 
   @override
-  String get typicalServingSizes => 'Typical serving sizes';
+  String get typicalServingSizes => 'Tamaño de porción típica';
 
   @override
-  String get or => 'or';
+  String get or => 'o';
 
   @override
-  String get servingSizeName => 'Serving size name';
+  String get servingSizeName => 'Nombre del tamaño de porción';
 
   @override
-  String get size => 'Size';
+  String get size => 'Tamaño';
 
   @override
   String translatableServingSizeNames(String name) {
     String _temp0 = intl.Intl.selectLogic(
       name,
       {
-        'l10nServing': 'Srv.',
-        'l10nPackage': 'Pck.',
+        'l10nServing': 'Por.',
+        'l10nPackage': 'Paq.',
         'other': '',
       },
     );

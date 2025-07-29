@@ -52,7 +52,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get energy => 'Énergie';
 
   @override
-  String get protein => 'Protéine';
+  String get protein => 'Protéines';
 
   @override
   String get carbs => 'Glucide';
@@ -205,7 +205,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get years => 'ans';
 
   @override
-  String get sex => 'Genre';
+  String get sex => 'Sexe';
 
   @override
   String get female => 'Féminin';
@@ -587,7 +587,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get privacyPolicy => 'Politique de confidentialité';
 
   @override
-  String get logs => 'Logs';
+  String get logs => 'Journaux';
 
   @override
   String get reportIssue => 'Signaler un problème';
@@ -836,7 +836,7 @@ class AppLocalizationsFr extends AppLocalizations {
   }
 
   @override
-  String get testCustomFood1Name => 'Pancakes';
+  String get testCustomFood1Name => 'Crêpes';
 
   @override
   String get testCustomFood1Calories => '227';
