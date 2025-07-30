@@ -4,9 +4,7 @@ import 'usda_food_nutrient.dart';
 
 part 'usda_food.g.dart';
 
-@JsonSerializable(
-  includeIfNull: false,
-)
+@JsonSerializable(includeIfNull: false)
 class USDAFood {
   int? fdcId;
   String? description;

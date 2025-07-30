@@ -8,10 +8,7 @@ import '../../../theme/energize_theme.dart';
 class MacroNutrientsBreakdown extends StatelessWidget {
   final List<FoodTracked> trackedFood;
 
-  const MacroNutrientsBreakdown(
-    this.trackedFood, {
-    super.key,
-  });
+  const MacroNutrientsBreakdown(this.trackedFood, {super.key});
 
   /// Returns the total proteinPerAmount of all elements in [trackedFood]
   double get _totalProteinPerAmount {

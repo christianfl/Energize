@@ -43,9 +43,7 @@ class SharedPreferencesService implements SharedPreferencesServiceInterface {
       }
     } catch (e) {
       if (kDebugMode) {
-        debugPrint(
-          'Warning: Could not read key $key from SharedPreferences.',
-        );
+        debugPrint('Warning: Could not read key $key from SharedPreferences.');
       }
 
       return fallback;
@@ -84,9 +82,7 @@ class SharedPreferencesService implements SharedPreferencesServiceInterface {
   @override
   Future<void> setAll(Map<String, dynamic> values) async {
     await Future.wait(
-      values.entries.map(
-        (entry) => setValue(entry.key, entry.value),
-      ),
+      values.entries.map((entry) => setValue(entry.key, entry.value)),
     );
   }
 }

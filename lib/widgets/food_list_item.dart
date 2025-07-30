@@ -57,8 +57,9 @@ class FoodListItem extends StatelessWidget {
       amountString = '⅘';
     }
 
-    final String? selectedServingSize =
-        getQuickAddFoodAmountCallback!(food).selectedServingSize;
+    final String? selectedServingSize = getQuickAddFoodAmountCallback!(
+      food,
+    ).selectedServingSize;
     final String gOrLocalizedServingSize = selectedServingSize != null
         ? Food.getLocalizedServingSizeName(context, selectedServingSize)
         : 'g';
@@ -77,9 +78,7 @@ class FoodListItem extends StatelessWidget {
       leading: (food.imageThumbnailUrl != null)
           ? CircleAvatar(
               radius: height / 2,
-              foregroundImage: NetworkImage(
-                food.imageThumbnailUrl!,
-              ),
+              foregroundImage: NetworkImage(food.imageThumbnailUrl!),
             )
           : CircleAvatar(
               backgroundColor: Theme.of(context).noPictureBackground,
@@ -90,19 +89,13 @@ class FoodListItem extends StatelessWidget {
                 color: Theme.of(context).onNoPictureBackground,
               ),
             ),
-      title: Text(
-        food.title,
-        maxLines: 1,
-        overflow: TextOverflow.ellipsis,
-      ),
+      title: Text(food.title, maxLines: 1, overflow: TextOverflow.ellipsis),
       subtitle: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
             '${(food.calories ?? 0).toStringAsFixed(0)} kcal / 100 g',
-            style: const TextStyle(
-              fontSize: 11,
-            ),
+            style: const TextStyle(fontSize: 11),
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
           ),
@@ -119,11 +112,7 @@ class FoodListItem extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           if (hideOrigin == null || hideOrigin == false)
-            FoodOriginLogoPill(
-              food.origin,
-              width: 50,
-              height: pillHeight,
-            ),
+            FoodOriginLogoPill(food.origin, width: 50, height: pillHeight),
           if (quickAddFoodCallback != null)
             Padding(
               padding: const EdgeInsets.only(left: 4.0, right: 4.0),
@@ -140,9 +129,7 @@ class FoodListItem extends StatelessWidget {
                     const Icon(Icons.add),
                     Text(
                       _getQuickAddFoodAmountString(context),
-                      style: const TextStyle(
-                        fontSize: 12,
-                      ),
+                      style: const TextStyle(fontSize: 12),
                     ),
                   ],
                 ),

@@ -494,15 +494,19 @@ class AppLocalizationsHe extends AppLocalizations {
 
   @override
   String exportedNumberOfFoodsMessage(
-      int customFoodsCount, int trackedFoodsCount) {
+    int customFoodsCount,
+    int trackedFoodsCount,
+  ) {
     final intl.NumberFormat customFoodsCountNumberFormat =
         intl.NumberFormat.decimalPattern(localeName);
-    final String customFoodsCountString =
-        customFoodsCountNumberFormat.format(customFoodsCount);
+    final String customFoodsCountString = customFoodsCountNumberFormat.format(
+      customFoodsCount,
+    );
     final intl.NumberFormat trackedFoodsCountNumberFormat =
         intl.NumberFormat.decimalPattern(localeName);
-    final String trackedFoodsCountString =
-        trackedFoodsCountNumberFormat.format(trackedFoodsCount);
+    final String trackedFoodsCountString = trackedFoodsCountNumberFormat.format(
+      trackedFoodsCount,
+    );
 
     return 'יוצאו $customFoodsCountString מאכלים מותאמים ו־$trackedFoodsCountString מאכלים במעקב';
   }
@@ -512,15 +516,19 @@ class AppLocalizationsHe extends AppLocalizations {
 
   @override
   String importedNumberOfFoodsMessage(
-      int customFoodsCount, int trackedFoodsCount) {
+    int customFoodsCount,
+    int trackedFoodsCount,
+  ) {
     final intl.NumberFormat customFoodsCountNumberFormat =
         intl.NumberFormat.decimalPattern(localeName);
-    final String customFoodsCountString =
-        customFoodsCountNumberFormat.format(customFoodsCount);
+    final String customFoodsCountString = customFoodsCountNumberFormat.format(
+      customFoodsCount,
+    );
     final intl.NumberFormat trackedFoodsCountNumberFormat =
         intl.NumberFormat.decimalPattern(localeName);
-    final String trackedFoodsCountString =
-        trackedFoodsCountNumberFormat.format(trackedFoodsCount);
+    final String trackedFoodsCountString = trackedFoodsCountNumberFormat.format(
+      trackedFoodsCount,
+    );
 
     return 'יובאו $customFoodsCountString מאכלים מותאמים ו־$trackedFoodsCountString מאכלים במעקב';
   }
@@ -812,14 +820,11 @@ class AppLocalizationsHe extends AppLocalizations {
 
   @override
   String translatableServingSizeNames(String name) {
-    String _temp0 = intl.Intl.selectLogic(
-      name,
-      {
-        'l10nServing': 'מנה',
-        'l10nPackage': 'אריזה',
-        'other': '',
-      },
-    );
+    String _temp0 = intl.Intl.selectLogic(name, {
+      'l10nServing': 'מנה',
+      'l10nPackage': 'אריזה',
+      'other': '',
+    });
     return '$_temp0';
   }
 

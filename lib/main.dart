@@ -80,9 +80,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        Provider(
-          create: (ctx) => LogProvider(talker: TalkerFlutter.init()),
-        ),
+        Provider(create: (ctx) => LogProvider(talker: TalkerFlutter.init())),
         ChangeNotifierProvider(
           create: (ctx) => AppSettingsProvider(
             sharedPrefs: SharedPreferencesService.instance,

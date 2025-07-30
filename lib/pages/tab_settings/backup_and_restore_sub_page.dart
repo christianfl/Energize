@@ -41,8 +41,10 @@ class BackupAndRestoreSubPageState extends State<BackupAndRestoreSubPage> {
 
   @override
   didChangeDependencies() {
-    final appSettings =
-        Provider.of<AppSettingsProvider>(context, listen: false);
+    final appSettings = Provider.of<AppSettingsProvider>(
+      context,
+      listen: false,
+    );
 
     _serverUrlController.text = appSettings.backupServerUrl;
     _usernameController.text = appSettings.backupUsername;
@@ -56,9 +58,9 @@ class BackupAndRestoreSubPageState extends State<BackupAndRestoreSubPage> {
     text ??= AppLocalizations.of(context)!.unknownErrorText;
 
     // Show error
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text(text.replaceAll('Exception: ', ''))),
-    );
+    ScaffoldMessenger.of(
+      context,
+    ).showSnackBar(SnackBar(content: Text(text.replaceAll('Exception: ', ''))));
 
     // Stop loading spinner
     setState(() {
@@ -83,8 +85,10 @@ class BackupAndRestoreSubPageState extends State<BackupAndRestoreSubPage> {
       });
 
       final encryptionPassword = _encryptionPasswordController.text;
-      final createBackupReturnData =
-          await BackupService.createBackup(encryptionPassword, context);
+      final createBackupReturnData = await BackupService.createBackup(
+        encryptionPassword,
+        context,
+      );
       final encryptedData = createBackupReturnData.encryptedData;
       final backupData = createBackupReturnData.backupData;
 
@@ -123,10 +127,7 @@ class BackupAndRestoreSubPageState extends State<BackupAndRestoreSubPage> {
             content: Text(
               '''
 ${AppLocalizations.of(context)!.successfullyCreatedBackup}
-${AppLocalizations.of(context)!.exportedNumberOfFoodsMessage(
-                numberOfCustomFoods,
-                numberOfTrackedFoods,
-              )}''',
+${AppLocalizations.of(context)!.exportedNumberOfFoodsMessage(numberOfCustomFoods, numberOfTrackedFoods)}''',
             ),
           ),
         );
@@ -183,10 +184,7 @@ ${AppLocalizations.of(context)!.exportedNumberOfFoodsMessage(
             content: Text(
               '''
 ${AppLocalizations.of(context)!.successfullyRestoredBackup}
-${AppLocalizations.of(context)!.importedNumberOfFoodsMessage(
-                numberOfCustomFoods,
-                numberOfTrackedFoods,
-              )}''',
+${AppLocalizations.of(context)!.importedNumberOfFoodsMessage(numberOfCustomFoods, numberOfTrackedFoods)}''',
             ),
           ),
         );
@@ -202,8 +200,10 @@ ${AppLocalizations.of(context)!.importedNumberOfFoodsMessage(
   /// Passwords could in future be saved to Keystore
   /// or better handling with Password managers could be evaluated
   _saveWebDAVServerSettings() {
-    final appSettings =
-        Provider.of<AppSettingsProvider>(context, listen: false);
+    final appSettings = Provider.of<AppSettingsProvider>(
+      context,
+      listen: false,
+    );
 
     appSettings.backupServerUrl = _serverUrlController.text;
     appSettings.backupUsername = _usernameController.text;
@@ -211,20 +211,26 @@ ${AppLocalizations.of(context)!.importedNumberOfFoodsMessage(
   }
 
   _clearBackupServerUrl() {
-    final appSettings =
-        Provider.of<AppSettingsProvider>(context, listen: false);
+    final appSettings = Provider.of<AppSettingsProvider>(
+      context,
+      listen: false,
+    );
     appSettings.clearBackupServerUrl();
   }
 
   _clearBackupUsername() {
-    final appSettings =
-        Provider.of<AppSettingsProvider>(context, listen: false);
+    final appSettings = Provider.of<AppSettingsProvider>(
+      context,
+      listen: false,
+    );
     appSettings.clearBackupUsername();
   }
 
   _resetBackupPathAndFilename() {
-    final appSettings =
-        Provider.of<AppSettingsProvider>(context, listen: false);
+    final appSettings = Provider.of<AppSettingsProvider>(
+      context,
+      listen: false,
+    );
     appSettings.clearBackupPathAndFilename();
   }
 
@@ -294,8 +300,9 @@ ${AppLocalizations.of(context)!.importedNumberOfFoodsMessage(
                           controller: _serverUrlController,
                           validator: (value) {
                             if (value!.isEmpty) {
-                              return AppLocalizations.of(context)!
-                                  .fieldMandatory;
+                              return AppLocalizations.of(
+                                context,
+                              )!.fieldMandatory;
                               // Simple check for URI
                             } else if (Uri.tryParse(value) == null) {
                               return AppLocalizations.of(context)!.invalidURL;
@@ -327,8 +334,9 @@ ${AppLocalizations.of(context)!.importedNumberOfFoodsMessage(
                           controller: _usernameController,
                           validator: (value) {
                             if (value!.isEmpty) {
-                              return AppLocalizations.of(context)!
-                                  .fieldMandatory;
+                              return AppLocalizations.of(
+                                context,
+                              )!.fieldMandatory;
                             }
                             return null;
                           },
@@ -347,8 +355,9 @@ ${AppLocalizations.of(context)!.importedNumberOfFoodsMessage(
                           controller: _passwordController,
                           validator: (value) {
                             if (value!.isEmpty) {
-                              return AppLocalizations.of(context)!
-                                  .fieldMandatory;
+                              return AppLocalizations.of(
+                                context,
+                              )!.fieldMandatory;
                             }
                             return null;
                           },
@@ -357,8 +366,9 @@ ${AppLocalizations.of(context)!.importedNumberOfFoodsMessage(
                           decoration: InputDecoration(
                             filled: true,
                             icon: const Icon(Icons.folder),
-                            labelText:
-                                AppLocalizations.of(context)!.pathAndFilename,
+                            labelText: AppLocalizations.of(
+                              context,
+                            )!.pathAndFilename,
                             hintText:
                                 '/${BackupAndRestoreSubPage.defaultBackupPath}/${BackupAndRestoreSubPage.defaultBackupFileName}',
                             suffixIcon: IconButton(
@@ -373,8 +383,9 @@ ${AppLocalizations.of(context)!.importedNumberOfFoodsMessage(
                           controller: _pathAndFilenameController,
                           validator: (value) {
                             if (value!.isEmpty) {
-                              return AppLocalizations.of(context)!
-                                  .fieldMandatory;
+                              return AppLocalizations.of(
+                                context,
+                              )!.fieldMandatory;
                             }
                             return null;
                           },
@@ -395,8 +406,9 @@ ${AppLocalizations.of(context)!.importedNumberOfFoodsMessage(
                           controller: _encryptionPasswordController,
                           validator: (value) {
                             if (value!.isEmpty) {
-                              return AppLocalizations.of(context)!
-                                  .fieldMandatory;
+                              return AppLocalizations.of(
+                                context,
+                              )!.fieldMandatory;
                             }
                             return null;
                           },
@@ -468,9 +480,7 @@ ${AppLocalizations.of(context)!.importedNumberOfFoodsMessage(
                 Navigator.of(context).pop(false);
                 return;
               },
-              child: Text(
-                MaterialLocalizations.of(context).cancelButtonLabel,
-              ),
+              child: Text(MaterialLocalizations.of(context).cancelButtonLabel),
             ),
             TextButton(
               onPressed: () {
@@ -509,8 +519,9 @@ ${AppLocalizations.of(context)!.importedNumberOfFoodsMessage(
         encryptionPassword,
         context,
       );
-      final encryptedBackupDataAsBytes =
-          Uint8List.fromList(backup.encryptedData.codeUnits);
+      final encryptedBackupDataAsBytes = Uint8List.fromList(
+        backup.encryptedData.codeUnits,
+      );
 
       // Pick file destination
       final String? path = await FilePicker.platform.saveFile(
@@ -539,10 +550,7 @@ ${AppLocalizations.of(context)!.importedNumberOfFoodsMessage(
           content: Text(
             '''
 ${AppLocalizations.of(context)!.successfullyCreatedBackup}
-${AppLocalizations.of(context)!.exportedNumberOfFoodsMessage(
-              numberOfCustomFoods,
-              numberOfTrackedFoods,
-            )}''',
+${AppLocalizations.of(context)!.exportedNumberOfFoodsMessage(numberOfCustomFoods, numberOfTrackedFoods)}''',
           ),
         ),
       );
@@ -557,8 +565,8 @@ ${AppLocalizations.of(context)!.exportedNumberOfFoodsMessage(
   /// Restores a local encrypted backup picked via native file picker
   _restoreLocalEncryptedBackup(BuildContext context) async {
     // Pick backup file to restore
-    final FilePickerResult? pickerResult =
-        await FilePicker.platform.pickFiles();
+    final FilePickerResult? pickerResult = await FilePicker.platform
+        .pickFiles();
     final pickedPath = pickerResult?.files.single.path;
 
     // Picking was cancelled, bye!
@@ -611,10 +619,7 @@ ${AppLocalizations.of(context)!.exportedNumberOfFoodsMessage(
           content: Text(
             '''
 ${AppLocalizations.of(context)!.successfullyRestoredBackup}
-${AppLocalizations.of(context)!.importedNumberOfFoodsMessage(
-              numberOfCustomFoods,
-              numberOfTrackedFoods,
-            )}''',
+${AppLocalizations.of(context)!.importedNumberOfFoodsMessage(numberOfCustomFoods, numberOfTrackedFoods)}''',
           ),
         ),
       );
@@ -656,14 +661,16 @@ ${AppLocalizations.of(context)!.importedNumberOfFoodsMessage(
                     SelectActionCard(
                       icon: Icons.cloud_upload,
                       title: AppLocalizations.of(context)!.createWebDAVBackup,
-                      onTap:
-                          _isBusy ? null : () => _createWebDAVBackup(context),
+                      onTap: _isBusy
+                          ? null
+                          : () => _createWebDAVBackup(context),
                     ),
                     SelectActionCard(
                       icon: Icons.cloud_download,
                       title: AppLocalizations.of(context)!.restoreWebDAVBackup,
-                      onTap:
-                          _isBusy ? null : () => _restoreWebDAVBackup(context),
+                      onTap: _isBusy
+                          ? null
+                          : () => _restoreWebDAVBackup(context),
                     ),
                     SelectActionCard(
                       icon: Icons.file_upload,

@@ -65,10 +65,7 @@ class TrackingPageState extends State<TrackingPage> {
                 value: 0,
                 child: Text(AppLocalizations.of(context)!.detailedSummary),
               ),
-              PopupMenuItem(
-                value: 1,
-                child: _dayCompletionStatusMenuEntry(),
-              ),
+              PopupMenuItem(value: 1, child: _dayCompletionStatusMenuEntry()),
             ],
           ),
         ],
@@ -84,8 +81,9 @@ class TrackingPageState extends State<TrackingPage> {
             TextButton(
               onPressed: () => _showPickDateDialog(context),
               style: TextButton.styleFrom(
-                foregroundColor:
-                    Theme.of(context).colorScheme.onPrimaryContainer,
+                foregroundColor: Theme.of(
+                  context,
+                ).colorScheme.onPrimaryContainer,
               ),
               child: Text(DateUtil.getDate(_selectedDate, context)),
             ),
@@ -98,8 +96,9 @@ class TrackingPageState extends State<TrackingPage> {
             TextButton(
               onPressed: () => _selectTime(context),
               style: TextButton.styleFrom(
-                foregroundColor:
-                    Theme.of(context).colorScheme.onPrimaryContainer,
+                foregroundColor: Theme.of(
+                  context,
+                ).colorScheme.onPrimaryContainer,
               ),
               child: Text(TimeUtil.getTime(_selectedDate, context)),
             ),
@@ -109,19 +108,12 @@ class TrackingPageState extends State<TrackingPage> {
       body: Column(
         children: <Widget>[
           Padding(
-            padding: const EdgeInsets.only(
-              top: 8.0,
-              left: 8.0,
-              right: 8.0,
-            ),
+            padding: const EdgeInsets.only(top: 8.0, left: 8.0, right: 8.0),
             child: ConstrainedBox(
               constraints: BoxConstraints(
                 maxHeight: MediaQuery.of(context).size.height / 3,
               ),
-              child: MacroChart(
-                trackedFoodProvider.foods,
-                padding: 10.0,
-              ),
+              child: MacroChart(trackedFoodProvider.foods, padding: 10.0),
             ),
           ),
           TrackedFoodList(_scrollController, _setIsFabExplicitelyVisible),
@@ -130,7 +122,8 @@ class TrackingPageState extends State<TrackingPage> {
       // _isFabExplicitelyVisible is there because otherwise the fab could
       // hide itself after deleting entries until there is no scrollable
       // area anymore
-      floatingActionButton: _lastScrollDirection != ScrollDirection.reverse ||
+      floatingActionButton:
+          _lastScrollDirection != ScrollDirection.reverse ||
               _isFabExplicitelyVisible
           ? SpeedDial(
               heroTag: trackingFabTag,
@@ -150,13 +143,16 @@ class TrackingPageState extends State<TrackingPage> {
                   shape: const RoundedRectangleBorder(
                     borderRadius: BorderRadius.all(Radius.circular(12)),
                   ),
-                  backgroundColor:
-                      Theme.of(context).colorScheme.primaryContainer,
-                  foregroundColor:
-                      Theme.of(context).colorScheme.onPrimaryContainer,
+                  backgroundColor: Theme.of(
+                    context,
+                  ).colorScheme.primaryContainer,
+                  foregroundColor: Theme.of(
+                    context,
+                  ).colorScheme.onPrimaryContainer,
                   label: AppLocalizations.of(context)!.searchFood,
-                  labelBackgroundColor:
-                      Theme.of(context).colorScheme.primaryContainer,
+                  labelBackgroundColor: Theme.of(
+                    context,
+                  ).colorScheme.primaryContainer,
                   onTap: () =>
                       _startAddEatenFood(context, SheetModalMode.search),
                   child: const Icon(Icons.search),
@@ -165,17 +161,18 @@ class TrackingPageState extends State<TrackingPage> {
                   shape: const RoundedRectangleBorder(
                     borderRadius: BorderRadius.all(Radius.circular(12)),
                   ),
-                  backgroundColor:
-                      Theme.of(context).colorScheme.primaryContainer,
-                  foregroundColor:
-                      Theme.of(context).colorScheme.onPrimaryContainer,
-                  label: AppLocalizations.of(context)!.scanBarcode,
-                  labelBackgroundColor:
-                      Theme.of(context).colorScheme.primaryContainer,
-                  onTap: () => _startAddEatenFood(
+                  backgroundColor: Theme.of(
                     context,
-                    SheetModalMode.barcode,
-                  ),
+                  ).colorScheme.primaryContainer,
+                  foregroundColor: Theme.of(
+                    context,
+                  ).colorScheme.onPrimaryContainer,
+                  label: AppLocalizations.of(context)!.scanBarcode,
+                  labelBackgroundColor: Theme.of(
+                    context,
+                  ).colorScheme.primaryContainer,
+                  onTap: () =>
+                      _startAddEatenFood(context, SheetModalMode.barcode),
                   child: const Icon(Icons.qr_code),
                 ),
               ],
@@ -223,8 +220,10 @@ class TrackingPageState extends State<TrackingPage> {
 
   /// Shows the dialog for picking [_selectedDate].
   Future<void> _showPickDateDialog(BuildContext ctx) async {
-    final completeDaysProvider =
-        Provider.of<CompleteDaysProvider>(context, listen: false);
+    final completeDaysProvider = Provider.of<CompleteDaysProvider>(
+      context,
+      listen: false,
+    );
 
     final List<DateTime> completedDays =
         await completeDaysProvider.completedDays;
@@ -247,9 +246,7 @@ class TrackingPageState extends State<TrackingPage> {
                 locale: Localizations.localeOf(context).toString(),
                 availableCalendarFormats: const {CalendarFormat.month: ''},
                 weekendDays: const [],
-                headerStyle: const HeaderStyle(
-                  titleCentered: true,
-                ),
+                headerStyle: const HeaderStyle(titleCentered: true),
                 daysOfWeekStyle: DaysOfWeekStyle(
                   weekdayStyle: TextStyle(
                     color: Theme.of(context).microNutrientsContainer,
@@ -261,12 +258,12 @@ class TrackingPageState extends State<TrackingPage> {
                 lastDay: DateTime.now().add(const Duration(days: 365)),
                 focusedDay: _selectedDate,
                 onDaySelected: (selectedDay, focusedDay) {
-                  final DateTime selectedDateWithPreviousTime =
-                      _selectedDate.copyWith(
-                    year: selectedDay.year,
-                    month: selectedDay.month,
-                    day: selectedDay.day,
-                  );
+                  final DateTime selectedDateWithPreviousTime = _selectedDate
+                      .copyWith(
+                        year: selectedDay.year,
+                        month: selectedDay.month,
+                        day: selectedDay.day,
+                      );
                   _selectDate(selectedDateWithPreviousTime);
                   Navigator.of(context).pop();
                 },
@@ -274,20 +271,23 @@ class TrackingPageState extends State<TrackingPage> {
                 selectedDayPredicate: (day) => isSameDay(_selectedDate, day),
                 // Holidays == Days which are marked as done
                 holidayPredicate: (day) {
-                  return completedDays
-                      .any((completedDay) => isSameDay(completedDay, day));
+                  return completedDays.any(
+                    (completedDay) => isSameDay(completedDay, day),
+                  );
                 },
                 calendarBuilders: CalendarBuilders(
                   todayBuilder: (context, day, focusedDay) {
                     return Center(
                       child: CircleAvatar(
                         radius: _datePickerHighlightRadius,
-                        backgroundColor:
-                            Theme.of(context).colorScheme.inverseSurface,
+                        backgroundColor: Theme.of(
+                          context,
+                        ).colorScheme.inverseSurface,
                         child: CircleAvatar(
                           radius: _datePickerHighlightRadius - 1,
-                          backgroundColor:
-                              Theme.of(context).dialogTheme.backgroundColor,
+                          backgroundColor: Theme.of(
+                            context,
+                          ).dialogTheme.backgroundColor,
                           child: Text(
                             '${day.day}',
                             style: TextStyle(
@@ -302,13 +302,15 @@ class TrackingPageState extends State<TrackingPage> {
                     return Center(
                       child: CircleAvatar(
                         radius: _datePickerHighlightRadius,
-                        backgroundColor:
-                            Theme.of(context).colorScheme.inverseSurface,
+                        backgroundColor: Theme.of(
+                          context,
+                        ).colorScheme.inverseSurface,
                         child: Text(
                           '${day.day}',
                           style: TextStyle(
-                            color:
-                                Theme.of(context).colorScheme.onInverseSurface,
+                            color: Theme.of(
+                              context,
+                            ).colorScheme.onInverseSurface,
                           ),
                         ),
                       ),
@@ -344,9 +346,7 @@ class TrackingPageState extends State<TrackingPage> {
           ),
           actions: <Widget>[
             TextButton(
-              child: Text(
-                MaterialLocalizations.of(context).cancelButtonLabel,
-              ),
+              child: Text(MaterialLocalizations.of(context).cancelButtonLabel),
               onPressed: () {
                 Navigator.of(context).pop();
               },
@@ -362,10 +362,14 @@ class TrackingPageState extends State<TrackingPage> {
   /// Setting the latter automatically triggers loading corresponding
   /// tracked foods from the database into [TrackedFoodProvider.foods].
   Future<void> _selectDate(DateTime date) async {
-    final trackedFoodProvider =
-        Provider.of<TrackedFoodProvider>(context, listen: false);
-    final completeDaysProvider =
-        Provider.of<CompleteDaysProvider>(context, listen: false);
+    final trackedFoodProvider = Provider.of<TrackedFoodProvider>(
+      context,
+      listen: false,
+    );
+    final completeDaysProvider = Provider.of<CompleteDaysProvider>(
+      context,
+      listen: false,
+    );
 
     // Set selected date
     _selectedDate = date;
@@ -374,8 +378,9 @@ class TrackingPageState extends State<TrackingPage> {
     await trackedFoodProvider.selectDate(_selectedDate);
 
     // _isSelectedDateCompleted according to the selected date
-    _isSelectedDateCompleted =
-        await completeDaysProvider.isDateCompleted(_selectedDate);
+    _isSelectedDateCompleted = await completeDaysProvider.isDateCompleted(
+      _selectedDate,
+    );
 
     // Trigger UI rebuilding
     setState(() {});
@@ -418,8 +423,10 @@ class TrackingPageState extends State<TrackingPage> {
   }
 
   void _switchDayCompletionStatus() {
-    final completeDaysProvider =
-        Provider.of<CompleteDaysProvider>(context, listen: false);
+    final completeDaysProvider = Provider.of<CompleteDaysProvider>(
+      context,
+      listen: false,
+    );
 
     if (_isSelectedDateCompleted!) {
       completeDaysProvider.remove(_selectedDate);

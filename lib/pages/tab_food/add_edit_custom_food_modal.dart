@@ -142,8 +142,9 @@ class AddEditCustomFoodModalState extends State<AddEditCustomFoodModal> {
     // When adding a new serving size and its name is typed in,
     // set the size value if there was already a serving size with the same name
     _foodNewServingSizeKeyController.addListener(() {
-      if (_foodServingSizes.keys
-          .contains(_foodNewServingSizeKeyController.text)) {
+      if (_foodServingSizes.keys.contains(
+        _foodNewServingSizeKeyController.text,
+      )) {
         final currentValue =
             _foodServingSizes[_foodNewServingSizeKeyController.text];
         _foodNewServingSizeValueController.text =
@@ -158,8 +159,9 @@ class AddEditCustomFoodModalState extends State<AddEditCustomFoodModal> {
 
     Future.delayed(Duration.zero, () {
       setState(() {
-        final args = ModalRoute.of(context)?.settings.arguments
-            as AddEditCustomFoodModalArguments?;
+        final args =
+            ModalRoute.of(context)?.settings.arguments
+                as AddEditCustomFoodModalArguments?;
         if (args?.food != null) {
           foodToEditOrCreate = args!.food!;
         }
@@ -168,62 +170,62 @@ class AddEditCustomFoodModalState extends State<AddEditCustomFoodModal> {
       // Fill all textfields with provided values
       _foodTitleController.text = foodToEditOrCreate.title;
       _foodEanController.text = (foodToEditOrCreate.ean ?? '').toString();
-      _foodCaloriesController.text =
-          (foodToEditOrCreate.calories ?? '').toString();
-      _foodProteinController.text =
-          (foodToEditOrCreate.protein ?? '').toString();
+      _foodCaloriesController.text = (foodToEditOrCreate.calories ?? '')
+          .toString();
+      _foodProteinController.text = (foodToEditOrCreate.protein ?? '')
+          .toString();
       _foodCarbsController.text = (foodToEditOrCreate.carbs ?? '').toString();
       _foodFatController.text = (foodToEditOrCreate.fat ?? '').toString();
-      _foodVitaminAController.text =
-          (foodToEditOrCreate.vitaminA ?? '').toString();
-      _foodVitaminB1Controller.text =
-          (foodToEditOrCreate.vitaminB1 ?? '').toString();
-      _foodVitaminB2Controller.text =
-          (foodToEditOrCreate.vitaminB2 ?? '').toString();
-      _foodVitaminB3Controller.text =
-          (foodToEditOrCreate.vitaminB3 ?? '').toString();
-      _foodVitaminB5Controller.text =
-          (foodToEditOrCreate.vitaminB5 ?? '').toString();
-      _foodVitaminB6Controller.text =
-          (foodToEditOrCreate.vitaminB6 ?? '').toString();
-      _foodVitaminB7Controller.text =
-          (foodToEditOrCreate.vitaminB7 ?? '').toString();
-      _foodVitaminB9Controller.text =
-          (foodToEditOrCreate.vitaminB9 ?? '').toString();
-      _foodVitaminB12Controller.text =
-          (foodToEditOrCreate.vitaminB12 ?? '').toString();
-      _foodVitaminCController.text =
-          (foodToEditOrCreate.vitaminC ?? '').toString();
-      _foodVitaminDController.text =
-          (foodToEditOrCreate.vitaminD ?? '').toString();
-      _foodVitaminEController.text =
-          (foodToEditOrCreate.vitaminE ?? '').toString();
-      _foodVitaminKController.text =
-          (foodToEditOrCreate.vitaminK ?? '').toString();
-      _foodCalciumController.text =
-          (foodToEditOrCreate.calcium ?? '').toString();
-      _foodChlorideController.text =
-          (foodToEditOrCreate.chloride ?? '').toString();
-      _foodMagnesiumController.text =
-          (foodToEditOrCreate.magnesium ?? '').toString();
-      _foodPhosphorusController.text =
-          (foodToEditOrCreate.phosphorus ?? '').toString();
-      _foodPotassiumController.text =
-          (foodToEditOrCreate.potassium ?? '').toString();
+      _foodVitaminAController.text = (foodToEditOrCreate.vitaminA ?? '')
+          .toString();
+      _foodVitaminB1Controller.text = (foodToEditOrCreate.vitaminB1 ?? '')
+          .toString();
+      _foodVitaminB2Controller.text = (foodToEditOrCreate.vitaminB2 ?? '')
+          .toString();
+      _foodVitaminB3Controller.text = (foodToEditOrCreate.vitaminB3 ?? '')
+          .toString();
+      _foodVitaminB5Controller.text = (foodToEditOrCreate.vitaminB5 ?? '')
+          .toString();
+      _foodVitaminB6Controller.text = (foodToEditOrCreate.vitaminB6 ?? '')
+          .toString();
+      _foodVitaminB7Controller.text = (foodToEditOrCreate.vitaminB7 ?? '')
+          .toString();
+      _foodVitaminB9Controller.text = (foodToEditOrCreate.vitaminB9 ?? '')
+          .toString();
+      _foodVitaminB12Controller.text = (foodToEditOrCreate.vitaminB12 ?? '')
+          .toString();
+      _foodVitaminCController.text = (foodToEditOrCreate.vitaminC ?? '')
+          .toString();
+      _foodVitaminDController.text = (foodToEditOrCreate.vitaminD ?? '')
+          .toString();
+      _foodVitaminEController.text = (foodToEditOrCreate.vitaminE ?? '')
+          .toString();
+      _foodVitaminKController.text = (foodToEditOrCreate.vitaminK ?? '')
+          .toString();
+      _foodCalciumController.text = (foodToEditOrCreate.calcium ?? '')
+          .toString();
+      _foodChlorideController.text = (foodToEditOrCreate.chloride ?? '')
+          .toString();
+      _foodMagnesiumController.text = (foodToEditOrCreate.magnesium ?? '')
+          .toString();
+      _foodPhosphorusController.text = (foodToEditOrCreate.phosphorus ?? '')
+          .toString();
+      _foodPotassiumController.text = (foodToEditOrCreate.potassium ?? '')
+          .toString();
       _foodSodiumController.text = (foodToEditOrCreate.sodium ?? '').toString();
-      _foodChromiumController.text =
-          (foodToEditOrCreate.chromium ?? '').toString();
+      _foodChromiumController.text = (foodToEditOrCreate.chromium ?? '')
+          .toString();
       _foodIronController.text = (foodToEditOrCreate.iron ?? '').toString();
-      _foodFluorineController.text =
-          (foodToEditOrCreate.fluorine ?? '').toString();
+      _foodFluorineController.text = (foodToEditOrCreate.fluorine ?? '')
+          .toString();
       _foodIodineController.text = (foodToEditOrCreate.iodine ?? '').toString();
       _foodCopperController.text = (foodToEditOrCreate.copper ?? '').toString();
-      _foodManganeseController.text =
-          (foodToEditOrCreate.manganese ?? '').toString();
-      _foodMolybdenumController.text =
-          (foodToEditOrCreate.molybdenum ?? '').toString();
-      _foodSeleniumController.text =
-          (foodToEditOrCreate.selenium ?? '').toString();
+      _foodManganeseController.text = (foodToEditOrCreate.manganese ?? '')
+          .toString();
+      _foodMolybdenumController.text = (foodToEditOrCreate.molybdenum ?? '')
+          .toString();
+      _foodSeleniumController.text = (foodToEditOrCreate.selenium ?? '')
+          .toString();
       _foodZincController.text = (foodToEditOrCreate.zinc ?? '').toString();
       _foodMonounsaturatedFatController.text =
           (foodToEditOrCreate.monounsaturatedFat ?? '').toString();
@@ -231,22 +233,22 @@ class AddEditCustomFoodModalState extends State<AddEditCustomFoodModal> {
           (foodToEditOrCreate.polyunsaturatedFat ?? '').toString();
       _foodOmega3Controller.text = (foodToEditOrCreate.omega3 ?? '').toString();
       _foodOmega6Controller.text = (foodToEditOrCreate.omega6 ?? '').toString();
-      _foodSaturatedFatController.text =
-          (foodToEditOrCreate.saturatedFat ?? '').toString();
-      _foodTransFatController.text =
-          (foodToEditOrCreate.transFat ?? '').toString();
-      _foodCholesterolController.text =
-          (foodToEditOrCreate.cholesterol ?? '').toString();
+      _foodSaturatedFatController.text = (foodToEditOrCreate.saturatedFat ?? '')
+          .toString();
+      _foodTransFatController.text = (foodToEditOrCreate.transFat ?? '')
+          .toString();
+      _foodCholesterolController.text = (foodToEditOrCreate.cholesterol ?? '')
+          .toString();
       _foodFiberController.text = (foodToEditOrCreate.fiber ?? '').toString();
       _foodSugarController.text = (foodToEditOrCreate.sugar ?? '').toString();
-      _foodSugarAlcoholController.text =
-          (foodToEditOrCreate.sugarAlcohol ?? '').toString();
+      _foodSugarAlcoholController.text = (foodToEditOrCreate.sugarAlcohol ?? '')
+          .toString();
       _foodStarchController.text = (foodToEditOrCreate.starch ?? '').toString();
       _foodWaterController.text = (foodToEditOrCreate.water ?? '').toString();
-      _foodCaffeineController.text =
-          (foodToEditOrCreate.caffeine ?? '').toString();
-      _foodAlcoholController.text =
-          (foodToEditOrCreate.alcohol ?? '').toString();
+      _foodCaffeineController.text = (foodToEditOrCreate.caffeine ?? '')
+          .toString();
+      _foodAlcoholController.text = (foodToEditOrCreate.alcohol ?? '')
+          .toString();
 
       if (foodToEditOrCreate.servingSizes != null) {
         // Add serving sizes to temporary Map
@@ -291,15 +293,13 @@ class AddEditCustomFoodModalState extends State<AddEditCustomFoodModal> {
                           children: [
                             for (final entry
                                 in Food.getLocalizedSystemServingSizes(
-                              context,
-                            ).entries)
+                                  context,
+                                ).entries)
                               ChoiceChip(
-                                label: Text(
-                                  entry.value,
-                                ),
+                                label: Text(entry.value),
                                 selected:
                                     _foodNewServingSizeKeyController.text ==
-                                        entry.key,
+                                    entry.key,
                                 onSelected: (_) {
                                   setDialogState(() {
                                     if (_foodNewServingSizeKeyController.text ==
@@ -315,8 +315,9 @@ class AddEditCustomFoodModalState extends State<AddEditCustomFoodModal> {
                           ],
                         ),
                       ),
-                      if (!Food.systemServingSizes
-                          .contains(_foodNewServingSizeKeyController.text))
+                      if (!Food.systemServingSizes.contains(
+                        _foodNewServingSizeKeyController.text,
+                      ))
                         // Do not show TextFormField if the user selected a system serving size
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.center,
@@ -329,13 +330,15 @@ class AddEditCustomFoodModalState extends State<AddEditCustomFoodModal> {
                               keyboardType: TextInputType.text,
                               decoration: InputDecoration(
                                 filled: true,
-                                labelText: AppLocalizations.of(context)!
-                                    .servingSizeName,
+                                labelText: AppLocalizations.of(
+                                  context,
+                                )!.servingSizeName,
                               ),
                               validator: (value) {
                                 if (value!.isEmpty) {
-                                  return AppLocalizations.of(context)!
-                                      .fieldMandatory;
+                                  return AppLocalizations.of(
+                                    context,
+                                  )!.fieldMandatory;
                                 }
                                 return null;
                               },
@@ -356,8 +359,9 @@ class AddEditCustomFoodModalState extends State<AddEditCustomFoodModal> {
                             return AppLocalizations.of(context)!.fieldMandatory;
                           }
                           if (!isNumeric(value)) {
-                            return AppLocalizations.of(context)!
-                                .onlyNumbersAllowed;
+                            return AppLocalizations.of(
+                              context,
+                            )!.onlyNumbersAllowed;
                           }
                           return null;
                         },
@@ -368,8 +372,9 @@ class AddEditCustomFoodModalState extends State<AddEditCustomFoodModal> {
               ),
               actions: [
                 TextButton(
-                  child:
-                      Text(MaterialLocalizations.of(context).cancelButtonLabel),
+                  child: Text(
+                    MaterialLocalizations.of(context).cancelButtonLabel,
+                  ),
                   onPressed: () {
                     Navigator.of(context).pop();
                   },
@@ -397,10 +402,7 @@ class AddEditCustomFoodModalState extends State<AddEditCustomFoodModal> {
   }
 
   /// Adds a new serving size or edits an existing one.
-  _putServingSize(
-    String keyName,
-    double servingSizeValue,
-  ) {
+  _putServingSize(String keyName, double servingSizeValue) {
     setState(() {
       _foodServingSizes[keyName] = servingSizeValue;
     });
@@ -424,8 +426,9 @@ class AddEditCustomFoodModalState extends State<AddEditCustomFoodModal> {
     foodToEditOrCreate.title = _foodTitleController.text;
     foodToEditOrCreate.ean = _foodEanController.text;
     foodToEditOrCreate.origin = FoodPage.originName;
-    foodToEditOrCreate.servingSizes =
-        _foodServingSizes.isNotEmpty ? _foodServingSizes : null;
+    foodToEditOrCreate.servingSizes = _foodServingSizes.isNotEmpty
+        ? _foodServingSizes
+        : null;
     foodToEditOrCreate.calories = _foodCaloriesController.text != ''
         ? double.parse(_foodCaloriesController.text)
         : null;
@@ -527,12 +530,12 @@ class AddEditCustomFoodModalState extends State<AddEditCustomFoodModal> {
         : null;
     foodToEditOrCreate.monounsaturatedFat =
         _foodMonounsaturatedFatController.text != ''
-            ? double.parse(_foodMonounsaturatedFatController.text)
-            : null;
+        ? double.parse(_foodMonounsaturatedFatController.text)
+        : null;
     foodToEditOrCreate.polyunsaturatedFat =
         _foodPolyunsaturatedFatController.text != ''
-            ? double.parse(_foodPolyunsaturatedFatController.text)
-            : null;
+        ? double.parse(_foodPolyunsaturatedFatController.text)
+        : null;
     foodToEditOrCreate.omega3 = _foodOmega3Controller.text != ''
         ? double.parse(_foodOmega3Controller.text)
         : null;
@@ -617,8 +620,9 @@ class AddEditCustomFoodModalState extends State<AddEditCustomFoodModal> {
 
   @override
   Widget build(BuildContext context) {
-    final args = ModalRoute.of(context)?.settings.arguments
-        as AddEditCustomFoodModalArguments?;
+    final args =
+        ModalRoute.of(context)?.settings.arguments
+            as AddEditCustomFoodModalArguments?;
     // If no modalMode is passed, the mode is: Add new
     final modalMode = args?.mode ?? AddEditCustomFoodModalMode.addNew;
     final food = args?.food;
@@ -640,13 +644,12 @@ class AddEditCustomFoodModalState extends State<AddEditCustomFoodModal> {
                   (food?.imageUrl != null)
                       ? CircleAvatar(
                           radius: AddEditCustomFoodModal._foodAvatarRadius,
-                          foregroundImage: NetworkImage(
-                            food!.imageUrl!,
-                          ),
+                          foregroundImage: NetworkImage(food!.imageUrl!),
                         )
                       : CircleAvatar(
-                          backgroundColor:
-                              Theme.of(context).noPictureBackground,
+                          backgroundColor: Theme.of(
+                            context,
+                          ).noPictureBackground,
                           radius: AddEditCustomFoodModal._foodAvatarRadius,
                           child: Icon(
                             Icons.image_not_supported_outlined,
@@ -669,8 +672,9 @@ class AddEditCustomFoodModalState extends State<AddEditCustomFoodModal> {
                           ),
                           validator: (value) {
                             if (value!.isEmpty) {
-                              return AppLocalizations.of(context)!
-                                  .fieldMandatory;
+                              return AppLocalizations.of(
+                                context,
+                              )!.fieldMandatory;
                             }
                             return null;
                           },
@@ -724,9 +728,7 @@ class AddEditCustomFoodModalState extends State<AddEditCustomFoodModal> {
                   ),
                 )
               else
-                Text(
-                  AppLocalizations.of(context)!.noServingSizesText,
-                ),
+                Text(AppLocalizations.of(context)!.noServingSizesText),
               const SizedBox(height: 20),
               // Start Micronutrients Expansion Panel
               ExpansionPanelList(
@@ -745,10 +747,12 @@ class AddEditCustomFoodModalState extends State<AddEditCustomFoodModal> {
                     canTapOnHeader: true,
                     headerBuilder: (context, isExpanded) {
                       return CategoryListTileHeader(
-                        title: AppLocalizations.of(context)!
-                            .energyAndMacronutrients,
-                        subtitle: AppLocalizations.of(context)!
-                            .energyAndMacronutrientsTargetsHint,
+                        title: AppLocalizations.of(
+                          context,
+                        )!.energyAndMacronutrients,
+                        subtitle: AppLocalizations.of(
+                          context,
+                        )!.energyAndMacronutrientsTargetsHint,
                       );
                     },
                     body: Column(
@@ -1002,14 +1006,16 @@ class AddEditCustomFoodModalState extends State<AddEditCustomFoodModal> {
                     body: Column(
                       children: [
                         _customListTile(
-                          title:
-                              AppLocalizations.of(context)!.monounsaturatedFat,
+                          title: AppLocalizations.of(
+                            context,
+                          )!.monounsaturatedFat,
                           controller: _foodMonounsaturatedFatController,
                           unit: 'g / 100 g',
                         ),
                         _customListTile(
-                          title:
-                              AppLocalizations.of(context)!.polyunsaturatedFat,
+                          title: AppLocalizations.of(
+                            context,
+                          )!.polyunsaturatedFat,
                           controller: _foodPolyunsaturatedFatController,
                           unit: 'g / 100 g',
                         ),
@@ -1116,9 +1122,7 @@ class AddEditCustomFoodModalState extends State<AddEditCustomFoodModal> {
         child: const Icon(Icons.save),
         onPressed: () => {
           if (_formKey.currentState!.validate())
-            {
-              _addOrEditFood(food, modalMode),
-            },
+            {_addOrEditFood(food, modalMode)},
         },
       ),
     );

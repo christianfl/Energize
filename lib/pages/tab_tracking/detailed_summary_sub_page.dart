@@ -21,11 +21,7 @@ class DetailedSummarySubPage extends StatelessWidget {
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
-          child: MicroChart(
-            foods,
-            showZero: true,
-            scrollable: true,
-          ),
+          child: MicroChart(foods, showZero: true, scrollable: true),
         ),
       ),
     );

@@ -25,10 +25,7 @@ class Food {
   ///
   /// l10nServing will be translated to "Srv." with en locale.
   /// l10nPackage will be translated to "Pck." with en locale.
-  static const _systemServingSizes = {
-    'l10nServing',
-    'l10nPackage',
-  };
+  static const _systemServingSizes = {'l10nServing', 'l10nPackage'};
 
   // #################### Metadata ####################
   String id;
@@ -50,10 +47,7 @@ class Food {
   Map<String, double>? _servingSizes;
 
   /// Get [_servingSizes] with custom validation.
-  @JsonKey(
-    fromJson: nullableMapFromJson,
-    toJson: nullableMapToJson,
-  )
+  @JsonKey(fromJson: nullableMapFromJson, toJson: nullableMapToJson)
   Map<String, double>? get servingSizes {
     if (_servingSizes != null) {
       if (_servingSizes!.isNotEmpty) {
@@ -68,9 +62,7 @@ class Food {
   set servingSizes(Map<String, double>? value) {
     if (value != null) {
       if (value.isEmpty) {
-        throw ArgumentError(
-          'servingSizes must not be empty.',
-        );
+        throw ArgumentError('servingSizes must not be empty.');
       }
     }
 
@@ -305,13 +297,12 @@ class Food {
 
   factory Food.fromOpenFoodFactsProduct(Product product) {
     // Returns the value of the given nutrient in the desired unit per 100g or null
-    double? getValInUnit(
-      Nutrient nutrient, {
-      Unit unit = Unit.G,
-    }) {
+    double? getValInUnit(Nutrient nutrient, {Unit unit = Unit.G}) {
       // Value in G
-      double? value =
-          product.nutriments?.getValue(nutrient, PerSize.oneHundredGrams);
+      double? value = product.nutriments?.getValue(
+        nutrient,
+        PerSize.oneHundredGrams,
+      );
 
       // Conversion of vol % in g because alcohol value is not stored in G within OFF
       if (value != null && nutrient == Nutrient.alcohol) {
@@ -348,11 +339,15 @@ class Food {
     food.title = food.title.trim();
 
     // Calories
-    if (product.nutriments
-            ?.getValue(Nutrient.energyKCal, PerSize.oneHundredGrams) !=
+    if (product.nutriments?.getValue(
+          Nutrient.energyKCal,
+          PerSize.oneHundredGrams,
+        ) !=
         null) {
-      food.calories = product.nutriments
-          ?.getValue(Nutrient.energyKCal, PerSize.oneHundredGrams);
+      food.calories = product.nutriments?.getValue(
+        Nutrient.energyKCal,
+        PerSize.oneHundredGrams,
+      );
     } else {
       if (product.nutriments?.getComputedKJ(PerSize.oneHundredGrams) != null) {
         final kcal =
@@ -383,8 +378,9 @@ class Food {
       /// Returns the parsed double in g
       double? parseOFFServingSize(String servingStringOFF) {
         // Normalize input (remove spaces and convert to lowercase)
-        final String normalizedServing =
-            servingStringOFF.replaceAll(' ', '').toLowerCase();
+        final String normalizedServing = servingStringOFF
+            .replaceAll(' ', '')
+            .toLowerCase();
 
         double? parseVal(String str, String unit, double factor) {
           if (str.contains(unit)) {
@@ -463,10 +459,14 @@ class Food {
     food.zinc = getValInUnit(Nutrient.zinc, unit: Unit.MILLI_G);
 
     // Fats
-    food.monounsaturatedFat =
-        getValInUnit(Nutrient.monounsaturatedFat, unit: Unit.G);
-    food.polyunsaturatedFat =
-        getValInUnit(Nutrient.polyunsaturatedFat, unit: Unit.G);
+    food.monounsaturatedFat = getValInUnit(
+      Nutrient.monounsaturatedFat,
+      unit: Unit.G,
+    );
+    food.polyunsaturatedFat = getValInUnit(
+      Nutrient.polyunsaturatedFat,
+      unit: Unit.G,
+    );
     food.omega3 = getValInUnit(Nutrient.omega3, unit: Unit.G);
     food.omega6 = getValInUnit(Nutrient.omega6, unit: Unit.G);
     food.saturatedFat = getValInUnit(Nutrient.saturatedFat, unit: Unit.G);
@@ -903,8 +903,9 @@ class Food {
   ) {
     if (_systemServingSizes.contains(servingSizeName)) {
       // The key is translatable
-      return AppLocalizations.of(context)!
-          .translatableServingSizeNames(servingSizeName);
+      return AppLocalizations.of(
+        context,
+      )!.translatableServingSizeNames(servingSizeName);
     } else {
       return servingSizeName;
     }
@@ -941,8 +942,9 @@ class Food {
       return null;
     }
 
-    return decoded
-        .map((key, value) => MapEntry(key, (value as num).toDouble()));
+    return decoded.map(
+      (key, value) => MapEntry(key, (value as num).toDouble()),
+    );
   }
 
   /// ToJson helper to serialize the [servingSizes] Map.

@@ -61,9 +61,7 @@ class FoodOriginLogoPill extends StatelessWidget {
             padding: const EdgeInsets.fromLTRB(10.0, 5.0, 10.0, 5.0),
             constraints: BoxConstraints(maxHeight: height ?? double.infinity),
             onPressed: onTapCallback,
-            icon: Image.asset(
-              _assetUrl!,
-            ),
+            icon: Image.asset(_assetUrl!),
             style: IconButton.styleFrom(
               backgroundColor: Colors.white,
               disabledBackgroundColor: Colors.white,

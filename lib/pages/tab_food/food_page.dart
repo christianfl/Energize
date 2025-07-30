@@ -103,21 +103,15 @@ class FoodPageState extends State<FoodPage> {
     final customFoodProvider = Provider.of<CustomFoodProvider>(context);
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          AppLocalizations.of(context)!.customFood,
-        ),
-      ),
+      appBar: AppBar(title: Text(AppLocalizations.of(context)!.customFood)),
       body: Column(
         children: [
           Padding(
             padding: const EdgeInsets.all(12.0),
             child: SearchBar(
               controller: _searchInputController,
-              onChanged: (searchString) => populateSearchedFoodList(
-                searchString,
-                customFoodProvider,
-              ),
+              onChanged: (searchString) =>
+                  populateSearchedFoodList(searchString, customFoodProvider),
               hintText: AppLocalizations.of(context)!.searchCustomFood,
               leading: const Icon(Icons.search),
               trailing: [
@@ -180,9 +174,7 @@ class FoodPageState extends State<FoodPage> {
                 : const Center(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(Icons.no_food, size: 100),
-                      ],
+                      children: [Icon(Icons.no_food, size: 100)],
                     ),
                   ),
           ),
@@ -191,7 +183,8 @@ class FoodPageState extends State<FoodPage> {
       // _isFabExplicitelyVisible is there because otherwise the fab could
       // hide itself after deleting entries until there is no scrollable
       // area anymore
-      floatingActionButton: _lastScrollDirection != ScrollDirection.reverse ||
+      floatingActionButton:
+          _lastScrollDirection != ScrollDirection.reverse ||
               _isFabExplicitelyVisible
           ? FloatingActionButton(
               onPressed: () => _navigateToAddCustomFood(context),

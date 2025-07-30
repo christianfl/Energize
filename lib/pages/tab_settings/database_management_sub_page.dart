@@ -30,9 +30,7 @@ class DatabaseManagementSubPageState extends State<DatabaseManagementSubPage> {
       color: Colors.white,
       height: 160,
       width: double.infinity,
-      child: Image.asset(
-        imageUrl,
-      ),
+      child: Image.asset(imageUrl),
     );
   }
 
@@ -72,8 +70,9 @@ class DatabaseManagementSubPageState extends State<DatabaseManagementSubPage> {
                   headerBuilder: (context, isExpanded) {
                     return SwitchListTile(
                       title: Text(
-                        AppLocalizations.of(context)!
-                            .swissFoodCompositionDatabase,
+                        AppLocalizations.of(
+                          context,
+                        )!.swissFoodCompositionDatabase,
                       ),
                       value: appSettings.isProviderSndbActivated,
                       onChanged: (val) =>
@@ -108,8 +107,9 @@ class DatabaseManagementSubPageState extends State<DatabaseManagementSubPage> {
                           AppLocalizations.of(context)!.generalInformation,
                         ),
                         subtitle: Text(
-                          AppLocalizations.of(context)!
-                              .swissFoodCompositionDatabaseGeneralInformationText,
+                          AppLocalizations.of(
+                            context,
+                          )!.swissFoodCompositionDatabaseGeneralInformationText,
                         ),
                         isThreeLine: true,
                       ),
@@ -135,8 +135,9 @@ class DatabaseManagementSubPageState extends State<DatabaseManagementSubPage> {
                         child: ListTile(
                           title: Text(AppLocalizations.of(context)!.source),
                           subtitle: Text(
-                            AppLocalizations.of(context)!
-                                .tapHereForFurtherInformation,
+                            AppLocalizations.of(
+                              context,
+                            )!.tapHereForFurtherInformation,
                           ),
                           trailing: const Icon(Icons.link),
                         ),
@@ -182,8 +183,9 @@ class DatabaseManagementSubPageState extends State<DatabaseManagementSubPage> {
                       ListTile(
                         title: Text(AppLocalizations.of(context)!.language),
                         subtitle: Text(
-                          AppLocalizations.of(context)!
-                              .openFoodFactsVariousLanguagesText,
+                          AppLocalizations.of(
+                            context,
+                          )!.openFoodFactsVariousLanguagesText,
                         ),
                       ),
                       ListTile(
@@ -198,8 +200,9 @@ class DatabaseManagementSubPageState extends State<DatabaseManagementSubPage> {
                           AppLocalizations.of(context)!.generalInformation,
                         ),
                         subtitle: Text(
-                          AppLocalizations.of(context)!
-                              .openFoodFactsGeneralInformationText,
+                          AppLocalizations.of(
+                            context,
+                          )!.openFoodFactsGeneralInformationText,
                         ),
                       ),
                       InkWell(
@@ -222,8 +225,9 @@ class DatabaseManagementSubPageState extends State<DatabaseManagementSubPage> {
                         child: ListTile(
                           title: Text(AppLocalizations.of(context)!.termsOfUse),
                           subtitle: Text(
-                            AppLocalizations.of(context)!
-                                .openFoodFactsTermsText,
+                            AppLocalizations.of(
+                              context,
+                            )!.openFoodFactsTermsText,
                           ),
                           trailing: const Icon(Icons.link),
                           isThreeLine: true,
@@ -231,8 +235,9 @@ class DatabaseManagementSubPageState extends State<DatabaseManagementSubPage> {
                       ),
                       InkWell(
                         onTap: () {
-                          final uri =
-                              Uri.parse(OpenFoodFactsBinding.contributeUrl);
+                          final uri = Uri.parse(
+                            OpenFoodFactsBinding.contributeUrl,
+                          );
 
                           try {
                             launchUrl(
@@ -250,8 +255,9 @@ class DatabaseManagementSubPageState extends State<DatabaseManagementSubPage> {
                         child: ListTile(
                           title: Text(AppLocalizations.of(context)!.contribute),
                           subtitle: Text(
-                            AppLocalizations.of(context)!
-                                .databaseContributeText,
+                            AppLocalizations.of(
+                              context,
+                            )!.databaseContributeText,
                           ),
                           trailing: const Icon(Icons.link),
                           isThreeLine: true,
@@ -274,9 +280,7 @@ class DatabaseManagementSubPageState extends State<DatabaseManagementSubPage> {
                   body: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      _foodDatabaseLogoContainer(
-                        USDABinding.imageUrl,
-                      ),
+                      _foodDatabaseLogoContainer(USDABinding.imageUrl),
                       ListTile(
                         title: Text(AppLocalizations.of(context)!.language),
                         subtitle: Text(AppLocalizations.of(context)!.english),
@@ -293,8 +297,9 @@ class DatabaseManagementSubPageState extends State<DatabaseManagementSubPage> {
                           AppLocalizations.of(context)!.generalInformation,
                         ),
                         subtitle: Text(
-                          AppLocalizations.of(context)!
-                              .usdaFoodDataCentralGeneralInformationText,
+                          AppLocalizations.of(
+                            context,
+                          )!.usdaFoodDataCentralGeneralInformationText,
                         ),
                       ),
                       InkWell(
@@ -317,8 +322,9 @@ class DatabaseManagementSubPageState extends State<DatabaseManagementSubPage> {
                         child: ListTile(
                           title: Text(AppLocalizations.of(context)!.source),
                           subtitle: Text(
-                            AppLocalizations.of(context)!
-                                .tapHereForFurtherInformation,
+                            AppLocalizations.of(
+                              context,
+                            )!.tapHereForFurtherInformation,
                           ),
                           trailing: const Icon(Icons.link),
                         ),

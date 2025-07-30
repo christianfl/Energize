@@ -15,9 +15,7 @@ class SettingsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(AppLocalizations.of(context)!.settings),
-      ),
+      appBar: AppBar(title: Text(AppLocalizations.of(context)!.settings)),
       body: ListView(
         children: [
           ListTile(
@@ -30,33 +28,28 @@ class SettingsPage extends StatelessWidget {
               AppLocalizations.of(context)!.personalNutritionNeedsHint,
             ),
             onTap: () {
-              Navigator.of(context).pushNamed(
-                NutritionTargetsPage.routeName,
-              );
+              Navigator.of(context).pushNamed(NutritionTargetsPage.routeName);
             },
           ),
           const Divider(),
           ListTile(
             leading: const Icon(Icons.display_settings),
             title: Text(AppLocalizations.of(context)!.display),
-            subtitle: Text(
-              AppLocalizations.of(context)!.displayHint,
-            ),
+            subtitle: Text(AppLocalizations.of(context)!.displayHint),
             onTap: () {
-              Navigator.of(context).pushNamed(
-                UISettingsSubPage.routeName,
-              );
+              Navigator.of(context).pushNamed(UISettingsSubPage.routeName);
             },
           ),
           ListTile(
             leading: const Icon(Icons.perm_data_setting),
             title: Text(AppLocalizations.of(context)!.databaseManagement),
-            subtitle:
-                Text(AppLocalizations.of(context)!.databaseManagementHint),
+            subtitle: Text(
+              AppLocalizations.of(context)!.databaseManagementHint,
+            ),
             onTap: () {
-              Navigator.of(context).pushNamed(
-                DatabaseManagementSubPage.routeName,
-              );
+              Navigator.of(
+                context,
+              ).pushNamed(DatabaseManagementSubPage.routeName);
             },
           ),
           ListTile(
@@ -65,9 +58,9 @@ class SettingsPage extends StatelessWidget {
             title: Text(AppLocalizations.of(context)!.backupAndRestore),
             subtitle: Text(AppLocalizations.of(context)!.backupAndRestoreHint),
             onTap: () {
-              Navigator.of(context).pushNamed(
-                BackupAndRestoreSubPage.routeName,
-              );
+              Navigator.of(
+                context,
+              ).pushNamed(BackupAndRestoreSubPage.routeName);
             },
           ),
           const Divider(),
@@ -75,9 +68,7 @@ class SettingsPage extends StatelessWidget {
             leading: const Icon(Icons.info),
             title: Text(AppLocalizations.of(context)!.aboutEnergize),
             onTap: () {
-              Navigator.of(context).pushNamed(
-                AboutSubPage.routeName,
-              );
+              Navigator.of(context).pushNamed(AboutSubPage.routeName);
             },
           ),
           ListTile(
@@ -88,15 +79,13 @@ class SettingsPage extends StatelessWidget {
             title: Text(
               AppLocalizations.of(context)!.supportMeByDonating,
               style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                    fontWeight: FontWeight.bold,
-                    color: Theme.of(context).onDonateContainer,
-                  ),
+                fontWeight: FontWeight.bold,
+                color: Theme.of(context).onDonateContainer,
+              ),
             ),
             subtitle: const Text('Bitcoin, liberapay.com'),
             onTap: () {
-              Navigator.of(context).pushNamed(
-                DonationSubPage.routeName,
-              );
+              Navigator.of(context).pushNamed(DonationSubPage.routeName);
             },
           ),
         ],

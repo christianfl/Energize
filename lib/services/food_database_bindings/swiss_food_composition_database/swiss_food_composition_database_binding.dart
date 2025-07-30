@@ -66,20 +66,24 @@ class SwissFoodCompositionDatabaseBinding {
         String matchedTitle = '';
 
         // Check food title for match...
-        final foodTitle = csvFoodRow[
-            csvHeader.indexWhere((header) => header == csvLanguageIdentifier)];
+        final foodTitle =
+            csvFoodRow[csvHeader.indexWhere(
+              (header) => header == csvLanguageIdentifier,
+            )];
 
         // Check food alternative title for match...
-        final foodTitleSynonym = csvFoodRow[csvHeader
-            .indexWhere((header) => header == csvLanguageSynonymIdentifier)];
+        final foodTitleSynonym =
+            csvFoodRow[csvHeader.indexWhere(
+              (header) => header == csvLanguageSynonymIdentifier,
+            )];
 
         // Check for title match
         if ((foodTitle.toLowerCase().contains(searchText.toLowerCase()))) {
           // Match in title
           matchedTitle = foodTitle;
-        } else if ((foodTitleSynonym
-            .toLowerCase()
-            .contains(searchText.toLowerCase()))) {
+        } else if ((foodTitleSynonym.toLowerCase().contains(
+          searchText.toLowerCase(),
+        ))) {
           // Match in alt title
           // Keep original title in brackets, because else, some food can't be distinguished
           matchedTitle = '$foodTitleSynonym ($foodTitle)';
@@ -278,9 +282,7 @@ class SwissFoodCompositionDatabaseBinding {
           debugPrint(
             'Error while mapping row from CSV. Food title: $matchedTitle',
           );
-          debugPrint(
-            'Error: $e',
-          );
+          debugPrint('Error: $e');
         }
       }
     }
@@ -302,9 +304,7 @@ class SwissFoodCompositionDatabaseBinding {
     assert(csvHeader.length == csvRow.length);
 
     double? value = double.tryParse(
-      csvRow[csvHeader.indexWhere(
-        (header) => header == colName,
-      )],
+      csvRow[csvHeader.indexWhere((header) => header == colName)],
     );
 
     // Divide value for matching units

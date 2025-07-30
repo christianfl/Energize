@@ -13,10 +13,7 @@ class NutritionFactsLabelEU extends StatelessWidget {
 
   static const double sodiumToSaltFacor = 2.54;
 
-  const NutritionFactsLabelEU(
-    this.foods, {
-    super.key,
-  });
+  const NutritionFactsLabelEU(this.foods, {super.key});
 
   double get _totalCalories {
     return foods.fold(

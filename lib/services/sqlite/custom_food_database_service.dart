@@ -16,8 +16,9 @@ class CustomFoodDatabaseService
   Future<List<Food>> get customFoods async {
     final db = await database;
 
-    final List<Map<String, dynamic>> customFoodMap =
-        await db.query(DatabaseService.customFoodstable);
+    final List<Map<String, dynamic>> customFoodMap = await db.query(
+      DatabaseService.customFoodstable,
+    );
 
     return _generateFoodList(customFoodMap);
   }

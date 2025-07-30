@@ -10,8 +10,10 @@ USDAFoodNutrient _$USDAFoodNutrientFromJson(Map<String, dynamic> json) =>
     USDAFoodNutrient(
       nutrientName: json['nutrientName'] as String?,
       value: (json['value'] as num?)?.toDouble(),
-      unitName:
-          $enumDecodeNullable(_$USDAFoodNutrientUnitEnumMap, json['unitName']),
+      unitName: $enumDecodeNullable(
+        _$USDAFoodNutrientUnitEnumMap,
+        json['unitName'],
+      ),
     );
 
 Map<String, dynamic> _$USDAFoodNutrientToJson(USDAFoodNutrient instance) =>

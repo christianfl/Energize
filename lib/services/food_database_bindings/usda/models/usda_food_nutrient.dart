@@ -4,19 +4,13 @@ import 'usda_food_nutrient_unit.dart';
 
 part 'usda_food_nutrient.g.dart';
 
-@JsonSerializable(
-  includeIfNull: false,
-)
+@JsonSerializable(includeIfNull: false)
 class USDAFoodNutrient {
   String? nutrientName;
   double? value;
   USDAFoodNutrientUnit? unitName;
 
-  USDAFoodNutrient({
-    this.nutrientName,
-    this.value,
-    this.unitName,
-  });
+  USDAFoodNutrient({this.nutrientName, this.value, this.unitName});
 
   /// Connect the generated fromJson function to the `fromJson` factory.
   factory USDAFoodNutrient.fromJson(Map<String, dynamic> json) =>

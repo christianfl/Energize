@@ -12,10 +12,7 @@ import 'macro_nutrients_breakdown.dart';
 class TrackedFoodListItemGrouper extends StatelessWidget {
   final List<FoodTracked> trackedFoodGroup;
 
-  const TrackedFoodListItemGrouper(
-    this.trackedFoodGroup, {
-    super.key,
-  });
+  const TrackedFoodListItemGrouper(this.trackedFoodGroup, {super.key});
 
   /// Returns when a meal was consumed.
   ///
@@ -47,23 +44,16 @@ class TrackedFoodListItemGrouper extends StatelessWidget {
       padding: const EdgeInsets.only(top: 4.0),
       child: Container(
         color: Theme.of(context).decentHighlightColor,
-        padding: const EdgeInsets.symmetric(
-          horizontal: 22.0,
-          vertical: 8.0,
-        ),
+        padding: const EdgeInsets.symmetric(horizontal: 22.0, vertical: 8.0),
         child: Row(
           children: [
             Text(
-              AppLocalizations.of(context)!.mealAt(
-                TimeUtil.getTime(_mealDate, context),
-              ),
+              AppLocalizations.of(
+                context,
+              )!.mealAt(TimeUtil.getTime(_mealDate, context)),
             ),
             const SizedBox(width: 10),
-            Expanded(
-              child: MacroNutrientsBreakdown(
-                trackedFoodGroup,
-              ),
-            ),
+            Expanded(child: MacroNutrientsBreakdown(trackedFoodGroup)),
             const SizedBox(width: 10),
             Text(
               '${_caloriesTotal.toStringAsFixed(0)} kcal',

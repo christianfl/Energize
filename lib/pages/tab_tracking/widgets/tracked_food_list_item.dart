@@ -12,11 +12,7 @@ class TrackedFoodListItem extends StatelessWidget {
   final FoodTracked trackedFood;
   final Function? onTapCallback;
 
-  const TrackedFoodListItem(
-    this.trackedFood, {
-    super.key,
-    this.onTapCallback,
-  });
+  const TrackedFoodListItem(this.trackedFood, {super.key, this.onTapCallback});
 
   @override
   Widget build(BuildContext context) {

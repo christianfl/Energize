@@ -239,8 +239,9 @@ class MicroTargetsTabState extends State<MicroTargetsTab> {
                 _getCustomListTile(
                   title: AppLocalizations.of(context)!.iron,
                   initialValue: bodyTargets.ironTarget.toString(),
-                  setValueFunction: (val) => bodyTargets.ironTarget =
-                      val == '' ? 0 : double.parse(val),
+                  setValueFunction: (val) => bodyTargets.ironTarget = val == ''
+                      ? 0
+                      : double.parse(val),
                   unit: 'mg',
                 ),
                 _getCustomListTile(
@@ -288,8 +289,9 @@ class MicroTargetsTabState extends State<MicroTargetsTab> {
                 _getCustomListTile(
                   title: AppLocalizations.of(context)!.zinc,
                   initialValue: bodyTargets.zincTarget.toString(),
-                  setValueFunction: (val) => bodyTargets.zincTarget =
-                      val == '' ? 0 : double.parse(val),
+                  setValueFunction: (val) => bodyTargets.zincTarget = val == ''
+                      ? 0
+                      : double.parse(val),
                   unit: 'mg',
                 ),
               ],
@@ -311,16 +313,18 @@ class MicroTargetsTabState extends State<MicroTargetsTab> {
                   title: AppLocalizations.of(context)!.monounsaturatedFat,
                   initialValue: bodyTargets.monounsaturatedFatTarget.toString(),
                   setValueFunction: (val) =>
-                      bodyTargets.monounsaturatedFatTarget =
-                          val == '' ? 0 : double.parse(val),
+                      bodyTargets.monounsaturatedFatTarget = val == ''
+                      ? 0
+                      : double.parse(val),
                   unit: 'g',
                 ),
                 _getCustomListTile(
                   title: AppLocalizations.of(context)!.polyunsaturatedFat,
                   initialValue: bodyTargets.polyunsaturatedFatTarget.toString(),
                   setValueFunction: (val) =>
-                      bodyTargets.polyunsaturatedFatTarget =
-                          val == '' ? 0 : double.parse(val),
+                      bodyTargets.polyunsaturatedFatTarget = val == ''
+                      ? 0
+                      : double.parse(val),
                   unit: 'g',
                 ),
                 _getCustomListTile(
@@ -376,15 +380,17 @@ class MicroTargetsTabState extends State<MicroTargetsTab> {
                 _getCustomListTile(
                   title: AppLocalizations.of(context)!.fiber,
                   initialValue: bodyTargets.fiberTarget.toString(),
-                  setValueFunction: (val) => bodyTargets.fiberTarget =
-                      val == '' ? 0 : double.parse(val),
+                  setValueFunction: (val) => bodyTargets.fiberTarget = val == ''
+                      ? 0
+                      : double.parse(val),
                   unit: 'g',
                 ),
                 _getCustomListTile(
                   title: AppLocalizations.of(context)!.sugar,
                   initialValue: bodyTargets.sugarTarget.toString(),
-                  setValueFunction: (val) => bodyTargets.sugarTarget =
-                      val == '' ? 0 : double.parse(val),
+                  setValueFunction: (val) => bodyTargets.sugarTarget = val == ''
+                      ? 0
+                      : double.parse(val),
                   unit: 'g',
                 ),
                 _getCustomListTile(
@@ -419,8 +425,9 @@ class MicroTargetsTabState extends State<MicroTargetsTab> {
                 _getCustomListTile(
                   title: AppLocalizations.of(context)!.water,
                   initialValue: bodyTargets.waterTarget.toString(),
-                  setValueFunction: (val) => bodyTargets.waterTarget =
-                      val == '' ? 0 : double.parse(val),
+                  setValueFunction: (val) => bodyTargets.waterTarget = val == ''
+                      ? 0
+                      : double.parse(val),
                   unit: 'ml',
                 ),
                 _getCustomListTile(

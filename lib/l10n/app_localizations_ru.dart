@@ -503,15 +503,19 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String exportedNumberOfFoodsMessage(
-      int customFoodsCount, int trackedFoodsCount) {
+    int customFoodsCount,
+    int trackedFoodsCount,
+  ) {
     final intl.NumberFormat customFoodsCountNumberFormat =
         intl.NumberFormat.decimalPattern(localeName);
-    final String customFoodsCountString =
-        customFoodsCountNumberFormat.format(customFoodsCount);
+    final String customFoodsCountString = customFoodsCountNumberFormat.format(
+      customFoodsCount,
+    );
     final intl.NumberFormat trackedFoodsCountNumberFormat =
         intl.NumberFormat.decimalPattern(localeName);
-    final String trackedFoodsCountString =
-        trackedFoodsCountNumberFormat.format(trackedFoodsCount);
+    final String trackedFoodsCountString = trackedFoodsCountNumberFormat.format(
+      trackedFoodsCount,
+    );
 
     return 'Экспортировано $customFoodsCountString пользовательских продуктов и $trackedFoodsCountString отслеживаемых продуктов';
   }
@@ -522,15 +526,19 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String importedNumberOfFoodsMessage(
-      int customFoodsCount, int trackedFoodsCount) {
+    int customFoodsCount,
+    int trackedFoodsCount,
+  ) {
     final intl.NumberFormat customFoodsCountNumberFormat =
         intl.NumberFormat.decimalPattern(localeName);
-    final String customFoodsCountString =
-        customFoodsCountNumberFormat.format(customFoodsCount);
+    final String customFoodsCountString = customFoodsCountNumberFormat.format(
+      customFoodsCount,
+    );
     final intl.NumberFormat trackedFoodsCountNumberFormat =
         intl.NumberFormat.decimalPattern(localeName);
-    final String trackedFoodsCountString =
-        trackedFoodsCountNumberFormat.format(trackedFoodsCount);
+    final String trackedFoodsCountString = trackedFoodsCountNumberFormat.format(
+      trackedFoodsCount,
+    );
 
     return 'Импортировано $customFoodsCountString пользовательских продуктов и $trackedFoodsCountString отслеживаемых продуктов';
   }
@@ -825,14 +833,11 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String translatableServingSizeNames(String name) {
-    String _temp0 = intl.Intl.selectLogic(
-      name,
-      {
-        'l10nServing': 'Порц.',
-        'l10nPackage': 'Упак.',
-        'other': '',
-      },
-    );
+    String _temp0 = intl.Intl.selectLogic(name, {
+      'l10nServing': 'Порц.',
+      'l10nPackage': 'Упак.',
+      'other': '',
+    });
     return '$_temp0';
   }
 

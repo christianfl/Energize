@@ -16,9 +16,8 @@ class AppSettingsProvider with ChangeNotifier {
 
   final SharedPreferencesServiceInterface _sharedPrefs;
 
-  AppSettingsProvider({
-    required SharedPreferencesServiceInterface sharedPrefs,
-  }) : _sharedPrefs = sharedPrefs {
+  AppSettingsProvider({required SharedPreferencesServiceInterface sharedPrefs})
+    : _sharedPrefs = sharedPrefs {
     _loadSettings();
   }
 
@@ -78,50 +77,35 @@ class AppSettingsProvider with ChangeNotifier {
 
   set isMealGroupingActivated(bool value) {
     _settings.isMealGroupingActivated = value;
-    _sharedPrefs.setValue(
-      AppSettings.isMealGroupingActivatedKey,
-      value,
-    );
+    _sharedPrefs.setValue(AppSettings.isMealGroupingActivatedKey, value);
 
     notifyListeners();
   }
 
   set isServingSizePreferred(bool value) {
     _settings.isServingSizePreferred = value;
-    _sharedPrefs.setValue(
-      AppSettings.isServingSizePreferredKey,
-      value,
-    );
+    _sharedPrefs.setValue(AppSettings.isServingSizePreferredKey, value);
 
     notifyListeners();
   }
 
   set backupServerUrl(String value) {
     _settings.backupServerUrl = value;
-    _sharedPrefs.setValue(
-      AppSettings.backupServerUrlKey,
-      value,
-    );
+    _sharedPrefs.setValue(AppSettings.backupServerUrlKey, value);
 
     notifyListeners();
   }
 
   set backupUsername(String value) {
     _settings.backupUsername = value;
-    _sharedPrefs.setValue(
-      AppSettings.backupUsernameKey,
-      value,
-    );
+    _sharedPrefs.setValue(AppSettings.backupUsernameKey, value);
 
     notifyListeners();
   }
 
   set backupPathAndFilename(String value) {
     _settings.backupPathAndFilename = value;
-    _sharedPrefs.setValue(
-      AppSettings.backupPathAndFilenameKey,
-      value,
-    );
+    _sharedPrefs.setValue(AppSettings.backupPathAndFilenameKey, value);
 
     notifyListeners();
   }
@@ -138,47 +122,35 @@ class AppSettingsProvider with ChangeNotifier {
 
   set isProviderSndbActivated(bool value) {
     _settings.isProviderSndbActivated = value;
-    _sharedPrefs.setValue(
-      AppSettings.isProviderSndbActivatedKey,
-      value,
-    );
+    _sharedPrefs.setValue(AppSettings.isProviderSndbActivatedKey, value);
 
     notifyListeners();
   }
 
   set isProviderUsdaActivated(bool value) {
     _settings.isProviderUsdaActivated = value;
-    _sharedPrefs.setValue(
-      AppSettings.isProviderUsdaActivatedKey,
-      value,
-    );
+    _sharedPrefs.setValue(AppSettings.isProviderUsdaActivatedKey, value);
 
     notifyListeners();
   }
 
   void clearBackupServerUrl() {
     _settings.backupServerUrl = '';
-    _sharedPrefs.remove(
-      AppSettings.backupServerUrlKey,
-    );
+    _sharedPrefs.remove(AppSettings.backupServerUrlKey);
 
     notifyListeners();
   }
 
   void clearBackupUsername() {
     _settings.backupUsername = '';
-    _sharedPrefs.remove(
-      AppSettings.backupUsernameKey,
-    );
+    _sharedPrefs.remove(AppSettings.backupUsernameKey);
 
     notifyListeners();
   }
 
   void clearBackupPathAndFilename() {
     _settings.backupPathAndFilename = '';
-    _sharedPrefs.remove(
-      AppSettings.backupPathAndFilenameKey,
-    );
+    _sharedPrefs.remove(AppSettings.backupPathAndFilenameKey);
 
     notifyListeners();
   }

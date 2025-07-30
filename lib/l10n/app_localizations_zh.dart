@@ -477,15 +477,19 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String exportedNumberOfFoodsMessage(
-      int customFoodsCount, int trackedFoodsCount) {
+    int customFoodsCount,
+    int trackedFoodsCount,
+  ) {
     final intl.NumberFormat customFoodsCountNumberFormat =
         intl.NumberFormat.decimalPattern(localeName);
-    final String customFoodsCountString =
-        customFoodsCountNumberFormat.format(customFoodsCount);
+    final String customFoodsCountString = customFoodsCountNumberFormat.format(
+      customFoodsCount,
+    );
     final intl.NumberFormat trackedFoodsCountNumberFormat =
         intl.NumberFormat.decimalPattern(localeName);
-    final String trackedFoodsCountString =
-        trackedFoodsCountNumberFormat.format(trackedFoodsCount);
+    final String trackedFoodsCountString = trackedFoodsCountNumberFormat.format(
+      trackedFoodsCount,
+    );
 
     return '已导出$customFoodsCountString个自定义食物和$trackedFoodsCountString个已记录食品';
   }
@@ -495,15 +499,19 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String importedNumberOfFoodsMessage(
-      int customFoodsCount, int trackedFoodsCount) {
+    int customFoodsCount,
+    int trackedFoodsCount,
+  ) {
     final intl.NumberFormat customFoodsCountNumberFormat =
         intl.NumberFormat.decimalPattern(localeName);
-    final String customFoodsCountString =
-        customFoodsCountNumberFormat.format(customFoodsCount);
+    final String customFoodsCountString = customFoodsCountNumberFormat.format(
+      customFoodsCount,
+    );
     final intl.NumberFormat trackedFoodsCountNumberFormat =
         intl.NumberFormat.decimalPattern(localeName);
-    final String trackedFoodsCountString =
-        trackedFoodsCountNumberFormat.format(trackedFoodsCount);
+    final String trackedFoodsCountString = trackedFoodsCountNumberFormat.format(
+      trackedFoodsCount,
+    );
 
     return '已导入$customFoodsCountString个自定义食物和$trackedFoodsCountString个已记录食品';
   }
@@ -793,14 +801,11 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String translatableServingSizeNames(String name) {
-    String _temp0 = intl.Intl.selectLogic(
-      name,
-      {
-        'l10nServing': '一份(Srv.)',
-        'l10nPackage': '一包(Pck.)',
-        'other': '',
-      },
-    );
+    String _temp0 = intl.Intl.selectLogic(name, {
+      'l10nServing': '一份(Srv.)',
+      'l10nPackage': '一包(Pck.)',
+      'other': '',
+    });
     return '$_temp0';
   }
 

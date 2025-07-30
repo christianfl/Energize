@@ -4,10 +4,7 @@ import 'package:json_annotation/json_annotation.dart';
 import '../../../l10n/app_localizations.dart';
 
 @JsonEnum(fieldRename: FieldRename.snake)
-enum Sex {
-  male,
-  female,
-}
+enum Sex { male, female }
 
 extension ParseToString on Sex {
   String toLocalizedString(BuildContext context) {

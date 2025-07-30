@@ -21,8 +21,8 @@ class TrackedFoodProvider with ChangeNotifier {
   TrackedFoodProvider({
     required TrackedFoodDatabaseServiceInterface db,
     required LogProvider logger,
-  })  : _db = db,
-        _logger = logger {
+  }) : _db = db,
+       _logger = logger {
     _getFromDatabase();
   }
 
@@ -99,9 +99,7 @@ class TrackedFoodProvider with ChangeNotifier {
   /// Returns a list of all tracked food between now and [daysAgo].
   Future<List<FoodTracked>> getTrackedFoodFromUntilNow(int daysAgo) async {
     return _db.trackedFoodByDateRange(
-      startDate: DateTime.now().subtract(
-        Duration(days: daysAgo),
-      ),
+      startDate: DateTime.now().subtract(Duration(days: daysAgo)),
       endDate: DateTime.now(),
     );
   }

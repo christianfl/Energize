@@ -37,10 +37,7 @@ class WebDAVService {
 
     // Check if server URL is reachable (without path and filename)
     try {
-      await dioConnection.request(
-        url,
-        options: Options(method: 'PROPFIND'),
-      );
+      await dioConnection.request(url, options: Options(method: 'PROPFIND'));
     } on DioException catch (dioException) {
       throw Exception(_dioExceptionHandling(dioException));
     } catch (generalException) {
@@ -134,9 +131,9 @@ class WebDAVService {
       errorMessage = 'Method not allowed. Is the server correct?';
     } else if (dioException.response?.statusCode == 500) {
       errorMessage = 'Server error';
-    } else if (dioException.error
-        .toString()
-        .contains('No host specified in URI')) {
+    } else if (dioException.error.toString().contains(
+      'No host specified in URI',
+    )) {
       errorMessage = 'The server address seems incorrect';
     }
 

@@ -23,16 +23,26 @@ class BackupService {
     BuildContext context,
   ) async {
     // Initialize providers
-    final customFoodProvider =
-        Provider.of<CustomFoodProvider>(context, listen: false);
-    final trackedFoodProvider =
-        Provider.of<TrackedFoodProvider>(context, listen: false);
-    final completeDaysProvider =
-        Provider.of<CompleteDaysProvider>(context, listen: false);
-    final appSettingsProvider =
-        Provider.of<AppSettingsProvider>(context, listen: false);
-    final bodyTargetsProvider =
-        Provider.of<BodyTargetsProvider>(context, listen: false);
+    final customFoodProvider = Provider.of<CustomFoodProvider>(
+      context,
+      listen: false,
+    );
+    final trackedFoodProvider = Provider.of<TrackedFoodProvider>(
+      context,
+      listen: false,
+    );
+    final completeDaysProvider = Provider.of<CompleteDaysProvider>(
+      context,
+      listen: false,
+    );
+    final appSettingsProvider = Provider.of<AppSettingsProvider>(
+      context,
+      listen: false,
+    );
+    final bodyTargetsProvider = Provider.of<BodyTargetsProvider>(
+      context,
+      listen: false,
+    );
 
     final backupData = BackupData(
       customFood: await customFoodProvider.getAll(),
@@ -43,8 +53,10 @@ class BackupService {
     );
 
     final encodedBackupData = json.encode(backupData.toJson());
-    final encryptedData =
-        EncryptionService.encrypt(encodedBackupData, encryptionPassword);
+    final encryptedData = EncryptionService.encrypt(
+      encodedBackupData,
+      encryptionPassword,
+    );
 
     return CreateBackupReturnData(
       backupData: backupData,
@@ -71,16 +83,26 @@ class BackupService {
       final backupData = BackupData.fromJson(json.decode(decryptedBackup));
 
       // Initialize providers for directly reflect data changes in UI
-      final customFoodProvider =
-          Provider.of<CustomFoodProvider>(context, listen: false);
-      final trackedFoodProvider =
-          Provider.of<TrackedFoodProvider>(context, listen: false);
-      final completeDaysProvider =
-          Provider.of<CompleteDaysProvider>(context, listen: false);
-      final appSettingsProvider =
-          Provider.of<AppSettingsProvider>(context, listen: false);
-      final bodyTargetsProvider =
-          Provider.of<BodyTargetsProvider>(context, listen: false);
+      final customFoodProvider = Provider.of<CustomFoodProvider>(
+        context,
+        listen: false,
+      );
+      final trackedFoodProvider = Provider.of<TrackedFoodProvider>(
+        context,
+        listen: false,
+      );
+      final completeDaysProvider = Provider.of<CompleteDaysProvider>(
+        context,
+        listen: false,
+      );
+      final appSettingsProvider = Provider.of<AppSettingsProvider>(
+        context,
+        listen: false,
+      );
+      final bodyTargetsProvider = Provider.of<BodyTargetsProvider>(
+        context,
+        listen: false,
+      );
 
       // Custom food
       if (backupData.customFood != null) {
@@ -120,10 +142,9 @@ class BackupService {
 
       String errorMessage = 'Error while restoring backup';
 
-      if (exception
-          .toString()
-          .toLowerCase()
-          .contains('invalid or corrupted pad block')) {
+      if (exception.toString().toLowerCase().contains(
+        'invalid or corrupted pad block',
+      )) {
         errorMessage =
             'Something went wrong. Is the decryption password correct?';
       }

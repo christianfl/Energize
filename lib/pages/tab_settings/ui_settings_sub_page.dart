@@ -14,16 +14,12 @@ class UISettingsSubPage extends StatelessWidget {
     final appSettings = Provider.of<AppSettingsProvider>(context);
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text(AppLocalizations.of(context)!.display),
-      ),
+      appBar: AppBar(title: Text(AppLocalizations.of(context)!.display)),
       body: SingleChildScrollView(
         child: Column(
           children: [
             SwitchListTile(
-              title: Text(
-                AppLocalizations.of(context)!.groupFoodsToMeals,
-              ),
+              title: Text(AppLocalizations.of(context)!.groupFoodsToMeals),
               subtitle: Text(
                 AppLocalizations.of(context)!.groupFoodsToMealsHint,
               ),
@@ -31,9 +27,7 @@ class UISettingsSubPage extends StatelessWidget {
               onChanged: (val) => appSettings.isMealGroupingActivated = val,
             ),
             SwitchListTile(
-              title: Text(
-                AppLocalizations.of(context)!.preferServingSizes,
-              ),
+              title: Text(AppLocalizations.of(context)!.preferServingSizes),
               subtitle: Text(
                 AppLocalizations.of(context)!.preferServingSizesHint,
               ),

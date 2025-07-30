@@ -42,13 +42,15 @@ class BackupData {
 
     // Manually clean null values from nested lists
     (json['customFood'] as List<dynamic>?)?.forEach(
-      (item) => (item as Map<String, dynamic>)
-          .removeWhere((key, value) => value == null),
+      (item) => (item as Map<String, dynamic>).removeWhere(
+        (key, value) => value == null,
+      ),
     );
 
     (json['trackedFood'] as List<dynamic>?)?.forEach(
-      (item) => (item as Map<String, dynamic>)
-          .removeWhere((key, value) => value == null),
+      (item) => (item as Map<String, dynamic>).removeWhere(
+        (key, value) => value == null,
+      ),
     );
 
     return json;

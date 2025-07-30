@@ -92,8 +92,10 @@ class TrackFoodState extends State<TrackFood>
           // The food has at least one serving size
 
           try {
-            final appSettings =
-                Provider.of<AppSettingsProvider>(context, listen: false);
+            final appSettings = Provider.of<AppSettingsProvider>(
+              context,
+              listen: false,
+            );
             final isServingSizePreferred = appSettings.isServingSizePreferred;
 
             if (isServingSizePreferred) {
@@ -286,9 +288,7 @@ class TrackFoodState extends State<TrackFood>
           AddEditCustomFoodModal.routeName,
           arguments: AddEditCustomFoodModalArguments(
             AddEditCustomFoodModalMode.addFrom,
-            Food.fromJson(
-              food.toJson(),
-            ),
+            Food.fromJson(food.toJson()),
           ),
         )
         .then(
@@ -362,10 +362,7 @@ class TrackFoodState extends State<TrackFood>
     final uri = Uri.parse('${OpenFoodFactsBinding.productUrl}$ean');
 
     try {
-      launchUrl(
-        uri,
-        mode: LaunchMode.externalApplication,
-      );
+      launchUrl(uri, mode: LaunchMode.externalApplication);
     } catch (e) {
       final logger = Provider.of<LogProvider>(context, listen: false);
       logger.error('Could not launch url', e);
@@ -459,17 +456,11 @@ class TrackFoodState extends State<TrackFood>
     final servingSizeKeys = servingSizes?.keys.toList() ?? [];
 
     // Combine both lists but keep them conceptually separate
-    final dropdownOptions = [
-      'g',
-      ...servingSizeKeys,
-    ];
+    final dropdownOptions = ['g', ...servingSizeKeys];
 
     return Row(
       children: [
-        SizedBox(
-          width: 65,
-          child: _amountTextField(onEditingComplete, food),
-        ),
+        SizedBox(width: 65, child: _amountTextField(onEditingComplete, food)),
         const SizedBox(width: 6.0),
         Expanded(
           child: DropdownMenu<String>(
@@ -551,13 +542,12 @@ class TrackFoodState extends State<TrackFood>
                   (food.imageUrl != null)
                       ? CircleAvatar(
                           radius: TrackFood._foodAvatarRadius,
-                          foregroundImage: NetworkImage(
-                            food.imageUrl!,
-                          ),
+                          foregroundImage: NetworkImage(food.imageUrl!),
                         )
                       : CircleAvatar(
-                          backgroundColor:
-                              Theme.of(context).noPictureBackground,
+                          backgroundColor: Theme.of(
+                            context,
+                          ).noPictureBackground,
                           radius: TrackFood._foodAvatarRadius,
                           child: Icon(
                             Icons.image_not_supported_outlined,
@@ -597,7 +587,8 @@ class TrackFoodState extends State<TrackFood>
                                 food.origin,
                                 height: _pillHeight,
                                 isConstrained: false,
-                                onTapCallback: food.origin ==
+                                onTapCallback:
+                                    food.origin ==
                                         OpenFoodFactsBinding.originName
                                     ? () => _launchOpenFoodFactsUrl(food.ean!)
                                     : null,
@@ -670,9 +661,7 @@ class TrackFoodState extends State<TrackFood>
                 TextButton.icon(
                   icon: const Icon(Icons.schedule),
                   onPressed: () => _selectTrackedTime(),
-                  label: Text(
-                    TimeUtil.getTime(_foodTrackDate!, context),
-                  ),
+                  label: Text(TimeUtil.getTime(_foodTrackDate!, context)),
                 ),
               ],
             ),

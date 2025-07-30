@@ -14,11 +14,7 @@ class CategoryListTileHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       title: Text(title),
-      subtitle: Text(
-        subtitle,
-        maxLines: 1,
-        overflow: TextOverflow.ellipsis,
-      ),
+      subtitle: Text(subtitle, maxLines: 1, overflow: TextOverflow.ellipsis),
     );
   }
 }

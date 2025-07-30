@@ -17,21 +17,13 @@ class EncryptionService {
 
   /// Returns Encrypter with AES CTR algorithm
   static enc.Encrypter _getEncrypter(enc.Key key) {
-    return enc.Encrypter(
-      enc.AES(
-        key,
-        mode: enc.AESMode.ctr,
-      ),
-    );
+    return enc.Encrypter(enc.AES(key, mode: enc.AESMode.ctr));
   }
 
   /// Encrypts a given string with a given keyphrase nd random IV
   ///
   /// Returns string in the format: <Base64(IV)><Base64(ciphertext)>
-  static String encrypt(
-    String plaintext,
-    String keyphrase,
-  ) {
+  static String encrypt(String plaintext, String keyphrase) {
     final key = _generateAesKey(keyphrase);
 
     // Generate iv

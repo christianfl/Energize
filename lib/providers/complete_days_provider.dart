@@ -9,8 +9,8 @@ class CompleteDaysProvider {
   CompleteDaysProvider({
     required CompleteDaysDatabaseServiceInterface db,
     required LogProvider logger,
-  })  : _db = db,
-        _logger = logger;
+  }) : _db = db,
+       _logger = logger;
 
   /// Returns whether the given [date] is marked as completed.
   Future<bool> isDateCompleted(DateTime date) {

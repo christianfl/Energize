@@ -15,8 +15,8 @@ class CustomFoodProvider with ChangeNotifier {
   CustomFoodProvider({
     required CustomFoodDatabaseServiceInterface db,
     required LogProvider logger,
-  })  : _db = db,
-        _logger = logger {
+  }) : _db = db,
+       _logger = logger {
     _getFromDatabase();
   }
 

@@ -39,10 +39,7 @@ class TrackedFoodList extends StatelessWidget {
       key: Key(foodTracked.id),
       background: Container(
         color: Theme.of(context).dangerContainer,
-        child: Icon(
-          Icons.delete,
-          color: Theme.of(context).onDangerContainer,
-        ),
+        child: Icon(Icons.delete, color: Theme.of(context).onDangerContainer),
       ),
       onDismissed: (direction) {
         final swipedFood = foodTracked;
@@ -114,8 +111,9 @@ class TrackedFoodList extends StatelessWidget {
         anchorTime = trackedFood.dateEaten;
       } else {
         // Calculate the time difference between the item and the anchor
-        final timeDifference =
-            trackedFood.dateEaten.difference(anchorTime!).abs();
+        final timeDifference = trackedFood.dateEaten
+            .difference(anchorTime!)
+            .abs();
 
         if (timeDifference <= range) {
           // Add to the current group
@@ -137,9 +135,7 @@ class TrackedFoodList extends StatelessWidget {
     }
 
     // Add the last item
-    groupedItems.add(
-      currentGroup,
-    );
+    groupedItems.add(currentGroup);
 
     return groupedItems;
   }
@@ -158,9 +154,7 @@ class TrackedFoodList extends StatelessWidget {
       child: foods.isEmpty
           ? const Column(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(Icons.no_food, size: 100),
-              ],
+              children: [Icon(Icons.no_food, size: 100)],
             )
           : ListView.builder(
               padding: const EdgeInsets.only(top: 8, bottom: 8),

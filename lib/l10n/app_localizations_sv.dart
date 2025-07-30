@@ -498,15 +498,19 @@ class AppLocalizationsSv extends AppLocalizations {
 
   @override
   String exportedNumberOfFoodsMessage(
-      int customFoodsCount, int trackedFoodsCount) {
+    int customFoodsCount,
+    int trackedFoodsCount,
+  ) {
     final intl.NumberFormat customFoodsCountNumberFormat =
         intl.NumberFormat.decimalPattern(localeName);
-    final String customFoodsCountString =
-        customFoodsCountNumberFormat.format(customFoodsCount);
+    final String customFoodsCountString = customFoodsCountNumberFormat.format(
+      customFoodsCount,
+    );
     final intl.NumberFormat trackedFoodsCountNumberFormat =
         intl.NumberFormat.decimalPattern(localeName);
-    final String trackedFoodsCountString =
-        trackedFoodsCountNumberFormat.format(trackedFoodsCount);
+    final String trackedFoodsCountString = trackedFoodsCountNumberFormat.format(
+      trackedFoodsCount,
+    );
 
     return 'Exporterade $customFoodsCountString anpassade livsmedel och $trackedFoodsCountString spårade livsmedel';
   }
@@ -516,15 +520,19 @@ class AppLocalizationsSv extends AppLocalizations {
 
   @override
   String importedNumberOfFoodsMessage(
-      int customFoodsCount, int trackedFoodsCount) {
+    int customFoodsCount,
+    int trackedFoodsCount,
+  ) {
     final intl.NumberFormat customFoodsCountNumberFormat =
         intl.NumberFormat.decimalPattern(localeName);
-    final String customFoodsCountString =
-        customFoodsCountNumberFormat.format(customFoodsCount);
+    final String customFoodsCountString = customFoodsCountNumberFormat.format(
+      customFoodsCount,
+    );
     final intl.NumberFormat trackedFoodsCountNumberFormat =
         intl.NumberFormat.decimalPattern(localeName);
-    final String trackedFoodsCountString =
-        trackedFoodsCountNumberFormat.format(trackedFoodsCount);
+    final String trackedFoodsCountString = trackedFoodsCountNumberFormat.format(
+      trackedFoodsCount,
+    );
 
     return 'Importerade $customFoodsCountString anpassade livsmedel och $trackedFoodsCountString spårbara livsmedel';
   }
@@ -817,14 +825,11 @@ class AppLocalizationsSv extends AppLocalizations {
 
   @override
   String translatableServingSizeNames(String name) {
-    String _temp0 = intl.Intl.selectLogic(
-      name,
-      {
-        'l10nServing': 'Ser.',
-        'l10nPackage': 'Pak.',
-        'other': '',
-      },
-    );
+    String _temp0 = intl.Intl.selectLogic(name, {
+      'l10nServing': 'Ser.',
+      'l10nPackage': 'Pak.',
+      'other': '',
+    });
     return '$_temp0';
   }
 

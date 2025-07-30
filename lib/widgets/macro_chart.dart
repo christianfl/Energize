@@ -108,9 +108,7 @@ class MacroChart extends StatelessWidget {
     if (hideCard == true) {
       return _getChart(context, bodyTargets);
     } else {
-      return Card(
-        child: _getChart(context, bodyTargets),
-      );
+      return Card(child: _getChart(context, bodyTargets));
     }
   }
 }

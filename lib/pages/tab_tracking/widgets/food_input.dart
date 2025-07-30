@@ -32,11 +32,7 @@ class FoodInput extends StatefulWidget {
   final double _entryPillHeight = 35;
   final double _entryHeight = 50;
 
-  const FoodInput(
-    this._foodAddingDate,
-    this._sheetModalMode, {
-    super.key,
-  });
+  const FoodInput(this._foodAddingDate, this._sheetModalMode, {super.key});
 
   @override
   FoodInputState createState() => FoodInputState();
@@ -129,9 +125,7 @@ class FoodInputState extends State<FoodInput>
     return Container(
       decoration: BoxDecoration(
         color: Theme.of(context).colorScheme.surface.withAlpha(150),
-        borderRadius: const BorderRadius.all(
-          Radius.circular(10.0),
-        ),
+        borderRadius: const BorderRadius.all(Radius.circular(10.0)),
       ),
       padding: const EdgeInsets.all(16.0),
       width: double.infinity,
@@ -139,12 +133,10 @@ class FoodInputState extends State<FoodInput>
         mainAxisSize: MainAxisSize.min,
         children: [
           Text(
-            AppLocalizations.of(context)!.somethingNotFound(
-              _productNotFoundExceptionBarcode!,
-            ),
-            style: const TextStyle(
-              fontWeight: FontWeight.bold,
-            ),
+            AppLocalizations.of(
+              context,
+            )!.somethingNotFound(_productNotFoundExceptionBarcode!),
+            style: const TextStyle(fontWeight: FontWeight.bold),
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
           ),
@@ -153,9 +145,7 @@ class FoodInputState extends State<FoodInput>
               mainAxisSize: MainAxisSize.min,
               children: [
                 const Divider(),
-                Text(
-                  _additionalProductNotFoundInfo!,
-                ),
+                Text(_additionalProductNotFoundInfo!),
               ],
             ),
           const SizedBox(height: 8),
@@ -168,9 +158,7 @@ class FoodInputState extends State<FoodInput>
                     barcode: _productNotFoundExceptionBarcode!,
                   ),
                   icon: const Icon(Icons.add),
-                  label: Text(
-                    AppLocalizations.of(context)!.addCustomFood,
-                  ),
+                  label: Text(AppLocalizations.of(context)!.addCustomFood),
                 ),
               ),
             ],
@@ -189,9 +177,8 @@ class FoodInputState extends State<FoodInput>
             padding: const EdgeInsets.all(12.0),
             child: SearchBar(
               controller: _searchInputController,
-              onSubmitted: (_) => _submitFoodSearch(
-                _searchInputController.text,
-              ),
+              onSubmitted: (_) =>
+                  _submitFoodSearch(_searchInputController.text),
               hintText: AppLocalizations.of(context)!.productOrBrand,
               leading: _awaitingApiResponse
                   ? Transform.scale(
@@ -215,9 +202,8 @@ class FoodInputState extends State<FoodInput>
                   icon: const Icon(Icons.clear),
                 ),
                 IconButton(
-                  onPressed: () => _submitFoodSearch(
-                    _searchInputController.text,
-                  ),
+                  onPressed: () =>
+                      _submitFoodSearch(_searchInputController.text),
                   icon: const Icon(Icons.send),
                 ),
               ],
@@ -272,17 +258,15 @@ class FoodInputState extends State<FoodInput>
                   child: SearchBar(
                     elevation: WidgetStateProperty.all(0.0),
                     controller: _searchBarcodeController,
-                    onSubmitted: (_) => _submitBarcodeSearch(
-                      _searchBarcodeController.text,
-                    ),
+                    onSubmitted: (_) =>
+                        _submitBarcodeSearch(_searchBarcodeController.text),
                     keyboardType: TextInputType.number,
                     hintText: AppLocalizations.of(context)!.barcode,
                     leading: const Icon(Icons.search),
                     trailing: [
                       IconButton(
-                        onPressed: () => _submitBarcodeSearch(
-                          _searchBarcodeController.text,
-                        ),
+                        onPressed: () =>
+                            _submitBarcodeSearch(_searchBarcodeController.text),
                         icon: const Icon(Icons.send),
                       ),
                     ],
@@ -300,10 +284,7 @@ class FoodInputState extends State<FoodInput>
                     borderRadius: const BorderRadius.all(Radius.circular(10.0)),
                     child: Stack(
                       children: [
-                        QRView(
-                          key: qrKey,
-                          onQRViewCreated: _onQRViewCreated,
-                        ),
+                        QRView(key: qrKey, onQRViewCreated: _onQRViewCreated),
                         Container(
                           alignment: Alignment.topRight,
                           padding: const EdgeInsets.all(2.0),
@@ -311,9 +292,7 @@ class FoodInputState extends State<FoodInput>
                             isSelected: _flashStatus,
                             onPressed: () =>
                                 _setFlash(_flashStatus == false ? true : false),
-                            icon: const Icon(
-                              Icons.bolt,
-                            ),
+                            icon: const Icon(Icons.bolt),
                           ),
                         ),
                         Container(
@@ -416,16 +395,23 @@ class FoodInputState extends State<FoodInput>
   /// the search string in the food title. Also, the API-based food composition
   /// databases get queried and their results are appended to the list
   void _populateSearchedFoodList(String searchText) async {
-    final appSettings =
-        Provider.of<AppSettingsProvider>(context, listen: false);
-    final customFoodProvider =
-        Provider.of<CustomFoodProvider>(context, listen: false);
-    final trackedFoodProvider =
-        Provider.of<TrackedFoodProvider>(context, listen: false);
+    final appSettings = Provider.of<AppSettingsProvider>(
+      context,
+      listen: false,
+    );
+    final customFoodProvider = Provider.of<CustomFoodProvider>(
+      context,
+      listen: false,
+    );
+    final trackedFoodProvider = Provider.of<TrackedFoodProvider>(
+      context,
+      listen: false,
+    );
 
     final foodFromLastXDays = List<Food>.of(
-      await trackedFoodProvider
-          .getTrackedFoodFromUntilNow(_foodInputSuggestionsFromLastXDays),
+      await trackedFoodProvider.getTrackedFoodFromUntilNow(
+        _foodInputSuggestionsFromLastXDays,
+      ),
     );
 
     // Initial fill of the suggestions list (and when searched for empty string)
@@ -496,12 +482,14 @@ class FoodInputState extends State<FoodInput>
   /// or if there were errors fetching the Open Food Facts API
   void searchBarcodeAndRedirect(String barcode) {
     // Try to look up the barcode in the custom foods at first
-    final customFoodProvider =
-        Provider.of<CustomFoodProvider>(context, listen: false);
+    final customFoodProvider = Provider.of<CustomFoodProvider>(
+      context,
+      listen: false,
+    );
 
-    customFoodProvider
-        .getCustomFoodByBarcode(barcode)
-        .then((customFoodIfFound) {
+    customFoodProvider.getCustomFoodByBarcode(barcode).then((
+      customFoodIfFound,
+    ) {
       if (customFoodIfFound != null) {
         // Custom food with this barcode was found
 
@@ -510,43 +498,52 @@ class FoodInputState extends State<FoodInput>
       } else {
         if (!mounted) return;
 
-        final appSettings =
-            Provider.of<AppSettingsProvider>(context, listen: false);
+        final appSettings = Provider.of<AppSettingsProvider>(
+          context,
+          listen: false,
+        );
 
         // Look up on Open Food Facts if that is activated
         if (appSettings.isProviderOpenFoodFactsActivated) {
-          OpenFoodFactsBinding().getFoodByBarcode(barcode).then((food) {
-            if (!mounted) return;
+          OpenFoodFactsBinding()
+              .getFoodByBarcode(barcode)
+              .then((food) {
+                if (!mounted) return;
 
-            _navigateToAddFood(context, food, popAfterReturn: true);
-          }).catchError((error) {
-            setState(() {
-              // Set barcode for which a product was not found on OFF
-              _productNotFoundExceptionBarcode = barcode;
+                _navigateToAddFood(context, food, popAfterReturn: true);
+              })
+              .catchError((error) {
+                setState(() {
+                  // Set barcode for which a product was not found on OFF
+                  _productNotFoundExceptionBarcode = barcode;
 
-              // Set additional info
-              if (error is ProductNotFoundException) {
-                // Also not found in Open Food Facts Database
-                _additionalProductNotFoundInfo = AppLocalizations.of(context)!
-                    .notFoundInCustomFoodsOrOpenFoodFacts;
-              } else if (error is ClientException) {
-                // Probably no network connection
-                _additionalProductNotFoundInfo = AppLocalizations.of(context)!
-                    .notFoundInCustomFoodsOpenFoodFactsNeedsInternet;
-              } else {
-                // Another error while searching food on Open Food Facts
-                _additionalProductNotFoundInfo = AppLocalizations.of(context)!
-                    .notFoundInCustomFoodsOpenFoodFactsHasError;
-              }
-            });
-          });
+                  // Set additional info
+                  if (error is ProductNotFoundException) {
+                    // Also not found in Open Food Facts Database
+                    _additionalProductNotFoundInfo = AppLocalizations.of(
+                      context,
+                    )!.notFoundInCustomFoodsOrOpenFoodFacts;
+                  } else if (error is ClientException) {
+                    // Probably no network connection
+                    _additionalProductNotFoundInfo = AppLocalizations.of(
+                      context,
+                    )!.notFoundInCustomFoodsOpenFoodFactsNeedsInternet;
+                  } else {
+                    // Another error while searching food on Open Food Facts
+                    _additionalProductNotFoundInfo = AppLocalizations.of(
+                      context,
+                    )!.notFoundInCustomFoodsOpenFoodFactsHasError;
+                  }
+                });
+              });
         } else {
           setState(() {
             // Open Food Facts is not activated, set data accordingly
 
             _productNotFoundExceptionBarcode = barcode;
-            _additionalProductNotFoundInfo = AppLocalizations.of(context)!
-                .notFoundInCustomFoodsOpenFoodFactsNotActivated;
+            _additionalProductNotFoundInfo = AppLocalizations.of(
+              context,
+            )!.notFoundInCustomFoodsOpenFoodFactsNotActivated;
           });
         }
       }
@@ -556,13 +553,16 @@ class FoodInputState extends State<FoodInput>
   Future<void> _getOpenFoodFactsSearchResultIfActivated(
     String searchText,
   ) async {
-    final appSettings =
-        Provider.of<AppSettingsProvider>(context, listen: false);
+    final appSettings = Provider.of<AppSettingsProvider>(
+      context,
+      listen: false,
+    );
 
     if (appSettings.isProviderOpenFoodFactsActivated) {
       try {
-        final offSearchResultFood =
-            await OpenFoodFactsBinding().searchFood(searchText);
+        final offSearchResultFood = await OpenFoodFactsBinding().searchFood(
+          searchText,
+        );
 
         if (offSearchResultFood != null) {
           setState(() {
@@ -590,10 +590,9 @@ class FoodInputState extends State<FoodInput>
   ///   - if "Srv." (en) is present as serving size name, use this
   ///   - else use the first available serving size name
   /// - else default to 100 g
-  ({
-    double amount,
-    String? selectedServingSize,
-  }) _getQuickFoodAmount(Food food) {
+  ({double amount, String? selectedServingSize}) _getQuickFoodAmount(
+    Food food,
+  ) {
     double amount = 100.0; // Default: 100 g
     String? selectedServingSize;
 
@@ -605,8 +604,10 @@ class FoodInputState extends State<FoodInput>
       // Food was not tracked before
       if (food.servingSizes != null) {
         try {
-          final appSettings =
-              Provider.of<AppSettingsProvider>(context, listen: false);
+          final appSettings = Provider.of<AppSettingsProvider>(
+            context,
+            listen: false,
+          );
           final isServingSizePreferred = appSettings.isServingSizePreferred;
 
           if (isServingSizePreferred) {
@@ -633,15 +634,14 @@ class FoodInputState extends State<FoodInput>
       }
     }
 
-    return (
-      amount: amount,
-      selectedServingSize: selectedServingSize,
-    );
+    return (amount: amount, selectedServingSize: selectedServingSize);
   }
 
   Future<void> _getUsdaSearchResultIfActivated(String searchText) async {
-    final appSettings =
-        Provider.of<AppSettingsProvider>(context, listen: false);
+    final appSettings = Provider.of<AppSettingsProvider>(
+      context,
+      listen: false,
+    );
 
     if (appSettings.isProviderUsdaActivated) {
       try {
@@ -665,16 +665,18 @@ class FoodInputState extends State<FoodInput>
 
   /// Get food with matching title/synonym from Swiss Food Composition Database
   Future<void> _getSFCDSearchResultIfActivated(String searchText) async {
-    final appSettings =
-        Provider.of<AppSettingsProvider>(context, listen: false);
+    final appSettings = Provider.of<AppSettingsProvider>(
+      context,
+      listen: false,
+    );
 
     if (appSettings.isProviderSndbActivated) {
       try {
         final sfcdSearchResultFood =
             await SwissFoodCompositionDatabaseBinding.searchFood(
-          searchText,
-          Localizations.localeOf(context),
-        );
+              searchText,
+              Localizations.localeOf(context),
+            );
 
         if (sfcdSearchResultFood != null) {
           setState(() {
@@ -702,33 +704,32 @@ class FoodInputState extends State<FoodInput>
 
     Navigator.of(context)
         .pushNamed(
-      AddEditCustomFoodModal.routeName,
-      arguments: AddEditCustomFoodModalArguments(
-        AddEditCustomFoodModalMode.addNew,
-        Food(
-          id: Food.generatedId,
-          origin: FoodPage.originName,
-          title: '',
-          ean: barcode,
-        ),
-      ),
-    )
-        .then(
-      (createdFood) {
-        if (createdFood is Food) {
-          if (!context.mounted) return;
-          _navigateToAddFood(context, createdFood, popAfterReturn: true);
-        } else {
-          // In case the custom food has not been created and another code wants to be scanned
-          _qrController?.resumeCamera();
-        }
-      },
-    );
+          AddEditCustomFoodModal.routeName,
+          arguments: AddEditCustomFoodModalArguments(
+            AddEditCustomFoodModalMode.addNew,
+            Food(
+              id: Food.generatedId,
+              origin: FoodPage.originName,
+              title: '',
+              ean: barcode,
+            ),
+          ),
+        )
+        .then((createdFood) {
+          if (createdFood is Food) {
+            if (!context.mounted) return;
+            _navigateToAddFood(context, createdFood, popAfterReturn: true);
+          } else {
+            // In case the custom food has not been created and another code wants to be scanned
+            _qrController?.resumeCamera();
+          }
+        });
   }
 
   void _navigateToAddFood(
     BuildContext context,
     Food foodToBeAdded, {
+
     /// After popping TrackFood.routeName, should THIS route be popped or not?
     ///
     /// When going back after scanning a product with barcode, it is desired
@@ -750,23 +751,23 @@ class FoodInputState extends State<FoodInput>
 
     Navigator.of(context)
         .pushNamed(
-      TrackFood.routeName,
-      arguments: ModalArguments(
-        foodToBeAdded,
-        ModalMode.add,
-        widget._foodAddingDate,
-      ),
-    )
+          TrackFood.routeName,
+          arguments: ModalArguments(
+            foodToBeAdded,
+            ModalMode.add,
+            widget._foodAddingDate,
+          ),
+        )
         .then((result) {
-      setState(() {
-        _scannedCode = null;
-        _productNotFoundExceptionBarcode = null;
-      });
-      if (popAfterReturn) {
-        if (!context.mounted) return;
-        Navigator.of(context).pop();
-      }
-    });
+          setState(() {
+            _scannedCode = null;
+            _productNotFoundExceptionBarcode = null;
+          });
+          if (popAfterReturn) {
+            if (!context.mounted) return;
+            Navigator.of(context).pop();
+          }
+        });
   }
 
   /// Listen for the scanned stream until a barcode code is found
@@ -786,10 +787,7 @@ class FoodInputState extends State<FoodInput>
   /// Directly track a Food with the same amount and serving size as previously.
   ///
   /// Closes the Food suggestions modal.
-  void _quickAddFood(
-    Food food,
-    TrackedFoodProvider trackedFoodProvider,
-  ) {
+  void _quickAddFood(Food food, TrackedFoodProvider trackedFoodProvider) {
     final foodToBeTracked = FoodTracked.fromFood(
       food,
       FoodTracked.generatedId,
@@ -809,10 +807,12 @@ class FoodInputState extends State<FoodInput>
   /// Using [Food.customHashCode], a [Food] is defined as a duplicate
   /// of another one, if the nutrition values and serving sizes match.
   void _removeDuplicateSuggestions() {
-    final customHashCodes =
-        searchResultFood.map((f) => f.customHashCode).toSet();
-    searchResultFood
-        .retainWhere((x) => customHashCodes.remove(x.customHashCode));
+    final customHashCodes = searchResultFood
+        .map((f) => f.customHashCode)
+        .toSet();
+    searchResultFood.retainWhere(
+      (x) => customHashCodes.remove(x.customHashCode),
+    );
   }
 
   /// Resets the SearchBar which searches for food to track.
@@ -871,8 +871,9 @@ class FoodInputState extends State<FoodInput>
                     trailing: SizedBox(
                       width: 72,
                       height: 46,
-                      child:
-                          FoodOriginLogoPill(OpenFoodFactsBinding.originName),
+                      child: FoodOriginLogoPill(
+                        OpenFoodFactsBinding.originName,
+                      ),
                     ),
                   ),
                 if (_hasUsdaBindingError)

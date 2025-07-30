@@ -102,8 +102,9 @@ class _EnergyDistributionTabState extends State<EnergyDistributionTab> {
             ? Padding(
                 padding: const EdgeInsets.fromLTRB(0.0, 32.0, 0.0, 16.0),
                 child: InfoCard(
-                  message: AppLocalizations.of(context)!
-                      .energyDistributionChartMissingHint,
+                  message: AppLocalizations.of(
+                    context,
+                  )!.energyDistributionChartMissingHint,
                 ),
               )
             : AspectRatio(
@@ -119,26 +120,31 @@ class _EnergyDistributionTabState extends State<EnergyDistributionTab> {
                         pieTouchData: PieTouchData(
                           touchCallback:
                               (FlTouchEvent event, pieTouchResponse) {
-                            setState(() {
-                              if (!event.isInterestedForInteractions ||
-                                  pieTouchResponse == null ||
-                                  pieTouchResponse.touchedSection == null) {
-                                return;
-                              }
-                              final int touchedPieChartIndex = pieTouchResponse
-                                  .touchedSection!.touchedSectionIndex;
+                                setState(() {
+                                  if (!event.isInterestedForInteractions ||
+                                      pieTouchResponse == null ||
+                                      pieTouchResponse.touchedSection == null) {
+                                    return;
+                                  }
+                                  final int touchedPieChartIndex =
+                                      pieTouchResponse
+                                          .touchedSection!
+                                          .touchedSectionIndex;
 
-                              // Set value only if valid (0, 1, 2)
-                              if ([0, 1, 2].contains(touchedPieChartIndex)) {
-                                _selectedMacroIndex = pieTouchResponse
-                                    .touchedSection!.touchedSectionIndex;
-                              }
-                            });
-                          },
+                                  // Set value only if valid (0, 1, 2)
+                                  if ([
+                                    0,
+                                    1,
+                                    2,
+                                  ].contains(touchedPieChartIndex)) {
+                                    _selectedMacroIndex = pieTouchResponse
+                                        .touchedSection!
+                                        .touchedSectionIndex;
+                                  }
+                                });
+                              },
                         ),
-                        borderData: FlBorderData(
-                          show: false,
-                        ),
+                        borderData: FlBorderData(show: false),
                         sectionsSpace: 5,
                         centerSpaceRadius: 30,
                         sections: showingSections(),
@@ -175,10 +181,10 @@ class _EnergyDistributionTabState extends State<EnergyDistributionTab> {
                   fillColor: _selectedMacroIndex == 0
                       ? Theme.of(context).proteinContainer
                       : _selectedMacroIndex == 1
-                          ? Theme.of(context).carbsContainer
-                          : _selectedMacroIndex == 2
-                              ? Theme.of(context).fatContainer
-                              : null,
+                      ? Theme.of(context).carbsContainer
+                      : _selectedMacroIndex == 2
+                      ? Theme.of(context).fatContainer
+                      : null,
                 ),
                 items: [
                   DropdownMenuItem<int>(
@@ -204,8 +210,9 @@ class _EnergyDistributionTabState extends State<EnergyDistributionTab> {
                   initialValue: bodyTargets.proteinTarget.toString(),
                   onChanged: (val) {
                     setState(() {
-                      bodyTargets.proteinTarget =
-                          val == '' ? 0 : double.parse(val);
+                      bodyTargets.proteinTarget = val == ''
+                          ? 0
+                          : double.parse(val);
                     });
                   },
                   keyboardType: TextInputType.number,
@@ -223,8 +230,9 @@ class _EnergyDistributionTabState extends State<EnergyDistributionTab> {
                   initialValue: bodyTargets.carbsTarget.toString(),
                   onChanged: (val) {
                     setState(() {
-                      bodyTargets.carbsTarget =
-                          val == '' ? 0 : double.parse(val);
+                      bodyTargets.carbsTarget = val == ''
+                          ? 0
+                          : double.parse(val);
                     });
                   },
                   keyboardType: TextInputType.number,
@@ -282,9 +290,7 @@ class _EnergyDistributionTabState extends State<EnergyDistributionTab> {
         backgroundColor: Theme.of(context).colorScheme.surfaceContainerHigh,
         child: Text(
           title.substring(0, 1),
-          style: TextStyle(
-            color: Theme.of(context).colorScheme.onSurface,
-          ),
+          style: TextStyle(color: Theme.of(context).colorScheme.onSurface),
         ),
       ),
       badgePositionPercentageOffset: .98,
@@ -292,8 +298,10 @@ class _EnergyDistributionTabState extends State<EnergyDistributionTab> {
   }
 
   List<PieChartSectionData> showingSections() {
-    final bodyTargets =
-        Provider.of<BodyTargetsProvider>(context, listen: false);
+    final bodyTargets = Provider.of<BodyTargetsProvider>(
+      context,
+      listen: false,
+    );
 
     return List.generate(3, (i) {
       final isTouched = i == _selectedMacroIndex;

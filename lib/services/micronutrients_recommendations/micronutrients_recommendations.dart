@@ -11,10 +11,7 @@ class MicronutrientsRecommendations {
   static final List<MicronutrientsModel> _nutrientsByGroup = [];
 
   /// Returns the DGE nutrition recommendation by age and sex, based on https://www.dge.de/wissenschaft/referenzwerte/tool/
-  static Food _getNutritionData(
-    int age,
-    Sex sex,
-  ) {
+  static Food _getNutritionData(int age, Sex sex) {
     // After first invocation of this method the database is filled
     if (_nutrientsByGroup.isNotEmpty) {
       final MicronutrientsModel? model = _nutrientsByGroup.firstWhereOrNull(

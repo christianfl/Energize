@@ -46,8 +46,9 @@ class OpenFoodFactsBinding {
       fields: [ProductField.ALL],
       version: const ProductQueryVersion(3),
     );
-    final ProductResultV3 result =
-        await OpenFoodAPIClient.getProductV3(configuration);
+    final ProductResultV3 result = await OpenFoodAPIClient.getProductV3(
+      configuration,
+    );
 
     if (result.status == ProductResultV3.statusSuccess) {
       return Food.fromOpenFoodFactsProduct(result.product!);
@@ -57,15 +58,16 @@ class OpenFoodFactsBinding {
 
       final ProductQueryConfiguration upgradedConfiguration =
           ProductQueryConfiguration(
-        upgradedBarcode,
-        language: _queryLanguage,
-        country: _queryCountry,
-        fields: [ProductField.ALL],
-        version: const ProductQueryVersion(3),
-      );
+            upgradedBarcode,
+            language: _queryLanguage,
+            country: _queryCountry,
+            fields: [ProductField.ALL],
+            version: const ProductQueryVersion(3),
+          );
 
-      final ProductResultV3 newResult =
-          await OpenFoodAPIClient.getProductV3(upgradedConfiguration);
+      final ProductResultV3 newResult = await OpenFoodAPIClient.getProductV3(
+        upgradedConfiguration,
+      );
 
       if (newResult.status == ProductResultV3.statusSuccess) {
         // Product was found with leading 0 for barcode (12 -> 13 digits)
@@ -103,14 +105,16 @@ class OpenFoodFactsBinding {
 
     final ProductSearchQueryConfiguration configuration =
         ProductSearchQueryConfiguration(
-      parametersList: parameters,
-      language: _queryLanguage,
-      country: _queryCountry,
-      version: const ProductQueryVersion(3),
-    );
+          parametersList: parameters,
+          language: _queryLanguage,
+          country: _queryCountry,
+          version: const ProductQueryVersion(3),
+        );
 
-    final SearchResult result =
-        await OpenFoodAPIClient.searchProducts(null, configuration);
+    final SearchResult result = await OpenFoodAPIClient.searchProducts(
+      null,
+      configuration,
+    );
 
     final List<Food> transformedProducts = [];
 

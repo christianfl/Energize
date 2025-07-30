@@ -42,9 +42,7 @@ class _DonationSubPageState extends State<DonationSubPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(AppLocalizations.of(context)!.donate),
-      ),
+      appBar: AppBar(title: Text(AppLocalizations.of(context)!.donate)),
       body: Padding(
         padding: EdgeInsets.zero,
         child: SingleChildScrollView(
@@ -59,9 +57,7 @@ class _DonationSubPageState extends State<DonationSubPage> {
               ),
               Padding(
                 padding: const EdgeInsets.all(16.0),
-                child: Text(
-                  AppLocalizations.of(context)!.donationText,
-                ),
+                child: Text(AppLocalizations.of(context)!.donationText),
               ),
               ListTile(
                 leading: const Icon(Icons.currency_bitcoin),
@@ -82,8 +78,9 @@ class _DonationSubPageState extends State<DonationSubPage> {
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
                         content: Text(
-                          AppLocalizations.of(context)!
-                              .bitcoinAddressCopiedToClipboard,
+                          AppLocalizations.of(
+                            context,
+                          )!.bitcoinAddressCopiedToClipboard,
                         ),
                       ),
                     );
@@ -93,10 +90,7 @@ class _DonationSubPageState extends State<DonationSubPage> {
                 },
               ),
               ListTile(
-                leading: Image.asset(
-                  'assets/liberapay_logo.png',
-                  width: 28,
-                ),
+                leading: Image.asset('assets/liberapay_logo.png', width: 28),
                 title: Text(
                   AppLocalizations.of(context)!.bankAccountOrCreditCard,
                 ),
@@ -106,13 +100,12 @@ class _DonationSubPageState extends State<DonationSubPage> {
                   final uri = Uri.parse(DonationSubPage._donationUrl);
 
                   try {
-                    launchUrl(
-                      uri,
-                      mode: LaunchMode.externalApplication,
-                    );
+                    launchUrl(uri, mode: LaunchMode.externalApplication);
                   } catch (e) {
-                    final logger =
-                        Provider.of<LogProvider>(context, listen: false);
+                    final logger = Provider.of<LogProvider>(
+                      context,
+                      listen: false,
+                    );
                     logger.error('Could not launch url', e);
                   }
                 },
@@ -120,8 +113,9 @@ class _DonationSubPageState extends State<DonationSubPage> {
               ListTile(
                 title: Text(AppLocalizations.of(context)!.contact),
                 subtitle: Text(
-                  AppLocalizations.of(context)!
-                      .writeMeAnEmailForFurtherDonationOptions,
+                  AppLocalizations.of(
+                    context,
+                  )!.writeMeAnEmailForFurtherDonationOptions,
                 ),
                 trailing: const Icon(Icons.mail),
                 onTap: () {
@@ -133,13 +127,12 @@ class _DonationSubPageState extends State<DonationSubPage> {
                   );
 
                   try {
-                    launchUrl(
-                      uri,
-                      mode: LaunchMode.externalApplication,
-                    );
+                    launchUrl(uri, mode: LaunchMode.externalApplication);
                   } catch (e) {
-                    final logger =
-                        Provider.of<LogProvider>(context, listen: false);
+                    final logger = Provider.of<LogProvider>(
+                      context,
+                      listen: false,
+                    );
                     logger.error('Could not launch url', e);
                   }
                 },

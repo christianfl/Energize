@@ -39,13 +39,15 @@ class _AboutSubPageState extends State<AboutSubPage> {
     return [
       Contributor(
         name: 'Marijn Kok',
-        contributionLine1:
-            AppLocalizations.of(context)!.contributionTypeCodeAndConversations,
+        contributionLine1: AppLocalizations.of(
+          context,
+        )!.contributionTypeCodeAndConversations,
       ),
       Contributor(
         name: 'mondstern',
-        contributionLine1:
-            AppLocalizations.of(context)!.contributionTypeAcrylicPicture,
+        contributionLine1: AppLocalizations.of(
+          context,
+        )!.contributionTypeAcrylicPicture,
         contributionLine2: 'CC BY-SA 4.0',
         assetUrl: 'assets/mondstern/mondstern_acryl_energize.jpg',
       ),
@@ -58,9 +60,7 @@ class _AboutSubPageState extends State<AboutSubPage> {
     final logger = Provider.of<LogProvider>(context, listen: false);
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text(AppLocalizations.of(context)!.aboutEnergize),
-      ),
+      appBar: AppBar(title: Text(AppLocalizations.of(context)!.aboutEnergize)),
       body: Padding(
         padding: const EdgeInsets.fromLTRB(0, 24.0, 0, 12.0),
         child: SingleChildScrollView(
@@ -71,9 +71,7 @@ class _AboutSubPageState extends State<AboutSubPage> {
                 children: [
                   ConstrainedBox(
                     constraints: const BoxConstraints(maxWidth: 140),
-                    child: Image.asset(
-                      'assets/about_logo.webp',
-                    ),
+                    child: Image.asset('assets/about_logo.webp'),
                   ),
                   const SizedBox(width: 24),
                   Column(
@@ -161,13 +159,12 @@ class _AboutSubPageState extends State<AboutSubPage> {
                   final uri = Uri.parse(AboutSubPage._issueUrl);
 
                   try {
-                    launchUrl(
-                      uri,
-                      mode: LaunchMode.externalApplication,
-                    );
+                    launchUrl(uri, mode: LaunchMode.externalApplication);
                   } catch (e) {
-                    final logger =
-                        Provider.of<LogProvider>(context, listen: false);
+                    final logger = Provider.of<LogProvider>(
+                      context,
+                      listen: false,
+                    );
                     logger.error('Could not launch url', e);
                   }
                 },
@@ -183,13 +180,12 @@ class _AboutSubPageState extends State<AboutSubPage> {
                   final uri = Uri.parse(AboutSubPage._issueUrl);
 
                   try {
-                    launchUrl(
-                      uri,
-                      mode: LaunchMode.externalApplication,
-                    );
+                    launchUrl(uri, mode: LaunchMode.externalApplication);
                   } catch (e) {
-                    final logger =
-                        Provider.of<LogProvider>(context, listen: false);
+                    final logger = Provider.of<LogProvider>(
+                      context,
+                      listen: false,
+                    );
                     logger.error('Could not launch url', e);
                   }
                 },
@@ -205,13 +201,12 @@ class _AboutSubPageState extends State<AboutSubPage> {
                   final uri = Uri.parse(AboutSubPage._repoUrl);
 
                   try {
-                    launchUrl(
-                      uri,
-                      mode: LaunchMode.externalApplication,
-                    );
+                    launchUrl(uri, mode: LaunchMode.externalApplication);
                   } catch (e) {
-                    final logger =
-                        Provider.of<LogProvider>(context, listen: false);
+                    final logger = Provider.of<LogProvider>(
+                      context,
+                      listen: false,
+                    );
                     logger.error('Could not launch url', e);
                   }
                 },
@@ -227,13 +222,12 @@ class _AboutSubPageState extends State<AboutSubPage> {
                   final uri = Uri.parse(AboutSubPage._translationUrl);
 
                   try {
-                    launchUrl(
-                      uri,
-                      mode: LaunchMode.externalApplication,
-                    );
+                    launchUrl(uri, mode: LaunchMode.externalApplication);
                   } catch (e) {
-                    final logger =
-                        Provider.of<LogProvider>(context, listen: false);
+                    final logger = Provider.of<LogProvider>(
+                      context,
+                      listen: false,
+                    );
                     logger.error('Could not launch url', e);
                   }
                 },
@@ -254,9 +248,7 @@ class _AboutSubPageState extends State<AboutSubPage> {
                 subtitle: Text(AppLocalizations.of(context)!.emailHint),
                 trailing: const Column(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(Icons.mail),
-                  ],
+                  children: [Icon(Icons.mail)],
                 ),
                 onTap: () {
                   final uri = Uri(
@@ -267,13 +259,12 @@ class _AboutSubPageState extends State<AboutSubPage> {
                   );
 
                   try {
-                    launchUrl(
-                      uri,
-                      mode: LaunchMode.externalApplication,
-                    );
+                    launchUrl(uri, mode: LaunchMode.externalApplication);
                   } catch (e) {
-                    final logger =
-                        Provider.of<LogProvider>(context, listen: false);
+                    final logger = Provider.of<LogProvider>(
+                      context,
+                      listen: false,
+                    );
                     logger.error('Could not launch url', e);
                   }
                 },
@@ -328,23 +319,26 @@ class _AboutSubPageState extends State<AboutSubPage> {
                   title: Text(_getContributors(context)[index].name),
                   subtitle:
                       _getContributors(context)[index].contributionLine1 != null
-                          ? Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  _getContributors(context)[index]
-                                      .contributionLine1!,
-                                ),
-                                if (_getContributors(context)[index]
-                                        .contributionLine2 !=
-                                    null)
-                                  Text(
-                                    _getContributors(context)[index]
-                                        .contributionLine2!,
-                                  ),
-                              ],
-                            )
-                          : null,
+                      ? Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              _getContributors(
+                                context,
+                              )[index].contributionLine1!,
+                            ),
+                            if (_getContributors(
+                                  context,
+                                )[index].contributionLine2 !=
+                                null)
+                              Text(
+                                _getContributors(
+                                  context,
+                                )[index].contributionLine2!,
+                              ),
+                          ],
+                        )
+                      : null,
                   trailing: _getContributors(context)[index].assetUrl != null
                       ? CircleAvatar(
                           foregroundImage: AssetImage(
@@ -369,13 +363,15 @@ class _AboutSubPageState extends State<AboutSubPage> {
 
   Future<void> _showPrivacyPolicyDialog() async {
     // Load privacy policy from local markdown file
-    String privacyPolicyMarkdown =
-        await rootBundle.loadString(AboutSubPage._privacyPolicyUrl);
+    String privacyPolicyMarkdown = await rootBundle.loadString(
+      AboutSubPage._privacyPolicyUrl,
+    );
 
     // Remove first line which contains the title
     final endOfFirstLineIndex = privacyPolicyMarkdown.indexOf('\n');
-    privacyPolicyMarkdown =
-        privacyPolicyMarkdown.substring(endOfFirstLineIndex);
+    privacyPolicyMarkdown = privacyPolicyMarkdown.substring(
+      endOfFirstLineIndex,
+    );
 
     if (!mounted) {
       return;
@@ -406,13 +402,12 @@ class _AboutSubPageState extends State<AboutSubPage> {
                   final uri = Uri.parse(href);
 
                   try {
-                    launchUrl(
-                      uri,
-                      mode: LaunchMode.externalApplication,
-                    );
+                    launchUrl(uri, mode: LaunchMode.externalApplication);
                   } catch (e) {
-                    final logger =
-                        Provider.of<LogProvider>(context, listen: false);
+                    final logger = Provider.of<LogProvider>(
+                      context,
+                      listen: false,
+                    );
                     logger.error('Could not launch url', e);
                   }
                 }

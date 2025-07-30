@@ -16,9 +16,7 @@ class SelectActionCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       elevation: 4,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(20),
-      ),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       child: InkWell(
         borderRadius: BorderRadius.circular(20),
         onTap: onTap,
@@ -30,10 +28,7 @@ class SelectActionCard extends StatelessWidget {
               Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Icon(
-                    icon,
-                    size: 52,
-                  ),
+                  Icon(icon, size: 52),
                   const SizedBox(height: 6),
                   Text(
                     title,

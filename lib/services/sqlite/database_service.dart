@@ -50,8 +50,9 @@ mixin DatabaseService {
   Future _onUpgrade(Database db, int oldVersion, int newVersion) async {
     if (oldVersion < 2) {
       // Migration from version 1 -> 2
-      await db
-          .execute('ALTER TABLE $customFoodstable ADD COLUMN cholesterol REAL');
+      await db.execute(
+        'ALTER TABLE $customFoodstable ADD COLUMN cholesterol REAL',
+      );
       await db.execute('ALTER TABLE $customFoodstable ADD COLUMN starch REAL');
       await db.execute('ALTER TABLE $customFoodstable ADD COLUMN alcohol REAL');
 
@@ -59,8 +60,9 @@ mixin DatabaseService {
         'ALTER TABLE $trackedFoodsTable ADD COLUMN cholesterol REAL',
       );
       await db.execute('ALTER TABLE $trackedFoodsTable ADD COLUMN starch REAL');
-      await db
-          .execute('ALTER TABLE $trackedFoodsTable ADD COLUMN alcohol REAL');
+      await db.execute(
+        'ALTER TABLE $trackedFoodsTable ADD COLUMN alcohol REAL',
+      );
     }
 
     if (oldVersion < 3) {

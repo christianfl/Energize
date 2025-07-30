@@ -20,10 +20,20 @@ class TrackedFoodDatabaseService
   }) async {
     final db = await database;
 
-    final DateTime dayStart =
-        DateTime(startDate.year, startDate.month, startDate.day);
-    final DateTime dayEnd =
-        DateTime(endDate.year, endDate.month, endDate.day, 23, 59, 59, 999);
+    final DateTime dayStart = DateTime(
+      startDate.year,
+      startDate.month,
+      startDate.day,
+    );
+    final DateTime dayEnd = DateTime(
+      endDate.year,
+      endDate.month,
+      endDate.day,
+      23,
+      59,
+      59,
+      999,
+    );
 
     final args = [
       dayStart.millisecondsSinceEpoch,
@@ -43,8 +53,9 @@ class TrackedFoodDatabaseService
   Future<List<FoodTracked>> get trackedFoods async {
     final db = await database;
 
-    final List<Map<String, dynamic>> trackedFoodMap =
-        await db.query(DatabaseService.trackedFoodsTable);
+    final List<Map<String, dynamic>> trackedFoodMap = await db.query(
+      DatabaseService.trackedFoodsTable,
+    );
 
     return _generateFoodList(trackedFoodMap);
   }

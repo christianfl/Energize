@@ -20,9 +20,8 @@ class BodyTargetsProvider with ChangeNotifier {
 
   final SharedPreferencesServiceInterface _sharedPrefs;
 
-  BodyTargetsProvider({
-    required SharedPreferencesServiceInterface sharedPrefs,
-  }) : _sharedPrefs = sharedPrefs {
+  BodyTargetsProvider({required SharedPreferencesServiceInterface sharedPrefs})
+    : _sharedPrefs = sharedPrefs {
     _loadBodyAndTargets();
   }
 
@@ -40,22 +39,13 @@ class BodyTargetsProvider with ChangeNotifier {
 
     // Load each SharedPreferences value into BodyTargets
     _bodyTargets = BodyTargets(
-      age: await _sharedPrefs.getValue<int>(
-        BodyTargets.ageKey,
-        age,
-      ),
+      age: await _sharedPrefs.getValue<int>(BodyTargets.ageKey, age),
       sex: Sex.values.firstWhere(
         (e) => e.toSharedPreferencesValue() == sexString,
         orElse: () => _bodyTargets.sex,
       ),
-      weight: await _sharedPrefs.getValue<int>(
-        BodyTargets.weightKey,
-        weight,
-      ),
-      height: await _sharedPrefs.getValue<int>(
-        BodyTargets.heightKey,
-        height,
-      ),
+      weight: await _sharedPrefs.getValue<int>(BodyTargets.weightKey, weight),
+      height: await _sharedPrefs.getValue<int>(BodyTargets.heightKey, height),
       activityLevel: await _sharedPrefs.getValue<double>(
         BodyTargets.activityLevelKey,
         activityLevel,
@@ -327,10 +317,7 @@ class BodyTargetsProvider with ChangeNotifier {
 
   set caloriesTarget(double value) {
     _bodyTargets.caloriesTarget = value;
-    _sharedPrefs.setValue(
-      BodyTargets.caloriesTargetKey,
-      value,
-    );
+    _sharedPrefs.setValue(BodyTargets.caloriesTargetKey, value);
 
     notifyListeners();
   }
