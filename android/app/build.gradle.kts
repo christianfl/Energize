@@ -1,5 +1,6 @@
 import java.util.Properties
 import java.io.FileInputStream
+import com.android.build.api.variant.FilterConfiguration.FilterType.*
 
 plugins {
     id("com.android.application")
@@ -63,6 +64,23 @@ android {
         includeInApk = false
         // Disables dependency metadata when building Android App Bundles.
         includeInBundle = false
+    }
+}
+
+val abiCodes = mapOf(
+    "armeabi-v7a" to 1,
+    "arm64-v8a" to 2,
+    "x86_64" to 3,
+)
+
+androidComponents {
+    onVariants { variant ->
+        variant.outputs.forEach { output ->
+            val abiName = output.filters.find { it.filterType == ABI }?.identifier
+            val abiCode = abiCodes[abiName] ?: 0
+            val baseVersionCode = output.versionCode.get()
+            output.versionCode.set(baseVersionCode * 10 + abiCode)
+        }
     }
 }
 
