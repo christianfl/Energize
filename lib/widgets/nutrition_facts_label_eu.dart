@@ -93,7 +93,7 @@ class NutritionFactsLabelEU extends StatelessWidget {
     return 0;
   }
 
-  _getChart(BuildContext context, BodyTargetsProvider bodyTargets) {
+  ListView _getChart(BuildContext context, BodyTargetsProvider bodyTargets) {
     return ListView(
       padding: const EdgeInsets.all(16.0),
       shrinkWrap: true,

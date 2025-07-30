@@ -128,7 +128,7 @@ class OpenFoodFactsBinding {
   }
 
   /// Returns the [OpenFoodFactsLanguage] based on the system locale.
-  static get _queryLanguage {
+  static OpenFoodFactsLanguage get _queryLanguage {
     final String locale = Platform.localeName.split('_')[0];
     return LanguageHelper.fromJson(locale);
   }

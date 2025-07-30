@@ -59,7 +59,7 @@ class MacroChart extends StatelessWidget {
     return 0;
   }
 
-  _getChart(BuildContext context, BodyTargetsProvider bodyTargets) {
+  ListView _getChart(BuildContext context, BodyTargetsProvider bodyTargets) {
     return ListView(
       padding: EdgeInsets.all(padding),
       shrinkWrap: true,

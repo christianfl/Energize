@@ -69,7 +69,7 @@ class BackupAndRestoreSubPageState extends State<BackupAndRestoreSubPage> {
   }
 
   /// Create an encrypted WebDAV backup
-  _createWebDAVBackup(BuildContext context) async {
+  Future<void> _createWebDAVBackup(BuildContext context) async {
     // Ask for WebDAV server data and encryption password
     final wantsBackup = await _showWebDAVBackupOrRestoreDialog();
 
@@ -136,7 +136,7 @@ ${AppLocalizations.of(context)!.exportedNumberOfFoodsMessage(numberOfCustomFoods
   }
 
   /// Restore an encrypted WebDAV backup
-  _restoreWebDAVBackup(BuildContext context) async {
+  Future<void> _restoreWebDAVBackup(BuildContext context) async {
     // Ask for WebDAV server data and encryption password
     final wantsRestore = await _showWebDAVBackupOrRestoreDialog(
       isForBackup: false,
@@ -199,7 +199,7 @@ ${AppLocalizations.of(context)!.importedNumberOfFoodsMessage(numberOfCustomFoods
   ///
   /// Passwords could in future be saved to Keystore
   /// or better handling with Password managers could be evaluated
-  _saveWebDAVServerSettings() {
+  void _saveWebDAVServerSettings() {
     final appSettings = Provider.of<AppSettingsProvider>(
       context,
       listen: false,
@@ -210,7 +210,7 @@ ${AppLocalizations.of(context)!.importedNumberOfFoodsMessage(numberOfCustomFoods
     appSettings.backupPathAndFilename = _pathAndFilenameController.text;
   }
 
-  _clearBackupServerUrl() {
+  void _clearBackupServerUrl() {
     final appSettings = Provider.of<AppSettingsProvider>(
       context,
       listen: false,
@@ -218,7 +218,7 @@ ${AppLocalizations.of(context)!.importedNumberOfFoodsMessage(numberOfCustomFoods
     appSettings.clearBackupServerUrl();
   }
 
-  _clearBackupUsername() {
+  void _clearBackupUsername() {
     final appSettings = Provider.of<AppSettingsProvider>(
       context,
       listen: false,
@@ -226,7 +226,7 @@ ${AppLocalizations.of(context)!.importedNumberOfFoodsMessage(numberOfCustomFoods
     appSettings.clearBackupUsername();
   }
 
-  _resetBackupPathAndFilename() {
+  void _resetBackupPathAndFilename() {
     final appSettings = Provider.of<AppSettingsProvider>(
       context,
       listen: false,
@@ -237,7 +237,9 @@ ${AppLocalizations.of(context)!.importedNumberOfFoodsMessage(numberOfCustomFoods
   /// Dialog just for asking for needed data for backup/restore with WebDAV
   /// Returns true if clicked on save and values seem valid
   /// bool isForBackup switches between backup and restore texts and icons
-  Future<bool?> _showWebDAVBackupOrRestoreDialog({isForBackup = true}) async {
+  Future<bool?> _showWebDAVBackupOrRestoreDialog({
+    bool isForBackup = true,
+  }) async {
     return showDialog<bool>(
       context: context,
       builder: (BuildContext context) {
@@ -497,7 +499,7 @@ ${AppLocalizations.of(context)!.importedNumberOfFoodsMessage(numberOfCustomFoods
   }
 
   /// Creates a local encrypted backup and saves it via native file picker
-  _createLocalEncryptedBackup(BuildContext context) async {
+  Future<void> _createLocalEncryptedBackup(BuildContext context) async {
     try {
       // Ask for encryption password
       final dialogConfirmed = await _showEncryptionPasswordInputDialog();
@@ -563,7 +565,7 @@ ${AppLocalizations.of(context)!.exportedNumberOfFoodsMessage(numberOfCustomFoods
   }
 
   /// Restores a local encrypted backup picked via native file picker
-  _restoreLocalEncryptedBackup(BuildContext context) async {
+  Future<void> _restoreLocalEncryptedBackup(BuildContext context) async {
     // Pick backup file to restore
     final FilePickerResult? pickerResult = await FilePicker.platform
         .pickFiles();

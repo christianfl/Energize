@@ -22,7 +22,7 @@ class EncryptionService {
 
   /// Encrypts a given string with a given keyphrase nd random IV
   ///
-  /// Returns string in the format: <Base64(IV)><Base64(ciphertext)>
+  /// Returns string in the format: `<Base64(IV)><Base64(ciphertext)>`
   static String encrypt(String plaintext, String keyphrase) {
     final key = _generateAesKey(keyphrase);
 

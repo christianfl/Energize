@@ -245,9 +245,9 @@ class FoodTracked extends Food {
   @override
   Map<String, dynamic> toJson() => _$FoodTrackedToJson(this);
 
-  static _dateToMillisecondsSinceEpoch(DateTime dateTime) =>
+  static int _dateToMillisecondsSinceEpoch(DateTime dateTime) =>
       dateTime.millisecondsSinceEpoch;
 
-  static _millisecondsSinceEpochToDate(int millisecondsSinceEpoch) =>
+  static DateTime _millisecondsSinceEpochToDate(int millisecondsSinceEpoch) =>
       DateTime.fromMillisecondsSinceEpoch(millisecondsSinceEpoch);
 }

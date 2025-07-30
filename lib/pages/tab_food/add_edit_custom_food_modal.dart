@@ -402,14 +402,14 @@ class AddEditCustomFoodModalState extends State<AddEditCustomFoodModal> {
   }
 
   /// Adds a new serving size or edits an existing one.
-  _putServingSize(String keyName, double servingSizeValue) {
+  void _putServingSize(String keyName, double servingSizeValue) {
     setState(() {
       _foodServingSizes[keyName] = servingSizeValue;
     });
   }
 
   /// Removes the serving size with the given [key].
-  _removeServingSize(String key) {
+  void _removeServingSize(String key) {
     setState(() {
       _foodServingSizes.removeWhere((keyName, value) => keyName == key);
     });
