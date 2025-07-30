@@ -1,0 +1,11 @@
+- [feat] Add option to not default to serving sizes when tracking new food
+- [feat] Backup now saves all data incl. settings, body, and nutrition targets
+- [feat] Add logger with first logging
+- [fix] Padding issues in about page
+- [fix] Browser and Linux related minor issues
+- [l10n]¹ Added Finnish
+- [l10n]¹ Updated Chinese, Czech, Estonian, French, German, Hebrew, Hungarian, Italian, Norwegian Bokmål, Polish, Portuguese, Russian, Slovak, and 6 more
+
+---
+
+¹Big thanks to all contributors!
