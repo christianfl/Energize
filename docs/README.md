@@ -26,6 +26,6 @@ Some things to keep in mind when creating releases.
 4. Change version number in: `pubspec.yaml`
 5. Run build runner to generate types: `dart run build_runner build --delete-conflicting-outputs`
 6. Ensure all tests pass: `flutter test`
-7. Compile with `flutter build apk`
+7. Compile with `flutter build apk --split-per-abi`
 8. Generate screenshots: `flutter drive --driver=test_driver/integration_test.dart --target=integration_test/app_test.dart`
 9. Short manual test and release
