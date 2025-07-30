@@ -18,10 +18,9 @@ USDAFoodNutrient _$USDAFoodNutrientFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$USDAFoodNutrientToJson(USDAFoodNutrient instance) =>
     <String, dynamic>{
-      if (instance.nutrientName case final value?) 'nutrientName': value,
-      if (instance.value case final value?) 'value': value,
-      if (_$USDAFoodNutrientUnitEnumMap[instance.unitName] case final value?)
-        'unitName': value,
+      'nutrientName': ?instance.nutrientName,
+      'value': ?instance.value,
+      'unitName': ?_$USDAFoodNutrientUnitEnumMap[instance.unitName],
     };
 
 const _$USDAFoodNutrientUnitEnumMap = {

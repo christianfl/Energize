@@ -18,10 +18,10 @@ USDAFood _$USDAFoodFromJson(Map<String, dynamic> json) => USDAFood(
 );
 
 Map<String, dynamic> _$USDAFoodToJson(USDAFood instance) => <String, dynamic>{
-  if (instance.fdcId case final value?) 'fdcId': value,
-  if (instance.description case final value?) 'description': value,
-  if (instance.dataType case final value?) 'dataType': value,
-  if (instance.publishedDate case final value?) 'publishedDate': value,
-  if (instance.foodCategory case final value?) 'foodCategory': value,
-  if (instance.foodNutrients case final value?) 'foodNutrients': value,
+  'fdcId': ?instance.fdcId,
+  'description': ?instance.description,
+  'dataType': ?instance.dataType,
+  'publishedDate': ?instance.publishedDate,
+  'foodCategory': ?instance.foodCategory,
+  'foodNutrients': ?instance.foodNutrients,
 };
