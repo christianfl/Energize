@@ -25,46 +25,44 @@ dependencies:
     sdk: flutter
   flutter_localizations:
     sdk: flutter
-  intl: ^0.19.0
+  intl: ^0.20.2
   qr_code_scanner:
     git:
       url: https://codeberg.org/epinez/qr_code_scanner_revived
       ref: bfd6eb720da4b69d87a3a790f2da7346341acc0f
-  openfoodfacts: ^3.18.1
+  openfoodfacts: ^3.24.0
   flutter_speed_dial: ^7.0.0
-  provider: ^6.1.2
-  shared_preferences: ^2.3.4
-  sqflite: ^2.4.1
-  path: ^1.9.0
+  provider: ^6.1.5
+  shared_preferences: ^2.5.3
+  sqflite: ^2.4.2
+  path: ^1.9.1
   uuid: ^4.5.1
-  url_launcher: ^6.3.1
-  dio: ^5.7.0
+  url_launcher: ^6.3.2
+  dio: ^5.8.0+1
   encrypt: ^5.0.3
   crypto: ^3.0.6
-  json_serializable: ^6.9.0
-  build_runner: ^2.4.13
+  json_serializable: ^6.10.0
+  build_runner: ^2.6.0
   json_annotation: ^4.9.0
   table_calendar: ^3.2.0
-  collection: ^1.18.0
-  http: ^1.2.2
-  sqflite_common_ffi: ^2.3.4+4
-  sqflite_common_ffi_web: ^0.4.5+4
-  fl_chart: ^0.69.2
-  file_picker: ^10.1.2
-  package_info_plus: ^8.1.2
-  flutter_markdown: ^0.7.4+3
+  collection: ^1.19.1
+  http: ^1.4.0
+  sqflite_common_ffi: ^2.3.6
+  sqflite_common_ffi_web: ^1.0.1+1
+  fl_chart: ^1.0.0
+  file_picker: ^10.2.0
+  package_info_plus: ^8.3.0
+  flutter_markdown: ^0.7.7+1
   flutter_dotenv: ^5.2.1
   path_provider: ^2.1.5
-  talker_flutter: ^4.7.2
+  talker_flutter: ^4.9.3
 dev_dependencies:
   flutter_test:
     sdk: flutter
   integration_test:
     sdk: flutter
   flutter_lints: ^4.0.0
-  watcher: ^1.1.0
-dependency_overrides:
-  intl: ^0.20.0
+  watcher: ^1.1.2
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
