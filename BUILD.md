@@ -24,8 +24,14 @@ Supported platforms:
 ### Android
 
 ```bash
-flutter build apk [--debug]
+flutter build apk --split-per-abi [--debug]
 ```
+
+This results in three APK files:
+
+- ./build/app/outputs/flutter-apk/app-armeabi-v7a-release.apk
+- ./build/app/outputs/flutter-apk/app-arm64-v8a-release.apk
+- ./build/app/outputs/flutter-apk/app-x86_64-release.apk
 
 ### Web
 
