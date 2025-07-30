@@ -33,6 +33,7 @@ jobs:
           submodules/flutter/bin/dart run build_runner build --delete-conflicting-outputs
       - name: Verify generated files match with checked in files
         run: |
+          cd Energize
           git add . && git diff --quiet && git diff --cached --quiet
       - name: Generate .env file
         run: |
