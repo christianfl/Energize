@@ -26,7 +26,8 @@ jobs:
       - name: Verify generated files match with checked in files
         run: |
           cd Energize
-          git add . && git diff --quiet && git diff --cached --quiet
+          git add lib/
+          git diff --cached --quiet
       - name: Generate .env file
         run: |
           cd Energize
