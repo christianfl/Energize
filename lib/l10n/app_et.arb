@@ -591,5 +591,7 @@
   "preferServingSizesHint": "Uute toitude üle arvepidamisel on portsjonite suurused eelvalitud, kui nad olemas on",
   "@preferServingSizesHint": {},
   "logs": "Logid",
-  "@logs": {}
+  "@logs": {},
+  "alsoSetMicronutrientsHint": "Aluseks on DGE 2022. aastal koostatud kontrollväärtused, mida on osaliselt uuendatud 2025",
+  "@alsoSetMicronutrientsHint": {}
 }
