@@ -340,6 +340,10 @@ class AppLocalizationsTr extends AppLocalizations {
       'Ayrıca yaş ve cinsiyete göre mikro besin hedefleri belirle';
 
   @override
+  String get alsoSetMicronutrientsHint =>
+      'Based on DGE reference values from 2022 with a partly update from 2025';
+
+  @override
   String get apply => 'Uygula';
 
   @override

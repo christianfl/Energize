@@ -219,6 +219,8 @@
   "@fatRatio": {},
   "alsoSetMicronutrientsSwitch": "Zusätzlich Vorgaben für Mikronährstoffe basierend auf Alter und Geschlecht setzen",
   "@alsoSetMicronutrientsSwitch": {},
+  "alsoSetMicronutrientsHint": "Basierend auf DGE-Referenzwerten von 2022 mit einer teilweisen Aktualisierung von 2025",
+  "@alsoSetMicronutrientsHint": {},
   "apply": "Anwenden",
   "@apply": {},
   "targetsApplied": "Die Nährstoffvorgaben wurden angewendet",

@@ -340,6 +340,10 @@ class AppLocalizationsFi extends AppLocalizations {
       'Asetetaan myös ikään ja sukupuoleen perustuvia mikroravintoaineita koskevia tavoitteita';
 
   @override
+  String get alsoSetMicronutrientsHint =>
+      'Based on DGE reference values from 2022 with a partly update from 2025';
+
+  @override
   String get apply => 'Hae';
 
   @override

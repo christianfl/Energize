@@ -245,6 +245,9 @@ class CalculationTabState extends State<CalculationTab> {
                           context,
                         )!.alsoSetMicronutrientsSwitch,
                       ),
+                      subtitle: Text(
+                        AppLocalizations.of(context)!.alsoSetMicronutrientsHint,
+                      ),
                       value: _setMicronutrientsBasedOnAgeAndSex,
                       onChanged: (val) {
                         setState(() {

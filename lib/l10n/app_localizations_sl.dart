@@ -339,6 +339,10 @@ class AppLocalizationsSl extends AppLocalizations {
       'Also set micronutrient targets based on age and sex';
 
   @override
+  String get alsoSetMicronutrientsHint =>
+      'Based on DGE reference values from 2022 with a partly update from 2025';
+
+  @override
   String get apply => 'Apply';
 
   @override

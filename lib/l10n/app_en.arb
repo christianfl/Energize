@@ -127,6 +127,7 @@
     "carbsRatio": "Carbs ratio",
     "fatRatio": "Fat ratio",
     "alsoSetMicronutrientsSwitch": "Also set micronutrient targets based on age and sex",
+    "alsoSetMicronutrientsHint": "Based on DGE reference values from 2022 with a partly update from 2025",
     "apply": "Apply",
     "targetsApplied": "Nutrition targets were applied",
     "targetsApplyError": "Nutrition targets could not be applied",

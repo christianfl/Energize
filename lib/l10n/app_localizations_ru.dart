@@ -342,6 +342,10 @@ class AppLocalizationsRu extends AppLocalizations {
       'Также установлены цели по микроэлементам с учетом возраста и пола';
 
   @override
+  String get alsoSetMicronutrientsHint =>
+      'Based on DGE reference values from 2022 with a partly update from 2025';
+
+  @override
   String get apply => 'Применить';
 
   @override

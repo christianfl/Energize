@@ -347,6 +347,10 @@ class AppLocalizationsTa extends AppLocalizations {
       'அகவை மற்றும் பாலினத்தின் அடிப்படையில் நுண்ணூட்டச்சத்து இலக்குகளையும் அமைக்கவும்';
 
   @override
+  String get alsoSetMicronutrientsHint =>
+      'Based on DGE reference values from 2022 with a partly update from 2025';
+
+  @override
   String get apply => 'இடு';
 
   @override

@@ -340,6 +340,10 @@ class AppLocalizationsEt extends AppLocalizations {
       'Määra ka mikrotoitainete eesmärgid vanuse ja soo alusel';
 
   @override
+  String get alsoSetMicronutrientsHint =>
+      'Based on DGE reference values from 2022 with a partly update from 2025';
+
+  @override
   String get apply => 'Rakenda';
 
   @override

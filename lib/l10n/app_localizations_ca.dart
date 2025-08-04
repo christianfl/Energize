@@ -342,6 +342,10 @@ class AppLocalizationsCa extends AppLocalizations {
       'Establiu també els objectius de micronutrients basats en l\'edat i el gènere';
 
   @override
+  String get alsoSetMicronutrientsHint =>
+      'Based on DGE reference values from 2022 with a partly update from 2025';
+
+  @override
   String get apply => 'Aplicar';
 
   @override

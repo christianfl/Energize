@@ -339,6 +339,10 @@ class AppLocalizationsCs extends AppLocalizations {
       'Též nastavit mikronutrienty dle věku a pohlaví';
 
   @override
+  String get alsoSetMicronutrientsHint =>
+      'Based on DGE reference values from 2022 with a partly update from 2025';
+
+  @override
   String get apply => 'Použít';
 
   @override

@@ -340,6 +340,10 @@ class AppLocalizationsDe extends AppLocalizations {
       'Zusätzlich Vorgaben für Mikronährstoffe basierend auf Alter und Geschlecht setzen';
 
   @override
+  String get alsoSetMicronutrientsHint =>
+      'Basierend auf DGE-Referenzwerten von 2022 mit einer teilweisen Aktualisierung von 2025';
+
+  @override
   String get apply => 'Anwenden';
 
   @override
