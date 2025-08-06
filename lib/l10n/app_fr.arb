@@ -9,7 +9,7 @@
   "@onlyNumbersAllowed": {},
   "tracking": "Suivi",
   "@tracking": {},
-  "carbs": "Glucide",
+  "carbs": "Glucides",
   "@carbs": {},
   "detailedSummary": "Résumé détaillé",
   "@detailedSummary": {},
@@ -51,9 +51,9 @@
   "@weightTargetModerateGain": {},
   "weightTargetStrongGain": "Forte prise de masse",
   "@weightTargetStrongGain": {},
-  "energyAndMacronutrientsTargetsHint": "Calories, protéines, glucides, graisses",
+  "energyAndMacronutrientsTargetsHint": "Calories, protéines, glucides, lipides",
   "@energyAndMacronutrientsTargetsHint": {},
-  "fat": "Graisse",
+  "fat": "Lipides",
   "@fat": {},
   "databaseManagement": "Gestion des bases de données",
   "@databaseManagement": {},
@@ -303,7 +303,7 @@
   "@proteinRatio": {},
   "carbsRatio": "Taux de glucides",
   "@carbsRatio": {},
-  "fatRatio": "Taux de graisses",
+  "fatRatio": "Taux de lipides",
   "@fatRatio": {},
   "apply": "Appliquer",
   "@apply": {},
@@ -591,5 +591,7 @@
   "addServingSize": "Ajouter une taille de portion",
   "@addServingSize": {},
   "typicalServingSizes": "Tailles de portion habituelles",
-  "@typicalServingSizes": {}
+  "@typicalServingSizes": {},
+  "alsoSetMicronutrientsHint": "Sur la base des valeurs de référence de la DGE de 2022, avec une mise à jour partielle de 2025",
+  "@alsoSetMicronutrientsHint": {}
 }
