@@ -25,9 +25,7 @@ void main() {
       id: Food.generatedId,
       title: 'My food to track',
       origin: FoodPage.originName,
-      servingSizes: {
-        'l10nServing': 120,
-      },
+      servingSizes: {'l10nServing': 120},
     );
 
     final modalArgs = ModalArguments(foodToTrack, ModalMode.add);
@@ -43,12 +41,8 @@ void main() {
     await tester.pumpWidget(
       MultiProvider(
         providers: [
-          Provider(
-            create: (_) => LogProvider(),
-          ),
-          ChangeNotifierProvider(
-            create: (_) => appSettingsProvider,
-          ),
+          Provider(create: (_) => LogProvider()),
+          ChangeNotifierProvider(create: (_) => appSettingsProvider),
           ChangeNotifierProvider(
             create: (ctx) {
               final logProvider = ctx.read<LogProvider>();

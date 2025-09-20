@@ -27,10 +27,7 @@ class EnergizeTestVariant {
   final ThemeMode themeMode;
   final Locale locale;
 
-  EnergizeTestVariant({
-    required this.themeMode,
-    required this.locale,
-  });
+  EnergizeTestVariant({required this.themeMode, required this.locale});
 }
 
 void main() {
@@ -78,8 +75,8 @@ void main() {
       final String themeMode = currentTheme == ThemeMode.dark
           ? 'dark'
           : currentTheme == ThemeMode.light
-              ? 'light'
-              : '';
+          ? 'light'
+          : '';
 
       await binding.takeScreenshot(
         '$localeSubfolder/images/phoneScreenshots/${fileName}_$themeMode',
@@ -96,10 +93,7 @@ void main() {
   for (final locale in supportedLocales) {
     for (final themeMode in supportedThemeModes) {
       testVariants.add(
-        EnergizeTestVariant(
-          themeMode: themeMode,
-          locale: locale,
-        ),
+        EnergizeTestVariant(themeMode: themeMode, locale: locale),
       );
     }
   }
@@ -107,8 +101,9 @@ void main() {
   final valueVariants = ValueVariant<EnergizeTestVariant>({...testVariants});
 
   group('Tracking Page Test', () {
-    testWidgets('Tracking Page Screenshots', variant: valueVariants,
-        (WidgetTester tester) async {
+    testWidgets('Tracking Page Screenshots', variant: valueVariants, (
+      WidgetTester tester,
+    ) async {
       // Load MyApp widget
       await tester.pumpWidget(
         MyApp(
@@ -143,9 +138,9 @@ void main() {
 
       final scrambledEggsSearch =
           await SwissFoodCompositionDatabaseBinding.searchFood(
-        'scrambled eggs',
-        const Locale('en'),
-      );
+            'scrambled eggs',
+            const Locale('en'),
+          );
       final scrambledEggs = scrambledEggsSearch!.first;
 
       final appleSearch = await SwissFoodCompositionDatabaseBinding.searchFood(
@@ -168,9 +163,9 @@ void main() {
 
       final parmesanSearch =
           await SwissFoodCompositionDatabaseBinding.searchFood(
-        'parmesan cheese',
-        const Locale('en'),
-      );
+            'parmesan cheese',
+            const Locale('en'),
+          );
       final parmesan = parmesanSearch!.first;
 
       final trackedBread = FoodTracked.fromFood(
@@ -217,13 +212,17 @@ void main() {
       );
 
       // Activate meal grouping
-      final appSettings =
-          Provider.of<AppSettingsProvider>(context, listen: false);
+      final appSettings = Provider.of<AppSettingsProvider>(
+        context,
+        listen: false,
+      );
       appSettings.isMealGroupingActivated = true;
 
       // Add tracked food
-      final trackedFoodProvider =
-          Provider.of<TrackedFoodProvider>(context, listen: false);
+      final trackedFoodProvider = Provider.of<TrackedFoodProvider>(
+        context,
+        listen: false,
+      );
       trackedFoodProvider.addTrackedFood(trackedBread);
       trackedFoodProvider.addTrackedFood(trackedEggs);
       trackedFoodProvider.addTrackedFood(trackedApple);
@@ -231,8 +230,10 @@ void main() {
       trackedFoodProvider.addTrackedFood(trackedPesto);
       trackedFoodProvider.addTrackedFood(trackedParmesan);
 
-      final bodyTargets =
-          Provider.of<BodyTargetsProvider>(context, listen: false);
+      final bodyTargets = Provider.of<BodyTargetsProvider>(
+        context,
+        listen: false,
+      );
 
       // Set calories and macro targets
       bodyTargets.caloriesTarget = 2000;
@@ -252,11 +253,7 @@ void main() {
 
       // Create and save a screenshot
 
-      await takeAndroidScreenshot(
-        '1',
-        tester,
-        valueVariants.currentValue,
-      );
+      await takeAndroidScreenshot('1', tester, valueVariants.currentValue);
 
       // Go to detailed view next...
 
@@ -281,11 +278,7 @@ void main() {
       await tester.pumpAndSettle();
 
       // Create and save a screenshot
-      await takeAndroidScreenshot(
-        '2',
-        tester,
-        valueVariants.currentValue,
-      );
+      await takeAndroidScreenshot('2', tester, valueVariants.currentValue);
 
       // Remove tracked food
       for (final food in trackedFoodProvider.foods) {
@@ -295,8 +288,9 @@ void main() {
   });
 
   group('Custom Food Page Test', () {
-    testWidgets('Custom Food Page Screenshot', variant: valueVariants,
-        (WidgetTester tester) async {
+    testWidgets('Custom Food Page Screenshot', variant: valueVariants, (
+      WidgetTester tester,
+    ) async {
       // Load MyApp widget
       await tester.pumpWidget(
         MyApp(
@@ -329,8 +323,10 @@ void main() {
       // Get BuildContext
       final BuildContext context = tester.element(find.byType(FoodPage));
 
-      final customFoodProvider =
-          Provider.of<CustomFoodProvider>(context, listen: false);
+      final customFoodProvider = Provider.of<CustomFoodProvider>(
+        context,
+        listen: false,
+      );
 
       // Add custom food
       final customFood1 = Food(
@@ -383,11 +379,7 @@ void main() {
       await tester.pumpAndSettle();
 
       // Create and save a screenshot
-      await takeAndroidScreenshot(
-        '3',
-        tester,
-        valueVariants.currentValue,
-      );
+      await takeAndroidScreenshot('3', tester, valueVariants.currentValue);
 
       // Remove custom food
       for (final food in customFoodProvider.foods) {
@@ -397,8 +389,9 @@ void main() {
   });
 
   group('Settings Page Test', () {
-    testWidgets('Settings Page Screenshot', variant: valueVariants,
-        (WidgetTester tester) async {
+    testWidgets('Settings Page Screenshot', variant: valueVariants, (
+      WidgetTester tester,
+    ) async {
       // Load MyApp widget
       await tester.pumpWidget(
         MyApp(
@@ -433,11 +426,7 @@ void main() {
       expect(listTile, findsAtLeast(1));
 
       // Create and save a screenshot
-      await takeAndroidScreenshot(
-        '4',
-        tester,
-        valueVariants.currentValue,
-      );
+      await takeAndroidScreenshot('4', tester, valueVariants.currentValue);
     });
   });
 }

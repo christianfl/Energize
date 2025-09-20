@@ -10,10 +10,20 @@ class TrackedFoodDatabaseServiceMock
     required DateTime startDate,
     required DateTime endDate,
   }) async {
-    final DateTime dayStart =
-        DateTime(startDate.year, startDate.month, startDate.day);
-    final DateTime dayEnd =
-        DateTime(endDate.year, endDate.month, endDate.day, 23, 59, 59, 999);
+    final DateTime dayStart = DateTime(
+      startDate.year,
+      startDate.month,
+      startDate.day,
+    );
+    final DateTime dayEnd = DateTime(
+      endDate.year,
+      endDate.month,
+      endDate.day,
+      23,
+      59,
+      59,
+      999,
+    );
 
     return _foods
         .where(

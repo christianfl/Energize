@@ -15,21 +15,15 @@ void main() {
         dateAdded: DateTime(2025, 01, 23, 15, 57),
         dateEaten: DateTime(2025, 01, 23, 15, 42),
         origin: 'CUSTOM',
-        servingSizes: {
-          'servingA': 26.0,
-          'servingB': 52.0,
-        },
+        servingSizes: {'servingA': 26.0, 'servingB': 52.0},
         selectedServingSize: 'servingA',
       );
     });
 
     test('Change the selectedServingSize to an invalid value', () {
-      expect(
-        () {
-          trackedApple.selectedServingSize = 'servingC';
-        },
-        throwsArgumentError,
-      );
+      expect(() {
+        trackedApple.selectedServingSize = 'servingC';
+      }, throwsArgumentError);
     });
 
     test('Test calculated amounts and calories', () {

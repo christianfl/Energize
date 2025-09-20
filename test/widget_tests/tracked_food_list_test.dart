@@ -23,9 +23,7 @@ void main() {
     await tester.pumpWidget(
       MultiProvider(
         providers: [
-          Provider(
-            create: (_) => LogProvider(),
-          ),
+          Provider(create: (_) => LogProvider()),
           ChangeNotifierProvider(
             create: (_) => AppSettingsProvider(
               sharedPrefs: SharedPreferencesServiceMock(),
@@ -45,12 +43,7 @@ void main() {
         child: MaterialApp(
           home: Scaffold(
             body: Column(
-              children: [
-                TrackedFoodList(
-                  ScrollController(),
-                  () => {},
-                ),
-              ],
+              children: [TrackedFoodList(ScrollController(), () => {})],
             ),
           ),
           supportedLocales: AppLocalizations.supportedLocales,
@@ -63,8 +56,10 @@ void main() {
     final BuildContext context = tester.element(find.byType(TrackedFoodList));
 
     // Deactivate meal grouping
-    final appSettings =
-        Provider.of<AppSettingsProvider>(context, listen: false);
+    final appSettings = Provider.of<AppSettingsProvider>(
+      context,
+      listen: false,
+    );
     appSettings.isMealGroupingActivated = false;
 
     // Set dates
@@ -72,8 +67,10 @@ void main() {
     final twoHoursAgo = now.subtract(const Duration(hours: 2));
 
     // Select the date for the tracking overview
-    final trackedFoodProvider =
-        Provider.of<TrackedFoodProvider>(context, listen: false);
+    final trackedFoodProvider = Provider.of<TrackedFoodProvider>(
+      context,
+      listen: false,
+    );
     await trackedFoodProvider.selectDate(now);
 
     // Test there are no tracked food items yet in the list
