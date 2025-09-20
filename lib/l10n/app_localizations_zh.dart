@@ -329,8 +329,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get alsoSetMicronutrientsSwitch => '根据年龄和性别自动计算所需微量营养素目标';
 
   @override
-  String get alsoSetMicronutrientsHint =>
-      'Based on DGE reference values from 2022 with a partly update from 2025';
+  String get alsoSetMicronutrientsHint => '基于2022年的DGE参考值，部分更新自2025年';
 
   @override
   String get apply => '保存';

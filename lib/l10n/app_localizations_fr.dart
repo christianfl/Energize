@@ -55,10 +55,10 @@ class AppLocalizationsFr extends AppLocalizations {
   String get protein => 'Protéines';
 
   @override
-  String get carbs => 'Glucide';
+  String get carbs => 'Glucides';
 
   @override
-  String get fat => 'Graisse';
+  String get fat => 'Lipides';
 
   @override
   String get detailedSummary => 'Résumé détaillé';
@@ -337,7 +337,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get carbsRatio => 'Taux de glucides';
 
   @override
-  String get fatRatio => 'Taux de graisses';
+  String get fatRatio => 'Taux de lipides';
 
   @override
   String get alsoSetMicronutrientsSwitch =>
@@ -345,7 +345,7 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get alsoSetMicronutrientsHint =>
-      'Based on DGE reference values from 2022 with a partly update from 2025';
+      'Sur la base des valeurs de référence de la DGE de 2022, avec une mise à jour partielle de 2025';
 
   @override
   String get apply => 'Appliquer';
@@ -372,7 +372,7 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get energyAndMacronutrientsTargetsHint =>
-      'Calories, protéines, glucides, graisses';
+      'Calories, protéines, glucides, lipides';
 
   @override
   String get display => 'Affichage';
