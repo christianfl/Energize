@@ -169,7 +169,7 @@ class _EnergyDistributionTabState extends State<EnergyDistributionTab> {
           children: [
             Expanded(
               child: DropdownButtonFormField<int>(
-                value: _selectedMacroIndex,
+                initialValue: _selectedMacroIndex,
                 isExpanded: true,
                 onChanged: (int? newValue) {
                   setState(() {

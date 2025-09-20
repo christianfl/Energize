@@ -471,7 +471,7 @@ class CalculationTabState extends State<CalculationTab> {
                       const SizedBox(width: 12),
                       Expanded(
                         child: DropdownButtonFormField<Sex>(
-                          value: bodyTargets.sex,
+                          initialValue: bodyTargets.sex,
                           isExpanded: true,
                           onChanged: (Sex? newValue) {
                             if (newValue != null) {
@@ -555,7 +555,7 @@ class CalculationTabState extends State<CalculationTab> {
                   ),
                   const SizedBox(height: 24),
                   DropdownButtonFormField<WeightTarget>(
-                    value: bodyTargets.weightTarget,
+                    initialValue: bodyTargets.weightTarget,
                     isExpanded: true,
                     onChanged: (WeightTarget? newValue) {
                       bodyTargets.weightTarget = newValue!;
