@@ -211,6 +211,10 @@ void main() {
         now,
       );
 
+      if (!context.mounted) {
+        throw Exception('Context not mounted');
+      }
+
       // Activate meal grouping
       final appSettings = Provider.of<AppSettingsProvider>(
         context,
@@ -322,6 +326,10 @@ void main() {
 
       // Get BuildContext
       final BuildContext context = tester.element(find.byType(FoodPage));
+
+      if (!context.mounted) {
+        throw Exception('Context not mounted');
+      }
 
       final customFoodProvider = Provider.of<CustomFoodProvider>(
         context,
