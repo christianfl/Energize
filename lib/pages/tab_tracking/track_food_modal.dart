@@ -5,7 +5,6 @@ import 'package:url_launcher/url_launcher.dart';
 import '../../l10n/app_localizations.dart';
 import '../../models/food/food.dart';
 import '../../models/food/food_tracked.dart';
-import '../../pages/tab_food/add_edit_custom_food_modal.dart';
 import '../../providers/app_settings_provider.dart';
 import '../../providers/log_provider.dart';
 import '../../providers/tracked_food_provider.dart';
@@ -20,6 +19,7 @@ import '../../widgets/macro_chart.dart';
 import '../../widgets/micro_chart.dart';
 import '../../widgets/moving_end_contained_fab_location.dart';
 import '../../widgets/nutrition_facts_label_eu.dart';
+import '../tab_custom_food/add_edit_custom_food_modal.dart';
 import 'tracking_page.dart';
 
 enum ModalMode { add, edit }

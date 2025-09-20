@@ -5,7 +5,7 @@ import 'package:energize/main.dart';
 import 'package:energize/models/food/food.dart';
 import 'package:energize/models/food/food_tracked.dart';
 import 'package:energize/models/person/enums/sex.dart';
-import 'package:energize/pages/tab_food/food_page.dart';
+import 'package:energize/pages/tab_custom_food/custom_food_page.dart';
 import 'package:energize/pages/tab_settings/settings_page.dart';
 import 'package:energize/pages/tab_tracking/tracking_page.dart';
 import 'package:energize/providers/app_settings_provider.dart';
@@ -321,11 +321,11 @@ void main() {
       // Wait until all frames were drawn
       await tester.pumpAndSettle();
 
-      // Check whether FoodPage is loaded (second navigation item)
-      expect(find.byType(FoodPage), findsOneWidget);
+      // Check whether CustomFoodPage is loaded (second navigation item)
+      expect(find.byType(CustomFoodPage), findsOneWidget);
 
       // Get BuildContext
-      final BuildContext context = tester.element(find.byType(FoodPage));
+      final BuildContext context = tester.element(find.byType(CustomFoodPage));
 
       if (!context.mounted) {
         throw Exception('Context not mounted');

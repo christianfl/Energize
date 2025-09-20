@@ -8,7 +8,6 @@ import 'package:http/http.dart';
 import 'package:provider/provider.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 
-import '../../../../pages/tab_food/add_edit_custom_food_modal.dart';
 import '../../../../providers/custom_food_provider.dart';
 import '../../../../providers/tracked_food_provider.dart';
 import '../../../../theme/energize_theme.dart';
@@ -23,7 +22,8 @@ import '../../../services/food_database_bindings/open_food_facts/product_not_fou
 import '../../../services/food_database_bindings/swiss_food_composition_database/swiss_food_composition_database_binding.dart';
 import '../../../services/food_database_bindings/usda/usda_binding.dart';
 import '../../../widgets/food_origin_logo_pill.dart';
-import '../../tab_food/food_page.dart';
+import '../../tab_custom_food/add_edit_custom_food_modal.dart';
+import '../../tab_custom_food/custom_food_page.dart';
 import '../track_food_modal.dart';
 
 class FoodInput extends StatefulWidget {
@@ -709,7 +709,7 @@ class FoodInputState extends State<FoodInput>
             AddEditCustomFoodModalMode.addNew,
             Food(
               id: Food.generatedId,
-              origin: FoodPage.originName,
+              origin: CustomFoodPage.originName,
               title: '',
               ean: barcode,
             ),

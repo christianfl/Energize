@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../l10n/app_localizations.dart';
-import '../pages/tab_food/food_page.dart';
+import '../pages/tab_custom_food/custom_food_page.dart';
 import '../pages/tab_settings/settings_page.dart';
 import '../pages/tab_tracking/tracking_page.dart';
 
@@ -27,7 +27,7 @@ class TabNavItem {
         label: AppLocalizations.of(context)!.tracking,
       ),
       TabNavItem(
-        page: const FoodPage(),
+        page: const CustomFoodPage(),
         icon: const Icon(Icons.fastfood_outlined),
         selectedIcon: const Icon(Icons.fastfood),
         label: AppLocalizations.of(context)!.customFood,

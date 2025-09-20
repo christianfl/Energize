@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../l10n/app_localizations.dart';
-import '../pages/tab_food/food_page.dart';
+import '../pages/tab_custom_food/custom_food_page.dart';
 import '../services/food_database_bindings/open_food_facts/open_food_facts_binding.dart';
 import '../services/food_database_bindings/swiss_food_composition_database/swiss_food_composition_database_binding.dart';
 import '../services/food_database_bindings/usda/usda_binding.dart';
@@ -36,8 +36,8 @@ class FoodOriginLogoPill extends StatelessWidget {
         return SwissFoodCompositionDatabaseBinding.imageUrl;
       case USDABinding.originName:
         return USDABinding.imageUrl;
-      case FoodPage.originName:
-        return FoodPage.imageUrl;
+      case CustomFoodPage.originName:
+        return CustomFoodPage.imageUrl;
     }
 
     return null;
@@ -47,7 +47,7 @@ class FoodOriginLogoPill extends StatelessWidget {
     switch (foodOrigin) {
       case USDABinding.originName:
         return Theme.of(context).usdaColor;
-      case FoodPage.originName:
+      case CustomFoodPage.originName:
         return Theme.of(context).colorScheme.secondary;
     }
 
@@ -78,7 +78,7 @@ class FoodOriginLogoPill extends StatelessWidget {
                 maxWidth: isConstrained ? 110 : double.infinity,
               ),
               child: Text(
-                foodOrigin == FoodPage.originName
+                foodOrigin == CustomFoodPage.originName
                     ? AppLocalizations.of(context)!.customFood
                     : foodOrigin,
                 style: TextStyle(

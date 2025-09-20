@@ -7,7 +7,7 @@ import '../../providers/custom_food_provider.dart';
 import '../../theme/energize_theme.dart';
 import '../../widgets/category_list_tile_header.dart';
 import '../../widgets/nutrition_facts_label_eu.dart';
-import 'food_page.dart';
+import 'custom_food_page.dart';
 
 enum AddEditCustomFoodModalMode { addNew, addFrom, edit }
 
@@ -33,7 +33,7 @@ class AddEditCustomFoodModalState extends State<AddEditCustomFoodModal> {
   var activePanelIndex = 0;
   Food foodToEditOrCreate = Food(
     id: 'temp',
-    origin: FoodPage.originName,
+    origin: CustomFoodPage.originName,
     title: '',
   );
   final _formKey = GlobalKey<FormState>();
@@ -425,7 +425,7 @@ class AddEditCustomFoodModalState extends State<AddEditCustomFoodModal> {
 
     foodToEditOrCreate.title = _foodTitleController.text;
     foodToEditOrCreate.ean = _foodEanController.text;
-    foodToEditOrCreate.origin = FoodPage.originName;
+    foodToEditOrCreate.origin = CustomFoodPage.originName;
     foodToEditOrCreate.servingSizes = _foodServingSizes.isNotEmpty
         ? _foodServingSizes
         : null;

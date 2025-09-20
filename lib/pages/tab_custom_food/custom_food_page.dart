@@ -4,25 +4,25 @@ import 'package:provider/provider.dart';
 
 import '../../l10n/app_localizations.dart';
 import '../../models/food/food.dart';
-import '../../pages/tab_food/add_edit_custom_food_modal.dart';
 import '../../providers/custom_food_provider.dart';
 import '../../theme/energize_theme.dart';
 import '../../widgets/food_list_item.dart';
+import 'add_edit_custom_food_modal.dart';
 
-class FoodPage extends StatefulWidget {
+class CustomFoodPage extends StatefulWidget {
   static const originName = 'CUSTOM';
   static const imageUrl = 'assets/food_databases/custom-foods.png';
 
   static const double _entryPillHeight = 35;
   static const double _entryHeight = 50;
 
-  const FoodPage({super.key});
+  const CustomFoodPage({super.key});
 
   @override
-  FoodPageState createState() => FoodPageState();
+  CustomFoodPageState createState() => CustomFoodPageState();
 }
 
-class FoodPageState extends State<FoodPage> {
+class CustomFoodPageState extends State<CustomFoodPage> {
   List<Food> _searchResultFoods = [];
   final _searchInputController = TextEditingController();
   final _scrollController = ScrollController();
@@ -163,8 +163,8 @@ class FoodPageState extends State<FoodPage> {
                         child: FoodListItem(
                           food,
                           onTapCallback: _navigateToEditCustomFood,
-                          height: FoodPage._entryHeight,
-                          pillHeight: FoodPage._entryPillHeight,
+                          height: CustomFoodPage._entryHeight,
+                          pillHeight: CustomFoodPage._entryPillHeight,
                           hideOrigin: true,
                         ),
                       );

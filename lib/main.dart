@@ -11,7 +11,7 @@ import 'package:talker_flutter/talker_flutter.dart';
 
 import 'config/env_config.dart';
 import 'l10n/app_localizations.dart';
-import 'pages/tab_food/add_edit_custom_food_modal.dart';
+import 'pages/tab_custom_food/add_edit_custom_food_modal.dart';
 import 'pages/tab_settings/about_sub_page/about_sub_page.dart';
 import 'pages/tab_settings/backup_and_restore_sub_page.dart';
 import 'pages/tab_settings/database_management_sub_page.dart';

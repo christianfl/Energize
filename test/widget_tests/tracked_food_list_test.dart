@@ -1,7 +1,7 @@
 import 'package:energize/l10n/app_localizations.dart';
 import 'package:energize/models/food/food.dart';
 import 'package:energize/models/food/food_tracked.dart';
-import 'package:energize/pages/tab_food/food_page.dart';
+import 'package:energize/pages/tab_custom_food/custom_food_page.dart';
 import 'package:energize/pages/tab_tracking/widgets/tracked_food_list.dart';
 import 'package:energize/pages/tab_tracking/widgets/tracked_food_list_item.dart';
 import 'package:energize/pages/tab_tracking/widgets/tracked_food_list_item_grouper.dart';
@@ -83,7 +83,7 @@ void main() {
       dateAdded: now,
       dateEaten: now,
       title: 'My tracked food 1',
-      origin: FoodPage.originName,
+      origin: CustomFoodPage.originName,
     );
     final myFood2 = FoodTracked(
       id: Food.generatedId,
@@ -91,7 +91,7 @@ void main() {
       dateAdded: now,
       dateEaten: now,
       title: 'My tracked food 2',
-      origin: FoodPage.originName,
+      origin: CustomFoodPage.originName,
     );
     final myFood3 = FoodTracked(
       id: Food.generatedId,
@@ -99,7 +99,7 @@ void main() {
       dateAdded: now,
       dateEaten: twoHoursAgo,
       title: 'My tracked food 3',
-      origin: FoodPage.originName,
+      origin: CustomFoodPage.originName,
     );
 
     // Add tracked food

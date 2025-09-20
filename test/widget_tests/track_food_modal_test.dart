@@ -1,6 +1,6 @@
 import 'package:energize/l10n/app_localizations.dart';
 import 'package:energize/models/food/food.dart';
-import 'package:energize/pages/tab_food/food_page.dart';
+import 'package:energize/pages/tab_custom_food/custom_food_page.dart';
 import 'package:energize/pages/tab_tracking/track_food_modal.dart';
 import 'package:energize/providers/app_settings_provider.dart';
 import 'package:energize/providers/body_targets_provider.dart';
@@ -24,7 +24,7 @@ void main() {
     final foodToTrack = Food(
       id: Food.generatedId,
       title: 'My food to track',
-      origin: FoodPage.originName,
+      origin: CustomFoodPage.originName,
       servingSizes: {'l10nServing': 120},
     );
 
