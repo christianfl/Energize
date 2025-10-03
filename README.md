@@ -1,8 +1,8 @@
 # Energize
 
-Update from 6. January, 2025:
+Notice from 3. October, 2025:
 
-> ⚠️ Energize transitioned to the AGPLv3 license. The last commit which had its code licensed under GPLv3 is `763dc8f7b5`. You may have a look at [general reasons for switching to AGPL](https://www.gnu.org/licenses/why-affero-gpl.html.en).
+> ⚠️ Your personal freedom to install Android apps from any store our source you like is in danger. Google plans to block installation of apps outside of the Play Store if the developer did not register with Google. For more information please see this [great blog post from F-Droid.org](https://f-droid.org/de/2025/09/29/google-developer-registration-decree.html).
 
 [![Translation status](https://hosted.weblate.org/widgets/energize/-/energize/svg-badge.svg)](https://hosted.weblate.org/engage/energize/) [![Delightful Humane Tech](https://codeberg.org/teaserbot-labs/delightful-humane-design/raw/branch/main/humane-tech-badge.svg)](https://codeberg.org/teaserbot-labs/delightful-humane-design) [![F-Droid Version](https://img.shields.io/f-droid/v/com.flasskamp.energize?label=F-Droid&color=b1eb0b)](https://f-droid.org/de/packages/com.flasskamp.energize/) [![Codeberg Release](https://img.shields.io/gitea/v/release/epinez/Energize?gitea_url=https%3A%2F%2Fcodeberg.org&label=Codeberg%20APK&color=4793cc)](https://codeberg.org/epinez/Energize/releases) [<img src="https://shields.rbtlog.dev/simple/com.flasskamp.energize" alt="RB shield">](https://shields.rbtlog.dev/com.flasskamp.energize)
 
@@ -14,12 +14,9 @@ Update from 6. January, 2025:
 <p align="center">
   <a href="https://epinez.codeberg.page/projects/energize/index.html"><img src="https://codeberg.org/epinez/pages/raw/branch/main/try_on_codeberg_pages.png" alt="Try it on Codeberg Pages" height="75"></a>
   <a href="https://f-droid.org/packages/com.flasskamp.energize"><img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png" alt="Get it on F-Droid" height="75"></a>
-  <a href="https://play.google.com/store/apps/details?id=com.flasskamp.energize"><img src="./docs/google-play-badge.png" alt="Get it on Google Play" height="75"></a>
   <a href="http://apps.obtainium.imranr.dev/redirect.html?r=obtainium://add/https://codeberg.org/epinez/Energize"><img src="./docs/badge_obtanium.png" alt="Get it on Obtanium" height="75"></a>
   <a href="https://apt.izzysoft.de/packages/com.flasskamp.energize"><img src="https://gitlab.com/IzzyOnDroid/repo/-/raw/master/assets/IzzyOnDroid.png" alt="Get it on IzzyOnDroid" height="75"></a>
 </p>
-
-- Google Play is currently unavailable. I'm working on resolving the issue.
 
 <br>
 

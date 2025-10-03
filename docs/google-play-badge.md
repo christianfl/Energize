@@ -1,3 +1,0 @@
-# Legal attribution
-
-Google Play and the Google Play logo are trademarks of Google LLC.
