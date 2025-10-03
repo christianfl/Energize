@@ -23,7 +23,7 @@ Some data in Energize is stored on the device. These can partly be updated using
 At the moment, the app releases are built locally and no CI is present. Reproducible builds are in the works; these hints may help:
 
 - See the [F-Droid Build Metadata](https://gitlab.com/fdroid/fdroiddata/-/blob/master/metadata/com.flasskamp.energize.yml#L501-506) to exactly recreate the necessary `.env` file as in the Codeberg release
-- The repository path should match `/home/christian/Development/Codeberg/Energize` on the build machine
+- The repository path should match `/var/home/christian/Development/Codeberg/Energize` on the build machine
 
 ### Steps
 

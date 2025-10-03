@@ -1,0 +1,8 @@
+- [docs] ⚠️ Add readme notice that Google plans to block installation of apps outside of the Play Store if the developer did not register with them
+- [feat] Add source for micronutrient reference values
+- [feat] Set reference values for alcohol to 0 for all groups of people
+- [l10n]¹ Updated Chinese (Simplified Han script), Estonian, French
+
+---
+
+¹Big thanks to all contributors!
