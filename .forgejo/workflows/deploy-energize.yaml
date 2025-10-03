@@ -44,7 +44,7 @@ jobs:
       - name: Flutter Build Web
         run: |
           cd Energize
-          submodules/flutter/bin/flutter build web --release --base-href "/projects/energize/"
+          submodules/flutter/bin/flutter build web --release --base-href "/projects/energize/" --no-wasm-dry-run
       - name: Checkout Pages to 'epinez/Energize/pages'
         uses: https://code.forgejo.org/actions/checkout@v4
         with:
