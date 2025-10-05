@@ -2,7 +2,7 @@
 
 Notice from 3. October, 2025:
 
-> ⚠️ Your personal freedom to install Android apps from any store our source you like is in danger. Google plans to block installation of apps outside of the Play Store if the developer did not register with Google. For more information please see this [great blog post from F-Droid.org](https://f-droid.org/de/2025/09/29/google-developer-registration-decree.html).
+> ⚠️ Your personal freedom to install Android apps from any store or source you like is in danger. Google plans to block installation of apps outside of the Play Store if the developer did not register with Google. For more information please see this [great blog post from F-Droid.org](https://f-droid.org/de/2025/09/29/google-developer-registration-decree.html).
 
 [![Translation status](https://hosted.weblate.org/widgets/energize/-/energize/svg-badge.svg)](https://hosted.weblate.org/engage/energize/) [![Delightful Humane Tech](https://codeberg.org/teaserbot-labs/delightful-humane-design/raw/branch/main/humane-tech-badge.svg)](https://codeberg.org/teaserbot-labs/delightful-humane-design) [![F-Droid Version](https://img.shields.io/f-droid/v/com.flasskamp.energize?label=F-Droid&color=b1eb0b)](https://f-droid.org/de/packages/com.flasskamp.energize/) [![Codeberg Release](https://img.shields.io/gitea/v/release/epinez/Energize?gitea_url=https%3A%2F%2Fcodeberg.org&label=Codeberg%20APK&color=4793cc)](https://codeberg.org/epinez/Energize/releases) [<img src="https://shields.rbtlog.dev/simple/com.flasskamp.energize" alt="RB shield">](https://shields.rbtlog.dev/com.flasskamp.energize)
 
