@@ -13,10 +13,10 @@ from io import BytesIO
 # Set variables
 
 ## URLs of Swiss Food Composition Database (2023-08)
-sfcd_url_en = 'https://naehrwertdaten.ch/wp-content/uploads/2023/08/Swiss_food_composition_database.xlsx'
-sfcd_url_de = 'https://naehrwertdaten.ch/wp-content/uploads/2023/08/Schweizer_Nahrwertdatenbank.xlsx'
-sfcd_url_it = 'https://naehrwertdaten.ch/wp-content/uploads/2023/08/Banca_dati_svizzera_dei_valori_nutritivi.xlsx'
-sfcd_url_fr = 'https://naehrwertdaten.ch/wp-content/uploads/2023/08/Base_de_donnees_suisse_des_valeurs_nutritives.xlsx'
+sfcd_url_en = 'https://webapp.prod.blv.foodcase-services.com/wp-content/uploads/2025/07/Swiss_food_composition_database.xlsx'
+sfcd_url_de = 'https://webapp.prod.blv.foodcase-services.com/wp-content/uploads/2025/07/Schweizer_Nahrwertdatenbank.xlsx'
+sfcd_url_it = 'https://webapp.prod.blv.foodcase-services.com/wp-content/uploads/2025/07/Banca_dati_svizzera_dei_valori_nutritivi.xlsx'
+sfcd_url_fr = 'https://webapp.prod.blv.foodcase-services.com/wp-content/uploads/2025/07/Base_de_donnees_suisse_des_valeurs_nutritives.xlsx'
 
 ## Sheet names for generic food
 sfcd_sheet_en = 'Generic Foods'

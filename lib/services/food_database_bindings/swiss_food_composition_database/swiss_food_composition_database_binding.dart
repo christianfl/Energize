@@ -128,7 +128,7 @@ class SwissFoodCompositionDatabaseBinding {
               vitaminA: _getNutrientValueByColName(
                 csvHeader,
                 csvFoodRow,
-                'Vitamin A activity, RAE (µg-RE)',
+                'Vitamin A activity, RAE (µg)',
                 divideBy: 1000,
               ),
               vitaminB1: _getNutrientValueByColName(
@@ -149,7 +149,7 @@ class SwissFoodCompositionDatabaseBinding {
               vitaminB5: _getNutrientValueByColName(
                 csvHeader,
                 csvFoodRow,
-                'Panthotenic acid (mg)',
+                'Pantothenic acid (mg)',
               ),
               vitaminB6: _getNutrientValueByColName(
                 csvHeader,

@@ -87,7 +87,7 @@ class DatabaseManagementSubPageState extends State<DatabaseManagementSubPage> {
                       ),
                       ListTile(
                         title: Text(AppLocalizations.of(context)!.version),
-                        subtitle: const Text('6.5'),
+                        subtitle: const Text('7.0'),
                       ),
                       ListTile(
                         title: Text(AppLocalizations.of(context)!.languages),
