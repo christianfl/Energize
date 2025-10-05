@@ -87,7 +87,7 @@ for line in pubspec_content:
         break
 
 current_version_build = current_version.split('+')[1]
-suggested_next_build = str((int(current_version_build) + 1))
+suggested_next_build = str((int(current_version_build) + 1) * 10 + 3)
 
 if (int(suggested_next_build) <= int(last_changelog_nr)):
     raise Exception('ERROR! There is a changelog for the next build number or greater')
