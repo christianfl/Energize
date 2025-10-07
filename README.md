@@ -14,7 +14,7 @@ Notice from 3. October, 2025:
 <p align="center">
   <a href="https://epinez.codeberg.page/projects/energize/index.html"><img src="https://codeberg.org/epinez/pages/raw/branch/main/try_on_codeberg_pages.png" alt="Try it on Codeberg Pages" height="75"></a>
   <a href="https://f-droid.org/packages/com.flasskamp.energize"><img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png" alt="Get it on F-Droid" height="75"></a>
-  <a href="http://apps.obtainium.imranr.dev/redirect.html?r=obtainium://add/https://codeberg.org/epinez/Energize"><img src="./docs/badge_obtanium.png" alt="Get it on Obtanium" height="75"></a>
+  <a href="http://apps.obtainium.imranr.dev/redirect.html?r=obtainium://add/https://codeberg.org/epinez/Energize"><img src="https://github.com/user-attachments/assets/713d71c5-3dec-4ec4-a3f2-8d28d025a9c6" alt="Get it on Obtanium" height="75"></a>
   <a href="https://apt.izzysoft.de/packages/com.flasskamp.energize"><img src="https://gitlab.com/IzzyOnDroid/repo/-/raw/master/assets/IzzyOnDroid.png" alt="Get it on IzzyOnDroid" height="75"></a>
 </p>
 
@@ -34,89 +34,43 @@ Screenshots are available in all supported languages [here](fastlane/metadata/an
 ## Features
 
 - Track your food including calories, macro- and micronutrients
-  - (optional) Automatically group tracked food into meals
-- Use several databases, including:
-  - Open Food Facts
-  - Swiss Food Composition Database
-  - USDA FoodData Central
-- Create custom food
-- Search food by product name, barcode, or just scan the barcode
-  - the barcode of the first matching custom food will be used or
-  - Open Food Facts will be searched if that database is activated and no matching custom food was found
-  - EAN, UPC, and custom barcodes for custom food are supported
-- Get food suggestions based on your last tracked food
-- Set targets for macro- and micronutrients including calculating them based on your personal details
-- See your daily nutrition details
-- Create an [encrypted backup](docs/backup-encryption/README.md) and restore it
-  - Local and WebDAV backup are supported
+- Use several databases or create custom food
+- Search food or just scan the barcode
+- Set nutrition targets
+- Create and restore backups
 
-## Build
+A more detailed list can be found [here](https://codeberg.org/epinez/Energize/wiki/Features).
 
-See [BUILD.md](BUILD.md)
+## Documentation
 
-## Test
+Please visit the [Wiki](https://codeberg.org/epinez/Energize/wiki) for information about:
 
-### Unit and Widget tests
-
-Run those with:
-
-```bash
-flutter test
-```
-
-### Integration tests
-
-Currently there are only integration tests for automated screenshot creation. The integration tests automatically create different screenshots using all supported locales with dark and light theme.
-
-Run those with:
-
-```bash
-flutter drive --driver=test_driver/integration_test.dart --target=integration_test/app_test.dart
-```
-
-This saves the screenshots to: `fastlane/metadata/android/<locale>/images/phoneScreenshots/<number>_<theme>.png`
+- Energize's goals
+- how to develop, test, and build Energize
+- how to use Energize (User Documentation)
+- inner works of Energize
 
 ## Contribute
 
-Energize has already benefited incredibly from many contributors. It would be great if this could continue or even be expanded in the future.
+Energize has already benefited incredibly from many contributors. Help is always appreciated! Please see [here](https://codeberg.org/epinez/Energize/wiki/Contribute) how you could contribute.
 
-You are very welcome to:
+<p align="center">
+  <a href="https://hosted.weblate.org/engage/energize/">
+  <img src="https://hosted.weblate.org/widget/energize/energize/287x66-black.png" alt="Translation status" />
+  </a>
+</p>
 
-- Help translating via Weblate
+<p>
+  <div align="center">
+    <img src="assets/mondstern/mondstern_acryl_energize.jpg" width="25%" alt="acrylic picture of Energize by mondstern">
+    </span>
+  </div>
 
-<a href="https://hosted.weblate.org/engage/energize/">
-<img src="https://hosted.weblate.org/widget/energize/energize/multi-auto.svg" alt="Übersetzungsstatus" />
-</a>
-
-- Create issues for
-  - things not working as intended
-  - feature requests
-
-  Please have a look whether similar issues already exist in advance.
-
-- Develop something
-  - There is no written roadmap yet
-    - [milestones](https://codeberg.org/epinez/Energize/milestones) are an indicator
-    - Open issues could also be used as a reference
-  - There are no code style guidelines in place, hopefully the [linter rules](https://codeberg.org/epinez/Energize/src/branch/main/analysis_options.yaml) can assist
-  - Using [Conventional Commits](https://www.conventionalcommits.org) for PRs would be wonderful
-  - it's easier to reach out in advance if you want something to be merged later 😊
-
-- Write tests
-  - [Unit Tests](./test/unit_tests/)
-  - [Widget Tests](./test/widget_tests/)
-  - [Integration Tests](./integration_test/)
-
-  Writing tests is a very important task to ensure we all get a (mostly) bug-free experience!
-
-- Create art: It's both beautiful and motivational
-
-  <img src="assets/mondstern/mondstern_acryl_energize.jpg" width="20%" alt="acrylic picture of Energize by mondstern">
-
-  [Acrylic picture by mondstern](https://codeberg.org/AcrylicIcons/pictures) (CC BY-SA 4.0)
-
-
-- If you have other ideas about how you'd like to contribute, just reach out on Matrix or via mail
+  <div align="center">
+    <small><a href="https://codeberg.org/AcrylicIcons/pictures">Acrylic picture by mondstern (CC BY-SA 4.0)</a>
+    </small>
+  </div>
+</p>
 
 ## Donate
 
@@ -125,10 +79,6 @@ If you want to support the development by a donation, you are very welcome to do
 [![Donate using Liberapay](https://liberapay.com/assets/widgets/donate.svg)](https://liberapay.com/epinez/donate)
 
 **BTC: 35DcbAwi66LDyvxfpmvxVrM7nYrrZVC59k**
-
-## Documentation
-
-If there are any further questions, you may have a look at the [docs](docs/README.md).
 
 ---
 
