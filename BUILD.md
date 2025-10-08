@@ -57,8 +57,7 @@ flutter build linux [--debug]
 
 The Linux build currently has the following known limitations:
 
-- No barcode scanning
-- No local file backup/restore
+- No barcode scanning (see [Flutter#41710](https://github.com/flutter/flutter/issues/41710))
 
 #### Flatpak
 
