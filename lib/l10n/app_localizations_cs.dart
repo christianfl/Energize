@@ -340,7 +340,7 @@ class AppLocalizationsCs extends AppLocalizations {
 
   @override
   String get alsoSetMicronutrientsHint =>
-      'Based on DGE reference values from 2022 with a partly update from 2025';
+      'Values depend on age and sex. Data based on DGE reference values from 2022 with a partly update from 2025.';
 
   @override
   String get apply => 'Použít';

@@ -765,13 +765,13 @@ abstract class AppLocalizations {
   /// No description provided for @alsoSetMicronutrientsSwitch.
   ///
   /// In en, this message translates to:
-  /// **'Also set micronutrient targets based on age and sex'**
+  /// **'Also set micronutrient targets'**
   String get alsoSetMicronutrientsSwitch;
 
   /// No description provided for @alsoSetMicronutrientsHint.
   ///
   /// In en, this message translates to:
-  /// **'Based on DGE reference values from 2022 with a partly update from 2025'**
+  /// **'Values depend on age and sex. Data based on DGE reference values from 2022 with a partly update from 2025.'**
   String get alsoSetMicronutrientsHint;
 
   /// No description provided for @apply.
