@@ -11,12 +11,17 @@ Notice from 3. October, 2025:
   - Energize is respecting the user's privacy. [🔒 Privacy policy](PRIVACY.md)
   - Community-moderated [[Matrix] room](https://matrix.to/#/%23energize:matrix.org)
 
-<p align="center">
+<div align="center">
   <a href="https://epinez.codeberg.page/projects/energize/index.html"><img src="https://codeberg.org/epinez/pages/raw/branch/main/try_on_codeberg_pages.png" alt="Try it on Codeberg Pages" height="75"></a>
   <a href="https://f-droid.org/packages/com.flasskamp.energize"><img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png" alt="Get it on F-Droid" height="75"></a>
   <a href="http://apps.obtainium.imranr.dev/redirect.html?r=obtainium://add/https://codeberg.org/epinez/Energize"><img src="https://github.com/user-attachments/assets/713d71c5-3dec-4ec4-a3f2-8d28d025a9c6" alt="Get it on Obtanium" height="75"></a>
   <a href="https://apt.izzysoft.de/packages/com.flasskamp.energize"><img src="https://gitlab.com/IzzyOnDroid/repo/-/raw/master/assets/IzzyOnDroid.png" alt="Get it on IzzyOnDroid" height="75"></a>
-</p>
+</div>
+
+<div align="center">
+  <small>For the Codeberg Pages build, please see <a href="https://codeberg.org/epinez/Energize/src/branch/main/BUILD.md#known-limitations"> known limitations for Web.</a>
+  </small>
+</div>
 
 <br>
 
