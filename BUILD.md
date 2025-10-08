@@ -23,6 +23,10 @@ Supported platforms:
 
 ### Android
 
+Prerequisites: See [Set up Android development](https://docs.flutter.dev/platform-integration/android/setup)
+
+Build:
+
 ```bash
 flutter build apk --split-per-abi [--debug]
 ```
@@ -49,6 +53,10 @@ The Web build currently has the following known limitations:
 
 ### Linux
 
+Prerequisites: See [Set up Linux development](https://docs.flutter.dev/platform-integration/linux/setup)
+
+Build:
+
 ```bash
 flutter build linux [--debug]
 ```
@@ -63,72 +71,22 @@ The Linux build currently has the following known limitations:
 
 The linux build depends on sqlite. Furthermore, a few arch specific settings have to be set. Flatpak helps with providing everything which is needed to just install and run Energize on Linux. The manifest references prebuild binaries which will be downloaded during build.
 
-Build (AARCH64):
+Build (aarch64):
 
 ```bash
 flatpak-builder --arch=aarch64 --repo=repo-aarch64 --force-clean build-aarch64 flatpak/com.flasskamp.Energize.json
 ```
 
-Create bundle (AARCH64):
+Create bundle (aarch64):
 
 ```bash
 flatpak build-bundle repo-aarch64 energize-aarch64.flatpak com.flasskamp.Energize --arch=aarch64
 ```
 
-Install on host (AARCH64):
+Install on host (aarch64):
 
 ```bash
 flatpak install energize-aarch64.flatpak
 ```
 
-#### AARCH64 build
-
-Flutter does not provide any possibilities to cross-compile. Hence an AARCH64 build has to be created on an AARCH64 machine. To compile on an x86-64 computer, a virtual machine can be used.
-
-Install necessary dependencies:
-
-```bash
-sudo dnf install libvirt virt-install qemu-system-aarch64 # Fedora
-sudo apt install virtinst qemu-system-aarch64 # Debian
-```
-
-Create virtual disk (20 GB):
-
-```bash
-sudo fallocate -l 20G /var/lib/libvirt/images/debian-12-arm64-vm.img
-```
-
-Download and install the VM:
-
-```bash
-sudo virt-install \
-  --name debian-12-arm64-vm \
-  --arch aarch64 \
-  --machine virt \
-  --os-variant debian12 \
-  --ram 4096 \
-  --vcpus 4 \
-  --import \
-  --disk /var/lib/libvirt/images/debian-12-arm64-vm.img,bus=virtio \
-  --graphics none \
-  --network user,model=virtio \
-  --features acpi=off \
-  --boot uefi \
-  --location https://deb.debian.org/debian/dists/bookworm/main/installer-arm64/
-```
-
-Just go through the setup process. You don’t have to make special configurations.
-
-After installation, forward the guest's SSH port to the host to access the VM via SSH:
-
-```bash
-sudo virsh qemu-monitor-command --hmp debian-12-arm64-vm 'hostfwd_add ::2222-:22'
-```
-
-Connect via SSH:
-
-```bash
-ssh -p 2222 <username>@localhost
-```
-
-You can then proceed as usual to build the Linux AARCH64 variant.
+See [here](https://codeberg.org/epinez/Energize/wiki/Build) for more information about how to build for different target architectures.
