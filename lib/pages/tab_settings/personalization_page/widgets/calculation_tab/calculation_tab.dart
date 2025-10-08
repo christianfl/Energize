@@ -239,14 +239,8 @@ class CalculationTabState extends State<CalculationTab> {
                     ),
                     const SizedBox(height: 20),
                     CheckboxListTile(
-                      contentPadding: const EdgeInsets.all(8.0),
                       title: Text(
-                        AppLocalizations.of(
-                          context,
-                        )!.alsoSetMicronutrientsSwitch,
-                      ),
-                      subtitle: Text(
-                        AppLocalizations.of(context)!.alsoSetMicronutrientsHint,
+                        '${AppLocalizations.of(context)!.alsoSetMicronutrientsSwitch}*',
                       ),
                       value: _setMicronutrientsBasedOnAgeAndSex,
                       onChanged: (val) {
@@ -254,6 +248,10 @@ class CalculationTabState extends State<CalculationTab> {
                           _setMicronutrientsBasedOnAgeAndSex = val!;
                         });
                       },
+                    ),
+                    Text(
+                      '*${AppLocalizations.of(context)!.alsoSetMicronutrientsHint}',
+                      style: Theme.of(context).textTheme.bodySmall,
                     ),
                   ],
                 ),
