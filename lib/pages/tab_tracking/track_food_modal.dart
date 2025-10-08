@@ -312,12 +312,17 @@ class TrackFoodState extends State<TrackFood>
             child: ListBody(
               children: <Widget>[
                 ListTile(
-                  isThreeLine: true,
                   title: Text(
                     AppLocalizations.of(context)!.completeProductName,
                   ),
                   subtitle: Text(food.title),
                 ),
+                if (food.ean != null)
+                  if (food.ean!.isNotEmpty)
+                    ListTile(
+                      title: Text(AppLocalizations.of(context)!.barcode),
+                      subtitle: Text(food.ean!),
+                    ),
                 if (food is FoodTracked)
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -334,12 +339,6 @@ class TrackFoodState extends State<TrackFood>
                           '${DateUtil.getDate(food.dateEaten, context)} @ ${TimeUtil.getTime(food.dateEaten, context)}',
                         ),
                       ),
-                      if (food.ean != null)
-                        if (food.ean!.isNotEmpty)
-                          ListTile(
-                            title: Text(AppLocalizations.of(context)!.barcode),
-                            subtitle: Text(food.ean!),
-                          ),
                     ],
                   ),
               ],
