@@ -1,7 +1,7 @@
 # Privacy Policy
 
-_Last update: December 23, 2024_
-_Reason: Corrected spelling mistakes._
+_Last update: October 8, 2025_  
+_Reason: Fixed hyperlink._
 
 > Currently only available in English.
 
@@ -39,6 +39,6 @@ In this case the following data is transmitted to the custom server:
 
 - the device's external IP-address (for technical reasons)
 - the authentication data for the custom server (username and password)
-- the [encrypted backup](https://codeberg.org/epinez/Energize/src/branch/main/docs/backup-encryption/README.md) file
+- the [encrypted backup](https://codeberg.org/epinez/Energize/wiki/Security#encryption-details) file
 
 Please note that there is no default WebDAV-server configured at the moment, which means that you or your configured provider is fully responsible for processing the data.
