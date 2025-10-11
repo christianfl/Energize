@@ -299,7 +299,7 @@
     "@activityLevel1_6": {},
     "proteinRatio": "Protein oranı",
     "@proteinRatio": {},
-    "alsoSetMicronutrientsSwitch": "Ayrıca yaş ve cinsiyete göre mikro besin hedefleri belirle",
+    "alsoSetMicronutrientsSwitch": "Ayrıca mikro besin hedefleri belirle",
     "@alsoSetMicronutrientsSwitch": {},
     "yourBody": "Vücudunuz",
     "@yourBody": {},
@@ -591,5 +591,7 @@
     "testCustomFood4Calories": "228",
     "@testCustomFood4Calories": {
         "description": "Only used for translated screenshots, not within the app itself. Calories in kcal per 100 g of custom food 4/5 as a double value (e.g.: 120.0)"
-    }
+    },
+    "alsoSetMicronutrientsHint": "Değerler yaş ve cinsiyete bağlıdır. Veriler, 2022 yılı DGE referans değerlerine dayanır ve 2025 yılından itibaren kısmen güncellenmiştir.",
+    "@alsoSetMicronutrientsHint": {}
 }
