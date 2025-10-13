@@ -201,7 +201,7 @@
     "@carbsRatio": {},
     "formulaForMales": "Valem meeste jaoks",
     "@formulaForMales": {},
-    "alsoSetMicronutrientsSwitch": "Määra ka mikrotoitainete eesmärgid vanuse ja soo alusel",
+    "alsoSetMicronutrientsSwitch": "Määra ka mikrotoitainete eesmärgid",
     "@alsoSetMicronutrientsSwitch": {},
     "apply": "Rakenda",
     "@apply": {},
@@ -592,6 +592,6 @@
     "@preferServingSizesHint": {},
     "logs": "Logid",
     "@logs": {},
-    "alsoSetMicronutrientsHint": "Aluseks on DGE 2022. aastal koostatud kontrollväärtused, mida on osaliselt uuendatud 2025",
+    "alsoSetMicronutrientsHint": "Väärtused sõltuvad vanusest ja soost. Aluseks on DGE 2022. aastal koostatud kontrollväärtused, mida on osaliselt uuendatud 2025. aastal.",
     "@alsoSetMicronutrientsHint": {}
 }
