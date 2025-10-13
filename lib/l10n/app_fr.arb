@@ -333,7 +333,7 @@
     "@weightTarget": {},
     "calculationInfoText1": "Le calcul de l'apport calorique est basé sur la formule Mifflin-St.Jeor. Sachez qu'elle ne peut servir que d'approximation aux valeurs réelles. Celles-ci diffèrent d'une personne à l'autre, car leurs conditions corporelles peuvent diverger plus ou moins.",
     "@calculationInfoText1": {},
-    "alsoSetMicronutrientsSwitch": "Fixer également des objectifs en matière de micronutriments en fonction de l'âge et du genre",
+    "alsoSetMicronutrientsSwitch": "Fixer également des objectifs en matière de micronutriments",
     "@alsoSetMicronutrientsSwitch": {},
     "totalEnergy": "Énergie totale",
     "@totalEnergy": {},
@@ -592,6 +592,6 @@
     "@addServingSize": {},
     "typicalServingSizes": "Tailles de portion habituelles",
     "@typicalServingSizes": {},
-    "alsoSetMicronutrientsHint": "Sur la base des valeurs de référence de la DGE de 2022, avec une mise à jour partielle de 2025",
+    "alsoSetMicronutrientsHint": "Les valeurs dépendent de l'âge et du sexe. Données basées sur les valeurs de référence DGE de 2022, partiellement mises à jour en 2025.",
     "@alsoSetMicronutrientsHint": {}
 }
