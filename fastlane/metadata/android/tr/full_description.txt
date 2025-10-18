@@ -1,0 +1,9 @@
+<ul>
+<li>Kalori, makro ve mikro besinler dahil olmak üzere öğünlerinizi takip edin</li>
+<li>Birkaç veri tabanını kullanın (Open Food Facts, USDA ve İsviçre Gıda Bileşimi Veri Tabanı) veya özel gıdalar oluşturun</li>
+<li>Ürün adına göre öğünleri arayın veya barkodu tarayın</li>
+<li>Son takip ettiğiniz öğünlere göre öğün önerileri alın</li>
+<li>Kişisel bilgilerinize göre hesaplayarak makro ve mikro besinler için hedefler belirleyin</li>
+<li>Günlük beslenme ayrıntılarınızı görün</li>
+<li>Şifreli yedeklemeler oluşturun ve geri yükleyin (Yerel veya WebDAV)</li>
+</ul>
