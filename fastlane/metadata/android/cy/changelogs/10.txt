@@ -1,0 +1,3 @@
+* Gwasgu'n ôl ar bob tab ond mae'r tab olrhain yn llywio i'r prif dab yn lle cau'r app
+* Cyfieithiad newydd: twrceg (diolch!)
+* Peidiwch ag allforio gwerthoedd null i mewn copi wrth gefn, gan arbed llawer o le ffeil
