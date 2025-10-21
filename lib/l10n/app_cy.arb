@@ -1,1 +1,10 @@
-{}
+{
+    "appDescriptionShort": "Olrhain eich bwyd a maeth yn hawdd ac yn gyflym.",
+    "@appDescriptionShort": {},
+    "appDescription": "Olrhain eich bwyd a maeth yn hawdd ac yn gyflym. Sganiwch eich cynhyrchion neu chwiliwch â llaw mewn gwahanol gronfeydd data.",
+    "@appDescription": {},
+    "ok": "IAWN",
+    "@ok": {},
+    "fieldMandatory": "Rhowch werth",
+    "@fieldMandatory": {}
+}
