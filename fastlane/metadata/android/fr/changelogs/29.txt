@@ -1,0 +1,9 @@
+- [feat] Ajout des portions. Grâce au travail d'Open Food Facts et de sa communauté, les données relatives aux portions sont assez bien tenues à jour. Si certaines données manquent, n'hésitez pas à contribuer directement à Open Food Facts. Custom Food prend également en charge les portions.
+
+- [feat] Refonte et mise à jour des logos de la base de données alimentaire
+- [test] Refactorisations et amélioration des tests
+- [l10n] Mise à jour du chinois, de l'estonien, du hongrois, du portugais, de l'espagnol, du suédois, du turc et de l'ukrainien¹
+
+---
+
+¹Un grand merci à tous les contributeurs !

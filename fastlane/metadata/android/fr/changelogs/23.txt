@@ -3,7 +3,6 @@
 - [l10n] Utiliser les noms des vitamines B
 - [l10n] Ajout du Russe¹
 - [l10n] Mise à jour du portugais (Brésil)¹
-
 ---
 
 ¹Un grand merci à tous les contributeurs !

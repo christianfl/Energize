@@ -1,0 +1,8 @@
+- [feat] Affichage immédiat des résultats pour les aliments recherchés
+- [feat] Indication des raisons pour lesquelles les aliments avec code-barres n'ont pas pu être trouvés
+- [feat] Tri des aliments suivis par consommation, puis par date d'ajout
+- [feat] Prise en charge de plusieurs langues et synonymes pour la base de données suisse sur la composition des aliments
+- [fix] Refonte de USDA FoodData Central, correction de deux nutriments, prise en charge de plusieurs nouveaux nutriments
+- [fix] Diverses corrections et améliorations¹
+- [l10n] Mise à jour du chinois, du français, de l'italien, de l'espagnol et du turc¹
+¹Un grand merci à tous les contributeurs !

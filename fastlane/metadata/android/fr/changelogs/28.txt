@@ -1,0 +1,7 @@
+- [feat] Changement de comportement : ne déclencher la recherche d'aliments qu'après avoir soumis la recherche
+- [l10n] Mise à jour du chinois (caractères Han simplifiés), du français, du russe, de l'espagnol et de l'ukrainien¹
+- [l10n] Ajout d'aliments personnalisés traduisibles avec calories pour la création automatisée de captures d'écran, permettant par exemple de présenter des aliments traditionnels
+
+---
+
+¹Un grand merci à tous les contributeurs !
