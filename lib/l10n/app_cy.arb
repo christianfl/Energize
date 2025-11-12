@@ -6,5 +6,11 @@
     "ok": "IAWN",
     "@ok": {},
     "fieldMandatory": "Rhowch werth",
-    "@fieldMandatory": {}
+    "@fieldMandatory": {},
+    "onlyNumbersAllowed": "Niferoedd yn unig a ganiateir",
+    "@onlyNumbersAllowed": {},
+    "undo": "Dadwneud",
+    "@undo": {},
+    "deleted": "wedi dileu",
+    "@deleted": {}
 }
