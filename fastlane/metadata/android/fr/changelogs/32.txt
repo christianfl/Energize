@@ -1,0 +1,9 @@
+- [feat] Ajout d'une option permettant de ne pas utiliser les portions par défaut lors du suivi de nouveaux aliments
+- [feat] La sauvegarde enregistre désormais toutes les données, y compris les paramètres, le corps et les objectifs nutritionnels
+- [feat] Ajout d'un enregistreur avec première connexion
+- [fix] Problèmes de remplissage dans la page « À propos »
+- [fix] Problèmes mineurs liés au navigateur et à Linux
+- [l10n]¹ Ajout du finnois
+- [l10n]¹ Mise à jour du chinois, du tchèque, de l'estonien, du français, de l'allemand, de l'hébreu, du hongrois, de l'italien, du norvégien bokmål, du polonais, du portugais, du russe, du slovaque et de 6 autres langues
+---
+¹Un grand merci à tous les contributeurs !

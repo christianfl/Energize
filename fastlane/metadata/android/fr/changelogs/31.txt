@@ -1,0 +1,1 @@
+- [correction] Ignorer les éléments Food ou FoodTracked individuels qui ne peuvent pas être analysés à partir de la base de données

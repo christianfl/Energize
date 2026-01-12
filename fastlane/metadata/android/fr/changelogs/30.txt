@@ -1,0 +1,10 @@
+- [correction] Problème de sérialisation qui causait de graves problèmes avec la nouvelle fonctionnalité de taille des portions
+- [fonctionnalité] Prise en charge des préférences linguistiques par application sous Android 13
+- [correction] La sauvegarde des fichiers locaux fonctionne désormais sous Linux
+- [correction] Affichage d'un cadre « code-barres introuvable » en cas de recherche sur des appareils ne prenant pas en charge l'appareil photo
+- [correction] Taille de saisie du montant sur les appareils dotés d'écrans plus petits
+- [l10n] Mise à jour de l'allemand
+
+---
+
+Un grand merci à tous les contributeurs !
