@@ -144,6 +144,11 @@ ${AppLocalizations.of(context)!.exportedNumberOfFoodsMessage(numberOfCustomFoods
 
     // Do backup only if confirmed
     if (wantsRestore == true) {
+      // Show progress bar
+      setState(() {
+        _isBusy = true;
+      });
+
       Object readBackup;
 
       // Read file from WebDAV
@@ -157,6 +162,11 @@ ${AppLocalizations.of(context)!.exportedNumberOfFoodsMessage(numberOfCustomFoods
       } catch (webDAVRestoreError) {
         if (!context.mounted) return;
         _showError(context, text: webDAVRestoreError.toString());
+
+        // Read failed, hide progress bar
+        setState(() {
+          _isBusy = false;
+        });
 
         // End function
         return;
@@ -191,6 +201,11 @@ ${AppLocalizations.of(context)!.importedNumberOfFoodsMessage(numberOfCustomFoods
       } catch (exception) {
         // In case something went wrong with decryption, etc.
         _showError(context, text: exception.toString());
+      } finally {
+        // Restore done or failed, hide progress bar
+        setState(() {
+          _isBusy = false;
+        });
       }
     }
   }
