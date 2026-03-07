@@ -341,11 +341,11 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get alsoSetMicronutrientsSwitch =>
-      'Fixer également des objectifs en matière de micronutriments en fonction de l\'âge et du genre';
+      'Fixer également des objectifs en matière de micronutriments';
 
   @override
   String get alsoSetMicronutrientsHint =>
-      'Sur la base des valeurs de référence de la DGE de 2022, avec une mise à jour partielle de 2025';
+      'Les valeurs dépendent de l\'âge et du sexe. Données basées sur les valeurs de référence DGE de 2022, partiellement mises à jour en 2025.';
 
   @override
   String get apply => 'Appliquer';

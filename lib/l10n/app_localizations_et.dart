@@ -337,11 +337,11 @@ class AppLocalizationsEt extends AppLocalizations {
 
   @override
   String get alsoSetMicronutrientsSwitch =>
-      'Määra ka mikrotoitainete eesmärgid vanuse ja soo alusel';
+      'Määra ka mikrotoitainete eesmärgid';
 
   @override
   String get alsoSetMicronutrientsHint =>
-      'Aluseks on DGE 2022. aastal koostatud kontrollväärtused, mida on osaliselt uuendatud 2025';
+      'Väärtused sõltuvad vanusest ja soost. Aluseks on DGE 2022. aastal koostatud kontrollväärtused, mida on osaliselt uuendatud 2025. aastal.';
 
   @override
   String get apply => 'Rakenda';
