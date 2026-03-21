@@ -1,9 +1,9 @@
 import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'shared_preferences_service_interface.dart';
+import 'key_value_storage_service_interface.dart';
 
-class SharedPreferencesService implements SharedPreferencesServiceInterface {
+class SharedPreferencesService implements KeyValueStorageServiceInterface {
   SharedPreferencesService._privateConstructor();
   static final SharedPreferencesService instance =
       SharedPreferencesService._privateConstructor();

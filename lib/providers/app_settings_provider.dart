@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 import '../models/app_settings.dart';
 
-import '../services/shared_preferences/shared_preferences_service_interface.dart';
+import '../services/key_value_storage_service/key_value_storage_service_interface.dart';
 
 /// Provider for app-wide settings.
 ///
@@ -14,45 +14,46 @@ class AppSettingsProvider with ChangeNotifier {
 
   AppSettings get settings => _settings;
 
-  final SharedPreferencesServiceInterface _sharedPrefs;
+  final KeyValueStorageServiceInterface _keyValueStorage;
 
-  AppSettingsProvider({required SharedPreferencesServiceInterface sharedPrefs})
-    : _sharedPrefs = sharedPrefs {
+  AppSettingsProvider({
+    required KeyValueStorageServiceInterface keyValueStorage,
+  }) : _keyValueStorage = keyValueStorage {
     _loadSettings();
   }
 
-  /// Loads settings from SharedPreferences into [_settings].
+  /// Loads settings from key-value storage into [_settings].
   Future<void> _loadSettings() async {
     _settings = AppSettings(
-      isMealGroupingActivated: await _sharedPrefs.getValue<bool>(
+      isMealGroupingActivated: await _keyValueStorage.getValue<bool>(
         AppSettings.isMealGroupingActivatedKey,
         isMealGroupingActivated,
       ),
-      isServingSizePreferred: await _sharedPrefs.getValue<bool>(
+      isServingSizePreferred: await _keyValueStorage.getValue<bool>(
         AppSettings.isServingSizePreferredKey,
         isServingSizePreferred,
       ),
-      backupServerUrl: await _sharedPrefs.getValue<String>(
+      backupServerUrl: await _keyValueStorage.getValue<String>(
         AppSettings.backupServerUrlKey,
         backupServerUrl,
       ),
-      backupUsername: await _sharedPrefs.getValue<String>(
+      backupUsername: await _keyValueStorage.getValue<String>(
         AppSettings.backupUsernameKey,
         backupUsername,
       ),
-      backupPathAndFilename: await _sharedPrefs.getValue<String>(
+      backupPathAndFilename: await _keyValueStorage.getValue<String>(
         AppSettings.backupPathAndFilenameKey,
         backupPathAndFilename,
       ),
-      isProviderOpenFoodFactsActivated: await _sharedPrefs.getValue<bool>(
+      isProviderOpenFoodFactsActivated: await _keyValueStorage.getValue<bool>(
         AppSettings.isProviderOpenFoodFactsActivatedKey,
         isProviderOpenFoodFactsActivated,
       ),
-      isProviderSndbActivated: await _sharedPrefs.getValue<bool>(
+      isProviderSndbActivated: await _keyValueStorage.getValue<bool>(
         AppSettings.isProviderSndbActivatedKey,
         isProviderSndbActivated,
       ),
-      isProviderUsdaActivated: await _sharedPrefs.getValue<bool>(
+      isProviderUsdaActivated: await _keyValueStorage.getValue<bool>(
         AppSettings.isProviderUsdaActivatedKey,
         isProviderUsdaActivated,
       ),
@@ -77,42 +78,42 @@ class AppSettingsProvider with ChangeNotifier {
 
   set isMealGroupingActivated(bool value) {
     _settings.isMealGroupingActivated = value;
-    _sharedPrefs.setValue(AppSettings.isMealGroupingActivatedKey, value);
+    _keyValueStorage.setValue(AppSettings.isMealGroupingActivatedKey, value);
 
     notifyListeners();
   }
 
   set isServingSizePreferred(bool value) {
     _settings.isServingSizePreferred = value;
-    _sharedPrefs.setValue(AppSettings.isServingSizePreferredKey, value);
+    _keyValueStorage.setValue(AppSettings.isServingSizePreferredKey, value);
 
     notifyListeners();
   }
 
   set backupServerUrl(String value) {
     _settings.backupServerUrl = value;
-    _sharedPrefs.setValue(AppSettings.backupServerUrlKey, value);
+    _keyValueStorage.setValue(AppSettings.backupServerUrlKey, value);
 
     notifyListeners();
   }
 
   set backupUsername(String value) {
     _settings.backupUsername = value;
-    _sharedPrefs.setValue(AppSettings.backupUsernameKey, value);
+    _keyValueStorage.setValue(AppSettings.backupUsernameKey, value);
 
     notifyListeners();
   }
 
   set backupPathAndFilename(String value) {
     _settings.backupPathAndFilename = value;
-    _sharedPrefs.setValue(AppSettings.backupPathAndFilenameKey, value);
+    _keyValueStorage.setValue(AppSettings.backupPathAndFilenameKey, value);
 
     notifyListeners();
   }
 
   set isProviderOpenFoodFactsActivated(bool value) {
     _settings.isProviderOpenFoodFactsActivated = value;
-    _sharedPrefs.setValue(
+    _keyValueStorage.setValue(
       AppSettings.isProviderOpenFoodFactsActivatedKey,
       value,
     );
@@ -122,35 +123,35 @@ class AppSettingsProvider with ChangeNotifier {
 
   set isProviderSndbActivated(bool value) {
     _settings.isProviderSndbActivated = value;
-    _sharedPrefs.setValue(AppSettings.isProviderSndbActivatedKey, value);
+    _keyValueStorage.setValue(AppSettings.isProviderSndbActivatedKey, value);
 
     notifyListeners();
   }
 
   set isProviderUsdaActivated(bool value) {
     _settings.isProviderUsdaActivated = value;
-    _sharedPrefs.setValue(AppSettings.isProviderUsdaActivatedKey, value);
+    _keyValueStorage.setValue(AppSettings.isProviderUsdaActivatedKey, value);
 
     notifyListeners();
   }
 
   void clearBackupServerUrl() {
     _settings.backupServerUrl = '';
-    _sharedPrefs.remove(AppSettings.backupServerUrlKey);
+    _keyValueStorage.remove(AppSettings.backupServerUrlKey);
 
     notifyListeners();
   }
 
   void clearBackupUsername() {
     _settings.backupUsername = '';
-    _sharedPrefs.remove(AppSettings.backupUsernameKey);
+    _keyValueStorage.remove(AppSettings.backupUsernameKey);
 
     notifyListeners();
   }
 
   void clearBackupPathAndFilename() {
     _settings.backupPathAndFilename = '';
-    _sharedPrefs.remove(AppSettings.backupPathAndFilenameKey);
+    _keyValueStorage.remove(AppSettings.backupPathAndFilenameKey);
 
     notifyListeners();
   }
@@ -159,7 +160,7 @@ class AppSettingsProvider with ChangeNotifier {
   Future<void> saveAll(AppSettings newSettings) async {
     try {
       final settingsMap = newSettings.toJson();
-      await _sharedPrefs.setAll(settingsMap);
+      await _keyValueStorage.setAll(settingsMap);
       _settings = newSettings;
 
       notifyListeners();

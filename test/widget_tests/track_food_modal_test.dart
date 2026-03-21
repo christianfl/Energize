@@ -12,14 +12,14 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
 
 import '../test_utils/custom_food_database_service_mock.dart';
-import '../test_utils/shared_preferences_service_mock.dart';
+import '../test_utils/key_value_storage_service_mock.dart';
 import '../test_utils/tracked_food_database_service_mock.dart';
 
 void main() {
   testWidgets('TrackFoodModal Widget Tests', (WidgetTester tester) async {
     final mockTrackedFoodDb = TrackedFoodDatabaseServiceMock();
     final mockCustomFoodDb = CustomFoodDatabaseServiceMock();
-    final mockSharedPrefs = SharedPreferencesServiceMock();
+    final mockKeyValueStorage = KeyValueStorageServiceMock();
 
     final foodToTrack = Food(
       id: Food.generatedId,
@@ -31,7 +31,7 @@ void main() {
     final modalArgs = ModalArguments(foodToTrack, ModalMode.add);
 
     final appSettingsProvider = AppSettingsProvider(
-      sharedPrefs: SharedPreferencesServiceMock(),
+      keyValueStorage: KeyValueStorageServiceMock(),
     );
 
     // Disable prefering serving sizes
@@ -64,7 +64,8 @@ void main() {
             },
           ),
           ChangeNotifierProvider(
-            create: (_) => BodyTargetsProvider(sharedPrefs: mockSharedPrefs),
+            create: (_) =>
+                BodyTargetsProvider(keyValueStorage: mockKeyValueStorage),
           ),
         ],
         child: MaterialApp(

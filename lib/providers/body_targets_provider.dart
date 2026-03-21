@@ -5,7 +5,7 @@ import 'package:flutter/foundation.dart';
 import '../models/person/body_targets.dart';
 import '../models/person/enums/sex.dart';
 import '../models/person/enums/weight_target.dart';
-import '../services/shared_preferences/shared_preferences_service_interface.dart';
+import '../services/key_value_storage_service/key_value_storage_service_interface.dart';
 
 /// Provider for everything related to the body and targets.
 ///
@@ -18,35 +18,42 @@ class BodyTargetsProvider with ChangeNotifier {
 
   BodyTargets get bodyTargets => _bodyTargets;
 
-  final SharedPreferencesServiceInterface _sharedPrefs;
+  final KeyValueStorageServiceInterface _keyValueStorage;
 
-  BodyTargetsProvider({required SharedPreferencesServiceInterface sharedPrefs})
-    : _sharedPrefs = sharedPrefs {
+  BodyTargetsProvider({
+    required KeyValueStorageServiceInterface keyValueStorage,
+  }) : _keyValueStorage = keyValueStorage {
     _loadBodyAndTargets();
   }
 
-  /// Loads data from SharedPreferences into [_bodyTargets].
+  /// Loads data from key-value storage into [_bodyTargets].
   Future<void> _loadBodyAndTargets() async {
     // Prepare parse objects
-    final sexString = await _sharedPrefs.getValue<String>(
+    final sexString = await _keyValueStorage.getValue<String>(
       BodyTargets.sexKey,
-      _bodyTargets.sex.toSharedPreferencesValue(),
+      _bodyTargets.sex.toKeyValueStorageValueName(),
     );
-    final weightTargetString = await _sharedPrefs.getValue<String>(
+    final weightTargetString = await _keyValueStorage.getValue<String>(
       BodyTargets.weightTargetKey,
       _bodyTargets.weightTarget.toString(),
     );
 
-    // Load each SharedPreferences value into BodyTargets
+    // Load each value from key-value storage into BodyTargets
     _bodyTargets = BodyTargets(
-      age: await _sharedPrefs.getValue<int>(BodyTargets.ageKey, age),
+      age: await _keyValueStorage.getValue<int>(BodyTargets.ageKey, age),
       sex: Sex.values.firstWhere(
-        (e) => e.toSharedPreferencesValue() == sexString,
+        (e) => e.toKeyValueStorageValueName() == sexString,
         orElse: () => _bodyTargets.sex,
       ),
-      weight: await _sharedPrefs.getValue<int>(BodyTargets.weightKey, weight),
-      height: await _sharedPrefs.getValue<int>(BodyTargets.heightKey, height),
-      activityLevel: await _sharedPrefs.getValue<double>(
+      weight: await _keyValueStorage.getValue<int>(
+        BodyTargets.weightKey,
+        weight,
+      ),
+      height: await _keyValueStorage.getValue<int>(
+        BodyTargets.heightKey,
+        height,
+      ),
+      activityLevel: await _keyValueStorage.getValue<double>(
         BodyTargets.activityLevelKey,
         activityLevel,
       ),
@@ -54,199 +61,199 @@ class BodyTargetsProvider with ChangeNotifier {
         (e) => e.toString() == weightTargetString,
         orElse: () => _bodyTargets.weightTarget,
       ),
-      proteinRatio: await _sharedPrefs.getValue<double>(
+      proteinRatio: await _keyValueStorage.getValue<double>(
         BodyTargets.proteinRatioKey,
         proteinRatio,
       ),
-      carbsRatio: await _sharedPrefs.getValue<double>(
+      carbsRatio: await _keyValueStorage.getValue<double>(
         BodyTargets.carbsRatioKey,
         carbsRatio,
       ),
-      fatRatio: await _sharedPrefs.getValue<double>(
+      fatRatio: await _keyValueStorage.getValue<double>(
         BodyTargets.fatRatioKey,
         fatRatio,
       ),
-      caloriesTarget: await _sharedPrefs.getValue<double>(
+      caloriesTarget: await _keyValueStorage.getValue<double>(
         BodyTargets.caloriesTargetKey,
         caloriesTarget,
       ),
-      proteinTarget: await _sharedPrefs.getValue<double>(
+      proteinTarget: await _keyValueStorage.getValue<double>(
         BodyTargets.proteinTargetKey,
         proteinTarget,
       ),
-      carbsTarget: await _sharedPrefs.getValue<double>(
+      carbsTarget: await _keyValueStorage.getValue<double>(
         BodyTargets.carbsTargetKey,
         carbsTarget,
       ),
-      fatTarget: await _sharedPrefs.getValue<double>(
+      fatTarget: await _keyValueStorage.getValue<double>(
         BodyTargets.fatTargetKey,
         fatTarget,
       ),
-      vitaminATarget: await _sharedPrefs.getValue<double>(
+      vitaminATarget: await _keyValueStorage.getValue<double>(
         BodyTargets.vitaminATargetKey,
         vitaminATarget,
       ),
-      vitaminB1Target: await _sharedPrefs.getValue<double>(
+      vitaminB1Target: await _keyValueStorage.getValue<double>(
         BodyTargets.vitaminB1TargetKey,
         vitaminB1Target,
       ),
-      vitaminB2Target: await _sharedPrefs.getValue<double>(
+      vitaminB2Target: await _keyValueStorage.getValue<double>(
         BodyTargets.vitaminB2TargetKey,
         vitaminB2Target,
       ),
-      vitaminB3Target: await _sharedPrefs.getValue<double>(
+      vitaminB3Target: await _keyValueStorage.getValue<double>(
         BodyTargets.vitaminB3TargetKey,
         vitaminB3Target,
       ),
-      vitaminB5Target: await _sharedPrefs.getValue<double>(
+      vitaminB5Target: await _keyValueStorage.getValue<double>(
         BodyTargets.vitaminB5TargetKey,
         vitaminB5Target,
       ),
-      vitaminB6Target: await _sharedPrefs.getValue<double>(
+      vitaminB6Target: await _keyValueStorage.getValue<double>(
         BodyTargets.vitaminB6TargetKey,
         vitaminB6Target,
       ),
-      vitaminB7Target: await _sharedPrefs.getValue<double>(
+      vitaminB7Target: await _keyValueStorage.getValue<double>(
         BodyTargets.vitaminB7TargetKey,
         vitaminB7Target,
       ),
-      vitaminB9Target: await _sharedPrefs.getValue<double>(
+      vitaminB9Target: await _keyValueStorage.getValue<double>(
         BodyTargets.vitaminB9TargetKey,
         vitaminB9Target,
       ),
-      vitaminB12Target: await _sharedPrefs.getValue<double>(
+      vitaminB12Target: await _keyValueStorage.getValue<double>(
         BodyTargets.vitaminB12TargetKey,
         vitaminB12Target,
       ),
-      vitaminCTarget: await _sharedPrefs.getValue<double>(
+      vitaminCTarget: await _keyValueStorage.getValue<double>(
         BodyTargets.vitaminCTargetKey,
         vitaminCTarget,
       ),
-      vitaminDTarget: await _sharedPrefs.getValue<double>(
+      vitaminDTarget: await _keyValueStorage.getValue<double>(
         BodyTargets.vitaminDTargetKey,
         vitaminDTarget,
       ),
-      vitaminETarget: await _sharedPrefs.getValue<double>(
+      vitaminETarget: await _keyValueStorage.getValue<double>(
         BodyTargets.vitaminETargetKey,
         vitaminETarget,
       ),
-      vitaminKTarget: await _sharedPrefs.getValue<double>(
+      vitaminKTarget: await _keyValueStorage.getValue<double>(
         BodyTargets.vitaminKTargetKey,
         vitaminKTarget,
       ),
-      calciumTarget: await _sharedPrefs.getValue<double>(
+      calciumTarget: await _keyValueStorage.getValue<double>(
         BodyTargets.calciumTargetKey,
         calciumTarget,
       ),
-      chlorideTarget: await _sharedPrefs.getValue<double>(
+      chlorideTarget: await _keyValueStorage.getValue<double>(
         BodyTargets.chlorideTargetKey,
         chlorideTarget,
       ),
-      magnesiumTarget: await _sharedPrefs.getValue<double>(
+      magnesiumTarget: await _keyValueStorage.getValue<double>(
         BodyTargets.magnesiumTargetKey,
         magnesiumTarget,
       ),
-      phosphorusTarget: await _sharedPrefs.getValue<double>(
+      phosphorusTarget: await _keyValueStorage.getValue<double>(
         BodyTargets.phosphorusTargetKey,
         phosphorusTarget,
       ),
-      potassiumTarget: await _sharedPrefs.getValue<double>(
+      potassiumTarget: await _keyValueStorage.getValue<double>(
         BodyTargets.potassiumTargetKey,
         potassiumTarget,
       ),
-      sodiumTarget: await _sharedPrefs.getValue<double>(
+      sodiumTarget: await _keyValueStorage.getValue<double>(
         BodyTargets.sodiumTargetKey,
         sodiumTarget,
       ),
-      chromiumTarget: await _sharedPrefs.getValue<double>(
+      chromiumTarget: await _keyValueStorage.getValue<double>(
         BodyTargets.chromiumTargetKey,
         chromiumTarget,
       ),
-      ironTarget: await _sharedPrefs.getValue<double>(
+      ironTarget: await _keyValueStorage.getValue<double>(
         BodyTargets.ironTargetKey,
         ironTarget,
       ),
-      fluorineTarget: await _sharedPrefs.getValue<double>(
+      fluorineTarget: await _keyValueStorage.getValue<double>(
         BodyTargets.fluorineTargetKey,
         fluorineTarget,
       ),
-      iodineTarget: await _sharedPrefs.getValue<double>(
+      iodineTarget: await _keyValueStorage.getValue<double>(
         BodyTargets.iodineTargetKey,
         iodineTarget,
       ),
-      copperTarget: await _sharedPrefs.getValue<double>(
+      copperTarget: await _keyValueStorage.getValue<double>(
         BodyTargets.copperTargetKey,
         copperTarget,
       ),
-      manganeseTarget: await _sharedPrefs.getValue<double>(
+      manganeseTarget: await _keyValueStorage.getValue<double>(
         BodyTargets.manganeseTargetKey,
         manganeseTarget,
       ),
-      molybdenumTarget: await _sharedPrefs.getValue<double>(
+      molybdenumTarget: await _keyValueStorage.getValue<double>(
         BodyTargets.molybdenumTargetKey,
         molybdenumTarget,
       ),
-      seleniumTarget: await _sharedPrefs.getValue<double>(
+      seleniumTarget: await _keyValueStorage.getValue<double>(
         BodyTargets.seleniumTargetKey,
         seleniumTarget,
       ),
-      zincTarget: await _sharedPrefs.getValue<double>(
+      zincTarget: await _keyValueStorage.getValue<double>(
         BodyTargets.zincTargetKey,
         zincTarget,
       ),
-      monounsaturatedFatTarget: await _sharedPrefs.getValue<double>(
+      monounsaturatedFatTarget: await _keyValueStorage.getValue<double>(
         BodyTargets.monounsaturatedFatTargetKey,
         monounsaturatedFatTarget,
       ),
-      polyunsaturatedFatTarget: await _sharedPrefs.getValue<double>(
+      polyunsaturatedFatTarget: await _keyValueStorage.getValue<double>(
         BodyTargets.polyunsaturatedFatTargetKey,
         polyunsaturatedFatTarget,
       ),
-      omega3Target: await _sharedPrefs.getValue<double>(
+      omega3Target: await _keyValueStorage.getValue<double>(
         BodyTargets.omega3TargetKey,
         omega3Target,
       ),
-      omega6Target: await _sharedPrefs.getValue<double>(
+      omega6Target: await _keyValueStorage.getValue<double>(
         BodyTargets.omega6TargetKey,
         omega6Target,
       ),
-      saturatedFatTarget: await _sharedPrefs.getValue<double>(
+      saturatedFatTarget: await _keyValueStorage.getValue<double>(
         BodyTargets.saturatedFatTargetKey,
         saturatedFatTarget,
       ),
-      transFatTarget: await _sharedPrefs.getValue<double>(
+      transFatTarget: await _keyValueStorage.getValue<double>(
         BodyTargets.transFatTargetKey,
         transFatTarget,
       ),
-      cholesterolTarget: await _sharedPrefs.getValue<double>(
+      cholesterolTarget: await _keyValueStorage.getValue<double>(
         BodyTargets.cholesterolTargetKey,
         cholesterolTarget,
       ),
-      fiberTarget: await _sharedPrefs.getValue<double>(
+      fiberTarget: await _keyValueStorage.getValue<double>(
         BodyTargets.fiberTargetKey,
         fiberTarget,
       ),
-      sugarTarget: await _sharedPrefs.getValue<double>(
+      sugarTarget: await _keyValueStorage.getValue<double>(
         BodyTargets.sugarTargetKey,
         sugarTarget,
       ),
-      sugarAlcoholTarget: await _sharedPrefs.getValue<double>(
+      sugarAlcoholTarget: await _keyValueStorage.getValue<double>(
         BodyTargets.sugarAlcoholTargetKey,
         sugarAlcoholTarget,
       ),
-      starchTarget: await _sharedPrefs.getValue<double>(
+      starchTarget: await _keyValueStorage.getValue<double>(
         BodyTargets.starchTargetKey,
         starchTarget,
       ),
-      waterTarget: await _sharedPrefs.getValue<double>(
+      waterTarget: await _keyValueStorage.getValue<double>(
         BodyTargets.waterTargetKey,
         waterTarget,
       ),
-      caffeineTarget: await _sharedPrefs.getValue<double>(
+      caffeineTarget: await _keyValueStorage.getValue<double>(
         BodyTargets.caffeineTargetKey,
         caffeineTarget,
       ),
-      alcoholTarget: await _sharedPrefs.getValue<double>(
+      alcoholTarget: await _keyValueStorage.getValue<double>(
         BodyTargets.alcoholTargetKey,
         alcoholTarget,
       ),
@@ -317,360 +324,363 @@ class BodyTargetsProvider with ChangeNotifier {
 
   set caloriesTarget(double value) {
     _bodyTargets.caloriesTarget = value;
-    _sharedPrefs.setValue(BodyTargets.caloriesTargetKey, value);
+    _keyValueStorage.setValue(BodyTargets.caloriesTargetKey, value);
 
     notifyListeners();
   }
 
   set proteinTarget(double value) {
     _bodyTargets.proteinTarget = value;
-    _sharedPrefs.setValue(BodyTargets.proteinTargetKey, value);
+    _keyValueStorage.setValue(BodyTargets.proteinTargetKey, value);
 
     notifyListeners();
   }
 
   set carbsTarget(double value) {
     _bodyTargets.carbsTarget = value;
-    _sharedPrefs.setValue(BodyTargets.carbsTargetKey, value);
+    _keyValueStorage.setValue(BodyTargets.carbsTargetKey, value);
 
     notifyListeners();
   }
 
   set fatTarget(double value) {
     _bodyTargets.fatTarget = value;
-    _sharedPrefs.setValue(BodyTargets.fatTargetKey, value);
+    _keyValueStorage.setValue(BodyTargets.fatTargetKey, value);
 
     notifyListeners();
   }
 
   set vitaminATarget(double value) {
     _bodyTargets.vitaminATarget = value;
-    _sharedPrefs.setValue(BodyTargets.vitaminATargetKey, value);
+    _keyValueStorage.setValue(BodyTargets.vitaminATargetKey, value);
 
     notifyListeners();
   }
 
   set vitaminB1Target(double value) {
     _bodyTargets.vitaminB1Target = value;
-    _sharedPrefs.setValue(BodyTargets.vitaminB1TargetKey, value);
+    _keyValueStorage.setValue(BodyTargets.vitaminB1TargetKey, value);
 
     notifyListeners();
   }
 
   set vitaminB2Target(double value) {
     _bodyTargets.vitaminB2Target = value;
-    _sharedPrefs.setValue(BodyTargets.vitaminB2TargetKey, value);
+    _keyValueStorage.setValue(BodyTargets.vitaminB2TargetKey, value);
 
     notifyListeners();
   }
 
   set vitaminB3Target(double value) {
     _bodyTargets.vitaminB3Target = value;
-    _sharedPrefs.setValue(BodyTargets.vitaminB3TargetKey, value);
+    _keyValueStorage.setValue(BodyTargets.vitaminB3TargetKey, value);
 
     notifyListeners();
   }
 
   set vitaminB5Target(double value) {
     _bodyTargets.vitaminB5Target = value;
-    _sharedPrefs.setValue(BodyTargets.vitaminB5TargetKey, value);
+    _keyValueStorage.setValue(BodyTargets.vitaminB5TargetKey, value);
 
     notifyListeners();
   }
 
   set vitaminB6Target(double value) {
     _bodyTargets.vitaminB6Target = value;
-    _sharedPrefs.setValue(BodyTargets.vitaminB6TargetKey, value);
+    _keyValueStorage.setValue(BodyTargets.vitaminB6TargetKey, value);
 
     notifyListeners();
   }
 
   set vitaminB7Target(double value) {
     _bodyTargets.vitaminB7Target = value;
-    _sharedPrefs.setValue(BodyTargets.vitaminB7TargetKey, value);
+    _keyValueStorage.setValue(BodyTargets.vitaminB7TargetKey, value);
 
     notifyListeners();
   }
 
   set vitaminB9Target(double value) {
     _bodyTargets.vitaminB9Target = value;
-    _sharedPrefs.setValue(BodyTargets.vitaminB9TargetKey, value);
+    _keyValueStorage.setValue(BodyTargets.vitaminB9TargetKey, value);
 
     notifyListeners();
   }
 
   set vitaminB12Target(double value) {
     _bodyTargets.vitaminB12Target = value;
-    _sharedPrefs.setValue(BodyTargets.vitaminB12TargetKey, value);
+    _keyValueStorage.setValue(BodyTargets.vitaminB12TargetKey, value);
 
     notifyListeners();
   }
 
   set vitaminCTarget(double value) {
     _bodyTargets.vitaminCTarget = value;
-    _sharedPrefs.setValue(BodyTargets.vitaminCTargetKey, value);
+    _keyValueStorage.setValue(BodyTargets.vitaminCTargetKey, value);
 
     notifyListeners();
   }
 
   set vitaminDTarget(double value) {
     _bodyTargets.vitaminDTarget = value;
-    _sharedPrefs.setValue(BodyTargets.vitaminDTargetKey, value);
+    _keyValueStorage.setValue(BodyTargets.vitaminDTargetKey, value);
 
     notifyListeners();
   }
 
   set vitaminETarget(double value) {
     _bodyTargets.vitaminETarget = value;
-    _sharedPrefs.setValue(BodyTargets.vitaminETargetKey, value);
+    _keyValueStorage.setValue(BodyTargets.vitaminETargetKey, value);
 
     notifyListeners();
   }
 
   set vitaminKTarget(double value) {
     _bodyTargets.vitaminKTarget = value;
-    _sharedPrefs.setValue(BodyTargets.vitaminKTargetKey, value);
+    _keyValueStorage.setValue(BodyTargets.vitaminKTargetKey, value);
 
     notifyListeners();
   }
 
   set calciumTarget(double value) {
     _bodyTargets.calciumTarget = value;
-    _sharedPrefs.setValue(BodyTargets.calciumTargetKey, value);
+    _keyValueStorage.setValue(BodyTargets.calciumTargetKey, value);
 
     notifyListeners();
   }
 
   set chlorideTarget(double value) {
     _bodyTargets.chlorideTarget = value;
-    _sharedPrefs.setValue(BodyTargets.chlorideTargetKey, value);
+    _keyValueStorage.setValue(BodyTargets.chlorideTargetKey, value);
 
     notifyListeners();
   }
 
   set magnesiumTarget(double value) {
     _bodyTargets.magnesiumTarget = value;
-    _sharedPrefs.setValue(BodyTargets.magnesiumTargetKey, value);
+    _keyValueStorage.setValue(BodyTargets.magnesiumTargetKey, value);
 
     notifyListeners();
   }
 
   set phosphorusTarget(double value) {
     _bodyTargets.phosphorusTarget = value;
-    _sharedPrefs.setValue(BodyTargets.phosphorusTargetKey, value);
+    _keyValueStorage.setValue(BodyTargets.phosphorusTargetKey, value);
 
     notifyListeners();
   }
 
   set potassiumTarget(double value) {
     _bodyTargets.potassiumTarget = value;
-    _sharedPrefs.setValue(BodyTargets.potassiumTargetKey, value);
+    _keyValueStorage.setValue(BodyTargets.potassiumTargetKey, value);
 
     notifyListeners();
   }
 
   set sodiumTarget(double value) {
     _bodyTargets.sodiumTarget = value;
-    _sharedPrefs.setValue(BodyTargets.sodiumTargetKey, value);
+    _keyValueStorage.setValue(BodyTargets.sodiumTargetKey, value);
 
     notifyListeners();
   }
 
   set chromiumTarget(double value) {
     _bodyTargets.chromiumTarget = value;
-    _sharedPrefs.setValue(BodyTargets.chromiumTargetKey, value);
+    _keyValueStorage.setValue(BodyTargets.chromiumTargetKey, value);
 
     notifyListeners();
   }
 
   set ironTarget(double value) {
     _bodyTargets.ironTarget = value;
-    _sharedPrefs.setValue(BodyTargets.ironTargetKey, value);
+    _keyValueStorage.setValue(BodyTargets.ironTargetKey, value);
 
     notifyListeners();
   }
 
   set fluorineTarget(double value) {
     _bodyTargets.fluorineTarget = value;
-    _sharedPrefs.setValue(BodyTargets.fluorineTargetKey, value);
+    _keyValueStorage.setValue(BodyTargets.fluorineTargetKey, value);
 
     notifyListeners();
   }
 
   set iodineTarget(double value) {
     _bodyTargets.iodineTarget = value;
-    _sharedPrefs.setValue(BodyTargets.iodineTargetKey, value);
+    _keyValueStorage.setValue(BodyTargets.iodineTargetKey, value);
 
     notifyListeners();
   }
 
   set copperTarget(double value) {
     _bodyTargets.copperTarget = value;
-    _sharedPrefs.setValue(BodyTargets.copperTargetKey, value);
+    _keyValueStorage.setValue(BodyTargets.copperTargetKey, value);
 
     notifyListeners();
   }
 
   set manganeseTarget(double value) {
     _bodyTargets.manganeseTarget = value;
-    _sharedPrefs.setValue(BodyTargets.manganeseTargetKey, value);
+    _keyValueStorage.setValue(BodyTargets.manganeseTargetKey, value);
 
     notifyListeners();
   }
 
   set molybdenumTarget(double value) {
     _bodyTargets.molybdenumTarget = value;
-    _sharedPrefs.setValue(BodyTargets.molybdenumTargetKey, value);
+    _keyValueStorage.setValue(BodyTargets.molybdenumTargetKey, value);
 
     notifyListeners();
   }
 
   set seleniumTarget(double value) {
     _bodyTargets.seleniumTarget = value;
-    _sharedPrefs.setValue(BodyTargets.seleniumTargetKey, value);
+    _keyValueStorage.setValue(BodyTargets.seleniumTargetKey, value);
 
     notifyListeners();
   }
 
   set zincTarget(double value) {
     _bodyTargets.zincTarget = value;
-    _sharedPrefs.setValue(BodyTargets.zincTargetKey, value);
+    _keyValueStorage.setValue(BodyTargets.zincTargetKey, value);
 
     notifyListeners();
   }
 
   set monounsaturatedFatTarget(double value) {
     _bodyTargets.monounsaturatedFatTarget = value;
-    _sharedPrefs.setValue(BodyTargets.monounsaturatedFatTargetKey, value);
+    _keyValueStorage.setValue(BodyTargets.monounsaturatedFatTargetKey, value);
 
     notifyListeners();
   }
 
   set polyunsaturatedFatTarget(double value) {
     _bodyTargets.polyunsaturatedFatTarget = value;
-    _sharedPrefs.setValue(BodyTargets.polyunsaturatedFatTargetKey, value);
+    _keyValueStorage.setValue(BodyTargets.polyunsaturatedFatTargetKey, value);
 
     notifyListeners();
   }
 
   set omega3Target(double value) {
     _bodyTargets.omega3Target = value;
-    _sharedPrefs.setValue(BodyTargets.omega3TargetKey, value);
+    _keyValueStorage.setValue(BodyTargets.omega3TargetKey, value);
 
     notifyListeners();
   }
 
   set omega6Target(double value) {
     _bodyTargets.omega6Target = value;
-    _sharedPrefs.setValue(BodyTargets.omega6TargetKey, value);
+    _keyValueStorage.setValue(BodyTargets.omega6TargetKey, value);
 
     notifyListeners();
   }
 
   set saturatedFatTarget(double value) {
     _bodyTargets.saturatedFatTarget = value;
-    _sharedPrefs.setValue(BodyTargets.saturatedFatTargetKey, value);
+    _keyValueStorage.setValue(BodyTargets.saturatedFatTargetKey, value);
 
     notifyListeners();
   }
 
   set transFatTarget(double value) {
     _bodyTargets.transFatTarget = value;
-    _sharedPrefs.setValue(BodyTargets.transFatTargetKey, value);
+    _keyValueStorage.setValue(BodyTargets.transFatTargetKey, value);
 
     notifyListeners();
   }
 
   set cholesterolTarget(double value) {
     _bodyTargets.cholesterolTarget = value;
-    _sharedPrefs.setValue(BodyTargets.cholesterolTargetKey, value);
+    _keyValueStorage.setValue(BodyTargets.cholesterolTargetKey, value);
 
     notifyListeners();
   }
 
   set fiberTarget(double value) {
     _bodyTargets.fiberTarget = value;
-    _sharedPrefs.setValue(BodyTargets.fiberTargetKey, value);
+    _keyValueStorage.setValue(BodyTargets.fiberTargetKey, value);
 
     notifyListeners();
   }
 
   set sugarTarget(double value) {
     _bodyTargets.sugarTarget = value;
-    _sharedPrefs.setValue(BodyTargets.sugarTargetKey, value);
+    _keyValueStorage.setValue(BodyTargets.sugarTargetKey, value);
 
     notifyListeners();
   }
 
   set sugarAlcoholTarget(double value) {
     _bodyTargets.sugarAlcoholTarget = value;
-    _sharedPrefs.setValue(BodyTargets.sugarAlcoholTargetKey, value);
+    _keyValueStorage.setValue(BodyTargets.sugarAlcoholTargetKey, value);
 
     notifyListeners();
   }
 
   set starchTarget(double value) {
     _bodyTargets.starchTarget = value;
-    _sharedPrefs.setValue(BodyTargets.starchTargetKey, value);
+    _keyValueStorage.setValue(BodyTargets.starchTargetKey, value);
 
     notifyListeners();
   }
 
   set waterTarget(double value) {
     _bodyTargets.waterTarget = value;
-    _sharedPrefs.setValue(BodyTargets.waterTargetKey, value);
+    _keyValueStorage.setValue(BodyTargets.waterTargetKey, value);
 
     notifyListeners();
   }
 
   set caffeineTarget(double value) {
     _bodyTargets.caffeineTarget = value;
-    _sharedPrefs.setValue(BodyTargets.caffeineTargetKey, value);
+    _keyValueStorage.setValue(BodyTargets.caffeineTargetKey, value);
 
     notifyListeners();
   }
 
   set alcoholTarget(double value) {
     _bodyTargets.alcoholTarget = value;
-    _sharedPrefs.setValue(BodyTargets.alcoholTargetKey, value);
+    _keyValueStorage.setValue(BodyTargets.alcoholTargetKey, value);
 
     notifyListeners();
   }
 
   set age(int value) {
     _bodyTargets.age = value;
-    _sharedPrefs.setValue(BodyTargets.ageKey, value);
+    _keyValueStorage.setValue(BodyTargets.ageKey, value);
 
     notifyListeners();
   }
 
   set sex(Sex value) {
     _bodyTargets.sex = value;
-    // Use Sex.toSharedPreferencesValue() method For backwards compatibility.
-    // Looks e.g. like this in persisted SharedPreferences:
+    // Use Sex.toKeyValueStorageValueName() method For backwards compatibility.
+    // Looks e.g. like this in persisted key-value storage:
     // sex: Male
-    _sharedPrefs.setValue(BodyTargets.sexKey, value.toSharedPreferencesValue());
+    _keyValueStorage.setValue(
+      BodyTargets.sexKey,
+      value.toKeyValueStorageValueName(),
+    );
 
     notifyListeners();
   }
 
   set weight(int value) {
     _bodyTargets.weight = value;
-    _sharedPrefs.setValue(BodyTargets.weightKey, value);
+    _keyValueStorage.setValue(BodyTargets.weightKey, value);
 
     notifyListeners();
   }
 
   set height(int value) {
     _bodyTargets.height = value;
-    _sharedPrefs.setValue(BodyTargets.heightKey, value);
+    _keyValueStorage.setValue(BodyTargets.heightKey, value);
 
     notifyListeners();
   }
 
   set activityLevel(double value) {
     _bodyTargets.activityLevel = value;
-    _sharedPrefs.setValue(BodyTargets.activityLevelKey, value);
+    _keyValueStorage.setValue(BodyTargets.activityLevelKey, value);
 
     notifyListeners();
   }
@@ -678,30 +688,30 @@ class BodyTargetsProvider with ChangeNotifier {
   set weightTarget(WeightTarget value) {
     _bodyTargets.weightTarget = value;
     // Use Enum.toString() method For backwards compatibility.
-    // Looks e.g. like this in persisted SharedPreferences:
+    // Looks e.g. like this in persisted key value storage:
     // weightTarget: WeightTarget.maintaining
-    _sharedPrefs.setValue(BodyTargets.weightTargetKey, value.toString());
+    _keyValueStorage.setValue(BodyTargets.weightTargetKey, value.toString());
 
     notifyListeners();
   }
 
   set proteinRatio(double value) {
     _bodyTargets.proteinRatio = value;
-    _sharedPrefs.setValue(BodyTargets.proteinRatioKey, value);
+    _keyValueStorage.setValue(BodyTargets.proteinRatioKey, value);
 
     notifyListeners();
   }
 
   set carbsRatio(double value) {
     _bodyTargets.carbsRatio = value;
-    _sharedPrefs.setValue(BodyTargets.carbsRatioKey, value);
+    _keyValueStorage.setValue(BodyTargets.carbsRatioKey, value);
 
     notifyListeners();
   }
 
   set fatRatio(double value) {
     _bodyTargets.fatRatio = value;
-    _sharedPrefs.setValue(BodyTargets.fatRatioKey, value);
+    _keyValueStorage.setValue(BodyTargets.fatRatioKey, value);
 
     notifyListeners();
   }
@@ -756,7 +766,7 @@ class BodyTargetsProvider with ChangeNotifier {
 
     for (final key in keysToDelete) {
       try {
-        await _sharedPrefs.remove(key);
+        await _keyValueStorage.remove(key);
       } catch (e) {
         if (kDebugMode) {
           debugPrint('Could not remove micro target value: $e');
@@ -769,7 +779,7 @@ class BodyTargetsProvider with ChangeNotifier {
   Future<void> saveAll(BodyTargets newBodyTargets) async {
     try {
       final bodyTargetsMap = newBodyTargets.toJson();
-      await _sharedPrefs.setAll(bodyTargetsMap);
+      await _keyValueStorage.setAll(bodyTargetsMap);
       _bodyTargets = newBodyTargets;
 
       notifyListeners();

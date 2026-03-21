@@ -1,5 +1,5 @@
-/// Manages data saved in the SharedPreferences.
-abstract class SharedPreferencesServiceInterface {
+/// Manages data saved in a key-value storage.
+abstract class KeyValueStorageServiceInterface {
   /// Returns the value by [key].
   ///
   /// If the value can't be found or is null, [fallback] is returned.
