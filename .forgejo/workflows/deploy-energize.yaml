@@ -5,7 +5,7 @@ on:
   workflow_dispatch:
 jobs:
   energize-build-web:
-    runs-on: codeberg-small-lazy
+    runs-on: codeberg-medium-lazy
     steps:
       - name: Checkout App to 'epinez/Energize/Energize'
         uses: https://code.forgejo.org/actions/checkout@v4
