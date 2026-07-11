@@ -344,11 +344,11 @@ class AppLocalizationsTa extends AppLocalizations {
 
   @override
   String get alsoSetMicronutrientsSwitch =>
-      'அகவை மற்றும் பாலினத்தின் அடிப்படையில் நுண்ணூட்டச்சத்து இலக்குகளையும் அமைக்கவும்';
+      'நுண்ணூட்டச் ஊட்டம் இலக்குகளையும் அமைக்கவும்';
 
   @override
   String get alsoSetMicronutrientsHint =>
-      'Values depend on age and sex. Data based on DGE reference values from 2022 with a partly update from 2025.';
+      'மதிப்புகள் அகவை மற்றும் பாலினத்தைப் பொறுத்தது. 2022 இல் இருந்து DGE குறிப்பு மதிப்புகளின் அடிப்படையில் தரவு, 2025 இல் இருந்து ஓரளவு புதுப்பிக்கப்பட்டது.';
 
   @override
   String get apply => 'இடு';

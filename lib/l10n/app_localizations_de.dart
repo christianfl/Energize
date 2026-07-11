@@ -17,16 +17,16 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get appDescription =>
-      'Beobachte einfach und schnell, was du isst. Scanne deine Zutaten oder suche manuell in verschiedenen Datenbanken.';
+      'Beobachte einfach und schnell deine Ernährung und Lebensmittel . Scanne deine Produkte oder suche manuell in verschiedenen Datenbanken.';
 
   @override
   String get ok => 'OK';
 
   @override
-  String get fieldMandatory => 'Bitte einen Wert ausfüllen';
+  String get fieldMandatory => 'Bitte gib einen Wert ein';
 
   @override
-  String get onlyNumbersAllowed => 'Nur Nummern sind erlaubt';
+  String get onlyNumbersAllowed => 'Nur Zahlen sind erlaubt';
 
   @override
   String get undo => 'Rückgängig machen';
@@ -341,7 +341,7 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get alsoSetMicronutrientsHint =>
-      'Abhängig von Alter und Geschlecht. Basierend auf DGE-Referenzwerten von 2022 mit einer teilweisen Aktualisierung von 2025';
+      'Abhängig von Alter und Geschlecht. Basierend auf DGE-Referenzwerten von 2022 mit einer teilweisen Aktualisierung von 2025.';
 
   @override
   String get apply => 'Anwenden';
