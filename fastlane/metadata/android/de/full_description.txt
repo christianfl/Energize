@@ -1,9 +1,9 @@
 <ul>
-<li>Beobachte deine Mahlzeiten inkl. Kalorien, Makro- und Mikronährstoffen</li>
+<li>Tracke deine Nahrung inkl. Kalorien, Makro- und Mikronährstoffe</li>
 <li>Benutze mehrere Datenbanken (Open Food Facts, USDA und Schweizer Nährwertdatenbank) oder erstelle eigene Nahrung</li>
-<li>Suche Mahlzeiten über den Produktnamen oder scanne den Barcode</li>
-<li>Erhalte Vorschläge für Mahlzeiten basierend auf deinen letzten Suchen</li>
-<li>Setze Vorgaben für deine Makro- und Mikronährstoffe und lass sie anhand deiner persönlichen Daten berechnen</li>
+<li>Suche über den Produktnamen oder scanne den Barcode</li>
+<li>Erhalte Vorschläge für das Tracking basierend auf deinen letzten Eingaben</li>
+<li>Setzte Vorgaben für deine Makro- und Mikronährstoffe oder lass sie anhand deiner persönlichen Daten berechnen</li>
 <li>Schaue dir deine täglichen Nährwert-Details an</li>
 <li>Erstelle ein verschlüsseltes Backup (Lokal und WebDAV) und stelle es wieder her</li>
 </ul>
