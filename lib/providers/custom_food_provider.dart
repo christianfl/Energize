@@ -12,11 +12,7 @@ class CustomFoodProvider with ChangeNotifier {
   List<Food> _foods = [];
   List<Food> get foods => [..._foods];
 
-  CustomFoodProvider({
-    required CustomFoodDatabaseServiceInterface db,
-    required LogProvider logger,
-  }) : _db = db,
-       _logger = logger {
+  CustomFoodProvider({required this._db, required this._logger}) {
     _getFromDatabase();
   }
 

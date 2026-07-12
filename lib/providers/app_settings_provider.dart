@@ -16,9 +16,7 @@ class AppSettingsProvider with ChangeNotifier {
 
   final KeyValueStorageServiceInterface _keyValueStorage;
 
-  AppSettingsProvider({
-    required KeyValueStorageServiceInterface keyValueStorage,
-  }) : _keyValueStorage = keyValueStorage {
+  AppSettingsProvider({required this._keyValueStorage}) {
     _loadSettings();
   }
 

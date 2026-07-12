@@ -5,7 +5,7 @@ import 'package:talker_flutter/talker_flutter.dart';
 class LogProvider {
   final Talker? _talker;
 
-  LogProvider({Talker? talker}) : _talker = talker;
+  LogProvider({this._talker});
 
   Talker? get talker => _talker;
 

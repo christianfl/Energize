@@ -18,11 +18,7 @@ class TrackedFoodProvider with ChangeNotifier {
   /// Determines from when the provider holds corresponding tracked food items.
   DateTime selectedDate = DateTime.now();
 
-  TrackedFoodProvider({
-    required TrackedFoodDatabaseServiceInterface db,
-    required LogProvider logger,
-  }) : _db = db,
-       _logger = logger {
+  TrackedFoodProvider({required this._db, required this._logger}) {
     _getFromDatabase();
   }
 

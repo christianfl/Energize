@@ -20,9 +20,7 @@ class BodyTargetsProvider with ChangeNotifier {
 
   final KeyValueStorageServiceInterface _keyValueStorage;
 
-  BodyTargetsProvider({
-    required KeyValueStorageServiceInterface keyValueStorage,
-  }) : _keyValueStorage = keyValueStorage {
+  BodyTargetsProvider({required this._keyValueStorage}) {
     _loadBodyAndTargets();
   }
 
