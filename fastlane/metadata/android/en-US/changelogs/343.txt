@@ -1,0 +1,7 @@
+- [feat] Update Swiss Food Composition Database to 7.0
+- [fix] Show loading spinner during backup restore from WebDAV
+- [fix] Food track modal additional info dialog now always shows barcode
+- [fix] Minor nutrition calculation UI improvement
+- [fix] Several small fixes and improvements
+- [l10n] Added Welsh
+- [l10n] Updated 20 languages
