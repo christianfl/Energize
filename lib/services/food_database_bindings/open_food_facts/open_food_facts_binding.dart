@@ -14,12 +14,10 @@ class OpenFoodFactsBinding {
   static const contributeUrl = 'https://world.openfoodfacts.org/contribute';
   static const productUrl = 'https://openfoodfacts.org/product/';
 
-  OpenFoodFactsBinding._privateConstructor() {
-    _prepareUserAgent();
-  }
+  OpenFoodFactsBinding._privateConstructor();
 
   /// Fetch Energize app version and set OFF UserAgent with correct version
-  void _prepareUserAgent() async {
+  Future<void> _prepareUserAgent() async {
     final packageInfo = await PackageInfo.fromPlatform();
 
     OpenFoodAPIConfiguration.userAgent = UserAgent(
@@ -36,10 +34,20 @@ class OpenFoodFactsBinding {
     return _instance;
   }
 
+  /// Cached initialization future to ensure the user agent is configured only once.
+  Future<void>? _prepareUserAgentFuture;
+
+  /// Initializes the Open Food Facts user agent on first use and reuses the same future.
+  Future<void> _ensureInitialized() {
+    return _prepareUserAgentFuture ??= _prepareUserAgent();
+  }
+
   /// Query OpenFoodFacts for food by barcode.
   ///
   /// Works with 12 digit (UPC) and 13 digit (EAN) codes
   Future<Food> getFoodByBarcode(String barcode) async {
+    await _ensureInitialized();
+
     final ProductQueryConfiguration configuration = ProductQueryConfiguration(
       barcode,
       language: _queryLanguage,
@@ -95,6 +103,8 @@ class OpenFoodFactsBinding {
   }
 
   Future<List<Food>?> searchFood(String searchText) async {
+    await _ensureInitialized();
+
     if (searchText.isEmpty) return null;
     final parameters = <Parameter>[
       const PageNumber(page: 1),
