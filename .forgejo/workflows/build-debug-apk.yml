@@ -25,6 +25,7 @@ jobs:
     container:
       image: ghcr.io/catthehacker/ubuntu:act-24.04
     env:
+      PUB_CACHE: "${{ forgejo.workspace }}/.pub-cache"
       # Required for Flutter artifact extraction in rootless Podman containers.
       TAR_OPTIONS: --no-same-owner
     steps:
@@ -51,9 +52,12 @@ jobs:
         run: |
           submodules/flutter/bin/flutter config --no-analytics
       - name: Flutter Prebuild
+        # The sed command is mandatory to ensure reproducible builds.
+        # See: https://izzyondroid.org/docs/reproducibleBuilds/DebugFailedRBs/
         run: |
           submodules/flutter/bin/flutter pub get
-          submodules/flutter/bin/dart run build_runner build --delete-conflicting-outputs
+          sed -i -e 's/-Wl,/-Wl,--build-id=none,/' ${PUB_CACHE}/hosted/*/jni-*/src/CMakeLists.txt
+          submodules/flutter/bin/dart run build_runner build
       - name: Verify generated files match with checked in files
         run: |
           git add lib/
