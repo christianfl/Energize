@@ -37,16 +37,16 @@ jobs:
       - name: Update package lists
         run: |
           add-apt-repository ppa:fdroid/fdroidserver
-          apt update
+          apt-get update
       - name: Android SDK Setup
         run: |
-          apt install -y android-sdk sdkmanager
+          apt-get install -y android-sdk sdkmanager
           export ANDROID_HOME=/usr/lib/android-sdk
           sdkmanager "cmdline-tools;latest"
           echo y | sdkmanager --licenses
       - name: Java Setup
         run: |
-          apt install -y openjdk-21-jdk-headless
+          apt-get install -y openjdk-21-jdk-headless
           update-alternatives --set java /usr/lib/jvm/java-21-openjdk-amd64/bin/java
       - name: Flutter Setup
         run: |
