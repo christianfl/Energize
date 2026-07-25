@@ -16,6 +16,7 @@ on:
       - web/**
       - .env.example
       - .gitignore
+      - BUILD.md
       - PRIVACY.md
       - README.md
   workflow_dispatch:
