@@ -1,4 +1,23 @@
 on:
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - .forgejo/workflows/**
+      - fastlane/**
+      - flatpak/**
+      - integration_test/**
+      - ios/**
+      - ISSUE_TEMPLATE/**
+      - linux/**
+      - scripts/**
+      - test/**
+      - test_driver/**
+      - web/**
+      - .env.example
+      - .gitignore
+      - PRIVACY.md
+      - README.md
   workflow_dispatch:
 jobs:
   energize-build-debug-apk:
