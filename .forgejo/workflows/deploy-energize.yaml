@@ -5,7 +5,9 @@ on:
   workflow_dispatch:
 jobs:
   energize-build-web:
-    runs-on: codeberg-medium-lazy
+    runs-on: epinez-private
+    container:
+      image: ghcr.io/catthehacker/ubuntu@sha256:55fde0b566078c0a808d19845a46f19a16c1e6050ef0feb1d1994134b89dfc08
     steps:
       - name: Checkout App to 'epinez/Energize/Energize'
         uses: https://code.forgejo.org/actions/checkout@v4
