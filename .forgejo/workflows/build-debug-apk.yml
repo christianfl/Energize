@@ -5,6 +5,9 @@ jobs:
     runs-on: epinez-private
     container:
       image: ghcr.io/catthehacker/ubuntu:act-24.04
+    env:
+      # Required for Flutter artifact extraction in rootless Podman containers.
+      TAR_OPTIONS: --no-same-owner
     steps:
       - name: Checkout App to 'epinez/Energize'
         uses: https://code.forgejo.org/actions/checkout@v4
@@ -27,7 +30,6 @@ jobs:
           update-alternatives --set java /usr/lib/jvm/java-21-openjdk-amd64/bin/java
       - name: Flutter Setup
         run: |
-          sed -i "/'tar',/N; /'tar',\n\s*'-xzf'/s/'-xzf'/'--no-same-owner','-xzf'/" submodules/flutter/packages/flutter_tools/lib/src/base/os.dart
           submodules/flutter/bin/flutter config --no-analytics
       - name: Flutter Prebuild
         run: |
