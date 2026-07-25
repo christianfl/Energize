@@ -2,7 +2,9 @@ on:
   workflow_dispatch:
 jobs:
   energize-build-debug-apk:
-    runs-on: codeberg-medium-lazy
+    runs-on: epinez-private
+    container:
+      image: ghcr.io/catthehacker/ubuntu:act-24.04
     steps:
       - name: Checkout App to 'epinez/Energize'
         uses: https://code.forgejo.org/actions/checkout@v4
