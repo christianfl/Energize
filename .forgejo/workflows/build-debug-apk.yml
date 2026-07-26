@@ -46,6 +46,19 @@ jobs:
           submodules: recursive
           fetch-depth: 0
 
+      - name: Verify reproducible build path
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          expected="/var/runner/epinez/Energize"
+          actual="$(pwd -P)"
+
+          echo "Expected build path: $expected"
+          echo "Actual build path:   $actual"
+
+          test "$actual" = "$expected"
+
       - name: Setup Android
         uses: ./.forgejo/actions/setup-android
 
