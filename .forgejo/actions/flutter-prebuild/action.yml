@@ -1,0 +1,85 @@
+name: Flutter Prebuild
+description: Prepare and verify the Flutter project before platform builds
+
+inputs:
+  working-directory:
+    description: Directory containing the Flutter project
+    required: false
+    default: "."
+
+  patch-jni-build-id:
+    description: Disable JNI linker build IDs for reproducible Android builds
+    required: false
+    default: "false"
+
+runs:
+  using: composite
+  steps:
+    - name: Install Flutter dependencies
+      shell: bash
+      working-directory: ${{ inputs.working-directory }}
+      run: |
+        set -euo pipefail
+
+        submodules/flutter/bin/flutter pub get
+
+    - name: Apply JNI reproducibility workaround
+      if: ${{ inputs.patch-jni-build-id == 'true' }}
+      shell: bash
+      working-directory: ${{ inputs.working-directory }}
+      run: |
+        set -euo pipefail
+
+        if [[ -z "${PUB_CACHE:-}" ]]; then
+          echo "PUB_CACHE must be defined when patch-jni-build-id is enabled."
+          exit 1
+        fi
+
+        sed -i -e 's/-Wl,/-Wl,--build-id=none,/' ${PUB_CACHE}/hosted/*/jni-*/src/CMakeLists.txt
+
+    - name: Run build_runner
+      shell: bash
+      working-directory: ${{ inputs.working-directory }}
+      run: |
+        set -euo pipefail
+
+        submodules/flutter/bin/dart run build_runner build
+
+    - name: Verify generated files
+      shell: bash
+      working-directory: ${{ inputs.working-directory }}
+      run: |
+        set -euo pipefail
+
+        git add lib/
+        git diff --cached --quiet
+
+    - name: Generate .env file
+      shell: bash
+      working-directory: ${{ inputs.working-directory }}
+      run: |
+        set -euo pipefail
+
+        : "${ENV_API_KEY_USDA:?ENV_API_KEY_USDA is required}"
+        : "${ENV_COPYRIGHT_NAME:?ENV_COPYRIGHT_NAME is required}"
+        : "${ENV_CONTACT_MAIL:?ENV_CONTACT_MAIL is required}"
+        : "${ENV_ISSUE_URL:?ENV_ISSUE_URL is required}"
+        : "${ENV_REPO_URL:?ENV_REPO_URL is required}"
+        : "${ENV_TRANSLATION_URL:?ENV_TRANSLATION_URL is required}"
+
+        {
+          printf "API_KEY_USDA='%s'\n" "$ENV_API_KEY_USDA"
+          printf "COPYRIGHT_NAME='%s'\n" "$ENV_COPYRIGHT_NAME"
+          printf "CONTACT_MAIL='%s'\n" "$ENV_CONTACT_MAIL"
+          printf "ISSUE_URL='%s'\n" "$ENV_ISSUE_URL"
+          printf "REPO_URL='%s'\n" "$ENV_REPO_URL"
+          printf "TRANSLATION_URL='%s'\n" "$ENV_TRANSLATION_URL"
+        } > .env
+
+    - name: Run tests
+      shell: bash
+      working-directory: ${{ inputs.working-directory }}
+      run: |
+        set -euo pipefail
+
+        submodules/flutter/bin/flutter test

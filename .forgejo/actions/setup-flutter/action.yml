@@ -1,0 +1,23 @@
+name: Setup Flutter
+description: Configure the repository-pinned Flutter SDK
+
+inputs:
+  working-directory:
+    description: Directory containing the Flutter project
+    required: false
+    default: "."
+
+runs:
+  using: composite
+  steps:
+    - name: Configure Flutter
+      shell: bash
+      working-directory: ${{ inputs.working-directory }}
+      run: |
+        set -euo pipefail
+
+        test -x submodules/flutter/bin/flutter
+        test -x submodules/flutter/bin/dart
+
+        submodules/flutter/bin/flutter config --no-analytics
+        submodules/flutter/bin/flutter --version

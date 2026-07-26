@@ -1,0 +1,32 @@
+name: Setup Android
+description: Install the Android SDK and Java development environment
+
+runs:
+  using: composite
+  steps:
+    - name: Update package lists
+      shell: bash
+      run: |
+        set -euo pipefail
+
+        add-apt-repository ppa:fdroid/fdroidserver
+        apt-get update
+
+    - name: Install Java
+      shell: bash
+      run: |
+        set -euo pipefail
+
+        apt-get install -y openjdk-21-jdk-headless
+        update-alternatives --set java /usr/lib/jvm/java-21-openjdk-amd64/bin/java
+
+    - name: Install Android SDK
+      shell: bash
+      env:
+        ANDROID_HOME: '/usr/lib/android-sdk'
+      run: |
+        set -euo pipefail
+
+        apt-get install -y android-sdk sdkmanager
+        sdkmanager "cmdline-tools;latest"
+        echo y | sdkmanager --licenses

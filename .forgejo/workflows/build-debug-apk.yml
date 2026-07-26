@@ -1,3 +1,5 @@
+name: Build Android Debug APK
+
 on:
   push:
     branches:
@@ -19,64 +21,53 @@ on:
       - BUILD.md
       - PRIVACY.md
       - README.md
+
   workflow_dispatch:
+
 jobs:
   energize-build-debug-apk:
     runs-on: epinez-private
+
     container:
       image: ghcr.io/catthehacker/ubuntu:act-24.04
+
     env:
       PUB_CACHE: "${{ forgejo.workspace }}/.pub-cache"
+
       # Required for Flutter artifact extraction in rootless Podman containers.
-      TAR_OPTIONS: --no-same-owner
+      TAR_OPTIONS: "--no-same-owner"
+
+      ANDROID_HOME: "/usr/lib/android-sdk"
+
     steps:
       - name: Checkout App to 'epinez/Energize'
         uses: https://code.forgejo.org/actions/checkout@v4
         with:
           submodules: recursive
           fetch-depth: 0
-      - name: Update package lists
-        run: |
-          add-apt-repository ppa:fdroid/fdroidserver
-          apt-get update
-      - name: Android SDK Setup
-        run: |
-          apt-get install -y android-sdk sdkmanager
-          export ANDROID_HOME=/usr/lib/android-sdk
-          sdkmanager "cmdline-tools;latest"
-          echo y | sdkmanager --licenses
-      - name: Java Setup
-        run: |
-          apt-get install -y openjdk-21-jdk-headless
-          update-alternatives --set java /usr/lib/jvm/java-21-openjdk-amd64/bin/java
-      - name: Flutter Setup
-        run: |
-          submodules/flutter/bin/flutter config --no-analytics
-      - name: Flutter Prebuild
-        # The sed command is mandatory to ensure reproducible builds.
-        # See: https://izzyondroid.org/docs/reproducibleBuilds/DebugFailedRBs/
-        run: |
-          submodules/flutter/bin/flutter pub get
-          sed -i -e 's/-Wl,/-Wl,--build-id=none,/' ${PUB_CACHE}/hosted/*/jni-*/src/CMakeLists.txt
-          submodules/flutter/bin/dart run build_runner build
-      - name: Verify generated files match with checked in files
-        run: |
-          git add lib/
-          git diff --cached --quiet
-      - name: Generate .env file
-        run: |
-          echo "API_KEY_USDA='${{ secrets.ENV_API_KEY_USDA }}'" > .env
-          echo "COPYRIGHT_NAME='${{ secrets.ENV_COPYRIGHT_NAME }}'" >> .env
-          echo "CONTACT_MAIL='${{ secrets.ENV_CONTACT_MAIL }}'" >> .env
-          echo "ISSUE_URL='${{ secrets.ENV_ISSUE_URL }}'" >> .env
-          echo "REPO_URL='${{ secrets.ENV_REPO_URL }}'" >> .env
-          echo "TRANSLATION_URL='${{ secrets.ENV_TRANSLATION_URL }}'" >> .env
-      - name: Run tests
-        run: |
-          submodules/flutter/bin/flutter test
-      - name: Flutter Build Debug APK
+
+      - name: Setup Android
+        uses: ./.forgejo/actions/setup-android
+
+      - name: Setup Flutter
+        uses: ./.forgejo/actions/setup-flutter
+
+      - name: Prebuild Flutter project
+        uses: ./.forgejo/actions/flutter-prebuild
+        with:
+          patch-jni-build-id: "true"
+        env:
+          ENV_API_KEY_USDA: ${{ secrets.ENV_API_KEY_USDA }}
+          ENV_COPYRIGHT_NAME: ${{ secrets.ENV_COPYRIGHT_NAME }}
+          ENV_CONTACT_MAIL: ${{ secrets.ENV_CONTACT_MAIL }}
+          ENV_ISSUE_URL: ${{ secrets.ENV_ISSUE_URL }}
+          ENV_REPO_URL: ${{ secrets.ENV_REPO_URL }}
+          ENV_TRANSLATION_URL: ${{ secrets.ENV_TRANSLATION_URL }}
+
+      - name: Build Debug APK
         run: |
           submodules/flutter/bin/flutter build apk --debug
+
       - name: Upload Debug APK artifact
         uses: https://code.forgejo.org/forgejo/upload-artifact@v4
         with:

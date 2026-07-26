@@ -1,0 +1,73 @@
+name: Build and Deploy Web App
+
+on:
+  push:
+    tags:
+      - "v*"
+
+  workflow_dispatch:
+
+jobs:
+  energize-build-web:
+    runs-on: epinez-private
+
+    container:
+      image: ghcr.io/catthehacker/ubuntu:act-24.04
+
+    env:
+      # Required for Flutter artifact extraction in rootless Podman containers.
+      TAR_OPTIONS: "--no-same-owner"
+
+    steps:
+      - name: Checkout App to 'epinez/Energize/Energize'
+        uses: https://code.forgejo.org/actions/checkout@v4
+        with:
+          path: Energize
+          submodules: recursive
+          fetch-depth: 0
+
+      - name: Setup Flutter
+        uses: ./Energize/.forgejo/actions/setup-flutter
+        with:
+          working-directory: Energize
+
+      - name: Prebuild Flutter project
+        uses: ./Energize/.forgejo/actions/flutter-prebuild
+        with:
+          working-directory: Energize
+        env:
+          ENV_API_KEY_USDA: ${{ secrets.ENV_API_KEY_USDA }}
+          ENV_COPYRIGHT_NAME: ${{ secrets.ENV_COPYRIGHT_NAME }}
+          ENV_CONTACT_MAIL: ${{ secrets.ENV_CONTACT_MAIL }}
+          ENV_ISSUE_URL: ${{ secrets.ENV_ISSUE_URL }}
+          ENV_REPO_URL: ${{ secrets.ENV_REPO_URL }}
+          ENV_TRANSLATION_URL: ${{ secrets.ENV_TRANSLATION_URL }}
+
+      - name: Build web application
+        working-directory: Energize
+        run: |
+          submodules/flutter/bin/flutter build web --release --base-href "/projects/energize/" --no-wasm-dry-run
+
+      - name: Checkout Pages repository
+        uses: https://code.forgejo.org/actions/checkout@v4
+        with:
+          repository: epinez/pages
+          ref: main
+          path: pages
+          ssh-key: ${{ secrets.SSH_PUSH_KEY }}
+          ssh-known-hosts: ${{ secrets.CI_KNOWN_HOSTS }}
+
+      - name: Deploy Energize to Codeberg Pages
+        run: |
+          rm -r pages/projects/energize/*
+          cp -r Energize/build/web/* pages/projects/energize/
+          git -C pages config user.name "forgejo-actions[bot]"
+          git -C pages config user.email "epinez@noreply.codeberg.org"
+          git -C pages add projects/energize
+
+          if git -C pages diff --cached --quiet; then
+            echo "No Pages changes to deploy."
+          else
+            git -C pages commit -m "Deploy current Energize version"
+            git -C pages push
+          fi
