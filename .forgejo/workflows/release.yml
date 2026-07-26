@@ -14,6 +14,11 @@ jobs:
     uses: ./.forgejo/workflows/build-release-apk.yml
     secrets: inherit
 
+  build-linux:
+    needs: create-release
+    uses: ./.forgejo/workflows/build-release-linux.yml
+    secrets: inherit
+
   deploy-web:
     needs: create-release
     uses: ./.forgejo/workflows/deploy-web-pages.yml
