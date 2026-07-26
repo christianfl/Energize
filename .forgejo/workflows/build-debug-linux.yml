@@ -1,0 +1,106 @@
+name: Build Linux Debug App
+
+on:
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - .forgejo/workflows/**
+      - android/**
+      - fastlane/**
+      - flatpak/**
+      - integration_test/**
+      - ios/**
+      - ISSUE_TEMPLATE/**
+      - scripts/**
+      - test/**
+      - test_driver/**
+      - web/**
+      - .env.example
+      - .gitignore
+      - BUILD.md
+      - PRIVACY.md
+      - README.md
+
+  workflow_dispatch:
+
+jobs:
+  energize-build-linux-debug:
+    runs-on: epinez-private
+
+    container:
+      image: ghcr.io/catthehacker/ubuntu:act-24.04
+
+    env:
+      # Required for Flutter artifact extraction in rootless Podman containers.
+      TAR_OPTIONS: "--no-same-owner"
+
+    steps:
+      - name: Checkout App to 'epinez/Energize'
+        uses: https://code.forgejo.org/actions/checkout@v4
+        with:
+          submodules: recursive
+          fetch-depth: 0
+
+      - name: Verify reproducible build path
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          expected="/var/runner/epinez/Energize"
+          actual="$(pwd -P)"
+
+          echo "Expected build path: $expected"
+          echo "Actual build path:   $actual"
+
+          test "$actual" = "$expected"
+
+      - name: Setup Linux
+        uses: ./.forgejo/actions/setup-linux
+
+      - name: Setup Flutter
+        uses: ./.forgejo/actions/setup-flutter
+
+      - name: Prebuild Flutter project
+        uses: ./.forgejo/actions/flutter-prebuild
+        env:
+          ENV_API_KEY_USDA: ${{ secrets.ENV_API_KEY_USDA }}
+          ENV_COPYRIGHT_NAME: ${{ secrets.ENV_COPYRIGHT_NAME }}
+          ENV_CONTACT_MAIL: ${{ secrets.ENV_CONTACT_MAIL }}
+          ENV_ISSUE_URL: ${{ secrets.ENV_ISSUE_URL }}
+          ENV_REPO_URL: ${{ secrets.ENV_REPO_URL }}
+          ENV_TRANSLATION_URL: ${{ secrets.ENV_TRANSLATION_URL }}
+
+      - name: Build Debug App
+        run: |
+          submodules/flutter/bin/flutter build linux --debug
+
+      - name: Package Debug App
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          bundle_dir="build/linux/x64/debug/bundle"
+          package_name="energize-linux-x86-64-debug"
+          package_root="build/packages/$package_name"
+          app_dir="$package_root/energize"
+          archive="build/packages/$package_name.tar.gz"
+
+          test -d "$bundle_dir"
+          test -f "$bundle_dir/energize"
+          test -d "$bundle_dir/data"
+          test -d "$bundle_dir/lib"
+
+          rm -rf "$package_root" "$archive"
+          mkdir -p "$app_dir"
+
+          cp -a "$bundle_dir/." "$app_dir/"
+
+          tar -C build/packages -czf "$archive" "$package_name"
+
+      - name: Upload Debug App artifact
+        uses: https://code.forgejo.org/forgejo/upload-artifact@v4
+        with:
+          name: Energize Debug Linux x64 App
+          path: build/packages/energize-linux-x86-64-debug.tar.gz
+          if-no-files-found: error

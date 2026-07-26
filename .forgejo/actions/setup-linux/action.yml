@@ -1,0 +1,19 @@
+name: Setup Linux
+description: Install Linux build tools
+
+runs:
+  using: composite
+  steps:
+    - name: Update package lists
+      shell: bash
+      run: |
+        set -euo pipefail
+
+        apt-get update
+
+    - name: Install Linux build tools
+      shell: bash
+      run: |
+        set -euo pipefail
+
+        apt-get install -y clang cmake ninja-build pkg-config libgtk-3-dev libstdc++-12-dev
