@@ -1,0 +1,20 @@
+name: Release Energize
+
+on:
+  push:
+    tags:
+      - "v*"
+
+jobs:
+  create-release:
+    uses: ./.forgejo/workflows/create-codeberg-release.yml
+
+  build-android:
+    needs: create-release
+    uses: ./.forgejo/workflows/build-release-apk.yml
+    secrets: inherit
+
+  deploy-web:
+    needs: create-release
+    uses: ./.forgejo/workflows/deploy-web-pages.yml
+    secrets: inherit

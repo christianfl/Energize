@@ -1,0 +1,51 @@
+name: Create Codeberg Release
+
+on:
+  workflow_call:
+
+jobs:
+  create-release:
+    runs-on: epinez-private
+
+    container:
+      image: ghcr.io/catthehacker/ubuntu:act-24.04
+
+    steps:
+      - name: Checkout repository
+        uses: https://code.forgejo.org/actions/checkout@v4
+
+      - name: Generate release notes
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          changelog_dir="fastlane/metadata/android/en-US/changelogs"
+
+          changelog_file="$(
+            find "$changelog_dir" -maxdepth 1 -type f -name '*.txt' -printf '%f\n' |
+            awk '/^[0-9]+\.txt$/ {
+              number = $0
+              sub(/\.txt$/, "", number)
+              print number "\t" $0
+            }' |
+            sort -n |
+            tail -n 1 |
+            cut -f2-
+          )"
+
+          {
+            printf '# Changes\n\n'
+            cat "$changelog_dir/$changelog_file"
+            printf '\n'
+          } > release-notes.md
+
+      - name: Create Codeberg release
+        uses: https://code.forgejo.org/actions/forgejo-release@v2
+        with:
+          direction: upload
+          url: https://codeberg.org
+          token: ${{ forgejo.token }}
+          tag: ${{ forgejo.ref_name }}
+          title: ${{ forgejo.ref_name }}
+          release-notes-file: release-notes.md
+          skip-assets: "true"

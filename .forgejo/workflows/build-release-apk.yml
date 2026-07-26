@@ -1,9 +1,9 @@
 name: Build Android Release APK (unsigned)
 
 on:
-  push:
-    tags:
-      - "v*"
+  workflow_call:
+
+  workflow_dispatch:
 
 jobs:
   energize-build-debug-apk:

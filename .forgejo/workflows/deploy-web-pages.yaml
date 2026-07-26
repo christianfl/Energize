@@ -1,9 +1,7 @@
 name: Build and Deploy Web App
 
 on:
-  push:
-    tags:
-      - "v*"
+  workflow_call:
 
   workflow_dispatch:
 
