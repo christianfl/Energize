@@ -5,7 +5,7 @@ on:
     branches:
       - main
     paths-ignore:
-      - .forgejo/workflows/**
+      - .forgejo/**
       - android/**
       - fastlane/**
       - flatpak/**
