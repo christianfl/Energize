@@ -1,0 +1,73 @@
+name: Build Android Release APK (unsigned)
+
+on:
+  push:
+    tags:
+      - "v*"
+
+jobs:
+  energize-build-debug-apk:
+    runs-on: epinez-private
+
+    container:
+      image: ghcr.io/catthehacker/ubuntu:act-24.04
+
+    env:
+      PUB_CACHE: "${{ forgejo.workspace }}/.pub-cache"
+
+      # Required for Flutter artifact extraction in rootless Podman containers.
+      TAR_OPTIONS: "--no-same-owner"
+
+      ANDROID_HOME: "/usr/lib/android-sdk"
+
+    steps:
+      - name: Checkout App to 'epinez/Energize'
+        uses: https://code.forgejo.org/actions/checkout@v4
+        with:
+          submodules: recursive
+          fetch-depth: 0
+
+      - name: Verify reproducible build path
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          expected="/var/runner/epinez/Energize"
+          actual="$(pwd -P)"
+
+          echo "Expected build path: $expected"
+          echo "Actual build path:   $actual"
+
+          test "$actual" = "$expected"
+
+      - name: Setup Android
+        uses: ./.forgejo/actions/setup-android
+
+      - name: Setup Flutter
+        uses: ./.forgejo/actions/setup-flutter
+
+      - name: Prebuild Flutter project
+        uses: ./.forgejo/actions/flutter-prebuild
+        with:
+          patch-jni-build-id: "true"
+        env:
+          ENV_API_KEY_USDA: ${{ secrets.ENV_API_KEY_USDA }}
+          ENV_COPYRIGHT_NAME: ${{ secrets.ENV_COPYRIGHT_NAME }}
+          ENV_CONTACT_MAIL: ${{ secrets.ENV_CONTACT_MAIL }}
+          ENV_ISSUE_URL: ${{ secrets.ENV_ISSUE_URL }}
+          ENV_REPO_URL: ${{ secrets.ENV_REPO_URL }}
+          ENV_TRANSLATION_URL: ${{ secrets.ENV_TRANSLATION_URL }}
+
+      - name: Build Release APK
+        run: |
+          submodules/flutter/bin/flutter build apk --release --split-per-abi
+
+      - name: Upload Unsigned Release APK artifacts
+        uses: https://code.forgejo.org/forgejo/upload-artifact@v4
+        with:
+          name: Energize Debug APK
+          path: |
+            build/app/outputs/flutter-apk/app-armeabi-v7a-release.apk
+            build/app/outputs/flutter-apk/app-arm64-v8a-release.apk
+            build/app/outputs/flutter-apk/app-x86_64-release.apk
+          if-no-files-found: error
