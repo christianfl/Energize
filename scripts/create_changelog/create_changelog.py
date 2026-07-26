@@ -101,11 +101,14 @@ for feature in features:
 for fix in fixes:
     new_changelog_file.write(f'- [fix] {fix}\n')
 
+has_localizations_added_or_updated = False
+
 # Added translations
 if (len(localizations_added) != 0):
     localizations_added.sort()
 
-    new_changelog_file.write('- [l10n] Added ')
+    new_changelog_file.write('- [l10n]¹ Added ')
+    has_localizations_added_or_updated = True
 
     for locale in localizations_added:
         new_changelog_file.write(f'{locale}')
@@ -118,20 +121,29 @@ if (len(localizations_updated) != 0):
     # Remove double entries
     localizations_updated = list(dict.fromkeys(localizations_updated))
 
-    for updated in localizations_updated:
-        if (updated in localizations_added):
-            # Remove as updated if language was just added
-            localizations_updated.remove(updated)
+    # Remove as updated if language was just added
+    localizations_updated = [
+        updated
+        for updated in localizations_updated
+        if updated not in localizations_added
+    ]
 
     localizations_updated.sort()
 
+    if (len(localizations_updated) != 0):
+        new_changelog_file.write('- [l10n]¹ Updated ')
+        has_localizations_added_or_updated = True
 
-    new_changelog_file.write('- [l10n] Updated ')
+        for locale in localizations_updated:
+            new_changelog_file.write(f'{locale}')
+            if locale != localizations_updated[-1]:
+                new_changelog_file.write(', ')
 
-    for locale in localizations_updated:
-        new_changelog_file.write(f'{locale}')
-        if locale != localizations_updated[-1]:
-            new_changelog_file.write(', ')
+        new_changelog_file.write('\n')
+
+if has_localizations_added_or_updated:
+    new_changelog_file.write('\n---\n\n')
+    new_changelog_file.write('¹Big thanks to all contributors!\n')
 
 print('Consider using https://www.conventionalcommits.org')
 print(f'Wrote new changelog to {new_changelog_file_path}')
