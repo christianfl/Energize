@@ -1,0 +1,2 @@
+- [feat] Splash screen color now adapts to brightness
+- [feat] CI: enable automatic builds to speed up new releases
