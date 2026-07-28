@@ -7,6 +7,8 @@ on:
 
 jobs:
   energize-build-web:
+    name: Build Web and Deploy to Pages
+
     runs-on: epinez-private
 
     container:

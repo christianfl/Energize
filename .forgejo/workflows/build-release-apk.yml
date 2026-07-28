@@ -1,4 +1,4 @@
-name: Build Android Release APK (unsigned)
+name: Build Android Release APKs (unsigned)
 
 on:
   workflow_call:
@@ -6,7 +6,9 @@ on:
   workflow_dispatch:
 
 jobs:
-  energize-build-debug-apk:
+  energize-build-release-apk:
+    name: Build Android Release Apps
+
     runs-on: epinez-private
 
     container:

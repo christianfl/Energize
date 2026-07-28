@@ -5,6 +5,8 @@ on:
 
 jobs:
   create-release:
+    name: Create Codeberg Release with Release Notes
+
     runs-on: epinez-private
 
     container:
