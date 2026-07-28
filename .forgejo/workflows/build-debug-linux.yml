@@ -26,7 +26,21 @@ on:
 
 jobs:
   energize-build-linux-debug:
-    runs-on: epinez-private
+    name: Build Linux Debug App (${{ matrix.package_arch }})
+
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - runner: epinez-private
+            flutter_output_arch: x64
+            package_arch: x86-64
+
+          - runner: epinez-private-aarch64
+            flutter_output_arch: arm64
+            package_arch: aarch64
+
+    runs-on: ${{ matrix.runner }}
 
     container:
       image: ghcr.io/catthehacker/ubuntu:act-24.04
@@ -80,11 +94,14 @@ jobs:
         run: |
           set -euo pipefail
 
-          bundle_dir="build/linux/x64/debug/bundle"
-          package_name="energize-linux-x86-64-debug"
+          bundle_dir="build/linux/${{ matrix.flutter_output_arch }}/debug/bundle"
+          package_name="energize-linux-${{ matrix.package_arch }}-debug"
           package_root="build/packages/$package_name"
           app_dir="$package_root/energize"
           archive="build/packages/$package_name.tar.gz"
+
+          echo "Bundle directory: $bundle_dir"
+          echo "Archive:          $archive"
 
           test -d "$bundle_dir"
           test -f "$bundle_dir/energize"
@@ -101,6 +118,6 @@ jobs:
       - name: Upload Debug App artifact
         uses: https://code.forgejo.org/forgejo/upload-artifact@v4
         with:
-          name: Energize Debug Linux x64 App
-          path: build/packages/energize-linux-x86-64-debug.tar.gz
+          name: Energize Debug Linux App ${{ matrix.package_arch }}
+          path: build/packages/energize-linux-${{ matrix.package_arch }}-debug.tar.gz
           if-no-files-found: error
