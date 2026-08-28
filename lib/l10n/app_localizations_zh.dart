@@ -397,10 +397,11 @@ class AppLocalizationsZh extends AppLocalizations {
   String get fatRatio => '脂肪比率';
 
   @override
-  String get alsoSetMicronutrientsSwitch => '根据年龄和性别自动计算所需微量营养素目标';
+  String get alsoSetMicronutrientsSwitch => '计算所需微量营养素目标';
 
   @override
-  String get alsoSetMicronutrientsHint => '基于2022年的DGE参考值，部分更新自2025年';
+  String get alsoSetMicronutrientsHint =>
+      '数值取决于年龄和性别。数据基于 2022 年的 DGE 参考值，部分更新自 2025 年。';
 
   @override
   String get apply => '保存';
