@@ -25,10 +25,12 @@ class CompleteDaysProvider {
     _logger.info('Unmarked day as complete: $date');
   }
 
-  /// Marks [date] as completed.
-  Future<void> markCompleted(DateTime date) async {
+  /// Marks [date] as completed and optionally logs the action.
+  Future<void> markCompleted(DateTime date, {bool logAction = true}) async {
     await _db.insert(date);
 
-    _logger.info('Marked day as complete: $date');
+    if (logAction) {
+      _logger.info('Marked day as complete: $date');
+    }
   }
 }

@@ -27,8 +27,8 @@ class CustomFoodProvider with ChangeNotifier {
     return _db.customFoods;
   }
 
-  /// Adds a new custom food.
-  void addFood(Food food) {
+  /// Adds a new custom food and optionally logs the action.
+  void addFood(Food food, {bool logAction = true}) {
     if (!_foods.any((f) => f.id == food.id)) {
       _foods.add(food);
       notifyListeners();
@@ -36,7 +36,9 @@ class CustomFoodProvider with ChangeNotifier {
 
     _db.insert(food);
 
-    _logger.info('Added new custom food: ${food.title}');
+    if (logAction) {
+      _logger.info('Added new custom food: ${food.title}');
+    }
   }
 
   /// Updates a custom food.

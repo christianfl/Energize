@@ -107,21 +107,24 @@ class BackupService {
       // Custom food
       if (backupData.customFood != null) {
         for (var customFood in backupData.customFood!) {
-          customFoodProvider.addFood(customFood);
+          customFoodProvider.addFood(customFood, logAction: false);
         }
       }
 
       // Tracked food
       if (backupData.trackedFood != null) {
         for (var trackedFood in backupData.trackedFood!) {
-          trackedFoodProvider.addTrackedFood(trackedFood);
+          trackedFoodProvider.addTrackedFood(trackedFood, logAction: false);
         }
       }
 
       // Complete days
       if (backupData.completedDays != null) {
         for (var completedDay in backupData.completedDays!) {
-          await completeDaysProvider.markCompleted(completedDay);
+          await completeDaysProvider.markCompleted(
+            completedDay,
+            logAction: false,
+          );
         }
       }
 

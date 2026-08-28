@@ -44,8 +44,8 @@ class TrackedFoodProvider with ChangeNotifier {
     return _db.trackedFoods;
   }
 
-  /// Tracks a new food.
-  void addTrackedFood(FoodTracked foodTracked) {
+  /// Tracks a new food and optionally logs the action.
+  void addTrackedFood(FoodTracked foodTracked, {bool logAction = true}) {
     if (!_foods.any((f) => f.id == foodTracked.id) &&
         DateUtils.isSameDay(foodTracked.dateEaten, selectedDate)) {
       _foods.add(foodTracked);
@@ -54,7 +54,9 @@ class TrackedFoodProvider with ChangeNotifier {
 
     _db.insert(foodTracked);
 
-    _logger.info('Tracked new food: ${foodTracked.title}');
+    if (logAction) {
+      _logger.info('Tracked new food: ${foodTracked.title}');
+    }
   }
 
   /// Edits a tracked food.
