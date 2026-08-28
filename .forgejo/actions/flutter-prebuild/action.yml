@@ -52,7 +52,13 @@ runs:
         set -euo pipefail
 
         git add lib/
-        git diff --cached --quiet
+
+        if ! git diff --cached --quiet; then
+          echo "Generated files are out of date:"
+          git diff --cached --stat
+          git diff --cached
+          exit 1
+        fi
 
     - name: Generate .env file
       shell: bash
