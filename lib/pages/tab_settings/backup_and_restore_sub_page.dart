@@ -541,10 +541,12 @@ ${AppLocalizations.of(context)!.importedNumberOfFoodsMessage(numberOfCustomFoods
       );
 
       // Pick file destination
-      final String? path = await FilePicker.saveFile(
+      final Uri? uri = await FilePicker.saveFile(
         fileName: BackupAndRestoreSubPage.defaultBackupFileName,
         bytes: encryptedBackupDataAsBytes,
       );
+
+      final String? path = uri?.path;
 
       // Backup probably done, hide progress bar
       setState(() {
@@ -582,8 +584,8 @@ ${AppLocalizations.of(context)!.exportedNumberOfFoodsMessage(numberOfCustomFoods
   /// Restores a local encrypted backup picked via native file picker
   Future<void> _restoreLocalEncryptedBackup(BuildContext context) async {
     // Pick backup file to restore
-    final FilePickerResult? pickerResult = await FilePicker.pickFiles();
-    final pickedPath = pickerResult?.files.single.path;
+    final pickerResult = await FilePicker.pickFile();
+    final pickedPath = pickerResult?.path;
 
     // Picking was cancelled, bye!
     if (pickedPath == null) {
