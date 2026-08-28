@@ -83,6 +83,77 @@ class AppLocalizationsDe extends AppLocalizations {
       'Diese Uhrzeit dient beim Tracken als Vorlage für die Zeit des Verzehrs.';
 
   @override
+  String trackedFoodsSelected(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count ausgewählt',
+      one: '1 ausgewählt',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get copyTrackedFoods => 'Kopieren';
+
+  @override
+  String get moveTrackedFoods => 'Verschieben';
+
+  @override
+  String get changeTrackedTime => 'Uhrzeit ändern';
+
+  @override
+  String get deleteTrackedFoods => 'Löschen';
+
+  @override
+  String get chooseAnotherDayForMove =>
+      'Wähle zum Verschieben einen anderen Tag aus.';
+
+  @override
+  String copiedTrackedFoods(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count Einträge kopiert',
+      one: '1 Eintrag kopiert',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String movedTrackedFoods(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count Einträge verschoben',
+      one: '1 Eintrag verschoben',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String changedTrackedFoodTimes(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Uhrzeit für $count Einträge geändert',
+      one: 'Uhrzeit für 1 Eintrag geändert',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String deletedTrackedFoods(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count Einträge gelöscht',
+      one: '1 Eintrag gelöscht',
+    );
+    return '$_temp0';
+  }
+
+  @override
   String get useAsTemplateForCustomFood =>
       'Als Vorlage für eigene Nahrung benutzen';
 

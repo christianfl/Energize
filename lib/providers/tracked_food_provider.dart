@@ -92,6 +92,139 @@ class TrackedFoodProvider with ChangeNotifier {
     _logger.info('Removed tracked food with id: $id');
   }
 
+  /// Copies [foods] to [targetDay], preserving each food's time of day.
+  Future<List<FoodTracked>> copyTrackedFoods(
+    List<FoodTracked> foods,
+    DateTime targetDay,
+  ) async {
+    final now = DateTime.now();
+    final copies = foods.map((food) {
+      return FoodTracked.fromFood(
+        food,
+        FoodTracked.generatedId,
+        food.amount,
+        _withDay(food.dateEaten, targetDay),
+        now,
+        selectedServingSize: food.selectedServingSize,
+      );
+    }).toList();
+
+    await _db.insertAll(copies);
+
+    if (DateUtils.isSameDay(targetDay, selectedDate)) {
+      _foods.addAll(copies);
+      notifyListeners();
+    }
+
+    _logger.info('Copied ${copies.length} tracked food item(s)');
+    return copies;
+  }
+
+  /// Moves [foods] to [targetDay], preserving each food's time of day.
+  Future<void> moveTrackedFoods(
+    List<FoodTracked> foods,
+    DateTime targetDay,
+  ) async {
+    await _setTrackedFoodDates({
+      for (final food in foods) food: _withDay(food.dateEaten, targetDay),
+    });
+    _logger.info('Moved ${foods.length} tracked food item(s)');
+  }
+
+  /// Changes only the time of day of [foods].
+  Future<void> changeTrackedFoodTime(
+    List<FoodTracked> foods,
+    TimeOfDay time,
+  ) async {
+    await _setTrackedFoodDates({
+      for (final food in foods)
+        food: food.dateEaten.copyWith(
+          hour: time.hour,
+          minute: time.minute,
+          second: 0,
+          millisecond: 0,
+          microsecond: 0,
+        ),
+    });
+    _logger.info('Changed the time of ${foods.length} tracked food item(s)');
+  }
+
+  /// Restores exact tracked dates, for example when undoing a bulk action.
+  Future<void> restoreTrackedFoodDates(
+    Map<FoodTracked, DateTime> datesByFood,
+  ) async {
+    await _setTrackedFoodDates(datesByFood);
+    _logger.info('Restored ${datesByFood.length} tracked food item(s)');
+  }
+
+  /// Removes [foods] and waits until the database operation is complete.
+  Future<void> removeTrackedFoods(List<FoodTracked> foods) async {
+    await _db.removeAll(foods);
+
+    final ids = foods.map((food) => food.id).toSet();
+    _foods.removeWhere((food) => ids.contains(food.id));
+
+    notifyListeners();
+    _logger.info('Removed ${foods.length} tracked food item(s)');
+  }
+
+  /// Restores previously removed [foods] with their original IDs and dates.
+  Future<void> restoreTrackedFoods(List<FoodTracked> foods) async {
+    await _db.insertAll(foods);
+
+    for (final food in foods) {
+      if (DateUtils.isSameDay(food.dateEaten, selectedDate) &&
+          !_foods.any((existingFood) => existingFood.id == food.id)) {
+        _foods.add(food);
+      }
+    }
+
+    notifyListeners();
+    _logger.info('Restored ${foods.length} tracked food item(s)');
+  }
+
+  /// Updates tracked dates and synchronizes the visible food list.
+  Future<void> _setTrackedFoodDates(
+    Map<FoodTracked, DateTime> datesByFood,
+  ) async {
+    if (datesByFood.isEmpty) return;
+
+    final previousDates = {
+      for (final food in datesByFood.keys) food: food.dateEaten,
+    };
+
+    for (final entry in datesByFood.entries) {
+      entry.key.dateEaten = entry.value;
+    }
+
+    try {
+      await _db.updateAll(datesByFood.keys.toList());
+    } catch (_) {
+      for (final entry in previousDates.entries) {
+        entry.key.dateEaten = entry.value;
+      }
+      rethrow;
+    }
+
+    _foods.removeWhere(
+      (food) => !DateUtils.isSameDay(food.dateEaten, selectedDate),
+    );
+
+    for (final food in datesByFood.keys) {
+      if (DateUtils.isSameDay(food.dateEaten, selectedDate) &&
+          !_foods.any((existingFood) => existingFood.id == food.id)) {
+        _foods.add(food);
+      }
+    }
+
+    notifyListeners();
+  }
+
+  /// Returns [date] with its calendar day replaced by [day].
+  DateTime _withDay(DateTime date, DateTime day) {
+    return date.copyWith(year: day.year, month: day.month, day: day.day);
+  }
+
   /// Returns a list of all tracked food between now and [daysAgo].
   Future<List<FoodTracked>> getTrackedFoodFromUntilNow(int daysAgo) async {
     return _db.trackedFoodByDateRange(

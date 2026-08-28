@@ -83,6 +83,77 @@ class AppLocalizationsRu extends AppLocalizations {
       'При отслеживании пищи это время будет использоваться в качестве шаблона для времени потребления.';
 
   @override
+  String trackedFoodsSelected(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count selected',
+      one: '1 selected',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get copyTrackedFoods => 'Copy';
+
+  @override
+  String get moveTrackedFoods => 'Move';
+
+  @override
+  String get changeTrackedTime => 'Change time';
+
+  @override
+  String get deleteTrackedFoods => 'Delete';
+
+  @override
+  String get chooseAnotherDayForMove =>
+      'Choose another day to move the selected food.';
+
+  @override
+  String copiedTrackedFoods(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Copied $count foods',
+      one: 'Copied 1 food',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String movedTrackedFoods(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Moved $count foods',
+      one: 'Moved 1 food',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String changedTrackedFoodTimes(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Changed the time of $count foods',
+      one: 'Changed the time of 1 food',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String deletedTrackedFoods(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Deleted $count foods',
+      one: 'Deleted 1 food',
+    );
+    return '$_temp0';
+  }
+
+  @override
   String get useAsTemplateForCustomFood =>
       'Использовать как шаблон для пользовательского продукта';
 

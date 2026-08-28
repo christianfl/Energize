@@ -71,6 +71,25 @@ class TrackedFoodDatabaseService
     );
   }
 
+  /// Inserts [foods] as new tracked foods in a single transaction.
+  @override
+  Future<void> insertAll(List<FoodTracked> foods) async {
+    if (foods.isEmpty) return;
+
+    final db = await database;
+    await db.transaction((transaction) async {
+      final batch = transaction.batch();
+      for (final food in foods) {
+        batch.insert(
+          DatabaseService.trackedFoodsTable,
+          food.toJson(),
+          conflictAlgorithm: ConflictAlgorithm.ignore,
+        );
+      }
+      await batch.commit(noResult: true);
+    });
+  }
+
   @override
   Future<void> update(FoodTracked food) async {
     final db = await database;
@@ -83,6 +102,26 @@ class TrackedFoodDatabaseService
     );
   }
 
+  /// Updates [foods] by their IDs in a single transaction.
+  @override
+  Future<void> updateAll(List<FoodTracked> foods) async {
+    if (foods.isEmpty) return;
+
+    final db = await database;
+    await db.transaction((transaction) async {
+      final batch = transaction.batch();
+      for (final food in foods) {
+        batch.update(
+          DatabaseService.trackedFoodsTable,
+          food.toJson(),
+          where: 'id = ?',
+          whereArgs: [food.id],
+        );
+      }
+      await batch.commit(noResult: true);
+    });
+  }
+
   @override
   Future<void> remove(String id) async {
     final db = await database;
@@ -91,6 +130,20 @@ class TrackedFoodDatabaseService
       DatabaseService.trackedFoodsTable,
       where: 'id = ?',
       whereArgs: [id],
+    );
+  }
+
+  /// Removes all tracked [foods] by their IDs.
+  @override
+  Future<void> removeAll(List<FoodTracked> foods) async {
+    if (foods.isEmpty) return;
+
+    final db = await database;
+    final placeholders = List.filled(foods.length, '?').join(', ');
+    await db.delete(
+      DatabaseService.trackedFoodsTable,
+      where: 'id IN ($placeholders)',
+      whereArgs: foods.map((food) => food.id).toList(),
     );
   }
 

@@ -34,6 +34,51 @@
     "unmarkedDayAsComplete": "Unmarked day as complete",
     "trackFood": "Track food",
     "timeSetHelpText": "When tracking food, this time will be used as a template for the time of consume.",
+    "trackedFoodsSelected": "{count, plural, =1{1 selected} other{{count} selected}}",
+    "@trackedFoodsSelected": {
+        "placeholders": {
+            "count": {
+                "type": "int"
+            }
+        }
+    },
+    "copyTrackedFoods": "Copy",
+    "moveTrackedFoods": "Move",
+    "changeTrackedTime": "Change time",
+    "deleteTrackedFoods": "Delete",
+    "chooseAnotherDayForMove": "Choose another day to move the selected food.",
+    "copiedTrackedFoods": "{count, plural, =1{Copied 1 food} other{Copied {count} foods}}",
+    "@copiedTrackedFoods": {
+        "placeholders": {
+            "count": {
+                "type": "int"
+            }
+        }
+    },
+    "movedTrackedFoods": "{count, plural, =1{Moved 1 food} other{Moved {count} foods}}",
+    "@movedTrackedFoods": {
+        "placeholders": {
+            "count": {
+                "type": "int"
+            }
+        }
+    },
+    "changedTrackedFoodTimes": "{count, plural, =1{Changed the time of 1 food} other{Changed the time of {count} foods}}",
+    "@changedTrackedFoodTimes": {
+        "placeholders": {
+            "count": {
+                "type": "int"
+            }
+        }
+    },
+    "deletedTrackedFoods": "{count, plural, =1{Deleted 1 food} other{Deleted {count} foods}}",
+    "@deletedTrackedFoods": {
+        "placeholders": {
+            "count": {
+                "type": "int"
+            }
+        }
+    },
     "useAsTemplateForCustomFood": "Use as template for custom food",
     "additionalInformation": "Additional information",
     "completeProductName": "Complete product name",

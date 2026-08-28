@@ -16,12 +16,19 @@ import 'tracked_food_list_item_grouper.dart';
 class TrackedFoodList extends StatelessWidget {
   final ScrollController _scrollController;
   final Function _setIsFabExplicitelyVisible;
+  final Set<String> selectedFoodIds;
+  final ValueChanged<FoodTracked>? onSelectionToggle;
 
   const TrackedFoodList(
     this._scrollController,
     this._setIsFabExplicitelyVisible, {
     super.key,
+    this.selectedFoodIds = const {},
+    this.onSelectionToggle,
   });
+
+  /// Whether at least one tracked food is selected.
+  bool get _isSelectionMode => selectedFoodIds.isNotEmpty;
 
   /// Wraps a [TrackedFoodListItem] in a [Dismissible].
   ///
@@ -37,6 +44,9 @@ class TrackedFoodList extends StatelessWidget {
   }) {
     return Dismissible(
       key: Key(foodTracked.id),
+      direction: _isSelectionMode
+          ? DismissDirection.none
+          : DismissDirection.horizontal,
       background: Container(
         color: Theme.of(context).dangerContainer,
         child: Icon(Icons.delete, color: Theme.of(context).onDangerContainer),
@@ -72,7 +82,13 @@ class TrackedFoodList extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 8.0),
             child: TrackedFoodListItem(
               foodTracked,
-              onTapCallback: _navigateToEditFood,
+              selected: selectedFoodIds.contains(foodTracked.id),
+              onLongPressCallback: onSelectionToggle == null
+                  ? null
+                  : () => onSelectionToggle!(foodTracked),
+              onTapCallback: _isSelectionMode && onSelectionToggle != null
+                  ? (_, food) => onSelectionToggle!(food)
+                  : _navigateToEditFood,
             ),
           ),
         ],

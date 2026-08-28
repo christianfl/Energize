@@ -290,6 +290,66 @@ abstract class AppLocalizations {
   /// **'When tracking food, this time will be used as a template for the time of consume.'**
   String get timeSetHelpText;
 
+  /// No description provided for @trackedFoodsSelected.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 selected} other{{count} selected}}'**
+  String trackedFoodsSelected(int count);
+
+  /// No description provided for @copyTrackedFoods.
+  ///
+  /// In en, this message translates to:
+  /// **'Copy'**
+  String get copyTrackedFoods;
+
+  /// No description provided for @moveTrackedFoods.
+  ///
+  /// In en, this message translates to:
+  /// **'Move'**
+  String get moveTrackedFoods;
+
+  /// No description provided for @changeTrackedTime.
+  ///
+  /// In en, this message translates to:
+  /// **'Change time'**
+  String get changeTrackedTime;
+
+  /// No description provided for @deleteTrackedFoods.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete'**
+  String get deleteTrackedFoods;
+
+  /// No description provided for @chooseAnotherDayForMove.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose another day to move the selected food.'**
+  String get chooseAnotherDayForMove;
+
+  /// No description provided for @copiedTrackedFoods.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{Copied 1 food} other{Copied {count} foods}}'**
+  String copiedTrackedFoods(int count);
+
+  /// No description provided for @movedTrackedFoods.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{Moved 1 food} other{Moved {count} foods}}'**
+  String movedTrackedFoods(int count);
+
+  /// No description provided for @changedTrackedFoodTimes.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{Changed the time of 1 food} other{Changed the time of {count} foods}}'**
+  String changedTrackedFoodTimes(int count);
+
+  /// No description provided for @deletedTrackedFoods.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{Deleted 1 food} other{Deleted {count} foods}}'**
+  String deletedTrackedFoods(int count);
+
   /// No description provided for @useAsTemplateForCustomFood.
   ///
   /// In en, this message translates to:

@@ -18,6 +18,7 @@ import '../test_utils/tracked_food_database_service_mock.dart';
 void main() {
   testWidgets('TrackedFoodList Widget Tests', (WidgetTester tester) async {
     final mockTrackedFoodDb = TrackedFoodDatabaseServiceMock();
+    FoodTracked? longPressedFood;
 
     // Setup providers and pump Widget
     await tester.pumpWidget(
@@ -43,7 +44,13 @@ void main() {
         child: MaterialApp(
           home: Scaffold(
             body: Column(
-              children: [TrackedFoodList(ScrollController(), () => {})],
+              children: [
+                TrackedFoodList(
+                  ScrollController(),
+                  () => {},
+                  onSelectionToggle: (food) => longPressedFood = food,
+                ),
+              ],
             ),
           ),
           supportedLocales: AppLocalizations.supportedLocales,
@@ -112,6 +119,9 @@ void main() {
 
     // Test the tracked foods are present
     expect(find.byType(TrackedFoodListItem), findsExactly(3));
+
+    await tester.longPress(find.text('My tracked food 1'));
+    expect(longPressedFood, myFood);
 
     // Activate meal grouping
     appSettings.isMealGroupingActivated = true;
