@@ -26,8 +26,9 @@ void main() {
         providers: [
           Provider(create: (_) => LogProvider()),
           ChangeNotifierProvider(
-            create: (_) => AppSettingsProvider(
+            create: (ctx) => AppSettingsProvider(
               keyValueStorage: KeyValueStorageServiceMock(),
+              logger: ctx.read<LogProvider>(),
             ),
           ),
           ChangeNotifierProvider(

@@ -1,16 +1,24 @@
-import 'package:flutter/foundation.dart';
 import 'package:sqflite/sqlite_api.dart';
 
 import '../../models/food/food.dart';
+import '../log_service_interface.dart';
 import 'custom_food_database_service_interface.dart';
 import 'database_service.dart';
 
 class CustomFoodDatabaseService
     with DatabaseService
     implements CustomFoodDatabaseServiceInterface {
+  LogServiceInterface? _logger;
+
   CustomFoodDatabaseService._privateConstructor();
+
   static final CustomFoodDatabaseService instance =
       CustomFoodDatabaseService._privateConstructor();
+
+  /// Configures the logger used for database errors.
+  void configureLogger(LogServiceInterface logger) {
+    _logger = logger;
+  }
 
   @override
   Future<List<Food>> get customFoods async {
@@ -61,10 +69,8 @@ class CustomFoodDatabaseService
     final List<Food?> tempList = List.generate(maps.length, (i) {
       try {
         return Food.fromJson(maps[i]);
-      } catch (e) {
-        if (kDebugMode) {
-          debugPrint('Error parsing custom food from db: $e');
-        }
+      } catch (e, st) {
+        _logger?.error('Error parsing custom food from database', e, st);
         return null;
       }
     });

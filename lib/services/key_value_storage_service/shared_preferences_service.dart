@@ -1,12 +1,19 @@
-import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../log_service_interface.dart';
 import 'key_value_storage_service_interface.dart';
 
 class SharedPreferencesService implements KeyValueStorageServiceInterface {
+  LogServiceInterface? _logger;
+
   SharedPreferencesService._privateConstructor();
   static final SharedPreferencesService instance =
       SharedPreferencesService._privateConstructor();
+
+  /// Configures the logger used for storage warnings.
+  void configureLogger(LogServiceInterface logger) {
+    _logger = logger;
+  }
 
   SharedPreferences? _sharedPrefs;
 
@@ -35,16 +42,12 @@ class SharedPreferencesService implements KeyValueStorageServiceInterface {
       } else if (T == double) {
         returnValue = prefs.getDouble(key) as T?;
       } else {
-        if (kDebugMode) {
-          debugPrint(
-            'Warning: Unsupported type $T requested from SharedPreferences.',
-          );
-        }
+        _logger?.warning(
+          'Unsupported type $T requested from SharedPreferences',
+        );
       }
-    } catch (e) {
-      if (kDebugMode) {
-        debugPrint('Warning: Could not read key $key from SharedPreferences.');
-      }
+    } catch (e, st) {
+      _logger?.warning('Could not read key $key from SharedPreferences', e, st);
 
       return fallback;
     }
@@ -65,11 +68,9 @@ class SharedPreferencesService implements KeyValueStorageServiceInterface {
     } else if (value is double) {
       await prefs.setDouble(key, value);
     } else {
-      if (kDebugMode) {
-        debugPrint(
-          'Warning: Unsupported type ${value.runtimeType} for key $key.',
-        );
-      }
+      _logger?.warning(
+        'Unsupported type ${value.runtimeType} for SharedPreferences key $key',
+      );
     }
   }
 

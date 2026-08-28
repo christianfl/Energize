@@ -6,6 +6,7 @@ import '../models/person/body_targets.dart';
 import '../models/person/enums/sex.dart';
 import '../models/person/enums/weight_target.dart';
 import '../services/key_value_storage_service/key_value_storage_service_interface.dart';
+import 'log_provider.dart';
 
 /// Provider for everything related to the body and targets.
 ///
@@ -19,8 +20,9 @@ class BodyTargetsProvider with ChangeNotifier {
   BodyTargets get bodyTargets => _bodyTargets;
 
   final KeyValueStorageServiceInterface _keyValueStorage;
+  final LogProvider _logger;
 
-  BodyTargetsProvider({required this._keyValueStorage}) {
+  BodyTargetsProvider({required this._keyValueStorage, required this._logger}) {
     _loadBodyAndTargets();
   }
 
@@ -765,10 +767,8 @@ class BodyTargetsProvider with ChangeNotifier {
     for (final key in keysToDelete) {
       try {
         await _keyValueStorage.remove(key);
-      } catch (e) {
-        if (kDebugMode) {
-          debugPrint('Could not remove micro target value: $e');
-        }
+      } catch (e, st) {
+        _logger.error('Could not remove micro target value', e, st);
       }
     }
   }
@@ -781,10 +781,8 @@ class BodyTargetsProvider with ChangeNotifier {
       _bodyTargets = newBodyTargets;
 
       notifyListeners();
-    } catch (e) {
-      if (kDebugMode) {
-        debugPrint('Could not save all body targets: $e');
-      }
+    } catch (e, st) {
+      _logger.error('Could not save all body targets', e, st);
     }
   }
 }

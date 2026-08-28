@@ -1,16 +1,23 @@
-import 'package:flutter/foundation.dart';
 import 'package:sqflite/sqlite_api.dart';
 
+import '../log_service_interface.dart';
 import 'complete_days_database_service_interface.dart';
 import 'database_service.dart';
 
 class CompleteDaysDatabaseService
     with DatabaseService
     implements CompleteDaysDatabaseServiceInterface {
+  LogServiceInterface? _logger;
+
   CompleteDaysDatabaseService._privateConstructor();
 
   static final CompleteDaysDatabaseService instance =
       CompleteDaysDatabaseService._privateConstructor();
+
+  /// Configures the logger used for database errors.
+  void configureLogger(LogServiceInterface logger) {
+    _logger = logger;
+  }
 
   @override
   Future<bool> isDateCompleted(DateTime date) async {
@@ -80,10 +87,8 @@ class CompleteDaysDatabaseService
         final int day = int.parse(splittedDate[2]);
 
         allCompletedDays.add(DateTime(year, month, day));
-      } catch (e) {
-        if (kDebugMode) {
-          debugPrint('Could not parse completed day from db: $e');
-        }
+      } catch (e, st) {
+        _logger?.error('Could not parse completed day from database', e, st);
       }
     }
 

@@ -2,6 +2,7 @@ import 'package:flutter/services.dart' show rootBundle;
 import 'package:flutter/widgets.dart';
 
 import '../../../models/food/food.dart';
+import '../../log_service_interface.dart';
 
 class SwissFoodCompositionDatabaseBinding {
   static const originName = 'SFCDB';
@@ -21,8 +22,9 @@ class SwissFoodCompositionDatabaseBinding {
   /// Reads data from local CSV file.
   static Future<List<Food>?> searchFood(
     String searchText,
-    Locale locale,
-  ) async {
+    Locale locale, {
+    LogServiceInterface? logger,
+  }) async {
     if (searchText.isEmpty) return null;
 
     final List<Food> foundFoods = [];
@@ -278,11 +280,8 @@ class SwissFoodCompositionDatabaseBinding {
               ),
             ),
           );
-        } catch (e) {
-          debugPrint(
-            'Error while mapping row from CSV. Food title: $matchedTitle',
-          );
-          debugPrint('Error: $e');
+        } catch (e, st) {
+          logger?.error('Error while mapping SFCDB row: $matchedTitle', e, st);
         }
       }
     }

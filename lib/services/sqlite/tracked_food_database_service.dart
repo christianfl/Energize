@@ -1,17 +1,24 @@
-import 'package:flutter/foundation.dart';
 import 'package:sqflite/sqlite_api.dart';
 
 import '../../models/food/food_tracked.dart';
+import '../log_service_interface.dart';
 import 'database_service.dart';
 import 'tracked_food_database_service_interface.dart';
 
 class TrackedFoodDatabaseService
     with DatabaseService
     implements TrackedFoodDatabaseServiceInterface {
+  LogServiceInterface? _logger;
+
   TrackedFoodDatabaseService._privateConstructor();
 
   static final TrackedFoodDatabaseService instance =
       TrackedFoodDatabaseService._privateConstructor();
+
+  /// Configures the logger used for database errors.
+  void configureLogger(LogServiceInterface logger) {
+    _logger = logger;
+  }
 
   @override
   Future<List<FoodTracked>> trackedFoodByDateRange({
@@ -151,10 +158,8 @@ class TrackedFoodDatabaseService
     final List<FoodTracked?> tempList = List.generate(maps.length, (i) {
       try {
         return FoodTracked.fromJson(maps[i]);
-      } catch (e) {
-        if (kDebugMode) {
-          debugPrint('Error parsing tracked food from db: $e');
-        }
+      } catch (e, st) {
+        _logger?.error('Error parsing tracked food from database', e, st);
         return null;
       }
     });

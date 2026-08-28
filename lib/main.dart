@@ -81,44 +81,50 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         Provider(create: (ctx) => LogProvider(talker: TalkerFlutter.init())),
+        Provider(
+          create: (ctx) {
+            final service = SharedPreferencesService.instance;
+            service.configureLogger(ctx.read<LogProvider>());
+            return service;
+          },
+        ),
         ChangeNotifierProvider(
           create: (ctx) => AppSettingsProvider(
-            keyValueStorage: SharedPreferencesService.instance,
+            keyValueStorage: ctx.read<SharedPreferencesService>(),
+            logger: ctx.read<LogProvider>(),
           ),
         ),
         ChangeNotifierProvider(
           create: (ctx) => BodyTargetsProvider(
-            keyValueStorage: SharedPreferencesService.instance,
+            keyValueStorage: ctx.read<SharedPreferencesService>(),
+            logger: ctx.read<LogProvider>(),
           ),
         ),
         ChangeNotifierProvider(
           create: (ctx) {
             final logProvider = ctx.read<LogProvider>();
+            final database = TrackedFoodDatabaseService.instance;
+            database.configureLogger(logProvider);
 
-            return TrackedFoodProvider(
-              db: TrackedFoodDatabaseService.instance,
-              logger: logProvider,
-            );
+            return TrackedFoodProvider(db: database, logger: logProvider);
           },
         ),
         ChangeNotifierProvider(
           create: (ctx) {
             final logProvider = ctx.read<LogProvider>();
+            final database = CustomFoodDatabaseService.instance;
+            database.configureLogger(logProvider);
 
-            return CustomFoodProvider(
-              db: CustomFoodDatabaseService.instance,
-              logger: logProvider,
-            );
+            return CustomFoodProvider(db: database, logger: logProvider);
           },
         ),
         Provider(
           create: (ctx) {
             final logProvider = ctx.read<LogProvider>();
+            final database = CompleteDaysDatabaseService.instance;
+            database.configureLogger(logProvider);
 
-            return CompleteDaysProvider(
-              db: CompleteDaysDatabaseService.instance,
-              logger: logProvider,
-            );
+            return CompleteDaysProvider(db: database, logger: logProvider);
           },
         ),
       ],

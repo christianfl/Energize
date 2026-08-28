@@ -9,6 +9,9 @@ import 'models/usda_food.dart';
 class USDABinding {
   static const originName = 'USDA';
 
+  /// Maximum number of foods returned from a text search.
+  static const searchResultLimit = 10;
+
   static const imageUrl =
       'assets/food_databases/us-department-of-agriculture.png';
   static const sourceUrl = 'https://fdc.nal.usda.gov/index.html';
@@ -16,7 +19,8 @@ class USDABinding {
   static final _apiKey = dotenv.env['API_KEY_USDA'];
 
   static Future<List<Food>?> searchFood(String searchText) async {
-    if (searchText.isEmpty) return null;
+    final normalizedSearchText = searchText.trim();
+    if (normalizedSearchText.isEmpty) return null;
 
     final url =
         'https://api.nal.usda.gov/fdc/v1/foods/search?api_key=$_apiKey&query=$searchText';
@@ -29,8 +33,8 @@ class USDABinding {
       final List<dynamic> foods = decodedResponse['foods'];
       final List<Food> foodReturn = [];
 
-      int counter = 10;
-      if (foods.length < 10) {
+      int counter = searchResultLimit;
+      if (foods.length < searchResultLimit) {
         counter = foods.length;
       }
 
@@ -41,7 +45,9 @@ class USDABinding {
 
       return foodReturn;
     } else {
-      throw Exception('Failed to load data');
+      throw Exception(
+        'USDA search returned HTTP ${response.statusCode}: ${response.body}',
+      );
     }
   }
 }

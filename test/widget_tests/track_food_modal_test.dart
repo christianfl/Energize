@@ -32,6 +32,7 @@ void main() {
 
     final appSettingsProvider = AppSettingsProvider(
       keyValueStorage: KeyValueStorageServiceMock(),
+      logger: LogProvider(),
     );
 
     // Disable prefering serving sizes
@@ -64,8 +65,10 @@ void main() {
             },
           ),
           ChangeNotifierProvider(
-            create: (_) =>
-                BodyTargetsProvider(keyValueStorage: mockKeyValueStorage),
+            create: (ctx) => BodyTargetsProvider(
+              keyValueStorage: mockKeyValueStorage,
+              logger: ctx.read<LogProvider>(),
+            ),
           ),
         ],
         child: MaterialApp(

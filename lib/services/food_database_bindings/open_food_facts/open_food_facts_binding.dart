@@ -5,9 +5,13 @@ import 'package:package_info_plus/package_info_plus.dart';
 
 import '../../../models/food/food.dart';
 import 'product_not_found_exception.dart';
+import 'status_aware_product_search_query_configuration.dart';
 
 class OpenFoodFactsBinding {
   static const originName = 'OFF';
+
+  /// Maximum number of products requested for a text search.
+  static const searchPageSize = 10;
 
   static const imageUrl = 'assets/food_databases/open-food-facts.png';
   static const termsUrl = 'https://world.openfoodfacts.org/terms-of-use';
@@ -103,18 +107,19 @@ class OpenFoodFactsBinding {
   }
 
   Future<List<Food>?> searchFood(String searchText) async {
-    await _ensureInitialized();
+    final normalizedSearchText = searchText.trim();
+    if (normalizedSearchText.isEmpty) return null;
 
-    if (searchText.isEmpty) return null;
+    await _ensureInitialized();
     final parameters = <Parameter>[
       const PageNumber(page: 1),
-      const PageSize(size: 10),
+      const PageSize(size: searchPageSize),
       const SortBy(option: SortOption.POPULARITY),
-      SearchTerms(terms: [searchText]),
+      SearchTerms(terms: [normalizedSearchText]),
     ];
 
     final ProductSearchQueryConfiguration configuration =
-        ProductSearchQueryConfiguration(
+        StatusAwareProductSearchQueryConfiguration(
           parametersList: parameters,
           language: _queryLanguage,
           country: _queryCountry,

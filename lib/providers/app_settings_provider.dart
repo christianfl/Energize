@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import '../models/app_settings.dart';
 
 import '../services/key_value_storage_service/key_value_storage_service_interface.dart';
+import 'log_provider.dart';
 
 /// Provider for app-wide settings.
 ///
@@ -15,8 +16,9 @@ class AppSettingsProvider with ChangeNotifier {
   AppSettings get settings => _settings;
 
   final KeyValueStorageServiceInterface _keyValueStorage;
+  final LogProvider _logger;
 
-  AppSettingsProvider({required this._keyValueStorage}) {
+  AppSettingsProvider({required this._keyValueStorage, required this._logger}) {
     _loadSettings();
   }
 
@@ -162,10 +164,8 @@ class AppSettingsProvider with ChangeNotifier {
       _settings = newSettings;
 
       notifyListeners();
-    } catch (e) {
-      if (kDebugMode) {
-        debugPrint('Could not save all settings: $e');
-      }
+    } catch (e, st) {
+      _logger.error('Could not save all settings', e, st);
     }
   }
 }

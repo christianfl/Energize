@@ -395,6 +395,7 @@ class FoodInputState extends State<FoodInput>
   /// the search string in the food title. Also, the API-based food composition
   /// databases get queried and their results are appended to the list
   void _populateSearchedFoodList(String searchText) async {
+    final normalizedSearchText = searchText.trim();
     final appSettings = Provider.of<AppSettingsProvider>(
       context,
       listen: false,
@@ -427,11 +428,12 @@ class FoodInputState extends State<FoodInput>
 
       // When searched for anything, filter the previously generated
       // suggestion list so that it only shows matching entries
-      if (searchText.isNotEmpty) {
+      if (normalizedSearchText.isNotEmpty) {
         searchResultFood = searchResultFood
             .where(
-              (food) =>
-                  food.title.toLowerCase().contains(searchText.toLowerCase()),
+              (food) => food.title.toLowerCase().contains(
+                normalizedSearchText.toLowerCase(),
+              ),
             )
             .toList();
       }
@@ -439,18 +441,19 @@ class FoodInputState extends State<FoodInput>
 
     // If at least one of the food composition databases is activated
     // Doesn't matter whether it is stored offline or API-based
-    if ((appSettings.isProviderOpenFoodFactsActivated ||
-        appSettings.isProviderUsdaActivated ||
-        appSettings.isProviderSndbActivated)) {
+    if (normalizedSearchText.isNotEmpty &&
+        (appSettings.isProviderOpenFoodFactsActivated ||
+            appSettings.isProviderUsdaActivated ||
+            appSettings.isProviderSndbActivated)) {
       setState(() {
         _awaitingApiResponse = true;
       });
 
       // Search in food composition databases (in parallel)
       await Future.wait([
-        _getSFCDSearchResultIfActivated(searchText),
-        _getOpenFoodFactsSearchResultIfActivated(searchText),
-        _getUsdaSearchResultIfActivated(searchText),
+        _getSFCDSearchResultIfActivated(normalizedSearchText),
+        _getOpenFoodFactsSearchResultIfActivated(normalizedSearchText),
+        _getUsdaSearchResultIfActivated(normalizedSearchText),
       ]);
 
       setState(() {
@@ -553,26 +556,46 @@ class FoodInputState extends State<FoodInput>
   Future<void> _getOpenFoodFactsSearchResultIfActivated(
     String searchText,
   ) async {
+    if (searchText.trim().isEmpty) return;
+
     final appSettings = Provider.of<AppSettingsProvider>(
       context,
       listen: false,
     );
 
     if (appSettings.isProviderOpenFoodFactsActivated) {
+      final logger = Provider.of<LogProvider>(context, listen: false);
+      final stopwatch = Stopwatch()..start();
+      List<Food>? offSearchResultFood;
+
       try {
-        final offSearchResultFood = await OpenFoodFactsBinding().searchFood(
+        offSearchResultFood = await OpenFoodFactsBinding().searchFood(
           searchText,
         );
+      } catch (e, st) {
+        stopwatch.stop();
+        logger.error('Open Food Facts text search failed', e, st);
 
-        if (offSearchResultFood != null) {
-          setState(() {
-            searchResultFood += offSearchResultFood;
-            _removeDuplicateSuggestions();
-          });
-        }
-      } catch (e) {
+        if (!mounted) return;
         setState(() {
           _hasOffBindingError = true;
+        });
+        return;
+      }
+
+      stopwatch.stop();
+      logger.info(
+        'Open Food Facts text search succeeded with '
+        '${offSearchResultFood?.length ?? 0} result(s) '
+        '(maximum ${OpenFoodFactsBinding.searchPageSize}) in '
+        '${stopwatch.elapsedMilliseconds} ms',
+      );
+
+      if (offSearchResultFood != null) {
+        if (!mounted) return;
+        setState(() {
+          searchResultFood += offSearchResultFood!;
+          _removeDuplicateSuggestions();
         });
       }
     } else {
@@ -638,24 +661,44 @@ class FoodInputState extends State<FoodInput>
   }
 
   Future<void> _getUsdaSearchResultIfActivated(String searchText) async {
+    if (searchText.trim().isEmpty) return;
+
     final appSettings = Provider.of<AppSettingsProvider>(
       context,
       listen: false,
     );
 
     if (appSettings.isProviderUsdaActivated) {
-      try {
-        final usdaSearchResultFood = await USDABinding.searchFood(searchText);
+      final logger = Provider.of<LogProvider>(context, listen: false);
+      final stopwatch = Stopwatch()..start();
+      List<Food>? usdaSearchResultFood;
 
-        if (usdaSearchResultFood != null) {
-          setState(() {
-            searchResultFood += usdaSearchResultFood;
-            _removeDuplicateSuggestions();
-          });
-        }
-      } catch (e) {
+      try {
+        usdaSearchResultFood = await USDABinding.searchFood(searchText);
+      } catch (e, st) {
+        stopwatch.stop();
+        logger.error('USDA text search failed', e, st);
+
+        if (!mounted) return;
         setState(() {
           _hasUsdaBindingError = true;
+        });
+        return;
+      }
+
+      stopwatch.stop();
+      logger.info(
+        'USDA text search succeeded with '
+        '${usdaSearchResultFood?.length ?? 0} result(s) '
+        '(maximum ${USDABinding.searchResultLimit}) in '
+        '${stopwatch.elapsedMilliseconds} ms',
+      );
+
+      if (usdaSearchResultFood != null) {
+        if (!mounted) return;
+        setState(() {
+          searchResultFood += usdaSearchResultFood!;
+          _removeDuplicateSuggestions();
         });
       }
     } else {
@@ -671,11 +714,13 @@ class FoodInputState extends State<FoodInput>
     );
 
     if (appSettings.isProviderSndbActivated) {
+      final logger = Provider.of<LogProvider>(context, listen: false);
       try {
         final sfcdSearchResultFood =
             await SwissFoodCompositionDatabaseBinding.searchFood(
               searchText,
               Localizations.localeOf(context),
+              logger: logger,
             );
 
         if (sfcdSearchResultFood != null) {
@@ -684,8 +729,8 @@ class FoodInputState extends State<FoodInput>
             _removeDuplicateSuggestions();
           });
         }
-      } catch (e) {
-        // Data is saved offline, needless to catch exception
+      } catch (e, st) {
+        logger.error('Could not search Swiss food database', e, st);
       }
     } else {
       return;
