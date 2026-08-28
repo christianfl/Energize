@@ -25,7 +25,8 @@ kotlin {
 
 android {
     namespace = "com.flasskamp.energize"
-    compileSdk = flutter.compileSdkVersion
+    // Override for now: compileSdk = flutter.compileSdkVersion
+    compileSdk = 37
     ndkVersion = "28.2.13676358"
 
     compileOptions {
