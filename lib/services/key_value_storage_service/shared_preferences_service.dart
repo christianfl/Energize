@@ -27,6 +27,27 @@ class SharedPreferencesService implements KeyValueStorageServiceInterface {
     return _sharedPrefs!;
   }
 
+  /// Returns all values that may need migration to secure storage.
+  Future<Map<String, Object>> getAllValues() async {
+    final prefs = await _cachedSharedPrefs;
+    final values = <String, Object>{};
+
+    for (final key in prefs.getKeys()) {
+      final value = prefs.get(key);
+      if (value != null) values[key] = value;
+    }
+
+    return values;
+  }
+
+  /// Removes all values.
+  ///
+  /// Used after they have been migrated to secure storage successfully.
+  Future<void> removeAll(Iterable<String> keys) async {
+    final prefs = await _cachedSharedPrefs;
+    await Future.wait(keys.map(prefs.remove));
+  }
+
   @override
   Future<T> getValue<T>(String key, T fallback) async {
     final prefs = await _cachedSharedPrefs;

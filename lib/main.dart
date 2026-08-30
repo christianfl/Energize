@@ -27,7 +27,7 @@ import 'providers/complete_days_provider.dart';
 import 'providers/custom_food_provider.dart';
 import 'providers/log_provider.dart';
 import 'providers/tracked_food_provider.dart';
-import 'services/key_value_storage_service/shared_preferences_service.dart';
+import 'services/key_value_storage_service/secure_storage_service.dart';
 import 'services/sqlite/complete_days_database_service.dart';
 import 'services/sqlite/custom_food_database_service.dart';
 import 'services/sqlite/tracked_food_database_service.dart';
@@ -83,20 +83,20 @@ class MyApp extends StatelessWidget {
         Provider(create: (ctx) => LogProvider(talker: TalkerFlutter.init())),
         Provider(
           create: (ctx) {
-            final service = SharedPreferencesService.instance;
+            final service = SecureStorageService.instance;
             service.configureLogger(ctx.read<LogProvider>());
             return service;
           },
         ),
         ChangeNotifierProvider(
           create: (ctx) => AppSettingsProvider(
-            keyValueStorage: ctx.read<SharedPreferencesService>(),
+            keyValueStorage: ctx.read<SecureStorageService>(),
             logger: ctx.read<LogProvider>(),
           ),
         ),
         ChangeNotifierProvider(
           create: (ctx) => BodyTargetsProvider(
-            keyValueStorage: ctx.read<SharedPreferencesService>(),
+            keyValueStorage: ctx.read<SecureStorageService>(),
             logger: ctx.read<LogProvider>(),
           ),
         ),

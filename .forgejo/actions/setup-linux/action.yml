@@ -16,4 +16,4 @@ runs:
       run: |
         set -euo pipefail
 
-        apt-get install -y clang cmake ninja-build pkg-config libgtk-3-dev libstdc++-12-dev
+        apt-get install -y clang cmake ninja-build pkg-config libgtk-3-dev libsecret-1-dev libstdc++-12-dev

@@ -55,6 +55,10 @@ The Web build currently has the following known limitations:
 
 Prerequisites: See [Set up Linux development](https://docs.flutter.dev/platform-integration/linux/setup)
 
+Additional dependencies:
+
+- `libsecret-1-dev`
+
 Build:
 
 ```bash
@@ -69,7 +73,7 @@ The Linux build currently has the following known limitations:
 
 #### Flatpak
 
-The linux build depends on sqlite. Furthermore, a few arch specific settings have to be set. Flatpak helps with providing everything which is needed to just install and run Energize on Linux. The manifest references prebuild binaries which will be downloaded during build.
+The linux build at runtime depends on sqlite, libsecret, and a keyring service such as GNOME Keyring or KWallet must be available. Furthermore, a few arch specific settings have to be set. Flatpak helps with providing everything which is needed to just install and run Energize on Linux. The manifest references prebuild binaries which will be downloaded during build.
 
 Build (aarch64):
 
