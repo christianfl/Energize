@@ -12,6 +12,7 @@ on:
       - integration_test/**
       - ios/**
       - ISSUE_TEMPLATE/**
+      - lib/l10n/app_*
       - scripts/**
       - test/**
       - test_driver/**

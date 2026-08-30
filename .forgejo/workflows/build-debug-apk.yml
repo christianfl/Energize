@@ -11,6 +11,7 @@ on:
       - integration_test/**
       - ios/**
       - ISSUE_TEMPLATE/**
+      - lib/l10n/app_*
       - linux/**
       - scripts/**
       - test/**

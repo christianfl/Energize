@@ -1,0 +1,71 @@
+name: Generate Flutter Localizations
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - lib/l10n/app_*.arb
+
+  workflow_dispatch:
+
+jobs:
+  generate-localizations:
+    name: Generate and Commit Localizations
+
+    runs-on: epinez-private
+
+    container:
+      image: ghcr.io/catthehacker/ubuntu:act-24.04
+
+    env:
+      # Required for Flutter artifact extraction in rootless Podman containers.
+      TAR_OPTIONS: "--no-same-owner"
+
+    steps:
+      - name: Checkout repository
+        uses: https://code.forgejo.org/actions/checkout@v4
+        with:
+          submodules: recursive
+          fetch-depth: 0
+          token: ${{ forgejo.token }}
+
+      - name: Setup Flutter
+        uses: ./.forgejo/actions/setup-flutter
+
+      - name: Generate localizations
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          submodules/flutter/bin/flutter gen-l10n
+
+      - name: Verify and commit generated localizations
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          git add -A
+
+          unexpected_files="$(
+            git diff --cached --name-only |
+              grep -Ev '^lib/l10n/app_localizations(_[^/]+)?\.dart$' || true
+          )"
+
+          if [[ -n "$unexpected_files" ]]; then
+            echo "Localization generation changed unexpected files:"
+            printf '%s\n' "$unexpected_files"
+            git diff --cached --stat
+            git diff --cached
+            exit 1
+          fi
+
+          if git diff --cached --quiet; then
+            echo "Generated localizations are already up to date."
+            exit 0
+          fi
+
+          git config user.name "forgejo-actions[bot]"
+          git config user.email "epinez@noreply.codeberg.org"
+          git commit -m "chore(l10n): update generated localizations"
+          git push
