@@ -1,0 +1,45 @@
+name: Sync Bundled Privacy Policy
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - PRIVACY.md
+
+  workflow_dispatch:
+
+jobs:
+  sync-privacy-policy:
+    name: Sync and Commit Bundled Privacy Policy
+
+    runs-on: epinez-private
+
+    container:
+      image: ghcr.io/catthehacker/ubuntu:act-24.04
+
+    steps:
+      - name: Checkout repository
+        uses: https://code.forgejo.org/actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ forgejo.token }}
+
+      - name: Sync privacy policy
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          cp PRIVACY.md lib/pages/tab_settings/about_sub_page/assets/
+
+      - name: Verify and commit bundled privacy policy
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          git add lib/pages/tab_settings/about_sub_page/assets/PRIVACY.md
+
+          git config user.name "forgejo-actions[bot]"
+          git config user.email "epinez@noreply.codeberg.org"
+          git commit -m "chore: update bundled privacy policy"
+          git push
