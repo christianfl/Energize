@@ -28,6 +28,7 @@ on:
 jobs:
   energize-build-linux-debug:
     name: Build Linux Debug App (${{ matrix.package_arch }})
+    if: ${{ forgejo.event_name == 'workflow_dispatch' || !startsWith(forgejo.event.head_commit.message, 'Update version to v') }}
 
     strategy:
       fail-fast: false

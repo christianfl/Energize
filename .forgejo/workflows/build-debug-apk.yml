@@ -27,6 +27,8 @@ on:
 
 jobs:
   energize-build-debug-apk:
+    if: ${{ forgejo.event_name == 'workflow_dispatch' || !startsWith(forgejo.event.head_commit.message, 'Update version to v') }}
+
     runs-on: epinez-private
 
     container:
