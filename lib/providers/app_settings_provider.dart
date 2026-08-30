@@ -18,8 +18,11 @@ class AppSettingsProvider with ChangeNotifier {
   final KeyValueStorageServiceInterface _keyValueStorage;
   final LogProvider _logger;
 
+  /// Completes after the stored app settings have been loaded.
+  late final Future<void> initialized;
+
   AppSettingsProvider({required this._keyValueStorage, required this._logger}) {
-    _loadSettings();
+    initialized = _loadSettings();
   }
 
   /// Loads settings from key-value storage into [_settings].

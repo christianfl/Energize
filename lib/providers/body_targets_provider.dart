@@ -22,8 +22,11 @@ class BodyTargetsProvider with ChangeNotifier {
   final KeyValueStorageServiceInterface _keyValueStorage;
   final LogProvider _logger;
 
+  /// Completes after the stored body targets have been loaded.
+  late final Future<void> initialized;
+
   BodyTargetsProvider({required this._keyValueStorage, required this._logger}) {
-    _loadBodyAndTargets();
+    initialized = _loadBodyAndTargets();
   }
 
   /// Loads data from key-value storage into [_bodyTargets].

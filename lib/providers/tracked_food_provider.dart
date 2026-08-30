@@ -18,8 +18,11 @@ class TrackedFoodProvider with ChangeNotifier {
   /// Determines from when the provider holds corresponding tracked food items.
   DateTime selectedDate = DateTime.now();
 
+  /// Completes after the tracked foods for [selectedDate] have been loaded.
+  late final Future<void> initialized;
+
   TrackedFoodProvider({required this._db, required this._logger}) {
-    _getFromDatabase();
+    initialized = _getFromDatabase();
   }
 
   /// Sets [selectedDate] as [date] and fetches tracked food from this date.

@@ -12,12 +12,15 @@ class CustomFoodProvider with ChangeNotifier {
   List<Food> _foods = [];
   List<Food> get foods => [..._foods];
 
+  /// Completes after the stored custom foods have been loaded.
+  late final Future<void> initialized;
+
   CustomFoodProvider({required this._db, required this._logger}) {
-    _getFromDatabase();
+    initialized = _getFromDatabase();
   }
 
   /// Loads all custom foods into [_foods].
-  void _getFromDatabase() async {
+  Future<void> _getFromDatabase() async {
     _foods = await getAll();
     notifyListeners();
   }
@@ -28,13 +31,13 @@ class CustomFoodProvider with ChangeNotifier {
   }
 
   /// Adds a new custom food and optionally logs the action.
-  void addFood(Food food, {bool logAction = true}) {
+  Future<void> addFood(Food food, {bool logAction = true}) async {
     if (!_foods.any((f) => f.id == food.id)) {
       _foods.add(food);
       notifyListeners();
     }
 
-    _db.insert(food);
+    await _db.insert(food);
 
     if (logAction) {
       _logger.info('Added new custom food: ${food.title}');
@@ -53,11 +56,11 @@ class CustomFoodProvider with ChangeNotifier {
   }
 
   /// Removes a custom food.
-  void removeFood(String id) {
+  Future<void> removeFood(String id) async {
     _foods.removeWhere((element) => element.id == id);
     notifyListeners();
 
-    _db.remove(id);
+    await _db.remove(id);
 
     _logger.info('Removed custom food with id: $id');
   }

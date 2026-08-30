@@ -107,7 +107,7 @@ class BackupService {
       // Custom food
       if (backupData.customFood != null) {
         for (var customFood in backupData.customFood!) {
-          customFoodProvider.addFood(customFood, logAction: false);
+          await customFoodProvider.addFood(customFood, logAction: false);
         }
       }
 

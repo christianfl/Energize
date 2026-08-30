@@ -172,42 +172,42 @@ void main() {
         bread,
         FoodTracked.generatedId,
         120,
-        DateTime.now().copyWith(hour: 8, minute: 30),
+        now.copyWith(hour: 8, minute: 30),
         now,
       );
       final trackedEggs = FoodTracked.fromFood(
         scrambledEggs,
         FoodTracked.generatedId,
         150,
-        DateTime.now().copyWith(hour: 8, minute: 30),
+        now.copyWith(hour: 8, minute: 30),
         now,
       );
       final trackedApple = FoodTracked.fromFood(
         apple,
         FoodTracked.generatedId,
         120,
-        DateTime.now().copyWith(hour: 10, minute: 30),
+        now.copyWith(hour: 10, minute: 30),
         now,
       );
       final trackedPasta = FoodTracked.fromFood(
         pasta,
         FoodTracked.generatedId,
         150,
-        DateTime.now().copyWith(hour: 13, minute: 30),
+        now.copyWith(hour: 13, minute: 30),
         now,
       );
       final trackedPesto = FoodTracked.fromFood(
         pesto,
         FoodTracked.generatedId,
         50,
-        DateTime.now().copyWith(hour: 13, minute: 30),
+        now.copyWith(hour: 13, minute: 30),
         now,
       );
       final trackedParmesan = FoodTracked.fromFood(
         parmesan,
         FoodTracked.generatedId,
         20,
-        DateTime.now().copyWith(hour: 13, minute: 30),
+        now.copyWith(hour: 13, minute: 30),
         now,
       );
 
@@ -215,29 +215,39 @@ void main() {
         throw Exception('Context not mounted');
       }
 
-      // Activate meal grouping
+      // Get providers used to prepare the screenshot
       final appSettings = Provider.of<AppSettingsProvider>(
         context,
         listen: false,
       );
-      appSettings.isMealGroupingActivated = true;
-
-      // Add tracked food
       final trackedFoodProvider = Provider.of<TrackedFoodProvider>(
         context,
         listen: false,
       );
-      trackedFoodProvider.addTrackedFood(trackedBread);
-      trackedFoodProvider.addTrackedFood(trackedEggs);
-      trackedFoodProvider.addTrackedFood(trackedApple);
-      trackedFoodProvider.addTrackedFood(trackedPasta);
-      trackedFoodProvider.addTrackedFood(trackedPesto);
-      trackedFoodProvider.addTrackedFood(trackedParmesan);
-
       final bodyTargets = Provider.of<BodyTargetsProvider>(
         context,
         listen: false,
       );
+
+      await Future.wait([
+        appSettings.initialized,
+        trackedFoodProvider.initialized,
+        bodyTargets.initialized,
+      ]);
+
+      // Activate meal grouping
+      appSettings.isMealGroupingActivated = true;
+
+      // Replace tracked food possibly left by earlier test run
+      await trackedFoodProvider.removeTrackedFoods(trackedFoodProvider.foods);
+      await trackedFoodProvider.restoreTrackedFoods([
+        trackedBread,
+        trackedEggs,
+        trackedApple,
+        trackedPasta,
+        trackedPesto,
+        trackedParmesan,
+      ]);
 
       // Set calories and macro targets
       bodyTargets.caloriesTarget = 2000;
@@ -285,9 +295,7 @@ void main() {
       await takeAndroidScreenshot('2', tester, valueVariants.currentValue);
 
       // Remove tracked food
-      for (final food in trackedFoodProvider.foods) {
-        trackedFoodProvider.removeTrackedFood(food.id);
-      }
+      await trackedFoodProvider.removeTrackedFoods(trackedFoodProvider.foods);
     });
   });
 
@@ -335,6 +343,12 @@ void main() {
         context,
         listen: false,
       );
+      await customFoodProvider.initialized;
+
+      // Remove custom food possibly left by earlier test run
+      for (final food in customFoodProvider.foods) {
+        await customFoodProvider.removeFood(food.id);
+      }
 
       // Add custom food
       final customFood1 = Food(
@@ -377,11 +391,11 @@ void main() {
           AppLocalizations.of(context)!.testCustomFood5Calories,
         ),
       );
-      customFoodProvider.addFood(customFood1);
-      customFoodProvider.addFood(customFood2);
-      customFoodProvider.addFood(customFood3);
-      customFoodProvider.addFood(customFood4);
-      customFoodProvider.addFood(customFood5);
+      await customFoodProvider.addFood(customFood1);
+      await customFoodProvider.addFood(customFood2);
+      await customFoodProvider.addFood(customFood3);
+      await customFoodProvider.addFood(customFood4);
+      await customFoodProvider.addFood(customFood5);
 
       // Wait until all frames were drawn
       await tester.pumpAndSettle();
@@ -391,7 +405,7 @@ void main() {
 
       // Remove custom food
       for (final food in customFoodProvider.foods) {
-        customFoodProvider.removeFood(food.id);
+        await customFoodProvider.removeFood(food.id);
       }
     });
   });
