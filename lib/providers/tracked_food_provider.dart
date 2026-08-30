@@ -15,6 +15,11 @@ class TrackedFoodProvider with ChangeNotifier {
   List<FoodTracked> _foods = [];
   List<FoodTracked> get foods => [..._foods];
 
+  bool _isLoading = true;
+
+  /// Whether tracked foods for [selectedDate] are currently being loaded.
+  bool get isLoading => _isLoading;
+
   /// Determines from when the provider holds corresponding tracked food items.
   DateTime selectedDate = DateTime.now();
 
@@ -34,12 +39,18 @@ class TrackedFoodProvider with ChangeNotifier {
 
   /// Loads all tracked food from [selectedDate] into [_foods].
   Future<void> _getFromDatabase() async {
-    _foods = await _db.trackedFoodByDateRange(
-      startDate: selectedDate,
-      endDate: selectedDate,
-    );
-
+    _isLoading = true;
     notifyListeners();
+
+    try {
+      _foods = await _db.trackedFoodByDateRange(
+        startDate: selectedDate,
+        endDate: selectedDate,
+      );
+    } finally {
+      _isLoading = false;
+      notifyListeners();
+    }
   }
 
   /// Returns all tracked food from the database.

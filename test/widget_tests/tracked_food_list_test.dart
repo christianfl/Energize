@@ -80,6 +80,7 @@ void main() {
       listen: false,
     );
     await trackedFoodProvider.selectDate(now);
+    await tester.pump();
 
     // Test there are no tracked food items yet in the list
     expect(find.byIcon(Icons.no_food), findsNWidgets(1));
