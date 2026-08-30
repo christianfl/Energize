@@ -1,18 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-/// Utility Class for date(-time) representation
+/// Utility class for date representation.
 class DateUtil {
-  /// Returns String representation of a date without time
+  /// Returns a locale-aware representation of [dateTime] without its time.
   static String getDate(DateTime dateTime, BuildContext context) {
-    if (Localizations.localeOf(context) == const Locale('de')) {
-      // Use two digit dd.MM.yyyy representation
+    final locale = Localizations.localeOf(context);
+
+    if (locale.languageCode == 'de') {
       return DateFormat('dd.MM.yyyy').format(dateTime);
-    } else {
-      // Use standard representation of the user's language
-      return DateFormat.yMd(
-        Localizations.localeOf(context).toString(),
-      ).format(dateTime);
     }
+
+    return DateFormat.yMd(locale.toString()).format(dateTime);
   }
 }

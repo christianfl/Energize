@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 
-/// Utility class for time) representation
+/// Utility class for time representation.
 class TimeUtil {
-  /// Returns String representation of a time
+  /// Returns a locale-aware representation of the time in [dateTime].
   static String getTime(DateTime dateTime, BuildContext context) {
-    // Use standard representation of the user's language
-    return DateFormat.Hm(
-      Localizations.localeOf(context).toString(),
-    ).format(dateTime);
+    return MaterialLocalizations.of(context).formatTimeOfDay(
+      TimeOfDay.fromDateTime(dateTime),
+      alwaysUse24HourFormat:
+          MediaQuery.maybeOf(context)?.alwaysUse24HourFormat ?? false,
+    );
   }
 }
