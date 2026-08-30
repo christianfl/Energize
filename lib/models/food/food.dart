@@ -388,7 +388,9 @@ class Food {
             final String numPart = str.replaceAll(unit, '');
             final double? value = double.tryParse(numPart);
 
-            return value != null ? value * factor : null;
+            if (value != null && value.isFinite && value > 0) {
+              return value * factor;
+            }
           }
 
           return null;
@@ -402,20 +404,16 @@ class Food {
 
       if (product.quantity != null) {
         // Whole package
-        try {
-          final packageInG = parseOFFServingSize(product.quantity!);
-          servingSizes['l10nPackage'] = packageInG!;
-        } catch (e) {
-          // Not parseable
+        final packageInG = parseOFFServingSize(product.quantity!);
+        if (packageInG != null) {
+          servingSizes['l10nPackage'] = packageInG;
         }
       }
       if (product.servingSize != null) {
         // 1 Serving
-        try {
-          final servingInG = parseOFFServingSize(product.servingSize!);
-          servingSizes['l10nServing'] = servingInG!;
-        } catch (e) {
-          // Not parseable
+        final servingInG = parseOFFServingSize(product.servingSize!);
+        if (servingInG != null) {
+          servingSizes['l10nServing'] = servingInG;
         }
       }
 
