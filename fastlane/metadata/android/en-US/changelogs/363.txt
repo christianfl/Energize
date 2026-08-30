@@ -1,0 +1,9 @@
+- [feat] Multi select tracked foods and copy, move, delete, change time
+- [feat] Migrate from SharedPreferences to Secure Storage (encrypted)
+- [feat] Add useful logging, e.g. for USDA and OFF searches
+- [fix] Disable mass logging when restoring backups
+- [l10n]¹ Updated Chinese (Simplified Han script), Estonian
+
+---
+
+¹Big thanks to all contributors!
