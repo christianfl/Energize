@@ -35,7 +35,7 @@ class DatabaseManagementSubPageState extends State<DatabaseManagementSubPage> {
   }
 
   /// Tries to open supplied URI in external Browser.
-  _openUrl(String uriString) {
+  void _openUrl(String uriString) {
     final uri = Uri.parse(uriString);
 
     try {
