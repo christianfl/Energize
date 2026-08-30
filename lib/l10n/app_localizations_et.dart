@@ -87,35 +87,35 @@ class AppLocalizationsEt extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$count selected',
-      one: '1 selected',
+      other: '$count on valitud',
+      one: '1 on valitud',
     );
     return '$_temp0';
   }
 
   @override
-  String get copyTrackedFoods => 'Copy';
+  String get copyTrackedFoods => 'Kopeeri';
 
   @override
-  String get moveTrackedFoods => 'Move';
+  String get moveTrackedFoods => 'Teisalda';
 
   @override
-  String get changeTrackedTime => 'Change time';
+  String get changeTrackedTime => 'Muuda aega';
 
   @override
-  String get deleteTrackedFoods => 'Delete';
+  String get deleteTrackedFoods => 'Kustuta';
 
   @override
   String get chooseAnotherDayForMove =>
-      'Choose another day to move the selected food.';
+      'Valitud toidu teisaldamiseks vali mõni muu päev.';
 
   @override
   String copiedTrackedFoods(int count) {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: 'Copied $count foods',
-      one: 'Copied 1 food',
+      other: '$count toitu on kopeeritud',
+      one: '1 toit on kopeeritud',
     );
     return '$_temp0';
   }
@@ -125,8 +125,8 @@ class AppLocalizationsEt extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: 'Moved $count foods',
-      one: 'Moved 1 food',
+      other: '$count toitu on teisaldatud',
+      one: '1 toit on teisaldatud',
     );
     return '$_temp0';
   }
@@ -136,8 +136,8 @@ class AppLocalizationsEt extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: 'Changed the time of $count foods',
-      one: 'Changed the time of 1 food',
+      other: '$count toidu aeg on muudetud',
+      one: '1 toidu aeg on muudetud',
     );
     return '$_temp0';
   }
@@ -147,8 +147,8 @@ class AppLocalizationsEt extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: 'Deleted $count foods',
-      one: 'Deleted 1 food',
+      other: '$count toitu on kustutatud',
+      one: '1 toit on kustutatud',
     );
     return '$_temp0';
   }
