@@ -88,11 +88,11 @@ class TrackedFoodProvider with ChangeNotifier {
   }
 
   /// Removes a tracked food.
-  void removeTrackedFood(String id) {
+  Future<void> removeTrackedFood(String id) async {
     _foods.removeWhere((element) => element.id == id);
     notifyListeners();
 
-    _db.remove(id);
+    await _db.remove(id);
 
     _logger.info('Removed tracked food with id: $id');
   }

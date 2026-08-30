@@ -141,9 +141,11 @@ class CustomFoodPageState extends State<CustomFoodPage> {
                             color: Theme.of(context).onDangerContainer,
                           ),
                         ),
-                        onDismissed: (direction) {
+                        onDismissed: (direction) async {
                           final swipedFood = food;
-                          customFoodProvider.removeFood(food.id);
+                          await customFoodProvider.removeFood(food.id);
+                          if (!context.mounted) return;
+
                           _setIsFabExplicitelyVisible(true);
 
                           ScaffoldMessenger.of(context).showSnackBar(
@@ -153,8 +155,8 @@ class CustomFoodPageState extends State<CustomFoodPage> {
                               ),
                               action: SnackBarAction(
                                 label: AppLocalizations.of(context)!.undo,
-                                onPressed: () {
-                                  customFoodProvider.addFood(swipedFood);
+                                onPressed: () async {
+                                  await customFoodProvider.addFood(swipedFood);
                                 },
                               ),
                             ),
