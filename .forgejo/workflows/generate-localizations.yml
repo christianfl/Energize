@@ -40,32 +40,28 @@ jobs:
 
           submodules/flutter/bin/flutter gen-l10n
 
-      - name: Verify and commit generated localizations
+      - name: Update Android locales config
         shell: bash
         run: |
           set -euo pipefail
 
-          git add -A
+          python ./scripts/update_locales_config/update_locales_config.py
 
-          unexpected_files="$(
-            git diff --cached --name-only |
-              grep -Ev '^lib/l10n/app_localizations(_[^/]+)?\.dart$' || true
-          )"
+      - name: Commit updated locales_config.xml
+        shell: bash
+        run: |
+          set -euo pipefail
 
-          if [[ -n "$unexpected_files" ]]; then
-            echo "Localization generation changed unexpected files:"
-            printf '%s\n' "$unexpected_files"
-            git diff --cached --stat
-            git diff --cached
-            exit 1
-          fi
+          locale_config="android/app/src/main/res/xml/locales_config.xml"
 
-          if git diff --cached --quiet; then
-            echo "Generated localizations are already up to date."
+          if git diff --quiet -- "$locale_config"; then
+            echo "Android locale configuration is already up to date."
             exit 0
           fi
 
+          git add "$locale_config"
+
           git config user.name "forgejo-actions[bot]"
           git config user.email "epinez@noreply.codeberg.org"
-          git commit -m "chore(l10n): update generated localizations"
+          git commit -m "chore(l10n): update Android locale configuration"
           git push
