@@ -15,6 +15,7 @@ class USDABinding {
   static const imageUrl =
       'assets/food_databases/us-department-of-agriculture.png';
   static const sourceUrl = 'https://fdc.nal.usda.gov/index.html';
+  static const privacyUrl = 'https://www.usda.gov/privacy-policy';
 
   static final _apiKey = dotenv.env['API_KEY_USDA'];
 

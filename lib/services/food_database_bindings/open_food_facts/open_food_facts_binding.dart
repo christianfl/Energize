@@ -16,6 +16,7 @@ class OpenFoodFactsBinding {
   static const imageUrl = 'assets/food_databases/open-food-facts.png';
   static const termsUrl = 'https://world.openfoodfacts.org/terms-of-use';
   static const contributeUrl = 'https://world.openfoodfacts.org/contribute';
+  static const privacyUrl = 'https://world.openfoodfacts.org/privacy';
   static const productUrl = 'https://openfoodfacts.org/product/';
 
   OpenFoodFactsBinding._privateConstructor();

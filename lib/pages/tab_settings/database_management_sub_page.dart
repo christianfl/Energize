@@ -34,6 +34,18 @@ class DatabaseManagementSubPageState extends State<DatabaseManagementSubPage> {
     );
   }
 
+  /// Tries to open supplied URI in external Browser.
+  _openUrl(String uriString) {
+    final uri = Uri.parse(uriString);
+
+    try {
+      launchUrl(uri, mode: LaunchMode.externalApplication);
+    } catch (e) {
+      final logger = Provider.of<LogProvider>(context, listen: false);
+      logger.error('Could not launch url', e);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final appSettings = Provider.of<AppSettingsProvider>(context);
@@ -114,24 +126,9 @@ class DatabaseManagementSubPageState extends State<DatabaseManagementSubPage> {
                         isThreeLine: true,
                       ),
                       InkWell(
-                        onTap: () {
-                          final uri = Uri.parse(
-                            SwissFoodCompositionDatabaseBinding.sourceUrl,
-                          );
-
-                          try {
-                            launchUrl(
-                              uri,
-                              mode: LaunchMode.externalApplication,
-                            );
-                          } catch (e) {
-                            final logger = Provider.of<LogProvider>(
-                              context,
-                              listen: false,
-                            );
-                            logger.error('Could not launch url', e);
-                          }
-                        },
+                        onTap: () => _openUrl(
+                          SwissFoodCompositionDatabaseBinding.sourceUrl,
+                        ),
                         child: ListTile(
                           title: Text(AppLocalizations.of(context)!.source),
                           subtitle: Text(
@@ -206,22 +203,7 @@ class DatabaseManagementSubPageState extends State<DatabaseManagementSubPage> {
                         ),
                       ),
                       InkWell(
-                        onTap: () {
-                          final uri = Uri.parse(OpenFoodFactsBinding.termsUrl);
-
-                          try {
-                            launchUrl(
-                              uri,
-                              mode: LaunchMode.externalApplication,
-                            );
-                          } catch (e) {
-                            final logger = Provider.of<LogProvider>(
-                              context,
-                              listen: false,
-                            );
-                            logger.error('Could not launch url', e);
-                          }
-                        },
+                        onTap: () => _openUrl(OpenFoodFactsBinding.termsUrl),
                         child: ListTile(
                           title: Text(AppLocalizations.of(context)!.termsOfUse),
                           subtitle: Text(
@@ -234,24 +216,8 @@ class DatabaseManagementSubPageState extends State<DatabaseManagementSubPage> {
                         ),
                       ),
                       InkWell(
-                        onTap: () {
-                          final uri = Uri.parse(
-                            OpenFoodFactsBinding.contributeUrl,
-                          );
-
-                          try {
-                            launchUrl(
-                              uri,
-                              mode: LaunchMode.externalApplication,
-                            );
-                          } catch (e) {
-                            final logger = Provider.of<LogProvider>(
-                              context,
-                              listen: false,
-                            );
-                            logger.error('Could not launch url', e);
-                          }
-                        },
+                        onTap: () =>
+                            _openUrl(OpenFoodFactsBinding.contributeUrl),
                         child: ListTile(
                           title: Text(AppLocalizations.of(context)!.contribute),
                           subtitle: Text(
@@ -261,6 +227,15 @@ class DatabaseManagementSubPageState extends State<DatabaseManagementSubPage> {
                           ),
                           trailing: const Icon(Icons.link),
                           isThreeLine: true,
+                        ),
+                      ),
+                      InkWell(
+                        onTap: () => _openUrl(OpenFoodFactsBinding.privacyUrl),
+                        child: ListTile(
+                          title: Text(
+                            AppLocalizations.of(context)!.privacyPolicy,
+                          ),
+                          trailing: const Icon(Icons.link),
                         ),
                       ),
                     ],
@@ -303,28 +278,22 @@ class DatabaseManagementSubPageState extends State<DatabaseManagementSubPage> {
                         ),
                       ),
                       InkWell(
-                        onTap: () {
-                          final uri = Uri.parse(USDABinding.sourceUrl);
-
-                          try {
-                            launchUrl(
-                              uri,
-                              mode: LaunchMode.externalApplication,
-                            );
-                          } catch (e) {
-                            final logger = Provider.of<LogProvider>(
-                              context,
-                              listen: false,
-                            );
-                            logger.error('Could not launch url', e);
-                          }
-                        },
+                        onTap: () => _openUrl(USDABinding.sourceUrl),
                         child: ListTile(
                           title: Text(AppLocalizations.of(context)!.source),
                           subtitle: Text(
                             AppLocalizations.of(
                               context,
                             )!.tapHereForFurtherInformation,
+                          ),
+                          trailing: const Icon(Icons.link),
+                        ),
+                      ),
+                      InkWell(
+                        onTap: () => _openUrl(USDABinding.privacyUrl),
+                        child: ListTile(
+                          title: Text(
+                            AppLocalizations.of(context)!.privacyPolicy,
                           ),
                           trailing: const Icon(Icons.link),
                         ),
