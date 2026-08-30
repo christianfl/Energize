@@ -32,5 +32,7 @@ runs:
 
         # Required because flutter_secure_storage currently compiles against API 37.
         android_sdkmanager="$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager"
-        echo y | "$android_sdkmanager" --licenses
-        "$android_sdkmanager" "platforms;android-37"
+        for _ in {1..20}; do
+          echo y
+        done | "$android_sdkmanager" --licenses
+        "$android_sdkmanager" "platforms;android-37.0" "build-tools;37.0.0"
