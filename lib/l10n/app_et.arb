@@ -398,5 +398,32 @@
                 "type": "int"
             }
         }
+    },
+    "notSpecified": "Määratlemata",
+    "diverse": "Mitmesugune",
+    "targetCalculationRequirementsText": "Arvutamine toimib vaid siis, kui oled sisestanud: {age}, {weight} ja {height}. Arvutamine eeldab sisestust: {female} või {male}.",
+    "@targetCalculationRequirementsText": {
+        "placeholders": {
+            "age": {
+                "type": "String",
+                "example": "Age"
+            },
+            "weight": {
+                "type": "String",
+                "example": "Weight"
+            },
+            "height": {
+                "type": "String",
+                "example": "Height"
+            },
+            "female": {
+                "type": "String",
+                "example": "Female"
+            },
+            "male": {
+                "type": "String",
+                "example": "Male"
+            }
+        }
     }
 }
