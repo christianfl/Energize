@@ -34,18 +34,20 @@ class BodyTargetsProvider with ChangeNotifier {
     // Prepare parse objects
     final sexString = await _keyValueStorage.getValue<String>(
       BodyTargets.sexKey,
-      _bodyTargets.sex.toKeyValueStorageValueName(),
+      _bodyTargets.sex.storageValue,
     );
     final weightTargetString = await _keyValueStorage.getValue<String>(
       BodyTargets.weightTargetKey,
-      _bodyTargets.weightTarget.toString(),
+      _bodyTargets.weightTarget.storageValue,
     );
 
     // Load each value from key-value storage into BodyTargets
     _bodyTargets = BodyTargets(
       age: await _getNullableInt(BodyTargets.ageKey),
       sex: Sex.values.firstWhere(
-        (e) => e.toKeyValueStorageValueName() == sexString,
+        (e) =>
+            _normalizeStoredEnumValueForComparison(e.storageValue) ==
+            _normalizeStoredEnumValueForComparison(sexString),
         orElse: () => _bodyTargets.sex,
       ),
       weight: await _getNullableInt(BodyTargets.weightKey),
@@ -55,7 +57,9 @@ class BodyTargetsProvider with ChangeNotifier {
         activityLevel,
       ),
       weightTarget: WeightTarget.values.firstWhere(
-        (e) => e.toString() == weightTargetString,
+        (e) =>
+            _normalizeStoredEnumValueForComparison(e.storageValue) ==
+            _normalizeStoredEnumValueForComparison(weightTargetString),
         orElse: () => _bodyTargets.weightTarget,
       ),
       proteinRatio: await _keyValueStorage.getValue<double>(
@@ -661,13 +665,7 @@ class BodyTargetsProvider with ChangeNotifier {
 
   set sex(Sex value) {
     _bodyTargets.sex = value;
-    // Use Sex.toKeyValueStorageValueName() method For backwards compatibility.
-    // Looks e.g. like this in persisted key-value storage:
-    // sex: Male
-    _keyValueStorage.setValue(
-      BodyTargets.sexKey,
-      value.toKeyValueStorageValueName(),
-    );
+    _keyValueStorage.setValue(BodyTargets.sexKey, value.storageValue);
 
     notifyListeners();
   }
@@ -703,10 +701,7 @@ class BodyTargetsProvider with ChangeNotifier {
 
   set weightTarget(WeightTarget value) {
     _bodyTargets.weightTarget = value;
-    // Use Enum.toString() method For backwards compatibility.
-    // Looks e.g. like this in persisted key value storage:
-    // weightTarget: WeightTarget.maintaining
-    _keyValueStorage.setValue(BodyTargets.weightTargetKey, value.toString());
+    _keyValueStorage.setValue(BodyTargets.weightTargetKey, value.storageValue);
 
     notifyListeners();
   }
@@ -794,6 +789,13 @@ class BodyTargetsProvider with ChangeNotifier {
     try {
       final bodyTargetsMap = newBodyTargets.toJson();
 
+      // Always write stable snake-case enum values. Loading remains tolerant of
+      // values written by previous versions, such as "Male" or
+      // "WeightTarget.strongLoss".
+      bodyTargetsMap[BodyTargets.sexKey] = newBodyTargets.sex.storageValue;
+      bodyTargetsMap[BodyTargets.weightTargetKey] =
+          newBodyTargets.weightTarget.storageValue;
+
       // Remove stored values which were explicitly cleared in the backup.
       final nullValueKeys = bodyTargetsMap.entries
           .where((entry) => entry.value == null)
@@ -811,4 +813,13 @@ class BodyTargetsProvider with ChangeNotifier {
       _logger.error('Could not save all body targets', e, st);
     }
   }
+}
+
+/// Creates a temporary value for comparing current and legacy enum formats.
+///
+/// For example, both the current "strong_loss" and the legacy
+/// "WeightTarget.strongLoss" become "strongloss". The result is only used for
+/// comparison and is never written back to storage.
+String _normalizeStoredEnumValueForComparison(String value) {
+  return value.split('.').last.replaceAll('_', '').toLowerCase();
 }

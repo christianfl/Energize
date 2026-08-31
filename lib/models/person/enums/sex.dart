@@ -3,8 +3,18 @@ import 'package:json_annotation/json_annotation.dart';
 
 import '../../../l10n/app_localizations.dart';
 
-@JsonEnum(fieldRename: FieldRename.snake)
-enum Sex { notSpecified, female, male, diverse }
+@JsonEnum(valueField: 'storageValue')
+enum Sex {
+  notSpecified('not_specified'),
+  female('female'),
+  male('male'),
+  diverse('diverse');
+
+  const Sex(this.storageValue);
+
+  /// Stable snake-case value used for JSON and key-value storage.
+  final String storageValue;
+}
 
 extension ParseToString on Sex {
   String toLocalizedString(BuildContext context) {
@@ -17,19 +27,6 @@ extension ParseToString on Sex {
         return AppLocalizations.of(context)!.male;
       case Sex.diverse:
         return AppLocalizations.of(context)!.diverse;
-    }
-  }
-
-  String toKeyValueStorageValueName() {
-    switch (this) {
-      case Sex.notSpecified:
-        return 'Not_Specified';
-      case Sex.female:
-        return 'Female';
-      case Sex.male:
-        return 'Male';
-      case Sex.diverse:
-        return 'Diverse';
     }
   }
 }

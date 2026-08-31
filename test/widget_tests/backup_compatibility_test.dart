@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:energize/models/person/enums/sex.dart';
+import 'package:energize/models/person/enums/weight_target.dart';
 import 'package:energize/providers/app_settings_provider.dart';
 import 'package:energize/providers/body_targets_provider.dart';
 import 'package:energize/providers/complete_days_provider.dart';
@@ -102,5 +103,31 @@ void main() {
     expect(appSettings.isMealGroupingActivated, isFalse);
     expect(bodyTargets.age, 25);
     expect(bodyTargets.sex, Sex.male);
+
+    final reloadedBodyTargets = BodyTargetsProvider(
+      keyValueStorage: storage,
+      logger: logger,
+    );
+    await reloadedBodyTargets.initialized;
+
+    expect(reloadedBodyTargets.age, 25);
+    expect(reloadedBodyTargets.sex, Sex.male);
+    expect(storage.keyValueStorage['sex'], 'male');
+    expect(storage.keyValueStorage['weightTarget'], 'maintaining');
+  });
+
+  test('loads enum values persisted by the legacy storage format', () async {
+    final storage = KeyValueStorageServiceMock();
+    storage.keyValueStorage['sex'] = 'Male';
+    storage.keyValueStorage['weightTarget'] = 'WeightTarget.strongLoss';
+
+    final bodyTargets = BodyTargetsProvider(
+      keyValueStorage: storage,
+      logger: LogProvider(),
+    );
+    await bodyTargets.initialized;
+
+    expect(bodyTargets.sex, Sex.male);
+    expect(bodyTargets.weightTarget, WeightTarget.strongLoss);
   });
 }

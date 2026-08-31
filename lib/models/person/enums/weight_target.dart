@@ -3,15 +3,20 @@ import 'package:json_annotation/json_annotation.dart';
 
 import '../../../l10n/app_localizations.dart';
 
-@JsonEnum(fieldRename: FieldRename.snake)
+@JsonEnum(valueField: 'storageValue')
 enum WeightTarget {
-  strongLoss,
-  moderateLoss,
-  slightLoss,
-  maintaining,
-  slightGain,
-  moderateGain,
-  strongGain,
+  strongLoss('strong_loss'),
+  moderateLoss('moderate_loss'),
+  slightLoss('slight_loss'),
+  maintaining('maintaining'),
+  slightGain('slight_gain'),
+  moderateGain('moderate_gain'),
+  strongGain('strong_gain');
+
+  const WeightTarget(this.storageValue);
+
+  /// Stable snake-case value used for JSON and key-value storage.
+  final String storageValue;
 }
 
 extension ParseToString on WeightTarget {
