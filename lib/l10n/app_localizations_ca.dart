@@ -285,6 +285,12 @@ class AppLocalizationsCa extends AppLocalizations {
   String get male => 'Home';
 
   @override
+  String get notSpecified => 'Not specified';
+
+  @override
+  String get diverse => 'Diverse';
+
+  @override
   String get weight => 'Pes';
 
   @override
@@ -362,6 +368,17 @@ class AppLocalizationsCa extends AppLocalizations {
 
   @override
   String get calculateNutritionTargets => 'Calcular objectius de nutrició';
+
+  @override
+  String targetCalculationRequirementsText(
+    String age,
+    String weight,
+    String height,
+    String female,
+    String male,
+  ) {
+    return 'The calculation is only available after entering $age, $weight and $height and currently does only work when selecting $female or $male.';
+  }
 
   @override
   String get calculationInfo => 'Informació quant a càlculs';

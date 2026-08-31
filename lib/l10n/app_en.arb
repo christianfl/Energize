@@ -132,6 +132,8 @@
     "sex": "Sex",
     "female": "Female",
     "male": "Male",
+    "notSpecified": "Not specified",
+    "diverse": "Diverse",
     "weight": "Weight",
     "height": "Body height",
     "behaviourAndTarget": "Behaviour and target",
@@ -157,6 +159,31 @@
     "weightTargetModerateGain": "Moderate gain",
     "weightTargetStrongGain": "Strong gain",
     "calculateNutritionTargets": "Calculate nutrition targets",
+    "targetCalculationRequirementsText": "The calculation is only available after entering {age}, {weight} and {height} and currently does only work when selecting {female} or {male}.",
+    "@targetCalculationRequirementsText": {
+        "placeholders": {
+            "age": {
+                "type": "String",
+                "example": "Age"
+            },
+            "weight": {
+                "type": "String",
+                "example": "Weight"
+            },
+            "height": {
+                "type": "String",
+                "example": "Height"
+            },
+            "female": {
+                "type": "String",
+                "example": "Female"
+            },
+            "male": {
+                "type": "String",
+                "example": "Male"
+            }
+        }
+    },
     "calculationInfo": "Information about calculation",
     "calculationInfoText1": "The calorie intake calculation is based on the Mifflin-St.Jeor formula. Please be aware that it can only act as an approximation to the real world values. These differ from person to person as their body conditions can diverge more or less.",
     "formulaForFemales": "Formula for females",

@@ -284,6 +284,12 @@ class AppLocalizationsTa extends AppLocalizations {
   String get male => 'ஆண்';
 
   @override
+  String get notSpecified => 'Not specified';
+
+  @override
+  String get diverse => 'Diverse';
+
+  @override
   String get weight => 'எடை';
 
   @override
@@ -366,6 +372,17 @@ class AppLocalizationsTa extends AppLocalizations {
   @override
   String get calculateNutritionTargets =>
       'ஊட்டச்சத்து இலக்குகளைக் கணக்கிடுங்கள்';
+
+  @override
+  String targetCalculationRequirementsText(
+    String age,
+    String weight,
+    String height,
+    String female,
+    String male,
+  ) {
+    return 'The calculation is only available after entering $age, $weight and $height and currently does only work when selecting $female or $male.';
+  }
 
   @override
   String get calculationInfo => 'கணக்கீடு பற்றிய செய்தி';

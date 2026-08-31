@@ -7,10 +7,10 @@ part of 'body_targets.dart';
 // **************************************************************************
 
 BodyTargets _$BodyTargetsFromJson(Map<String, dynamic> json) => BodyTargets(
-  age: (json['age'] as num?)?.toInt() ?? 20,
-  sex: $enumDecodeNullable(_$SexEnumMap, json['sex']) ?? Sex.male,
-  weight: (json['weight'] as num?)?.toInt() ?? 80,
-  height: (json['height'] as num?)?.toInt() ?? 180,
+  age: (json['age'] as num?)?.toInt(),
+  sex: $enumDecodeNullable(_$SexEnumMap, json['sex']) ?? Sex.notSpecified,
+  weight: (json['weight'] as num?)?.toInt(),
+  height: (json['height'] as num?)?.toInt(),
   activityLevel: (json['activityLevel'] as num?)?.toDouble() ?? 1.4,
   weightTarget:
       $enumDecodeNullable(_$WeightTargetEnumMap, json['weightTarget']) ??
@@ -127,7 +127,12 @@ Map<String, dynamic> _$BodyTargetsToJson(BodyTargets instance) =>
       'alcoholTarget': instance.alcoholTarget,
     };
 
-const _$SexEnumMap = {Sex.male: 'male', Sex.female: 'female'};
+const _$SexEnumMap = {
+  Sex.notSpecified: 'not_specified',
+  Sex.female: 'female',
+  Sex.male: 'male',
+  Sex.diverse: 'diverse',
+};
 
 const _$WeightTargetEnumMap = {
   WeightTarget.strongLoss: 'strong_loss',

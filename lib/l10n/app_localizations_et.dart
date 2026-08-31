@@ -283,6 +283,12 @@ class AppLocalizationsEt extends AppLocalizations {
   String get male => 'Mees';
 
   @override
+  String get notSpecified => 'Not specified';
+
+  @override
+  String get diverse => 'Diverse';
+
+  @override
   String get weight => 'Kaal';
 
   @override
@@ -360,6 +366,17 @@ class AppLocalizationsEt extends AppLocalizations {
 
   @override
   String get calculateNutritionTargets => 'Arvuta toitumiseesmärke';
+
+  @override
+  String targetCalculationRequirementsText(
+    String age,
+    String weight,
+    String height,
+    String female,
+    String male,
+  ) {
+    return 'The calculation is only available after entering $age, $weight and $height and currently does only work when selecting $female or $male.';
+  }
 
   @override
   String get calculationInfo => 'Teave arvutamise kohta';

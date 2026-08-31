@@ -65,14 +65,14 @@ class BodyTargets {
   static const caffeineTargetKey = 'caffeineTarget';
   static const alcoholTargetKey = 'alcoholTarget';
 
-  int age;
+  int? age;
   Sex sex;
 
   /// in kg
-  int weight;
+  int? weight;
 
   /// in cm
-  int height;
+  int? height;
 
   /// Should be between 1 and 2; but no hard limit
   double activityLevel = 1.4;
@@ -136,10 +136,10 @@ class BodyTargets {
   double alcoholTarget;
 
   BodyTargets({
-    this.age = 20,
-    this.sex = Sex.male,
-    this.weight = 80,
-    this.height = 180,
+    this.age,
+    this.sex = Sex.notSpecified,
+    this.weight,
+    this.height,
     this.activityLevel = 1.4,
     this.weightTarget = WeightTarget.maintaining,
     this.proteinRatio = 20,

@@ -278,6 +278,12 @@ class AppLocalizationsZh extends AppLocalizations {
   String get male => '男性';
 
   @override
+  String get notSpecified => 'Not specified';
+
+  @override
+  String get diverse => 'Diverse';
+
+  @override
   String get weight => '体重';
 
   @override
@@ -351,6 +357,17 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get calculateNutritionTargets => '计算营养目标';
+
+  @override
+  String targetCalculationRequirementsText(
+    String age,
+    String weight,
+    String height,
+    String female,
+    String male,
+  ) {
+    return 'The calculation is only available after entering $age, $weight and $height and currently does only work when selecting $female or $male.';
+  }
 
   @override
   String get calculationInfo => '关于计算的说明';

@@ -590,6 +590,18 @@ abstract class AppLocalizations {
   /// **'Male'**
   String get male;
 
+  /// No description provided for @notSpecified.
+  ///
+  /// In en, this message translates to:
+  /// **'Not specified'**
+  String get notSpecified;
+
+  /// No description provided for @diverse.
+  ///
+  /// In en, this message translates to:
+  /// **'Diverse'**
+  String get diverse;
+
   /// No description provided for @weight.
   ///
   /// In en, this message translates to:
@@ -739,6 +751,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Calculate nutrition targets'**
   String get calculateNutritionTargets;
+
+  /// No description provided for @targetCalculationRequirementsText.
+  ///
+  /// In en, this message translates to:
+  /// **'The calculation is only available after entering {age}, {weight} and {height} and currently does only work when selecting {female} or {male}.'**
+  String targetCalculationRequirementsText(
+    String age,
+    String weight,
+    String height,
+    String female,
+    String male,
+  );
 
   /// No description provided for @calculationInfo.
   ///

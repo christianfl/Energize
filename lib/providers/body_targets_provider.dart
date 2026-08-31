@@ -43,19 +43,13 @@ class BodyTargetsProvider with ChangeNotifier {
 
     // Load each value from key-value storage into BodyTargets
     _bodyTargets = BodyTargets(
-      age: await _keyValueStorage.getValue<int>(BodyTargets.ageKey, age),
+      age: await _getNullableInt(BodyTargets.ageKey),
       sex: Sex.values.firstWhere(
         (e) => e.toKeyValueStorageValueName() == sexString,
         orElse: () => _bodyTargets.sex,
       ),
-      weight: await _keyValueStorage.getValue<int>(
-        BodyTargets.weightKey,
-        weight,
-      ),
-      height: await _keyValueStorage.getValue<int>(
-        BodyTargets.heightKey,
-        height,
-      ),
+      weight: await _getNullableInt(BodyTargets.weightKey),
+      height: await _getNullableInt(BodyTargets.heightKey),
       activityLevel: await _keyValueStorage.getValue<double>(
         BodyTargets.activityLevelKey,
         activityLevel,
@@ -265,12 +259,19 @@ class BodyTargetsProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  /// Returns a stored integer or null when no value has been saved.
+  Future<int?> _getNullableInt(String key) async {
+    const missingValue = -1;
+    final value = await _keyValueStorage.getValue<int>(key, missingValue);
+    return value == missingValue ? null : value;
+  }
+
   // Getters
 
-  int get age => _bodyTargets.age;
+  int? get age => _bodyTargets.age;
   Sex get sex => _bodyTargets.sex;
-  int get weight => _bodyTargets.weight;
-  int get height => _bodyTargets.height;
+  int? get weight => _bodyTargets.weight;
+  int? get height => _bodyTargets.height;
   double get activityLevel => _bodyTargets.activityLevel;
   WeightTarget get weightTarget => _bodyTargets.weightTarget;
   double get proteinRatio => _bodyTargets.proteinRatio;
@@ -647,9 +648,13 @@ class BodyTargetsProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  set age(int value) {
+  set age(int? value) {
     _bodyTargets.age = value;
-    _keyValueStorage.setValue(BodyTargets.ageKey, value);
+    if (value == null) {
+      _keyValueStorage.remove(BodyTargets.ageKey);
+    } else {
+      _keyValueStorage.setValue(BodyTargets.ageKey, value);
+    }
 
     notifyListeners();
   }
@@ -667,16 +672,24 @@ class BodyTargetsProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  set weight(int value) {
+  set weight(int? value) {
     _bodyTargets.weight = value;
-    _keyValueStorage.setValue(BodyTargets.weightKey, value);
+    if (value == null) {
+      _keyValueStorage.remove(BodyTargets.weightKey);
+    } else {
+      _keyValueStorage.setValue(BodyTargets.weightKey, value);
+    }
 
     notifyListeners();
   }
 
-  set height(int value) {
+  set height(int? value) {
     _bodyTargets.height = value;
-    _keyValueStorage.setValue(BodyTargets.heightKey, value);
+    if (value == null) {
+      _keyValueStorage.remove(BodyTargets.heightKey);
+    } else {
+      _keyValueStorage.setValue(BodyTargets.heightKey, value);
+    }
 
     notifyListeners();
   }
@@ -780,6 +793,16 @@ class BodyTargetsProvider with ChangeNotifier {
   Future<void> saveAll(BodyTargets newBodyTargets) async {
     try {
       final bodyTargetsMap = newBodyTargets.toJson();
+
+      // Remove stored values which were explicitly cleared in the backup.
+      final nullValueKeys = bodyTargetsMap.entries
+          .where((entry) => entry.value == null)
+          .map((entry) => entry.key);
+      await Future.wait(nullValueKeys.map(_keyValueStorage.remove));
+
+      // Secure storage only supports non-null values.
+      bodyTargetsMap.removeWhere((key, value) => value == null);
+
       await _keyValueStorage.setAll(bodyTargetsMap);
       _bodyTargets = newBodyTargets;
 

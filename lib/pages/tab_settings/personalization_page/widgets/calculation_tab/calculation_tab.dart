@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../../l10n/app_localizations.dart';
-import '../../../../../models/person/body_targets.dart';
 import '../../../../../models/person/enums/sex.dart';
 import '../../../../../models/person/enums/weight_target.dart';
 import '../../../../../providers/body_targets_provider.dart';
@@ -281,16 +280,23 @@ class CalculationTabState extends State<CalculationTab> {
       return double.parse(_caloriesTargetController.text);
     }
 
-    // Standard value: females
-    var sexFactor = -161;
-    if (bodyTargets.sex == Sex.male) sexFactor = 5;
+    final age = bodyTargets.age;
+    final weight = bodyTargets.weight;
+    final height = bodyTargets.height;
+    if (age == null || weight == null || height == null) {
+      throw StateError('Body values required for target calculation');
+    }
+
+    final sexFactor = switch (bodyTargets.sex) {
+      Sex.female => -161,
+      Sex.male => 5,
+      Sex.notSpecified || Sex.diverse => throw StateError(
+        'Selected sex has no target calculation reference',
+      ),
+    };
 
     // Basal metabolic rate
-    final bmr =
-        ((10 * bodyTargets.weight) +
-        (6.25 * bodyTargets.height) -
-        (5 * bodyTargets.age) +
-        sexFactor);
+    final bmr = ((10 * weight) + (6.25 * height) - (5 * age) + sexFactor);
 
     // Power conversion
     final pc = bmr * bodyTargets.activityLevel;
@@ -350,9 +356,13 @@ class CalculationTabState extends State<CalculationTab> {
 
       // Micros if checkbox is true
       if (_setMicronutrientsBasedOnAgeAndSex) {
+        final age = bodyTargets.age;
+        if (age == null || !_isBinarySex(bodyTargets.sex)) {
+          throw StateError('Age and sex reference required');
+        }
         MicronutrientsRecommendations.setRecommendedNutritionAsTargets(
           bodyTargets,
-          bodyTargets.age,
+          age,
           bodyTargets.sex,
         );
       }
@@ -430,6 +440,19 @@ class CalculationTabState extends State<CalculationTab> {
     return '($relativePercent)';
   }
 
+  /// Whether automatic calculations have all required reference values.
+  bool _canCalculateTargets(BodyTargetsProvider bodyTargets) {
+    return bodyTargets.age != null &&
+        bodyTargets.weight != null &&
+        bodyTargets.height != null &&
+        _isBinarySex(bodyTargets.sex);
+  }
+
+  /// Whether [sex] is either [Sex.female] or [Sex.male].
+  bool _isBinarySex(Sex sex) {
+    return sex == Sex.female || sex == Sex.male;
+  }
+
   @override
   Widget build(BuildContext context) {
     final bodyTargets = Provider.of<BodyTargetsProvider>(context);
@@ -454,10 +477,9 @@ class CalculationTabState extends State<CalculationTab> {
                     children: [
                       Expanded(
                         child: TextFormField(
-                          initialValue: bodyTargets.age.toString(),
-                          onChanged: (val) => bodyTargets.age = val == ''
-                              ? BodyTargets().age
-                              : int.parse(val),
+                          initialValue: bodyTargets.age?.toString(),
+                          onChanged: (val) =>
+                              bodyTargets.age = int.tryParse(val),
                           keyboardType: TextInputType.number,
                           decoration: InputDecoration(
                             filled: true,
@@ -497,10 +519,9 @@ class CalculationTabState extends State<CalculationTab> {
                     children: [
                       Expanded(
                         child: TextFormField(
-                          initialValue: bodyTargets.weight.toString(),
-                          onChanged: (val) => bodyTargets.weight = val == ''
-                              ? BodyTargets().weight
-                              : int.parse(val),
+                          initialValue: bodyTargets.weight?.toString(),
+                          onChanged: (val) =>
+                              bodyTargets.weight = int.tryParse(val),
                           keyboardType: TextInputType.number,
                           decoration: InputDecoration(
                             filled: true,
@@ -512,10 +533,9 @@ class CalculationTabState extends State<CalculationTab> {
                       const SizedBox(width: 12),
                       Expanded(
                         child: TextFormField(
-                          initialValue: bodyTargets.height.toString(),
-                          onChanged: (val) => bodyTargets.height = val == ''
-                              ? BodyTargets().height
-                              : int.parse(val),
+                          initialValue: bodyTargets.height?.toString(),
+                          onChanged: (val) =>
+                              bodyTargets.height = int.tryParse(val),
                           keyboardType: TextInputType.number,
                           decoration: InputDecoration(
                             filled: true,
@@ -584,19 +604,41 @@ class CalculationTabState extends State<CalculationTab> {
         ),
         Padding(
           padding: const EdgeInsets.all(8.0),
-          child: Row(
+          child: Column(
             children: [
-              Expanded(
-                child: FilledButton(
-                  onPressed: () => _showApplyDialog(context, bodyTargets),
+              if (!_canCalculateTargets(bodyTargets))
+                Padding(
+                  padding: const EdgeInsets.only(top: 8.0),
                   child: Text(
-                    AppLocalizations.of(context)!.calculateNutritionTargets,
+                    AppLocalizations.of(
+                      context,
+                    )!.targetCalculationRequirementsText(
+                      AppLocalizations.of(context)!.age,
+                      AppLocalizations.of(context)!.weight,
+                      AppLocalizations.of(context)!.height,
+                      AppLocalizations.of(context)!.female,
+                      AppLocalizations.of(context)!.male,
+                    ),
+                    style: Theme.of(context).textTheme.bodySmall,
                   ),
                 ),
-              ),
-              IconButton(
-                onPressed: () => {_showInfoDialog(context)},
-                icon: const Icon(Icons.info),
+              Row(
+                children: [
+                  Expanded(
+                    child: FilledButton(
+                      onPressed: _canCalculateTargets(bodyTargets)
+                          ? () => _showApplyDialog(context, bodyTargets)
+                          : null,
+                      child: Text(
+                        AppLocalizations.of(context)!.calculateNutritionTargets,
+                      ),
+                    ),
+                  ),
+                  IconButton(
+                    onPressed: () => {_showInfoDialog(context)},
+                    icon: const Icon(Icons.info),
+                  ),
+                ],
               ),
             ],
           ),
