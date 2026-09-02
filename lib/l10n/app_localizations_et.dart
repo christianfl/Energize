@@ -282,10 +282,10 @@ class AppLocalizationsEt extends AppLocalizations {
   String get male => 'Mees';
 
   @override
-  String get notSpecified => 'Not specified';
+  String get notSpecified => 'Määratlemata';
 
   @override
-  String get diverse => 'Diverse';
+  String get diverse => 'Mitmesugune';
 
   @override
   String get weight => 'Kaal';
@@ -374,7 +374,7 @@ class AppLocalizationsEt extends AppLocalizations {
     String female,
     String male,
   ) {
-    return 'The calculation is only available after entering $age, $weight and $height and currently does only work when selecting $female or $male.';
+    return 'Arvutamine toimib vaid siis, kui oled sisestanud: $age, $weight ja $height. Arvutamine eeldab sisestust: $female või $male.';
   }
 
   @override
