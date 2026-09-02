@@ -474,6 +474,8 @@ class TrackingPageState extends State<TrackingPage> {
 
   @override
   void initState() {
+    super.initState();
+
     _scrollController.addListener(() {
       if (_lastScrollDirection !=
           _scrollController.position.userScrollDirection) {
@@ -484,9 +486,34 @@ class TrackingPageState extends State<TrackingPage> {
       }
     });
 
-    _selectDate(DateTime.now());
+    _initializeSelectedDate();
+  }
 
-    super.initState();
+  /// Uses the date already loaded by [TrackedFoodProvider] on app startup.
+  Future<void> _initializeSelectedDate() async {
+    final trackedFoodProvider = Provider.of<TrackedFoodProvider>(
+      context,
+      listen: false,
+    );
+    await trackedFoodProvider.initialized;
+
+    if (!mounted) return;
+
+    final selectedDate = trackedFoodProvider.selectedDate;
+    final completeDaysProvider = Provider.of<CompleteDaysProvider>(
+      context,
+      listen: false,
+    );
+    final isSelectedDateCompleted = await completeDaysProvider.isDateCompleted(
+      selectedDate,
+    );
+
+    if (!mounted) return;
+
+    setState(() {
+      _selectedDate = selectedDate;
+      _isSelectedDateCompleted = isSelectedDateCompleted;
+    });
   }
 
   Widget _dayCompletionStatusMenuEntry() {
