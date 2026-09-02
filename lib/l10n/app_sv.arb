@@ -96,8 +96,6 @@
     "@unmarkedDayAsComplete": {},
     "trackFood": "Spåra mat",
     "@trackFood": {},
-    "timeSetHelpText": "Vid spårning av mat kommer den här tiden att användas som en mall för konsumentens tid.",
-    "@timeSetHelpText": {},
     "useAsTemplateForCustomFood": "Använd som mall för anpassad mat",
     "@useAsTemplateForCustomFood": {},
     "additionalInformation": "Ytterligare information",

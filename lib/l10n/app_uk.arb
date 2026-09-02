@@ -383,8 +383,6 @@
             }
         }
     },
-    "timeSetHelpText": "При відстеженні їжі цей час буде використовуватися як шаблон для часу споживання.",
-    "@timeSetHelpText": {},
     "missingBackupPartsHint": "Увага! Налаштування, персоналізації та цілі ще не включені!",
     "@missingBackupPartsHint": {},
     "successfullyCreatedBackup": "Успішно створено резервну копію",

@@ -79,8 +79,7 @@ class AppLocalizationsHu extends AppLocalizations {
   String get trackFood => 'Pálya élelmiszer';
 
   @override
-  String get timeSetHelpText =>
-      'Az ételek nyomon követésekor ez az időpont lesz a fogyasztás idejének sablonja.';
+  String get defaultConsumptionTime => 'Default time of consumption';
 
   @override
   String trackedFoodsSelected(int count) {

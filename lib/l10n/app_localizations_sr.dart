@@ -78,8 +78,7 @@ class AppLocalizationsSr extends AppLocalizations {
   String get trackFood => 'Прати исхрану';
 
   @override
-  String get timeSetHelpText =>
-      'When tracking food, this time will be used as a template for the time of consume.';
+  String get defaultConsumptionTime => 'Default time of consumption';
 
   @override
   String trackedFoodsSelected(int count) {

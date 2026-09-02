@@ -284,11 +284,11 @@ abstract class AppLocalizations {
   /// **'Track food'**
   String get trackFood;
 
-  /// No description provided for @timeSetHelpText.
+  /// No description provided for @defaultConsumptionTime.
   ///
   /// In en, this message translates to:
-  /// **'When tracking food, this time will be used as a template for the time of consume.'**
-  String get timeSetHelpText;
+  /// **'Default time of consumption'**
+  String get defaultConsumptionTime;
 
   /// No description provided for @trackedFoodsSelected.
   ///

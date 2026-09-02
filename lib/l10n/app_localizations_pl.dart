@@ -79,8 +79,7 @@ class AppLocalizationsPl extends AppLocalizations {
   String get trackFood => 'Wielkość porcji';
 
   @override
-  String get timeSetHelpText =>
-      'Ustaw domyślną godzinę spożywania posiłku przy dodawaniu produktu do bilansu dnia.';
+  String get defaultConsumptionTime => 'Default time of consumption';
 
   @override
   String trackedFoodsSelected(int count) {

@@ -51,8 +51,6 @@
   "@unmarkedDayAsComplete": {},
   "trackFood": "Sledovanie potravín",
   "@trackFood": {},
-  "timeSetHelpText": "Pri sledovaní potravín sa tento čas použije ako vzor pre čas spotreby.",
-  "@timeSetHelpText": {},
   "useAsTemplateForCustomFood": "Použitie ako šablóna pre vlastné potraviny",
   "@useAsTemplateForCustomFood": {},
   "additionalInformation": "Ďalšie informácie",

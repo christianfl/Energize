@@ -79,8 +79,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get trackFood => 'Yiyecekleri takip et';
 
   @override
-  String get timeSetHelpText =>
-      'Yiyecekler takip edilirken, bu zaman tüketim zamanı için bir şablon olarak kullanılacaktır.';
+  String get defaultConsumptionTime => 'Default time of consumption';
 
   @override
   String trackedFoodsSelected(int count) {

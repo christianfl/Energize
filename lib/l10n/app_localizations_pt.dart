@@ -79,8 +79,7 @@ class AppLocalizationsPt extends AppLocalizations {
   String get trackFood => 'Acompanhar alimentação';
 
   @override
-  String get timeSetHelpText =>
-      'Ao registar os alimentos, este horário será usado como modelo para o horário de consumo.';
+  String get defaultConsumptionTime => 'Default time of consumption';
 
   @override
   String trackedFoodsSelected(int count) {
@@ -1032,10 +1031,6 @@ class AppLocalizationsPtBr extends AppLocalizationsPt {
 
   @override
   String get trackFood => 'Acompanhar alimentação';
-
-  @override
-  String get timeSetHelpText =>
-      'Ao registrar os alimentos, esse horário será usado como modelo para o horário de consumo.';
 
   @override
   String get useAsTemplateForCustomFood =>

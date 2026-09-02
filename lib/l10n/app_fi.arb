@@ -43,8 +43,6 @@
     "@dayIncomplete": {},
     "detailedSummary": "Yksityiskohtainen yhteenveto",
     "@detailedSummary": {},
-    "timeSetHelpText": "Ruokaa seurattaessa tätä aikaa käytetään mallina kuluttajan ajalle.",
-    "@timeSetHelpText": {},
     "completeProductName": "Täydellinen Tuotteen nimi",
     "@completeProductName": {},
     "addedDate": "Lisätä",

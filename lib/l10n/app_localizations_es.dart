@@ -79,8 +79,7 @@ class AppLocalizationsEs extends AppLocalizations {
   String get trackFood => 'Registrar comida';
 
   @override
-  String get timeSetHelpText =>
-      'Al realizar el seguimiento de los alimentos, este tiempo se utilizará como una plantilla para la fecha de consumo.';
+  String get defaultConsumptionTime => 'Default time of consumption';
 
   @override
   String trackedFoodsSelected(int count) {

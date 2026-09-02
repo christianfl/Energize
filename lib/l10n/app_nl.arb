@@ -167,8 +167,6 @@
     "@weightTargetStrongGain": {},
     "calculationInfoText1": "De berekening van de calorie-inname is gebaseerd op de Mifflin-St.Jeor-formule. Houd er rekening mee dat dit alleen dient als benadering van de echte waarden. Deze verschillen van persoon tot persoon, omdat hun lichaamscondities min of meer kunnen verschillen.",
     "@calculationInfoText1": {},
-    "timeSetHelpText": "Als u eten bijhoudt, wordt deze tijd gebruikt als sjabloon voor het tijdstip van consumptie.",
-    "@timeSetHelpText": {},
     "formulaForFemales": "Formule voor vrouwen",
     "@formulaForFemales": {},
     "weightInKg": "Gewicht in kg",

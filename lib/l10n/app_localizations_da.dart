@@ -80,8 +80,7 @@ class AppLocalizationsDa extends AppLocalizations {
   String get trackFood => 'Madjournal';
 
   @override
-  String get timeSetHelpText =>
-      'Når du sporer mad, bruges dette tidspunkt som skabelon for indtagelsestidspunktet.';
+  String get defaultConsumptionTime => 'Default time of consumption';
 
   @override
   String trackedFoodsSelected(int count) {

@@ -191,8 +191,6 @@
     "@testCustomFood1Calories": {
         "description": "Only used for translated screenshots, not within the app itself. Calories in kcal per 100 g of custom food 1/5 as a double value (e.g.: 120.0)"
     },
-    "timeSetHelpText": "Ao registar os alimentos, este horário será usado como modelo para o horário de consumo.",
-    "@timeSetHelpText": {},
     "notFoundInCustomFoodsOpenFoodFactsHasError": "Não encontrado em alimentos personalizados, a pesquisa em Open Food Facts apresentou um erro",
     "@notFoundInCustomFoodsOpenFoodFactsHasError": {},
     "notFoundInCustomFoodsOpenFoodFactsNotActivated": "Não encontrado em alimentos personalizados, o Open Food Facts não está ativado",

@@ -79,8 +79,7 @@ class AppLocalizationsNl extends AppLocalizations {
   String get trackFood => 'Eten bijhouden';
 
   @override
-  String get timeSetHelpText =>
-      'Als u eten bijhoudt, wordt deze tijd gebruikt als sjabloon voor het tijdstip van consumptie.';
+  String get defaultConsumptionTime => 'Default time of consumption';
 
   @override
   String trackedFoodsSelected(int count) {

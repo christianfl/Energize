@@ -72,8 +72,6 @@
     "@unmarkedDayAsComplete": {},
     "trackFood": "Отслеживать пищу",
     "@trackFood": {},
-    "timeSetHelpText": "При отслеживании пищи это время будет использоваться в качестве шаблона для времени потребления.",
-    "@timeSetHelpText": {},
     "useAsTemplateForCustomFood": "Использовать как шаблон для пользовательского продукта",
     "@useAsTemplateForCustomFood": {},
     "addedDate": "Добавлено",

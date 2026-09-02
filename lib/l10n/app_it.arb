@@ -377,8 +377,6 @@
     "@additionalInformation": {},
     "dailyTarget": "obiettivo giornaliero",
     "@dailyTarget": {},
-    "timeSetHelpText": "Questo orario sarà utilizzato come modello per l'ora di consumo quando si tiene traccia degli alimenti.",
-    "@timeSetHelpText": {},
     "salt": "Sale",
     "@salt": {},
     "contributionTypeCodeAndConversations": "Codice e conversazioni",

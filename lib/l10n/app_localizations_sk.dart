@@ -79,8 +79,7 @@ class AppLocalizationsSk extends AppLocalizations {
   String get trackFood => 'Sledovanie potravín';
 
   @override
-  String get timeSetHelpText =>
-      'Pri sledovaní potravín sa tento čas použije ako vzor pre čas spotreby.';
+  String get defaultConsumptionTime => 'Default time of consumption';
 
   @override
   String trackedFoodsSelected(int count) {

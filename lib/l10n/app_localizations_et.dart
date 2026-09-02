@@ -79,8 +79,7 @@ class AppLocalizationsEt extends AppLocalizations {
   String get trackFood => 'Jälgi söödud toitu';
 
   @override
-  String get timeSetHelpText =>
-      'Söödud toidu üle arvepidamisel kasutatame seda aega tarbimisaja mallina.';
+  String get defaultConsumptionTime => 'Default time of consumption';
 
   @override
   String trackedFoodsSelected(int count) {

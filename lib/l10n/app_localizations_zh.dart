@@ -78,7 +78,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get trackFood => '食物营养成分';
 
   @override
-  String get timeSetHelpText => '当控制饮食时，这个时间将被用作摄入营养的截止时间。';
+  String get defaultConsumptionTime => 'Default time of consumption';
 
   @override
   String trackedFoodsSelected(int count) {

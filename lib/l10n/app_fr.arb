@@ -383,8 +383,6 @@
     "@additionalInformation": {},
     "completeProductName": "Nom de produit complet",
     "@completeProductName": {},
-    "timeSetHelpText": "Lors du suivi des aliments, cette fois sera utilisé comme modèle pour le moment de consommation.",
-    "@timeSetHelpText": {},
     "consumedDate": "Consommé",
     "@consumedDate": {},
     "addedDate": "Ajouté",

@@ -268,12 +268,17 @@ class TrackingPageState extends State<TrackingPage> {
             },
             icon: const Icon(Icons.arrow_right),
           ),
-          TextButton(
-            onPressed: () => _selectTime(context),
-            style: TextButton.styleFrom(
-              foregroundColor: Theme.of(context).colorScheme.onPrimaryContainer,
+          Tooltip(
+            message: AppLocalizations.of(context)!.defaultConsumptionTime,
+            child: TextButton(
+              onPressed: () => _selectTime(context),
+              style: TextButton.styleFrom(
+                foregroundColor: Theme.of(
+                  context,
+                ).colorScheme.onPrimaryContainer,
+              ),
+              child: Text(TimeUtil.getTime(_selectedDate, context)),
             ),
-            child: Text(TimeUtil.getTime(_selectedDate, context)),
           ),
         ],
       ),
@@ -675,11 +680,8 @@ class TrackingPageState extends State<TrackingPage> {
   /// Sets the current in-app time which acts as standard value for newly added food items
   void _selectTime(BuildContext context) async {
     final TimeOfDay? selectedTime = await showTimePicker(
-      initialEntryMode: TimePickerEntryMode.dialOnly,
       initialTime: TimeOfDay.now(),
       context: context,
-      helpText:
-          '${MaterialLocalizations.of(context).timePickerDialHelpText}\n\n${AppLocalizations.of(context)!.timeSetHelpText}',
     );
 
     if (selectedTime != null) {

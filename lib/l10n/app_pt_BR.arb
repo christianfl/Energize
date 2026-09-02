@@ -175,8 +175,6 @@
     "@sugarAlcohol": {},
     "water": "Água",
     "@water": {},
-    "timeSetHelpText": "Ao registrar os alimentos, esse horário será usado como modelo para o horário de consumo.",
-    "@timeSetHelpText": {},
     "activityLevel1_9": "Você é muito ativo, faz exercícios e não tem um trabalho de escritório",
     "@activityLevel1_9": {},
     "activityLevel2_0": "Você tem um trabalho fisicamente ativo e se exercita vigorosamente com frequência",

@@ -362,8 +362,6 @@
     "@productOrBrand": {},
     "completeProductName": "Komplet produktnavn",
     "@completeProductName": {},
-    "timeSetHelpText": "Når du sporer mad, bruges dette tidspunkt som skabelon for indtagelsestidspunktet.",
-    "@timeSetHelpText": {},
     "labelingEu": "Mærkning (EU)",
     "@labelingEu": {},
     "amountContain": "{amountWithUnit} indeholder",

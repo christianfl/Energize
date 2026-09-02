@@ -82,8 +82,6 @@
     "@magnesium": {},
     "omega6": "Omega-6",
     "@omega6": {},
-    "timeSetHelpText": "Az ételek nyomon követésekor ez az időpont lesz a fogyasztás idejének sablonja.",
-    "@timeSetHelpText": {},
     "useAsTemplateForCustomFood": "Használja sablonként az egyéni ételekhez",
     "@useAsTemplateForCustomFood": {},
     "completeProductName": "Teljes terméknév",

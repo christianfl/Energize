@@ -79,8 +79,7 @@ class AppLocalizationsTa extends AppLocalizations {
   String get trackFood => 'உணவைக் கண்காணிக்கவும்';
 
   @override
-  String get timeSetHelpText =>
-      'உணவைக் கண்காணிக்கும் போது, இந்த நேரம் உட்கொள்ளும் நேரத்திற்கு ஒரு வார்ப்புருவாக பயன்படுத்தப்படும்.';
+  String get defaultConsumptionTime => 'Default time of consumption';
 
   @override
   String trackedFoodsSelected(int count) {

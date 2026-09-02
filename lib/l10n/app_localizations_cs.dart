@@ -79,8 +79,7 @@ class AppLocalizationsCs extends AppLocalizations {
   String get trackFood => 'Zapsat jídlo';
 
   @override
-  String get timeSetHelpText =>
-      'Při sledování potravin se tento čas použije jako šablona pro čas konzumace.';
+  String get defaultConsumptionTime => 'Default time of consumption';
 
   @override
   String trackedFoodsSelected(int count) {

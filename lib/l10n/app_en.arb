@@ -33,7 +33,7 @@
     "dayIncomplete": "Day incomplete",
     "unmarkedDayAsComplete": "Unmarked day as complete",
     "trackFood": "Track food",
-    "timeSetHelpText": "When tracking food, this time will be used as a template for the time of consume.",
+    "defaultConsumptionTime": "Default time of consumption",
     "trackedFoodsSelected": "{count, plural, =1{1 selected} other{{count} selected}}",
     "@trackedFoodsSelected": {
         "placeholders": {

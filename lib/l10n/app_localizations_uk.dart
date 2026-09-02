@@ -79,8 +79,7 @@ class AppLocalizationsUk extends AppLocalizations {
   String get trackFood => 'Відстеження їжі';
 
   @override
-  String get timeSetHelpText =>
-      'При відстеженні їжі цей час буде використовуватися як шаблон для часу споживання.';
+  String get defaultConsumptionTime => 'Default time of consumption';
 
   @override
   String trackedFoodsSelected(int count) {

@@ -387,8 +387,6 @@
     "@completeProductName": {},
     "consumedDate": "Consumido",
     "@consumedDate": {},
-    "timeSetHelpText": "Al realizar el seguimiento de los alimentos, este tiempo se utilizará como una plantilla para la fecha de consumo.",
-    "@timeSetHelpText": {},
     "proposeImprovement": "Proponer mejoras",
     "@proposeImprovement": {},
     "energyDistributionChartMissingHint": "El gráfico de distribución de energía sólo se muestra si ha establecido un objetivo de calorías y un objetivo para al menos uno de los macronutrientes.",

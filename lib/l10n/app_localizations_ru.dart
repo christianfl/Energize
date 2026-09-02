@@ -79,8 +79,7 @@ class AppLocalizationsRu extends AppLocalizations {
   String get trackFood => 'Отслеживать пищу';
 
   @override
-  String get timeSetHelpText =>
-      'При отслеживании пищи это время будет использоваться в качестве шаблона для времени потребления.';
+  String get defaultConsumptionTime => 'Default time of consumption';
 
   @override
   String trackedFoodsSelected(int count) {

@@ -29,7 +29,7 @@
     "dayIncomplete": "Tag unvollständig",
     "unmarkedDayAsComplete": "Markierung der Vollständigkeit entfernt",
     "trackFood": "Nahrung tracken",
-    "timeSetHelpText": "Diese Uhrzeit dient beim Tracken als Vorlage für die Zeit des Verzehrs.",
+    "defaultConsumptionTime": "Standardzeit für den Verzehr",
     "trackedFoodsSelected": "{count, plural, =1{1 ausgewählt} other{{count} ausgewählt}}",
     "copyTrackedFoods": "Kopieren",
     "moveTrackedFoods": "Verschieben",

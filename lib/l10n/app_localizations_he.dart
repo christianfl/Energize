@@ -79,8 +79,7 @@ class AppLocalizationsHe extends AppLocalizations {
   String get trackFood => 'מעקב אחר מזון';
 
   @override
-  String get timeSetHelpText =>
-      'בעת מעקב אחר מזון, השעה הזאת תשמש כתבנית לזמן הצריכה.';
+  String get defaultConsumptionTime => 'Default time of consumption';
 
   @override
   String trackedFoodsSelected(int count) {

@@ -345,8 +345,6 @@
     "@dayIncomplete": {},
     "trackFood": "מעקב אחר מזון",
     "@trackFood": {},
-    "timeSetHelpText": "בעת מעקב אחר מזון, השעה הזאת תשמש כתבנית לזמן הצריכה.",
-    "@timeSetHelpText": {},
     "useAsTemplateForCustomFood": "להשתמש כתבנית למזון מותאם אישית",
     "@useAsTemplateForCustomFood": {},
     "additionalInformation": "פרטים נוספים",

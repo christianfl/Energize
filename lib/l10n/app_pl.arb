@@ -391,8 +391,6 @@
     "@unknownErrorText": {},
     "successfullyRestoredBackup": "Pomyślnie przywrócono kopię zapasową",
     "@successfullyRestoredBackup": {},
-    "timeSetHelpText": "Ustaw domyślną godzinę spożywania posiłku przy dodawaniu produktu do bilansu dnia.",
-    "@timeSetHelpText": {},
     "notFoundInCustomFoodsOrOpenFoodFacts": "Produktu nie ma na liście własnych produktów ani w bazie Open Food Facts",
     "@notFoundInCustomFoodsOrOpenFoodFacts": {},
     "notFoundInCustomFoodsOpenFoodFactsHasError": "Nie znaleziono na liście własnych produktów. Wystąpił błąd przy wyszukiwaniu w bazie Open Food Facts",

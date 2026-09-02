@@ -357,8 +357,6 @@
     "@addedDate": {},
     "consumedDate": "Spotřebováno",
     "@consumedDate": {},
-    "timeSetHelpText": "Při sledování potravin se tento čas použije jako šablona pro čas konzumace.",
-    "@timeSetHelpText": {},
     "additionalInformation": "Další informace",
     "@additionalInformation": {},
     "dailyTarget": "denní cíl",

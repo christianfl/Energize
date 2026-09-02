@@ -79,8 +79,7 @@ class AppLocalizationsSv extends AppLocalizations {
   String get trackFood => 'Spåra mat';
 
   @override
-  String get timeSetHelpText =>
-      'Vid spårning av mat kommer den här tiden att användas som en mall för konsumentens tid.';
+  String get defaultConsumptionTime => 'Default time of consumption';
 
   @override
   String trackedFoodsSelected(int count) {
