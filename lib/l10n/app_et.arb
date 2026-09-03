@@ -424,5 +424,6 @@
                 "example": "Male"
             }
         }
-    }
+    },
+    "defaultConsumptionTime": "Tarbimise vaikimisi aeg"
 }
