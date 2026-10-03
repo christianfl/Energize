@@ -1,14 +1,14 @@
 # Privacy Policy
 
-_Last update: October 8, 2025_  
-_Reason: Fixed hyperlink._
+_Last update: October 4, 2026_  
+_Reason: Reflect changed behavior from Opt-Out to Opt-In for food databases._
 
 > Currently only available in English.
 
 This app is designed to be privacy-friendly. It stores the processed data on the user's device. It uses the network connection in these cases:
 
-## 1. The user has not opted out for Open Food Facts database use and searches for food
-## 2. The user has not opted out for Open Food Facts database use and scans a barcode
+## 1. The user has opted in(*) for Open Food Facts database use and searches for food
+## 2. The user has opted in(*) for Open Food Facts database use and scans a barcode
 
 In case 1 and 2, the following data is transmitted to the Open Food Facts service:
 
@@ -21,7 +21,7 @@ In case 1 and 2, the following data is transmitted to the Open Food Facts servic
 - Legal: https://world.openfoodfacts.org/legal
 - Terms of use: https://world.openfoodfacts.org/terms-of-use
 
-## 3. The user has not opted out for USDA FoodData Central database use and searches for food
+## 3. The user has opted in(*) for USDA FoodData Central database use and searches for food
 
 In this case the following data is transmitted to the USDA:
 
@@ -42,3 +42,7 @@ In this case the following data is transmitted to the custom server:
 - the [encrypted backup](https://codeberg.org/epinez/Energize/wiki/Security#encryption-details) file
 
 Please note that there is no default WebDAV-server configured at the moment, which means that you or your configured provider is fully responsible for processing the data.
+
+---
+
+> (*) Before Energize v0.15.0, the food databases were Opt-Out rather than Opt-In. Existing users will, once they start the app after the update, also go through the new intro screen and accept terms and/or privacy policies of already enabled databases in order to continue using them.
