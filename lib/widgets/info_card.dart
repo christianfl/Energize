@@ -1,11 +1,21 @@
 import 'package:flutter/material.dart';
 
+/// Displays an info message with an icon and configurable layout.
 class InfoCard extends StatelessWidget {
   final String message;
   final Color? color;
   final Icon? icon;
+  final EdgeInsetsGeometry padding;
+  final CrossAxisAlignment crossAxisAlignment;
 
-  const InfoCard({super.key, required this.message, this.color, this.icon});
+  const InfoCard({
+    super.key,
+    required this.message,
+    this.color,
+    this.icon,
+    this.padding = const EdgeInsets.all(8),
+    this.crossAxisAlignment = CrossAxisAlignment.center,
+  });
 
   Icon get _icon {
     if (icon == null) {
@@ -28,8 +38,9 @@ class InfoCard extends StatelessWidget {
     return Card(
       color: getColor(context),
       child: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: padding,
         child: Row(
+          crossAxisAlignment: crossAxisAlignment,
           children: [
             _icon,
             const SizedBox(width: 12),

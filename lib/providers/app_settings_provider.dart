@@ -1,6 +1,10 @@
 import 'package:flutter/foundation.dart';
+
 import '../models/app_settings.dart';
 
+import '../services/food_database_bindings/open_food_facts/open_food_facts_binding.dart';
+import '../services/food_database_bindings/swiss_food_composition_database/swiss_food_composition_database_binding.dart';
+import '../services/food_database_bindings/usda/usda_binding.dart';
 import '../services/key_value_storage_service/key_value_storage_service_interface.dart';
 import 'log_provider.dart';
 
@@ -77,6 +81,16 @@ class AppSettingsProvider with ChangeNotifier {
   bool get isProviderSndbActivated => _settings.isProviderSndbActivated;
   bool get isProviderUsdaActivated => _settings.isProviderUsdaActivated;
 
+  /// Returns whether the database with [originName] is currently activated.
+  bool isFoodDatabaseActivated(String originName) {
+    return switch (originName) {
+      SwissFoodCompositionDatabaseBinding.originName => isProviderSndbActivated,
+      OpenFoodFactsBinding.originName => isProviderOpenFoodFactsActivated,
+      USDABinding.originName => isProviderUsdaActivated,
+      _ => throw ArgumentError.value(originName, 'originName'),
+    };
+  }
+
   // Setters
 
   set isMealGroupingActivated(bool value) {
@@ -136,6 +150,35 @@ class AppSettingsProvider with ChangeNotifier {
     _keyValueStorage.setValue(AppSettings.isProviderUsdaActivatedKey, value);
 
     notifyListeners();
+  }
+
+  /// Persists activation for [originName] and waits for completion.
+  Future<bool> setFoodDatabaseActivated(String originName, bool value) async {
+    final key = switch (originName) {
+      SwissFoodCompositionDatabaseBinding.originName =>
+        AppSettings.isProviderSndbActivatedKey,
+      OpenFoodFactsBinding.originName =>
+        AppSettings.isProviderOpenFoodFactsActivatedKey,
+      USDABinding.originName => AppSettings.isProviderUsdaActivatedKey,
+      _ => throw ArgumentError.value(originName, 'originName'),
+    };
+
+    try {
+      await _keyValueStorage.setValue<bool>(key, value);
+      switch (originName) {
+        case SwissFoodCompositionDatabaseBinding.originName:
+          _settings.isProviderSndbActivated = value;
+        case OpenFoodFactsBinding.originName:
+          _settings.isProviderOpenFoodFactsActivated = value;
+        case USDABinding.originName:
+          _settings.isProviderUsdaActivated = value;
+      }
+      notifyListeners();
+      return true;
+    } catch (e, st) {
+      _logger.error('Could not save food database activation', e, st);
+      return false;
+    }
   }
 
   void clearBackupServerUrl() {

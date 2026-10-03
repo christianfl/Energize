@@ -30,14 +30,14 @@ jobs:
         run: |
           set -euo pipefail
 
-          cp PRIVACY.md lib/pages/tab_settings/about_sub_page/assets/
+          cp PRIVACY.md assets/
 
       - name: Verify and commit bundled privacy policy
         shell: bash
         run: |
           set -euo pipefail
 
-          git add lib/pages/tab_settings/about_sub_page/assets/PRIVACY.md
+          git add assets/PRIVACY.md
 
           git config user.name "forgejo-actions[bot]"
           git config user.email "epinez@noreply.codeberg.org"

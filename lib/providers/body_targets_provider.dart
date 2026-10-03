@@ -6,6 +6,7 @@ import '../models/person/body_targets.dart';
 import '../models/person/enums/sex.dart';
 import '../models/person/enums/weight_target.dart';
 import '../services/key_value_storage_service/key_value_storage_service_interface.dart';
+import '../services/nutrition_targets_calculator/calculated_nutrition_targets.dart';
 import 'log_provider.dart';
 
 /// Provider for everything related to the body and targets.
@@ -725,6 +726,75 @@ class BodyTargetsProvider with ChangeNotifier {
     _keyValueStorage.setValue(BodyTargets.fatRatioKey, value);
 
     notifyListeners();
+  }
+
+  /// Persists body values entered in the intro flow.
+  Future<bool> savePersonalization({
+    required int? age,
+    required Sex sex,
+    required int? weight,
+    required int? height,
+    required double activityLevel,
+    required WeightTarget weightTarget,
+  }) async {
+    final values = <String, dynamic>{
+      BodyTargets.ageKey: age,
+      BodyTargets.sexKey: sex.storageValue,
+      BodyTargets.weightKey: weight,
+      BodyTargets.heightKey: height,
+      BodyTargets.activityLevelKey: activityLevel,
+      BodyTargets.weightTargetKey: weightTarget.storageValue,
+    };
+
+    try {
+      for (final entry in values.entries) {
+        if (entry.value == null) {
+          await _keyValueStorage.remove(entry.key);
+        } else {
+          await _keyValueStorage.setValue(entry.key, entry.value);
+        }
+      }
+
+      _bodyTargets.age = age;
+      _bodyTargets.sex = sex;
+      _bodyTargets.weight = weight;
+      _bodyTargets.height = height;
+      _bodyTargets.activityLevel = activityLevel;
+      _bodyTargets.weightTarget = weightTarget;
+      notifyListeners();
+      return true;
+    } catch (e, st) {
+      _logger.error('Could not save easy personalization', e, st);
+      return false;
+    }
+  }
+
+  /// Persists calculated daily targets from the intro flow.
+  Future<bool> saveCalculatedNutritionTargets(
+    CalculatedNutritionTargets targets,
+  ) async {
+    final values = <String, double>{
+      BodyTargets.caloriesTargetKey: targets.calories,
+      BodyTargets.proteinTargetKey: targets.protein,
+      BodyTargets.carbsTargetKey: targets.carbs,
+      BodyTargets.fatTargetKey: targets.fat,
+    };
+
+    try {
+      for (final entry in values.entries) {
+        await _keyValueStorage.setValue(entry.key, entry.value);
+      }
+
+      _bodyTargets.caloriesTarget = targets.calories;
+      _bodyTargets.proteinTarget = targets.protein;
+      _bodyTargets.carbsTarget = targets.carbs;
+      _bodyTargets.fatTarget = targets.fat;
+      notifyListeners();
+      return true;
+    } catch (e, st) {
+      _logger.error('Could not save calculated nutrition targets', e, st);
+      return false;
+    }
   }
 
   /// Resets all micro targets

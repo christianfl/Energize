@@ -31,6 +31,8 @@ class AppSettings {
     this.backupServerUrl = '',
     this.backupUsername = '',
     this.backupPathAndFilename = '/Energize/backup.json.aes',
+    // Preserve legacy behavior.
+    // IntroductionService explicitly disables databases for new installations.
     this.isProviderOpenFoodFactsActivated = true,
     this.isProviderSndbActivated = true,
     this.isProviderUsdaActivated = true,

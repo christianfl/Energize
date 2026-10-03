@@ -11,6 +11,8 @@ import 'package:talker_flutter/talker_flutter.dart';
 
 import 'config/env_config.dart';
 import 'l10n/app_localizations.dart';
+import 'pages/introduction/introduction_gate.dart';
+import 'pages/introduction/introduction_page.dart';
 import 'pages/tab_custom_food/add_edit_custom_food_modal.dart';
 import 'pages/tab_settings/about_sub_page/about_sub_page.dart';
 import 'pages/tab_settings/backup_and_restore_sub_page.dart';
@@ -27,6 +29,7 @@ import 'providers/complete_days_provider.dart';
 import 'providers/custom_food_provider.dart';
 import 'providers/log_provider.dart';
 import 'providers/tracked_food_provider.dart';
+import 'services/introduction_service.dart';
 import 'services/key_value_storage_service/secure_storage_service.dart';
 import 'services/sqlite/complete_days_database_service.dart';
 import 'services/sqlite/custom_food_database_service.dart';
@@ -69,11 +72,17 @@ class MyApp extends StatelessWidget {
   /// Used for screenshot creation within integration tests.
   final Locale? locale;
 
+  /// Call MyApp with skipped introduction screen.
+  ///
+  /// Used for screenshot creation within integration tests.
+  final bool skipIntroduction;
+
   const MyApp({
     super.key,
     this.debugShowCheckedModeBanner = true,
     this.themeMode,
     this.locale,
+    this.skipIntroduction = false,
   });
 
   @override
@@ -90,6 +99,12 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider(
           create: (ctx) => AppSettingsProvider(
+            keyValueStorage: ctx.read<SecureStorageService>(),
+            logger: ctx.read<LogProvider>(),
+          ),
+        ),
+        Provider(
+          create: (ctx) => IntroductionService(
             keyValueStorage: ctx.read<SecureStorageService>(),
             logger: ctx.read<LogProvider>(),
           ),
@@ -144,8 +159,12 @@ class MyApp extends StatelessWidget {
         theme: EnergizeTheme.theme,
         darkTheme: EnergizeTheme.darkTheme,
         themeMode: themeMode,
-        home: const TabsPage(),
+        home: skipIntroduction ? const TabsPage() : const IntroductionGate(),
         routes: {
+          IntroductionPage.routeName: (ctx) => IntroductionPage(
+            isReplay: true,
+            onCompleted: () => Navigator.of(ctx).pop(),
+          ),
           TrackFood.routeName: (ctx) => const TrackFood(),
           DetailedSummarySubPage.routeName: (ctx) =>
               const DetailedSummarySubPage(),

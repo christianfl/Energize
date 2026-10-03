@@ -17,6 +17,7 @@ class BackupData {
   final List<DateTime>? completedDays;
   final AppSettings? appSettings;
   final BodyTargets? bodyTargets;
+  final int? completedIntroductionVersion;
 
   BackupData({
     this.customFood,
@@ -24,6 +25,7 @@ class BackupData {
     this.completedDays,
     this.appSettings,
     this.bodyTargets,
+    this.completedIntroductionVersion,
   });
 
   /// Connect the generated fromJson function to the `fromJson` factory.

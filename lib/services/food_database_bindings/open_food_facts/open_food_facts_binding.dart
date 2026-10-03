@@ -3,12 +3,32 @@ import 'dart:io';
 import 'package:openfoodfacts/openfoodfacts.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
+import '../../../l10n/app_localizations.dart';
 import '../../../models/food/food.dart';
+import '../food_database_binding_interface.dart';
+import '../food_database_binding_metadata.dart';
 import 'product_not_found_exception.dart';
 import 'status_aware_product_search_query_configuration.dart';
 
-class OpenFoodFactsBinding {
+class OpenFoodFactsBinding implements FoodDatabaseBindingInterface {
   static const originName = 'OFF';
+  @override
+  final metadata = const FoodDatabaseBindingMetadata(
+    originName: originName,
+    privacyUrl: privacyUrl,
+    termsUrl: termsUrl,
+    displayName: _displayName,
+    requiresActivationConfirmation: true,
+    isOnline: true,
+    supportedLanguages: null,
+    contentsLabel: _contentsLabel,
+  );
+
+  static String _displayName(AppLocalizations localizations) =>
+      'Open Food Facts';
+
+  static String _contentsLabel(AppLocalizations localizations) =>
+      localizations.databaseOffContentsShort;
 
   /// Maximum number of products requested for a text search.
   static const searchPageSize = 10;

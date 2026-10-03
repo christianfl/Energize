@@ -20,6 +20,47 @@
         }
     },
     "unknownErrorText": "An unknown error has occured",
+    "@_INTRO_SCREEN": {
+    },
+    "introductionTitle": "Getting started",
+    "welcomeToEnergize": "Welcome to Energize",
+    "introductionWelcomeText": "Energize helps you track your eating habits and reach your personal goals while respecting your privacy.",
+    "showIntroduction": "Show introduction",
+    "nutritionGuidanceDisclaimer": "Nutrition values can be inaccurate and calculated targets are estimates intended as guidance, not medical advice.",
+    "introductionDataPrivacyHint": "Personal data is stored on this device and not sent to third parties. Searches are sent only to online food databases you enable.",
+    "openPrivacyPolicy": "Open privacy policy",
+    "selectFoodDatabases": "Select food databases",
+    "selectFoodDatabasesHint": "Choose sources for food search.",
+    "databaseOnDeviceShort": "Offline",
+    "databaseOnlineShort": "Online",
+    "databaseVariousLanguagesShort": "Many languages",
+    "databaseSwissContentsShort": "Swiss foods",
+    "databaseOffContentsShort": "Products, supports barcodes",
+    "databaseUsdaContentsShort": "US foods and products",
+    "databaseLanguageFallbackHint": "Databases use your device language when supported, otherwise English.",
+    "confirmDatabaseActivation": "Activate online database",
+    "databaseActivationExplanation": "{databaseName} is an online service. Searches send your search text and additional metadata to this provider. Before activating it, please review the linked privacy policy and any terms of use.",
+    "@databaseActivationExplanation": {
+        "placeholders": {
+            "databaseName": {
+                "type": "String",
+                "example": "Open Food Facts"
+            }
+        }
+    },
+    "databaseActivationCheckbox": "I understand that searches are sent to this provider, acknowledge the linked privacy policy, and accept the terms of use, if provided.",
+    "confirmAndActivate": "Confirm and activate",
+    "easyPersonalization": "Easy personalization",
+    "easyPersonalizationHint": "Enter a few body values to calculate suggested targets if desired.",
+    "calculateTargets": "Calculate targets",
+    "targetsSet": "Targets set",
+    "introTargetsSettingsHint": "You can set these calculated values as your energy and macronutrient targets.",
+    "introPersonalizationSettingsHint": "You can keep your current targets by continuing without calculating. Energy distribution, micronutrients, and every target can be adjusted more thoroughly later in Settings.",
+    "skip": "Skip",
+    "settingsSaveError": "The settings could not be saved. Please try again.",
+    "enterPositiveWholeNumber": "Enter a positive whole number",
+    "next": "Next",
+    "finish": "Finish",
     "@_TRACKING": {
     },
     "tracking": "Tracking",

@@ -1,11 +1,32 @@
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:flutter/widgets.dart';
 
+import '../../../l10n/app_localizations.dart';
 import '../../../models/food/food.dart';
 import '../../log_service_interface.dart';
+import '../food_database_binding_interface.dart';
+import '../food_database_binding_metadata.dart';
 
-class SwissFoodCompositionDatabaseBinding {
+class SwissFoodCompositionDatabaseBinding
+    implements FoodDatabaseBindingInterface {
+  const SwissFoodCompositionDatabaseBinding();
+
   static const originName = 'SFCDB';
+  @override
+  final metadata = const FoodDatabaseBindingMetadata(
+    originName: originName,
+    displayName: _displayName,
+    requiresActivationConfirmation: false,
+    isOnline: false,
+    supportedLanguages: ['en', 'de', 'fr', 'it'],
+    contentsLabel: _contentsLabel,
+  );
+
+  static String _displayName(AppLocalizations localizations) =>
+      localizations.swissFoodCompositionDatabase;
+
+  static String _contentsLabel(AppLocalizations localizations) =>
+      localizations.databaseSwissContentsShort;
 
   static const imageUrl =
       'assets/food_databases/swiss-food-composition-database.png';

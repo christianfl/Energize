@@ -22,6 +22,8 @@ BackupData _$BackupDataFromJson(Map<String, dynamic> json) => BackupData(
   bodyTargets: json['bodyTargets'] == null
       ? null
       : BodyTargets.fromJson(json['bodyTargets'] as Map<String, dynamic>),
+  completedIntroductionVersion: (json['completedIntroductionVersion'] as num?)
+      ?.toInt(),
 );
 
 Map<String, dynamic> _$BackupDataToJson(BackupData instance) =>
@@ -33,4 +35,5 @@ Map<String, dynamic> _$BackupDataToJson(BackupData instance) =>
           .toList(),
       'appSettings': ?instance.appSettings?.toJson(),
       'bodyTargets': ?instance.bodyTargets?.toJson(),
+      'completedIntroductionVersion': ?instance.completedIntroductionVersion,
     };

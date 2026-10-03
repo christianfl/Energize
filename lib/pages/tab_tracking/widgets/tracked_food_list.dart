@@ -6,8 +6,8 @@ import '../../../l10n/app_localizations.dart';
 import '../../../models/food/food_tracked.dart';
 import '../../../providers/app_settings_provider.dart';
 import '../../../theme/energize_theme.dart';
+import '../../../widgets/delayed_loading_indicator.dart';
 import '../track_food_modal.dart';
-import 'delayed_loading_indicator.dart';
 import 'tracked_food_list_item.dart';
 import 'tracked_food_list_item_grouper.dart';
 
@@ -171,7 +171,7 @@ class TrackedFoodList extends StatelessWidget {
 
     return Expanded(
       child: trackedFood.isLoading
-          ? const DelayedLoadingIndicator()
+          ? const DelayedLoadingIndicator(delay: Duration(seconds: 1))
           : foods.isEmpty
           ? const Column(
               mainAxisAlignment: MainAxisAlignment.center,

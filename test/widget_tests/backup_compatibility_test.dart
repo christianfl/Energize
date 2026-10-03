@@ -9,6 +9,7 @@ import 'package:energize/providers/custom_food_provider.dart';
 import 'package:energize/providers/log_provider.dart';
 import 'package:energize/providers/tracked_food_provider.dart';
 import 'package:energize/services/backup_service.dart';
+import 'package:energize/services/introduction_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
@@ -16,6 +17,7 @@ import 'package:provider/provider.dart';
 import '../test_utils/complete_days_database_service_mock.dart';
 import '../test_utils/custom_food_database_service_mock.dart';
 import '../test_utils/key_value_storage_service_mock.dart';
+import '../test_utils/log_service_mock.dart';
 import '../test_utils/tracked_food_database_service_mock.dart';
 
 void main() {
@@ -44,6 +46,11 @@ void main() {
       db: CompleteDaysDatabaseServiceMock(),
       logger: logger,
     );
+    final introduction = IntroductionService(
+      keyValueStorage: storage,
+      logger: LogServiceMock(),
+      hasExistingDatabase: () async => false,
+    );
 
     await Future.wait([
       appSettings.initialized,
@@ -62,6 +69,7 @@ void main() {
           ChangeNotifierProvider.value(value: customFoods),
           ChangeNotifierProvider.value(value: trackedFoods),
           Provider.value(value: completedDays),
+          Provider.value(value: introduction),
         ],
         child: MaterialApp(
           home: Builder(
@@ -88,6 +96,13 @@ void main() {
     expect(backup.customFood!.single.title, 'My Custom Food');
     expect(backup.trackedFood, hasLength(3));
     expect(backup.completedDays, isEmpty);
+    expect(backup.completedIntroductionVersion, isNull);
+    // old backup has no intro version field.
+    // fallback: restoring, marks current introduction as completed then.
+    expect(
+      await introduction.completedVersion,
+      IntroductionService.currentVersion,
+    );
     expect(backup.appSettings!.isMealGroupingActivated, isFalse);
     expect(backup.bodyTargets!.age, 25);
     expect(backup.bodyTargets!.sex, Sex.male);

@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:flutter_markdown_plus/flutter_markdown_plus.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:provider/provider.dart';
 import 'package:talker_flutter/talker_flutter.dart';
@@ -11,14 +9,13 @@ import '../../../l10n/app_localizations.dart';
 import '../../../models/contributor.dart';
 import '../../../providers/log_provider.dart';
 import '../../../theme/energize_theme.dart';
+import '../../../utils/privacy_policy_dialog.dart';
+import '../../introduction/introduction_page.dart';
 
 class AboutSubPage extends StatefulWidget {
   static const routeName = '/settings/about';
 
   static const _license = 'AGPLv3';
-  static const _privacyPolicyUrl =
-      'lib/pages/tab_settings/about_sub_page/assets/PRIVACY.md';
-
   static final email = dotenv.get('CONTACT_MAIL');
   static final _repoUrl = dotenv.get('REPO_URL');
   static final _issueUrl = dotenv.get('ISSUE_URL');
@@ -60,7 +57,21 @@ class _AboutSubPageState extends State<AboutSubPage> {
     final logger = Provider.of<LogProvider>(context, listen: false);
 
     return Scaffold(
-      appBar: AppBar(title: Text(AppLocalizations.of(context)!.aboutEnergize)),
+      appBar: AppBar(
+        title: Text(AppLocalizations.of(context)!.aboutEnergize),
+        actions: [
+          PopupMenuButton<void>(
+            itemBuilder: (_) => [
+              PopupMenuItem<void>(
+                onTap: () {
+                  Navigator.of(context).pushNamed(IntroductionPage.routeName);
+                },
+                child: Text(AppLocalizations.of(context)!.showIntroduction),
+              ),
+            ],
+          ),
+        ],
+      ),
       body: SingleChildScrollView(
         padding: EdgeInsets.symmetric(vertical: 12.0),
         child: Column(
@@ -121,9 +132,7 @@ class _AboutSubPageState extends State<AboutSubPage> {
             ListTile(
               leading: const Icon(Icons.privacy_tip),
               title: Text(AppLocalizations.of(context)!.privacyPolicy),
-              onTap: () {
-                _showPrivacyPolicyDialog();
-              },
+              onTap: () => showPrivacyPolicyDialog(context),
             ),
             if (logger.talker != null)
               ListTile(
@@ -354,64 +363,6 @@ class _AboutSubPageState extends State<AboutSubPage> {
               child: Text(MaterialLocalizations.of(context).okButtonLabel),
             ),
           ],
-        );
-      },
-    );
-  }
-
-  Future<void> _showPrivacyPolicyDialog() async {
-    // Load privacy policy from local markdown file
-    String privacyPolicyMarkdown = await rootBundle.loadString(
-      AboutSubPage._privacyPolicyUrl,
-    );
-
-    // Remove first line which contains the title
-    final endOfFirstLineIndex = privacyPolicyMarkdown.indexOf('\n');
-    privacyPolicyMarkdown = privacyPolicyMarkdown.substring(
-      endOfFirstLineIndex,
-    );
-
-    if (!mounted) {
-      return;
-    }
-
-    return showDialog<void>(
-      context: context,
-      builder: (BuildContext context) {
-        return Dialog.fullscreen(
-          child: Scaffold(
-            appBar: AppBar(
-              title: Text(AppLocalizations.of(context)!.privacyPolicy),
-              leading: IconButton(
-                onPressed: () => Navigator.of(context).pop(),
-                icon: const Icon(Icons.close),
-              ),
-            ),
-            body: Markdown(
-              data: privacyPolicyMarkdown,
-              styleSheet: MarkdownStyleSheet(
-                blockquoteDecoration: BoxDecoration(
-                  color: Theme.of(context).highlightColor,
-                ),
-              ),
-              selectable: true,
-              onTapLink: (text, href, title) {
-                if (href != null) {
-                  final uri = Uri.parse(href);
-
-                  try {
-                    launchUrl(uri, mode: LaunchMode.externalApplication);
-                  } catch (e) {
-                    final logger = Provider.of<LogProvider>(
-                      context,
-                      listen: false,
-                    );
-                    logger.error('Could not launch url', e);
-                  }
-                }
-              },
-            ),
-          ),
         );
       },
     );

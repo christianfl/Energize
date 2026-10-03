@@ -110,6 +110,7 @@ void main() {
           debugShowCheckedModeBanner: false,
           themeMode: valueVariants.currentValue?.themeMode,
           locale: valueVariants.currentValue?.locale,
+          skipIntroduction: true,
         ),
       );
 
@@ -309,6 +310,7 @@ void main() {
           debugShowCheckedModeBanner: false,
           themeMode: valueVariants.currentValue?.themeMode,
           locale: valueVariants.currentValue?.locale,
+          skipIntroduction: true,
         ),
       );
 
@@ -420,6 +422,7 @@ void main() {
           debugShowCheckedModeBanner: false,
           themeMode: valueVariants.currentValue?.themeMode,
           locale: valueVariants.currentValue?.locale,
+          skipIntroduction: true,
         ),
       );
 

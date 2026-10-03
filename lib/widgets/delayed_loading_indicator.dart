@@ -2,9 +2,12 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 
-/// Shows a progress indicator only when loading takes longer than one second.
+/// Shows a progress indicator after [delay] has elapsed.
+/// Until then, a blank page is displayed.
 class DelayedLoadingIndicator extends StatefulWidget {
-  const DelayedLoadingIndicator({super.key});
+  final Duration delay;
+
+  const DelayedLoadingIndicator({required this.delay, super.key});
 
   @override
   State<DelayedLoadingIndicator> createState() =>
@@ -13,12 +16,12 @@ class DelayedLoadingIndicator extends StatefulWidget {
 
 class _DelayedLoadingIndicatorState extends State<DelayedLoadingIndicator> {
   Timer? _timer;
-  var _showIndicator = false;
+  bool _showIndicator = false;
 
   @override
   void initState() {
     super.initState();
-    _timer = Timer(const Duration(seconds: 1), () {
+    _timer = Timer(widget.delay, () {
       if (mounted) setState(() => _showIndicator = true);
     });
   }

@@ -1,6 +1,5 @@
 // ignore: unused_import
 import 'package:intl/intl.dart' as intl;
-
 import 'app_localizations.dart';
 
 // ignore_for_file: type=lint
@@ -45,6 +44,110 @@ class AppLocalizationsSk extends AppLocalizations {
 
   @override
   String get unknownErrorText => 'Vyskytla sa neznáma chyba';
+
+  @override
+  String get introductionTitle => 'Getting started';
+
+  @override
+  String get welcomeToEnergize => 'Welcome to Energize';
+
+  @override
+  String get introductionWelcomeText =>
+      'Energize helps you track your eating habits and reach your personal goals while respecting your privacy.';
+
+  @override
+  String get showIntroduction => 'Show introduction';
+
+  @override
+  String get nutritionGuidanceDisclaimer =>
+      'Nutrition values can be inaccurate and calculated targets are estimates intended as guidance, not medical advice.';
+
+  @override
+  String get introductionDataPrivacyHint =>
+      'Personal data is stored on this device and not sent to third parties. Searches are sent only to online food databases you enable.';
+
+  @override
+  String get openPrivacyPolicy => 'Open privacy policy';
+
+  @override
+  String get selectFoodDatabases => 'Select food databases';
+
+  @override
+  String get selectFoodDatabasesHint => 'Choose sources for food search.';
+
+  @override
+  String get databaseOnDeviceShort => 'Offline';
+
+  @override
+  String get databaseOnlineShort => 'Online';
+
+  @override
+  String get databaseVariousLanguagesShort => 'Many languages';
+
+  @override
+  String get databaseSwissContentsShort => 'Swiss foods';
+
+  @override
+  String get databaseOffContentsShort => 'Products, supports barcodes';
+
+  @override
+  String get databaseUsdaContentsShort => 'US foods and products';
+
+  @override
+  String get databaseLanguageFallbackHint =>
+      'Databases use your device language when supported, otherwise English.';
+
+  @override
+  String get confirmDatabaseActivation => 'Activate online database';
+
+  @override
+  String databaseActivationExplanation(String databaseName) {
+    return '$databaseName is an online service. Searches send your search text and additional metadata to this provider. Before activating it, please review the linked privacy policy and any terms of use.';
+  }
+
+  @override
+  String get databaseActivationCheckbox =>
+      'I understand that searches are sent to this provider, acknowledge the linked privacy policy, and accept the terms of use, if provided.';
+
+  @override
+  String get confirmAndActivate => 'Confirm and activate';
+
+  @override
+  String get easyPersonalization => 'Easy personalization';
+
+  @override
+  String get easyPersonalizationHint =>
+      'Enter a few body values to calculate suggested targets if desired.';
+
+  @override
+  String get calculateTargets => 'Calculate targets';
+
+  @override
+  String get targetsSet => 'Targets set';
+
+  @override
+  String get introTargetsSettingsHint =>
+      'You can set these calculated values as your energy and macronutrient targets.';
+
+  @override
+  String get introPersonalizationSettingsHint =>
+      'You can keep your current targets by continuing without calculating. Energy distribution, micronutrients, and every target can be adjusted more thoroughly later in Settings.';
+
+  @override
+  String get skip => 'Skip';
+
+  @override
+  String get settingsSaveError =>
+      'The settings could not be saved. Please try again.';
+
+  @override
+  String get enterPositiveWholeNumber => 'Enter a positive whole number';
+
+  @override
+  String get next => 'Next';
+
+  @override
+  String get finish => 'Finish';
 
   @override
   String get tracking => 'Sledovanie';

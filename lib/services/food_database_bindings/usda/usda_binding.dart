@@ -3,11 +3,32 @@ import 'dart:convert';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 
+import '../../../l10n/app_localizations.dart';
 import '../../../models/food/food.dart';
+import '../food_database_binding_interface.dart';
+import '../food_database_binding_metadata.dart';
 import 'models/usda_food.dart';
 
-class USDABinding {
+class USDABinding implements FoodDatabaseBindingInterface {
+  const USDABinding();
+
   static const originName = 'USDA';
+  @override
+  final metadata = const FoodDatabaseBindingMetadata(
+    originName: originName,
+    privacyUrl: privacyUrl,
+    displayName: _displayName,
+    requiresActivationConfirmation: true,
+    isOnline: true,
+    supportedLanguages: ['en'],
+    contentsLabel: _contentsLabel,
+  );
+
+  static String _displayName(AppLocalizations localizations) =>
+      'USDA FoodData Central';
+
+  static String _contentsLabel(AppLocalizations localizations) =>
+      localizations.databaseUsdaContentsShort;
 
   /// Maximum number of foods returned from a text search.
   static const searchResultLimit = 10;

@@ -24,7 +24,7 @@ mixin DatabaseService {
   }
 
   /// Returns the database path including filename.
-  Future<String> get _customDatabasePath async {
+  static Future<String> get _customDatabasePath async {
     if (!kIsWeb) {
       if (Platform.isLinux) {
         final directory = await getApplicationSupportDirectory();
@@ -34,6 +34,15 @@ mixin DatabaseService {
 
     // Use default db path
     return join(await getDatabasesPath(), _databaseName);
+  }
+
+  /// Checks for an existing app database.
+  ///
+  /// IntroductionService uses this to preserve existing installations' food
+  /// database settings while disabling food databases for new installations.
+  static Future<bool> get hasExistingDatabase async {
+    if (_database != null) return true;
+    return databaseExists(await _customDatabasePath);
   }
 
   /// Opens the db and triggers schema creation or upgrade on version change.

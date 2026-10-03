@@ -3,11 +3,11 @@ import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../l10n/app_localizations.dart';
-import '../../providers/app_settings_provider.dart';
 import '../../providers/log_provider.dart';
 import '../../services/food_database_bindings/open_food_facts/open_food_facts_binding.dart';
 import '../../services/food_database_bindings/swiss_food_composition_database/swiss_food_composition_database_binding.dart';
 import '../../services/food_database_bindings/usda/usda_binding.dart';
+import '../../widgets/food_database_switch_list_tile.dart';
 
 class DatabaseManagementSubPage extends StatefulWidget {
   static const routeName = '/settings/database-provider';
@@ -48,8 +48,6 @@ class DatabaseManagementSubPageState extends State<DatabaseManagementSubPage> {
 
   @override
   Widget build(BuildContext context) {
-    final appSettings = Provider.of<AppSettingsProvider>(context);
-
     return Scaffold(
       appBar: AppBar(
         title: Text(AppLocalizations.of(context)!.databaseManagement),
@@ -80,15 +78,8 @@ class DatabaseManagementSubPageState extends State<DatabaseManagementSubPage> {
                   isExpanded: _activeOfflinePanelIndex == 0,
                   canTapOnHeader: true,
                   headerBuilder: (context, isExpanded) {
-                    return SwitchListTile(
-                      title: Text(
-                        AppLocalizations.of(
-                          context,
-                        )!.swissFoodCompositionDatabase,
-                      ),
-                      value: appSettings.isProviderSndbActivated,
-                      onChanged: (val) =>
-                          appSettings.isProviderSndbActivated = val,
+                    return FoodDatabaseSwitchListTile(
+                      database: SwissFoodCompositionDatabaseBinding().metadata,
                     );
                   },
                   body: Column(
@@ -166,11 +157,8 @@ class DatabaseManagementSubPageState extends State<DatabaseManagementSubPage> {
                   isExpanded: _activeOnlinePanelIndex == 0,
                   canTapOnHeader: true,
                   headerBuilder: (context, isExpanded) {
-                    return SwitchListTile(
-                      title: const Text('Open Food Facts'),
-                      value: appSettings.isProviderOpenFoodFactsActivated,
-                      onChanged: (val) =>
-                          appSettings.isProviderOpenFoodFactsActivated = val,
+                    return FoodDatabaseSwitchListTile(
+                      database: OpenFoodFactsBinding().metadata,
                     );
                   },
                   body: Column(
@@ -245,11 +233,8 @@ class DatabaseManagementSubPageState extends State<DatabaseManagementSubPage> {
                   isExpanded: _activeOnlinePanelIndex == 1,
                   canTapOnHeader: true,
                   headerBuilder: (context, isExpanded) {
-                    return SwitchListTile(
-                      title: const Text('USDA FoodData Central'),
-                      value: appSettings.isProviderUsdaActivated,
-                      onChanged: (val) =>
-                          appSettings.isProviderUsdaActivated = val,
+                    return FoodDatabaseSwitchListTile(
+                      database: USDABinding().metadata,
                     );
                   },
                   body: Column(

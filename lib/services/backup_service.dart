@@ -10,6 +10,7 @@ import '../providers/complete_days_provider.dart';
 import '../providers/custom_food_provider.dart';
 import '../providers/tracked_food_provider.dart';
 import 'encryption_service.dart';
+import 'introduction_service.dart';
 
 /// Offers methods for creating backups and restoring them
 class BackupService {
@@ -43,6 +44,10 @@ class BackupService {
       context,
       listen: false,
     );
+    final introductionService = Provider.of<IntroductionService>(
+      context,
+      listen: false,
+    );
 
     final backupData = BackupData(
       customFood: await customFoodProvider.getAll(),
@@ -50,6 +55,7 @@ class BackupService {
       completedDays: await completeDaysProvider.completedDays,
       appSettings: appSettingsProvider.settings,
       bodyTargets: bodyTargetsProvider.bodyTargets,
+      completedIntroductionVersion: await introductionService.completedVersion,
     );
 
     final encodedBackupData = json.encode(backupData.toJson());
@@ -103,6 +109,10 @@ class BackupService {
         context,
         listen: false,
       );
+      final introductionService = Provider.of<IntroductionService>(
+        context,
+        listen: false,
+      );
 
       // Custom food
       if (backupData.customFood != null) {
@@ -137,6 +147,11 @@ class BackupService {
       if (backupData.bodyTargets != null) {
         await bodyTargetsProvider.saveAll(backupData.bodyTargets!);
       }
+
+      // Introduction state
+      await introductionService.restoreCompletedVersion(
+        backupData.completedIntroductionVersion,
+      );
 
       // Return backupData so that the UI can show how many objects where restored
       return backupData;

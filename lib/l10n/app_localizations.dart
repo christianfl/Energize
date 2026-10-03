@@ -218,6 +218,192 @@ abstract class AppLocalizations {
   /// **'An unknown error has occured'**
   String get unknownErrorText;
 
+  /// No description provided for @introductionTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Getting started'**
+  String get introductionTitle;
+
+  /// No description provided for @welcomeToEnergize.
+  ///
+  /// In en, this message translates to:
+  /// **'Welcome to Energize'**
+  String get welcomeToEnergize;
+
+  /// No description provided for @introductionWelcomeText.
+  ///
+  /// In en, this message translates to:
+  /// **'Energize helps you track your eating habits and reach your personal goals while respecting your privacy.'**
+  String get introductionWelcomeText;
+
+  /// No description provided for @showIntroduction.
+  ///
+  /// In en, this message translates to:
+  /// **'Show introduction'**
+  String get showIntroduction;
+
+  /// No description provided for @nutritionGuidanceDisclaimer.
+  ///
+  /// In en, this message translates to:
+  /// **'Nutrition values can be inaccurate and calculated targets are estimates intended as guidance, not medical advice.'**
+  String get nutritionGuidanceDisclaimer;
+
+  /// No description provided for @introductionDataPrivacyHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Personal data is stored on this device and not sent to third parties. Searches are sent only to online food databases you enable.'**
+  String get introductionDataPrivacyHint;
+
+  /// No description provided for @openPrivacyPolicy.
+  ///
+  /// In en, this message translates to:
+  /// **'Open privacy policy'**
+  String get openPrivacyPolicy;
+
+  /// No description provided for @selectFoodDatabases.
+  ///
+  /// In en, this message translates to:
+  /// **'Select food databases'**
+  String get selectFoodDatabases;
+
+  /// No description provided for @selectFoodDatabasesHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose sources for food search.'**
+  String get selectFoodDatabasesHint;
+
+  /// No description provided for @databaseOnDeviceShort.
+  ///
+  /// In en, this message translates to:
+  /// **'Offline'**
+  String get databaseOnDeviceShort;
+
+  /// No description provided for @databaseOnlineShort.
+  ///
+  /// In en, this message translates to:
+  /// **'Online'**
+  String get databaseOnlineShort;
+
+  /// No description provided for @databaseVariousLanguagesShort.
+  ///
+  /// In en, this message translates to:
+  /// **'Many languages'**
+  String get databaseVariousLanguagesShort;
+
+  /// No description provided for @databaseSwissContentsShort.
+  ///
+  /// In en, this message translates to:
+  /// **'Swiss foods'**
+  String get databaseSwissContentsShort;
+
+  /// No description provided for @databaseOffContentsShort.
+  ///
+  /// In en, this message translates to:
+  /// **'Products, supports barcodes'**
+  String get databaseOffContentsShort;
+
+  /// No description provided for @databaseUsdaContentsShort.
+  ///
+  /// In en, this message translates to:
+  /// **'US foods and products'**
+  String get databaseUsdaContentsShort;
+
+  /// No description provided for @databaseLanguageFallbackHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Databases use your device language when supported, otherwise English.'**
+  String get databaseLanguageFallbackHint;
+
+  /// No description provided for @confirmDatabaseActivation.
+  ///
+  /// In en, this message translates to:
+  /// **'Activate online database'**
+  String get confirmDatabaseActivation;
+
+  /// No description provided for @databaseActivationExplanation.
+  ///
+  /// In en, this message translates to:
+  /// **'{databaseName} is an online service. Searches send your search text and additional metadata to this provider. Before activating it, please review the linked privacy policy and any terms of use.'**
+  String databaseActivationExplanation(String databaseName);
+
+  /// No description provided for @databaseActivationCheckbox.
+  ///
+  /// In en, this message translates to:
+  /// **'I understand that searches are sent to this provider, acknowledge the linked privacy policy, and accept the terms of use, if provided.'**
+  String get databaseActivationCheckbox;
+
+  /// No description provided for @confirmAndActivate.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm and activate'**
+  String get confirmAndActivate;
+
+  /// No description provided for @easyPersonalization.
+  ///
+  /// In en, this message translates to:
+  /// **'Easy personalization'**
+  String get easyPersonalization;
+
+  /// No description provided for @easyPersonalizationHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter a few body values to calculate suggested targets if desired.'**
+  String get easyPersonalizationHint;
+
+  /// No description provided for @calculateTargets.
+  ///
+  /// In en, this message translates to:
+  /// **'Calculate targets'**
+  String get calculateTargets;
+
+  /// No description provided for @targetsSet.
+  ///
+  /// In en, this message translates to:
+  /// **'Targets set'**
+  String get targetsSet;
+
+  /// No description provided for @introTargetsSettingsHint.
+  ///
+  /// In en, this message translates to:
+  /// **'You can set these calculated values as your energy and macronutrient targets.'**
+  String get introTargetsSettingsHint;
+
+  /// No description provided for @introPersonalizationSettingsHint.
+  ///
+  /// In en, this message translates to:
+  /// **'You can keep your current targets by continuing without calculating. Energy distribution, micronutrients, and every target can be adjusted more thoroughly later in Settings.'**
+  String get introPersonalizationSettingsHint;
+
+  /// No description provided for @skip.
+  ///
+  /// In en, this message translates to:
+  /// **'Skip'**
+  String get skip;
+
+  /// No description provided for @settingsSaveError.
+  ///
+  /// In en, this message translates to:
+  /// **'The settings could not be saved. Please try again.'**
+  String get settingsSaveError;
+
+  /// No description provided for @enterPositiveWholeNumber.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter a positive whole number'**
+  String get enterPositiveWholeNumber;
+
+  /// No description provided for @next.
+  ///
+  /// In en, this message translates to:
+  /// **'Next'**
+  String get next;
+
+  /// No description provided for @finish.
+  ///
+  /// In en, this message translates to:
+  /// **'Finish'**
+  String get finish;
+
   /// No description provided for @tracking.
   ///
   /// In en, this message translates to:

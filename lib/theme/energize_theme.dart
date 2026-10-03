@@ -38,14 +38,16 @@ extension EnergizeThemeData on ThemeData {
   Color get fatContainer => Colors.red;
   Color get onFatContainer => Colors.white;
   Color get microNutrientsContainer => Colors.blueGrey;
-  Color get successContainer => Colors.green;
-  Color get onSuccessContainer => Colors.white;
   Color get noPictureBackground => Colors.black;
   Color get onNoPictureBackground => Colors.white;
   Color get progressBar => const Color(0xFFDCDCDC);
   Color get onProgressBar => Colors.black;
 
   // Dynamic colors
+  Color get successContainer =>
+      isDarkMode ? Colors.green.shade200 : Colors.green;
+  Color get onSuccessContainer => isDarkMode ? Colors.black : Colors.white;
+
   Color get extraHighlightColor =>
       isDarkMode ? Colors.orange : Colors.redAccent;
 

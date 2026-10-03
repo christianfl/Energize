@@ -6,6 +6,8 @@ import '../../../../../models/person/enums/sex.dart';
 import '../../../../../models/person/enums/weight_target.dart';
 import '../../../../../providers/body_targets_provider.dart';
 import '../../../../../services/micronutrients_recommendations/micronutrients_recommendations.dart';
+import '../../../../../services/nutrition_targets_calculator/nutrition_targets_calculator.dart';
+import '../../../../../utils/activity_level_description.dart';
 
 class CalculationTab extends StatefulWidget {
   static const routeName = '/settings/personalization';
@@ -283,28 +285,23 @@ class CalculationTabState extends State<CalculationTab> {
     final age = bodyTargets.age;
     final weight = bodyTargets.weight;
     final height = bodyTargets.height;
+    final sex = bodyTargets.sex;
+
     if (age == null || weight == null || height == null) {
       throw StateError('Body values required for target calculation');
     }
+    if (sex != Sex.female && sex != Sex.male) {
+      throw StateError('Selected sex has no target calculation reference');
+    }
 
-    final sexFactor = switch (bodyTargets.sex) {
-      Sex.female => -161,
-      Sex.male => 5,
-      Sex.notSpecified || Sex.diverse => throw StateError(
-        'Selected sex has no target calculation reference',
-      ),
-    };
-
-    // Basal metabolic rate
-    final bmr = ((10 * weight) + (6.25 * height) - (5 * age) + sexFactor);
-
-    // Power conversion
-    final pc = bmr * bodyTargets.activityLevel;
-
-    final weightTargetFactor = bodyTargets.weightTarget.toValue();
-    final targetCalories = pc * weightTargetFactor;
-
-    return double.parse((targetCalories).toStringAsFixed(1));
+    return NutritionTargetsCalculator.calculateCalories(
+      age: age,
+      sex: sex,
+      weight: weight,
+      height: height,
+      activityLevel: bodyTargets.activityLevel,
+      weightTarget: bodyTargets.weightTarget,
+    );
   }
 
   double _calculateMacros(String targetMacro, BodyTargetsProvider bodyTargets) {
@@ -316,32 +313,18 @@ class CalculationTabState extends State<CalculationTab> {
       caloriesToDistribute = double.parse(_caloriesTargetController.text);
     }
 
-    const double proteinKcalPerG = 4.0;
-    const double carbsKcalPerG = 4.0;
-    const double fatKcalPerG = 9.0;
+    final (ratio, kilocaloriesPerGram) = switch (targetMacro) {
+      'protein' => (bodyTargets.proteinRatio, 4.0),
+      'carbs' => (bodyTargets.carbsRatio, 4.0),
+      'fat' => (bodyTargets.fatRatio, 9.0),
+      _ => (0.0, 1.0),
+    };
 
-    double target = 0.0;
-
-    switch (targetMacro) {
-      case 'protein':
-        target =
-            caloriesToDistribute /
-            proteinKcalPerG *
-            (bodyTargets.proteinRatio / 100);
-        break;
-      case 'carbs':
-        target =
-            caloriesToDistribute /
-            carbsKcalPerG *
-            (bodyTargets.carbsRatio / 100);
-        break;
-      case 'fat':
-        target =
-            caloriesToDistribute / fatKcalPerG * (bodyTargets.fatRatio / 100);
-        break;
-    }
-
-    return double.parse((target).toStringAsFixed(1));
+    return NutritionTargetsCalculator.calculateMacroTarget(
+      calories: caloriesToDistribute,
+      ratio: ratio,
+      kilocaloriesPerGram: kilocaloriesPerGram,
+    );
   }
 
   void _applyTargets(BuildContext context, BodyTargetsProvider bodyTargets) {
@@ -375,49 +358,6 @@ class CalculationTabState extends State<CalculationTab> {
         context,
       ).showSnackBar(SnackBar(content: Text(snackbarText)));
     }
-  }
-
-  Widget _getActivityDescription(double activityLevel) {
-    final activityLevelString = activityLevel.toString();
-    var description = AppLocalizations.of(context)!.noActivityLevelDescription;
-
-    switch (activityLevelString) {
-      case '1.0':
-        description = AppLocalizations.of(context)!.activityLevel1_0;
-        break;
-      case '1.1':
-        description = AppLocalizations.of(context)!.activityLevel1_1;
-        break;
-      case '1.2':
-        description = AppLocalizations.of(context)!.activityLevel1_2;
-        break;
-      case '1.3':
-        description = AppLocalizations.of(context)!.activityLevel1_3;
-        break;
-      case '1.4':
-        description = AppLocalizations.of(context)!.activityLevel1_4;
-        break;
-      case '1.5':
-        description = AppLocalizations.of(context)!.activityLevel1_5;
-        break;
-      case '1.6':
-        description = AppLocalizations.of(context)!.activityLevel1_6;
-        break;
-      case '1.7':
-        description = AppLocalizations.of(context)!.activityLevel1_7;
-        break;
-      case '1.8':
-        description = AppLocalizations.of(context)!.activityLevel1_8;
-        break;
-      case '1.9':
-        description = AppLocalizations.of(context)!.activityLevel1_9;
-        break;
-      case '2.0':
-        description = AppLocalizations.of(context)!.activityLevel2_0;
-        break;
-    }
-
-    return Text(description);
   }
 
   String _getWeightTargetRelativePercent(WeightTarget weightTarget) {
@@ -568,7 +508,12 @@ class CalculationTabState extends State<CalculationTab> {
                           bodyTargets.activityLevel = value;
                         },
                       ),
-                      _getActivityDescription(bodyTargets.activityLevel),
+                      Text(
+                        activityLevelDescription(
+                          AppLocalizations.of(context)!,
+                          bodyTargets.activityLevel,
+                        ),
+                      ),
                     ],
                   ),
                   const SizedBox(height: 24),
