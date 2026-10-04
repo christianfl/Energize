@@ -38,6 +38,7 @@ jobs:
         run: |
           set -euo pipefail
 
+          submodules/flutter/bin/flutter pub get
           submodules/flutter/bin/flutter gen-l10n
 
       - name: Update Android locales config
