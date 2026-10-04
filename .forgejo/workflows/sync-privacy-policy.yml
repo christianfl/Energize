@@ -39,7 +39,13 @@ jobs:
 
           git add assets/PRIVACY.md
 
+          if git diff --cached --quiet; then
+            echo "Bundled privacy policy already up to date."
+            exit 0
+          fi
+
           git config user.name "forgejo-actions[bot]"
           git config user.email "epinez@noreply.codeberg.org"
           git commit -m "chore: update bundled privacy policy"
+          git pull --rebase origin main
           git push

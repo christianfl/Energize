@@ -65,4 +65,5 @@ jobs:
           git config user.name "forgejo-actions[bot]"
           git config user.email "epinez@noreply.codeberg.org"
           git commit -m "chore(l10n): update generated localization files"
+          git pull --rebase origin main
           git push
