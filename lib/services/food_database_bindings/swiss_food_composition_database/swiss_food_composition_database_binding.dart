@@ -31,8 +31,7 @@ class SwissFoodCompositionDatabaseBinding
   static const imageUrl =
       'assets/food_databases/swiss-food-composition-database.png';
   static const sourceUrl = 'https://naehrwertdaten.ch/de/';
-  static const databaseCsvUrl =
-      'lib/services/food_database_bindings/swiss_food_composition_database/assets/sfcd.csv';
+  static const databaseCsvUrl = 'assets/food_databases/sfcd.csv';
 
   /// Searches for matching food in the Swiss Food Composition Database.
   ///

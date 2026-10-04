@@ -82,7 +82,6 @@ flutter:
     - assets/
     - assets/food_databases/
     - assets/mondstern/
-    - lib/services/food_database_bindings/swiss_food_composition_database/assets/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
