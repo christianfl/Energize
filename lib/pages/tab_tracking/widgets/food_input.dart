@@ -566,11 +566,12 @@ class FoodInputState extends State<FoodInput>
     if (appSettings.isProviderOpenFoodFactsActivated) {
       final logger = Provider.of<LogProvider>(context, listen: false);
       final stopwatch = Stopwatch()..start();
-      List<Food>? offSearchResultFood;
+      late final List<Food> offSearchResultFood;
 
       try {
         offSearchResultFood = await OpenFoodFactsBinding().searchFood(
           searchText,
+          locale: Localizations.localeOf(context),
         );
       } catch (e, st) {
         stopwatch.stop();
@@ -586,18 +587,17 @@ class FoodInputState extends State<FoodInput>
       stopwatch.stop();
       logger.info(
         'Open Food Facts text search succeeded with '
-        '${offSearchResultFood?.length ?? 0} result(s) '
+        '${offSearchResultFood.length} result(s) '
         '(maximum ${OpenFoodFactsBinding.searchPageSize}) in '
         '${stopwatch.elapsedMilliseconds} ms',
       );
 
-      if (offSearchResultFood != null) {
-        if (!mounted) return;
-        setState(() {
-          searchResultFood += offSearchResultFood!;
-          _removeDuplicateSuggestions();
-        });
-      }
+      if (!mounted) return;
+
+      setState(() {
+        searchResultFood += offSearchResultFood;
+        _removeDuplicateSuggestions();
+      });
     } else {
       return;
     }
@@ -671,10 +671,13 @@ class FoodInputState extends State<FoodInput>
     if (appSettings.isProviderUsdaActivated) {
       final logger = Provider.of<LogProvider>(context, listen: false);
       final stopwatch = Stopwatch()..start();
-      List<Food>? usdaSearchResultFood;
+      late final List<Food> usdaSearchResultFood;
 
       try {
-        usdaSearchResultFood = await USDABinding.searchFood(searchText);
+        usdaSearchResultFood = await USDABinding().searchFood(
+          searchText,
+          locale: Localizations.localeOf(context),
+        );
       } catch (e, st) {
         stopwatch.stop();
         logger.error('USDA text search failed', e, st);
@@ -689,18 +692,17 @@ class FoodInputState extends State<FoodInput>
       stopwatch.stop();
       logger.info(
         'USDA text search succeeded with '
-        '${usdaSearchResultFood?.length ?? 0} result(s) '
+        '${usdaSearchResultFood.length} result(s) '
         '(maximum ${USDABinding.searchResultLimit}) in '
         '${stopwatch.elapsedMilliseconds} ms',
       );
 
-      if (usdaSearchResultFood != null) {
-        if (!mounted) return;
-        setState(() {
-          searchResultFood += usdaSearchResultFood!;
-          _removeDuplicateSuggestions();
-        });
-      }
+      if (!mounted) return;
+
+      setState(() {
+        searchResultFood += usdaSearchResultFood;
+        _removeDuplicateSuggestions();
+      });
     } else {
       return;
     }
@@ -716,19 +718,18 @@ class FoodInputState extends State<FoodInput>
     if (appSettings.isProviderSndbActivated) {
       final logger = Provider.of<LogProvider>(context, listen: false);
       try {
-        final sfcdSearchResultFood =
-            await SwissFoodCompositionDatabaseBinding.searchFood(
+        final sfcdSearchResultFood = await SwissFoodCompositionDatabaseBinding()
+            .searchFood(
               searchText,
-              Localizations.localeOf(context),
+              locale: Localizations.localeOf(context),
               logger: logger,
             );
 
-        if (sfcdSearchResultFood != null) {
-          setState(() {
-            searchResultFood += sfcdSearchResultFood;
-            _removeDuplicateSuggestions();
-          });
-        }
+        if (!mounted) return;
+        setState(() {
+          searchResultFood += sfcdSearchResultFood;
+          _removeDuplicateSuggestions();
+        });
       } catch (e, st) {
         logger.error('Could not search Swiss food database', e, st);
       }

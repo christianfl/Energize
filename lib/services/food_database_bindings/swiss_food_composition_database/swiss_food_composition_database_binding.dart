@@ -36,17 +36,19 @@ class SwissFoodCompositionDatabaseBinding
 
   /// Searches for matching food in the Swiss Food Composition Database.
   ///
-  /// Supported languages: English, German, Italian, French (uses device locale)
+  /// Supported languages: English, German, Italian, French (uses supplied locale)
   ///
   /// Fallback: English
   ///
   /// Reads data from local CSV file.
-  static Future<List<Food>?> searchFood(
-    String searchText,
-    Locale locale, {
+  @override
+  Future<List<Food>> searchFood(
+    String searchText, {
+    required Locale locale,
     LogServiceInterface? logger,
   }) async {
-    if (searchText.isEmpty) return null;
+    final normalizedSearchText = searchText.trim();
+    if (normalizedSearchText.isEmpty) return [];
 
     final List<Food> foundFoods = [];
 
@@ -101,11 +103,13 @@ class SwissFoodCompositionDatabaseBinding
             )];
 
         // Check for title match
-        if ((foodTitle.toLowerCase().contains(searchText.toLowerCase()))) {
+        if ((foodTitle.toLowerCase().contains(
+          normalizedSearchText.toLowerCase(),
+        ))) {
           // Match in title
           matchedTitle = foodTitle;
         } else if ((foodTitleSynonym.toLowerCase().contains(
-          searchText.toLowerCase(),
+          normalizedSearchText.toLowerCase(),
         ))) {
           // Match in alt title
           // Keep original title in brackets, because else, some food can't be distinguished

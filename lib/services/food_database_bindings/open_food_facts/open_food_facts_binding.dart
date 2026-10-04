@@ -1,10 +1,12 @@
 import 'dart:io';
+import 'dart:ui' show Locale;
 
 import 'package:openfoodfacts/openfoodfacts.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
 import '../../../l10n/app_localizations.dart';
 import '../../../models/food/food.dart';
+import '../../log_service_interface.dart';
 import '../food_database_binding_interface.dart';
 import '../food_database_binding_metadata.dart';
 import 'product_not_found_exception.dart';
@@ -127,9 +129,14 @@ class OpenFoodFactsBinding implements FoodDatabaseBindingInterface {
     throw ProductNotFoundException(barcode);
   }
 
-  Future<List<Food>?> searchFood(String searchText) async {
+  @override
+  Future<List<Food>> searchFood(
+    String searchText, {
+    required Locale locale,
+    LogServiceInterface? logger,
+  }) async {
     final normalizedSearchText = searchText.trim();
-    if (normalizedSearchText.isEmpty) return null;
+    if (normalizedSearchText.isEmpty) return [];
 
     await _ensureInitialized();
     final parameters = <Parameter>[
@@ -142,7 +149,7 @@ class OpenFoodFactsBinding implements FoodDatabaseBindingInterface {
     final ProductSearchQueryConfiguration configuration =
         StatusAwareProductSearchQueryConfiguration(
           parametersList: parameters,
-          language: _queryLanguage,
+          language: LanguageHelper.fromJson(locale.languageCode),
           country: _queryCountry,
           version: const ProductQueryVersion(3),
         );

@@ -32,7 +32,7 @@ class EnergizeTestVariant {
 
 void main() {
   // Main setup
-  final binding = IntegrationTestWidgetsFlutterBinding();
+  final flutterBinding = IntegrationTestWidgetsFlutterBinding();
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
   // Enter full screen for screenshots
@@ -78,7 +78,7 @@ void main() {
           ? 'light'
           : '';
 
-      await binding.takeScreenshot(
+      await flutterBinding.takeScreenshot(
         '$localeSubfolder/images/phoneScreenshots/${fileName}_$themeMode',
       );
     }
@@ -119,7 +119,7 @@ void main() {
 
       // This has to be present after tester.pumpAndSettle()
       // See: https://github.com/flutter/flutter/issues/128100#issuecomment-1576334061
-      await binding.convertFlutterSurfaceToImage();
+      await flutterBinding.convertFlutterSurfaceToImage();
 
       // Check whether TrackingPage is loaded
       expect(find.byType(TrackingPage), findsOneWidget);
@@ -131,43 +131,42 @@ void main() {
       final now = DateTime.now();
 
       // Prepare food from Swiss Food Composition Database
-      final breadSearch = await SwissFoodCompositionDatabaseBinding.searchFood(
+      const swissBinding = SwissFoodCompositionDatabaseBinding();
+      final breadSearch = await swissBinding.searchFood(
         'Brown bread',
-        const Locale('en'),
+        locale: const Locale('en'),
       );
-      final bread = breadSearch!.first;
+      final bread = breadSearch.first;
 
-      final scrambledEggsSearch =
-          await SwissFoodCompositionDatabaseBinding.searchFood(
-            'scrambled eggs',
-            const Locale('en'),
-          );
-      final scrambledEggs = scrambledEggsSearch!.first;
+      final scrambledEggsSearch = await swissBinding.searchFood(
+        'scrambled eggs',
+        locale: const Locale('en'),
+      );
+      final scrambledEggs = scrambledEggsSearch.first;
 
-      final appleSearch = await SwissFoodCompositionDatabaseBinding.searchFood(
+      final appleSearch = await swissBinding.searchFood(
         'Apple, fresh',
-        const Locale('en'),
+        locale: const Locale('en'),
       );
-      final apple = appleSearch![1];
+      final apple = appleSearch[1];
 
-      final pastaSearch = await SwissFoodCompositionDatabaseBinding.searchFood(
+      final pastaSearch = await swissBinding.searchFood(
         'Durum wheat semolina',
-        const Locale('en'),
+        locale: const Locale('en'),
       );
-      final pasta = pastaSearch!.first;
+      final pasta = pastaSearch.first;
 
-      final pestoSearch = await SwissFoodCompositionDatabaseBinding.searchFood(
+      final pestoSearch = await swissBinding.searchFood(
         'Pesto sauce',
-        const Locale('en'),
+        locale: const Locale('en'),
       );
-      final pesto = pestoSearch!.first;
+      final pesto = pestoSearch.first;
 
-      final parmesanSearch =
-          await SwissFoodCompositionDatabaseBinding.searchFood(
-            'parmesan cheese',
-            const Locale('en'),
-          );
-      final parmesan = parmesanSearch!.first;
+      final parmesanSearch = await swissBinding.searchFood(
+        'parmesan cheese',
+        locale: const Locale('en'),
+      );
+      final parmesan = parmesanSearch.first;
 
       final trackedBread = FoodTracked.fromFood(
         bread,
@@ -319,7 +318,7 @@ void main() {
 
       // This has to be present after tester.pumpAndSettle()
       // See: https://github.com/flutter/flutter/issues/128100#issuecomment-1576334061
-      await binding.convertFlutterSurfaceToImage();
+      await flutterBinding.convertFlutterSurfaceToImage();
 
       // Check there are three navigation bar items
       final navigationItems = find.byType(NavigationDestination);
@@ -431,7 +430,7 @@ void main() {
 
       // This has to be present after tester.pumpAndSettle()
       // See: https://github.com/flutter/flutter/issues/128100#issuecomment-1576334061
-      await binding.convertFlutterSurfaceToImage();
+      await flutterBinding.convertFlutterSurfaceToImage();
 
       // Check there are three navigation bar items
       final navigationItems = find.byType(NavigationDestination);

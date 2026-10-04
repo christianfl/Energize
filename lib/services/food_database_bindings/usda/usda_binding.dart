@@ -1,10 +1,12 @@
 import 'dart:convert';
+import 'dart:ui' show Locale;
 
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 
 import '../../../l10n/app_localizations.dart';
 import '../../../models/food/food.dart';
+import '../../log_service_interface.dart';
 import '../food_database_binding_interface.dart';
 import '../food_database_binding_metadata.dart';
 import 'models/usda_food.dart';
@@ -40,9 +42,14 @@ class USDABinding implements FoodDatabaseBindingInterface {
 
   static final _apiKey = dotenv.env['API_KEY_USDA'];
 
-  static Future<List<Food>?> searchFood(String searchText) async {
+  @override
+  Future<List<Food>> searchFood(
+    String searchText, {
+    required Locale locale,
+    LogServiceInterface? logger,
+  }) async {
     final normalizedSearchText = searchText.trim();
-    if (normalizedSearchText.isEmpty) return null;
+    if (normalizedSearchText.isEmpty) return [];
 
     final url =
         'https://api.nal.usda.gov/fdc/v1/foods/search?api_key=$_apiKey&query=$searchText';
