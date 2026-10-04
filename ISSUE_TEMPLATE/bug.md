@@ -14,11 +14,17 @@ labels:
 
 - [ ] I already checked whether there is an existing [open](https://codeberg.org/epinez/Energize/issues?state=open) or [closed](https://codeberg.org/epinez/Energize/issues?state=closed) issue
 - Version: vX.X.X
+- Platform:
+    - [ ] Android
+    - [ ] Linux
+    - [ ] Web
 - Source:
     - [ ] F-Droid
-    - [ ] Google Play
+    - [ ] Codeberg Release / Obtanium
     - [ ] Codeberg Pages
+    - [ ] IzzyOnDroid
     - [ ] Self compiled
+    - [ ] Other:
 
 # Bug description
 
