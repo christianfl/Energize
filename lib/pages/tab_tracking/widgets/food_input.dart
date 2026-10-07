@@ -13,14 +13,15 @@ import '../../../../providers/tracked_food_provider.dart';
 import '../../../../theme/energize_theme.dart';
 import '../../../../widgets/food_list_item.dart';
 import '../../../l10n/app_localizations.dart';
+import '../../../l10n/app_localizations_en.dart';
 import '../../../models/food/food.dart';
 import '../../../models/food/food_tracked.dart';
 import '../../../providers/app_settings_provider.dart';
 import '../../../providers/log_provider.dart';
+import '../../../services/food_database_bindings/food_database_binding_interface.dart';
+import '../../../services/food_database_bindings/food_databases.dart';
 import '../../../services/food_database_bindings/open_food_facts/open_food_facts_binding.dart';
 import '../../../services/food_database_bindings/open_food_facts/product_not_found_exception.dart';
-import '../../../services/food_database_bindings/swiss_food_composition_database/swiss_food_composition_database_binding.dart';
-import '../../../services/food_database_bindings/usda/usda_binding.dart';
 import '../../../widgets/food_origin_logo_pill.dart';
 import '../../tab_custom_food/add_edit_custom_food_modal.dart';
 import '../../tab_custom_food/custom_food_page.dart';
@@ -57,19 +58,12 @@ class FoodInputState extends State<FoodInput>
   /// true = on, false = off, null = unsupported
   bool? _flashStatus = false;
 
-  /// Whether the last food search threw an error with OFF binding.
+  /// Origins of databases whose latest search failed.
   ///
   /// For indicating the user which binding(s) had errors.
   ///
   /// Cleared when clearing SearchBar or on widget dispose.
-  bool _hasOffBindingError = false;
-
-  /// Whether the last food search threw an error with USDA binding.
-  ///
-  /// For indicating the user which binding(s) had errors.
-  ///
-  /// Cleared when clearing SearchBar or on widget dispose.
-  bool _hasUsdaBindingError = false;
+  final Set<String> _failedFoodDatabaseOrigins = {};
 
   /// Returns true if flash is on, false if off and null if unsupported
   Future<bool?> get _getFlashStatus async {
@@ -86,7 +80,7 @@ class FoodInputState extends State<FoodInput>
 
   /// Returns whether any of the food database bindings raised errors when searching for food.
   bool get _hasAnyBindingError {
-    return _hasOffBindingError || _hasUsdaBindingError;
+    return _failedFoodDatabaseOrigins.isNotEmpty;
   }
 
   /// Returns a centered message.
@@ -439,22 +433,24 @@ class FoodInputState extends State<FoodInput>
       }
     });
 
-    // If at least one of the food composition databases is activated
-    // Doesn't matter whether it is stored offline or API-based
-    if (normalizedSearchText.isNotEmpty &&
-        (appSettings.isProviderOpenFoodFactsActivated ||
-            appSettings.isProviderUsdaActivated ||
-            appSettings.isProviderSndbActivated)) {
+    final activeDatabases = foodDatabases
+        .where(
+          (database) =>
+              appSettings.isFoodDatabaseActivated(database.metadata.originName),
+        )
+        .toList();
+
+    if (normalizedSearchText.isNotEmpty && activeDatabases.isNotEmpty) {
       setState(() {
         _awaitingApiResponse = true;
       });
 
-      // Search in food composition databases (in parallel)
-      await Future.wait([
-        _getSFCDSearchResultIfActivated(normalizedSearchText),
-        _getOpenFoodFactsSearchResultIfActivated(normalizedSearchText),
-        _getUsdaSearchResultIfActivated(normalizedSearchText),
-      ]);
+      // Search in activated food composition databases (in parallel)
+      await Future.wait(
+        activeDatabases.map(
+          (database) => _searchFoodDatabase(database, normalizedSearchText),
+        ),
+      );
 
       setState(() {
         _removeDuplicateSuggestions();
@@ -553,54 +549,45 @@ class FoodInputState extends State<FoodInput>
     });
   }
 
-  Future<void> _getOpenFoodFactsSearchResultIfActivated(
+  /// Get food with title/synonym similar to [searchText] from [database].
+  Future<void> _searchFoodDatabase(
+    FoodDatabaseBindingInterface database,
     String searchText,
   ) async {
-    if (searchText.trim().isEmpty) return;
+    final logger = Provider.of<LogProvider>(context, listen: false);
+    final locale = Localizations.localeOf(context);
+    final name = database.metadata.displayName(AppLocalizationsEn());
+    final stopwatch = Stopwatch()..start();
+    late final List<Food> results;
 
-    final appSettings = Provider.of<AppSettingsProvider>(
-      context,
-      listen: false,
-    );
-
-    if (appSettings.isProviderOpenFoodFactsActivated) {
-      final logger = Provider.of<LogProvider>(context, listen: false);
-      final stopwatch = Stopwatch()..start();
-      late final List<Food> offSearchResultFood;
-
-      try {
-        offSearchResultFood = await OpenFoodFactsBinding().searchFood(
-          searchText,
-          locale: Localizations.localeOf(context),
-        );
-      } catch (e, st) {
-        stopwatch.stop();
-        logger.error('Open Food Facts text search failed', e, st);
-
-        if (!mounted) return;
-        setState(() {
-          _hasOffBindingError = true;
-        });
-        return;
-      }
-
-      stopwatch.stop();
-      logger.info(
-        'Open Food Facts text search succeeded with '
-        '${offSearchResultFood.length} result(s) '
-        '(maximum ${OpenFoodFactsBinding.searchPageSize}) in '
-        '${stopwatch.elapsedMilliseconds} ms',
+    try {
+      results = await database.searchFood(
+        searchText,
+        locale: locale,
+        logger: logger,
       );
+    } catch (e, st) {
+      stopwatch.stop();
+      logger.error('$name text search failed', e, st);
 
       if (!mounted) return;
-
       setState(() {
-        searchResultFood += offSearchResultFood;
-        _removeDuplicateSuggestions();
+        _failedFoodDatabaseOrigins.add(database.metadata.originName);
       });
-    } else {
       return;
     }
+
+    stopwatch.stop();
+    logger.info(
+      '$name text search succeeded with ${results.length} result(s) '
+      'in ${stopwatch.elapsedMilliseconds} ms',
+    );
+
+    if (!mounted) return;
+    setState(() {
+      searchResultFood += results;
+      _removeDuplicateSuggestions();
+    });
   }
 
   /// Returns the amount and serving size for quickly adding a new Food.
@@ -658,84 +645,6 @@ class FoodInputState extends State<FoodInput>
     }
 
     return (amount: amount, selectedServingSize: selectedServingSize);
-  }
-
-  Future<void> _getUsdaSearchResultIfActivated(String searchText) async {
-    if (searchText.trim().isEmpty) return;
-
-    final appSettings = Provider.of<AppSettingsProvider>(
-      context,
-      listen: false,
-    );
-
-    if (appSettings.isProviderUsdaActivated) {
-      final logger = Provider.of<LogProvider>(context, listen: false);
-      final stopwatch = Stopwatch()..start();
-      late final List<Food> usdaSearchResultFood;
-
-      try {
-        usdaSearchResultFood = await USDABinding().searchFood(
-          searchText,
-          locale: Localizations.localeOf(context),
-        );
-      } catch (e, st) {
-        stopwatch.stop();
-        logger.error('USDA text search failed', e, st);
-
-        if (!mounted) return;
-        setState(() {
-          _hasUsdaBindingError = true;
-        });
-        return;
-      }
-
-      stopwatch.stop();
-      logger.info(
-        'USDA text search succeeded with '
-        '${usdaSearchResultFood.length} result(s) '
-        '(maximum ${USDABinding.searchResultLimit}) in '
-        '${stopwatch.elapsedMilliseconds} ms',
-      );
-
-      if (!mounted) return;
-
-      setState(() {
-        searchResultFood += usdaSearchResultFood;
-        _removeDuplicateSuggestions();
-      });
-    } else {
-      return;
-    }
-  }
-
-  /// Get food with matching title/synonym from Swiss Food Composition Database
-  Future<void> _getSFCDSearchResultIfActivated(String searchText) async {
-    final appSettings = Provider.of<AppSettingsProvider>(
-      context,
-      listen: false,
-    );
-
-    if (appSettings.isProviderSndbActivated) {
-      final logger = Provider.of<LogProvider>(context, listen: false);
-      try {
-        final sfcdSearchResultFood = await SwissFoodCompositionDatabaseBinding()
-            .searchFood(
-              searchText,
-              locale: Localizations.localeOf(context),
-              logger: logger,
-            );
-
-        if (!mounted) return;
-        setState(() {
-          searchResultFood += sfcdSearchResultFood;
-          _removeDuplicateSuggestions();
-        });
-      } catch (e, st) {
-        logger.error('Could not search Swiss food database', e, st);
-      }
-    } else {
-      return;
-    }
   }
 
   void _navigateToAddCustomFood(BuildContext context, {String? barcode}) {
@@ -870,8 +779,7 @@ class FoodInputState extends State<FoodInput>
 
     // Clear binding errors
     setState(() {
-      _hasOffBindingError = false;
-      _hasUsdaBindingError = false;
+      _failedFoodDatabaseOrigins.clear();
     });
   }
 
@@ -911,26 +819,22 @@ class FoodInputState extends State<FoodInput>
                 const SizedBox(height: 12),
                 Text('${AppLocalizations.of(context)!.affectedDatabases}:'),
                 const SizedBox(height: 12),
-                if (_hasOffBindingError)
-                  const ListTile(
-                    title: Text('Open Food Facts'),
-                    trailing: SizedBox(
-                      width: 72,
-                      height: 46,
-                      child: FoodOriginLogoPill(
-                        OpenFoodFactsBinding.originName,
+                for (final database in foodDatabases)
+                  if (_failedFoodDatabaseOrigins.contains(
+                    database.metadata.originName,
+                  ))
+                    ListTile(
+                      title: Text(
+                        database.metadata.displayName(
+                          AppLocalizations.of(context)!,
+                        ),
+                      ),
+                      trailing: SizedBox(
+                        width: 72,
+                        height: 46,
+                        child: FoodOriginLogoPill(database.metadata.originName),
                       ),
                     ),
-                  ),
-                if (_hasUsdaBindingError)
-                  const ListTile(
-                    title: Text('USDA Food Data Central'),
-                    trailing: SizedBox(
-                      width: 72,
-                      height: 46,
-                      child: FoodOriginLogoPill(USDABinding.originName),
-                    ),
-                  ),
               ],
             ),
           ),
