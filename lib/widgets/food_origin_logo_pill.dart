@@ -2,10 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../l10n/app_localizations.dart';
 import '../pages/tab_custom_food/custom_food_page.dart';
-import '../services/food_database_bindings/open_food_facts/open_food_facts_binding.dart';
-import '../services/food_database_bindings/swiss_food_composition_database/swiss_food_composition_database_binding.dart';
-import '../services/food_database_bindings/usda/usda_binding.dart';
-import '../theme/energize_theme.dart';
+import '../services/food_database_bindings/food_databases.dart';
 
 class FoodOriginLogoPill extends StatelessWidget {
   final String foodOrigin;
@@ -26,18 +23,16 @@ class FoodOriginLogoPill extends StatelessWidget {
   });
 
   String? get _assetUrl {
-    switch (foodOrigin) {
-      case OpenFoodFactsBinding.originName:
-        return OpenFoodFactsBinding.imageUrl;
-      case SwissFoodCompositionDatabaseBinding.originName:
-        return SwissFoodCompositionDatabaseBinding.imageUrl;
-      case 'SNDB':
-        // SNDB was renamed but it's kept here because of old tracked food...
-        return SwissFoodCompositionDatabaseBinding.imageUrl;
-      case USDABinding.originName:
-        return USDABinding.imageUrl;
-      case CustomFoodPage.originName:
-        return CustomFoodPage.imageUrl;
+    if (foodOrigin == CustomFoodPage.originName) {
+      return CustomFoodPage.imageUrl;
+    }
+
+    for (final database in foodDatabases) {
+      final metadata = database.metadata;
+      if (metadata.originName == foodOrigin ||
+          metadata.originAliases.contains(foodOrigin)) {
+        return metadata.imageUrl;
+      }
     }
 
     return null;
@@ -45,8 +40,6 @@ class FoodOriginLogoPill extends StatelessWidget {
 
   Color? _getColor(BuildContext context) {
     switch (foodOrigin) {
-      case USDABinding.originName:
-        return Theme.of(context).usdaColor;
       case CustomFoodPage.originName:
         return Theme.of(context).colorScheme.secondary;
     }
@@ -56,12 +49,13 @@ class FoodOriginLogoPill extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return _assetUrl != null
+    final assetUrl = _assetUrl;
+    return assetUrl != null
         ? IconButton(
             padding: const EdgeInsets.fromLTRB(10.0, 5.0, 10.0, 5.0),
             constraints: BoxConstraints(maxHeight: height ?? double.infinity),
             onPressed: onTapCallback,
-            icon: Image.asset(_assetUrl!),
+            icon: Image.asset(assetUrl),
             style: IconButton.styleFrom(
               backgroundColor: Colors.white,
               disabledBackgroundColor: Colors.white,

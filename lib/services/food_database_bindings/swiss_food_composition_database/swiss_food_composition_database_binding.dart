@@ -15,6 +15,8 @@ class SwissFoodCompositionDatabaseBinding
   @override
   final metadata = const FoodDatabaseBindingMetadata(
     originName: originName,
+    imageUrl: imageUrl,
+    originAliases: ['SNDB'],
     displayName: _displayName,
     requiresActivationConfirmation: false,
     isOnline: false,

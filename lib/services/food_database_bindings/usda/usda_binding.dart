@@ -18,6 +18,7 @@ class USDABinding implements FoodDatabaseBindingInterface {
   @override
   final metadata = const FoodDatabaseBindingMetadata(
     originName: originName,
+    imageUrl: imageUrl,
     privacyUrl: privacyUrl,
     displayName: _displayName,
     requiresActivationConfirmation: true,

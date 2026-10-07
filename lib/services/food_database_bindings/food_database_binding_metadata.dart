@@ -3,6 +3,12 @@ import '../../l10n/app_localizations.dart';
 /// Food Database Bindings Metadata.
 class FoodDatabaseBindingMetadata {
   final String originName;
+
+  /// Legacy identifiers may still present in saved food records.
+  final List<String> originAliases;
+
+  /// Asset path for the database logo.
+  final String imageUrl;
   final String Function(AppLocalizations) displayName;
   final bool requiresActivationConfirmation;
   final String? termsUrl;
@@ -17,6 +23,8 @@ class FoodDatabaseBindingMetadata {
 
   const FoodDatabaseBindingMetadata({
     required this.originName,
+    this.originAliases = const [],
+    required this.imageUrl,
     required this.displayName,
     required this.requiresActivationConfirmation,
     this.termsUrl,

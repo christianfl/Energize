@@ -24,7 +24,6 @@ extension EnergizeThemeData on ThemeData {
   // Static colors
   Color get donateContainer => const Color(0xFFF6C915);
   Color get onDonateContainer => Colors.black;
-  Color get usdaColor => const Color(0xFF004785);
   Color get dangerContainer => Colors.red;
   Color get onDangerContainer => Colors.white;
   Color get warningContainer => Colors.deepOrange;

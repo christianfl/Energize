@@ -17,6 +17,7 @@ class OpenFoodFactsBinding implements FoodDatabaseBindingInterface {
   @override
   final metadata = const FoodDatabaseBindingMetadata(
     originName: originName,
+    imageUrl: imageUrl,
     privacyUrl: privacyUrl,
     termsUrl: termsUrl,
     displayName: _displayName,
