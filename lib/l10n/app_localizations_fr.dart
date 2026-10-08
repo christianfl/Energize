@@ -46,108 +46,112 @@ class AppLocalizationsFr extends AppLocalizations {
   String get unknownErrorText => 'Une erreur inconnue s\'est produite';
 
   @override
-  String get introductionTitle => 'Getting started';
+  String get introductionTitle => 'Pour commencer';
 
   @override
-  String get welcomeToEnergize => 'Welcome to Energize';
+  String get welcomeToEnergize => 'Bienvenue chez Energize';
 
   @override
   String get introductionWelcomeText =>
-      'Energize helps you track your eating habits and reach your personal goals while respecting your privacy.';
+      'Energize vous aide à suivre vos habitudes alimentaires et à atteindre vos objectifs personnels tout en respectant votre vie privée.';
 
   @override
-  String get showIntroduction => 'Show introduction';
+  String get showIntroduction => 'Présentation';
 
   @override
   String get nutritionGuidanceDisclaimer =>
-      'Nutrition values can be inaccurate and calculated targets are estimates intended as guidance, not medical advice.';
+      'Les valeurs nutritionnelles peuvent être imprécises et les apports recommandés ne sont que des estimations fournies à titre indicatif, et non des conseils médicaux.';
 
   @override
   String get introductionDataPrivacyHint =>
-      'Personal data is stored on this device and not sent to third parties. Searches are sent only to online food databases you enable.';
+      'Les données personnelles sont stockées sur cet appareil et ne sont pas transmises à des tiers. Les requêtes de recherche sont transmises uniquement aux bases de données alimentaires en ligne que vous avez activées.';
 
   @override
-  String get openPrivacyPolicy => 'Open privacy policy';
+  String get openPrivacyPolicy =>
+      'Consultez notre politique de confidentialité';
 
   @override
-  String get selectFoodDatabases => 'Select food databases';
+  String get selectFoodDatabases =>
+      'Sélectionner des bases de données alimentaires';
 
   @override
-  String get selectFoodDatabasesHint => 'Choose sources for food search.';
+  String get selectFoodDatabasesHint =>
+      'Choisissez les sources pour votre recherche sur l\'alimentation.';
 
   @override
-  String get databaseOnDeviceShort => 'Offline';
+  String get databaseOnDeviceShort => 'Hors ligne';
 
   @override
-  String get databaseOnlineShort => 'Online';
+  String get databaseOnlineShort => 'En ligne';
 
   @override
-  String get databaseVariousLanguagesShort => 'Many languages';
+  String get databaseVariousLanguagesShort => 'De nombreuses langues';
 
   @override
-  String get databaseSwissContentsShort => 'Swiss foods';
+  String get databaseSwissContentsShort => 'Produits alimentaires suisses';
 
   @override
-  String get databaseOffContentsShort => 'Products, supports barcodes';
+  String get databaseOffContentsShort =>
+      'Produits, prend en charge les codes-barres';
 
   @override
-  String get databaseUsdaContentsShort => 'US foods and products';
+  String get databaseUsdaContentsShort => 'Aliments et produits américains';
 
   @override
   String get databaseLanguageFallbackHint =>
-      'Databases use your device language when supported, otherwise English.';
+      'Les bases de données utilisent la langue de votre appareil lorsqu\'elle est prise en charge ; sinon, elles s\'affichent en anglais.';
 
   @override
-  String get confirmDatabaseActivation => 'Activate online database';
+  String get confirmDatabaseActivation => 'Activer la base de données en ligne';
 
   @override
   String databaseActivationExplanation(String databaseName) {
-    return '$databaseName is an online service. Searches send your search text and additional metadata to this provider. Before activating it, please review the linked privacy policy and any terms of use.';
+    return '$databaseName est un service en ligne. Lors d\'une recherche, votre texte de recherche et des métadonnées supplémentaires sont transmis à ce fournisseur. Avant de l\'activer, veuillez consulter la politique de confidentialité accessible via le lien ainsi que les conditions d\'utilisation.';
   }
 
   @override
   String get databaseActivationCheckbox =>
-      'I understand that searches are sent to this provider, acknowledge the linked privacy policy, and accept the terms of use, if provided.';
+      'Je comprends que les requêtes de recherche sont transmises à ce prestataire, j\'en prends connaissance de la politique de confidentialité associée et j\'accepte les conditions d\'utilisation, le cas échéant.';
 
   @override
-  String get confirmAndActivate => 'Confirm and activate';
+  String get confirmAndActivate => 'Confirmer et activer';
 
   @override
-  String get easyPersonalization => 'Easy personalization';
+  String get easyPersonalization => 'Personnalisation facile';
 
   @override
   String get easyPersonalizationHint =>
-      'Enter a few body values to calculate suggested targets if desired.';
+      'Si vous le souhaitez, saisissez quelques valeurs corporelles pour calculer les objectifs recommandés.';
 
   @override
-  String get calculateTargets => 'Calculate targets';
+  String get calculateTargets => 'Calculer les objectifs';
 
   @override
-  String get targetsSet => 'Targets set';
+  String get targetsSet => 'Objectifs fixés';
 
   @override
   String get introTargetsSettingsHint =>
-      'You can set these calculated values as your energy and macronutrient targets.';
+      'Vous pouvez définir ces valeurs calculées comme vos objectifs en matière d\'apports énergétiques et de macronutriments.';
 
   @override
   String get introPersonalizationSettingsHint =>
-      'You can keep your current targets by continuing without calculating. Energy distribution, micronutrients, and every target can be adjusted more thoroughly later in Settings.';
+      'Vous pouvez conserver vos objectifs actuels en poursuivant sans effectuer de calculs. La répartition énergétique, les micronutriments et tous les objectifs peuvent être ajustés plus précisément ultérieurement dans les « Paramètres ».';
 
   @override
-  String get skip => 'Skip';
+  String get skip => 'Passer';
 
   @override
   String get settingsSaveError =>
-      'The settings could not be saved. Please try again.';
+      'Les paramètres n\'ont pas pu être enregistrés. Veuillez réessayer.';
 
   @override
-  String get enterPositiveWholeNumber => 'Enter a positive whole number';
+  String get enterPositiveWholeNumber => 'Saisissez un nombre entier positif';
 
   @override
-  String get next => 'Next';
+  String get next => 'Suivant';
 
   @override
-  String get finish => 'Finish';
+  String get finish => 'Terminer';
 
   @override
   String get tracking => 'Suivi';
@@ -183,7 +187,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get trackFood => 'Surveiller la nourriture';
 
   @override
-  String get defaultConsumptionTime => 'Default time of consumption';
+  String get defaultConsumptionTime => 'Heure de consommation par défaut';
 
   @override
   String trackedFoodsSelected(int count) {
@@ -197,20 +201,20 @@ class AppLocalizationsFr extends AppLocalizations {
   }
 
   @override
-  String get copyTrackedFoods => 'Copy';
+  String get copyTrackedFoods => 'Copier';
 
   @override
-  String get moveTrackedFoods => 'Move';
+  String get moveTrackedFoods => 'Déplacer';
 
   @override
-  String get changeTrackedTime => 'Change time';
+  String get changeTrackedTime => 'Modifier l\'heure';
 
   @override
-  String get deleteTrackedFoods => 'Delete';
+  String get deleteTrackedFoods => 'Supprimer';
 
   @override
   String get chooseAnotherDayForMove =>
-      'Choose another day to move the selected food.';
+      'Choisissez un autre jour pour déplacer les aliments sélectionnés.';
 
   @override
   String copiedTrackedFoods(int count) {
@@ -388,10 +392,10 @@ class AppLocalizationsFr extends AppLocalizations {
   String get male => 'Masculin';
 
   @override
-  String get notSpecified => 'Not specified';
+  String get notSpecified => 'Non précisé';
 
   @override
-  String get diverse => 'Diverse';
+  String get diverse => 'Divers';
 
   @override
   String get weight => 'Masse';
@@ -482,7 +486,7 @@ class AppLocalizationsFr extends AppLocalizations {
     String female,
     String male,
   ) {
-    return 'The calculation is only available after entering $age, $weight and $height and currently does only work when selecting $female or $male.';
+    return 'Le calcul n\'est disponible qu\'après avoir saisi $age, $weight et $height et ne fonctionne actuellement que si l\'on sélectionne $female ou $male.';
   }
 
   @override
