@@ -9,6 +9,7 @@ import '../../../models/food/food.dart';
 import '../../log_service_interface.dart';
 import '../food_database_binding_interface.dart';
 import '../food_database_binding_metadata.dart';
+import 'open_food_facts_mapper.dart';
 import 'product_not_found_exception.dart';
 import 'status_aware_product_search_query_configuration.dart';
 
@@ -89,7 +90,7 @@ class OpenFoodFactsBinding implements FoodDatabaseBindingInterface {
     );
 
     if (result.status == ProductResultV3.statusSuccess) {
-      return Food.fromOpenFoodFactsProduct(result.product!);
+      return foodFromOpenFoodFactsProduct(result.product!);
     } else if (barcode.length == 12) {
       // Product uses UPC instead of EAN, try with leading '0'
       final upgradedBarcode = '0$barcode';
@@ -124,7 +125,7 @@ class OpenFoodFactsBinding implements FoodDatabaseBindingInterface {
 
         final product = result.product!;
         product.barcode = barcode;
-        return Food.fromOpenFoodFactsProduct(product);
+        return foodFromOpenFoodFactsProduct(product);
       }
     }
 
@@ -166,7 +167,7 @@ class OpenFoodFactsBinding implements FoodDatabaseBindingInterface {
 
     if (result.products != null) {
       for (var product in result.products!) {
-        transformedProducts.add(Food.fromOpenFoodFactsProduct(product));
+        transformedProducts.add(foodFromOpenFoodFactsProduct(product));
       }
     }
 

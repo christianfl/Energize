@@ -10,6 +10,7 @@ import '../../log_service_interface.dart';
 import '../food_database_binding_interface.dart';
 import '../food_database_binding_metadata.dart';
 import 'models/usda_food.dart';
+import 'usda_food_mapper.dart';
 
 class USDABinding implements FoodDatabaseBindingInterface {
   const USDABinding();
@@ -72,7 +73,7 @@ class USDABinding implements FoodDatabaseBindingInterface {
 
       for (int i = 0; i < counter; i++) {
         final usdaFood = USDAFood.fromJson(foods[i]);
-        foodReturn.add(Food.fromUSDAFoodProduct(usdaFood));
+        foodReturn.add(foodFromUSDAFoodProduct(usdaFood));
       }
 
       return foodReturn;
