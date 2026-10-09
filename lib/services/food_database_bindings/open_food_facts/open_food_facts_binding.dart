@@ -20,15 +20,32 @@ class OpenFoodFactsBinding implements FoodDatabaseBindingInterface {
   @override
   final metadata = const FoodDatabaseBindingMetadata(
     originId: originId,
-    imageUrl: imageUrl,
-    privacyUrl: privacyUrl,
-    termsUrl: termsUrl,
+    imageUrl: 'assets/food_databases/open-food-facts.png',
+    privacyUrl: 'https://world.openfoodfacts.org/privacy',
+    termsUrl: 'https://world.openfoodfacts.org/terms-of-use',
     displayName: _displayName,
     requiresActivationConfirmation: true,
     isOnline: true,
     supportedLanguages: null,
     contentsLabel: _contentsLabel,
+    publisher: _publisher,
+    description: _description,
+    languageDescription: _languageDescription,
+    termsDescription: _termsDescription,
+    contributeUrl: 'https://world.openfoodfacts.org/contribute',
   );
+
+  static String _publisher(AppLocalizations l) =>
+      '${l.nonProfitInstitution} Open Food Facts, ${l.france}';
+
+  static String _description(AppLocalizations localizations) =>
+      localizations.openFoodFactsGeneralInformationText;
+
+  static String _languageDescription(AppLocalizations localizations) =>
+      localizations.openFoodFactsVariousLanguagesText;
+
+  static String _termsDescription(AppLocalizations localizations) =>
+      localizations.openFoodFactsTermsText;
 
   static String _displayName(AppLocalizations localizations) =>
       'Open Food Facts';
@@ -37,12 +54,8 @@ class OpenFoodFactsBinding implements FoodDatabaseBindingInterface {
       localizations.databaseOffContentsShort;
 
   /// Maximum number of products requested for a text search.
-  static const searchPageSize = 10;
+  static const _searchPageSize = 10;
 
-  static const imageUrl = 'assets/food_databases/open-food-facts.png';
-  static const termsUrl = 'https://world.openfoodfacts.org/terms-of-use';
-  static const contributeUrl = 'https://world.openfoodfacts.org/contribute';
-  static const privacyUrl = 'https://world.openfoodfacts.org/privacy';
   static const productUrl = 'https://openfoodfacts.org/product/';
 
   OpenFoodFactsBinding._privateConstructor();
@@ -145,7 +158,7 @@ class OpenFoodFactsBinding implements FoodDatabaseBindingInterface {
     await _ensureInitialized();
     final parameters = <Parameter>[
       const PageNumber(page: 1),
-      const PageSize(size: searchPageSize),
+      const PageSize(size: _searchPageSize),
       const SortBy(option: SortOption.POPULARITY),
       SearchTerms(terms: [normalizedSearchText]),
     ];

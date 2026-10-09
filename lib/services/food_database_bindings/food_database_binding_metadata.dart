@@ -18,6 +18,15 @@ class FoodDatabaseBindingMetadata {
   final String? privacyUrl;
   final bool isOnline;
 
+  // Optional details shown in database management.
+  final String? version;
+  final String Function(AppLocalizations)? publisher;
+  final String Function(AppLocalizations)? description;
+  final String Function(AppLocalizations)? languageDescription;
+  final String Function(AppLocalizations)? termsDescription;
+  final String? sourceUrl;
+  final String? contributeUrl;
+
   /// Language codes, or null for a database covering various languages.
   final List<String>? supportedLanguages;
 
@@ -33,6 +42,13 @@ class FoodDatabaseBindingMetadata {
     this.termsUrl,
     this.privacyUrl,
     required this.isOnline,
+    this.version,
+    this.publisher,
+    this.description,
+    this.languageDescription,
+    this.termsDescription,
+    this.sourceUrl,
+    this.contributeUrl,
     required this.supportedLanguages,
     required this.contentsLabel,
   });

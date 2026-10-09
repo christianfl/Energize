@@ -21,14 +21,27 @@ class USDABinding implements FoodDatabaseBindingInterface {
   @override
   final metadata = const FoodDatabaseBindingMetadata(
     originId: originId,
-    imageUrl: imageUrl,
-    privacyUrl: privacyUrl,
+    imageUrl: 'assets/food_databases/us-department-of-agriculture.png',
+    privacyUrl: 'https://www.usda.gov/privacy-policy',
     displayName: _displayName,
     requiresActivationConfirmation: true,
     isOnline: true,
     supportedLanguages: ['en'],
     contentsLabel: _contentsLabel,
+    publisher: _publisher,
+    description: _description,
+    languageDescription: _languageDescription,
+    sourceUrl: 'https://fdc.nal.usda.gov/index.html',
   );
+
+  static String _publisher(AppLocalizations localizations) =>
+      'U.S. Department of Agriculture, Agricultural Research Service. FoodData Central, 2019. fdc.nal.usda.gov.';
+
+  static String _description(AppLocalizations localizations) =>
+      localizations.usdaFoodDataCentralGeneralInformationText;
+
+  static String _languageDescription(AppLocalizations localizations) =>
+      localizations.english;
 
   static String _displayName(AppLocalizations localizations) =>
       'USDA FoodData Central';
@@ -37,12 +50,7 @@ class USDABinding implements FoodDatabaseBindingInterface {
       localizations.databaseUsdaContentsShort;
 
   /// Maximum number of foods returned from a text search.
-  static const searchResultLimit = 10;
-
-  static const imageUrl =
-      'assets/food_databases/us-department-of-agriculture.png';
-  static const sourceUrl = 'https://fdc.nal.usda.gov/index.html';
-  static const privacyUrl = 'https://www.usda.gov/privacy-policy';
+  static const _searchResultLimit = 10;
 
   static final _apiKey = dotenv.env['API_KEY_USDA'];
 
@@ -66,8 +74,8 @@ class USDABinding implements FoodDatabaseBindingInterface {
       final List<dynamic> foods = decodedResponse['foods'];
       final List<Food> foodReturn = [];
 
-      int counter = searchResultLimit;
-      if (foods.length < searchResultLimit) {
+      int counter = _searchResultLimit;
+      if (foods.length < _searchResultLimit) {
         counter = foods.length;
       }
 

@@ -18,13 +18,27 @@ class SwissFoodCompositionDatabaseBinding
   final metadata = const FoodDatabaseBindingMetadata(
     originId: originId,
     legacyOriginIds: ['SNDB'],
-    imageUrl: imageUrl,
+    imageUrl: 'assets/food_databases/swiss-food-composition-database.png',
     displayName: _displayName,
     requiresActivationConfirmation: false,
     isOnline: false,
     supportedLanguages: ['en', 'de', 'fr', 'it'],
     contentsLabel: _contentsLabel,
+    version: '7.0',
+    publisher: _publisher,
+    description: _description,
+    languageDescription: _languageDescription,
+    sourceUrl: 'https://naehrwertdaten.ch/de/',
   );
+
+  static String _publisher(AppLocalizations localizations) =>
+      '${localizations.federalFoodSafetyAndVeterinaryOffice}, ${localizations.switzerland}';
+
+  static String _description(AppLocalizations localizations) =>
+      localizations.swissFoodCompositionDatabaseGeneralInformationText;
+
+  static String _languageDescription(AppLocalizations l) =>
+      '${l.english}, ${l.german}, ${l.italian}, ${l.french}';
 
   static String _displayName(AppLocalizations localizations) =>
       localizations.swissFoodCompositionDatabase;
@@ -32,10 +46,7 @@ class SwissFoodCompositionDatabaseBinding
   static String _contentsLabel(AppLocalizations localizations) =>
       localizations.databaseSwissContentsShort;
 
-  static const imageUrl =
-      'assets/food_databases/swiss-food-composition-database.png';
-  static const sourceUrl = 'https://naehrwertdaten.ch/de/';
-  static const databaseCsvUrl = 'assets/food_databases/sfcd.csv';
+  static const _databaseCsvUrl = 'assets/food_databases/sfcd.csv';
 
   /// Searches for matching food in the Swiss Food Composition Database.
   ///
@@ -77,7 +88,7 @@ class SwissFoodCompositionDatabaseBinding
     }
 
     // Read data from CSV file
-    final String csvAsString = await rootBundle.loadString(databaseCsvUrl);
+    final String csvAsString = await rootBundle.loadString(_databaseCsvUrl);
     // Separate each line of the CSV file for iteration
     final List<String> csvLines = csvAsString.split('\n');
 

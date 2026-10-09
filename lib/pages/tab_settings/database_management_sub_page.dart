@@ -4,9 +4,8 @@ import 'package:url_launcher/url_launcher.dart';
 
 import '../../l10n/app_localizations.dart';
 import '../../providers/log_provider.dart';
-import '../../services/food_database_bindings/open_food_facts/open_food_facts_binding.dart';
-import '../../services/food_database_bindings/swiss_food_composition_database/swiss_food_composition_database_binding.dart';
-import '../../services/food_database_bindings/usda/usda_binding.dart';
+import '../../services/food_database_bindings/food_database_binding_metadata.dart';
+import '../../services/food_database_bindings/food_databases.dart';
 import '../../widgets/food_database_switch_list_tile.dart';
 
 class DatabaseManagementSubPage extends StatefulWidget {
@@ -20,8 +19,7 @@ class DatabaseManagementSubPage extends StatefulWidget {
 }
 
 class DatabaseManagementSubPageState extends State<DatabaseManagementSubPage> {
-  var _activeOfflinePanelIndex = -1;
-  var _activeOnlinePanelIndex = -1;
+  String? _expandedOriginId;
 
   /// Returns an [Image.asset] with the given [imageUrl] on white background.
   Widget _foodDatabaseLogoContainer(String imageUrl) {
@@ -46,248 +44,109 @@ class DatabaseManagementSubPageState extends State<DatabaseManagementSubPage> {
     }
   }
 
+  /// Tappable settings tile which opens an external link.
+  Widget _linkTile(String title, String url, {String? subtitle}) {
+    return ListTile(
+      onTap: () => _openUrl(url),
+      title: Text(title),
+      subtitle: subtitle == null ? null : Text(subtitle),
+      trailing: const Icon(Icons.link),
+    );
+  }
+
+  /// Shows food database details in an expanded expansion panel.
+  Widget _databaseDetails(FoodDatabaseBindingMetadata database) {
+    final l = AppLocalizations.of(context)!;
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        _foodDatabaseLogoContainer(database.imageUrl),
+        if (database.version case final version?)
+          ListTile(title: Text(l.version), subtitle: Text(version)),
+        ListTile(
+          title: Text(
+            database.supportedLanguages?.length == 1 ? l.language : l.languages,
+          ),
+          subtitle: Text(
+            database.languageDescription?.call(l) ?? database.languagesLabel(l),
+          ),
+        ),
+        if (database.publisher case final publisher?)
+          ListTile(title: Text(l.publisher), subtitle: Text(publisher(l))),
+        if (database.description case final description?)
+          ListTile(
+            title: Text(l.generalInformation),
+            subtitle: Text(description(l)),
+          ),
+        if (database.sourceUrl case final url?)
+          _linkTile(l.source, url, subtitle: l.tapHereForFurtherInformation),
+        if (database.termsUrl case final url?)
+          _linkTile(
+            l.termsOfUse,
+            url,
+            subtitle: database.termsDescription?.call(l),
+          ),
+        if (database.contributeUrl case final url?)
+          _linkTile(l.contribute, url, subtitle: l.databaseContributeText),
+        if (database.privacyUrl case final url?)
+          _linkTile(l.privacyPolicy, url),
+      ],
+    );
+  }
+
+  /// Builds one group per "offline" and "online" food databases.
+  Widget _databaseGroup(bool isOnline, AppLocalizations l) {
+    final databases = foodDatabases
+        .map((binding) => binding.metadata)
+        .where((database) => database.isOnline == isOnline)
+        .toList();
+    if (databases.isEmpty) return const SizedBox.shrink();
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          isOnline ? l.serverBased : l.storedOnDevice,
+          style: Theme.of(context).textTheme.headlineMedium,
+        ),
+        const SizedBox(height: 16.0),
+        ExpansionPanelList(
+          expansionCallback: (index, isExpanded) {
+            setState(() {
+              _expandedOriginId = _expandedOriginId == databases[index].originId
+                  ? null
+                  : databases[index].originId;
+            });
+          },
+          children: [
+            for (final database in databases)
+              ExpansionPanel(
+                isExpanded: _expandedOriginId == database.originId,
+                canTapOnHeader: true,
+                headerBuilder: (context, isExpanded) =>
+                    FoodDatabaseSwitchListTile(database: database),
+                body: _databaseDetails(database),
+              ),
+          ],
+        ),
+        const SizedBox(height: 16.0),
+      ],
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
+    final l = AppLocalizations.of(context)!;
+
     return Scaffold(
-      appBar: AppBar(
-        title: Text(AppLocalizations.of(context)!.databaseManagement),
-      ),
+      appBar: AppBar(title: Text(l.databaseManagement)),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              AppLocalizations.of(context)!.storedOnDevice,
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
-            const SizedBox(height: 16.0),
-            ExpansionPanelList(
-              expansionCallback: (panelIndex, isExpanded) {
-                setState(() {
-                  _activeOnlinePanelIndex = -1;
-                  if (_activeOfflinePanelIndex == panelIndex) {
-                    _activeOfflinePanelIndex = -1;
-                  } else {
-                    _activeOfflinePanelIndex = panelIndex;
-                  }
-                });
-              },
-              children: <ExpansionPanel>[
-                ExpansionPanel(
-                  isExpanded: _activeOfflinePanelIndex == 0,
-                  canTapOnHeader: true,
-                  headerBuilder: (context, isExpanded) {
-                    return FoodDatabaseSwitchListTile(
-                      database: SwissFoodCompositionDatabaseBinding().metadata,
-                    );
-                  },
-                  body: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      _foodDatabaseLogoContainer(
-                        SwissFoodCompositionDatabaseBinding.imageUrl,
-                      ),
-                      ListTile(
-                        title: Text(AppLocalizations.of(context)!.version),
-                        subtitle: const Text('7.0'),
-                      ),
-                      ListTile(
-                        title: Text(AppLocalizations.of(context)!.languages),
-                        subtitle: Text(
-                          '${AppLocalizations.of(context)!.english}, ${AppLocalizations.of(context)!.german}, ${AppLocalizations.of(context)!.italian}, ${AppLocalizations.of(context)!.french}',
-                        ),
-                      ),
-                      ListTile(
-                        title: Text(AppLocalizations.of(context)!.publisher),
-                        subtitle: Text(
-                          '${AppLocalizations.of(context)!.federalFoodSafetyAndVeterinaryOffice}, ${AppLocalizations.of(context)!.switzerland}',
-                        ),
-                        isThreeLine: true,
-                      ),
-                      ListTile(
-                        title: Text(
-                          AppLocalizations.of(context)!.generalInformation,
-                        ),
-                        subtitle: Text(
-                          AppLocalizations.of(
-                            context,
-                          )!.swissFoodCompositionDatabaseGeneralInformationText,
-                        ),
-                        isThreeLine: true,
-                      ),
-                      InkWell(
-                        onTap: () => _openUrl(
-                          SwissFoodCompositionDatabaseBinding.sourceUrl,
-                        ),
-                        child: ListTile(
-                          title: Text(AppLocalizations.of(context)!.source),
-                          subtitle: Text(
-                            AppLocalizations.of(
-                              context,
-                            )!.tapHereForFurtherInformation,
-                          ),
-                          trailing: const Icon(Icons.link),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 16.0),
-            Text(
-              AppLocalizations.of(context)!.serverBased,
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
-            const SizedBox(height: 16.0),
-            ExpansionPanelList(
-              expansionCallback: (panelIndex, isExpanded) {
-                setState(() {
-                  _activeOfflinePanelIndex = -1;
-                  if (_activeOnlinePanelIndex == panelIndex) {
-                    _activeOnlinePanelIndex = -1;
-                  } else {
-                    _activeOnlinePanelIndex = panelIndex;
-                  }
-                });
-              },
-              children: <ExpansionPanel>[
-                ExpansionPanel(
-                  isExpanded: _activeOnlinePanelIndex == 0,
-                  canTapOnHeader: true,
-                  headerBuilder: (context, isExpanded) {
-                    return FoodDatabaseSwitchListTile(
-                      database: OpenFoodFactsBinding().metadata,
-                    );
-                  },
-                  body: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      _foodDatabaseLogoContainer(OpenFoodFactsBinding.imageUrl),
-                      ListTile(
-                        title: Text(AppLocalizations.of(context)!.language),
-                        subtitle: Text(
-                          AppLocalizations.of(
-                            context,
-                          )!.openFoodFactsVariousLanguagesText,
-                        ),
-                      ),
-                      ListTile(
-                        title: Text(AppLocalizations.of(context)!.publisher),
-                        subtitle: Text(
-                          '${AppLocalizations.of(context)!.nonProfitInstitution} Open Food Facts, ${AppLocalizations.of(context)!.france}',
-                        ),
-                        isThreeLine: true,
-                      ),
-                      ListTile(
-                        title: Text(
-                          AppLocalizations.of(context)!.generalInformation,
-                        ),
-                        subtitle: Text(
-                          AppLocalizations.of(
-                            context,
-                          )!.openFoodFactsGeneralInformationText,
-                        ),
-                      ),
-                      InkWell(
-                        onTap: () => _openUrl(OpenFoodFactsBinding.termsUrl),
-                        child: ListTile(
-                          title: Text(AppLocalizations.of(context)!.termsOfUse),
-                          subtitle: Text(
-                            AppLocalizations.of(
-                              context,
-                            )!.openFoodFactsTermsText,
-                          ),
-                          trailing: const Icon(Icons.link),
-                          isThreeLine: true,
-                        ),
-                      ),
-                      InkWell(
-                        onTap: () =>
-                            _openUrl(OpenFoodFactsBinding.contributeUrl),
-                        child: ListTile(
-                          title: Text(AppLocalizations.of(context)!.contribute),
-                          subtitle: Text(
-                            AppLocalizations.of(
-                              context,
-                            )!.databaseContributeText,
-                          ),
-                          trailing: const Icon(Icons.link),
-                          isThreeLine: true,
-                        ),
-                      ),
-                      InkWell(
-                        onTap: () => _openUrl(OpenFoodFactsBinding.privacyUrl),
-                        child: ListTile(
-                          title: Text(
-                            AppLocalizations.of(context)!.privacyPolicy,
-                          ),
-                          trailing: const Icon(Icons.link),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                ExpansionPanel(
-                  isExpanded: _activeOnlinePanelIndex == 1,
-                  canTapOnHeader: true,
-                  headerBuilder: (context, isExpanded) {
-                    return FoodDatabaseSwitchListTile(
-                      database: USDABinding().metadata,
-                    );
-                  },
-                  body: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      _foodDatabaseLogoContainer(USDABinding.imageUrl),
-                      ListTile(
-                        title: Text(AppLocalizations.of(context)!.language),
-                        subtitle: Text(AppLocalizations.of(context)!.english),
-                      ),
-                      ListTile(
-                        title: Text(AppLocalizations.of(context)!.publisher),
-                        subtitle: const Text(
-                          'U.S. Department of Agriculture, Agricultural Research Service. FoodData Central, 2019. fdc.nal.usda.gov.',
-                        ),
-                        isThreeLine: true,
-                      ),
-                      ListTile(
-                        title: Text(
-                          AppLocalizations.of(context)!.generalInformation,
-                        ),
-                        subtitle: Text(
-                          AppLocalizations.of(
-                            context,
-                          )!.usdaFoodDataCentralGeneralInformationText,
-                        ),
-                      ),
-                      InkWell(
-                        onTap: () => _openUrl(USDABinding.sourceUrl),
-                        child: ListTile(
-                          title: Text(AppLocalizations.of(context)!.source),
-                          subtitle: Text(
-                            AppLocalizations.of(
-                              context,
-                            )!.tapHereForFurtherInformation,
-                          ),
-                          trailing: const Icon(Icons.link),
-                        ),
-                      ),
-                      InkWell(
-                        onTap: () => _openUrl(USDABinding.privacyUrl),
-                        child: ListTile(
-                          title: Text(
-                            AppLocalizations.of(context)!.privacyPolicy,
-                          ),
-                          trailing: const Icon(Icons.link),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
+            for (final isOnline in [false, true]) _databaseGroup(isOnline, l),
           ],
         ),
       ),
