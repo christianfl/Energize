@@ -336,7 +336,7 @@ class SwissFoodCompositionDatabaseBinding
 
     // Divide value for matching units
     if (divideBy != null && value != null) {
-      value /= 1000;
+      value /= divideBy;
     }
 
     return value;
