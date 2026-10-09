@@ -33,7 +33,7 @@ class AddEditCustomFoodModalState extends State<AddEditCustomFoodModal> {
   var activePanelIndex = 0;
   Food foodToEditOrCreate = Food(
     id: 'temp',
-    origin: CustomFoodPage.originName,
+    origin: CustomFoodPage.originId,
     title: '',
   );
   final _formKey = GlobalKey<FormState>();
@@ -425,7 +425,7 @@ class AddEditCustomFoodModalState extends State<AddEditCustomFoodModal> {
 
     foodToEditOrCreate.title = _foodTitleController.text;
     foodToEditOrCreate.ean = _foodEanController.text;
-    foodToEditOrCreate.origin = CustomFoodPage.originName;
+    foodToEditOrCreate.origin = CustomFoodPage.originId;
     foodToEditOrCreate.servingSizes = _foodServingSizes.isNotEmpty
         ? _foodServingSizes
         : null;

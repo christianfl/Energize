@@ -24,7 +24,7 @@ void main() {
     final foodToTrack = Food(
       id: Food.generatedId,
       title: 'My food to track',
-      origin: CustomFoodPage.originName,
+      origin: CustomFoodPage.originId,
       servingSizes: {'l10nServing': 120},
     );
 

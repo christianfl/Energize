@@ -587,8 +587,7 @@ class TrackFoodState extends State<TrackFood>
                                 height: _pillHeight,
                                 isConstrained: false,
                                 onTapCallback:
-                                    food.origin ==
-                                        OpenFoodFactsBinding.originName
+                                    food.origin == OpenFoodFactsBinding.originId
                                     ? () => _launchOpenFoodFactsUrl(food.ean!)
                                     : null,
                               ),

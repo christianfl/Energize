@@ -24,7 +24,7 @@ Future<bool> setFoodDatabaseActivation(
     if (!accepted || !context.mounted) return false;
   }
 
-  return settings.setFoodDatabaseActivated(database.originName, activate);
+  return settings.setFoodDatabaseActivated(database.originId, activate);
 }
 
 /// Ensures every activated database has its current notice confirmed.
@@ -36,9 +36,9 @@ Future<bool> ensureEnabledFoodDatabaseConsents(
 
   for (final binding in foodDatabases) {
     final database = binding.metadata;
-    if (!settings.isFoodDatabaseActivated(database.originName) ||
+    if (!settings.isFoodDatabaseActivated(database.originId) ||
         !database.requiresActivationConfirmation ||
-        confirmedDatabases.contains(database.originName)) {
+        confirmedDatabases.contains(database.originId)) {
       continue;
     }
 
@@ -46,7 +46,7 @@ Future<bool> ensureEnabledFoodDatabaseConsents(
         !await requestFoodDatabaseActivationConsent(context, database)) {
       return false;
     }
-    confirmedDatabases.add(database.originName);
+    confirmedDatabases.add(database.originId);
   }
 
   return true;

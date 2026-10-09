@@ -13,10 +13,12 @@ import 'product_not_found_exception.dart';
 import 'status_aware_product_search_query_configuration.dart';
 
 class OpenFoodFactsBinding implements FoodDatabaseBindingInterface {
-  static const originName = 'OFF';
+  /// See [FoodDatabaseBindingMetadata.originId].
+  static const originId = 'OFF';
+
   @override
   final metadata = const FoodDatabaseBindingMetadata(
-    originName: originName,
+    originId: originId,
     imageUrl: imageUrl,
     privacyUrl: privacyUrl,
     termsUrl: termsUrl,

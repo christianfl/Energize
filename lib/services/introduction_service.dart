@@ -89,15 +89,15 @@ class IntroductionService {
     for (final binding in foodDatabases) {
       final database = binding.metadata;
       final activated = isExistingInstallation
-          ? appSettings.isFoodDatabaseActivated(database.originName)
+          ? appSettings.isFoodDatabaseActivated(database.originId)
           : false;
       final saved = await appSettings.setFoodDatabaseActivated(
-        database.originName,
+        database.originId,
         activated,
       );
       if (!saved) {
         throw StateError(
-          'Could not initialize ${database.originName} activation',
+          'Could not initialize ${database.originId} activation',
         );
       }
     }

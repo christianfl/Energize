@@ -71,7 +71,7 @@ class _IntroductionPageState extends State<IntroductionPage> {
       _confirmedDatabases.addAll(
         foodDatabases
             .map((binding) => binding.metadata)
-            .map((database) => database.originName)
+            .map((database) => database.originId)
             .where(settings.isFoodDatabaseActivated),
       );
     }
@@ -285,7 +285,7 @@ class _IntroductionPageState extends State<IntroductionPage> {
                     IntroductionTextPage(localizations: localizations),
                     DatabaseSelectionPage(
                       onDatabaseActivated: (database) =>
-                          _confirmedDatabases.add(database.originName),
+                          _confirmedDatabases.add(database.originId),
                     ),
                     ExcludeFocus(
                       excluding: _isSaving,

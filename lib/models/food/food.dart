@@ -325,7 +325,7 @@ class Food {
     final food = Food(
       id: generatedId,
       title: '',
-      origin: OpenFoodFactsBinding.originName,
+      origin: OpenFoodFactsBinding.originId,
     );
 
     // Title
@@ -581,7 +581,7 @@ class Food {
     // Create Food object
     final food = Food(
       id: generatedId,
-      origin: USDABinding.originName,
+      origin: USDABinding.originId,
       title: usdaFood.description ?? '',
     );
 

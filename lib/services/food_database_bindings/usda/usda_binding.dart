@@ -14,10 +14,12 @@ import 'models/usda_food.dart';
 class USDABinding implements FoodDatabaseBindingInterface {
   const USDABinding();
 
-  static const originName = 'USDA';
+  /// See [FoodDatabaseBindingMetadata.originId].
+  static const originId = 'USDA';
+
   @override
   final metadata = const FoodDatabaseBindingMetadata(
-    originName: originName,
+    originId: originId,
     imageUrl: imageUrl,
     privacyUrl: privacyUrl,
     displayName: _displayName,

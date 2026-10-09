@@ -27,7 +27,7 @@ void main() {
 
       for (final binding in foodDatabases) {
         final database = binding.metadata;
-        expect(settings.isFoodDatabaseActivated(database.originName), isFalse);
+        expect(settings.isFoodDatabaseActivated(database.originId), isFalse);
       }
       expect(
         storage.keyValueStorage[AppSettings.isProviderSndbActivatedKey],

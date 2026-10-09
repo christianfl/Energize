@@ -23,14 +23,14 @@ class FoodOriginLogoPill extends StatelessWidget {
   });
 
   String? get _assetUrl {
-    if (foodOrigin == CustomFoodPage.originName) {
+    if (foodOrigin == CustomFoodPage.originId) {
       return CustomFoodPage.imageUrl;
     }
 
     for (final database in foodDatabases) {
       final metadata = database.metadata;
-      if (metadata.originName == foodOrigin ||
-          metadata.originAliases.contains(foodOrigin)) {
+      if (metadata.originId == foodOrigin ||
+          metadata.legacyOriginIds.contains(foodOrigin)) {
         return metadata.imageUrl;
       }
     }
@@ -40,7 +40,7 @@ class FoodOriginLogoPill extends StatelessWidget {
 
   Color? _getColor(BuildContext context) {
     switch (foodOrigin) {
-      case CustomFoodPage.originName:
+      case CustomFoodPage.originId:
         return Theme.of(context).colorScheme.secondary;
     }
 
@@ -72,7 +72,7 @@ class FoodOriginLogoPill extends StatelessWidget {
                 maxWidth: isConstrained ? 110 : double.infinity,
               ),
               child: Text(
-                foodOrigin == CustomFoodPage.originName
+                foodOrigin == CustomFoodPage.originId
                     ? AppLocalizations.of(context)!.customFood
                     : foodOrigin,
                 style: TextStyle(

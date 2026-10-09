@@ -34,8 +34,7 @@ class _FoodDatabaseSwitchListTileState
   Widget build(BuildContext context) {
     final localizations = AppLocalizations.of(context)!;
     final activated = context.select<AppSettingsProvider, bool>(
-      (settings) =>
-          settings.isFoodDatabaseActivated(widget.database.originName),
+      (settings) => settings.isFoodDatabaseActivated(widget.database.originId),
     );
 
     return SwitchListTile(

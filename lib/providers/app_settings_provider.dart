@@ -81,13 +81,13 @@ class AppSettingsProvider with ChangeNotifier {
   bool get isProviderSndbActivated => _settings.isProviderSndbActivated;
   bool get isProviderUsdaActivated => _settings.isProviderUsdaActivated;
 
-  /// Returns whether the database with [originName] is currently activated.
-  bool isFoodDatabaseActivated(String originName) {
-    return switch (originName) {
-      SwissFoodCompositionDatabaseBinding.originName => isProviderSndbActivated,
-      OpenFoodFactsBinding.originName => isProviderOpenFoodFactsActivated,
-      USDABinding.originName => isProviderUsdaActivated,
-      _ => throw ArgumentError.value(originName, 'originName'),
+  /// Returns whether the database with [originId] is currently activated.
+  bool isFoodDatabaseActivated(String originId) {
+    return switch (originId) {
+      SwissFoodCompositionDatabaseBinding.originId => isProviderSndbActivated,
+      OpenFoodFactsBinding.originId => isProviderOpenFoodFactsActivated,
+      USDABinding.originId => isProviderUsdaActivated,
+      _ => throw ArgumentError.value(originId, 'originId'),
     };
   }
 
@@ -152,25 +152,25 @@ class AppSettingsProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  /// Persists activation for [originName] and waits for completion.
-  Future<bool> setFoodDatabaseActivated(String originName, bool value) async {
-    final key = switch (originName) {
-      SwissFoodCompositionDatabaseBinding.originName =>
+  /// Persists activation for [originId] and waits for completion.
+  Future<bool> setFoodDatabaseActivated(String originId, bool value) async {
+    final key = switch (originId) {
+      SwissFoodCompositionDatabaseBinding.originId =>
         AppSettings.isProviderSndbActivatedKey,
-      OpenFoodFactsBinding.originName =>
+      OpenFoodFactsBinding.originId =>
         AppSettings.isProviderOpenFoodFactsActivatedKey,
-      USDABinding.originName => AppSettings.isProviderUsdaActivatedKey,
-      _ => throw ArgumentError.value(originName, 'originName'),
+      USDABinding.originId => AppSettings.isProviderUsdaActivatedKey,
+      _ => throw ArgumentError.value(originId, 'originId'),
     };
 
     try {
       await _keyValueStorage.setValue<bool>(key, value);
-      switch (originName) {
-        case SwissFoodCompositionDatabaseBinding.originName:
+      switch (originId) {
+        case SwissFoodCompositionDatabaseBinding.originId:
           _settings.isProviderSndbActivated = value;
-        case OpenFoodFactsBinding.originName:
+        case OpenFoodFactsBinding.originId:
           _settings.isProviderOpenFoodFactsActivated = value;
-        case USDABinding.originName:
+        case USDABinding.originId:
           _settings.isProviderUsdaActivated = value;
       }
       notifyListeners();

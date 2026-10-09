@@ -10,7 +10,7 @@ import '../../widgets/food_list_item.dart';
 import 'add_edit_custom_food_modal.dart';
 
 class CustomFoodPage extends StatefulWidget {
-  static const originName = 'CUSTOM';
+  static const originId = 'CUSTOM';
   static const imageUrl = 'assets/food_databases/custom-foods.png';
 
   static const double _entryPillHeight = 35;

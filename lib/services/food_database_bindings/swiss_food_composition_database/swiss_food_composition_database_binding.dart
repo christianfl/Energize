@@ -11,12 +11,14 @@ class SwissFoodCompositionDatabaseBinding
     implements FoodDatabaseBindingInterface {
   const SwissFoodCompositionDatabaseBinding();
 
-  static const originName = 'SFCDB';
+  /// See [FoodDatabaseBindingMetadata.originId].
+  static const originId = 'SFCDB';
+
   @override
   final metadata = const FoodDatabaseBindingMetadata(
-    originName: originName,
+    originId: originId,
+    legacyOriginIds: ['SNDB'],
     imageUrl: imageUrl,
-    originAliases: ['SNDB'],
     displayName: _displayName,
     requiresActivationConfirmation: false,
     isOnline: false,
@@ -128,7 +130,7 @@ class SwissFoodCompositionDatabaseBinding
               // Metadata
               id: Food.generatedId,
               title: matchedTitle,
-              origin: SwissFoodCompositionDatabaseBinding.originName,
+              origin: SwissFoodCompositionDatabaseBinding.originId,
 
               // Calories and macros
               calories: _getNutrientValueByColName(

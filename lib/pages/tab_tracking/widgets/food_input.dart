@@ -436,7 +436,7 @@ class FoodInputState extends State<FoodInput>
     final activeDatabases = foodDatabases
         .where(
           (database) =>
-              appSettings.isFoodDatabaseActivated(database.metadata.originName),
+              appSettings.isFoodDatabaseActivated(database.metadata.originId),
         )
         .toList();
 
@@ -572,7 +572,7 @@ class FoodInputState extends State<FoodInput>
 
       if (!mounted) return;
       setState(() {
-        _failedFoodDatabaseOrigins.add(database.metadata.originName);
+        _failedFoodDatabaseOrigins.add(database.metadata.originId);
       });
       return;
     }
@@ -664,7 +664,7 @@ class FoodInputState extends State<FoodInput>
             AddEditCustomFoodModalMode.addNew,
             Food(
               id: Food.generatedId,
-              origin: CustomFoodPage.originName,
+              origin: CustomFoodPage.originId,
               title: '',
               ean: barcode,
             ),
@@ -821,7 +821,7 @@ class FoodInputState extends State<FoodInput>
                 const SizedBox(height: 12),
                 for (final database in foodDatabases)
                   if (_failedFoodDatabaseOrigins.contains(
-                    database.metadata.originName,
+                    database.metadata.originId,
                   ))
                     ListTile(
                       title: Text(
@@ -832,7 +832,7 @@ class FoodInputState extends State<FoodInput>
                       trailing: SizedBox(
                         width: 72,
                         height: 46,
-                        child: FoodOriginLogoPill(database.metadata.originName),
+                        child: FoodOriginLogoPill(database.metadata.originId),
                       ),
                     ),
               ],

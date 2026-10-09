@@ -92,7 +92,7 @@ void main() {
       dateAdded: now,
       dateEaten: now,
       title: 'My tracked food 1',
-      origin: CustomFoodPage.originName,
+      origin: CustomFoodPage.originId,
     );
     final myFood2 = FoodTracked(
       id: Food.generatedId,
@@ -100,7 +100,7 @@ void main() {
       dateAdded: now,
       dateEaten: now,
       title: 'My tracked food 2',
-      origin: CustomFoodPage.originName,
+      origin: CustomFoodPage.originId,
     );
     final myFood3 = FoodTracked(
       id: Food.generatedId,
@@ -108,7 +108,7 @@ void main() {
       dateAdded: now,
       dateEaten: twoHoursAgo,
       title: 'My tracked food 3',
-      origin: CustomFoodPage.originName,
+      origin: CustomFoodPage.originId,
     );
 
     // Add tracked food
