@@ -1,0 +1,11 @@
+- [feat] Add intro screen for new users, showing once for existing users, too
+- [feat] Body data is now nullable and supports new sex options (using not specified as new default)
+- [fix] Do not parse Open Food Facts serving sizes with 0 g size
+- [fix] Improve reliability of automatic screenshot creation
+- [fix] Time picker for consumption time template now allows keyboard input
+- [fix] Several minor fixes and improvements
+- [l10n]¹ Updated Estonian, French
+
+---
+
+¹Big thanks to all contributors!
