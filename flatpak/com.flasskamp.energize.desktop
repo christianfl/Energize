@@ -4,5 +4,5 @@ Comment=Track your nutrition easily and fast.
 Exec=energize
 Type=Application
 Icon=com.flasskamp.energize
-Categories=Utility;Education;MedicalSoftware;
+Categories=HealthFitness;Nutrition;
 X-Purism-FormFactor=Workstation;Mobile;
