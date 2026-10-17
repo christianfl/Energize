@@ -1,5 +1,5 @@
 {
-  "id": "com.flasskamp.Energize",
+  "id": "com.flasskamp.energize",
   "runtime": "org.freedesktop.Platform",
   "runtime-version": "25.08",
   "sdk": "org.freedesktop.Sdk",
@@ -26,10 +26,10 @@
         "ln -s /app/energize/energize /app/bin/energize",
         "ln -s /usr/lib/x86_64-linux-gnu/libsqlite3.so.0 /app/lib/libsqlite3.so",
         "if [ ! -e '/app/lib/libsqlite3.so' ]; then ln -s -f /usr/lib/aarch64-linux-gnu/libsqlite3.so.0 /app/lib/libsqlite3.so; fi",
-        "if [ $(arch) == \"aarch64\" ]; then sed -si \"/Exec=/cExec=env GDK_GL=gles energize\" com.flasskamp.Energize.desktop; fi",
-        "install -Dm644 com.flasskamp.Energize.desktop /app/share/applications/com.flasskamp.Energize.desktop",
-        "install -Dm644 com.flasskamp.Energize.metainfo.xml /app/share/appdata/com.flasskamp.Energize.metainfo.xml",
-        "install -Dm644 com.flasskamp.Energize.png /app/share/icons/hicolor/128x128/apps/com.flasskamp.Energize.png"
+        "if [ $(arch) == \"aarch64\" ]; then sed -si \"/Exec=/cExec=env GDK_GL=gles energize\" com.flasskamp.energize.desktop; fi",
+        "install -Dm644 com.flasskamp.energize.desktop /app/share/applications/com.flasskamp.energize.desktop",
+        "install -Dm644 com.flasskamp.energize.metainfo.xml /app/share/appdata/com.flasskamp.energize.metainfo.xml",
+        "install -Dm644 com.flasskamp.energize.png /app/share/icons/hicolor/128x128/apps/com.flasskamp.energize.png"
       ],
       "sources": [
         {
@@ -52,15 +52,15 @@
         },
         {
           "type": "file",
-          "path": "com.flasskamp.Energize.metainfo.xml"
+          "path": "com.flasskamp.energize.metainfo.xml"
         },
         {
           "type": "file",
-          "path": "com.flasskamp.Energize.desktop"
+          "path": "com.flasskamp.energize.desktop"
         },
         {
           "type": "file",
-          "path": "com.flasskamp.Energize.png"
+          "path": "com.flasskamp.energize.png"
         }
       ]
     }

@@ -78,13 +78,13 @@ The linux build at runtime depends on sqlite, libsecret, and a keyring service s
 Build (aarch64):
 
 ```bash
-flatpak-builder --arch=aarch64 --repo=repo-aarch64 --force-clean build-aarch64 flatpak/com.flasskamp.Energize.json
+flatpak-builder --arch=aarch64 --repo=repo-aarch64 --force-clean build-aarch64 flatpak/com.flasskamp.energize.json
 ```
 
 Create bundle (aarch64):
 
 ```bash
-flatpak build-bundle repo-aarch64 energize-aarch64.flatpak com.flasskamp.Energize --arch=aarch64
+flatpak build-bundle repo-aarch64 energize-aarch64.flatpak com.flasskamp.energize --arch=aarch64
 ```
 
 Install on host (aarch64):

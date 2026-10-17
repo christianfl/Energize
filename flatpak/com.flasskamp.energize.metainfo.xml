@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <component type="desktop-application">
-    <id>com.flasskamp.Energize</id>
+    <id>com.flasskamp.energize</id>
 
     <name>Energize</name>
     <summary>Track your nutrition easily and fast.</summary>
@@ -37,7 +37,7 @@
         </ul>
     </description>
 
-    <launchable type="desktop-id">com.flasskamp.Energize.desktop</launchable>
+    <launchable type="desktop-id">com.flasskamp.energize.desktop</launchable>
     <screenshots>
         <screenshot type="default">
             <image>
