@@ -17,7 +17,7 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get appDescription =>
-      'Beobachte einfach und schnell deine Ernährung und Lebensmittel . Scanne deine Produkte oder suche manuell in verschiedenen Datenbanken.';
+      'Beobachte einfach und schnell deine Ernährung und Lebensmittel. Scanne deine Produkte oder suche manuell in verschiedenen Datenbanken.';
 
   @override
   String get ok => 'OK';
