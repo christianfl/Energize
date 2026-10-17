@@ -1,7 +1,7 @@
 {
     "appName": "Energize",
     "appDescriptionShort": "Beobachte einfach und schnell, was du isst.",
-    "appDescription": "Beobachte einfach und schnell deine Ernährung und Lebensmittel . Scanne deine Produkte oder suche manuell in verschiedenen Datenbanken.",
+    "appDescription": "Beobachte einfach und schnell deine Ernährung und Lebensmittel. Scanne deine Produkte oder suche manuell in verschiedenen Datenbanken.",
     "ok": "OK",
     "fieldMandatory": "Bitte gib einen Wert ein",
     "onlyNumbersAllowed": "Nur Zahlen sind erlaubt",
