@@ -21,7 +21,7 @@
       ],
       "build-commands": [
         "mkdir -p /app/energize",
-        "cp -r energize/* /app/energize/",
+        "cp -r energize/energize/. /app/energize/",
         "mkdir -p /app/bin /app/lib",
         "ln -s /app/energize/energize /app/bin/energize",
         "ln -s /usr/lib/x86_64-linux-gnu/libsqlite3.so.0 /app/lib/libsqlite3.so",
