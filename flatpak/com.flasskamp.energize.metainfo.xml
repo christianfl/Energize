@@ -3,10 +3,24 @@
     <id>com.flasskamp.energize</id>
 
     <name>Energize</name>
-    <summary>Track your nutrition easily and fast.</summary>
+    <summary>Track your nutrition easily and fast</summary>
 
     <metadata_license>CC0-1.0</metadata_license>
     <project_license>AGPL-3.0-only</project_license>
+
+    <developer id="com.flasskamp">
+        <name>Christian Flaßkamp</name>
+    </developer>
+
+    <content_rating type="oars-1.1" />
+
+    <url type="bugtracker">https://codeberg.org/epinez/Energize/issues</url>
+    <url type="homepage">https://codeberg.org/epinez/Energize</url>
+    <url type="donation">https://liberapay.com/epinez/donate</url>
+    <url type="faq">https://codeberg.org/epinez/Energize/wiki</url>
+    <url type="translate">https://hosted.weblate.org/engage/energize/</url>
+    <url type="contribute">https://codeberg.org/epinez/Energize/wiki/Contribute</url>
+    <url type="vcs-browser">https://codeberg.org/epinez/Energize</url>
 
     <supports>
         <control>pointing</control>
@@ -28,7 +42,7 @@
             <li>Track your meals including calories, macro- and micronutrients</li>
             <li>Use several databases (Open Food Facts, USDA, and Swiss Food Composition Database)
                 or create custom food</li>
-            <li>Search meals by product name or just scan the barcode</li>
+            <li>Search meals by product name or barcode</li>
             <li>Get meal suggestions based on your last tracked meals</li>
             <li>Set targets for macro- and micronutrients including calculating them based on your
                 personal details</li>
@@ -42,18 +56,28 @@
         <screenshot type="default">
             <image>
                 https://codeberg.org/epinez/Energize/media/branch/main/fastlane/metadata/android/en-US/images/phoneScreenshots/1_dark.png</image>
+            <caption>View calories and nutrients for the current day</caption>
         </screenshot>
         <screenshot>
             <image>
                 https://codeberg.org/epinez/Energize/media/branch/main/fastlane/metadata/android/en-US/images/phoneScreenshots/2_dark.png</image>
+            <caption>List detailed micronutrients intake</caption>
         </screenshot>
         <screenshot>
             <image>
                 https://codeberg.org/epinez/Energize/media/branch/main/fastlane/metadata/android/en-US/images/phoneScreenshots/3_dark.png</image>
+            <caption>Create and list custom food</caption>
         </screenshot>
         <screenshot>
             <image>
                 https://codeberg.org/epinez/Energize/media/branch/main/fastlane/metadata/android/en-US/images/phoneScreenshots/4_dark.png</image>
+            <caption>Set various preferences including nutrition needs and queried food databases</caption>
         </screenshot>
     </screenshots>
+
+    <releases>
+        <release version="0.15.0" date="2026-10-17">
+            <url type="details">https://codeberg.org/epinez/Energize/releases/tag/v0.15.0</url>
+        </release>
+    </releases>
 </component>
