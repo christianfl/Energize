@@ -8,8 +8,7 @@
     "--share=network",
     "--device=dri",
     "--socket=wayland",
-    "--socket=fallback-x11",
-    "--filesystem=xdg-download"
+    "--socket=fallback-x11"
   ],
   "modules": [
     {
