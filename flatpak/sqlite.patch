@@ -1,0 +1,50 @@
+diff --git a/pubspec.yaml b/pubspec.yaml
+--- a/pubspec.yaml
++++ b/pubspec.yaml
+@@ -1,4 +1,9 @@
+ name: energize
++
++hooks:
++  user_defines:
++    sqlite3:
++      source: process
+ description: Track your food and nutrition easily and fast.
+ 
+ # The following line prevents the package from being accidentally published to
+diff --git a/linux/CMakeLists.txt b/linux/CMakeLists.txt
+--- a/linux/CMakeLists.txt
++++ b/linux/CMakeLists.txt
+@@ -53,6 +53,7 @@
+ # System-level dependencies.
+ find_package(PkgConfig REQUIRED)
+ pkg_check_modules(GTK REQUIRED IMPORTED_TARGET gtk+-3.0)
++pkg_check_modules(SQLITE3 REQUIRED IMPORTED_TARGET sqlite3)
+ 
+ # Application build; see runner/CMakeLists.txt.
+ add_subdirectory("runner")
+diff --git a/linux/runner/CMakeLists.txt b/linux/runner/CMakeLists.txt
+--- a/linux/runner/CMakeLists.txt
++++ b/linux/runner/CMakeLists.txt
+@@ -22,5 +22,6 @@
+ # Add dependency libraries. Add any application-specific dependencies here.
+ target_link_libraries(${BINARY_NAME} PRIVATE flutter)
+ target_link_libraries(${BINARY_NAME} PRIVATE PkgConfig::GTK)
++target_link_libraries(${BINARY_NAME} PRIVATE PkgConfig::SQLITE3)
+ 
+ target_include_directories(${BINARY_NAME} PRIVATE "${CMAKE_SOURCE_DIR}")
+diff --git a/linux/runner/main.cc b/linux/runner/main.cc
+--- a/linux/runner/main.cc
++++ b/linux/runner/main.cc
+@@ -1,6 +1,12 @@
++#include <sqlite3.h>
++
+ #include "my_application.h"
+ 
+ int main(int argc, char** argv) {
++  if (sqlite3_initialize() != SQLITE_OK) {
++    return 1;
++  }
++
+   g_autoptr(MyApplication) app = my_application_new();
+   return g_application_run(G_APPLICATION(app), argc, argv);
+ }

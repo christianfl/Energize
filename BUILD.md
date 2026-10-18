@@ -73,24 +73,49 @@ The Linux build currently has the following known limitations:
 
 #### Flatpak
 
-The linux build at runtime depends on sqlite, libsecret, and a keyring service such as GNOME Keyring or KWallet must be available. Furthermore, a few arch specific settings have to be set. Flatpak helps with providing everything which is needed to just install and run Energize on Linux. The manifest references prebuild binaries which will be downloaded during build.
-
-Build (aarch64):
+The Flatpak build pipeline uses [flatpak-flutter](https://github.com/TheAppgineer/flatpak-flutter).
 
 ```bash
-flatpak-builder --arch=aarch64 --repo=repo-aarch64 --force-clean build-aarch64 flatpak/com.flasskamp.energize.json
+cd flatpak
 ```
 
-Create bundle (aarch64):
+1. Generate build manifest (needs network access):
 
 ```bash
-flatpak build-bundle repo-aarch64 energize-aarch64.flatpak com.flasskamp.energize --arch=aarch64
+python /path/to/flatpak-flutter/flatpak-flutter.py flatpak-flutter.yml
 ```
 
-Install on host (aarch64):
+2. Build the generated manifest (no network access needed):
 
 ```bash
-flatpak install energize-aarch64.flatpak
+flatpak-builder --user --install-deps-from=flathub --force-clean --sandbox build-dir com.flasskamp.energize.yml
 ```
+
+For local testing, replace the app's git source
+in the generated `flatpak/com.flasskamp.energize.yml` with the following before:
+
+```yaml
+- type: dir
+  path: ..
+  skip:
+    - .git
+    - .dart_tool
+    - .flatpak-builder
+    - .env
+    - build
+    - build-dir
+    - flatpak/.flatpak-builder
+    - flatpak/build-dir
+    - flatpak/generated
+    - submodules/flutter
+```
+
+Run:
+
+```bash
+flatpak run com.flasskamp.energize
+```
+
+---
 
 See [here](https://codeberg.org/epinez/Energize/wiki/Build) for more information about how to build for different target architectures.

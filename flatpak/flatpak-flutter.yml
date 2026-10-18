@@ -1,0 +1,55 @@
+app-id: com.flasskamp.energize
+runtime: org.freedesktop.Platform
+runtime-version: '26.08'
+sdk: org.freedesktop.Sdk
+sdk-extensions:
+  - org.freedesktop.Sdk.Extension.llvm22
+command: energize
+finish-args:
+  - --share=ipc
+  - --socket=fallback-x11
+  - --socket=wayland
+  - --device=dri
+  - --share=network
+modules:
+  - name: energize
+    buildsystem: simple
+    build-options:
+      arch:
+        x86_64:
+          env:
+            BUNDLE_PATH: build/linux/x64/release/bundle
+        aarch64:
+          env:
+            BUNDLE_PATH: build/linux/arm64/release/bundle
+      append-path: /usr/lib/sdk/llvm22/bin:/var/lib/flutter/bin
+      prepend-ld-library-path: /usr/lib/sdk/llvm22/lib
+      env:
+        PUB_CACHE: /run/build/energize/.pub-cache
+    build-commands:
+      # Yes, this looks strange. And it was intended.
+      # People who fork the repo don't inherit links and API keys for the Android app automatically when redistributing this way.
+      - |
+        cat > .env <<'EOF'
+        API_KEY_USDA='gGCnzW8jNmCQc4ava9cGFgpMINNHnGL2q2Fbh51v'
+        COPYRIGHT_NAME='Christian Flaßkamp'
+        CONTACT_MAIL='energize@flasskamp.com'
+        ISSUE_URL='https://codeberg.org/epinez/Energize/issues'
+        REPO_URL='https://codeberg.org/epinez/Energize'
+        TRANSLATION_URL='https://hosted.weblate.org/engage/energize/'
+        EOF
+      - flutter build linux --release --no-pub
+      - mkdir -p /app/energize
+      - cp -r "$BUNDLE_PATH"/. /app/energize/
+      - install -Dm755 flatpak/energize-wrapper.sh /app/bin/energize
+      - install -Dm644 flatpak/com.flasskamp.energize.metainfo.xml /app/share/metainfo/com.flasskamp.energize.metainfo.xml
+      - install -Dm644 flatpak/com.flasskamp.energize.desktop /app/share/applications/com.flasskamp.energize.desktop
+      - install -Dm644 flatpak/com.flasskamp.energize.svg /app/share/icons/hicolor/scalable/apps/com.flasskamp.energize.svg
+    sources:
+      - type: git
+        url: https://codeberg.org/epinez/Energize.git
+      # On Linux, sqflite uses sqflite_common_ffi and sqlite3.
+      # sqlite3's `source: system` looks for libsqlite3.so but the runtime provides libsqlite3.so.0.
+      # This patch links the runtime lib and uses `source: process` to access it without dirty workarounds.
+      - type: patch
+        path: sqlite.patch

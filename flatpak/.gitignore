@@ -1,0 +1,5 @@
+/.flatpak-builder/
+/build-dir/
+/build/
+/com.flasskamp.energize.yml
+/generated/
