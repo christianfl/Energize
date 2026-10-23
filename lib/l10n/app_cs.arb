@@ -563,8 +563,6 @@
             }
         }
     },
-    "barcodeScanningUnsupported": "Skenování čárových kódů pomocí fotoaparátu zařízení je v současné době podporováno pouze v systému Android.",
-    "@barcodeScanningUnsupported": {},
     "display": "Zobrazit",
     "@display": {},
     "displayHint": "Přizpůsobení uživatelského rozhraní vašim potřebám",

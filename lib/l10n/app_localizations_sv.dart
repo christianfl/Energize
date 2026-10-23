@@ -298,6 +298,9 @@ class AppLocalizationsSv extends AppLocalizations {
   String get scanBarcode => 'Skanna streckkod';
 
   @override
+  String get searchBarcode => 'Search barcode';
+
+  @override
   String get searchFood => 'Sök mat';
 
   @override
@@ -328,10 +331,6 @@ class AppLocalizationsSv extends AppLocalizations {
   @override
   String get notFoundInCustomFoodsOpenFoodFactsNotActivated =>
       'Finns inte i anpassade livsmedel, Open Food Facts är inte aktiverat';
-
-  @override
-  String get barcodeScanningUnsupported =>
-      'Skanning av streckkoder med enhetskameran stöds för närvarande endast på Android.';
 
   @override
   String get customFood => 'Anpassad Mat';

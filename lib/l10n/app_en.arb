@@ -141,6 +141,7 @@
     "micronutrients": "Micronutrients",
     "editTrackedFood": "Edit tracked food",
     "scanBarcode": "Scan barcode",
+    "searchBarcode": "Search barcode",
     "searchFood": "Search food",
     "productOrBrand": "Product or brand",
     "searchError": "Error during search",
@@ -150,7 +151,6 @@
     "notFoundInCustomFoodsOpenFoodFactsNeedsInternet": "Not found in custom foods, Open Food Facts needs internet access",
     "notFoundInCustomFoodsOpenFoodFactsHasError": "Not found in custom foods, Open Food Facts search had an error",
     "notFoundInCustomFoodsOpenFoodFactsNotActivated": "Not found in custom foods, Open Food Facts is not activated",
-    "barcodeScanningUnsupported": "Scanning barcodes with the device camera is currently only supported on Android.",
     "@_CUSTOM_FOOD": {
     },
     "customFood": "Custom Food",

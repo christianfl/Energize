@@ -83,35 +83,6 @@ class FoodInputState extends State<FoodInput>
     return _failedFoodDatabaseOrigins.isNotEmpty;
   }
 
-  /// Returns a centered message.
-  ///
-  /// Shown if systems do not support barcode scanning with device camera.
-  ///
-  /// If [_productNotFoundExceptionBarcode] != null, shows [_noProductForBarcodeFoundFrame].
-  Widget get _barcodeScanningUnsupportedFrame {
-    return Expanded(
-      child: Column(
-        children: [
-          Expanded(
-            child: Container(
-              alignment: Alignment.center,
-              child: Text(
-                AppLocalizations.of(context)!.barcodeScanningUnsupported,
-                textAlign: TextAlign.center,
-              ),
-            ),
-          ),
-          if (_productNotFoundExceptionBarcode != null)
-            Container(
-              padding: const EdgeInsets.all(8.0),
-              alignment: Alignment.center,
-              child: _noProductForBarcodeFoundFrame,
-            ),
-        ],
-      ),
-    );
-  }
-
   /// Returns a frame which shows that the searched barcode could not be found.
   ///
   /// Gives a possibility to add a new custom food.
@@ -269,46 +240,45 @@ class FoodInputState extends State<FoodInput>
               ],
             ),
             const SizedBox(height: 12),
-            if (!kIsWeb)
-              if (!Platform.isAndroid)
-                _barcodeScanningUnsupportedFrame
-              else
-                Expanded(
-                  child: ClipRRect(
-                    borderRadius: const BorderRadius.all(Radius.circular(10.0)),
-                    child: Stack(
-                      children: [
-                        QRView(key: qrKey, onQRViewCreated: _onQRViewCreated),
-                        Container(
-                          alignment: Alignment.topRight,
-                          padding: const EdgeInsets.all(2.0),
-                          child: IconButton.filled(
-                            isSelected: _flashStatus,
-                            onPressed: () =>
-                                _setFlash(_flashStatus == false ? true : false),
-                            icon: const Icon(Icons.bolt),
-                          ),
+            if (!kIsWeb && Platform.isAndroid)
+              Expanded(
+                child: ClipRRect(
+                  borderRadius: const BorderRadius.all(Radius.circular(10.0)),
+                  child: Stack(
+                    children: [
+                      QRView(key: qrKey, onQRViewCreated: _onQRViewCreated),
+                      Container(
+                        alignment: Alignment.topRight,
+                        padding: const EdgeInsets.all(2.0),
+                        child: IconButton.filled(
+                          isSelected: _flashStatus,
+                          onPressed: () =>
+                              _setFlash(_flashStatus == false ? true : false),
+                          icon: const Icon(Icons.bolt),
                         ),
-                        Container(
-                          padding: const EdgeInsets.all(8.0),
-                          alignment: Alignment.bottomCenter,
-                          child: _productNotFoundExceptionBarcode != null
-                              ? _noProductForBarcodeFoundFrame
-                              : SizedBox(
-                                  width: double.infinity,
-                                  child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(5),
-                                    child: const LinearProgressIndicator(),
-                                  ),
+                      ),
+                      Container(
+                        padding: const EdgeInsets.all(8.0),
+                        alignment: Alignment.bottomCenter,
+                        child: _productNotFoundExceptionBarcode != null
+                            ? _noProductForBarcodeFoundFrame
+                            : SizedBox(
+                                width: double.infinity,
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(5),
+                                  child: const LinearProgressIndicator(),
                                 ),
-                        ),
-                      ],
-                    ),
+                              ),
+                      ),
+                    ],
                   ),
-                )
-            else
-              // We are on Web
-              _barcodeScanningUnsupportedFrame,
+                ),
+              )
+            else if (_productNotFoundExceptionBarcode != null)
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: _noProductForBarcodeFoundFrame,
+              ),
           ],
         ),
       );

@@ -444,8 +444,6 @@
     "@energyDistribution": {},
     "yourBody": "A tested",
     "@yourBody": {},
-    "barcodeScanningUnsupported": "A vonalkódok beolvasása a készülék kamerájával jelenleg csak Androidon támogatott.",
-    "@barcodeScanningUnsupported": {},
     "age": "Kor",
     "@age": {},
     "usdaFoodDataCentralGeneralInformationText": "A FoodData Central az Egyesült Államok mezőgazdasági minisztériumának élelmiszer- és tápanyag-adatbázisa. Az adatok nyilvánosak, és mintegy 200 alapélelmiszert és több mint 380 000 márkás élelmiszert tartalmaznak.",

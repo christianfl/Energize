@@ -492,8 +492,6 @@
     },
     "display": "Apariencia",
     "@display": {},
-    "barcodeScanningUnsupported": "El escaneo de códigos de barras con la cámara del dispositivo es actualmente sólo compatible en Android.",
-    "@barcodeScanningUnsupported": {},
     "webDAVSettings": "Configuración de WebDAV",
     "@webDAVSettings": {},
     "username": "Nombre de usuario",

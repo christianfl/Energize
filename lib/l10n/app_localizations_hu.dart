@@ -299,6 +299,9 @@ class AppLocalizationsHu extends AppLocalizations {
   String get scanBarcode => 'Vonalkód beolvasása';
 
   @override
+  String get searchBarcode => 'Search barcode';
+
+  @override
   String get searchFood => 'Keresés élelmiszer';
 
   @override
@@ -329,10 +332,6 @@ class AppLocalizationsHu extends AppLocalizations {
   @override
   String get notFoundInCustomFoodsOpenFoodFactsNotActivated =>
       'Az egyedi élelmiszerekben nem található, az Open Food Facts nem aktiválódik';
-
-  @override
-  String get barcodeScanningUnsupported =>
-      'A vonalkódok beolvasása a készülék kamerájával jelenleg csak Androidon támogatott.';
 
   @override
   String get customFood => 'Egyedi ételek';

@@ -298,6 +298,9 @@ class AppLocalizationsFi extends AppLocalizations {
   String get scanBarcode => 'Skannaa viivakoodi';
 
   @override
+  String get searchBarcode => 'Search barcode';
+
+  @override
   String get searchFood => 'Etsi ruokaa';
 
   @override
@@ -328,10 +331,6 @@ class AppLocalizationsFi extends AppLocalizations {
   @override
   String get notFoundInCustomFoodsOpenFoodFactsNotActivated =>
       'Ei löydy räätälöidyistä elintarvikkeista, Open Food Facts ei ole aktivoitu';
-
-  @override
-  String get barcodeScanningUnsupported =>
-      'Viivakoodien skannaus laitteen kameralla on tällä hetkellä tuettu vain Androidissa.';
 
   @override
   String get customFood => 'Mukautettu Ruoka';

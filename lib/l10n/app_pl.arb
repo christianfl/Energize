@@ -488,8 +488,6 @@
             }
         }
     },
-    "barcodeScanningUnsupported": "Skanowanie kodów kreskowych za pomocą aparatu urządzenia jest obecnie obsługiwane tylko w systemie Android.",
-    "@barcodeScanningUnsupported": {},
     "contributionTypeAcrylicPicture": "Obraz akrylowy",
     "@contributionTypeAcrylicPicture": {},
     "contributionTypeCodeAndConversations": "Kod i rozmowy",

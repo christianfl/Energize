@@ -614,6 +614,12 @@ abstract class AppLocalizations {
   /// **'Scan barcode'**
   String get scanBarcode;
 
+  /// No description provided for @searchBarcode.
+  ///
+  /// In en, this message translates to:
+  /// **'Search barcode'**
+  String get searchBarcode;
+
   /// No description provided for @searchFood.
   ///
   /// In en, this message translates to:
@@ -667,12 +673,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Not found in custom foods, Open Food Facts is not activated'**
   String get notFoundInCustomFoodsOpenFoodFactsNotActivated;
-
-  /// No description provided for @barcodeScanningUnsupported.
-  ///
-  /// In en, this message translates to:
-  /// **'Scanning barcodes with the device camera is currently only supported on Android.'**
-  String get barcodeScanningUnsupported;
 
   /// No description provided for @customFood.
   ///

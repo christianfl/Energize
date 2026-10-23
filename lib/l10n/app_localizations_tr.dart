@@ -299,6 +299,9 @@ class AppLocalizationsTr extends AppLocalizations {
   String get scanBarcode => 'Barkod tara';
 
   @override
+  String get searchBarcode => 'Search barcode';
+
+  @override
   String get searchFood => 'Yiyecek ara';
 
   @override
@@ -329,10 +332,6 @@ class AppLocalizationsTr extends AppLocalizations {
   @override
   String get notFoundInCustomFoodsOpenFoodFactsNotActivated =>
       'Özel yiyeceklerde bulunamadı, Açık Gıda Gerçekleri etkinleştirilmedi';
-
-  @override
-  String get barcodeScanningUnsupported =>
-      'Cihaz kamerasıyla barkod taramak an itibariyle sadece Android\'de destekli.';
 
   @override
   String get customFood => 'Özel Yiyecek';

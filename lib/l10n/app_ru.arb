@@ -482,8 +482,6 @@
     },
     "groupFoodsToMeals": "Группируйте продукты по блюдам",
     "@groupFoodsToMeals": {},
-    "barcodeScanningUnsupported": "Сканирование штрих-кодов с помощью камеры устройства в настоящее время поддерживается только на Android.",
-    "@barcodeScanningUnsupported": {},
     "groupFoodsToMealsHint": "Автоматически объединяет продукты, потребляемые через очень короткие промежутки времени, в один приём пищи",
     "@groupFoodsToMealsHint": {},
     "display": "Дисплей",

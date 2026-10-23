@@ -95,8 +95,6 @@
     "@notFoundInCustomFoodsOrOpenFoodFacts": {},
     "notFoundInCustomFoodsOpenFoodFactsNeedsInternet": "Ei löydy mukautetuista elintarvikkeista, Open Food Facts tarvitsee internet-yhteyden",
     "@notFoundInCustomFoodsOpenFoodFactsNeedsInternet": {},
-    "barcodeScanningUnsupported": "Viivakoodien skannaus laitteen kameralla on tällä hetkellä tuettu vain Androidissa.",
-    "@barcodeScanningUnsupported": {},
     "customFood": "Mukautettu Ruoka",
     "@customFood": {},
     "searchCustomFood": "Etsi mukautettua ruokaa",

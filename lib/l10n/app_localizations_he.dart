@@ -298,6 +298,9 @@ class AppLocalizationsHe extends AppLocalizations {
   String get scanBarcode => 'סריקת ברקוד';
 
   @override
+  String get searchBarcode => 'Search barcode';
+
+  @override
   String get searchFood => 'חיפוש מזון';
 
   @override
@@ -328,10 +331,6 @@ class AppLocalizationsHe extends AppLocalizations {
   @override
   String get notFoundInCustomFoodsOpenFoodFactsNotActivated =>
       'לא נמצא במאכלים המותאמים, Open Food Facts לא פעיל';
-
-  @override
-  String get barcodeScanningUnsupported =>
-      'סריקת ברקודים עם מצלמת המכשיר נתמכת ב־Android בלבד.';
 
   @override
   String get customFood => 'מזון מותאם אישית';

@@ -299,6 +299,9 @@ class AppLocalizationsPl extends AppLocalizations {
   String get scanBarcode => 'Skanuj kod kreskowy';
 
   @override
+  String get searchBarcode => 'Search barcode';
+
+  @override
   String get searchFood => 'Szukaj produktów';
 
   @override
@@ -329,10 +332,6 @@ class AppLocalizationsPl extends AppLocalizations {
   @override
   String get notFoundInCustomFoodsOpenFoodFactsNotActivated =>
       'Nie znaleziono na liście własnych produktów. Baza Open Food Facts nie jest aktywna';
-
-  @override
-  String get barcodeScanningUnsupported =>
-      'Skanowanie kodów kreskowych za pomocą aparatu urządzenia jest obecnie obsługiwane tylko w systemie Android.';
 
   @override
   String get customFood => 'Własne produkty';

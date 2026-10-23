@@ -569,8 +569,6 @@
     "@version": {},
     "languages": "שפות",
     "@languages": {},
-    "barcodeScanningUnsupported": "סריקת ברקודים עם מצלמת המכשיר נתמכת ב־Android בלבד.",
-    "@barcodeScanningUnsupported": {},
     "display": "תצוגה",
     "@display": {},
     "displayHint": "התאמת ממשק המשתמש לצרכים שלך",

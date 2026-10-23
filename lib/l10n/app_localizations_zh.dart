@@ -297,6 +297,9 @@ class AppLocalizationsZh extends AppLocalizations {
   String get scanBarcode => '扫描条形码';
 
   @override
+  String get searchBarcode => 'Search barcode';
+
+  @override
   String get searchFood => '搜索食物';
 
   @override
@@ -326,9 +329,6 @@ class AppLocalizationsZh extends AppLocalizations {
   @override
   String get notFoundInCustomFoodsOpenFoodFactsNotActivated =>
       '在 自定义食物 中未找到相关信息，Open Food Facts 食品数据库未开启';
-
-  @override
-  String get barcodeScanningUnsupported => '扫描条形码功能目前仅在Android上支持。';
 
   @override
   String get customFood => '自定义食物';

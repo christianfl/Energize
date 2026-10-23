@@ -549,8 +549,6 @@
     "@testCustomFood5Name": {
         "description": "Only used for translated screenshots, not within the app itself. Name of custom food 5/5 which can be anything which makes sense in the current language. E.g. a local food."
     },
-    "barcodeScanningUnsupported": "Cihaz kamerasıyla barkod taramak an itibariyle sadece Android'de destekli.",
-    "@barcodeScanningUnsupported": {},
     "displayHint": "İhtiyaçlarınıza göre kullanıcı arayüzünü kişileştirin",
     "@displayHint": {},
     "logs": "Günlükler",

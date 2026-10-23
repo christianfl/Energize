@@ -273,7 +273,6 @@
             }
         }
     },
-    "barcodeScanningUnsupported": "La lecture de codes-barres à l'aide de l'appareil photo de l'appareil n'est actuellement possible que sur Android.",
     "contributionTypeCodeAndConversations": "Code et conversations",
     "contributionTypeAcrylicPicture": "Tableau acrylique",
     "add": "Ajouter",

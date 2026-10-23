@@ -298,6 +298,9 @@ class AppLocalizationsCs extends AppLocalizations {
   String get scanBarcode => 'Skenování čárového kódu';
 
   @override
+  String get searchBarcode => 'Search barcode';
+
+  @override
   String get searchFood => 'Vyhledat jídlo';
 
   @override
@@ -328,10 +331,6 @@ class AppLocalizationsCs extends AppLocalizations {
   @override
   String get notFoundInCustomFoodsOpenFoodFactsNotActivated =>
       'Nevyskytuje se ve vlastních potravinách, funkce Open Food Facts není aktivována';
-
-  @override
-  String get barcodeScanningUnsupported =>
-      'Skenování čárových kódů pomocí fotoaparátu zařízení je v současné době podporováno pouze v systému Android.';
 
   @override
   String get customFood => 'Vlastní jídlo';

@@ -300,6 +300,9 @@ class AppLocalizationsDa extends AppLocalizations {
   String get scanBarcode => 'Skan stregkode';
 
   @override
+  String get searchBarcode => 'Search barcode';
+
+  @override
   String get searchFood => 'Søg efter mad';
 
   @override
@@ -330,10 +333,6 @@ class AppLocalizationsDa extends AppLocalizations {
   @override
   String get notFoundInCustomFoodsOpenFoodFactsNotActivated =>
       'Ikke fundet i brugerdefinerede fødevarer; Open Food Facts er ikke aktiveret';
-
-  @override
-  String get barcodeScanningUnsupported =>
-      'Scanning barcodes with the device camera is currently only supported on Android.';
 
   @override
   String get customFood => 'Brugerdefineret Mad';

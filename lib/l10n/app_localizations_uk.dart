@@ -299,6 +299,9 @@ class AppLocalizationsUk extends AppLocalizations {
   String get scanBarcode => 'Сканувати штрих-код';
 
   @override
+  String get searchBarcode => 'Search barcode';
+
+  @override
   String get searchFood => 'Шукати їжу';
 
   @override
@@ -329,10 +332,6 @@ class AppLocalizationsUk extends AppLocalizations {
   @override
   String get notFoundInCustomFoodsOpenFoodFactsNotActivated =>
       'Не виявлено в нестандартних продуктах харчування, функція Open Food Facts не активована';
-
-  @override
-  String get barcodeScanningUnsupported =>
-      'Сканування штрих-кодів за допомогою камери пристрою наразі підтримується лише на Android.';
 
   @override
   String get customFood => 'Власна Їжа';

@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
@@ -124,7 +127,12 @@ class TrackingPageState extends State<TrackingPage> {
                     foregroundColor: Theme.of(
                       context,
                     ).colorScheme.onPrimaryContainer,
-                    label: AppLocalizations.of(context)!.scanBarcode,
+                    label:
+                        // Only Android supports barcode scanning.
+                        // Other platforms only support search for barcodes.
+                        !kIsWeb && !Platform.isAndroid
+                        ? AppLocalizations.of(context)!.searchBarcode
+                        : AppLocalizations.of(context)!.scanBarcode,
                     labelBackgroundColor: Theme.of(
                       context,
                     ).colorScheme.primaryContainer,

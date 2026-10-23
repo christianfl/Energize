@@ -298,6 +298,9 @@ class AppLocalizationsEt extends AppLocalizations {
   String get scanBarcode => 'Skaneeri triipkoodi';
 
   @override
+  String get searchBarcode => 'Search barcode';
+
+  @override
   String get searchFood => 'Otsi toitu';
 
   @override
@@ -328,10 +331,6 @@ class AppLocalizationsEt extends AppLocalizations {
   @override
   String get notFoundInCustomFoodsOpenFoodFactsNotActivated =>
       'Ei leidu kohandatud toidus, Open Food Facts ei ole kasutuses';
-
-  @override
-  String get barcodeScanningUnsupported =>
-      'Triipkoodide skaneerimine seadme kaameraga on praegu toetatud ainult Androidis.';
 
   @override
   String get customFood => 'Sinu koostatud toit';

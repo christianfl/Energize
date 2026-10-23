@@ -417,8 +417,6 @@
     "@notFoundInCustomFoodsOpenFoodFactsNeedsInternet": {},
     "notFoundInCustomFoodsOrOpenFoodFacts": "Ні в спеціальних продуктах харчування, ні на Open Food Facts",
     "@notFoundInCustomFoodsOrOpenFoodFacts": {},
-    "barcodeScanningUnsupported": "Сканування штрих-кодів за допомогою камери пристрою наразі підтримується лише на Android.",
-    "@barcodeScanningUnsupported": {},
     "display": "Дисплей",
     "@display": {},
     "displayHint": "Налаштуйте інтерфейс користувача відповідно до ваших потреб",

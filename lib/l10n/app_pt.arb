@@ -544,8 +544,6 @@
     },
     "iodine": "Iodo",
     "@iodine": {},
-    "barcodeScanningUnsupported": "Atualmente, a leitura de códigos de barras com a câmara do dispositivo é compatível apenas com o Android.",
-    "@barcodeScanningUnsupported": {},
     "energizeBackup": "{appName} Apoio",
     "@energizeBackup": {
         "placeholders": {

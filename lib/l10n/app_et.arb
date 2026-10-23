@@ -245,7 +245,6 @@
     "weightTargetModerateGain": "Mõõdukas kaalutõus",
     "activityLevel1_2": "Sa istud kogu päeva oma voodis",
     "activityLevel1_3": "Sa ei käi eriti tihti väljas",
-    "barcodeScanningUnsupported": "Triipkoodide skaneerimine seadme kaameraga on praegu toetatud ainult Androidis.",
     "personalNutritionNeedsHint": "Arvuta oma isiklikud toitumisvajadused või määra need ise",
     "calculate": "Arvuta",
     "energyDistribution": "Energia jaotus",

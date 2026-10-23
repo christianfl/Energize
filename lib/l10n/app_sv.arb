@@ -5,8 +5,6 @@
     "@affectedDatabases": {},
     "notFoundInCustomFoodsOrOpenFoodFacts": "Varken i anpassade livsmedel eller på Open Food Facts",
     "@notFoundInCustomFoodsOrOpenFoodFacts": {},
-    "barcodeScanningUnsupported": "Skanning av streckkoder med enhetskameran stöds för närvarande endast på Android.",
-    "@barcodeScanningUnsupported": {},
     "customFood": "Anpassad Mat",
     "@customFood": {},
     "searchCustomFood": "Sök anpassad mat",

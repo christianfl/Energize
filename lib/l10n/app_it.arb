@@ -404,8 +404,6 @@
     "@contributors": {},
     "privacyPolicy": "Informativa sulla privacy",
     "@privacyPolicy": {},
-    "barcodeScanningUnsupported": "La scansione dei codici a barre con la fotocamera è attualmente supportata solo su Android.",
-    "@barcodeScanningUnsupported": {},
     "displayHint": "Personalizza l'interfaccia utente in base alle tue esigenze",
     "@displayHint": {},
     "groupFoodsToMealsHint": "Raggruppa automaticamente per pasto gli alimenti consumati a intervalli molto brevi",

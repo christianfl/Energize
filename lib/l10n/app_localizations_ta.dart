@@ -299,6 +299,9 @@ class AppLocalizationsTa extends AppLocalizations {
   String get scanBarcode => 'ச்கேன் பார்கோடு';
 
   @override
+  String get searchBarcode => 'Search barcode';
+
+  @override
   String get searchFood => 'உணவைத் தேடுங்கள்';
 
   @override
@@ -329,10 +332,6 @@ class AppLocalizationsTa extends AppLocalizations {
   @override
   String get notFoundInCustomFoodsOpenFoodFactsNotActivated =>
       'தனிப்பயன் உணவுகளில் காணப்படவில்லை, திறந்த உணவு உண்மைகள் செயல்படுத்தப்படவில்லை';
-
-  @override
-  String get barcodeScanningUnsupported =>
-      'சாதன கேமராவுடன் பார்கோடுகளை வருடு செய்வது தற்போது ஆண்ட்ராய்டு இல் மட்டுமே ஆதரிக்கப்படுகிறது.';
 
   @override
   String get customFood => 'தனிப்பயன் உணவு';

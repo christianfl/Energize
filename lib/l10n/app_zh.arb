@@ -274,7 +274,6 @@
             }
         }
     },
-    "barcodeScanningUnsupported": "扫描条形码功能目前仅在Android上支持。",
     "webDAVSettings": "WebDAV设置",
     "serverURL": "服务URL",
     "invalidURL": "该URL无效",

@@ -299,6 +299,9 @@ class AppLocalizationsIt extends AppLocalizations {
   String get scanBarcode => 'Scansione codice a barre';
 
   @override
+  String get searchBarcode => 'Search barcode';
+
+  @override
   String get searchFood => 'Cerca cibo';
 
   @override
@@ -329,10 +332,6 @@ class AppLocalizationsIt extends AppLocalizations {
   @override
   String get notFoundInCustomFoodsOpenFoodFactsNotActivated =>
       'Non trovato negli alimenti personalizzati, Open Food Facts non è attivo';
-
-  @override
-  String get barcodeScanningUnsupported =>
-      'La scansione dei codici a barre con la fotocamera è attualmente supportata solo su Android.';
 
   @override
   String get customFood => 'Cibo personalizzato';

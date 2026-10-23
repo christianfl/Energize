@@ -300,6 +300,9 @@ class AppLocalizationsDe extends AppLocalizations {
   String get scanBarcode => 'Barcode scannen';
 
   @override
+  String get searchBarcode => 'Barcode suchen';
+
+  @override
   String get searchFood => 'Nahrung suchen';
 
   @override
@@ -332,10 +335,6 @@ class AppLocalizationsDe extends AppLocalizations {
       'Nicht bei der eigenen Nahrung gefunden, Open Food Facts ist nicht aktiviert';
 
   @override
-  String get barcodeScanningUnsupported =>
-      'Das Scannen von Barcodes mit der Kamera wird bisher nur unter Android unterstützt.';
-
-  @override
   String get customFood => 'Eigene Nahrung';
 
   @override
@@ -351,7 +350,7 @@ class AppLocalizationsDe extends AppLocalizations {
   String get title => 'Titel';
 
   @override
-  String get barcode => 'Strichcode';
+  String get barcode => 'Barcode';
 
   @override
   String get settings => 'Einstellungen';

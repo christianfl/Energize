@@ -45,8 +45,6 @@
   "@affectedDatabases": {},
   "notFoundInCustomFoodsOrOpenFoodFacts": "Ani vo vlastných potravinách, ani na Open Food Facts",
   "@notFoundInCustomFoodsOrOpenFoodFacts": {},
-  "barcodeScanningUnsupported": "Skenovanie čiarových kódov pomocou fotoaparátu zariadenia je momentálne podporované iba v systéme Android.",
-  "@barcodeScanningUnsupported": {},
   "unmarkedDayAsComplete": "Neoznačený deň ako kompletný",
   "@unmarkedDayAsComplete": {},
   "trackFood": "Sledovanie potravín",
