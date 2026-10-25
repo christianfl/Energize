@@ -1,6 +1,4 @@
-import 'dart:io';
-import 'dart:ui' show Locale;
-
+import 'package:flutter/widgets.dart';
 import 'package:openfoodfacts/openfoodfacts.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
@@ -189,13 +187,14 @@ class OpenFoodFactsBinding implements FoodDatabaseBindingInterface {
 
   /// Returns the [OpenFoodFactsLanguage] based on the system locale.
   static OpenFoodFactsLanguage get _queryLanguage {
-    final String locale = Platform.localeName.split('_')[0];
-    return LanguageHelper.fromJson(locale);
+    final locale = WidgetsBinding.instance.platformDispatcher.locale;
+    return LanguageHelper.fromJson(locale.languageCode);
   }
 
   /// Returns the [OpenFoodFactsCountry] based on the system locale.
   static OpenFoodFactsCountry? get _queryCountry {
-    final String locale = Platform.localeName.split('_')[1];
-    return OpenFoodFactsCountry.fromOffTag(locale);
+    final locale = WidgetsBinding.instance.platformDispatcher.locale;
+    final countryCode = locale.countryCode?.toLowerCase();
+    return OpenFoodFactsCountry.fromOffTag(countryCode);
   }
 }
