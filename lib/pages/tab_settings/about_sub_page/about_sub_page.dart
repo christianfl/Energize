@@ -55,6 +55,16 @@ class _AboutSubPageState extends State<AboutSubPage> {
     ];
   }
 
+  /// Tries to open supplied URI in external Browser.
+  void _openUrl(Uri uri) {
+    try {
+      launchUrl(uri, mode: LaunchMode.externalApplication);
+    } catch (e) {
+      final logger = Provider.of<LogProvider>(context, listen: false);
+      logger.error('Could not launch url', e);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final logger = Provider.of<LogProvider>(context, listen: false);
@@ -186,19 +196,7 @@ class _AboutSubPageState extends State<AboutSubPage> {
                   '${Uri.tryParse(AboutSubPage._issueUrl)?.host.toCapitalize()}',
                 ),
                 trailing: const Icon(Icons.open_in_new),
-                onTap: () {
-                  final uri = Uri.parse(AboutSubPage._issueUrl);
-
-                  try {
-                    launchUrl(uri, mode: LaunchMode.externalApplication);
-                  } catch (e) {
-                    final logger = Provider.of<LogProvider>(
-                      context,
-                      listen: false,
-                    );
-                    logger.error('Could not launch url', e);
-                  }
-                },
+                onTap: () => _openUrl(Uri.parse(AboutSubPage._issueUrl)),
               ),
               ListTile(
                 leading: const Icon(Icons.extension_outlined),
@@ -207,19 +205,7 @@ class _AboutSubPageState extends State<AboutSubPage> {
                   '${Uri.tryParse(AboutSubPage._issueUrl)?.host.toCapitalize()}',
                 ),
                 trailing: const Icon(Icons.open_in_new),
-                onTap: () {
-                  final uri = Uri.parse(AboutSubPage._issueUrl);
-
-                  try {
-                    launchUrl(uri, mode: LaunchMode.externalApplication);
-                  } catch (e) {
-                    final logger = Provider.of<LogProvider>(
-                      context,
-                      listen: false,
-                    );
-                    logger.error('Could not launch url', e);
-                  }
-                },
+                onTap: () => _openUrl(Uri.parse(AboutSubPage._issueUrl)),
               ),
               ListTile(
                 leading: const Icon(Icons.code),
@@ -228,19 +214,7 @@ class _AboutSubPageState extends State<AboutSubPage> {
                   '${Uri.tryParse(AboutSubPage._repoUrl)?.host.toCapitalize()}',
                 ),
                 trailing: const Icon(Icons.open_in_new),
-                onTap: () {
-                  final uri = Uri.parse(AboutSubPage._repoUrl);
-
-                  try {
-                    launchUrl(uri, mode: LaunchMode.externalApplication);
-                  } catch (e) {
-                    final logger = Provider.of<LogProvider>(
-                      context,
-                      listen: false,
-                    );
-                    logger.error('Could not launch url', e);
-                  }
-                },
+                onTap: () => _openUrl(Uri.parse(AboutSubPage._repoUrl)),
               ),
               ListTile(
                 leading: const Icon(Icons.translate),
@@ -249,19 +223,7 @@ class _AboutSubPageState extends State<AboutSubPage> {
                   '${Uri.tryParse(AboutSubPage._translationUrl)?.host.toCapitalize()}',
                 ),
                 trailing: const Icon(Icons.open_in_new),
-                onTap: () {
-                  final uri = Uri.parse(AboutSubPage._translationUrl);
-
-                  try {
-                    launchUrl(uri, mode: LaunchMode.externalApplication);
-                  } catch (e) {
-                    final logger = Provider.of<LogProvider>(
-                      context,
-                      listen: false,
-                    );
-                    logger.error('Could not launch url', e);
-                  }
-                },
+                onTap: () => _openUrl(Uri.parse(AboutSubPage._translationUrl)),
               ),
               ListTile(
                 leading: const Icon(Icons.people_outline),
@@ -287,15 +249,7 @@ class _AboutSubPageState extends State<AboutSubPage> {
                         'subject=Energize App Feedback&body=App Version $_appVersion',
                   );
 
-                  try {
-                    launchUrl(uri, mode: LaunchMode.externalApplication);
-                  } catch (e) {
-                    final logger = Provider.of<LogProvider>(
-                      context,
-                      listen: false,
-                    );
-                    logger.error('Could not launch url', e);
-                  }
+                  _openUrl(uri);
                 },
               ),
             ],
