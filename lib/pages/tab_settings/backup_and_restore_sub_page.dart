@@ -587,11 +587,10 @@ ${AppLocalizations.of(context)!.exportedNumberOfFoodsMessage(numberOfCustomFoods
   /// Restores a local encrypted backup picked via native file picker
   Future<void> _restoreLocalEncryptedBackup(BuildContext context) async {
     // Pick backup file to restore
-    final pickerResult = await FilePicker.pickFile();
-    final pickedPath = pickerResult?.path;
+    final pickedFile = await FilePicker.pickFile();
 
     // Picking was cancelled, bye!
-    if (pickedPath == null) {
+    if (pickedFile == null) {
       return;
     }
 
@@ -607,9 +606,6 @@ ${AppLocalizations.of(context)!.exportedNumberOfFoodsMessage(numberOfCustomFoods
 
     final encryptionPassword = _encryptionPasswordController.text;
 
-    // Prepare file
-    final File file = File(pickedPath);
-
     // Show progress bar
     setState(() {
       _isBusy = true;
@@ -619,7 +615,7 @@ ${AppLocalizations.of(context)!.exportedNumberOfFoodsMessage(numberOfCustomFoods
 
     // Restore backup
     try {
-      final fileAsString = await file.readAsString(encoding: utf8);
+      final fileAsString = utf8.decode(await pickedFile.readAsBytes());
 
       if (!context.mounted) return;
 

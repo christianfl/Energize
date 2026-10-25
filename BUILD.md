@@ -49,7 +49,6 @@ The Web build currently has the following known limitations:
 
 - No barcode scanning
 - OpenFoodFacts won't work
-- No local file backup/restore
 
 ### Linux
 
