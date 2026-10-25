@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 
+import '../../config/layout_config.dart';
 import '../../l10n/app_localizations.dart';
 import '../../theme/energize_theme.dart';
+import '../../widgets/page_scaffold.dart';
+import '../../widgets/settings_group.dart';
 import 'about_sub_page/about_sub_page.dart';
 import 'backup_and_restore_sub_page.dart';
 import 'database_management_sub_page.dart';
@@ -12,81 +15,94 @@ import 'ui_settings_sub_page.dart';
 class SettingsPage extends StatelessWidget {
   const SettingsPage({super.key});
 
+  /// Builds a settings entry which opens another page.
+  Widget _buildSettingsTile(
+    BuildContext context, {
+    required IconData icon,
+    required String title,
+    required String routeName,
+    String? subtitle,
+    Color? tileColor,
+    Color? foregroundColor,
+  }) {
+    return ListTile(
+      tileColor: tileColor,
+      textColor: foregroundColor,
+      iconColor: foregroundColor,
+      leading: Icon(icon),
+      title: Text(title),
+      subtitle: subtitle == null ? null : Text(subtitle),
+      trailing: const Icon(Icons.chevron_right),
+      onTap: () => Navigator.of(context).pushNamed(routeName),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text(AppLocalizations.of(context)!.settings)),
+    final localizations = AppLocalizations.of(context)!;
+
+    return PageScaffold(
+      maxContentWidth: settingsMaxContentWidth,
+      appBar: AppBar(title: Text(localizations.settings)),
       body: ListView(
+        padding: pagePadding,
         children: [
-          ListTile(
-            isThreeLine: true,
-            leading: const Icon(Icons.person),
-            title: Text(
-              AppLocalizations.of(context)!.yourPersonalNutritionNeeds,
-            ),
-            subtitle: Text(
-              AppLocalizations.of(context)!.personalNutritionNeedsHint,
-            ),
-            onTap: () {
-              Navigator.of(context).pushNamed(NutritionTargetsPage.routeName);
-            },
-          ),
-          const Divider(),
-          ListTile(
-            leading: const Icon(Icons.display_settings),
-            title: Text(AppLocalizations.of(context)!.display),
-            subtitle: Text(AppLocalizations.of(context)!.displayHint),
-            onTap: () {
-              Navigator.of(context).pushNamed(UISettingsSubPage.routeName);
-            },
-          ),
-          ListTile(
-            leading: const Icon(Icons.perm_data_setting),
-            title: Text(AppLocalizations.of(context)!.databaseManagement),
-            subtitle: Text(
-              AppLocalizations.of(context)!.databaseManagementHint,
-            ),
-            onTap: () {
-              Navigator.of(
+          SettingsGroup(
+            children: [
+              _buildSettingsTile(
                 context,
-              ).pushNamed(DatabaseManagementSubPage.routeName);
-            },
-          ),
-          ListTile(
-            isThreeLine: true,
-            leading: const Icon(Icons.import_export),
-            title: Text(AppLocalizations.of(context)!.backupAndRestore),
-            subtitle: Text(AppLocalizations.of(context)!.backupAndRestoreHint),
-            onTap: () {
-              Navigator.of(
-                context,
-              ).pushNamed(BackupAndRestoreSubPage.routeName);
-            },
-          ),
-          const Divider(),
-          ListTile(
-            leading: const Icon(Icons.info),
-            title: Text(AppLocalizations.of(context)!.aboutEnergize),
-            onTap: () {
-              Navigator.of(context).pushNamed(AboutSubPage.routeName);
-            },
-          ),
-          ListTile(
-            tileColor: Theme.of(context).donateContainer,
-            textColor: Theme.of(context).onDonateContainer,
-            iconColor: Theme.of(context).onDonateContainer,
-            leading: const Icon(Icons.paid),
-            title: Text(
-              AppLocalizations.of(context)!.supportMeByDonating,
-              style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                fontWeight: FontWeight.bold,
-                color: Theme.of(context).onDonateContainer,
+                icon: Icons.person_outline,
+                title: localizations.yourPersonalNutritionNeeds,
+                routeName: NutritionTargetsPage.routeName,
+                subtitle: localizations.personalNutritionNeedsHint,
               ),
-            ),
-            subtitle: const Text('Bitcoin, liberapay.com'),
-            onTap: () {
-              Navigator.of(context).pushNamed(DonationSubPage.routeName);
-            },
+              _buildSettingsTile(
+                context,
+                icon: Icons.display_settings_outlined,
+                title: localizations.display,
+                routeName: UISettingsSubPage.routeName,
+                subtitle: localizations.displayHint,
+              ),
+            ],
+          ),
+          const SizedBox(height: pageSectionSpacing),
+          SettingsGroup(
+            children: [
+              _buildSettingsTile(
+                context,
+                icon: Icons.storage_outlined,
+                title: localizations.databaseManagement,
+                routeName: DatabaseManagementSubPage.routeName,
+                subtitle: localizations.databaseManagementHint,
+              ),
+              _buildSettingsTile(
+                context,
+                icon: Icons.import_export,
+                title: localizations.backupAndRestore,
+                routeName: BackupAndRestoreSubPage.routeName,
+                subtitle: localizations.backupAndRestoreHint,
+              ),
+            ],
+          ),
+          const SizedBox(height: pageSectionSpacing),
+          SettingsGroup(
+            children: [
+              _buildSettingsTile(
+                context,
+                icon: Icons.info_outline,
+                title: localizations.aboutEnergize,
+                routeName: AboutSubPage.routeName,
+              ),
+              _buildSettingsTile(
+                context,
+                icon: Icons.favorite_outline,
+                title: localizations.supportMeByDonating,
+                routeName: DonationSubPage.routeName,
+                subtitle: 'Bitcoin, liberapay.com',
+                tileColor: Theme.of(context).donateContainer,
+                foregroundColor: Theme.of(context).onDonateContainer,
+              ),
+            ],
           ),
         ],
       ),

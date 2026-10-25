@@ -19,6 +19,7 @@ import '../../widgets/macro_chart.dart';
 import '../../widgets/micro_chart.dart';
 import '../../widgets/moving_end_contained_fab_location.dart';
 import '../../widgets/nutrition_facts_label_eu.dart';
+import '../../widgets/page_scaffold.dart';
 import '../tab_custom_food/add_edit_custom_food_modal.dart';
 import 'tracking_page.dart';
 
@@ -525,7 +526,7 @@ class TrackFoodState extends State<TrackFood>
     final food = args.food;
     final modalMode = args.mode;
 
-    return Scaffold(
+    return PageScaffold(
       appBar: AppBar(
         title: Text(_getPageTitle(modalMode), overflow: TextOverflow.ellipsis),
         actions: [_getActions(food, modalMode)],

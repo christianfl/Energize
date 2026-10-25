@@ -15,6 +15,7 @@ import '../../theme/energize_theme.dart';
 import '../../utils/date_util.dart';
 import '../../utils/time_util.dart';
 import '../../widgets/macro_chart.dart';
+import '../../widgets/page_scaffold.dart';
 import './detailed_summary_sub_page.dart';
 import 'widgets/food_input.dart';
 import 'widgets/tracked_food_list.dart';
@@ -57,7 +58,7 @@ class TrackingPageState extends State<TrackingPage> {
           _clearSelection();
         }
       },
-      child: Scaffold(
+      child: PageScaffold(
         appBar: _buildAppBar(trackedFoodProvider),
         body: Column(
           children: <Widget>[

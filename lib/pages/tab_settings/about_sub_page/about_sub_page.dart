@@ -5,11 +5,14 @@ import 'package:provider/provider.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../../../config/layout_config.dart';
 import '../../../l10n/app_localizations.dart';
 import '../../../models/contributor.dart';
 import '../../../providers/log_provider.dart';
 import '../../../theme/energize_theme.dart';
 import '../../../utils/privacy_policy_dialog.dart';
+import '../../../widgets/page_scaffold.dart';
+import '../../../widgets/settings_group.dart';
 import '../../introduction/introduction_page.dart';
 
 class AboutSubPage extends StatefulWidget {
@@ -55,8 +58,11 @@ class _AboutSubPageState extends State<AboutSubPage> {
   @override
   Widget build(BuildContext context) {
     final logger = Provider.of<LogProvider>(context, listen: false);
+    final localizations = AppLocalizations.of(context)!;
+    final theme = Theme.of(context);
 
-    return Scaffold(
+    return PageScaffold(
+      maxContentWidth: settingsMaxContentWidth,
       appBar: AppBar(
         title: Text(AppLocalizations.of(context)!.aboutEnergize),
         actions: [
@@ -72,213 +78,229 @@ class _AboutSubPageState extends State<AboutSubPage> {
           ),
         ],
       ),
-      body: SingleChildScrollView(
-        padding: EdgeInsets.symmetric(vertical: 12.0),
-        child: Column(
-          children: [
-            Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                ConstrainedBox(
-                  constraints: const BoxConstraints(maxWidth: 140),
-                  child: Image.asset('assets/about_logo.webp'),
+      body: ListView(
+        padding: pagePadding,
+        children: [
+          Column(
+            children: [
+              Image.asset('assets/about_logo.webp', width: 96, height: 96),
+              const SizedBox(height: 16.0),
+              Text(
+                localizations.appName,
+                textAlign: TextAlign.center,
+                style: theme.textTheme.headlineMedium,
+              ),
+              if (_appVersion.isNotEmpty) ...[
+                const SizedBox(height: 4.0),
+                Text(
+                  '${localizations.version} $_appVersion',
+                  textAlign: TextAlign.center,
+                  style: theme.textTheme.bodyMedium?.copyWith(
+                    color: theme.colorScheme.onSurfaceVariant,
+                  ),
                 ),
-                const SizedBox(width: 24),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      AppLocalizations.of(context)!.appName,
-                      style: Theme.of(context).textTheme.headlineMedium,
-                    ),
-                    Text(_appVersion),
-                    const SizedBox(height: 8),
-                    Text(
-                      AboutSubPage._copyrightNotice,
-                      style: Theme.of(context).textTheme.bodySmall,
-                    ),
-                    Text(
-                      '${AppLocalizations.of(context)!.license}: ${AboutSubPage._license}',
-                      style: Theme.of(context).textTheme.bodySmall,
-                    ),
-                    const SizedBox(height: 8),
-                    OutlinedButton(
-                      onPressed: () => showLicensePage(
-                        context: context,
-                        applicationVersion: _appVersion,
-                        applicationLegalese:
-                            '${AboutSubPage._copyrightNotice}\n${AboutSubPage._license}',
-                        applicationIcon: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Image.asset(
-                            'assets/about_logo.webp',
-                            width: 140,
+              ],
+              const SizedBox(height: 16.0),
+              Text(
+                localizations.appDescription,
+                textAlign: TextAlign.center,
+                style: theme.textTheme.bodyLarge?.copyWith(
+                  color: theme.colorScheme.onSurfaceVariant,
+                ),
+              ),
+              const SizedBox(height: 12.0),
+              Text(
+                AboutSubPage._copyrightNotice,
+                textAlign: TextAlign.center,
+                style: theme.textTheme.bodySmall,
+              ),
+              Text(
+                '${localizations.license}: ${AboutSubPage._license}',
+                textAlign: TextAlign.center,
+                style: theme.textTheme.bodySmall,
+              ),
+            ],
+          ),
+          const SizedBox(height: pageSectionSpacing),
+          Text(
+            localizations.generalInformation,
+            style: theme.textTheme.titleSmall,
+          ),
+          const SizedBox(height: pageHeadingSpacing),
+          SettingsGroup(
+            children: [
+              ListTile(
+                leading: const Icon(Icons.description_outlined),
+                title: Text(localizations.allLicenses),
+                trailing: const Icon(Icons.chevron_right),
+                onTap: () => showLicensePage(
+                  context: context,
+                  applicationVersion: _appVersion,
+                  applicationLegalese:
+                      '${AboutSubPage._copyrightNotice}\n${AboutSubPage._license}',
+                  applicationIcon: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Image.asset('assets/about_logo.webp', width: 96),
+                  ),
+                ),
+              ),
+              ListTile(
+                leading: const Icon(Icons.privacy_tip_outlined),
+                title: Text(AppLocalizations.of(context)!.privacyPolicy),
+                onTap: () => showPrivacyPolicyDialog(context),
+              ),
+              if (logger.talker != null)
+                ListTile(
+                  leading: const Icon(Icons.receipt_long_outlined),
+                  title: Text(AppLocalizations.of(context)!.logs),
+                  trailing: const Icon(Icons.chevron_right),
+                  onTap: () {
+                    final brightness = Theme.of(context).brightness;
+
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => TalkerScreen(
+                          talker: logger.talker!,
+                          appBarTitle: AppLocalizations.of(context)!.logs,
+                          theme: TalkerScreenTheme.fromTheme(
+                            brightness == Brightness.light
+                                ? EnergizeTheme.theme
+                                : EnergizeTheme.darkTheme,
                           ),
                         ),
                       ),
-                      child: Text(
-                        AppLocalizations.of(context)!.allLicenses,
-                        style: Theme.of(context).textTheme.bodySmall,
-                      ),
-                    ),
-                  ],
+                    );
+                  },
                 ),
-              ],
-            ),
-            Padding(
-              padding: const EdgeInsets.all(36.0),
-              child: Text(AppLocalizations.of(context)!.appDescription),
-            ),
-            ListTile(
-              leading: const Icon(Icons.privacy_tip),
-              title: Text(AppLocalizations.of(context)!.privacyPolicy),
-              onTap: () => showPrivacyPolicyDialog(context),
-            ),
-            if (logger.talker != null)
+            ],
+          ),
+          const SizedBox(height: pageSectionSpacing),
+          Text(localizations.contribute, style: theme.textTheme.titleSmall),
+          const SizedBox(height: pageHeadingSpacing),
+          SettingsGroup(
+            children: [
               ListTile(
-                leading: const Icon(Icons.receipt_long),
-                title: Text(AppLocalizations.of(context)!.logs),
+                leading: const Icon(Icons.bug_report_outlined),
+                title: Text(AppLocalizations.of(context)!.reportIssue),
+                subtitle: Text(
+                  '${Uri.tryParse(AboutSubPage._issueUrl)?.host.toCapitalize()}',
+                ),
+                trailing: const Icon(Icons.open_in_new),
                 onTap: () {
-                  final brightness = Theme.of(context).brightness;
+                  final uri = Uri.parse(AboutSubPage._issueUrl);
 
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) => TalkerScreen(
-                        talker: logger.talker!,
-                        appBarTitle: AppLocalizations.of(context)!.logs,
-                        theme: TalkerScreenTheme.fromTheme(
-                          brightness == Brightness.light
-                              ? EnergizeTheme.theme
-                              : EnergizeTheme.darkTheme,
-                        ),
-                      ),
-                    ),
-                  );
+                  try {
+                    launchUrl(uri, mode: LaunchMode.externalApplication);
+                  } catch (e) {
+                    final logger = Provider.of<LogProvider>(
+                      context,
+                      listen: false,
+                    );
+                    logger.error('Could not launch url', e);
+                  }
                 },
               ),
-            ListTile(
-              leading: const Icon(Icons.bug_report),
-              title: Text(AppLocalizations.of(context)!.reportIssue),
-              subtitle: Text(
-                '${Uri.tryParse(AboutSubPage._issueUrl)?.host.toCapitalize()}',
-              ),
-              trailing: const Icon(Icons.link),
-              onTap: () {
-                final uri = Uri.parse(AboutSubPage._issueUrl);
+              ListTile(
+                leading: const Icon(Icons.extension_outlined),
+                title: Text(AppLocalizations.of(context)!.proposeImprovement),
+                subtitle: Text(
+                  '${Uri.tryParse(AboutSubPage._issueUrl)?.host.toCapitalize()}',
+                ),
+                trailing: const Icon(Icons.open_in_new),
+                onTap: () {
+                  final uri = Uri.parse(AboutSubPage._issueUrl);
 
-                try {
-                  launchUrl(uri, mode: LaunchMode.externalApplication);
-                } catch (e) {
-                  final logger = Provider.of<LogProvider>(
-                    context,
-                    listen: false,
-                  );
-                  logger.error('Could not launch url', e);
-                }
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.extension),
-              title: Text(AppLocalizations.of(context)!.proposeImprovement),
-              subtitle: Text(
-                '${Uri.tryParse(AboutSubPage._issueUrl)?.host.toCapitalize()}',
+                  try {
+                    launchUrl(uri, mode: LaunchMode.externalApplication);
+                  } catch (e) {
+                    final logger = Provider.of<LogProvider>(
+                      context,
+                      listen: false,
+                    );
+                    logger.error('Could not launch url', e);
+                  }
+                },
               ),
-              trailing: const Icon(Icons.link),
-              onTap: () {
-                final uri = Uri.parse(AboutSubPage._issueUrl);
+              ListTile(
+                leading: const Icon(Icons.code),
+                title: Text(AppLocalizations.of(context)!.sourceCode),
+                subtitle: Text(
+                  '${Uri.tryParse(AboutSubPage._repoUrl)?.host.toCapitalize()}',
+                ),
+                trailing: const Icon(Icons.open_in_new),
+                onTap: () {
+                  final uri = Uri.parse(AboutSubPage._repoUrl);
 
-                try {
-                  launchUrl(uri, mode: LaunchMode.externalApplication);
-                } catch (e) {
-                  final logger = Provider.of<LogProvider>(
-                    context,
-                    listen: false,
-                  );
-                  logger.error('Could not launch url', e);
-                }
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.code),
-              title: Text(AppLocalizations.of(context)!.sourceCode),
-              subtitle: Text(
-                '${Uri.tryParse(AboutSubPage._repoUrl)?.host.toCapitalize()}',
+                  try {
+                    launchUrl(uri, mode: LaunchMode.externalApplication);
+                  } catch (e) {
+                    final logger = Provider.of<LogProvider>(
+                      context,
+                      listen: false,
+                    );
+                    logger.error('Could not launch url', e);
+                  }
+                },
               ),
-              trailing: const Icon(Icons.link),
-              onTap: () {
-                final uri = Uri.parse(AboutSubPage._repoUrl);
+              ListTile(
+                leading: const Icon(Icons.translate),
+                title: Text(AppLocalizations.of(context)!.translation),
+                subtitle: Text(
+                  '${Uri.tryParse(AboutSubPage._translationUrl)?.host.toCapitalize()}',
+                ),
+                trailing: const Icon(Icons.open_in_new),
+                onTap: () {
+                  final uri = Uri.parse(AboutSubPage._translationUrl);
 
-                try {
-                  launchUrl(uri, mode: LaunchMode.externalApplication);
-                } catch (e) {
-                  final logger = Provider.of<LogProvider>(
-                    context,
-                    listen: false,
-                  );
-                  logger.error('Could not launch url', e);
-                }
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.translate),
-              title: Text(AppLocalizations.of(context)!.translation),
-              subtitle: Text(
-                '${Uri.tryParse(AboutSubPage._translationUrl)?.host.toCapitalize()}',
+                  try {
+                    launchUrl(uri, mode: LaunchMode.externalApplication);
+                  } catch (e) {
+                    final logger = Provider.of<LogProvider>(
+                      context,
+                      listen: false,
+                    );
+                    logger.error('Could not launch url', e);
+                  }
+                },
               ),
-              trailing: const Icon(Icons.link),
-              onTap: () {
-                final uri = Uri.parse(AboutSubPage._translationUrl);
+              ListTile(
+                leading: const Icon(Icons.people_outline),
+                title: Text(AppLocalizations.of(context)!.contributors),
+                onTap: () {
+                  _showContributorsDialog();
+                },
+              ),
+            ],
+          ),
+          const SizedBox(height: pageSectionSpacing),
+          SettingsGroup(
+            children: [
+              ListTile(
+                leading: const Icon(Icons.mail_outline),
+                title: Text(localizations.contact),
+                subtitle: Text(AppLocalizations.of(context)!.emailHint),
+                onTap: () {
+                  final uri = Uri(
+                    scheme: 'mailto',
+                    path: AboutSubPage.email,
+                    query:
+                        'subject=Energize App Feedback&body=App Version $_appVersion',
+                  );
 
-                try {
-                  launchUrl(uri, mode: LaunchMode.externalApplication);
-                } catch (e) {
-                  final logger = Provider.of<LogProvider>(
-                    context,
-                    listen: false,
-                  );
-                  logger.error('Could not launch url', e);
-                }
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.people),
-              title: Text(AppLocalizations.of(context)!.contributors),
-              onTap: () {
-                _showContributorsDialog();
-              },
-            ),
-            ListTile(
-              isThreeLine: true,
-              title: Padding(
-                padding: const EdgeInsets.only(bottom: 4.0),
-                child: Text(AppLocalizations.of(context)!.contact),
+                  try {
+                    launchUrl(uri, mode: LaunchMode.externalApplication);
+                  } catch (e) {
+                    final logger = Provider.of<LogProvider>(
+                      context,
+                      listen: false,
+                    );
+                    logger.error('Could not launch url', e);
+                  }
+                },
               ),
-              subtitle: Text(AppLocalizations.of(context)!.emailHint),
-              trailing: const Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [Icon(Icons.mail)],
-              ),
-              onTap: () {
-                final uri = Uri(
-                  scheme: 'mailto',
-                  path: AboutSubPage.email,
-                  query:
-                      'subject=Energize App Feedback&body=App Version $_appVersion',
-                );
-
-                try {
-                  launchUrl(uri, mode: LaunchMode.externalApplication);
-                } catch (e) {
-                  final logger = Provider.of<LogProvider>(
-                    context,
-                    listen: false,
-                  );
-                  logger.error('Could not launch url', e);
-                }
-              },
-            ),
-          ],
-        ),
+            ],
+          ),
+        ],
       ),
     );
   }

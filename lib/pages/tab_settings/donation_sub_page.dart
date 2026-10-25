@@ -4,8 +4,12 @@ import 'package:package_info_plus/package_info_plus.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../../config/layout_config.dart';
 import '../../l10n/app_localizations.dart';
 import '../../providers/log_provider.dart';
+import '../../theme/energize_theme.dart';
+import '../../widgets/page_scaffold.dart';
+import '../../widgets/settings_group.dart';
 import 'about_sub_page/about_sub_page.dart';
 
 class DonationSubPage extends StatefulWidget {
@@ -41,32 +45,53 @@ class _DonationSubPageState extends State<DonationSubPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text(AppLocalizations.of(context)!.donate)),
-      body: Padding(
-        padding: EdgeInsets.zero,
-        child: SingleChildScrollView(
-          child: Column(
+    final localizations = AppLocalizations.of(context)!;
+    final theme = Theme.of(context);
+
+    return PageScaffold(
+      maxContentWidth: settingsMaxContentWidth,
+      appBar: AppBar(title: Text(localizations.donate)),
+      body: ListView(
+        padding: pagePadding,
+        children: [
+          Column(
             children: [
-              Padding(
+              Container(
                 padding: const EdgeInsets.all(16.0),
-                child: Text(
-                  AppLocalizations.of(context)!.supportMeByDonating,
-                  style: Theme.of(context).textTheme.displaySmall,
+                decoration: BoxDecoration(
+                  color: theme.donateContainer,
+                  shape: BoxShape.circle,
+                ),
+                child: Icon(
+                  Icons.favorite_outline,
+                  size: 32.0,
+                  color: theme.onDonateContainer,
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Text(AppLocalizations.of(context)!.donationText),
+              const SizedBox(height: 16.0),
+              Text(
+                localizations.supportMeByDonating,
+                textAlign: TextAlign.center,
+                style: theme.textTheme.headlineSmall,
               ),
+              const SizedBox(height: 12.0),
+              Text(
+                localizations.donationText,
+                textAlign: TextAlign.center,
+                style: theme.textTheme.bodyLarge?.copyWith(
+                  color: theme.colorScheme.onSurfaceVariant,
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: pageSectionSpacing),
+          SettingsGroup(
+            children: [
               ListTile(
                 leading: const Icon(Icons.currency_bitcoin),
                 title: const Text('Bitcoin'),
-                subtitle: const SelectableText(
-                  DonationSubPage._bitcoinAddress,
-                  style: TextStyle(fontSize: 12),
-                ),
-                trailing: const Icon(Icons.copy),
+                subtitle: const SelectableText(DonationSubPage._bitcoinAddress),
+                trailing: const Icon(Icons.copy_outlined),
                 onTap: () {
                   try {
                     Clipboard.setData(
@@ -95,7 +120,7 @@ class _DonationSubPageState extends State<DonationSubPage> {
                   AppLocalizations.of(context)!.bankAccountOrCreditCard,
                 ),
                 subtitle: const Text('liberapay.com'),
-                trailing: const Icon(Icons.link),
+                trailing: const Icon(Icons.open_in_new),
                 onTap: () {
                   final uri = Uri.parse(DonationSubPage._donationUrl);
 
@@ -110,14 +135,19 @@ class _DonationSubPageState extends State<DonationSubPage> {
                   }
                 },
               ),
+            ],
+          ),
+          const SizedBox(height: pageSectionSpacing),
+          SettingsGroup(
+            children: [
               ListTile(
+                leading: const Icon(Icons.mail_outline),
                 title: Text(AppLocalizations.of(context)!.contact),
                 subtitle: Text(
                   AppLocalizations.of(
                     context,
                   )!.writeMeAnEmailForFurtherDonationOptions,
                 ),
-                trailing: const Icon(Icons.mail),
                 onTap: () {
                   final uri = Uri(
                     scheme: 'mailto',
@@ -139,7 +169,7 @@ class _DonationSubPageState extends State<DonationSubPage> {
               ),
             ],
           ),
-        ),
+        ],
       ),
     );
   }

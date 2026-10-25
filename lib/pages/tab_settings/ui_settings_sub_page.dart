@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../config/layout_config.dart';
 import '../../l10n/app_localizations.dart';
 import '../../providers/app_settings_provider.dart';
+import '../../widgets/page_scaffold.dart';
+import '../../widgets/settings_group.dart';
 
 class UISettingsSubPage extends StatelessWidget {
   static const routeName = '/settings/ui';
@@ -13,10 +16,12 @@ class UISettingsSubPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final appSettings = Provider.of<AppSettingsProvider>(context);
 
-    return Scaffold(
+    return PageScaffold(
+      maxContentWidth: settingsMaxContentWidth,
       appBar: AppBar(title: Text(AppLocalizations.of(context)!.display)),
       body: SingleChildScrollView(
-        child: Column(
+        padding: pagePadding,
+        child: SettingsGroup(
           children: [
             SwitchListTile(
               title: Text(AppLocalizations.of(context)!.groupFoodsToMeals),

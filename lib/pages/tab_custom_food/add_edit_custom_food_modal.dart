@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../config/layout_config.dart';
 import '../../l10n/app_localizations.dart';
 import '../../models/food/food.dart';
 import '../../providers/custom_food_provider.dart';
 import '../../theme/energize_theme.dart';
 import '../../widgets/category_list_tile_header.dart';
 import '../../widgets/nutrition_facts_label_eu.dart';
+import '../../widgets/page_scaffold.dart';
 import 'custom_food_page.dart';
 
 enum AddEditCustomFoodModalMode { addNew, addFrom, edit }
@@ -627,7 +629,7 @@ class AddEditCustomFoodModalState extends State<AddEditCustomFoodModal> {
     final modalMode = args?.mode ?? AddEditCustomFoodModalMode.addNew;
     final food = args?.food;
 
-    return Scaffold(
+    return PageScaffold(
       appBar: AppBar(
         title: modalMode == AddEditCustomFoodModalMode.edit
             ? Text(AppLocalizations.of(context)!.editCustomFood)
@@ -636,8 +638,9 @@ class AddEditCustomFoodModalState extends State<AddEditCustomFoodModal> {
       body: Form(
         key: _formKey,
         child: Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: pagePadding,
           child: ListView(
+            padding: EdgeInsets.zero,
             children: [
               Row(
                 children: [

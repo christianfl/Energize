@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:provider/provider.dart';
 
+import '../../config/layout_config.dart';
 import '../../l10n/app_localizations.dart';
 import '../../models/food/food.dart';
 import '../../providers/custom_food_provider.dart';
 import '../../theme/energize_theme.dart';
 import '../../widgets/food_list_item.dart';
+import '../../widgets/page_scaffold.dart';
 import 'add_edit_custom_food_modal.dart';
 
 class CustomFoodPage extends StatefulWidget {
@@ -102,12 +104,12 @@ class CustomFoodPageState extends State<CustomFoodPage> {
   Widget build(BuildContext context) {
     final customFoodProvider = Provider.of<CustomFoodProvider>(context);
 
-    return Scaffold(
+    return PageScaffold(
       appBar: AppBar(title: Text(AppLocalizations.of(context)!.customFood)),
       body: Column(
         children: [
           Padding(
-            padding: const EdgeInsets.all(12.0),
+            padding: pagePadding,
             child: SearchBar(
               controller: _searchInputController,
               onChanged: (searchString) =>

@@ -6,11 +6,13 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../config/layout_config.dart';
 import '../../l10n/app_localizations.dart';
 import '../../providers/app_settings_provider.dart';
 import '../../services/backup_service.dart';
 import '../../services/webdav_service.dart';
-import '../../widgets/select_action_card.dart';
+import '../../widgets/page_scaffold.dart';
+import '../../widgets/settings_group.dart';
 
 class BackupAndRestoreSubPage extends StatefulWidget {
   static const routeName = '/settings/backup-and-restore';
@@ -259,7 +261,8 @@ ${AppLocalizations.of(context)!.importedNumberOfFoodsMessage(numberOfCustomFoods
       context: context,
       builder: (BuildContext context) {
         return Dialog.fullscreen(
-          child: Scaffold(
+          child: PageScaffold(
+            maxContentWidth: settingsMaxContentWidth,
             appBar: AppBar(
               title: Text(
                 isForBackup
@@ -292,7 +295,7 @@ ${AppLocalizations.of(context)!.importedNumberOfFoodsMessage(numberOfCustomFoods
             ),
             body: SingleChildScrollView(
               child: Padding(
-                padding: const EdgeInsets.all(24.0),
+                padding: pagePadding,
                 child: Form(
                   key: _webDAVBackupOrRestoreFormKey,
                   child: AutofillGroup(
@@ -660,56 +663,73 @@ ${AppLocalizations.of(context)!.importedNumberOfFoodsMessage(numberOfCustomFoods
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(AppLocalizations.of(context)!.backupAndRestore),
-      ),
-      body: SingleChildScrollView(
-        child: Stack(
-          children: [
-            if (_isBusy) const LinearProgressIndicator(),
-            Column(
-              children: [
-                GridView.count(
-                  padding: const EdgeInsets.all(12.0),
-                  shrinkWrap: true,
-                  crossAxisCount: 2,
-                  crossAxisSpacing: 4.0,
-                  children: [
-                    SelectActionCard(
-                      icon: Icons.cloud_upload,
-                      title: AppLocalizations.of(context)!.createWebDAVBackup,
-                      onTap: _isBusy
-                          ? null
-                          : () => _createWebDAVBackup(context),
-                    ),
-                    SelectActionCard(
-                      icon: Icons.cloud_download,
-                      title: AppLocalizations.of(context)!.restoreWebDAVBackup,
-                      onTap: _isBusy
-                          ? null
-                          : () => _restoreWebDAVBackup(context),
-                    ),
-                    SelectActionCard(
-                      icon: Icons.file_upload,
-                      title: AppLocalizations.of(context)!.createLocalBackup,
-                      onTap: _isBusy
-                          ? null
-                          : () => _createLocalEncryptedBackup(context),
-                    ),
-                    SelectActionCard(
-                      icon: Icons.file_download,
-                      title: AppLocalizations.of(context)!.restoreLocalBackup,
-                      onTap: _isBusy
-                          ? null
-                          : () => _restoreLocalEncryptedBackup(context),
-                    ),
-                  ],
-                ),
-              ],
+    final localizations = AppLocalizations.of(context)!;
+
+    return PageScaffold(
+      maxContentWidth: settingsMaxContentWidth,
+      appBar: AppBar(title: Text(localizations.backupAndRestore)),
+      body: Stack(
+        children: [
+          ListView(
+            padding: pagePadding,
+            children: [
+              Text(
+                localizations.storedOnDevice,
+                style: Theme.of(context).textTheme.titleSmall,
+              ),
+              const SizedBox(height: pageHeadingSpacing),
+              SettingsGroup(
+                children: [
+                  ListTile(
+                    leading: const Icon(Icons.file_upload_outlined),
+                    title: Text(localizations.createLocalBackup),
+                    enabled: !_isBusy,
+                    onTap: _isBusy
+                        ? null
+                        : () => _createLocalEncryptedBackup(context),
+                  ),
+                  ListTile(
+                    leading: const Icon(Icons.file_download_outlined),
+                    title: Text(localizations.restoreLocalBackup),
+                    enabled: !_isBusy,
+                    onTap: _isBusy
+                        ? null
+                        : () => _restoreLocalEncryptedBackup(context),
+                  ),
+                ],
+              ),
+              const SizedBox(height: pageSectionSpacing),
+              Text(
+                localizations.serverBased,
+                style: Theme.of(context).textTheme.titleSmall,
+              ),
+              const SizedBox(height: pageHeadingSpacing),
+              SettingsGroup(
+                children: [
+                  ListTile(
+                    leading: const Icon(Icons.cloud_upload_outlined),
+                    title: Text(localizations.createWebDAVBackup),
+                    enabled: !_isBusy,
+                    onTap: _isBusy ? null : () => _createWebDAVBackup(context),
+                  ),
+                  ListTile(
+                    leading: const Icon(Icons.cloud_download_outlined),
+                    title: Text(localizations.restoreWebDAVBackup),
+                    enabled: !_isBusy,
+                    onTap: _isBusy ? null : () => _restoreWebDAVBackup(context),
+                  ),
+                ],
+              ),
+            ],
+          ),
+          if (_isBusy)
+            const Positioned(
+              top: 0,
+              left: 0,
+              right: 0,
+              child: LinearProgressIndicator(),
             ),
-          ],
-        ),
+        ],
       ),
     );
   }

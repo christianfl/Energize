@@ -22,8 +22,6 @@ extension EnergizeThemeData on ThemeData {
   bool get isDarkMode => brightness == Brightness.dark;
 
   // Static colors
-  Color get donateContainer => const Color(0xFFF6C915);
-  Color get onDonateContainer => Colors.black;
   Color get dangerContainer => Colors.red;
   Color get onDangerContainer => Colors.white;
   Color get warningContainer => Colors.deepOrange;
@@ -43,6 +41,11 @@ extension EnergizeThemeData on ThemeData {
   Color get onProgressBar => Colors.black;
 
   // Dynamic colors
+  Color get donateContainer =>
+      isDarkMode ? const Color(0xFF584923) : const Color(0xFFF3E2B3);
+  Color get onDonateContainer =>
+      isDarkMode ? const Color(0xFFF3E2B3) : const Color(0xFF514322);
+
   Color get successContainer =>
       isDarkMode ? Colors.green.shade200 : Colors.green;
   Color get onSuccessContainer => isDarkMode ? Colors.black : Colors.white;

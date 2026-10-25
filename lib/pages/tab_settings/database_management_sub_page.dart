@@ -2,11 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../../config/layout_config.dart';
 import '../../l10n/app_localizations.dart';
 import '../../providers/log_provider.dart';
 import '../../services/food_database_bindings/food_database_binding_metadata.dart';
 import '../../services/food_database_bindings/food_databases.dart';
 import '../../widgets/food_database_switch_list_tile.dart';
+import '../../widgets/page_scaffold.dart';
+import '../../widgets/settings_group.dart';
 
 class DatabaseManagementSubPage extends StatefulWidget {
   static const routeName = '/settings/database-provider';
@@ -108,29 +111,38 @@ class DatabaseManagementSubPageState extends State<DatabaseManagementSubPage> {
       children: [
         Text(
           isOnline ? l.serverBased : l.storedOnDevice,
-          style: Theme.of(context).textTheme.headlineMedium,
+          style: Theme.of(context).textTheme.titleSmall,
         ),
-        const SizedBox(height: 16.0),
-        ExpansionPanelList(
-          expansionCallback: (index, isExpanded) {
-            setState(() {
-              _expandedOriginId = _expandedOriginId == databases[index].originId
-                  ? null
-                  : databases[index].originId;
-            });
-          },
+        const SizedBox(height: pageHeadingSpacing),
+        SettingsGroup(
           children: [
-            for (final database in databases)
-              ExpansionPanel(
-                isExpanded: _expandedOriginId == database.originId,
-                canTapOnHeader: true,
-                headerBuilder: (context, isExpanded) =>
-                    FoodDatabaseSwitchListTile(database: database),
-                body: _databaseDetails(database),
-              ),
+            ExpansionPanelList(
+              elevation: 0.0,
+              expansionCallback: (index, isExpanded) {
+                setState(() {
+                  _expandedOriginId =
+                      _expandedOriginId == databases[index].originId
+                      ? null
+                      : databases[index].originId;
+                });
+              },
+              children: [
+                for (final database in databases)
+                  ExpansionPanel(
+                    backgroundColor:
+                        Theme.of(context).brightness == Brightness.light
+                        ? Theme.of(context).colorScheme.surfaceContainerLowest
+                        : Theme.of(context).colorScheme.surfaceContainerLow,
+                    isExpanded: _expandedOriginId == database.originId,
+                    canTapOnHeader: true,
+                    headerBuilder: (context, isExpanded) =>
+                        FoodDatabaseSwitchListTile(database: database),
+                    body: _databaseDetails(database),
+                  ),
+              ],
+            ),
           ],
         ),
-        const SizedBox(height: 16.0),
       ],
     );
   }
@@ -139,14 +151,17 @@ class DatabaseManagementSubPageState extends State<DatabaseManagementSubPage> {
   Widget build(BuildContext context) {
     final l = AppLocalizations.of(context)!;
 
-    return Scaffold(
+    return PageScaffold(
+      maxContentWidth: settingsMaxContentWidth,
       appBar: AppBar(title: Text(l.databaseManagement)),
       body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16.0),
+        padding: pagePadding,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            for (final isOnline in [false, true]) _databaseGroup(isOnline, l),
+            _databaseGroup(false, l),
+            const SizedBox(height: pageSectionSpacing),
+            _databaseGroup(true, l),
           ],
         ),
       ),

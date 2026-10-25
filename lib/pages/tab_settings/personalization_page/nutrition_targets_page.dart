@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
+import '../../../config/layout_config.dart';
 import '../../../l10n/app_localizations.dart';
+import '../../../widgets/page_scaffold.dart';
 import 'widgets/calculation_tab/calculation_tab.dart';
 import 'widgets/energy_distribution_tab/energy_distribution_tab.dart';
 import 'widgets/micro_targets_tab/micro_targets_tab.dart';
@@ -19,7 +21,8 @@ class NutritionTargetsPageState extends State<NutritionTargetsPage> {
   Widget build(BuildContext context) {
     return DefaultTabController(
       length: 3,
-      child: Scaffold(
+      child: PageScaffold(
+        maxContentWidth: settingsMaxContentWidth,
         appBar: AppBar(
           title: Text(AppLocalizations.of(context)!.yourPersonalNutritionNeeds),
           bottom: TabBar(
