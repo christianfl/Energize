@@ -17,7 +17,7 @@ class MicronutrientsRecommendations {
       final MicronutrientsModel? model = _nutrientsByGroup.firstWhereOrNull(
         (element) =>
             age >= element.ageGroup[0] &&
-            age < element.ageGroup[1] &&
+            age <= element.ageGroup[1] &&
             element.sex == sex,
       );
 
