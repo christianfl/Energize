@@ -423,5 +423,6 @@
                 "example": "Male"
             }
         }
-    }
+    },
+    "searchBarcode": "Rechercher un code-barres"
 }
