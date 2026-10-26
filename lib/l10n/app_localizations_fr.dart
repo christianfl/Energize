@@ -303,7 +303,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get scanBarcode => 'Scanner le code-barre';
 
   @override
-  String get searchBarcode => 'Search barcode';
+  String get searchBarcode => 'Rechercher un code-barres';
 
   @override
   String get searchFood => 'Rechercher des aliments';
